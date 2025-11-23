@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大阪之旅 2026</title>
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 載入 Noto Sans TC 字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; }
+        .info-card-container { max-width: 420px; }
+        .status-tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .status-ok { background-color: #d1fae5; color: #065f46; }
+        .status-todo { background-color: #fee2e2; color: #991b1b; }
+        .status-pending { background-color: #fef3c7; color: #b45309; }
+        .link-style { color: #2563eb; text-decoration: underline; font-weight: bold; }
+        .map-link { color: #0284c7; text-decoration: underline; cursor: pointer; }
+        .sub-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 flex justify-center">
+
+    <div class="info-card-container bg-white w-full shadow-2xl rounded-xl overflow-hidden mb-10">
+        <!-- 標頭 -->
+        <div class="bg-indigo-700 text-white p-6 relative overflow-hidden">
+            <h1 class="text-xl font-bold tracking-wider mb-1">
+                🇯🇵 大阪之旅 - 備忘錄
+            </h1>
+            <p class="text-indigo-200 text-sm">
+                日期：2026/02/22 ~ 02/28 (6晚)
+            </p>
+        </div>
+
+        <!-- 內容區塊 -->
+        <div class="divide-y divide-gray-100 content-list">
+
+            <!-- #1: Visit Japan Web -->
+            <div class="p-4 bg-red-50 hover:bg-red-100 transition-colors border-l-4 border-red-400">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">📱 1. Visit Japan Web</h2>
+                    <span class="status-tag status-todo">🔴 尚未填寫</span>
+                </div>
+                <div class="ml-4 text-sm text-gray-600 pl-3">
+                    <p class="mb-2">請於出發前完成入境審查與海關申報。</p>
+                    <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/" target="_blank" class="link-style flex items-center gap-1">🔗 前往官方網站 (中文)</a>
+                </div>
+            </div>
+
+            <!-- #2: 機場接送 -->
+            <div class="p-4 bg-purple-50/50 hover:bg-purple-50 transition-colors">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🚐 2. 機場接送 (去程)</h2>
+                    <span class="status-tag status-pending">🔴 待訂</span>
+                </div>
+                <div class="ml-4 text-sm text-gray-600 border-l-2 border-purple-200 pl-3">
+                    <p class="font-bold text-gray-900 mb-1">預約七人座小巴</p>
+                    <p>⏰ 2/22 (日) <span class="text-red-600 font-bold">凌晨 04:00</span></p>
+                    <p>📍 家裡 ➔ <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%B8%80%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園機場 T1</a></p>
+                </div>
+            </div>
+
+            <!-- #3: 去程機票 (合併) -->
+            <div class="p-4 hover:bg-gray-50 transition-colors">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">✈️ 3. 去程機票 (全員)</h2>
+                    <span class="status-tag status-ok">✅ OK</span>
+                </div>
+                <div class="ml-4 text-sm text-gray-600 border-l-2 border-indigo-100 pl-3">
+                    <p class="font-bold text-gray-900 mb-1">台灣虎航 IT210</p>
+                    <p class="mb-2">📅 2/22 (日) 07:00 <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" class="map-link">TPE</a> ➔ 10:25 <a href="http://maps.google.com/?q=%E9%97%9C%E8%A5%BF%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" class="map-link">KIX</a></p>
+                    
+                    <!-- 訂單 A -->
+                    <div class="sub-card">
+                        <p class="font-bold text-indigo-700 text-xs mb-1">爸媽稚昀</p>
+                        <p class="text-xs">👥 CHIH YUN WU (<span class="text-green-600 font-bold">15kg</span>)</p>
+                        <p class="text-xs">👥 YU WEN / TIEN CHANG (無托運)</p>
+                    </div>
+                    <!-- 訂單 B -->
+                    <div class="sub-card">
+                        <p class="font-bold text-indigo-700 text-xs mb-1">彥青怡君</p>
+                        <p class="text-xs">👥 YEN CHING CHEN (<span class="text-green-600 font-bold">40kg</span>)</p>
+                        <p class="text-xs">👥 YI CHUNG CHENG (無托運)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- #4: 南海電鐵 -->
+            <div class="p-4 bg-yellow-50 hover:bg-yellow-100 transition-colors border-l-4 border-yellow-400">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🚆 4. 南海電鐵 Rapi:t</h2>
+                    <span class="status-tag status-pending">🔴 未完成</span>
+                </div>
+                <div class="ml-4 text-sm text-gray-600 pl-3">
+                    <p>📍 <a href="http://maps.google.com/?q=%E9%97%9C%E8%A5%BF%E6%A9%9F%E5%A0%B4%E9%A7%85" target="_blank" class="map-link">關西機場</a> ➔ <a href="http://maps.google.com/?q=%E5%8D%97%E6%B5%B7%E9%9B%A3%E6%B3%A2%E9%A7%85" target="_blank" class="map-link">難波</a> (約34分)</p>
+                    <p class="text-xs mt-1">💡 建議線上先買電子票。</p>
+                </div>
+            </div>
+
+            <!-- #5: 住宿 (合併) -->
+            <div class="p-4 bg-white hover:bg-gray-50 transition-colors">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🏨 5. 住宿安排 (6晚)</h2>
+                    <span class="status-tag status-ok">✅ OK</span>
+                </div>
+                <div class="ml-4 text-sm text-gray-600 border-l-2 border-orange-200 pl-3">
+                    <p class="font-bold text-orange-800 mb-1">
+                        <a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">📍 東橫INN 大阪難波</a>
+                    </p>
+                    <p class="text-xs text-gray-500 mb-2">📅 2/22 - 2/28 | ⚠️ 2/19 自動扣款</p>
+
+                    <!-- 房間 1 -->
+                    <div class="sub-card">
+                        <p class="font-bold text-orange-700 text-xs mb-1">房號1 (爸媽)</p>
+                        <p class="text-xs">🛏 雙人房 (禁菸)</p>
+                    </div>
+                    <!-- 房間 2 -->
+                    <div class="sub-card">
+                        <p class="font-bold text-orange-700 text-xs mb-1">房號2 (稚昀)</p>
+                        <p class="text-xs">🛏 單人房 (禁菸)</p>
+                    </div>
+                    <!-- 房間 3 -->
+                    <div class="sub-card">
+                        <p class="font-bold text-orange-700 text-xs mb-1">房號3 (彥青怡君)</p>
+                        <p class="text-xs">🛏 雙人房 (禁菸)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分隔線 -->
+            <div class="border-t-4 border-gray-200 my-2"></div>
+
+            <!-- #91: 回程機票 (合併) -->
+            <div class="p-4 hover:bg-gray-50 transition-colors">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🛫 91. 回程機票 (全員)</h2>
+                    <span class="status-tag status-ok">✅ OK</span>
+                </div>
+                <div class="ml-4 text-sm text-gray-600 border-l-2 border-pink-200 pl-3">
+                    <p class="font-bold text-pink-700 mb-1">中華航空 CI153</p>
+                    <p class="mb-2">📅 2/28 (六) 14:30 <a href="http://maps.google.com/?q=%E9%97%9C%E8%A5%BF%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" class="map-link">KIX</a> ➔ 16:45 <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" class="map-link">TPE</a></p>
+                    
+                    <!-- 訂單 A -->
+                    <div class="sub-card border-pink-100 bg-pink-50/30">
+                        <p class="font-bold text-pink-700 text-xs mb-1">爸媽稚昀</p>
+                        <p class="text-xs">👥 全員托運 23kg</p>
+                    </div>
+                    <!-- 訂單 B -->
+                    <div class="sub-card border-pink-100 bg-pink-50/30">
+                        <p class="font-bold text-pink-700 text-xs mb-1">彥青怡君</p>
+                        <p class="text-xs">👥 全員托運 23kg</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bg-gray-50 p-3 text-xs text-gray-500 text-center border-t">
+            *備忘錄最終版 - 2026/02/22 出發*
+        </div>
+    </div>
+
+</body>
+</html>
