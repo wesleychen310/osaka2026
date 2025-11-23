@@ -24,6 +24,16 @@
         .link-style { color: #2563eb; text-decoration: underline; font-weight: bold; }
         .map-link { color: #0284c7; text-decoration: underline; cursor: pointer; }
         .sub-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; }
+        .terminal-badge {
+            display: inline-block;
+            background-color: #e0e7ff;
+            color: #3730a3;
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin: 0 2px;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen p-4 flex justify-center">
@@ -76,11 +86,11 @@
                 <div class="ml-4 text-sm text-gray-600 border-l-2 border-purple-200 pl-3">
                     <p class="font-bold text-gray-900 mb-1">預約七人座小巴</p>
                     <p>⏰ 2/22 (日) <span class="text-red-600 font-bold">凌晨 04:00</span></p>
-                    <p>📍 家裡 ➔ <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%B8%80%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園機場 T1</a></p>
+                    <p>📍 家裡 ➔ <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%B8%80%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園機場 <span class="terminal-badge">T1</span></a></p>
                 </div>
             </div>
 
-            <!-- #4: 去程機票 (合併) -->
+            <!-- #4: 去程機票 -->
             <div class="p-4 hover:bg-gray-50 transition-colors">
                 <div class="flex justify-between items-center mb-2">
                     <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">✈️ 4. 去程機票 (全員)</h2>
@@ -88,15 +98,16 @@
                 </div>
                 <div class="ml-4 text-sm text-gray-600 border-l-2 border-indigo-100 pl-3">
                     <p class="font-bold text-gray-900 mb-1">台灣虎航 IT210</p>
-                    <p class="mb-2">📅 2/22 (日) 07:00 <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" class="map-link">TPE</a> ➔ 10:25 <a href="http://maps.google.com/?q=%E9%97%9C%E8%A5%BF%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" class="map-link">KIX</a></p>
+                    <p class="mb-2 leading-relaxed">
+                        📅 2/22 (日) <br>
+                        07:00 桃園 <span class="terminal-badge">T1</span> ➔ 10:25 關西 <span class="terminal-badge">T1</span>
+                    </p>
                     
-                    <!-- 訂單 A -->
                     <div class="sub-card">
                         <p class="font-bold text-indigo-700 text-xs mb-1">爸媽稚昀</p>
                         <p class="text-xs">👥 CHIH YUN WU (<span class="text-green-600 font-bold">15kg</span>)</p>
                         <p class="text-xs">👥 YU WEN / TIEN CHANG (無托運)</p>
                     </div>
-                    <!-- 訂單 B -->
                     <div class="sub-card">
                         <p class="font-bold text-indigo-700 text-xs mb-1">彥青怡君</p>
                         <p class="text-xs">👥 YEN CHING CHEN (<span class="text-green-600 font-bold">40kg</span>)</p>
@@ -105,7 +116,7 @@
                 </div>
             </div>
 
-            <!-- #5: 南海電鐵 (已修正地圖連結) -->
+            <!-- #5: 南海電鐵 (已修正起點連結) -->
             <div class="p-4 bg-yellow-50 hover:bg-yellow-100 transition-colors border-l-4 border-yellow-400">
                 <div class="flex justify-between items-center mb-2">
                     <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🚆 5. 南海電鐵 Rapi:t</h2>
@@ -113,16 +124,15 @@
                 </div>
                 <div class="ml-4 text-sm text-gray-600 pl-3">
                     <p class="font-bold text-gray-900 mb-1">機場 ➔ 難波 (約34分)</p>
-                    <p>🎫 **購票方式**：電子票 或 現場購票</p>
                     <p>
                         📍 **路線**：
-                        <a href="https://www.google.com/maps/dir/?api=1&origin=Kansai+International+Airport+Terminal+1&destination=Nankai+Namba+Station&travelmode=transit" target="_blank" class="map-link">關西機場 T1 ➔ 南海難波站 (點擊規劃)</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&origin=%E5%8D%97%E6%B5%B7%E9%9B%BB%E9%89%84+%E9%96%A2%E8%A5%BF%E7%A9%BA%E6%B8%AF%E9%A7%85&destination=%E5%8D%97%E6%B5%B7%E9%9B%A3%E6%B3%A2%E9%A7%85&travelmode=transit" target="_blank" class="map-link">南海電鐵 關西機場站 ➔ 南海難波站 (點擊規劃)</a>
                     </p>
                     <p class="text-xs mt-1">💡 全車指定席，建議線上先買電子票。</p>
                 </div>
             </div>
 
-            <!-- #6: 住宿 (合併) -->
+            <!-- #6: 住宿 -->
             <div class="p-4 bg-white hover:bg-gray-50 transition-colors">
                 <div class="flex justify-between items-center mb-2">
                     <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🏨 6. 住宿安排 (6晚)</h2>
@@ -135,17 +145,14 @@
                     <p class="text-xs text-gray-500 mb-2">📅 2/22 - 2/28 | ⚠️ 2/19 自動扣款</p>
 
                     <div class="grid grid-cols-1 gap-1">
-                        <!-- 房間 1 -->
                         <div class="sub-card py-2">
                             <p class="font-bold text-orange-700 text-xs">房號1 (爸媽)</p>
                             <p class="text-xs text-gray-600">🛏 雙人房 (禁菸)</p>
                         </div>
-                        <!-- 房間 2 -->
                         <div class="sub-card py-2">
                             <p class="font-bold text-orange-700 text-xs">房號2 (稚昀)</p>
                             <p class="text-xs text-gray-600">🛏 單人房 (禁菸)</p>
                         </div>
-                        <!-- 房間 3 -->
                         <div class="sub-card py-2">
                             <p class="font-bold text-orange-700 text-xs">房號3 (彥青怡君)</p>
                             <p class="text-xs text-gray-600">🛏 雙人房 (禁菸)</p>
@@ -157,7 +164,7 @@
             <!-- 分隔線 -->
             <div class="border-t-4 border-gray-200 my-2"></div>
 
-            <!-- #91: 回程機票 (合併) -->
+            <!-- #91: 回程機票 -->
             <div class="p-4 hover:bg-gray-50 transition-colors">
                 <div class="flex justify-between items-center mb-2">
                     <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🛫 91. 回程機票 (全員)</h2>
@@ -165,17 +172,14 @@
                 </div>
                 <div class="ml-4 text-sm text-gray-600 border-l-2 border-pink-200 pl-3">
                     <p class="font-bold text-pink-700 mb-1">中華航空 CI153</p>
-                    <p class="mb-2">📅 2/28 (六) 14:30 <a href="http://maps.google.com/?q=%E9%97%9C%E8%A5%BF%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" class="map-link">KIX</a> ➔ 16:45 <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4" target="_blank" class="map-link">TPE</a></p>
+                    <p class="mb-2 leading-relaxed">
+                        📅 2/28 (六) <br>
+                        14:30 關西 <span class="terminal-badge">T1</span> ➔ 16:45 桃園 <span class="terminal-badge">T2</span>
+                    </p>
                     
-                    <!-- 訂單 A -->
                     <div class="sub-card border-pink-100 bg-pink-50/30">
-                        <p class="font-bold text-pink-700 text-xs mb-1">爸媽稚昀</p>
-                        <p class="text-xs">👥 全員托運 23kg</p>
-                    </div>
-                    <!-- 訂單 B -->
-                    <div class="sub-card border-pink-100 bg-pink-50/30">
-                        <p class="font-bold text-pink-700 text-xs mb-1">彥青怡君</p>
-                        <p class="text-xs">👥 全員托運 23kg</p>
+                        <p class="font-bold text-pink-700 text-xs mb-1">全員行李</p>
+                        <p class="text-xs">👥 每人托運 23kg (共5人)</p>
                     </div>
                 </div>
             </div>
