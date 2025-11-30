@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; }
-        .info-card-container { max-width: 420px; }
+        .info-card-container { max-width: 420px; width: 100%; }
         .status-tag {
             font-size: 0.75rem;
             padding: 2px 8px;
@@ -22,7 +22,11 @@
         .status-todo { background-color: #fee2e2; color: #991b1b; }
         .status-pending { background-color: #fef3c7; color: #b45309; }
         .link-style { color: #2563eb; text-decoration: underline; font-weight: bold; }
-        .map-link { color: #0284c7; text-decoration: underline; cursor: pointer; }
+        
+        /* 地圖連結樣式：藍色、底線、滑鼠游標 */
+        .map-link { color: #0284c7; text-decoration: underline; cursor: pointer; font-weight: 600; }
+        .map-link:hover { color: #0369a1; background-color: #e0f2fe; border-radius: 2px; } 
+        
         .sub-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; }
         .terminal-badge {
             display: inline-block;
@@ -34,13 +38,36 @@
             font-size: 0.85em;
             margin: 0 2px;
         }
+        
+        /* 隱藏滾動條但保持功能 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 按鈕激活樣式 */
+        .tab-active {
+            background-color: #4338ca; /* indigo-700 */
+            color: white;
+            border-color: transparent;
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #4b5563; /* gray-600 */
+            border-color: #e5e7eb; /* gray-200 */
+        }
+        
+        /* 淡入動畫 */
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen p-4 flex justify-center">
+<body class="bg-gray-100 min-h-screen p-4 flex justify-center items-start">
 
-    <div class="info-card-container bg-white w-full shadow-2xl rounded-xl overflow-hidden mb-10">
+    <div class="info-card-container bg-white shadow-2xl rounded-xl overflow-hidden mb-10">
         <!-- 標頭 -->
-        <div class="bg-indigo-700 text-white p-6 relative overflow-hidden">
+        <div class="bg-indigo-700 text-white p-6 relative overflow-hidden sticky top-0 z-20">
             <h1 class="text-xl font-bold tracking-wider mb-1">
                 🇯🇵 大阪之旅 - 備忘錄
             </h1>
@@ -49,172 +76,384 @@
             </p>
         </div>
 
-        <!-- 內容區塊 -->
-        <div class="divide-y divide-gray-100 content-list">
-
-            <!-- #1: eSIM -->
-            <div class="p-4 bg-red-50 hover:bg-red-100 transition-colors border-l-4 border-red-400">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">📱 1. 購買 eSIM 網卡</h2>
-                    <span class="status-tag status-todo">🔴 尚未訂</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 pl-3">
-                    <p class="font-bold text-gray-900 mb-1">需求：吃到飽網卡</p>
-                    <p class="mb-1">人數：5人份</p>
-                    <p class="text-xs text-gray-500">💡 建議出發前一天掃描 QR Code 設定。</p>
-                </div>
+        <!-- 導覽列 (Tabs) -->
+        <div class="sticky top-[88px] z-10 bg-gray-50 border-b border-gray-200 shadow-sm">
+            <div class="flex overflow-x-auto no-scrollbar py-3 px-2 space-x-2" id="tab-nav">
+                <button onclick="switchTab('planning')" id="btn-planning" class="tab-active px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors shadow-sm">
+                    📋 行前
+                </button>
+                <button onclick="switchTab('day1')" id="btn-day1" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">
+                    Day 1
+                </button>
+                <button onclick="switchTab('day2')" id="btn-day2" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">
+                    Day 2
+                </button>
+                <button onclick="switchTab('day3')" id="btn-day3" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">
+                    Day 3
+                </button>
+                <button onclick="switchTab('day4')" id="btn-day4" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">
+                    Day 4
+                </button>
+                <button onclick="switchTab('day5')" id="btn-day5" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">
+                    Day 5
+                </button>
+                <button onclick="switchTab('day6')" id="btn-day6" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">
+                    Day 6
+                </button>
+                <button onclick="switchTab('day7')" id="btn-day7" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">
+                    Day 7
+                </button>
             </div>
+        </div>
 
-            <!-- #2: Visit Japan Web -->
-            <div class="p-4 bg-red-50/50 hover:bg-red-100 transition-colors">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🇯🇵 2. Visit Japan Web</h2>
-                    <span class="status-tag status-todo">🔴 尚未填寫</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 border-l-2 border-red-200 pl-3">
-                    <p class="mb-2">請於出發前完成入境審查與海關申報。</p>
-                    <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/" target="_blank" class="link-style flex items-center gap-1">🔗 前往官方網站 (中文)</a>
-                </div>
-            </div>
-
-            <!-- #3: 機場接送 -->
-            <div class="p-4 bg-purple-50/50 hover:bg-purple-50 transition-colors">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🚐 3. 機場接送 (去程)</h2>
-                    <span class="status-tag status-pending">🔴 待訂</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 border-l-2 border-purple-200 pl-3">
-                    <p class="font-bold text-gray-900 mb-1">預約七人座小巴</p>
-                    <p>⏰ 2/22 (日) <span class="text-red-600 font-bold">凌晨 04:00</span></p>
-                    <p>📍 家裡 ➔ <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%B8%80%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園機場 <span class="terminal-badge">T1</span></a></p>
-                </div>
-            </div>
-
-            <!-- #4: 去程機票 -->
-            <div class="p-4 hover:bg-gray-50 transition-colors">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">✈️ 4. 去程機票 (全員)</h2>
-                    <span class="status-tag status-ok">✅ OK</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 border-l-2 border-indigo-100 pl-3">
-                    <p class="font-bold text-gray-900 mb-1">台灣虎航 IT210</p>
-                    <p class="mb-2 leading-relaxed">
-                        📅 2/22 (日) <br>
-                        07:00 桃園 <span class="terminal-badge">T1</span> ➔ 10:25 關西 <span class="terminal-badge">T1</span>
-                    </p>
-                    
-                    <div class="sub-card">
-                        <p class="font-bold text-indigo-700 text-xs mb-1">爸媽稚昀</p>
-                        <p class="text-xs">👥 CHIH YUN WU (<span class="text-green-600 font-bold">15kg</span>)</p>
-                        <p class="text-xs">👥 YU WEN / TIEN CHANG (無托運)</p>
-                    </div>
-                    <div class="sub-card">
-                        <p class="font-bold text-indigo-700 text-xs mb-1">彥青怡君</p>
-                        <p class="text-xs">👥 YEN CHING CHEN (<span class="text-green-600 font-bold">40kg</span>)</p>
-                        <p class="text-xs">👥 YI CHUNG CHENG (無托運)</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- #5: 南海電鐵 -->
-            <div class="p-4 bg-yellow-50 hover:bg-yellow-100 transition-colors border-l-4 border-yellow-400">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🚆 5. 南海電鐵 Rapi:t</h2>
-                    <span class="status-tag status-pending">🔴 未完成</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 pl-3">
-                    <p class="font-bold text-gray-900 mb-1">機場 ➔ 難波 (約34分)</p>
-                    <p>
-                        📍 **路線**：
-                        <a href="https://www.google.com/maps/dir/?api=1&origin=%E5%8D%97%E6%B5%B7%E9%9B%BB%E9%89%84+%E9%97%9C%E8%A5%BF%E7%A9%BA%E6%B8%AF%E9%A7%85&destination=%E5%8D%97%E6%B5%B7%E9%9B%A3%E6%B3%A2%E9%A7%85&travelmode=transit" target="_blank" class="map-link">南海電鐵 關西機場站 ➔ 南海難波站 (點擊規劃)</a>
-                    </p>
-                    <p class="text-xs mt-1">💡 全車指定席，建議線上先買電子票。</p>
-                </div>
-            </div>
-
-            <!-- #6: 住宿 -->
-            <div class="p-4 bg-white hover:bg-gray-50 transition-colors">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🏨 6. 住宿安排 (6晚)</h2>
-                    <span class="status-tag status-ok">✅ OK</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 border-l-2 border-orange-200 pl-3">
-                    <p class="font-bold text-orange-800 mb-1">
-                        <a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">📍 東橫INN 大阪難波</a>
-                    </p>
-                    <p class="text-xs text-gray-500 mb-2">📅 2/22 - 2/28 | ⚠️ 2/19 自動扣款</p>
-
-                    <div class="grid grid-cols-1 gap-1">
-                        <div class="sub-card py-2">
-                            <p class="font-bold text-orange-700 text-xs">房號1 (爸媽)</p>
-                            <p class="text-xs text-gray-600">🛏 雙人房 (禁菸)</p>
-                        </div>
-                        <div class="sub-card py-2">
-                            <p class="font-bold text-orange-700 text-xs">房號2 (稚昀)</p>
-                            <p class="text-xs text-gray-600">🛏 單人房 (禁菸)</p>
-                        </div>
-                        <div class="sub-card py-2">
-                            <p class="font-bold text-orange-700 text-xs">房號3 (彥青怡君)</p>
-                            <p class="text-xs text-gray-600">🛏 雙人房 (禁菸)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- #7: 東京海上日動 (連結已修正) -->
-            <div class="p-4 bg-green-50 hover:bg-green-100 transition-colors border-l-4 border-green-400">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🛡️ 7. 購買旅遊保險</h2>
-                    <span class="status-tag status-todo">🔴 尚未購買</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 pl-3">
-                    <p class="font-bold text-gray-900 mb-1">東京海上日動 (Tokio Marine)</p>
-                    <p class="mb-2">抵達飯店後，請記得上網購買日本當地的旅遊醫療保險。</p>
-                    <a href="https://tokiomarinenichido.jp/zh-hant/china2/" target="_blank" class="link-style flex items-center gap-1">🔗 官方網站 (投保頁面)</a>
-                </div>
-            </div>
+        <!-- 內容區塊 Container -->
+        <div class="min-h-[50vh] bg-white">
             
-            <!-- 分隔線 (日期) -->
-            <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-2 my-2">
-                <h2 class="text-xl font-bold text-indigo-800 flex items-center gap-2">📅 2/22 (日) - 抵達日</h2>
-            </div>
+            <!-- TAB: 行前規劃 (Planning) -->
+            <div id="content-planning" class="divide-y divide-gray-100 content-list fade-in">
+                
+                <div class="bg-gray-50 p-3 text-xs font-bold text-gray-500 uppercase tracking-wide">Pre-trip Checklist</div>
 
-            <!-- #A1: 大阪城公園 -->
-            <div class="p-4 bg-blue-50 hover:bg-blue-100 transition-colors border-l-4 border-blue-400">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🏰 A1. 大阪城公園</h2>
-                    <span class="status-tag status-pending">🔴 待定</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 pl-3">
-                    <p class="font-bold text-gray-900 mb-1">抵達後第一站：歷史巡禮與散步</p>
-                    <p class="mb-2">
-                        📍 **地點**：
-                        <a href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%98%AA%E5%9F%8E%E5%85%AC%E5%9C%92" target="_blank" class="map-link">大阪城公園 (點擊導航)</a>
-                    </p>
-                    <p class="text-xs text-gray-500">💡 建議先將行李寄放在難波的飯店 (<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN 大阪難波</a>)，再搭乘地鐵前往大阪城。</p>
-                </div>
-            </div>
-
-            <!-- 分隔線 -->
-            <div class="border-t-4 border-gray-200 my-2"></div>
-
-            <!-- #91: 回程機票 -->
-            <div class="p-4 hover:bg-gray-50 transition-colors">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🛫 91. 回程機票 (全員)</h2>
-                    <span class="status-tag status-ok">✅ OK</span>
-                </div>
-                <div class="ml-4 text-sm text-gray-600 border-l-2 border-pink-200 pl-3">
-                    <p class="font-bold text-pink-700 mb-1">中華航空 CI153</p>
-                    <p class="mb-2 leading-relaxed">
-                        📅 2/28 (六) <br>
-                        14:30 關西 <span class="terminal-badge">T1</span> ➔ 16:45 桃園 <span class="terminal-badge">T2</span>
-                    </p>
-                    
-                    <div class="sub-card border-pink-100 bg-pink-50/30">
-                        <p class="font-bold text-pink-700 text-xs mb-1">全員行李</p>
-                        <p class="text-xs">👥 每人托運 23kg (共5人)</p>
+                <!-- #1: eSIM -->
+                <div class="p-4 bg-red-50 hover:bg-red-100 transition-colors border-l-4 border-red-400">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">📱 1. 購買 eSIM 網卡</h2>
+                        <span class="status-tag status-todo">🔴 尚未訂</span>
                     </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="font-bold text-gray-900 mb-1">需求：吃到飽網卡</p>
+                        <p class="mb-1">人數：5人份</p>
+                        <p class="text-xs text-gray-500">💡 建議出發前一天掃描 QR Code 設定。</p>
+                    </div>
+                </div>
+
+                <!-- #2: Visit Japan Web -->
+                <div class="p-4 bg-red-50/50 hover:bg-red-100 transition-colors">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🇯🇵 2. Visit Japan Web</h2>
+                        <span class="status-tag status-todo">🔴 尚未填寫</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 border-l-2 border-red-200 pl-3">
+                        <p class="mb-2">請於出發前完成入境審查與海關申報。</p>
+                        <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/" target="_blank" class="link-style flex items-center gap-1">🔗 前往官方網站 (中文)</a>
+                    </div>
+                </div>
+
+                <!-- #3: 機場接送 -->
+                <div class="p-4 bg-purple-50/50 hover:bg-purple-50 transition-colors">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🚐 3. 機場接送 (去程)</h2>
+                        <span class="status-tag status-pending">🔴 待訂</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 border-l-2 border-purple-200 pl-3">
+                        <p class="font-bold text-gray-900 mb-1">預約七人座小巴</p>
+                        <p>⏰ 2/22 (日) <span class="text-red-600 font-bold">凌晨 04:00</span></p>
+                        <p>📍 家裡 ➔ <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%B8%80%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園機場 <span class="terminal-badge">T1</span></a></p>
+                    </div>
+                </div>
+
+                <!-- #4: 去程機票 -->
+                <div class="p-4 hover:bg-gray-50 transition-colors border-l-4 border-indigo-400">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">✈️ 4. 去程機票 (全員)</h2>
+                        <span class="status-tag status-ok">✅ OK</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="font-bold text-gray-900 mb-1">台灣虎航 IT210</p>
+                        <p class="mb-2 leading-relaxed">
+                            📅 2/22 (日) <br>
+                            07:00 <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%B8%80%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園 T1</a> ➔ 10:25 <a href="https://www.google.com/maps/search/?api=1&query=關西國際機場" target="_blank" class="map-link">關西 T1</a>
+                        </p>
+                        
+                        <div class="sub-card">
+                            <p class="font-bold text-indigo-700 text-xs mb-1">爸媽稚昀</p>
+                            <p class="text-xs">👥 CHIH YUN WU (<span class="text-green-600 font-bold">15kg</span>)</p>
+                            <p class="text-xs">👥 YU WEN / TIEN CHANG (無托運)</p>
+                        </div>
+                        <div class="sub-card">
+                            <p class="font-bold text-indigo-700 text-xs mb-1">彥青怡君</p>
+                            <p class="text-xs">👥 YEN CHING CHEN (<span class="text-green-600 font-bold">40kg</span>)</p>
+                            <p class="text-xs">👥 YI CHUNG CHENG (無托運)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- #6: 住宿 -->
+                <div class="p-4 bg-white hover:bg-gray-50 transition-colors">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🏨 6. 住宿安排 (6晚)</h2>
+                        <span class="status-tag status-ok">✅ OK</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 border-l-2 border-orange-200 pl-3">
+                        <p class="font-bold text-orange-800 mb-1">
+                            <a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">📍 東橫INN 大阪難波</a>
+                        </p>
+                        <p class="text-xs text-gray-500 mb-2">📅 2/22 - 2/28 | ⚠️ 2/19 自動扣款</p>
+
+                        <div class="grid grid-cols-1 gap-1">
+                            <div class="sub-card py-2">
+                                <p class="font-bold text-orange-700 text-xs">房號1 (爸媽)</p>
+                                <p class="text-xs text-gray-600">🛏 雙人房 (禁菸)</p>
+                            </div>
+                            <div class="sub-card py-2">
+                                <p class="font-bold text-orange-700 text-xs">房號2 (稚昀)</p>
+                                <p class="text-xs text-gray-600">🛏 單人房 (禁菸)</p>
+                            </div>
+                            <div class="sub-card py-2">
+                                <p class="font-bold text-orange-700 text-xs">房號3 (彥青怡君)</p>
+                                <p class="text-xs text-gray-600">🛏 雙人房 (禁菸)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- #7: 東京海上日動 -->
+                <div class="p-4 bg-green-50 hover:bg-green-100 transition-colors border-l-4 border-green-400">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🛡️ 7. 購買旅遊保險</h2>
+                        <span class="status-tag status-todo">🔴 尚未購買</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="font-bold text-gray-900 mb-1">東京海上日動 (Tokio Marine)</p>
+                        <p class="mb-2">抵達飯店後，請記得上網購買日本當地的旅遊醫療保險。</p>
+                        <a href="https://tokiomarinenichido.jp/zh-hant/china2/" target="_blank" class="link-style flex items-center gap-1">🔗 官方網站 (投保頁面)</a>
+                    </div>
+                </div>
+
+                <!-- #91: 回程機票 (已移至行前規劃最後一項) -->
+                <div class="p-4 hover:bg-gray-50 transition-colors border-l-4 border-pink-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🛫 91. 回程機票 (全員)</h2>
+                        <span class="status-tag status-ok">✅ OK</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="font-bold text-pink-700 mb-1">中華航空 CI153</p>
+                        <p class="mb-2 leading-relaxed">
+                            📅 2/28 (六) <br>
+                            14:30 <a href="https://www.google.com/maps/search/?api=1&query=關西國際機場" target="_blank" class="map-link">關西 T1</a> ➔ 16:45 <a href="http://maps.google.com/?q=%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%BA%8C%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園 T2</a>
+                        </p>
+                        
+                        <div class="sub-card border-pink-100 bg-pink-50/30">
+                            <p class="font-bold text-pink-700 text-xs mb-1">全員行李</p>
+                            <p class="text-xs">👥 每人托運 23kg (共5人)</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TAB: Day 1 -->
+            <div id="content-day1" class="divide-y divide-gray-100 content-list hidden fade-in">
+                <!-- 日期標頭 -->
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-800 flex items-center gap-2">📅 2/22 (日) - 抵達日</h2>
+                </div>
+
+                <!-- Day 1 起點：關西機場 -->
+                <div class="p-4 bg-gray-50 hover:bg-gray-100 transition-colors border-l-4 border-gray-400">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                            📍 起點：<a href="https://www.google.com/maps/search/?api=1&query=關西國際機場" target="_blank" class="map-link">關西國際機場</a>
+                        </h2>
+                        <span class="status-tag status-ok">🛬 10:25 抵達</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="mb-1">完成入境審查、領取行李。</p>
+                        <p class="text-xs text-gray-500">前往南海電鐵車站。</p>
+                    </div>
+                </div>
+
+                <!-- #5: 南海電鐵 -->
+                <div class="p-4 bg-yellow-50 hover:bg-yellow-100 transition-colors border-l-4 border-yellow-400">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">🚆 5. 南海電鐵 Rapi:t</h2>
+                        <span class="status-tag status-pending">🔴 未完成</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="font-bold text-gray-900 mb-1">機場 ➔ 難波 (約34分)</p>
+                        <p>
+                            📍 **路線**：
+                            <a href="https://www.google.com/maps/dir/?api=1&origin=%E5%8D%97%E6%B5%B7%E9%9B%BB%E9%89%84+%E9%97%9C%E8%A5%BF%E7%A9%BA%E6%B8%AF%E9%A7%85&destination=%E5%8D%97%E6%B5%B7%E9%9B%A3%E6%B3%A2%E9%A7%85&travelmode=transit" target="_blank" class="map-link">南海電鐵 關西機場站 ➔ 南海難波站 (點擊規劃)</a>
+                        </p>
+                        <p class="text-xs mt-1">💡 全車指定席，建議線上先買電子票。</p>
+                    </div>
+                </div>
+
+                <!-- Day 1 中繼：東橫INN -->
+                <div class="p-4 bg-orange-50 hover:bg-orange-100 transition-colors border-l-4 border-orange-400">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                            🏨 抵達飯店：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a>
+                        </h2>
+                        <span class="status-tag status-pending">🎒 寄放行李</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="mb-1">先至櫃檯辦理 Check-in 手續 (16:00才能進房)。</p>
+                        <p class="font-bold text-orange-800">📍 <a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN 大阪難波</a></p>
+                    </div>
+                </div>
+
+                <!-- #A1: 大阪城公園 -->
+                <div class="p-4 bg-blue-50 hover:bg-blue-100 transition-colors border-l-4 border-blue-400">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                            🏰 A1. <a href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%98%AA%E5%9F%8E%E5%85%AC%E5%9C%92" target="_blank" class="map-link">大阪城公園</a>
+                        </h2>
+                        <span class="status-tag status-pending">🔴 待定</span>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="font-bold text-gray-900 mb-1">歷史巡禮與散步</p>
+                        <p class="mb-2">
+                            📍 **地點**：
+                            <a href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%98%AA%E5%9F%8E%E5%85%AC%E5%9C%92" target="_blank" class="map-link">大阪城公園 (點擊導航)</a>
+                        </p>
+                        <p class="text-xs text-gray-500">💡 從飯店出發，搭乘地鐵前往。</p>
+                    </div>
+                </div>
+
+                <!-- Day 1 終點：回飯店 -->
+                <div class="p-4 bg-indigo-50 hover:bg-indigo-100 transition-colors border-l-4 border-indigo-500">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                            🛌 終點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a>
+                        </h2>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-600 pl-3">
+                        <p class="mb-1">結束第一天行程，返回飯店休息。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Day 2 -->
+            <div id="content-day2" class="divide-y divide-gray-100 content-list hidden fade-in">
+                <!-- Day 2 起點 -->
+                <div class="p-4 bg-green-50 hover:bg-green-100 transition-colors border-l-4 border-green-400">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🌅 起點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN 大阪難波</a>
+                    </h2>
+                    <p class="text-sm text-gray-600 ml-4">⏰ 預計出發：09:00</p>
+                </div>
+
+                <!-- 中間行程 Placeholder -->
+                <div class="p-10 text-center text-gray-400">
+                    <p class="text-lg">📅 Day 2 行程待安排</p>
+                    <p class="text-sm mt-2">請在此填入 2/23 (一) 的行程</p>
+                </div>
+
+                <!-- Day 2 終點 -->
+                <div class="p-4 bg-indigo-50 hover:bg-indigo-100 transition-colors border-l-4 border-indigo-500">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🛌 終點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a>
+                    </h2>
+                    <p class="text-sm text-gray-600 ml-4">休息充電，準備明天行程。</p>
+                </div>
+            </div>
+
+            <!-- TAB: Day 3 -->
+            <div id="content-day3" class="divide-y divide-gray-100 content-list hidden fade-in">
+                <!-- Day 3 起點 -->
+                <div class="p-4 bg-green-50 hover:bg-green-100 transition-colors border-l-4 border-green-400">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🌅 起點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN 大阪難波</a>
+                    </h2>
+                    <p class="text-sm text-gray-600 ml-4">⏰ 預計出發：09:00</p>
+                </div>
+
+                <div class="p-10 text-center text-gray-400">
+                    <p class="text-lg">📅 Day 3 行程待安排</p>
+                    <p class="text-sm mt-2">請在此填入 2/24 (二) 的行程</p>
+                </div>
+
+                <!-- Day 3 終點 -->
+                <div class="p-4 bg-indigo-50 hover:bg-indigo-100 transition-colors border-l-4 border-indigo-500">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🛌 終點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a>
+                    </h2>
+                </div>
+            </div>
+
+            <!-- TAB: Day 4 -->
+            <div id="content-day4" class="divide-y divide-gray-100 content-list hidden fade-in">
+                <!-- Day 4 起點 -->
+                <div class="p-4 bg-green-50 hover:bg-green-100 transition-colors border-l-4 border-green-400">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🌅 起點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN 大阪難波</a>
+                    </h2>
+                    <p class="text-sm text-gray-600 ml-4">⏰ 預計出發：09:00</p>
+                </div>
+
+                <div class="p-10 text-center text-gray-400">
+                    <p class="text-lg">📅 Day 4 行程待安排</p>
+                    <p class="text-sm mt-2">請在此填入 2/25 (三) 的行程</p>
+                </div>
+
+                <!-- Day 4 終點 -->
+                <div class="p-4 bg-indigo-50 hover:bg-indigo-100 transition-colors border-l-4 border-indigo-500">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🛌 終點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a>
+                    </h2>
+                </div>
+            </div>
+
+             <!-- TAB: Day 5 -->
+             <div id="content-day5" class="divide-y divide-gray-100 content-list hidden fade-in">
+                <!-- Day 5 起點 -->
+                <div class="p-4 bg-green-50 hover:bg-green-100 transition-colors border-l-4 border-green-400">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🌅 起點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN 大阪難波</a>
+                    </h2>
+                    <p class="text-sm text-gray-600 ml-4">⏰ 預計出發：09:00</p>
+                </div>
+
+                <div class="p-10 text-center text-gray-400">
+                    <p class="text-lg">📅 Day 5 行程待安排</p>
+                    <p class="text-sm mt-2">請在此填入 2/26 (四) 的行程</p>
+                </div>
+
+                <!-- Day 5 終點 -->
+                <div class="p-4 bg-indigo-50 hover:bg-indigo-100 transition-colors border-l-4 border-indigo-500">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🛌 終點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a>
+                    </h2>
+                </div>
+            </div>
+
+             <!-- TAB: Day 6 -->
+             <div id="content-day6" class="divide-y divide-gray-100 content-list hidden fade-in">
+                <!-- Day 6 起點 -->
+                <div class="p-4 bg-green-50 hover:bg-green-100 transition-colors border-l-4 border-green-400">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🌅 起點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN 大阪難波</a>
+                    </h2>
+                    <p class="text-sm text-gray-600 ml-4">⏰ 預計出發：09:00</p>
+                </div>
+
+                <div class="p-10 text-center text-gray-400">
+                    <p class="text-lg">📅 Day 6 行程待安排</p>
+                    <p class="text-sm mt-2">請在此填入 2/27 (五) 的行程</p>
+                </div>
+
+                <!-- Day 6 終點 -->
+                <div class="p-4 bg-indigo-50 hover:bg-indigo-100 transition-colors border-l-4 border-indigo-500">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        🛌 終點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a>
+                    </h2>
+                </div>
+            </div>
+
+            <!-- TAB: Day 7 -->
+            <div id="content-day7" class="divide-y divide-gray-100 content-list hidden fade-in">
+                 <!-- 日期標頭 -->
+                 <div class="border-t-4 border-gray-400 bg-gray-100 p-3">
+                    <h2 class="text-xl font-bold text-gray-700 flex items-center gap-2">📅 2/28 (六) - 返程日</h2>
+                </div>
+
+                <!-- Day 7 起點 (退房) -->
+                <div class="p-4 bg-green-50 hover:bg-green-100 transition-colors border-l-4 border-green-400">
+                    <h2 class="text-lg font-bold text-gray-800 mb-1">
+                        👋 起點：<a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN (退房)</a>
+                    </h2>
+                    <p class="text-sm text-gray-600 ml-4">⏰ 辦理退房，前往機場。</p>
                 </div>
             </div>
 
@@ -225,5 +464,36 @@
         </div>
     </div>
 
+    <!-- JavaScript 邏輯 -->
+    <script>
+        function switchTab(tabName) {
+            // 1. 隱藏所有內容區塊
+            const contents = document.querySelectorAll('[id^="content-"]');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // 2. 顯示選中的內容
+            const selectedContent = document.getElementById('content-' + tabName);
+            if (selectedContent) {
+                selectedContent.classList.remove('hidden');
+            }
+
+            // 3. 重置按鈕樣式
+            const buttons = document.querySelectorAll('#tab-nav button');
+            buttons.forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('tab-inactive');
+            });
+
+            // 4. 激活選中的按鈕
+            const activeBtn = document.getElementById('btn-' + tabName);
+            if (activeBtn) {
+                activeBtn.classList.remove('tab-inactive');
+                activeBtn.classList.add('tab-active');
+                
+                // 確保按鈕在畫面中可見 (手機版)
+                activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+    </script>
 </body>
 </html>
