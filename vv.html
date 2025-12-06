@@ -1,0 +1,258 @@
+import React, { useState } from 'react';
+import { Plus, Trash2, Copy, Check, Tag, Calendar, BookOpen } from 'lucide-react';
+
+const INITIAL_DATA = [
+  {
+    id: 1,
+    word: "collaborate",
+    meaning: "to work together with other people to produce or achieve something; 與他人合作以完成某件事或達成目標",
+    source: 'PAF p167: "your ability to communicate and collaborate is improved"',
+    re_sentence: "We need to collaborate with the valuation team to finalize the pricing assumptions.",
+    your_sentence: "Our product development team must collaborate closely with valuation to align the pricing assumptions with IFRS 17 requirements.",
+    association: "work on setting assumptions",
+    tags: "SOA",
+    last_used: "2025-12-07"
+  },
+  {
+    id: 2,
+    word: "itinerary",
+    meaning: "a detailed plan or list of places and times for a journey; 旅程的詳細行程或時間表",
+    source: 'Agoda: "itinerary"',
+    re_sentence: "I emailed Oscar’s itinerary to you.",
+    your_sentence: "Please attach the client’s full travel itinerary to the policy file for our underwriting review.",
+    association: "imagine the air company",
+    tags: "",
+    last_used: "2025-12-07"
+  }
+];
+
+export default function VocabularyJournalFixed() {
+  const [entries, setEntries] = useState(INITIAL_DATA);
+  const [copied, setCopied] = useState(false);
+
+  // 新增一行
+  const handleAddRow = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const newEntry = {
+      id: Date.now(),
+      word: "New Word",
+      meaning: "",
+      source: "",
+      re_sentence: "",
+      your_sentence: "",
+      association: "",
+      tags: "",
+      last_used: today
+    };
+    setEntries([...entries, newEntry]);
+  };
+
+  // 刪除一行
+  const handleDeleteRow = (id) => {
+    if (confirm('確定要刪除這一行嗎？')) {
+      setEntries(entries.filter(entry => entry.id !== id));
+    }
+  };
+
+  // 編輯內容
+  const handleEdit = (id, field, value) => {
+    setEntries(entries.map(entry => 
+      entry.id === id ? { ...entry, [field]: value } : entry
+    ));
+  };
+
+  // 複製 Markdown
+  const handleCopyToClipboard = () => {
+    let text = "| Word | Meaning | Source | Re-Sentence | My Sentence | Association | Tags | Last Used |\n|---|---|---|---|---|---|---|---|\n";
+    entries.forEach(e => {
+      const clean = (str) => str ? str.toString().replace(/\n/g, ' ') : '';
+      text += `| **${clean(e.word)}** | ${clean(e.meaning)} | ${clean(e.source)} | ${clean(e.re_sentence)} | ${clean(e.your_sentence)} | ${clean(e.association)} | #${clean(e.tags)} | ${clean(e.last_used)} |\n`;
+    });
+    
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#F8F9FA] p-4 md:p-8 font-sans text-slate-800">
+      
+      {/* Header */}
+      <div className="max-w-[1600px] mx-auto mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <BookOpen className="text-blue-600" size={24}/>
+            Vocabulary Journal
+          </h1>
+          <p className="text-slate-500 text-sm mt-1">
+            Context-Based Learning System | Total Entries: {entries.length}
+          </p>
+        </div>
+        
+        <div className="flex gap-3">
+          <button 
+            onClick={handleAddRow}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
+          >
+            <Plus size={16} />
+            Add Word
+          </button>
+          
+          <button 
+            onClick={handleCopyToClipboard}
+            className={`flex items-center gap-2 px-4 py-2 border border-slate-200 bg-white text-slate-700 text-sm rounded-lg hover:bg-slate-50 transition-colors shadow-sm font-medium ${copied ? 'text-green-600 border-green-200 bg-green-50' : ''}`}
+          >
+            {copied ? <Check size={16} /> : <Copy size={16} />}
+            {copied ? 'Copied!' : 'Copy as Markdown'}
+          </button>
+        </div>
+      </div>
+
+      {/* Main Table Container */}
+      <div className="max-w-[1600px] mx-auto bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="overflow-x-auto pb-4">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="border-b border-slate-100 bg-slate-50/80">
+                {/* 修正：使用 min-w 而不是 w，確保有足夠空間延展 */}
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[180px]">Word</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[280px]">Meaning</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[200px]">Source & Context</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[250px]">Original Sentence</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-blue-500 uppercase tracking-wider min-w-[320px] bg-blue-50/50 border-l border-blue-100">
+                  ★ Your Sentence (Active Use)
+                </th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[180px]">Association</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[120px]">Tags</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[130px]">Last Used</th>
+                <th className="py-4 px-2 min-w-[50px]"></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {entries.map((entry) => (
+                <tr key={entry.id} className="group hover:bg-slate-50/80 transition-colors duration-150">
+                  
+                  {/* Word - Increased width & adjusted font size */}
+                  <td className="p-4 align-top">
+                    <input 
+                      type="text" 
+                      value={entry.word}
+                      onChange={(e) => handleEdit(entry.id, 'word', e.target.value)}
+                      className="w-full bg-transparent font-bold text-slate-900 text-base focus:outline-none focus:text-blue-600 transition-colors placeholder-slate-300"
+                      placeholder="Word"
+                    />
+                  </td>
+
+                  {/* Meaning */}
+                  <td className="p-4 align-top">
+                    <textarea 
+                      value={entry.meaning}
+                      onChange={(e) => handleEdit(entry.id, 'meaning', e.target.value)}
+                      rows={3}
+                      className="w-full bg-transparent text-sm leading-relaxed text-slate-600 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
+                      placeholder="Definition..."
+                    />
+                  </td>
+
+                  {/* Source */}
+                  <td className="p-4 align-top">
+                     <textarea 
+                      value={entry.source}
+                      onChange={(e) => handleEdit(entry.id, 'source', e.target.value)}
+                      rows={3}
+                      className="w-full bg-transparent text-xs text-slate-500 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
+                      placeholder="Source..."
+                    />
+                  </td>
+
+                  {/* Original Sentence */}
+                  <td className="p-4 align-top">
+                    <textarea 
+                      value={entry.re_sentence}
+                      onChange={(e) => handleEdit(entry.id, 're_sentence', e.target.value)}
+                      rows={4}
+                      className="w-full bg-transparent text-sm leading-relaxed text-slate-600 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all italic placeholder-slate-300"
+                      placeholder="Context sentence..."
+                    />
+                  </td>
+
+                   {/* Your Sentence (Highlight) */}
+                  <td className="p-4 align-top bg-blue-50/30 group-hover:bg-blue-50/60 border-l border-blue-50 group-hover:border-blue-100 transition-colors">
+                    <textarea 
+                      value={entry.your_sentence}
+                      onChange={(e) => handleEdit(entry.id, 'your_sentence', e.target.value)}
+                      rows={5}
+                      className="w-full bg-transparent text-sm leading-7 text-slate-800 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-200 rounded p-2 -ml-2 transition-all font-medium placeholder-blue-200"
+                      placeholder="Make it real..."
+                    />
+                  </td>
+
+                  {/* Association */}
+                  <td className="p-4 align-top">
+                    <textarea 
+                      value={entry.association}
+                      onChange={(e) => handleEdit(entry.id, 'association', e.target.value)}
+                      rows={3}
+                      className="w-full bg-transparent text-xs text-slate-500 italic resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
+                      placeholder="Mental image..."
+                    />
+                  </td>
+
+                  {/* Tags */}
+                  <td className="p-4 align-top">
+                    <div className="flex items-center gap-1 mb-1">
+                      <Tag size={12} className="text-slate-400"/>
+                    </div>
+                    <input 
+                      type="text" 
+                      value={entry.tags}
+                      onChange={(e) => handleEdit(entry.id, 'tags', e.target.value)}
+                      className="w-full bg-slate-100 text-xs text-slate-600 rounded-full px-2 py-1 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-200 transition-all text-center"
+                      placeholder="Tag"
+                    />
+                  </td>
+
+                  {/* Last Used */}
+                  <td className="p-4 align-top">
+                    <div className="flex items-center gap-1 mb-1">
+                      <Calendar size={12} className="text-slate-400"/>
+                    </div>
+                    <input 
+                      type="date" 
+                      value={entry.last_used}
+                      onChange={(e) => handleEdit(entry.id, 'last_used', e.target.value)}
+                      className="w-full bg-transparent text-xs text-slate-500 focus:outline-none font-mono"
+                    />
+                  </td>
+
+                  {/* Delete Action */}
+                  <td className="p-4 align-middle text-center">
+                    <button 
+                      onClick={() => handleDeleteRow(entry.id)}
+                      className="text-slate-300 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 opacity-0 group-hover:opacity-100"
+                      title="Delete"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          
+          {entries.length === 0 && (
+            <div className="p-12 text-center text-slate-400 bg-slate-50">
+              <p>點擊上方 "Add Word" 開始新增您的第一筆詞彙。</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
