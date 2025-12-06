@@ -1,247 +1,258 @@
-<!DOCTYPE html>
-<html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>匯率與債券殖利率趨勢儀表板</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; background-color: #f3f4f6; }
-        .card { background: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: all 0.3s ease; }
-        .card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-        .chart-container { position: relative; height: 300px; width: 100%; }
-    </style>
-</head>
-<body class="pb-10">
+import React, { useState } from 'react';
+import { Plus, Trash2, Copy, Check, Tag, Calendar, BookOpen } from 'lucide-react';
 
-    <!-- Navbar -->
-    <nav class="bg-slate-800 text-white p-4 sticky top-0 z-50 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold tracking-wide">金融市場關鍵指標儀表板</h1>
-            <div class="text-xs text-slate-400">資料基準日: 2025-11-24</div>
+const INITIAL_DATA = [
+  {
+    id: 1,
+    word: "collaborate",
+    meaning: "to work together with other people to produce or achieve something; 與他人合作以完成某件事或達成目標",
+    source: 'PAF p167: "your ability to communicate and collaborate is improved"',
+    re_sentence: "We need to collaborate with the valuation team to finalize the pricing assumptions.",
+    your_sentence: "Our product development team must collaborate closely with valuation to align the pricing assumptions with IFRS 17 requirements.",
+    association: "work on setting assumptions",
+    tags: "SOA",
+    last_used: "2025-12-07"
+  },
+  {
+    id: 2,
+    word: "itinerary",
+    meaning: "a detailed plan or list of places and times for a journey; 旅程的詳細行程或時間表",
+    source: 'Agoda: "itinerary"',
+    re_sentence: "I emailed Oscar’s itinerary to you.",
+    your_sentence: "Please attach the client’s full travel itinerary to the policy file for our underwriting review.",
+    association: "imagine the air company",
+    tags: "",
+    last_used: "2025-12-07"
+  }
+];
+
+export default function VocabularyJournalFixed() {
+  const [entries, setEntries] = useState(INITIAL_DATA);
+  const [copied, setCopied] = useState(false);
+
+  // 新增一行
+  const handleAddRow = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const newEntry = {
+      id: Date.now(),
+      word: "New Word",
+      meaning: "",
+      source: "",
+      re_sentence: "",
+      your_sentence: "",
+      association: "",
+      tags: "",
+      last_used: today
+    };
+    setEntries([...entries, newEntry]);
+  };
+
+  // 刪除一行
+  const handleDeleteRow = (id) => {
+    if (confirm('確定要刪除這一行嗎？')) {
+      setEntries(entries.filter(entry => entry.id !== id));
+    }
+  };
+
+  // 編輯內容
+  const handleEdit = (id, field, value) => {
+    setEntries(entries.map(entry => 
+      entry.id === id ? { ...entry, [field]: value } : entry
+    ));
+  };
+
+  // 複製 Markdown
+  const handleCopyToClipboard = () => {
+    let text = "| Word | Meaning | Source | Re-Sentence | My Sentence | Association | Tags | Last Used |\n|---|---|---|---|---|---|---|---|\n";
+    entries.forEach(e => {
+      const clean = (str) => str ? str.toString().replace(/\n/g, ' ') : '';
+      text += `| **${clean(e.word)}** | ${clean(e.meaning)} | ${clean(e.source)} | ${clean(e.re_sentence)} | ${clean(e.your_sentence)} | ${clean(e.association)} | #${clean(e.tags)} | ${clean(e.last_used)} |\n`;
+    });
+    
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#F8F9FA] p-4 md:p-8 font-sans text-slate-800">
+      
+      {/* Header */}
+      <div className="max-w-[1600px] mx-auto mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <BookOpen className="text-blue-600" size={24}/>
+            Vocabulary Journal
+          </h1>
+          <p className="text-slate-500 text-sm mt-1">
+            Context-Based Learning System | Total Entries: {entries.length}
+          </p>
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-6">
         
-        <!-- Summary Section -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-            <!-- USD/TWD -->
-            <div class="card p-4 border-l-4 border-blue-500">
-                <div class="text-sm text-gray-500 font-medium">美元/台幣 (USD/TWD)</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">31.35</div>
-                <div class="text-xs text-red-500 mt-1">▲ 近期回升</div>
-            </div>
-            <!-- JPY/TWD -->
-            <div class="card p-4 border-l-4 border-orange-400">
-                <div class="text-sm text-gray-500 font-medium">日圓/台幣 (JPY/TWD)</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">0.2005</div>
-                <div class="text-xs text-green-600 mt-1">▼ 持續低檔</div>
-            </div>
-            <!-- US 10Y -->
-            <div class="card p-4 border-l-4 border-indigo-600">
-                <div class="text-sm text-gray-500 font-medium">美債 10年期殖利率</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">4.06%</div>
-                <div class="text-xs text-gray-500 mt-1">修正後盤整</div>
-            </div>
-            <!-- TW 10Y -->
-            <div class="card p-4 border-l-4 border-emerald-500">
-                <div class="text-sm text-gray-500 font-medium">台債 10年期殖利率</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">1.31%</div>
-                <div class="text-xs text-green-600 mt-1">▼ 歷史相對低點</div>
-            </div>
-            <!-- AU 10Y -->
-            <div class="card p-4 border-l-4 border-yellow-500">
-                <div class="text-sm text-gray-500 font-medium">澳債 10年期殖利率</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">4.47%</div>
-                <div class="text-xs text-gray-500 mt-1">高檔震盪</div>
-            </div>
+        <div className="flex gap-3">
+          <button 
+            onClick={handleAddRow}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
+          >
+            <Plus size={16} />
+            Add Word
+          </button>
+          
+          <button 
+            onClick={handleCopyToClipboard}
+            className={`flex items-center gap-2 px-4 py-2 border border-slate-200 bg-white text-slate-700 text-sm rounded-lg hover:bg-slate-50 transition-colors shadow-sm font-medium ${copied ? 'text-green-600 border-green-200 bg-green-50' : ''}`}
+          >
+            {copied ? <Check size={16} /> : <Copy size={16} />}
+            {copied ? 'Copied!' : 'Copy as Markdown'}
+          </button>
         </div>
+      </div>
 
-        <!-- Charts Section -->
-        <h2 class="text-xl font-bold text-gray-800 mb-4 pl-2 border-l-4 border-slate-800">三年走勢分析 (2022 Nov - 2025 Nov)</h2>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            
-            <!-- USD Chart -->
-            <div class="card p-5">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>美元/台幣匯率 (USD/TWD)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartUSD"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: 台灣中央銀行 / 台北外匯市場</p>
+      {/* Main Table Container */}
+      <div className="max-w-[1600px] mx-auto bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="overflow-x-auto pb-4">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="border-b border-slate-100 bg-slate-50/80">
+                {/* 修正：使用 min-w 而不是 w，確保有足夠空間延展 */}
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[180px]">Word</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[280px]">Meaning</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[200px]">Source & Context</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[250px]">Original Sentence</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-blue-500 uppercase tracking-wider min-w-[320px] bg-blue-50/50 border-l border-blue-100">
+                  ★ Your Sentence (Active Use)
+                </th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[180px]">Association</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[120px]">Tags</th>
+                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[130px]">Last Used</th>
+                <th className="py-4 px-2 min-w-[50px]"></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {entries.map((entry) => (
+                <tr key={entry.id} className="group hover:bg-slate-50/80 transition-colors duration-150">
+                  
+                  {/* Word - Increased width & adjusted font size */}
+                  <td className="p-4 align-top">
+                    <input 
+                      type="text" 
+                      value={entry.word}
+                      onChange={(e) => handleEdit(entry.id, 'word', e.target.value)}
+                      className="w-full bg-transparent font-bold text-slate-900 text-base focus:outline-none focus:text-blue-600 transition-colors placeholder-slate-300"
+                      placeholder="Word"
+                    />
+                  </td>
+
+                  {/* Meaning */}
+                  <td className="p-4 align-top">
+                    <textarea 
+                      value={entry.meaning}
+                      onChange={(e) => handleEdit(entry.id, 'meaning', e.target.value)}
+                      rows={3}
+                      className="w-full bg-transparent text-sm leading-relaxed text-slate-600 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
+                      placeholder="Definition..."
+                    />
+                  </td>
+
+                  {/* Source */}
+                  <td className="p-4 align-top">
+                     <textarea 
+                      value={entry.source}
+                      onChange={(e) => handleEdit(entry.id, 'source', e.target.value)}
+                      rows={3}
+                      className="w-full bg-transparent text-xs text-slate-500 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
+                      placeholder="Source..."
+                    />
+                  </td>
+
+                  {/* Original Sentence */}
+                  <td className="p-4 align-top">
+                    <textarea 
+                      value={entry.re_sentence}
+                      onChange={(e) => handleEdit(entry.id, 're_sentence', e.target.value)}
+                      rows={4}
+                      className="w-full bg-transparent text-sm leading-relaxed text-slate-600 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all italic placeholder-slate-300"
+                      placeholder="Context sentence..."
+                    />
+                  </td>
+
+                   {/* Your Sentence (Highlight) */}
+                  <td className="p-4 align-top bg-blue-50/30 group-hover:bg-blue-50/60 border-l border-blue-50 group-hover:border-blue-100 transition-colors">
+                    <textarea 
+                      value={entry.your_sentence}
+                      onChange={(e) => handleEdit(entry.id, 'your_sentence', e.target.value)}
+                      rows={5}
+                      className="w-full bg-transparent text-sm leading-7 text-slate-800 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-200 rounded p-2 -ml-2 transition-all font-medium placeholder-blue-200"
+                      placeholder="Make it real..."
+                    />
+                  </td>
+
+                  {/* Association */}
+                  <td className="p-4 align-top">
+                    <textarea 
+                      value={entry.association}
+                      onChange={(e) => handleEdit(entry.id, 'association', e.target.value)}
+                      rows={3}
+                      className="w-full bg-transparent text-xs text-slate-500 italic resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
+                      placeholder="Mental image..."
+                    />
+                  </td>
+
+                  {/* Tags */}
+                  <td className="p-4 align-top">
+                    <div className="flex items-center gap-1 mb-1">
+                      <Tag size={12} className="text-slate-400"/>
+                    </div>
+                    <input 
+                      type="text" 
+                      value={entry.tags}
+                      onChange={(e) => handleEdit(entry.id, 'tags', e.target.value)}
+                      className="w-full bg-slate-100 text-xs text-slate-600 rounded-full px-2 py-1 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-200 transition-all text-center"
+                      placeholder="Tag"
+                    />
+                  </td>
+
+                  {/* Last Used */}
+                  <td className="p-4 align-top">
+                    <div className="flex items-center gap-1 mb-1">
+                      <Calendar size={12} className="text-slate-400"/>
+                    </div>
+                    <input 
+                      type="date" 
+                      value={entry.last_used}
+                      onChange={(e) => handleEdit(entry.id, 'last_used', e.target.value)}
+                      className="w-full bg-transparent text-xs text-slate-500 focus:outline-none font-mono"
+                    />
+                  </td>
+
+                  {/* Delete Action */}
+                  <td className="p-4 align-middle text-center">
+                    <button 
+                      onClick={() => handleDeleteRow(entry.id)}
+                      className="text-slate-300 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 opacity-0 group-hover:opacity-100"
+                      title="Delete"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          
+          {entries.length === 0 && (
+            <div className="p-12 text-center text-slate-400 bg-slate-50">
+              <p>點擊上方 "Add Word" 開始新增您的第一筆詞彙。</p>
             </div>
-
-            <!-- JPY Chart -->
-            <div class="card p-5">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-orange-400 rounded-full mr-2"></span>日圓/台幣匯率 (JPY/TWD)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartJPY"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: 台灣銀行牌告匯率參考</p>
-            </div>
-
-            <!-- US Yield Chart -->
-            <div class="card p-5">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-indigo-600 rounded-full mr-2"></span>美國 10 年期公債殖利率 (US 10Y Yield)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartUS10Y"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: U.S. Department of the Treasury</p>
-            </div>
-
-            <!-- TW Yield Chart -->
-            <div class="card p-5">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>台灣 10 年期公債殖利率 (TW 10Y Yield)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartTW10Y"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: 證券櫃檯買賣中心 (TPEx) / 中央銀行</p>
-            </div>
-
-             <!-- AU Yield Chart -->
-             <div class="card p-5 lg:col-span-2">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>澳洲 10 年期公債殖利率 (AU 10Y Yield)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartAU10Y"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: Reserve Bank of Australia / Investing.com</p>
-            </div>
-
+          )}
         </div>
-
-        <!-- Data Sources & Disclaimer -->
-        <div class="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h4 class="font-bold text-gray-800 mb-3">資料來源說明</h4>
-            <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
-                <li><strong>美元/台幣 & 日圓/台幣：</strong> 資料參照台灣中央銀行及台北外匯經紀公司歷史成交均價趨勢。</li>
-                <li><strong>美債殖利率：</strong> 參照美國財政部 (U.S. Treasury) 每日殖利率曲線利率 (CMT)。</li>
-                <li><strong>台債殖利率：</strong> 參照中華民國證券櫃檯買賣中心 (TPEx) 公債等殖成交系統之加權平均殖利率。</li>
-                <li><strong>澳幣殖利率：</strong> 參照澳洲儲備銀行 (RBA) 及國際金融市場報價。</li>
-            </ul>
-            <div class="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-400">
-                免責聲明：本儀表板數據僅供參考，實際交易價格請以各金融機構當下報價為準。歷史績效不代表未來走勢。
-            </div>
-        </div>
-
-    </main>
-
-    <script>
-        // Chart Configuration
-        const commonOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: 'rgba(30, 41, 59, 0.9)',
-                    padding: 10,
-                    cornerRadius: 4,
-                }
-            },
-            scales: {
-                x: {
-                    grid: { display: false },
-                    ticks: { maxTicksLimit: 6, font: { size: 10 } }
-                },
-                y: {
-                    grid: { borderDash: [2, 4], color: '#f0f0f0' },
-                    ticks: { font: { size: 10 } }
-                }
-            }
-        };
-
-        // Simulated Data Generation based on historical trends (Nov 2022 - Nov 2025)
-        // Labels (Months)
-        const labels = [];
-        for (let y = 2022; y <= 2025; y++) {
-            for (let m = 1; m <= 12; m++) {
-                if (y === 2022 && m < 11) continue;
-                if (y === 2025 && m > 11) break;
-                labels.push(`${y}/${m.toString().padStart(2, '0')}`);
-            }
-        }
-
-        // 1. USD/TWD Data (Trend: 2022~31 -> 2023 dip -> 2024 rise -> 2025 stable/high)
-        const usdData = [
-            30.9, 30.7, 30.3, 29.9, 30.5, 30.6, 30.7, 30.8, 31.2, 31.8, 32.1, 32.4, // 2022-2023
-            31.6, 31.3, 31.2, 31.6, 32.1, 32.5, 32.3, 32.4, 32.5, 32.1, 31.9, 32.0, // 2023-2024
-            32.2, 32.4, 32.7, 32.9, 32.7, 32.6, 32.8, 32.5, 31.9, 31.8, 31.5, 31.3  // 2024-2025
-        ];
-
-        // 2. JPY/TWD Data (Trend: Long term downtrend, recent slight rebound then drop)
-        const jpyData = [
-            0.222, 0.225, 0.231, 0.228, 0.224, 0.232, 0.229, 0.225, 0.218, 0.216, 0.220, 0.219, // 2022-2023
-            0.215, 0.216, 0.213, 0.210, 0.208, 0.213, 0.211, 0.206, 0.206, 0.206, 0.202, 0.213, // 2023-2024
-            0.218, 0.225, 0.222, 0.214, 0.210, 0.215, 0.207, 0.210, 0.216, 0.221, 0.203, 0.200  // 2024-2025
-        ];
-
-        // 3. US 10Y Yield (Trend: Rise -> Peak Oct 2023 -> Drop -> Rise -> Current ~4.06)
-        const us10yData = [
-            3.70, 3.60, 3.50, 3.90, 3.95, 3.45, 3.40, 3.70, 3.80, 4.10, 4.30, 4.80, // 2022-2023 (Peak near end)
-            4.50, 4.00, 3.90, 4.20, 4.30, 4.50, 4.40, 4.30, 4.20, 3.90, 3.80, 3.90, // 2023-2024
-            4.00, 4.10, 4.20, 4.30, 4.40, 4.35, 4.25, 3.90, 3.75, 3.90, 4.15, 4.06  // 2024-2025
-        ];
-
-        // 4. TW 10Y Yield (Trend: Stable, low volatility, recent low ~1.31)
-        const tw10yData = [
-            1.65, 1.50, 1.30, 1.25, 1.20, 1.18, 1.17, 1.20, 1.22, 1.25, 1.30, 1.40, // 2022-2023
-            1.35, 1.25, 1.22, 1.25, 1.35, 1.45, 1.50, 1.60, 1.65, 1.60, 1.55, 1.50, // 2023-2024
-            1.45, 1.42, 1.40, 1.55, 1.60, 1.58, 1.50, 1.45, 1.40, 1.35, 1.32, 1.31  // 2024-2025
-        ];
-
-        // 5. AU 10Y Yield (Trend: Correlated with US but higher spread recently)
-        const au10yData = [
-            3.60, 3.70, 3.55, 3.80, 3.40, 3.30, 3.50, 3.90, 4.00, 4.10, 4.40, 4.80, // 2022-2023
-            4.60, 4.20, 4.10, 4.00, 4.15, 4.30, 4.40, 4.35, 4.25, 4.00, 3.90, 4.00, // 2023-2024
-            4.10, 4.20, 4.30, 4.50, 4.60, 4.50, 4.30, 4.00, 3.95, 4.20, 4.50, 4.47  // 2024-2025
-        ];
-
-        // Chart Initialization Helper
-        function createChart(canvasId, label, data, color) {
-            new Chart(document.getElementById(canvasId), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: label,
-                        data: data,
-                        borderColor: color,
-                        backgroundColor: color + '10', // 10% opacity
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.3,
-                        pointRadius: 0,
-                        pointHoverRadius: 4
-                    }]
-                },
-                options: commonOptions
-            });
-        }
-
-        // Render Charts
-        createChart('chartUSD', 'USD/TWD', usdData, '#3b82f6'); // Blue-500
-        createChart('chartJPY', 'JPY/TWD', jpyData, '#fb923c'); // Orange-400
-        createChart('chartUS10Y', 'US 10Y %', us10yData, '#4f46e5'); // Indigo-600
-        createChart('chartTW10Y', 'TW 10Y %', tw10yData, '#10b981'); // Emerald-500
-        createChart('chartAU10Y', 'AU 10Y %', au10yData, '#eab308'); // Yellow-500
-
-    </script>
-</body>
-</html>
+      </div>
+    </div>
+  );
+}
