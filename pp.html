@@ -3,41 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt 資料庫</title>
-    
-    <!-- 1. 載入 Tailwind CSS (樣式) -->
+    <title>Prompt 資料庫 (Full Version)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 2. 載入 React 和 ReactDOM (核心引擎) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- 3. 載入 Babel (讓瀏覽器看懂 JSX) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <!-- 設定樣式變數 -->
     <style>
-        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { font-family: 'Segoe UI', Roboto, "Microsoft JhengHei", sans-serif; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
-
-    <!-- 這是 React 的掛載點 -->
     <div id="root"></div>
 
-    <!-- 這是主要的應用程式邏輯 -->
     <script type="text/babel">
-        const { useState, useEffect, useMemo } = React;
+        const { useState, useEffect, useMemo, useRef } = React;
 
-        // --- A. 圖示組件 (手動定義 SVG 以免除外部依賴) ---
+        // --- A. 圖示組件 ---
         const IconBase = ({ children, size = 16, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {children}
             </svg>
         );
-
         const Icons = {
             Copy: (props) => <IconBase {...props}><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></IconBase>,
+            Check: (props) => <IconBase {...props}><polyline points="20 6 9 17 4 12"/></IconBase>,
             Plus: (props) => <IconBase {...props}><path d="M5 12h14"/><path d="M12 5v14"/></IconBase>,
             Download: (props) => <IconBase {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></IconBase>,
             Upload: (props) => <IconBase {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></IconBase>,
@@ -47,51 +38,154 @@
             Edit2: (props) => <IconBase {...props}><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></IconBase>,
             X: (props) => <IconBase {...props}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></IconBase>,
             Save: (props) => <IconBase {...props}><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></IconBase>,
+            FileJson: (props) => <IconBase {...props}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></IconBase>,
+            AlertTriangle: (props) => <IconBase {...props}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></IconBase>
         };
 
-        // --- B. 初始資料集 ---
+        // --- B. 初始完整資料集 ---
         const INITIAL_DATA = [
-          // --- 谷口惠子的英語 ---
-          { id: 't-1', type: '谷口惠子的英語', title: '1 盡情享受無限英語會話', content: '讓我們來練習英語會話。・你的名字是 Jenny。・我的名字是 Keiko。・每一次的發言請控制在 50 個英文單字以內。・我們來聊一聊夏天的計畫。・請你只以 Jenny 的身分發言。那麼，請由你先開始用英文對話。', note: '基本對話練習', createdAt: '2025-12-07' },
-          { id: 't-2', type: '谷口惠子的英語', title: '2 邊英會話邊詢問不懂單字', content: '「specific」是什麼意思？請用中文說明。', note: '單字詢問模式', createdAt: '2025-12-07' },
-          { id: 't-3', type: '谷口惠子的英語', title: '3 一邊對話一邊學英文表達', content: '「我很期待到處吃美食」用英文要怎麼說？', note: '翻譯詢問', createdAt: '2025-12-07' },
-          { id: 't-5', type: '谷口惠子的英語', title: '5 用語音對話請對方檢查發音', content: '接下來我會用英文說話。請指出我英文發音不好的部分，並用日文說明發音的改善方法和練習方式。', note: '發音檢查', createdAt: '2025-12-07' },
-          { id: 't-6', type: '谷口惠子的英語', title: '6 在對話中請對方指出英文錯誤', content: '讓我們用英文對話。・你的名字是 Jenny。・我的名字是 Keiko。・每當我在英文中犯錯時，請告訴我犯了什麼錯，以及要怎麼修正。・指出錯誤之後，請繼續用英文和我對話。・每一次的發言請控制在 50 個英文單字以內。・我們來聊一聊夏天的計畫。・請你只以 Jenny 的身分發言。那麼，請由你先開始用英文對話。', note: '即時糾錯模式', createdAt: '2025-12-07' },
-          { id: 't-7', type: '谷口惠子的英語', title: '7 請對方提供更自然的英文說法', content: '讓我們用英文對話。・你的名字是 Jenny。・我的名字是 Keiko。・請你作為我的英文老師，針對我的發言，提出用其他單字的說法或更自然的英文表達。・提出建議之後，請繼續用英文和我對話。・每一次的發言請控制在 50 個英文單字以內。・我們來聊一聊夏天的計畫。・請你只以 Jenny 的身分發言。那麼，請由你先開始用英文對話。', note: '自然語感優化', createdAt: '2025-12-07' },
-          { id: 't-8-1', type: '谷口惠子的英語', title: '8-1 機場入境審查對話', content: '請依照以下設定，用英文寫出在美國機場入境審查時的對話。・請加入 5 個有可能在入境審查時被問到的問題。・請讓審查官以親切友善的語氣說話。・旅客是日本人，預計在朋友家住宿 4 晚。', note: '情境模擬', createdAt: '2025-12-07' },
-          { id: 't-8-2', type: '谷口惠子的英語', title: '8-2 線上會議英語對話', content: '請依照以下設定，寫出線上會議中的英文對話。・對話成員是某製藥企業行銷部的成員。・從美國總公司出席的有CFO David 與部屬 Katy 兩人。・從東京分公司出席的有 Maya、Takashi 兩人。・上一回會議已確認了下期行銷措施的各項課題。・這次會議要針對各個課題擬定行動方案。・這個成員組合每週會舉行一次定例會議。', note: '商務會議模擬', createdAt: '2025-12-07' },
-          { id: 't-9', type: '谷口惠子的英語', title: '9 解釋英文表達的意思與用法', content: '“Let\'s reconvene” 是什麼意思？可以在什麼樣的場合使用？', note: '單字深度解析', createdAt: '2025-12-07' },
-          { id: 't-10', type: '谷口惠子的英語', title: '10 飯店 Check-in 英語角色扮演', content: '你和我要用英文進行飯店入住（check-in）的角色扮演。請依照以下條件發言。條件：・你的名字是 John。・我的名字是 Keiko。・你是新加坡 Asia Pacific Hotel 的櫃台人員，我是房客。・請你只以 John 的身分發言。・每一次發言請控制在 50 個英文單字以內。', note: '旅遊情境', createdAt: '2025-12-07' },
-          { id: 't-12', type: '谷口惠子的英語', title: '12 請 AI 寫一篇英文長文', content: '請寫一篇約 200 個英文單字、以「英國文化」為主題的英文文章。', note: '閱讀素材生成', createdAt: '2025-12-07' },
-          { id: 't-15', type: '谷口惠子的英語', title: '15 指定 CEFR 等級請 AI 寫長文', content: '請寫一篇大約 200 個英文單字、CEFR B1 等級，以「為了過上豐富充實的人生」為主題的英文文章。', note: '分級閱讀生成', createdAt: '2025-12-07' },
-          { id: 't-17', type: '谷口惠子的英語', title: '17 為提升閱讀力進行字彙訓練', content: '請以「AI 的進化會如何改變人類的角色」為主題，寫一篇約 150 字的英文文章。接著，從文章裡使用到的英文單字中，整理出較困難的單字清單，並以表格形式列出英文與日文對照。', note: '文章結合單字表', createdAt: '2025-12-07' },
-          { id: 't-21', type: '谷口惠子的英語', title: '21 為幼兒創作英文故事', content: '請寫一個給 4 歲幼兒看的英文故事，大約 300 個英文單字。・主角的名字是 Haruto。・故事中請出現電車、恐龍、蘋果，以及他最喜歡的背包。・請把內容寫成冒險故事。・結局請設定為 Happy End。', note: '創意寫作', createdAt: '2025-12-07' },
-          { id: 't-28', type: '谷口惠子的英語', title: '28 代寫確認會議參加者的英文 Email', content: '請用英文寫一封 email，向客戶確認下週會議的出席者。', note: '商務 Email', createdAt: '2025-12-07' },
-          { id: 't-30', type: '谷口惠子的英語', title: '30 依情境與禮貌程度改寫英文信', content: '請將下面這段英文改寫成適合作為寫給客戶的回饋信內容。（在此貼上英文 email）', note: '語氣潤飾', createdAt: '2025-12-07' },
-          // --- 56思考戰法 ---
-          { id: 's-5-1', type: '56思考戰法', title: '技法 5：各種專家的建議 (通用)', content: '請您作為多數專家（創意專家、技術專家、商業專家、學術研究者、社會科學家、用戶、顛覆者、具備幽默感的人、冒險家），針對（請填入希望獲得點子的主題）思考具體的方案。', note: '多角度發想', createdAt: '2025-12-07' },
-          { id: 's-5-2', type: '56思考戰法', title: '技法 5：年輕員工成長', content: '請您作為多數專家（...冒險家），針對《年輕員工的成長方法》思考具體的方案。', note: '範例應用', createdAt: '2025-12-07' },
-          { id: 's-6-1', type: '56思考戰法', title: '技法 6：環境友善的方案 (通用)', content: '關於（請填入課題等），有活用永續能源的點子，或考慮環境影響的點子嗎?', note: 'ESG/永續視角', createdAt: '2025-12-07' },
-          { id: 's-6-2', type: '56思考戰法', title: '技法 6：客戶路線銷售', content: '關於《本公司的客戶數量多，需要例行路線銷售》，有活用永續能源的點子，或考慮環境影響的點子嗎?', note: '範例應用', createdAt: '2025-12-07' },
-          { id: 's-7', type: '56思考戰法', title: '技法 7：相關的要素', content: '（請在此輸入技法7的具體Prompt內容）', note: '待補充', createdAt: '2025-12-07' }
+          // === 谷口惠子的英語 ===
+          { id: 't-1', type: '谷口惠子的英語', title: '1 盡情享受無限英語會話', note: '無限英語會話', content: '讓我們來練習英語會話。・你的名字是 Jenny。・我的名字是 Keiko。・每一次的發言請控制在 50 個英文單字以內。・我們來聊一聊夏天的計畫。・請你只以 Jenny 的身分發言。那麼，請由你先開始用英文對話。', createdAt: '2025-12-07' },
+          { id: 't-2', type: '谷口惠子的英語', title: '2 邊英會話邊詢問不懂單字', note: '詢問單字', content: '「specific」是什麼意思？請用日文說明。', createdAt: '2025-12-07' },
+          { id: 't-3', type: '谷口惠子的英語', title: '3 一邊對話一邊學英文表達', note: '學英文表達', content: '「我很期待到處吃美食」用英文要怎麼說？', createdAt: '2025-12-07' },
+          { id: 't-5', type: '谷口惠子的英語', title: '5 用語音對話請對方檢查發音', note: '檢查發音', content: '接下來我會用英文說話。請指出我英文發音不好的部分，並用日文說明發音的改善方法和練習方式。', createdAt: '2025-12-07' },
+          { id: 't-6', type: '谷口惠子的英語', title: '6 在對話中請對方指出英文錯誤', note: '指出錯誤', content: '讓我們用英文對話。・你的名字是 Jenny。・我的名字是 Keiko。・每當我在英文中犯錯時，請告訴我犯了什麼錯，以及要怎麼修正。・指出錯誤之後，請繼續用英文和我對話。・每一次的發言請控制在 50 個英文單字以內。・我們來聊一聊夏天的計畫。・請你只以 Jenny 的身分發言。那麼，請由你先開始用英文對話。', createdAt: '2025-12-07' },
+          { id: 't-7', type: '谷口惠子的英語', title: '7 請對方提供更自然的英文說法', note: '自然說法', content: '讓我們用英文對話。・你的名字是 Jenny。・我的名字是 Keiko。・請你作為我的英文老師，針對我的發言，提出用其他單字的說法或更自然的英文表達。・提出建議之後，請繼續用英文和我對話。・每一次的發言請控制在 50 個英文單字以內。・我們來聊一聊夏天的計畫。・請你只以 Jenny 的身分發言。那麼，請由你先開始用英文對話。', createdAt: '2025-12-07' },
+          { id: 't-8-1', type: '谷口惠子的英語', title: '8-1 請 AI 編寫機場入境審查對話', note: '機場對話', content: '請依照以下設定，用英文寫出在美國機場入境審查時的對話。・請加入 5 個有可能在入境審查時被問到的問題。・請讓審查官以親切友善的語氣說話。・旅客是日本人，預計在朋友家住宿 4 晚。', createdAt: '2025-12-07' },
+          { id: 't-8-2', type: '谷口惠子的英語', title: '8-2 請 AI 編寫線上會議英語對話', note: '會議對話', content: '請依照以下設定，寫出線上會議中的英文對話。・對話成員是某製藥企業行銷部的成員。・從美國總公司出席的有 CFO David 與部屬 Katy 兩人。・從東京分公司出席的有 Maya、Takashi 兩人。・上一回會議已確認了下期行銷措施的各項課題。・這次會議要針對各個課題擬定行動方案。・這個成員組合每週會舉行一次定例會議。', createdAt: '2025-12-07' },
+          { id: 't-9', type: '谷口惠子的英語', title: '9 解釋英文表達的意思與用法', note: '解釋用法', content: '“Let’s reconvene” 是什麼意思？可以在什麼樣的場合使用？', createdAt: '2025-12-07' },
+          { id: 't-10', type: '谷口惠子的英語', title: '10 飯店 Check-in 英語角色扮演', note: '角色扮演', content: '你和我要用英文進行飯店入住（check-in）的角色扮演。請依照以下條件發言。條件：・你的名字是 John。・我的名字是 Keiko。・你是新加坡 Asia Pacific Hotel 的櫃台人員，我是房客。・請你只以 John 的身分發言。・每一次發言請控制在 50 個英文單字以內。', createdAt: '2025-12-07' },
+          { id: 't-11', type: '谷口惠子的英語', title: '11 練習使用 “May I ～？”', note: '句型練習', content: '請用 “May I ～？” 造 5 個簡單的英文句子。請在每一個英文句子前面放上對應的日文，並以表格形式呈現。', createdAt: '2025-12-07' },
+          { id: 't-12', type: '谷口惠子的英語', title: '12 請 AI 寫一篇英文長文', note: '寫長文', content: '請寫一篇約 200 個英文單字、以「英國文化」為主題的英文文章。', createdAt: '2025-12-07' },
+          { id: 't-13-1', type: '谷口惠子的英語', title: '13-1 把英文長文翻成日文', note: '翻譯', content: '請翻譯成日文。', createdAt: '2025-12-07' },
+          { id: 't-13-2', type: '谷口惠子的英語', title: '13-2 翻譯網址中的英文文章', note: '翻譯網址', content: '請翻譯以下這個 URL 裡的文章。（貼上 URL）', createdAt: '2025-12-07' },
+          { id: 't-14', type: '谷口惠子的英語', title: '14 解說英文長句的文法', note: '文法解說', content: '請解說下面這句英文的文法。（貼上英文）', createdAt: '2025-12-07' },
+          { id: 't-15', type: '谷口惠子的英語', title: '15 指定 CEFR 等級請 AI 寫長文', note: '分級寫作', content: '請寫一篇大約 200 個英文單字、CEFR B1 等級，以「為了過上豐富充實的人生」為主題的英文文章。', createdAt: '2025-12-07' },
+          { id: 't-16', type: '谷口惠子的英語', title: '16 請 AI 協助洋書多讀與語感', note: '語感分析', content: '在某篇夏洛克・福爾摩斯短篇故事中出現了下面這個表達。它有什麼樣的語氣與細微語感？（貼上英文）', createdAt: '2025-12-07' },
+          { id: 't-17', type: '谷口惠子的英語', title: '17 為提升閱讀力進行字彙訓練', note: '字彙訓練', content: '請以「AI 的進化會如何改變人類的角色」為主題，寫一篇約 150 字的英文文章。接著，從文章裡使用到的英文單字中，整理出較困難的單字清單，並以表格形式列出英文與日文對照。', createdAt: '2025-12-07' },
+          { id: 't-18', type: '谷口惠子的英語', title: '18 指定等級請 AI 改寫成簡單英文', note: '改寫英文', content: '請把下面這句英文改寫成 CEFR A1 等級的英文。（貼上英文）', createdAt: '2025-12-07' },
+          { id: 't-19', type: '谷口惠子的英語', title: '19 要求 AI 用英文摘要長文', note: '摘要', content: '請用英文摘要以下這段英文。（貼上英文）', createdAt: '2025-12-07' },
+          { id: 't-20', type: '谷口惠子的英語', title: '20 Slash / Chunk Reading 練習', note: '閱讀練習', content: '請將下面這句英文切成適合做 slash reading 練習的各個 chunk。在每一個切分後的英文 chunk 底下，請用表格列出該 chunk 的意思（用日文）以及在句子中的文法功能。（貼上英文）', createdAt: '2025-12-07' },
+          { id: 't-21', type: '谷口惠子的英語', title: '21 為幼兒創作英文故事', note: '創作故事', content: '請寫一個給 4 歲幼兒看的英文故事，大約 300 個英文單字。・主角的名字是 Haruto。・故事中請出現電車、恐龍、蘋果，以及他最喜歡的背包。・請把內容寫成冒險故事。・結局請設定為 Happy End。', createdAt: '2025-12-07' },
+          { id: 't-22', type: '谷口惠子的英語', title: '22 出英文寫作練習題目', note: '寫作題目', content: '請給我一些英文寫作練習的題目。', createdAt: '2025-12-07' },
+          { id: 't-23', type: '谷口惠子的英語', title: '23 請 AI 批改英文寫作並說明理由', note: '批改寫作', content: '請批改以下這段英文，並以表格方式告訴我修改的部分與修改理由。修改理由請用日文說明。（貼上英文）', createdAt: '2025-12-07' },
+          { id: 't-24', type: '谷口惠子的英語', title: '24 批改手寫英文（搭配圖片）', note: '批改圖片', content: '（拍照或上傳圖片之後）請幫我批改這段英文，並詳細說明修改的理由。', createdAt: '2025-12-07' },
+          { id: 't-25', type: '谷口惠子的英語', title: '25 提供英文日記好用表達', note: '日記表達', content: '請告訴我 10 個可以用在英文日記寫作中的實用表達。', createdAt: '2025-12-07' },
+          { id: 't-26', type: '谷口惠子的英語', title: '26 用指定片語造英文例句', note: '造句', content: '請用 “On a positive note,…” 造 3 個英文句子。', createdAt: '2025-12-07' },
+          { id: 't-28', type: '谷口惠子的英語', title: '28 代寫確認會議參加者的英文 Email', note: 'Email', content: '請用英文寫一封 email，向客戶確認下週會議的出席者。', createdAt: '2025-12-07' },
+          { id: 't-29', type: '谷口惠子的英語', title: '29 和文英譯訓練（含解答）', note: '翻譯訓練', content: '請為和文英譯訓練設計一段約 200 字左右的日文文章，主題為「鎌倉的魅力」。請在日文文章之後提供一個英譯範例。', createdAt: '2025-12-07' },
+          { id: 't-30', type: '谷口惠子的英語', title: '30 依情境與禮貌程度改寫英文信', note: '改寫信件', content: '請將下面這段英文改寫成適合作為寫給客戶的回饋信內容。（貼上英文 email）', createdAt: '2025-12-07' },
+          { id: 't-31', type: '谷口惠子的英語', title: '31 為朗讀（音讀）練習設計英文', note: '朗讀練習', content: '請寫一段約 150 字的英文，用來做朗讀（音讀）練習。・主題請設定為「提高專注力的方法」。・請包含 CEFR B2 等級的單字。・請另外附上一份加入切分位置標記的英文，供朗讀時參考。・在英文之後，請附上日文翻譯，以及 CEFR B2 等級單字清單（列出英文與日文意思）。', createdAt: '2025-12-07' },
+          { id: 't-32', type: '谷口惠子的英語', title: '32 為 Dictation（聽寫）練習設計英文', note: '聽寫練習', content: '請寫一段約 150 字的英文，用來做 dictation（聽寫）練習。・主題請設定為「未來的科技」。・請包含 CEFR B1 等級的單字。・請多加入不易聽清楚的連音（linking）。・在句子停頓處、逗號，以及適合換氣的地方換行，並在行間插入 /pause/。・最後請整理需要特別注意的要點，例如連音或較難聽清楚的單字。', createdAt: '2025-12-07' },
+          { id: 't-33', type: '谷口惠子的英語', title: '33 為 Repeating 練習設計英文', note: '跟讀練習', content: '請寫一段約 150 字的英文，用來做 repeating（跟讀重述）練習。・主題請設定為「提升跨文化溝通技巧的方法」。・請包含 CEFR B2 等級的單字。・請多加入不易聽清楚的連音。・在句子停頓處、逗號，以及適合換氣的位置加入斜線 / 作為切分標記。・最後請整理需要注意的要點，例如連音與較難聽懂的單字。', createdAt: '2025-12-07' },
+          { id: 't-34', type: '谷口惠子的英語', title: '34 為 Overlapping 練習設計英文', note: '同步跟讀', content: '請寫一段約 150 字的英文，用來做 overlapping（邊聽邊同時跟讀）練習。・主題請設定為「在 AI 時代學習英文的意義」。・請包含 CEFR B1 等級的單字。・請一併附上日文翻譯。', createdAt: '2025-12-07' },
+          { id: 't-35', type: '谷口惠子的英語', title: '35 為 Shadowing 練習設計英文', note: '影子練習', content: '請寫一段約 100 字的英文，用來做 shadowing（影子練習）訓練。・主題請設定為「持續學習的小訣竅」。・請將英文難度設定為 CEFR A2 等級。・請一併附上日文翻譯。', createdAt: '2025-12-07' },
+          { id: 't-36', type: '谷口惠子的英語', title: '36 練習分辨 L / R 發音', note: '發音分辨', content: '我想練習分辨 L 和 R 的發音，請寫出 10 句同時包含這兩個音的英文句子。', createdAt: '2025-12-07' },
+          { id: 't-37', type: '谷口惠子的英語', title: '37 為提升聽力做發音練習句', note: '聽力發音', content: '為了練習英語發音，請寫 10 句短英文句子。請讓這些句子都是在海外旅行時可能會用到的英文。', createdAt: '2025-12-07' },
+          { id: 't-39', type: '谷口惠子的英語', title: '39 提示應該記住的美術館專業字彙', note: '專業字彙', content: '請告訴我在美術館裡常用、而且比較難的英文字彙。', createdAt: '2025-12-07' },
+          { id: 't-40', type: '谷口惠子的英語', title: '40 說明單字語源與同源字', note: '語源', content: '請說明 “appropriate” 這個單字的語源。另外，請告訴我幾個擁有相同語源的英文單字。', createdAt: '2025-12-07' },
+          { id: 't-41', type: '谷口惠子的英語', title: '41 設計帶插圖的單字卡', note: '單字卡', content: '請為了記住 “bravery” 這個英文單字的意思，設計一張帶插圖的單字卡。・請在卡片中包含英文單字與它的日文意思，還有插圖。・插圖請畫成少年漫畫風格、很帥氣的感覺。', createdAt: '2025-12-07' },
+          { id: 't-42', type: '谷口惠子的英語', title: '42 說明近義字 notice / realize / recognize 的差異', note: '近義字', content: 'notice、realize、recognize 這幾個字要如何區分使用？', createdAt: '2025-12-07' },
+          { id: 't-43', type: '谷口惠子的英語', title: '43 提供 practical 的同義詞與反義詞', note: '同反義詞', content: '請告訴我 “practical” 的同義詞與反義詞。', createdAt: '2025-12-07' },
+          { id: 't-44', type: '谷口惠子的英語', title: '44 用指定單字各造一例句', note: '造句', content: '請使用下面這些單字，各造一個英文句子，並附上日文翻譯。（貼上單字）', createdAt: '2025-12-07' },
+          { id: 't-45', type: '谷口惠子的英語', title: '45 製作四選一單字測驗', note: '測驗', content: '・請幫我設計英語四選一的空格填充測驗。・每一題的四個選項中，只有 1 個是正確答案，其餘 3 個都是錯的。・請讓以下列出的其中一個單字，在每題中分別成為正確答案。・所有題目的正確答案請在最後一起告訴我。（貼上你想作為正解的英文單字）', createdAt: '2025-12-07' },
+          { id: 't-46', type: '谷口惠子的英語', title: '46 列出特定考試常見單字', note: '考試單字', content: '請列出 30 個可能會出現在英檢準 1 級的英文單字。・請一併附上日文意思。・請用表格輸出。', createdAt: '2025-12-07' },
+          { id: 't-47', type: '谷口惠子的英語', title: '47 長文＋四選一內容理解題', note: '閱讀測驗', content: '・請寫一篇約 300 字、風格類似 TOEIC Part 7 的英文長文。・接著，根據這篇文章的內容，出 3 題四選一的內容理解題。・每題四個選項中，只有 1 個是正確答案，其餘 3 個都是錯的。・所有題目的正確答案請在最後一起告訴我。', createdAt: '2025-12-07' },
+          { id: 't-48', type: '谷口惠子的英語', title: '48 長文＋四選一填空題', note: '克漏字', content: '・請寫一篇約 200 字、難度相當於英檢準 1 級的英文長文，並設計成空格填充題。・在同一段長文中設置 3 個空格，並為每個空格出一題四選一的題目。・每題四個選項中，只能有 1 個是正確答案，其餘 3 個都是錯的。・請混合出題：有些題目是補上單字，有些則是補上句子的一部分。・所有題目的正確答案請在最後一起告訴我。', createdAt: '2025-12-07' },
+          { id: 't-49', type: '谷口惠子的英語', title: '49 短句型四選一填空題（TOEIC Part 5）', note: '文法題', content: '請依照下面這個範例的形式與難度，出 10 題 TOEIC Part 5 類型的題目。・每題四個選項中，只能有 1 個是正確答案，其餘 3 個都是錯的。・所有題目的正確答案請在最後一起告訴我。（貼上 TOEIC Part 5 的範例題）', createdAt: '2025-12-07' },
+          { id: 't-50', type: '谷口惠子的英語', title: '50 詳細解說試題解析', note: '解析', content: '・請詳細說明，為什麼第 2 題的正確答案會是「B. disrupt natural evolution」。・也請詳細說明，其他選項為什麼是錯的。', createdAt: '2025-12-07' },
+          { id: 't-51', type: '谷口惠子的英語', title: '51 出考試用英文寫作題目（英檢 1 級）', note: '寫作題目', content: '請依照下面的格式，出 5 個可能會出現在英檢 1 級的英文作文題目。題目請一律以 “Agree or disagree:” 開頭。（貼上題目範例）', createdAt: '2025-12-07' },
+          { id: 't-52', type: '谷口惠子的英語', title: '52 出考試用口說題目（TOEIC Speaking）', note: '口說題目', content: '請依照下面的格式與難度，出一些類似 TOEIC Speaking 測驗中「陳述意見」題型的英語口說題目，並附上作答範例。（貼上題目範例）', createdAt: '2025-12-07' },
+          { id: 't-53', type: '谷口惠子的英語', title: '53 解釋難句文法', note: '文法解釋', content: '請解釋以下這句英文的文法。（貼上英文）', createdAt: '2025-12-07' },
+          { id: 't-54', type: '谷口惠子的英語', title: '54 請 AI 教你英文假設法', note: '文法教學', content: '請向我說明英文的假設法。', createdAt: '2025-12-07' },
+          { id: 't-55', type: '谷口惠子的英語', title: '55 提供假設法過去的例句', note: '例句', content: '請寫出 5 個使用假設法過去的英文例句。', createdAt: '2025-12-07' },
+          { id: 't-56', type: '谷口惠子的英語', title: '56 判斷是否正確使用假設法過去', note: '文法判斷', content: '下面這句英文有正確使用假設法過去嗎？請用日文說明。（貼上英文）', createdAt: '2025-12-07' },
+          { id: 't-57', type: '谷口惠子的英語', title: '57 出假設法過去的四選一文法題', note: '文法題', content: '請為學習假設法過去，出 4 題四選一的文法題。請在最後一起告訴我所有題目的正確答案。', createdAt: '2025-12-07' },
+          { id: 't-58', type: '谷口惠子的英語', title: '58 出假設法過去的空格填充題', note: '填充題', content: '請為學習假設法過去，設計 4 題文法空格填充題。', createdAt: '2025-12-07' },
+          { id: 't-59', type: '谷口惠子的英語', title: '59 出假設法過去的錯誤訂正題', note: '訂正題', content: '請為學習假設法過去，出 4 題「找出並修正文法錯誤」的題目。', createdAt: '2025-12-07' },
+          { id: 't-60', type: '谷口惠子的英語', title: '60 出假設法過去的句子重組題', note: '重組題', content: '請為學習假設法過去，出一些英文單字重組題，讓我把打亂順序的單字排成正確句子。', createdAt: '2025-12-07' },
+          { id: 't-61', type: '谷口惠子的英語', title: '61 Pattern Practice 練各種時態', note: '時態練習', content: '我想用 pattern practice 的方式練習英文各種時態。・請先給出基本句型，以及對應的英文例句。・接著，請出 10 題 pattern practice 題目，透過改變基本句子的時態或替換單字來練習。・每一題的題目部分請附上日文翻譯。・所有題目的正確答案請在最後一起告訴我。', createdAt: '2025-12-07' },
+          
+          // === 56思考戰法 ===
+          { id: 's-1', type: '56思考戰法', title: '技法 1：多樣特徵', note: '多樣特徵', content: '首先，請列出10種特徵不同的動物或生物。接著，請列出從每種動物聯想到的10個特徵或功能。最後，請將聯想到的單詞與〈請填寫想獲得創意的對象〉結合，構思7個具有實用功能的創意。', createdAt: '2025-12-07' },
+          { id: 's-2', type: '56思考戰法', title: '技法 2：10倍的目標', note: '10倍目標', content: '請生成一個目標比原本發想主題〈請填寫課題或目標〉高10倍的主題。接著，請聯想7個該目標已實現的狀態。最後，請以這些狀態為切入點，針對「原本的發想主題」提出「有魅力且易於執行」的創意。', createdAt: '2025-12-07' },
+          { id: 's-3', type: '56思考戰法', title: '技法 3：有縫隙的創意', note: '有縫隙創意', content: '關於〈請填寫想獲得創意的對象〉，請提出多個有縫隙的創意（＝聽者能從中聯想到各種衍生方案，且創意尚未成熟並帶有缺失）。', createdAt: '2025-12-07' },
+          { id: 's-4', type: '56思考戰法', title: '技法 4：藝術的啟示', note: '藝術啟示', content: '關於這個主題，請提出從著名小說或繪畫中獲得的創造性創意是什麼？', createdAt: '2025-12-07' },
+          { id: 's-5', type: '56思考戰法', title: '技法 5：各類專家提案', note: '專家提案', content: '請以多數專家（創意專家、技術專家、商業專家、學術研究者、社會科學家、用戶、顛覆者、具幽默感的人、冒險家）的角色，針對〈請填寫想獲得創意的對象〉提出具體的方案。', createdAt: '2025-12-07' },
+          { id: 's-6', type: '56思考戰法', title: '技法 6：環境考量方案', note: '環境考量', content: '關於〈請填寫課題等〉，是否有活用永續能源的創意，或是有考量到對環境影響的創意？', createdAt: '2025-12-07' },
+          { id: 's-7', type: '56思考戰法', title: '技法 7：相關的要素', note: '相關要素', content: '請列出30個能從此問題中聯想到的單詞，接著請列出100個相關性較低也能聯想到的單詞。', createdAt: '2025-12-07' },
+          { id: 's-8', type: '56思考戰法', title: '技法 8：廣泛視角', note: '廣泛視角', content: '廣泛提出創意時，以下6個觀點會有幫助。括號內是觀點的詳細資訊。請參考這些觀點，針對〈請填寫想獲得創意的對象〉生成多樣化的創意。→人（主体、客体、単数、複数、立場、能力、市場、仕入れ先）、モノ（製品、素材、人以外の生き物）、プロセス（人ともモノの動き、役割、相互作用）、環境（風土、取り巻く場、状況、時間、空間、構造）、意味・価値（意味、価値、感性、感情、金、情報、強み、機会、ビジョン、ゴール）、五感で感じるもの（色・形、音、におい、味、質感、触感、食感）', createdAt: '2025-12-07' },
+          { id: 's-9', type: '56思考戰法', title: '技法 9：隨機單字', note: '隨機單字', content: '首先，請列出100個日文單詞。請以「／」分隔單詞。輸出之後，接著請從中隨機選取單詞，並與「主題」結合，構思有魅力的創意。「主題」是〈請填寫想獲得創意的對象〉。', createdAt: '2025-12-07' },
+          { id: 's-10', type: '56思考戰法', title: '技法 10：異質的引入', note: '異質引入', content: '關於〈請填寫課題或目的〉，請列出7個與此問題解決完全異質化的要素，並分別構思將其引入的方案。這些方案會產生什麼效果？', createdAt: '2025-12-07' },
+          { id: 's-11', type: '56思考戰法', title: '技法 11：照片中的線索', note: '照片線索', content: '請列出10個從這張圖片聯想到的事物。接著請以這些事物為材料，針對〈請填寫想獲得創意的對象〉，構思3個妥當的方案和3個意外的方案。', createdAt: '2025-12-07' },
+          { id: 's-12', type: '56思考戰法', title: '技法 12：制約解放', note: '制約解放', content: '如果完全沒有能源、資金、時間、人才、法規的制約，您認為實現〈請填寫想獲得創意的對象〉最理想的方法是什麼？', createdAt: '2025-12-07' },
+          { id: 's-13', type: '56思考戰法', title: '技法 13：巧思模式', note: '巧思模式', content: '當需要進行某種巧思或改良時，請運用以下40個發想切入點來產生多樣化的創意。我們現在想針對〈請填寫課題或目的〉的改良產品進行構思。請從這40個切入點中，選出3個特別契合此主題的，以及3個通常難以結合的，並據此提出創意。', createdAt: '2025-12-07' },
+          { id: 's-14', type: '56思考戰法', title: '技法 14：理想的狀態', note: '理想狀態', content: '關於〈請填寫商品或服務〉，請提出能將其效益和功能發揮到最大限度，同時將成本和潛在危害降到最低的理想方案。接著請將這些理想方案進行組合，構思多個產品提案。', createdAt: '2025-12-07' },
+          { id: 's-15', type: '56思考戰法', title: '技法 15：未來的變化因子', note: '變化因子', content: '首先，請列出對〈請填寫想獲得創意的對象〉未來10年變化可能產生重大影響的因子。接著請設計在這些因子充分發展下，10年後該對象的樣貌。最後請以「N年後，執行●●」的格式，描繪一個具備實現性的3步驟構想。', createdAt: '2025-12-07' },
+          { id: 's-16', type: '56思考戰法', title: '技法 16：先見倍歷', note: '先見倍歷', content: '我們將「先見倍歷」定義為一種未來預測方法。請利用此「先見倍歷」預測〈請填寫想獲得創意的對象〉15年後的樣貌。', createdAt: '2025-12-07' },
+          { id: 's-17', type: '56思考戰法', title: '技法 17：9種模式 (SCAMPER)', note: 'SCAMPER', content: '請根據SCAMPER法，針對〈請填寫想獲得創意的對象〉提出創意。請參考以下觀點：S（代替）、C（結合）、A（適用）、M（修正）、M（拡大・縮小）、P（置き換え）、E（削除）、R（並べ替え）、R（逆）。', createdAt: '2025-12-07' },
+          { id: 's-18', type: '56思考戰法', title: '技法 18：新地平的探索', note: '新地平', content: '關於〈請填寫想獲得創意的對象〉這個主題，我們已經提出了一些創意。請從這些創意群組的偏差中，找出哪些創意方向尚未被考慮到。請列出創意群組的偏差。〈請填寫至今提出的所有創意〉', createdAt: '2025-12-07' },
+          { id: 's-19', type: '56思考戰法', title: '技法 19：構思的優點', note: '構思優點', content: '請對我提出的這個創意，評論其4個優點，以及1個為發展需考慮的要素。〈請填寫創意的候補〉', createdAt: '2025-12-07' },
+          { id: 's-20', type: '56思考戰法', title: '技法 20：創意的改善', note: '創意改善', content: '請選出經改善後創意品質提升幅度最大的創意，並提出其改善方案。〈請填寫主題與創意的候補〉', createdAt: '2025-12-07' },
+          { id: 's-21', type: '56思考戰法', title: '技法 21：團隊的創造力 (統整/分類)', note: '團隊創造', content: '**[技法 21.1 / 統整]** 請將以不同格式提出的創意清單轉換為統一的簡潔清單。請為每個創意編號，並盡可能保留原始表達方式。若有錯字或漏字，請在括號內註明訂正方案。〈請填寫各成員的創意〉\n\n**[技法 21.2 / 分類]** 請確認這些創意，並將相似的創意進行分組。請勿過度集約，保持創意的多樣性很重要。若要將相似創意合併為一，請在括號內包含相關的原始創意編號。此外，請捕捉創意的核心，以具體且明確的方式呈現集約後的創意。', createdAt: '2025-12-07' },
+          { id: 's-22', type: '56思考戰法', title: '技法 22：方案的組合', note: '方案組合', content: '請將您至今提出的創意與我提出的創意進行組合，生成多個發展方案。〈請填寫自己構思的創意候補〉', createdAt: '2025-12-07' },
+          { id: 's-23', type: '56思考戰法', title: '技法 23：不同的領域', note: '不同領域', content: '**[技法 23.1 / 特定業界]** 請將至今提出的創意與〈請填寫業界或服務〉的商業模式進行組合，可以構思出什麼樣的創意？\n\n**[技法 23.2 / AI找遠距業界]** 請列出一個與〈請填寫自公司的業界〉相距甚遠的領域中的優秀商業模式，並將其與至今提出的創意進行組合。', createdAt: '2025-12-07' },
+          { id: 's-24', type: '56思考戰法', title: '技法 24：創意的草圖', note: '創意草圖', content: '請以「創意的標題 1行」和「創意的詳細內容 3行」的格式描述這個創意。請讓內容大致說明目標受眾、內容和目的。請以三個方向完全不同的方案來呈現。', createdAt: '2025-12-07' },
+          { id: 's-25', type: '56思考戰法', title: '技法 25：6W3H', note: '6W3H', content: '為了將之前提出的創意發展為具體計畫，請詳細說明6W3H的所有要素。', createdAt: '2025-12-07' },
+          { id: 's-26', type: '56思考戰法', title: '技法 26：新事業構想模式', note: '新事業構想', content: '為了發展〈請填寫商業創意〉這個創意，請思考精實畫布（Lean Canvas）的各要素。', createdAt: '2025-12-07' },
+          { id: 's-27', type: '56思考戰法', title: '技法 27：妥當性的驗證', note: '妥當性驗證', content: '請針對至今提出的創意，以1到10分評估其妥當性（例如實現可能性）。最高分為10分。請同時說明評分理由。〈請填寫創意的候補〉', createdAt: '2025-12-07' },
+          { id: 's-28', type: '56思考戰法', title: '技法 28：優勢的驗證', note: '優勢驗證', content: '**[技法 28.1 / 優勢評估]** 成功執行這項事業所需的核心優勢是什麼？最適合執行這項事業的公司類型是哪一種？〈請填寫商業創意〉\n\n**[技法 28.2 / 改良建議]** 如果要改良這個創意，使其更能發揮貴公司的優勢，具體可以如何進行？〈請填寫貴公司的詳細資訊〉', createdAt: '2025-12-07' },
+          { id: 's-29', type: '56思考戰法', title: '技法 29：有影響力的人', note: '影響力', content: '〈請填寫主題或創意〉請確定與此主題相關的有影響力的人。請說明這些人對此創意的反應會是什麼？', createdAt: '2025-12-07' },
+          { id: 's-30', type: '56思考戰法', title: '技法 30：風險的驗證', note: '風險驗證', content: '**[技法 30.1 / 風險識別]** 請說明這項新事業創意中存在哪些風險？\n\n**[技法 30.2 / 對策構思]** 請構思涵蓋〈請填寫風險〉這個風險的應對方案，並將創意進行版本升級。', createdAt: '2025-12-07' },
+          { id: 's-31', type: '56思考戰法', title: '技法 31：模擬挑錯', note: '模擬挑錯', content: '上層部會如何回應這項企劃？請提出其可能指出的缺陷與質疑點。請以一般大企業上層重視的評估標準來進行模擬。', createdAt: '2025-12-07' },
+          { id: 's-32', type: '56思考戰法', title: '技法 32：避免不知情抄襲', note: '避免抄襲', content: '我們正在調查是否有與此創意高度相似的方案已存在。請列出5個已存在的相似方案。請以1到10分標示相似度，並說明理由。', createdAt: '2025-12-07' },
+          { id: 's-33', type: '56思考戰法', title: '技法 33：未來的報導發布', note: '未來報導', content: '**[技法 33.1 / 熱情版]** 請撰寫此企劃在3年後發布時的新聞稿。請註明服務名稱、預期用戶圖像、用戶的真實心聲、負責人的熱忱以及預期營收目標。\n\n**[技法 33.2 / 正式版]** 請以專業新聞從業人員的角度，撰寫一份穩健的新聞稿。由於上方的備註是給內部團隊看的，請對內容和架構進行適當的編輯。', createdAt: '2025-12-07' },
+          { id: 's-34', type: '56思考戰法', title: '技法 34：營收的計畫', note: '營收計畫', content: '請針對〈請填寫商業創意〉這個創意，模擬其以〈請填寫自公司或他公司的商業形態特徵〉作為新事業執行時，從第1個月到第18個月的月度營收、成本、人員和利潤表。請勿省略，詳細列出每個月的數據。', createdAt: '2025-12-07' },
+          { id: 's-35', type: '56思考戰法', title: '技法 35：初期的顧客獲取', note: '顧客獲取', content: '啟動這項事業時，初期獲取顧客的策略可以有哪些？請以優秀企業家的立場提出具體的提案。', createdAt: '2025-12-07' },
+          { id: 's-36', type: '56思考戰法', title: '技法 36：有魅力的呈現方式', note: '魅力呈現', content: '請描繪能有效呈現該創意的30秒影片腳本。請針對每個分鏡中需要插入的視覺元素，提供圖像生成AI的提示詞（Prompt）。', createdAt: '2025-12-07' },
+          { id: 's-37', type: '56思考戰法', title: '技法 37：實證實驗的步驟', note: '實證實驗', content: '**[技法 37.1 / 產品（モノ）]** 請建立驗證此創意能否實際運作的原型製作（Prototyping）作業步驟。請指出每個步驟中應注意的要點和需達成的要求。\n\n**[技法 37.2 / 服務（コト）]** 請建立驗證此創意能否實際運作的實證實驗步驟。請指出每個步驟中應注意的要點和需達成的要求。', createdAt: '2025-12-07' },
+          { id: 's-38', type: '56思考戰法', title: '技法 38：行動計畫', note: '行動計畫', content: '請提出實現此創意的具體行動計畫（Action Plan）。', createdAt: '2025-12-07' },
+          { id: 's-39', type: '56思考戰法', title: '技法 39：促進的要因', note: '促進要因', content: '解決〈請填寫課題〉這個問題有哪些有益的要素？請從不同角度，以各領域專家的身分，詳細列出所有可能性。', createdAt: '2025-12-07' },
+          { id: 's-40', type: '56思考戰法', title: '技法 40：阻礙的要因', note: '阻礙要因', content: '儘管〈請填寫課題〉這個難題困擾許多人多年，卻一直沒有得到解決。阻礙解決這些問題的因素是什麼？', createdAt: '2025-12-07' },
+          { id: 's-41', type: '56思考戰法', title: '技法 41：社會課題的洞察', note: '社會課題', content: '請說明〈請填寫社會課題〉這個社會課題的「具體內容」、「受苦的人們」、「本質原因」和「若置之不理將會產生的新問題」。', createdAt: '2025-12-07' },
+          { id: 's-42', type: '56思考戰法', title: '技法 42：國內外的先例', note: '先例', content: '在日本國內或世界上是否有已解決同類問題的成功案例？即使是舊案例也無妨。請從其他語言的資料中提取資訊，並用中文告訴我。', createdAt: '2025-12-07' },
+          { id: 's-43', type: '56思考戰法', title: '技法 43：其他領域事例的探索', note: '他領域事例', content: '解決此問題的線索，請列出一些「其他領域中的類似問題」和「其解決方案」。', createdAt: '2025-12-07' },
+          { id: 's-44', type: '56思考戰法', title: '技法 44：煩惱的分割', note: '煩惱分割', content: '我們想從複雜的問題或煩惱中創造出一個發想主題。具體來說，請將〈請填寫煩惱〉生成多個微調後的主題，讓問題更易於思考。', createdAt: '2025-12-07' },
+          { id: 's-45', type: '56思考戰法', title: '技法 45：煩惱的根源', note: '煩惱根源', content: '我們想從複雜的問題或煩惱中創造出一個發想主題。具體來說，請針對〈請填寫煩惱〉這個煩惱，生成一個能聚焦於問題根源的主題。', createdAt: '2025-12-07' },
+          { id: 's-46', type: '56思考戰法', title: '技法 46：煩惱的抽象化', note: '煩惱抽象化', content: '請將〈請填寫煩惱〉這個煩惱，以略微、中度、高度的層次進行上位概念化，並分別生成3個具備吸引力的「發想主題」。發想主題請以「如何執行OO？」或是「構思新的OO」的句型來呈現。', createdAt: '2025-12-07' },
+          { id: 's-47', type: '56思考戰法', title: '技法 47：主要的困擾', note: '主要困擾', content: '請列出〈請填寫人物或屬性〉所面臨的困擾。', createdAt: '2025-12-07' },
+          { id: 's-48', type: '56思考戰法', title: '技法 48：現有產品的壓力', note: '現有壓力', content: '顧客針對〈請填寫現有產品或服務〉感受到壓力的因素是什麼？', createdAt: '2025-12-07' },
+          { id: 's-49', type: '56思考戰法', title: '技法 49：不滿的要素', note: '不滿要素', content: '讓〈請填寫顧客的屬性或特性等〉的滿意度下降的要素是什麼？', createdAt: '2025-12-07' },
+          { id: 's-50', type: '56思考戰法', title: '技法 50：滿意度的提升', note: '滿意度提升', content: '具體可以如何提升〈請填寫顧客的屬性或特性等〉的滿意度？', createdAt: '2025-12-07' },
+          { id: 's-51', type: '56思考戰法', title: '技法 51：重要的要素', note: '重要要素', content: '以下列出的目標用戶所追求的最重要要素（或是功能）是什麼？〈請填寫顧客的屬性或特性等〉', createdAt: '2025-12-07' },
+          { id: 's-52', type: '56思考戰法', title: '技法 52：主題的目標', note: '主題目標', content: '如果這個問題獲得解決，誰的困擾會得到緩解或解決，並因此感到高興？', createdAt: '2025-12-07' },
+          { id: 's-53', type: '56思考戰法', title: '技法 53：構思的目標', note: '構思目標', content: '針對〈請填寫商品或服務的創意〉這個產品概念，您可以想像出哪些市場或人群會成為其潛在用戶群？', createdAt: '2025-12-07' },
+          { id: 's-54', type: '56思考戰法', title: '技法 54：最近的傾向', note: '最近傾向', content: '關於這個問題的解決方案，最新的趨勢是什麼？', createdAt: '2025-12-07' },
+          { id: 's-55', type: '56思考戰法', title: '技法 55：從趨勢預測', note: '趨勢預測', content: '關於〈請填寫主題或課題等〉，請以現有資訊和趨勢為基礎，演繹性地描繪出一般的預測。', createdAt: '2025-12-07' },
+          { id: 's-56', type: '56思考戰法', title: '技法 56：百年的預測', note: '百年預測', content: '您認為100年後的〈請填寫商品、服務、行為或概念等〉會是什麼樣子？', createdAt: '2025-12-07' }
         ];
 
         // --- C. 主程式組件 ---
         function PromptDatabase() {
-            // State
+            // State: 使用 promptDb_v2 作為新的 key，確保載入新資料
             const [cards, setCards] = useState(() => {
-                const saved = localStorage.getItem('promptDb_v1');
+                const saved = localStorage.getItem('promptDb_v2');
                 return saved ? JSON.parse(saved) : INITIAL_DATA;
             });
 
             const [searchTerm, setSearchTerm] = useState('');
             const [filterType, setFilterType] = useState('All');
-            const [isModalOpen, setIsModalOpen] = useState(false);
+            const [isEditModalOpen, setIsEditModalOpen] = useState(false);
             const [editingCard, setEditingCard] = useState(null);
+            const [showImportDialog, setShowImportDialog] = useState(false);
+            const [pendingImportData, setPendingImportData] = useState([]);
+            const [copiedId, setCopiedId] = useState(null);
             
             const [formData, setFormData] = useState({
                 type: '', title: '', content: '', note: ''
             });
+
+            const fileInputRef = useRef(null);
 
             // Logic
             const allTypes = useMemo(() => {
@@ -106,29 +200,32 @@
                     const matchesSearch = 
                         card.title.toLowerCase().includes(searchLower) ||
                         card.content.toLowerCase().includes(searchLower) ||
-                        card.note.toLowerCase().includes(searchLower) ||
+                        (card.note && card.note.toLowerCase().includes(searchLower)) ||
                         card.type.toLowerCase().includes(searchLower);
                     return matchesType && matchesSearch;
                 });
             }, [cards, filterType, searchTerm]);
 
             useEffect(() => {
-                localStorage.setItem('promptDb_v1', JSON.stringify(cards));
+                localStorage.setItem('promptDb_v2', JSON.stringify(cards));
             }, [cards]);
 
             // Handlers
-            const handleCopy = (text) => {
+            const handleCopy = (id, text) => {
                 if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(text).then(() => alert("已複製到剪貼簿！"));
+                    navigator.clipboard.writeText(text).catch(err => console.error("Copy failed", err));
                 } else {
                     const textArea = document.createElement("textarea");
                     textArea.value = text;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-9999px";
                     document.body.appendChild(textArea);
                     textArea.select();
-                    document.execCommand('copy');
+                    try { document.execCommand('copy'); } catch (err) { console.error('Fallback copy failed', err); }
                     document.body.removeChild(textArea);
-                    alert("已複製到剪貼簿！");
                 }
+                setCopiedId(id);
+                setTimeout(() => setCopiedId(null), 2000);
             };
 
             const handleExport = () => {
@@ -137,14 +234,14 @@
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `prompt_backup_${new Date().toISOString().slice(0,10)}.json`;
+                link.download = `prompt_backup_v2_${new Date().toISOString().slice(0,10)}.json`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
                 URL.revokeObjectURL(url);
             };
 
-            const handleImport = (e) => {
+            const handleFileRead = (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
                 const reader = new FileReader();
@@ -152,10 +249,8 @@
                     try {
                         const importedData = JSON.parse(event.target.result);
                         if (Array.isArray(importedData)) {
-                            if(confirm(`確定要匯入 ${importedData.length} 筆資料嗎？這將會覆蓋目前的資料。`)) {
-                                setCards(importedData);
-                                alert("匯入成功！");
-                            }
+                            setPendingImportData(importedData);
+                            setShowImportDialog(true);
                         } else {
                             alert("格式錯誤：檔案內容必須是陣列格式");
                         }
@@ -164,35 +259,54 @@
                     }
                 };
                 reader.readAsText(file);
-                e.target.value = ''; 
+                e.target.value = '';
+            };
+
+            const executeImport = (strategy) => {
+                if (!pendingImportData.length) return;
+
+                if (strategy === 'overwrite') {
+                    if(confirm("警告：這將會刪除目前所有的卡片並用匯入檔取代。確定嗎？")) {
+                        setCards(pendingImportData);
+                        alert(`已完全覆蓋！共匯入 ${pendingImportData.length} 筆資料。`);
+                    } else { return; }
+                } 
+                else if (strategy === 'append_skip') {
+                    const existingIds = new Set(cards.map(c => c.id));
+                    const newCards = pendingImportData.filter(item => !existingIds.has(item.id));
+                    if (newCards.length > 0) {
+                        setCards(prev => [...prev, ...newCards]);
+                        alert(`匯入成功！\n新增了 ${newCards.length} 筆資料。\n忽略了 ${pendingImportData.length - newCards.length} 筆重複資料。`);
+                    } else {
+                        alert("沒有新增資料，所有匯入項目的 ID 都已存在。");
+                    }
+                } 
+                else if (strategy === 'merge_update') {
+                    const incomingMap = new Map(pendingImportData.map(item => [item.id, item]));
+                    const updatedExisting = cards.map(oldCard => incomingMap.has(oldCard.id) ? incomingMap.get(oldCard.id) : oldCard);
+                    const existingIds = new Set(cards.map(c => c.id));
+                    const brandNewCards = pendingImportData.filter(item => !existingIds.has(item.id));
+                    setCards([...updatedExisting, ...brandNewCards]);
+                    alert(`合併成功！\n更新了現有資料並新增了 ${brandNewCards.length} 筆資料。`);
+                }
+                setShowImportDialog(false);
+                setPendingImportData([]);
             };
 
             const handleDelete = (id) => {
-                if(confirm("確定要刪除這張卡片嗎？")) {
-                    setCards(prev => prev.filter(c => c.id !== id));
-                }
+                if(confirm("確定要刪除這張卡片嗎？")) { setCards(prev => prev.filter(c => c.id !== id)); }
             };
 
             const openEditModal = (card) => {
                 setEditingCard(card);
-                setFormData({
-                    type: card.type,
-                    title: card.title,
-                    content: card.content,
-                    note: card.note
-                });
-                setIsModalOpen(true);
+                setFormData({ type: card.type, title: card.title, content: card.content, note: card.note });
+                setIsEditModalOpen(true);
             };
 
             const openAddModal = () => {
                 setEditingCard(null);
-                setFormData({
-                    type: '',
-                    title: '',
-                    content: '',
-                    note: ''
-                });
-                setIsModalOpen(true);
+                setFormData({ type: '', title: '', content: '', note: '' });
+                setIsEditModalOpen(true);
             };
 
             const handleSave = () => {
@@ -203,19 +317,14 @@
                 if (editingCard) {
                     setCards(prev => prev.map(c => c.id === editingCard.id ? { ...c, ...formData } : c));
                 } else {
-                    const newCard = {
-                        id: Date.now().toString(),
-                        createdAt: new Date().toISOString().slice(0, 10),
-                        ...formData
-                    };
+                    const newCard = { id: Date.now().toString(), createdAt: new Date().toISOString().slice(0, 10), ...formData };
                     setCards(prev => [newCard, ...prev]);
                 }
-                setIsModalOpen(false);
+                setIsEditModalOpen(false);
             };
 
-            // JSX Render
             return (
-                <div className="min-h-screen p-4 md:p-8 font-sans">
+                <div className="min-h-screen p-4 md:p-8 font-sans relative">
                     {/* Header */}
                     <div className="max-w-6xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
@@ -223,16 +332,9 @@
                             <p className="text-slate-500 text-sm">目前的卡片數量：{cards.length} 張</p>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            <button onClick={handleExport} className="flex items-center gap-1 px-4 py-2 bg-white border border-slate-300 rounded hover:bg-slate-50 text-sm">
-                                <Icons.Download /> 匯出 JSON
-                            </button>
-                            <label className="flex items-center gap-1 px-4 py-2 bg-white border border-slate-300 rounded hover:bg-slate-50 text-sm cursor-pointer">
-                                <Icons.Upload /> 匯入 JSON
-                                <input type="file" onChange={handleImport} accept=".json" className="hidden" />
-                            </label>
-                            <button onClick={openAddModal} className="flex items-center gap-1 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 shadow-sm text-sm">
-                                <Icons.Plus /> 新增卡片
-                            </button>
+                            <button onClick={handleExport} className="flex items-center gap-1 px-4 py-2 bg-white border border-slate-300 rounded hover:bg-slate-50 text-sm"><Icons.Download /> 匯出 JSON</button>
+                            <label className="flex items-center gap-1 px-4 py-2 bg-white border border-slate-300 rounded hover:bg-slate-50 text-sm cursor-pointer"><Icons.Upload /> 匯入資料 <input ref={fileInputRef} type="file" onChange={handleFileRead} accept=".json" className="hidden" /></label>
+                            <button onClick={openAddModal} className="flex items-center gap-1 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 shadow-sm text-sm"><Icons.Plus /> 新增卡片</button>
                         </div>
                     </div>
 
@@ -240,28 +342,16 @@
                     <div className="max-w-6xl mx-auto mb-6 bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row gap-4">
                         <div className="flex-1">
                             <label className="block text-xs font-medium text-slate-500 mb-1">類型篩選</label>
-                            <select 
-                                value={filterType} 
-                                onChange={(e) => setFilterType(e.target.value)}
-                                className="w-full p-2 border border-slate-300 rounded bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            >
+                            <select value={filterType} onChange={(e) => setFilterType(e.target.value)} className="w-full p-2 border border-slate-300 rounded bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                                 <option value="All">全部顯示 ({cards.length})</option>
-                                {allTypes.map(type => (
-                                    <option key={type} value={type}>{type}</option>
-                                ))}
+                                {allTypes.map(type => <option key={type} value={type}>{type}</option>)}
                             </select>
                         </div>
                         <div className="flex-[2]">
                             <label className="block text-xs font-medium text-slate-500 mb-1">關鍵字搜尋</label>
                             <div className="relative">
                                 <div className="absolute left-3 top-2.5 text-slate-400"><Icons.Search /></div>
-                                <input 
-                                    type="text" 
-                                    placeholder="搜尋標題、內容或標籤..." 
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full pl-10 p-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                />
+                                <input type="text" placeholder="搜尋標題、內容或標籤..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 p-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                             </div>
                         </div>
                     </div>
@@ -269,24 +359,16 @@
                     {/* Card Grid */}
                     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredCards.length === 0 ? (
-                            <div className="col-span-full text-center py-12 text-slate-400">
-                                沒有找到符合條件的 Prompt 卡片
-                            </div>
+                            <div className="col-span-full text-center py-12 text-slate-400">沒有找到符合條件的 Prompt 卡片</div>
                         ) : (
                             filteredCards.map(card => (
                                 <div key={card.id} className="bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
                                     <div className="p-4 border-b border-slate-100">
                                         <div className="flex justify-between items-start mb-2">
-                                            <span className="inline-block px-2 py-1 text-xs font-semibold bg-indigo-100 text-indigo-700 rounded-full">
-                                                {card.type}
-                                            </span>
+                                            <span className="inline-block px-2 py-1 text-xs font-semibold bg-indigo-100 text-indigo-700 rounded-full">{card.type}</span>
                                             <div className="flex gap-1">
-                                                <button onClick={() => openEditModal(card)} className="p-1 text-slate-400 hover:text-indigo-600">
-                                                    <Icons.Edit2 />
-                                                </button>
-                                                <button onClick={() => handleDelete(card.id)} className="p-1 text-slate-400 hover:text-red-600">
-                                                    <Icons.Trash2 />
-                                                </button>
+                                                <button onClick={() => openEditModal(card)} className="p-1 text-slate-400 hover:text-indigo-600"><Icons.Edit2 /></button>
+                                                <button onClick={() => handleDelete(card.id)} className="p-1 text-slate-400 hover:text-red-600"><Icons.Trash2 /></button>
                                             </div>
                                         </div>
                                         <h3 className="font-bold text-lg text-slate-800 leading-tight">{card.title}</h3>
@@ -294,91 +376,64 @@
                                     </div>
                                     <div className="p-4 flex-grow bg-slate-50/50">
                                         <div className="relative group h-full">
-                                            <pre className="whitespace-pre-wrap font-sans text-sm text-slate-700 bg-white p-3 rounded border border-slate-200 h-40 overflow-y-auto">
-                                                {card.content}
-                                            </pre>
-                                            <button 
-                                                onClick={() => handleCopy(card.content)}
-                                                className="absolute top-2 right-2 p-1.5 bg-white border border-slate-200 rounded shadow-sm text-slate-500 hover:text-green-600 opacity-0 group-hover:opacity-100 transition-opacity"
-                                                title="複製 Prompt"
-                                            >
-                                                <Icons.Copy />
+                                            <pre className="whitespace-pre-wrap font-sans text-sm text-slate-700 bg-white p-3 rounded border border-slate-200 h-40 overflow-y-auto">{card.content}</pre>
+                                            <button onClick={() => handleCopy(card.id, card.content)} className={`absolute top-2 right-2 p-1.5 border rounded shadow-sm transition-all duration-300 ${copiedId === card.id ? "bg-green-50 border-green-200 text-green-600 opacity-100 scale-110" : "bg-white border-slate-200 text-slate-500 hover:text-green-600 opacity-0 group-hover:opacity-100"}`} title={copiedId === card.id ? "複製成功" : "複製 Prompt"}>
+                                                {copiedId === card.id ? <Icons.Check size={16} /> : <Icons.Copy size={16} />}
                                             </button>
                                         </div>
                                     </div>
                                     <div className="p-3 bg-slate-50 text-xs text-slate-500 border-t border-slate-100 min-h-[40px]">
-                                        {card.note && (
-                                            <div className="flex items-start gap-1">
-                                                <div className="mt-0.5"><Icons.Tag size={12}/></div>
-                                                <span>{card.note}</span>
-                                            </div>
-                                        )}
+                                        {card.note && (<div className="flex items-start gap-1"><div className="mt-0.5"><Icons.Tag size={12}/></div><span>{card.note}</span></div>)}
                                     </div>
                                 </div>
                             ))
                         )}
                     </div>
 
-                    {/* Modal */}
-                    {isModalOpen && (
+                    {/* Import Choice Modal */}
+                    {showImportDialog && (
+                        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[60] backdrop-blur-sm">
+                            <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in">
+                                <div className="p-5 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
+                                    <div className="bg-indigo-100 p-2 rounded-full text-indigo-600"><Icons.FileJson size={24} /></div>
+                                    <div><h2 className="font-bold text-lg text-slate-800">選擇匯入方式</h2><p className="text-xs text-slate-500">檔案中包含 {pendingImportData.length} 筆資料</p></div>
+                                </div>
+                                <div className="p-6 space-y-3">
+                                    <button onClick={() => executeImport('append_skip')} className="w-full flex items-center gap-4 p-4 rounded-lg border-2 border-green-100 bg-green-50/50 hover:bg-green-100 hover:border-green-300 transition-all text-left group">
+                                        <div className="bg-green-200 text-green-700 p-2 rounded-full group-hover:bg-green-300"><Icons.Plus size={20} /></div>
+                                        <div><span className="block font-bold text-slate-800">保留舊資料 (推薦)</span><span className="text-xs text-slate-600">ID 重複時，保留目前的。只加入全新的卡片。</span></div>
+                                    </button>
+                                    <button onClick={() => executeImport('merge_update')} className="w-full flex items-center gap-4 p-4 rounded-lg border-2 border-blue-100 bg-blue-50/50 hover:bg-blue-100 hover:border-blue-300 transition-all text-left group">
+                                        <div className="bg-blue-200 text-blue-700 p-2 rounded-full group-hover:bg-blue-300"><Icons.Upload size={20} /></div>
+                                        <div><span className="block font-bold text-slate-800">合併並更新</span><span className="text-xs text-slate-600">ID 重複時，用檔案覆蓋目前的。全新的也加入。</span></div>
+                                    </button>
+                                    <button onClick={() => executeImport('overwrite')} className="w-full flex items-center gap-4 p-4 rounded-lg border-2 border-red-100 bg-red-50/50 hover:bg-red-100 hover:border-red-300 transition-all text-left group">
+                                        <div className="bg-red-200 text-red-700 p-2 rounded-full group-hover:bg-red-300"><Icons.AlertTriangle size={20} /></div>
+                                        <div><span className="block font-bold text-red-800">完全覆蓋 (危險)</span><span className="text-xs text-red-600">刪除目前所有資料，完全使用檔案內容。</span></div>
+                                    </button>
+                                </div>
+                                <div className="p-4 bg-slate-50 border-t border-slate-100 text-center"><button onClick={() => {setShowImportDialog(false); setPendingImportData([]);}} className="text-slate-400 hover:text-slate-600 text-sm">取消匯入</button></div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Edit/Add Modal */}
+                    {isEditModalOpen && (
                         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
                             <div className="bg-white rounded-xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
                                 <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
                                     <h2 className="font-bold text-lg">{editingCard ? '編輯卡片' : '新增卡片'}</h2>
-                                    <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600">
-                                        <Icons.X size={24} />
-                                    </button>
+                                    <button onClick={() => setIsEditModalOpen(false)} className="text-slate-400 hover:text-slate-600"><Icons.X size={24} /></button>
                                 </div>
                                 <div className="p-6 space-y-4 overflow-y-auto">
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">類型 (可直接輸入新類型)</label>
-                                        <input 
-                                            list="typeOptions"
-                                            type="text"
-                                            value={formData.type}
-                                            onChange={(e) => setFormData({...formData, type: e.target.value})}
-                                            className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                                            placeholder="例如：行銷文案、程式開發..."
-                                        />
-                                        <datalist id="typeOptions">
-                                            {allTypes.map(type => <option key={type} value={type} />)}
-                                        </datalist>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">標題</label>
-                                        <input 
-                                            type="text"
-                                            value={formData.title}
-                                            onChange={(e) => setFormData({...formData, title: e.target.value})}
-                                            className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                                            placeholder="例如：No 1. 無限英語會話"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">Prompt 內容</label>
-                                        <textarea 
-                                            value={formData.content}
-                                            onChange={(e) => setFormData({...formData, content: e.target.value})}
-                                            className="w-full p-2 border border-slate-300 rounded h-32 focus:ring-2 focus:ring-indigo-500 focus:outline-none font-mono text-sm"
-                                            placeholder="在此貼上 Prompt..."
-                                        ></textarea>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">備註 (Tag)</label>
-                                        <input 
-                                            type="text"
-                                            value={formData.note}
-                                            onChange={(e) => setFormData({...formData, note: e.target.value})}
-                                            className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                                            placeholder="例如：英文學習, 角色扮演"
-                                        />
-                                    </div>
+                                    <div><label className="block text-sm font-medium text-slate-700 mb-1">類型</label><input list="typeOptions" type="text" value={formData.type} onChange={(e) => setFormData({...formData, type: e.target.value})} className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="例如：行銷文案..." /><datalist id="typeOptions">{allTypes.map(type => <option key={type} value={type} />)}</datalist></div>
+                                    <div><label className="block text-sm font-medium text-slate-700 mb-1">標題</label><input type="text" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="例如：No 1. 無限英語會話" /></div>
+                                    <div><label className="block text-sm font-medium text-slate-700 mb-1">Prompt 內容</label><textarea value={formData.content} onChange={(e) => setFormData({...formData, content: e.target.value})} className="w-full p-2 border border-slate-300 rounded h-32 focus:ring-2 focus:ring-indigo-500 focus:outline-none font-mono text-sm" placeholder="在此貼上 Prompt..."></textarea></div>
+                                    <div><label className="block text-sm font-medium text-slate-700 mb-1">備註 (Tag)</label><input type="text" value={formData.note} onChange={(e) => setFormData({...formData, note: e.target.value})} className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="例如：英文學習..." /></div>
                                 </div>
                                 <div className="p-4 border-t border-slate-100 flex justify-end gap-2 bg-slate-50">
-                                    <button onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-slate-600 hover:bg-slate-200 rounded">取消</button>
-                                    <button onClick={handleSave} className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 flex items-center gap-1">
-                                        <Icons.Save size={18} /> 儲存
-                                    </button>
+                                    <button onClick={() => setIsEditModalOpen(false)} className="px-4 py-2 text-slate-600 hover:bg-slate-200 rounded">取消</button>
+                                    <button onClick={handleSave} className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 flex items-center gap-1"><Icons.Save size={18} /> 儲存</button>
                                 </div>
                             </div>
                         </div>
@@ -387,7 +442,6 @@
             );
         }
 
-        // --- D. 啟動應用程式 ---
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<PromptDatabase />);
     </script>
