@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Vocabulary Journal</title>
     
     <!-- React & ReactDOM -->
@@ -16,7 +16,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -24,391 +24,413 @@
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
         }
         .font-mono {
             font-family: 'Roboto Mono', monospace;
         }
+        /* Hide scrollbar for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Custom nice scrollbar for modal */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useMemo, useRef } = React;
 
-        // 初始範例資料 (已更新 collaborate 的例句)
+        // 2025/12/06 Timestamp
+        const DATE_2025_12_06 = new Date('2025-12-06T12:00:00').getTime();
+
         const INITIAL_DATA = [
             {
-                id: 1,
-                word: "collaborate",
-                meaning: "",
-                source: "PAF p167 your ability to communicate and collaborate is improved",
-                sentence: "We need to collaborate with the valuation team on finalizing the pricing assumptions.",
-                association: "work on setting assumptions",
-                tags: "SOA",
-                createdAt: Date.now()
+                "id": 1,
+                "word": "collaborate",
+                "meaning": "",
+                "source": "PAF p167 your ability to communicate and collaborate is improved",
+                "sentence": "We need to collaborate with the valuation team on finalizing the pricing assumptions.",
+                "association": "work on setting assumptions",
+                "tags": "SOA",
+                "createdAt": DATE_2025_12_06,
+                "lastReviewed": DATE_2025_12_06
             },
             {
-                id: 2,
-                word: "itinerary",
-                meaning: "行程",
-                source: "Agoda : itinerary",
-                sentence: "I email the itinerary of Oscar to you.",
-                association: "",
-                tags: "",
-                createdAt: Date.now() - 1000
+                "id": 2,
+                "word": "itinerary",
+                "meaning": "行程",
+                "source": "Agoda : itinerary",
+                "sentence": "I emailed you the itinerary for Osaka.",
+                "association": "I am arranging my trip",
+                "tags": "Travel",
+                "createdAt": DATE_2025_12_06,
+                "lastReviewed": DATE_2025_12_06
             }
         ];
 
+        const formatDate = (timestamp) => {
+            if (!timestamp) return 'N/A';
+            const date = new Date(timestamp);
+            return `${date.getFullYear()}/${(date.getMonth()+1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+        };
+
         function App() {
+            // State
             const [entries, setEntries] = useState(() => {
-                const saved = localStorage.getItem('vocab-journal-data');
-                return saved ? JSON.parse(saved) : INITIAL_DATA;
+                const saved = localStorage.getItem('vocab-journal-data-v2');
+                let data = saved ? JSON.parse(saved) : INITIAL_DATA;
+                data = data.map(item => ({ ...item, lastReviewed: item.lastReviewed || item.createdAt }));
+                return data;
             });
             const [searchTerm, setSearchTerm] = useState("");
+            const [sortType, setSortType] = useState("id_asc");
             const [isModalOpen, setIsModalOpen] = useState(false);
+            const [isSettingsOpen, setIsSettingsOpen] = useState(false); // 控制設定選單
             const [currentEntry, setCurrentEntry] = useState(null);
 
             // Auto-save
             useEffect(() => {
-                localStorage.setItem('vocab-journal-data', JSON.stringify(entries));
+                localStorage.setItem('vocab-journal-data-v2', JSON.stringify(entries));
             }, [entries]);
 
-            // CRUD Operations
+            // Sorting
+            const sortedEntries = useMemo(() => {
+                const filtered = entries.filter(entry => {
+                    const searchLower = searchTerm.toLowerCase();
+                    return (
+                        entry.word.toLowerCase().includes(searchLower) ||
+                        entry.tags.toLowerCase().includes(searchLower) ||
+                        entry.sentence.toLowerCase().includes(searchLower)
+                    );
+                });
+
+                return filtered.sort((a, b) => {
+                    switch (sortType) {
+                        case "id_asc": return a.id - b.id;
+                        case "id_desc": return b.id - a.id;
+                        case "review_asc": return a.lastReviewed - b.lastReviewed;
+                        case "review_desc": return b.lastReviewed - a.lastReviewed;
+                        default: return a.id - b.id;
+                    }
+                });
+            }, [entries, searchTerm, sortType]);
+
+            // Handlers
             const handleDelete = (id) => {
                 if (window.confirm("確定要刪除這個單字卡嗎？")) {
                     setEntries(entries.filter(entry => entry.id !== id));
                 }
             };
 
+            const handleReviewUpdate = (id) => {
+                const now = Date.now();
+                setEntries(prevEntries => prevEntries.map(entry => 
+                    entry.id === id ? { ...entry, lastReviewed: now } : entry
+                ));
+            };
+
             const handleReset = () => {
-                if (window.confirm("這會清除目前所有變更並恢復成預設範例（含最新的修正），確定嗎？")) {
+                if (window.confirm("這會將所有資料重置為預設的兩張卡片 (2025/12/6 版本)，確定嗎？")) {
                     setEntries(INITIAL_DATA);
-                    localStorage.removeItem('vocab-journal-data');
+                    localStorage.removeItem('vocab-journal-data-v2');
+                    setIsSettingsOpen(false);
                 }
             };
 
             const handleSave = (entryData) => {
+                const now = Date.now();
                 if (currentEntry) {
-                    setEntries(entries.map(e => e.id === currentEntry.id ? { ...entryData, id: currentEntry.id, createdAt: currentEntry.createdAt } : e));
+                    setEntries(entries.map(e => e.id === currentEntry.id ? { 
+                        ...entryData, id: currentEntry.id, createdAt: currentEntry.createdAt, lastReviewed: currentEntry.lastReviewed 
+                    } : e));
                 } else {
-                    setEntries([{ ...entryData, id: Date.now(), createdAt: Date.now() }, ...entries]);
+                    const newId = Date.now(); 
+                    setEntries([{ ...entryData, id: newId, createdAt: now, lastReviewed: now }, ...entries]);
                 }
                 setIsModalOpen(false);
                 setCurrentEntry(null);
             };
 
-            const openEditModal = (entry) => {
-                setCurrentEntry(entry);
-                setIsModalOpen(true);
-            };
-
-            const openNewModal = () => {
-                setCurrentEntry(null);
-                setIsModalOpen(true);
-            };
-
-            // Export Data
             const handleExport = () => {
                 const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entries));
                 const downloadAnchorNode = document.createElement('a');
                 downloadAnchorNode.setAttribute("href", dataStr);
-                downloadAnchorNode.setAttribute("download", "vocabulary_backup.json");
+                downloadAnchorNode.setAttribute("download", "vocab_backup.json");
                 document.body.appendChild(downloadAnchorNode);
                 downloadAnchorNode.click();
                 downloadAnchorNode.remove();
+                setIsSettingsOpen(false);
             };
 
-            // Import Data
             const handleImport = (event) => {
                 const fileReader = new FileReader();
                 fileReader.readAsText(event.target.files[0], "UTF-8");
                 fileReader.onload = e => {
                     try {
-                        const importedData = JSON.parse(e.target.result);
+                        let importedData = JSON.parse(e.target.result);
                         if (Array.isArray(importedData)) {
+                            importedData = importedData.map(item => ({
+                                ...item,
+                                lastReviewed: item.lastReviewed || item.createdAt || Date.now()
+                            }));
                             if(window.confirm("匯入將會覆蓋目前的資料，確定嗎？")) {
                                 setEntries(importedData);
+                                setIsSettingsOpen(false);
                             }
-                        } else {
-                            alert("檔案格式錯誤");
-                        }
-                    } catch (error) {
-                        alert("無法讀取檔案");
-                    }
+                        } else { alert("檔案格式錯誤"); }
+                    } catch (error) { alert("無法讀取檔案"); }
                 };
             };
 
-            const filteredEntries = entries.filter(entry => {
-                const searchLower = searchTerm.toLowerCase();
-                return (
-                    entry.word.toLowerCase().includes(searchLower) ||
-                    entry.tags.toLowerCase().includes(searchLower) ||
-                    entry.sentence.toLowerCase().includes(searchLower)
-                );
-            });
+            const openNewModal = () => { setCurrentEntry(null); setIsModalOpen(true); };
+            const openEditModal = (entry) => { setCurrentEntry(entry); setIsModalOpen(true); };
 
             return (
-                <div className="min-h-screen pb-12">
-                    {/* Header */}
-                    <header className="bg-slate-800 text-white shadow-lg sticky top-0 z-10">
-                        <div className="max-w-4xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                            <div className="flex items-center gap-3">
-                                <i className="ph ph-book-bookmark text-3xl text-emerald-400"></i>
-                                <h1 className="text-xl md:text-2xl font-bold tracking-wide">Vocabulary Journal</h1>
+                <div className="min-h-screen pb-32 bg-[#f8fafc]">
+                    
+                    {/* 1. 極簡 Top Header */}
+                    <header className="bg-white/80 backdrop-blur-md sticky top-0 z-20 border-b border-slate-200">
+                        <div className="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <i className="ph-fill ph-book-bookmark text-2xl text-emerald-500"></i>
+                                <h1 className="text-lg font-bold text-slate-800 tracking-tight">Vocabulary Journal</h1>
+                                <span className="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded-full font-mono">{entries.length}</span>
                             </div>
                             
-                            <div className="flex w-full md:w-auto gap-3">
-                                <div className="relative flex-grow md:w-64">
-                                    <i className="ph ph-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
-                                    <input 
-                                        type="text" 
-                                        placeholder="搜尋單字、例句或標籤..." 
-                                        className="w-full pl-10 pr-4 py-2 rounded-full bg-slate-700 border-none text-white focus:ring-2 focus:ring-emerald-400 outline-none placeholder-slate-400 text-sm"
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                    />
-                                </div>
-                                <button 
-                                    onClick={openNewModal}
-                                    className="bg-emerald-500 hover:bg-emerald-600 text-white p-2 rounded-full shadow-md transition-transform transform hover:scale-105 flex-shrink-0"
-                                    title="新增單字"
-                                >
-                                    <i className="ph ph-plus text-xl"></i>
-                                </button>
-                            </div>
+                            {/* 設定按鈕 (收納雜項功能) */}
+                            <button 
+                                onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                                className={`p-2 rounded-full transition-all ${isSettingsOpen ? 'bg-slate-100 text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}
+                            >
+                                <i className="ph-fill ph-gear text-xl"></i>
+                            </button>
                         </div>
+
+                        {/* 下拉式設定選單 (Settings Menu) */}
+                        {isSettingsOpen && (
+                            <div className="absolute top-14 left-0 w-full bg-white border-b border-slate-200 shadow-lg animate-fade-in z-10">
+                                <div className="max-w-3xl mx-auto p-4 flex flex-wrap gap-3 justify-end">
+                                    <button onClick={handleReset} className="flex items-center gap-2 px-3 py-2 text-sm text-red-500 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                                        <i className="ph ph-arrow-counter-clockwise"></i> 重置預設
+                                    </button>
+                                    <button onClick={handleExport} className="flex items-center gap-2 px-3 py-2 text-sm text-emerald-600 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors">
+                                        <i className="ph ph-download-simple"></i> 備份資料
+                                    </button>
+                                    <label className="flex items-center gap-2 px-3 py-2 text-sm text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer">
+                                        <i className="ph ph-upload-simple"></i> 匯入資料
+                                        <input type="file" onChange={handleImport} className="hidden" accept=".json" />
+                                    </label>
+                                </div>
+                            </div>
+                        )}
                     </header>
 
-                    {/* Controls Bar */}
-                    <div className="max-w-4xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center text-xs text-slate-500 gap-2">
-                        <span>共 {entries.length} 個單字</span>
-                        <div className="flex gap-4">
-                            <button onClick={handleReset} className="hover:text-red-500 flex items-center gap-1 transition-colors">
-                                <i className="ph ph-arrow-counter-clockwise"></i> 清除重置
-                            </button>
-                            <button onClick={handleExport} className="hover:text-emerald-600 flex items-center gap-1 transition-colors">
-                                <i className="ph ph-download-simple"></i> 備份資料
-                            </button>
-                            <label className="hover:text-blue-600 flex items-center gap-1 cursor-pointer transition-colors">
-                                <i className="ph ph-upload-simple"></i> 匯入資料
-                                <input type="file" onChange={handleImport} className="hidden" accept=".json" />
-                            </label>
-                        </div>
-                    </div>
-
-                    {/* Card Grid */}
-                    <main className="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                        {filteredEntries.length === 0 ? (
-                            <div className="col-span-1 md:col-span-2 text-center py-20 text-slate-400">
-                                <i className="ph ph-notebook text-6xl mb-4"></i>
-                                <p>找不到符合的單字，點擊右上角「+」新增一個吧！</p>
+                    {/* 2. 主要內容區 (Cards) */}
+                    <main className="max-w-3xl mx-auto px-4 pt-4 grid grid-cols-1 gap-4">
+                        {sortedEntries.length === 0 ? (
+                            <div className="text-center py-20 text-slate-400">
+                                <i className="ph ph-ghost text-4xl mb-2 opacity-50"></i>
+                                <p className="text-sm">這裡空空的，快去新增單字吧！</p>
                             </div>
                         ) : (
-                            filteredEntries.map(entry => (
+                            sortedEntries.map((entry, index) => (
                                 <EntryCard 
                                     key={entry.id} 
                                     entry={entry} 
                                     onEdit={() => openEditModal(entry)} 
                                     onDelete={() => handleDelete(entry.id)} 
+                                    onReview={() => handleReviewUpdate(entry.id)}
                                 />
                             ))
                         )}
                     </main>
 
-                    {/* Modal */}
-                    {isModalOpen && (
-                        <Modal 
-                            onClose={() => setIsModalOpen(false)} 
-                            onSave={handleSave} 
-                            initialData={currentEntry} 
-                        />
-                    )}
-                </div>
-            );
-        }
-
-        function EntryCard({ entry, onEdit, onDelete }) {
-            return (
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 flex flex-col overflow-hidden relative group">
-                    <div className="h-1.5 w-full bg-gradient-to-r from-emerald-400 to-blue-500"></div>
-                    
-                    <div className="p-5 flex-grow">
-                        <div className="flex justify-between items-start mb-3">
-                            <div>
-                                <h2 className="text-2xl font-bold text-slate-800 tracking-tight">{entry.word}</h2>
-                                {entry.meaning && <span className="text-sm text-slate-500 font-medium">{entry.meaning}</span>}
-                            </div>
-                            {entry.tags && (
-                                <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-md font-medium">
-                                    {entry.tags}
+                    {/* 3. 底部操作區 (Bottom Bar) - 倒置的核心 */}
+                    <div className="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-30 px-4 py-3 safe-area-pb">
+                        <div className="max-w-3xl mx-auto flex items-center gap-3">
+                            
+                            {/* 排序按鈕 (Sort) */}
+                            <div className="relative shrink-0">
+                                <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                    <i className="ph-fill ph-sort-ascending"></i>
+                                </div>
+                                <select 
+                                    value={sortType}
+                                    onChange={(e) => setSortType(e.target.value)}
+                                    className="appearance-none bg-slate-100 text-slate-700 text-sm font-medium pl-9 pr-8 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer w-[50px] md:w-auto overflow-hidden md:overflow-visible text-transparent md:text-slate-700"
+                                    title="排序方式"
+                                >
+                                    <option value="id_asc" className="text-black">No. 小→大</option>
+                                    <option value="id_desc" className="text-black">No. 大→小</option>
+                                    <option value="review_asc" className="text-black">複習 遠→近</option>
+                                    <option value="review_desc" className="text-black">複習 近→遠</option>
+                                </select>
+                                {/* Mobile Sort Icon Only Hack */}
+                                <span className="absolute inset-0 flex md:hidden items-center justify-center pointer-events-none text-slate-500">
+                                    <i className="ph-fill ph-sort-ascending text-xl"></i>
                                 </span>
-                            )}
-                        </div>
-
-                        <div className="space-y-4">
-                            <div className="text-sm">
-                                <div className="flex items-center gap-1 text-slate-400 text-xs mb-0.5 font-bold uppercase tracking-wider">
-                                    <i className="ph ph-book-open"></i> 來源 & 原句
-                                </div>
-                                <p className="text-slate-600 bg-slate-50 p-2 rounded border border-slate-100 italic">
-                                    {entry.source || "無來源資料"}
-                                </p>
                             </div>
 
-                            <div className="text-sm">
-                                <div className="flex items-center gap-1 text-amber-500 text-xs mb-0.5 font-bold uppercase tracking-wider">
-                                    <i className="ph ph-star-fill"></i> 我的造句
-                                </div>
-                                <p className="text-slate-800 font-medium border-l-2 border-amber-400 pl-3 py-1">
-                                    {entry.sentence || "尚未造句"}
-                                </p>
+                            {/* 搜尋框 (Search) - 佔據最大空間 */}
+                            <div className="relative flex-grow">
+                                <i className="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                                <input 
+                                    type="text" 
+                                    placeholder="搜尋..." 
+                                    className="w-full pl-10 pr-4 py-3 bg-slate-100 rounded-xl border-none text-slate-800 placeholder-slate-400 outline-none focus:ring-2 focus:ring-emerald-400 focus:bg-white transition-all shadow-inner text-base"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
                             </div>
 
-                            {entry.association && (
-                                <div className="text-sm">
-                                    <div className="flex items-center gap-1 text-purple-500 text-xs mb-0.5 font-bold uppercase tracking-wider">
-                                        <i className="ph ph-brain"></i> 私人聯想
-                                    </div>
-                                    <p className="text-slate-600">{entry.association}</p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="bg-slate-50 px-5 py-3 border-t border-slate-100 flex justify-end gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button 
-                            onClick={onEdit}
-                            className="text-slate-500 hover:text-blue-600 p-1.5 hover:bg-white rounded-full transition-colors"
-                            title="編輯"
-                        >
-                            <i className="ph ph-pencil-simple text-lg"></i>
-                        </button>
-                        <button 
-                            onClick={onDelete}
-                            className="text-slate-500 hover:text-red-600 p-1.5 hover:bg-white rounded-full transition-colors"
-                            title="刪除"
-                        >
-                            <i className="ph ph-trash text-lg"></i>
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        function Modal({ onClose, onSave, initialData }) {
-            const [formData, setFormData] = useState({
-                word: "",
-                meaning: "",
-                source: "",
-                sentence: "",
-                association: "",
-                tags: ""
-            });
-
-            useEffect(() => {
-                if (initialData) {
-                    setFormData(initialData);
-                }
-            }, [initialData]);
-
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                onSave(formData);
-            };
-
-            const handleChange = (e) => {
-                setFormData({ ...formData, [e.target.name]: e.target.value });
-            };
-
-            return (
-                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-fade-in">
-                        <div className="bg-slate-800 px-6 py-4 flex justify-between items-center text-white">
-                            <h3 className="text-lg font-bold">{initialData ? '編輯單字' : '新增單字'}</h3>
-                            <button onClick={onClose} className="hover:text-red-300">
-                                <i className="ph ph-x text-xl"></i>
+                            {/* 新增按鈕 (Add) - 醒目 */}
+                            <button 
+                                onClick={openNewModal}
+                                className="shrink-0 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-xl shadow-lg flex items-center justify-center transition-transform active:scale-90"
+                            >
+                                <i className="ph-bold ph-plus text-2xl"></i>
                             </button>
                         </div>
-                        
-                        <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+                    </div>
+
+                    {/* Modal */}
+                    {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} onSave={handleSave} initialData={currentEntry} />}
+                </div>
+            );
+        }
+
+        // --- EntryCard Component (保持原設計) ---
+        function EntryCard({ entry, onEdit, onDelete, onReview }) {
+            const isReviewedToday = new Date(entry.lastReviewed).toDateString() === new Date().toDateString();
+
+            return (
+                <div className={`bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group transition-all duration-300 ${isReviewedToday ? 'ring-2 ring-emerald-400/30' : ''}`}>
+                    
+                    {/* 頂部裝飾條 */}
+                    <div className={`h-1.5 w-full bg-gradient-to-r ${isReviewedToday ? 'from-emerald-400 to-emerald-600' : 'from-slate-300 to-slate-400'}`}></div>
+                    
+                    <div className="p-5 space-y-4">
+                        {/* 1. 編號 & 單字 */}
+                        <div className="flex items-baseline justify-between border-b border-slate-100 pb-3">
+                            <div className="flex items-baseline gap-2">
+                                <span className="font-mono text-xs text-slate-400 font-bold bg-slate-50 px-1.5 py-0.5 rounded">#{entry.id}</span>
+                                <h2 className="text-2xl font-bold text-slate-800 tracking-tight">{entry.word}</h2>
+                            </div>
+                            {/* 快捷操作 (Desktop Hover) */}
+                            <div className="flex gap-1">
+                                <button onClick={onEdit} className="p-1.5 text-slate-300 hover:text-blue-500 rounded transition-colors"><i className="ph-fill ph-pencil-simple text-lg"></i></button>
+                                <button onClick={onDelete} className="p-1.5 text-slate-300 hover:text-red-500 rounded transition-colors"><i className="ph-fill ph-trash text-lg"></i></button>
+                            </div>
+                        </div>
+
+                        {/* 2. 意思 */}
+                        {entry.meaning && <div className="text-slate-700 font-medium text-lg">{entry.meaning}</div>}
+
+                        {/* 3. 來源 */}
+                        <div className="flex gap-2 items-start text-sm">
+                            <span className="shrink-0 text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5 py-0.5">Source</span>
+                            <span className="text-slate-500 italic bg-slate-50 px-2 py-0.5 rounded">{entry.source || "無來源"}</span>
+                        </div>
+
+                        {/* 4. 我的造句 (Highlight) */}
+                        <div className="bg-amber-50/80 p-3 rounded-lg border-l-4 border-amber-400">
+                            <div className="text-[10px] font-bold text-amber-600/70 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                <i className="ph-fill ph-star text-amber-500"></i> My Sentence
+                            </div>
+                            <p className="text-slate-800 font-medium leading-relaxed">{entry.sentence || "尚未造句"}</p>
+                        </div>
+
+                        {/* 5. 私人聯想 */}
+                        {entry.association && (
+                            <div className="flex gap-2 items-start text-sm group/assoc">
+                                <span className="shrink-0 text-[10px] font-bold text-purple-400 uppercase tracking-wider mt-0.5 py-0.5">Assoc.</span>
+                                <span className="text-slate-600 border-b border-dashed border-slate-300 pb-0.5">{entry.association}</span>
+                            </div>
+                        )}
+
+                        {/* 6. 標籤 & 底部打卡 */}
+                        <div className="pt-3 mt-2 border-t border-slate-100 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                {entry.tags ? (
+                                    <span className="bg-blue-50 text-blue-600 text-xs px-2.5 py-1 rounded-full font-bold flex items-center gap-1">
+                                        <i className="ph-fill ph-hash text-[10px]"></i> {entry.tags}
+                                    </span>
+                                ) : <span className="text-slate-300 text-xs">No Tags</span>}
+                            </div>
+
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); onReview(); }}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 shadow-sm ${
+                                    isReviewedToday 
+                                    ? 'bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200'
+                                    : 'bg-white text-slate-500 ring-1 ring-slate-200 hover:text-emerald-600 hover:ring-emerald-400'
+                                }`}
+                            >
+                                <i className={`ph-fill ${isReviewedToday ? 'ph-check-circle' : 'ph-circle'}`}></i>
+                                {isReviewedToday ? formatDate(entry.lastReviewed) : '打卡複習'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // --- Modal Component (表單) ---
+        function Modal({ onClose, onSave, initialData }) {
+            const [formData, setFormData] = useState({
+                word: "", meaning: "", source: "", sentence: "", association: "", tags: ""
+            });
+            useEffect(() => { if (initialData) setFormData(initialData); }, [initialData]);
+            const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+            return (
+                <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-end md:items-center justify-center p-4 md:p-4 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white w-full max-w-lg rounded-t-2xl md:rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+                        <div className="bg-slate-50 px-6 py-4 flex justify-between items-center border-b border-slate-100 shrink-0">
+                            <h3 className="text-lg font-bold text-slate-700">{initialData ? '編輯卡片' : '新增卡片'}</h3>
+                            <button onClick={onClose} className="bg-slate-200 hover:bg-slate-300 text-slate-500 rounded-full p-1"><i className="ph-bold ph-x text-lg"></i></button>
+                        </div>
+                        <form onSubmit={(e) => { e.preventDefault(); onSave(formData); }} className="p-6 space-y-5 overflow-y-auto overflow-x-hidden">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">單字 (Word)</label>
-                                    <input 
-                                        type="text" name="word" required
-                                        className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none font-bold text-lg"
-                                        value={formData.word} onChange={handleChange}
-                                        placeholder="ex: collaborate"
-                                    />
+                                    <label className="block text-xs font-bold text-slate-500 mb-1">單字 (Word)</label>
+                                    <input type="text" name="word" required className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none font-bold text-lg" value={formData.word} onChange={handleChange} placeholder="Required" />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">中文意思 (Meaning)</label>
-                                    <input 
-                                        type="text" name="meaning"
-                                        className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none"
-                                        value={formData.meaning} onChange={handleChange}
-                                        placeholder="ex: 合作"
-                                    />
+                                    <label className="block text-xs font-bold text-slate-500 mb-1">意思 (Meaning)</label>
+                                    <input type="text" name="meaning" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none" value={formData.meaning} onChange={handleChange} />
                                 </div>
                             </div>
-
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">來源 & 原句 (Source)</label>
-                                <textarea 
-                                    name="source" rows="2"
-                                    className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none text-sm"
-                                    value={formData.source} onChange={handleChange}
-                                    placeholder="書名、頁數、文章來源..."
-                                ></textarea>
+                                <label className="block text-xs font-bold text-slate-500 mb-1">來源 (Source)</label>
+                                <textarea name="source" rows="1" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm resize-none" value={formData.source} onChange={handleChange}></textarea>
                             </div>
-
                             <div>
-                                <label className="block text-xs font-bold text-amber-600 mb-1 uppercase">★ 我的造句 (My Sentence)</label>
-                                <textarea 
-                                    name="sentence" rows="2"
-                                    className="w-full p-2 border border-amber-200 rounded focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none bg-amber-50 text-sm"
-                                    value={formData.sentence} onChange={handleChange}
-                                    placeholder="試著用這個單字造個句子..."
-                                ></textarea>
+                                <label className="block text-xs font-bold text-amber-600 mb-1">我的造句 (My Sentence)</label>
+                                <textarea name="sentence" rows="3" className="w-full px-3 py-2 border border-amber-200 bg-amber-50 rounded-lg focus:ring-2 focus:ring-amber-400 outline-none text-sm" value={formData.sentence} onChange={handleChange} placeholder="試著造個句子..."></textarea>
                             </div>
-
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">私人聯想 (Association)</label>
-                                    <input 
-                                        type="text" name="association"
-                                        className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none text-sm"
-                                        value={formData.association} onChange={handleChange}
-                                        placeholder="工作場景、圖像記憶..."
-                                    />
+                                    <label className="block text-xs font-bold text-slate-500 mb-1">聯想 (Association)</label>
+                                    <input type="text" name="association" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm" value={formData.association} onChange={handleChange} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">標籤 (Tags)</label>
-                                    <input 
-                                        type="text" name="tags"
-                                        className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none text-sm"
-                                        value={formData.tags} onChange={handleChange}
-                                        placeholder="ex: SOA, Finance"
-                                    />
+                                    <label className="block text-xs font-bold text-slate-500 mb-1">標籤 (Tags)</label>
+                                    <input type="text" name="tags" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm" value={formData.tags} onChange={handleChange} placeholder="Comma separated" />
                                 </div>
                             </div>
-
-                            <div className="pt-4 flex justify-end gap-3 border-t border-slate-100">
-                                <button 
-                                    type="button" 
-                                    onClick={onClose}
-                                    className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded transition-colors"
-                                >
-                                    取消
-                                </button>
-                                <button 
-                                    type="submit" 
-                                    className="px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded shadow-sm transition-colors"
-                                >
-                                    儲存
-                                </button>
+                            <div className="pt-2">
+                                <button type="submit" className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-md active:scale-95 transition-transform">儲存單字</button>
                             </div>
                         </form>
                     </div>
