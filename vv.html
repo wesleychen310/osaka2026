@@ -33,18 +33,14 @@
         /* Hide scrollbar for clean UI */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        /* Custom nice scrollbar for modal */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Animation for Toast */
+        @keyframes slide-up {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-        .animate-fade-in {
-            animation: fadeIn 0.3s ease-out forwards;
+        .animate-slide-up {
+            animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
     </style>
 </head>
@@ -54,38 +50,49 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo } = React;
 
-        // 2025/12/06 Timestamp
-        const DATE_2025_12_06 = new Date('2025-12-06T12:00:00').getTime();
-
-        // Updated Data Structure
+        // --- 1. 更新後的初始資料 (包含新欄位) ---
         const INITIAL_DATA = [
+            {
+                "word": "empathy",
+                "partOfSpeech": "n.",
+                "phonetic": "/'empəθi/",
+                "meaning": "同理心",
+                "sourceTitle": "PAF",
+                "sourceSentence": "Relating well develops mutual empathy and respect that motivates you, and your teammates, to perform to the best of your abilities",
+                "sentence": "Managers should show more empathy toward their team members.",
+                "association": "不該吼同事",
+                "tags": "WORK ",
+                "id": 1765080119858,
+                "createdAt": 1765080119858,
+                "lastReviewed": 1765080445919
+            },
             {
                 "id": 1,
                 "word": "collaborate",
-                "partOfSpeech": "v.", // New
-                "phonetic": "/kəˈlæbəˌreɪt/", // New
+                "partOfSpeech": "v.",
+                "phonetic": "/kəˈlæbəˌreɪt/",
                 "meaning": "合作",
-                "sourceTitle": "PAF p167", // Split
-                "sourceSentence": "your ability to communicate and collaborate is improved", // Split
+                "sourceTitle": "PAF p167",
+                "sourceSentence": "your ability to communicate and collaborate is improved",
                 "sentence": "We need to collaborate with the valuation team on finalizing the pricing assumptions.",
                 "association": "work on setting assumptions",
                 "tags": "SOA",
-                "createdAt": DATE_2025_12_06,
-                "lastReviewed": DATE_2025_12_06
+                "createdAt": 1764993600000,
+                "lastReviewed": 1764993600000
             },
             {
                 "id": 2,
                 "word": "itinerary",
-                "partOfSpeech": "n.", // New
-                "phonetic": "/aɪˈtɪnəˌrɛri/", // New
+                "partOfSpeech": "n.",
+                "phonetic": "/aɪˈtɪnəˌrɛri/",
                 "meaning": "行程",
-                "sourceTitle": "Agoda", // Split
-                "sourceSentence": "itinerary", // Split
+                "sourceTitle": "Agoda",
+                "sourceSentence": "itinerary",
                 "sentence": "I emailed you the itinerary for Osaka.",
                 "association": "I am arranging my trip",
                 "tags": "Travel",
-                "createdAt": DATE_2025_12_06,
-                "lastReviewed": DATE_2025_12_06
+                "createdAt": 1764993600000,
+                "lastReviewed": 1764993600000
             }
         ];
 
@@ -95,49 +102,67 @@
             return `${date.getFullYear()}/${(date.getMonth()+1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
         };
 
+        // --- 2. 備份檢查常數 (3天) ---
+        const BACKUP_REMINDER_DAYS = 3;
+        const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
         function App() {
-            // State
+            // --- State ---
             const [entries, setEntries] = useState(() => {
-                const saved = localStorage.getItem('vocab-journal-data-v3'); // Version 3
+                const saved = localStorage.getItem('vocab-journal-data-v3'); // Version 3 for new schema
                 let data = saved ? JSON.parse(saved) : INITIAL_DATA;
-                
-                // Migration Logic: Convert old 'source' string to new fields if needed
-                data = data.map(item => {
-                    const newItem = { ...item };
-                    // If old 'source' exists but new 'sourceTitle' doesn't, migrate it
-                    if (item.source && !item.sourceTitle) {
-                        newItem.sourceTitle = item.source; // Move old text to title temporarily
-                        newItem.sourceSentence = "";
-                    }
-                    // Ensure dates exist
-                    newItem.lastReviewed = newItem.lastReviewed || newItem.createdAt || Date.now();
-                    return newItem;
-                });
+                // Migration: Ensure fields exist
+                data = data.map(item => ({ 
+                    ...item, 
+                    lastReviewed: item.lastReviewed || item.createdAt || Date.now() 
+                }));
                 return data;
             });
+
+            // 記錄「上一次備份」的時間戳記
+            const [lastBackupTime, setLastBackupTime] = useState(() => {
+                return parseInt(localStorage.getItem('vocab-last-backup-time') || '0', 10);
+            });
+
+            const [showBackupReminder, setShowBackupReminder] = useState(false);
             const [searchTerm, setSearchTerm] = useState("");
             const [sortType, setSortType] = useState("id_asc");
             const [isModalOpen, setIsModalOpen] = useState(false);
             const [isSettingsOpen, setIsSettingsOpen] = useState(false);
             const [currentEntry, setCurrentEntry] = useState(null);
 
-            // Auto-save
+            // --- Effects ---
+            
+            // Auto-save entries
             useEffect(() => {
                 localStorage.setItem('vocab-journal-data-v3', JSON.stringify(entries));
             }, [entries]);
 
-            // Sorting
+            // Save backup time
+            useEffect(() => {
+                localStorage.setItem('vocab-last-backup-time', lastBackupTime.toString());
+            }, [lastBackupTime]);
+
+            // Check backup status on load
+            useEffect(() => {
+                const now = Date.now();
+                // 如果 (現在時間 - 上次備份時間) > 3天 * 毫秒數
+                if (now - lastBackupTime > BACKUP_REMINDER_DAYS * MS_PER_DAY) {
+                    // 延遲一點點跳出，避免一進畫面太突兀
+                    const timer = setTimeout(() => setShowBackupReminder(true), 1500);
+                    return () => clearTimeout(timer);
+                }
+            }, [lastBackupTime]);
+
+            // --- Logic ---
+
             const sortedEntries = useMemo(() => {
                 const filtered = entries.filter(entry => {
                     const searchLower = searchTerm.toLowerCase();
-                    // Safe access to fields
-                    const word = entry.word || "";
-                    const tags = entry.tags || "";
-                    const meaning = entry.meaning || "";
                     return (
-                        word.toLowerCase().includes(searchLower) ||
-                        tags.toLowerCase().includes(searchLower) ||
-                        meaning.includes(searchLower)
+                        entry.word.toLowerCase().includes(searchLower) ||
+                        (entry.tags && entry.tags.toLowerCase().includes(searchLower)) ||
+                        (entry.sentence && entry.sentence.toLowerCase().includes(searchLower))
                     );
                 });
 
@@ -152,7 +177,6 @@
                 });
             }, [entries, searchTerm, sortType]);
 
-            // Actions
             const handleDelete = (id) => {
                 if (window.confirm("確定要刪除這個單字卡嗎？")) {
                     setEntries(entries.filter(entry => entry.id !== id));
@@ -167,8 +191,10 @@
             };
 
             const handleReset = () => {
-                if (window.confirm("這會重置所有資料為最新的預設範本，確定嗎？")) {
+                if (window.confirm("這會將所有資料重置為預設狀態 (Empathy/Collaborate/Itinerary)，確定嗎？")) {
                     setEntries(INITIAL_DATA);
+                    // 重置時也把備份時間設為現在 (因為剛重置通常不需要馬上備份)
+                    setLastBackupTime(Date.now());
                     localStorage.removeItem('vocab-journal-data-v3');
                     setIsSettingsOpen(false);
                 }
@@ -178,24 +204,35 @@
                 const now = Date.now();
                 if (currentEntry) {
                     setEntries(entries.map(e => e.id === currentEntry.id ? { 
-                        ...entryData, id: currentEntry.id, createdAt: currentEntry.createdAt, lastReviewed: currentEntry.lastReviewed 
+                        ...e, ...entryData 
                     } : e));
                 } else {
                     const newId = Date.now(); 
-                    setEntries([{ ...entryData, id: newId, createdAt: now, lastReviewed: now }, ...entries]);
+                    setEntries([{ 
+                        ...entryData, 
+                        id: newId, 
+                        createdAt: now, 
+                        lastReviewed: now 
+                    }, ...entries]);
                 }
                 setIsModalOpen(false);
                 setCurrentEntry(null);
             };
 
+            // 核心功能：執行備份
             const handleExport = () => {
                 const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entries));
+                const dateStr = new Date().toISOString().slice(0,10);
                 const downloadAnchorNode = document.createElement('a');
                 downloadAnchorNode.setAttribute("href", dataStr);
-                downloadAnchorNode.setAttribute("download", "vocab_backup_v3.json");
+                downloadAnchorNode.setAttribute("download", `vocab_backup_${dateStr}.json`);
                 document.body.appendChild(downloadAnchorNode);
                 downloadAnchorNode.click();
                 downloadAnchorNode.remove();
+                
+                // 更新最後備份時間
+                setLastBackupTime(Date.now());
+                setShowBackupReminder(false);
                 setIsSettingsOpen(false);
             };
 
@@ -206,16 +243,14 @@
                     try {
                         let importedData = JSON.parse(e.target.result);
                         if (Array.isArray(importedData)) {
-                             // Data migration for imports
-                             importedData = importedData.map(item => ({
+                            importedData = importedData.map(item => ({
                                 ...item,
-                                lastReviewed: item.lastReviewed || item.createdAt || Date.now(),
-                                // Migration logic also here for imports
-                                sourceTitle: item.sourceTitle || item.source || "",
-                                sourceSentence: item.sourceSentence || ""
+                                lastReviewed: item.lastReviewed || item.createdAt || Date.now()
                             }));
-                            if(window.confirm("匯入將會覆蓋目前的資料，確定嗎？")) {
+                            if(window.confirm(`準備匯入 ${importedData.length} 筆資料，這將覆蓋現有內容，確定嗎？`)) {
                                 setEntries(importedData);
+                                // 匯入通常也算是一種資料更新的里程碑，更新備份時間以避免馬上跳提醒
+                                setLastBackupTime(Date.now());
                                 setIsSettingsOpen(false);
                             }
                         } else { alert("檔案格式錯誤"); }
@@ -234,25 +269,38 @@
                         <div className="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <i className="ph-fill ph-book-bookmark text-2xl text-emerald-500"></i>
-                                <h1 className="text-lg font-bold text-slate-800 tracking-tight">Vocabulary Journal</h1>
+                                <h1 className="text-lg font-bold text-slate-800 tracking-tight">Vocabulary</h1>
                                 <span className="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded-full font-mono">{entries.length}</span>
                             </div>
-                            <button onClick={() => setIsSettingsOpen(!isSettingsOpen)} className={`p-2 rounded-full transition-all ${isSettingsOpen ? 'bg-slate-100 text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}>
+                            <button 
+                                onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                                className={`p-2 rounded-full transition-all ${isSettingsOpen ? 'bg-slate-100 text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}
+                            >
                                 <i className="ph-fill ph-gear text-xl"></i>
                             </button>
                         </div>
                         {isSettingsOpen && (
                             <div className="absolute top-14 left-0 w-full bg-white border-b border-slate-200 shadow-lg animate-fade-in z-10">
                                 <div className="max-w-3xl mx-auto p-4 flex flex-wrap gap-3 justify-end">
-                                    <button onClick={handleReset} className="flex items-center gap-2 px-3 py-2 text-sm text-red-500 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"><i className="ph ph-arrow-counter-clockwise"></i> 重置預設</button>
-                                    <button onClick={handleExport} className="flex items-center gap-2 px-3 py-2 text-sm text-emerald-600 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors"><i className="ph ph-download-simple"></i> 備份資料</button>
-                                    <label className="flex items-center gap-2 px-3 py-2 text-sm text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer"><i className="ph ph-upload-simple"></i> 匯入資料 <input type="file" onChange={handleImport} className="hidden" accept=".json" /></label>
+                                    <div className="w-full text-xs text-slate-400 mb-2 text-right">
+                                        上次備份: {lastBackupTime ? new Date(lastBackupTime).toLocaleString() : '從未備份'}
+                                    </div>
+                                    <button onClick={handleReset} className="flex items-center gap-2 px-3 py-2 text-sm text-red-500 bg-red-50 rounded-lg hover:bg-red-100">
+                                        <i className="ph ph-arrow-counter-clockwise"></i> 重置
+                                    </button>
+                                    <button onClick={handleExport} className="flex items-center gap-2 px-3 py-2 text-sm text-emerald-600 bg-emerald-50 rounded-lg hover:bg-emerald-100">
+                                        <i className="ph ph-download-simple"></i> 立即備份
+                                    </button>
+                                    <label className="flex items-center gap-2 px-3 py-2 text-sm text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 cursor-pointer">
+                                        <i className="ph ph-upload-simple"></i> 匯入
+                                        <input type="file" onChange={handleImport} className="hidden" accept=".json" />
+                                    </label>
                                 </div>
                             </div>
                         )}
                     </header>
 
-                    {/* Main Content */}
+                    {/* Main List */}
                     <main className="max-w-3xl mx-auto px-4 pt-4 grid grid-cols-1 gap-4">
                         {sortedEntries.length === 0 ? (
                             <div className="text-center py-20 text-slate-400">
@@ -276,75 +324,119 @@
                     <div className="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-30 px-4 py-3 safe-area-pb">
                         <div className="max-w-3xl mx-auto flex items-center gap-3">
                             <div className="relative shrink-0">
-                                <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"><i className="ph-fill ph-sort-ascending"></i></div>
-                                <select value={sortType} onChange={(e) => setSortType(e.target.value)} className="appearance-none bg-slate-100 text-slate-700 text-sm font-medium pl-9 pr-8 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer w-[50px] md:w-auto overflow-hidden md:overflow-visible text-transparent md:text-slate-700">
+                                <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                    <i className="ph-fill ph-sort-ascending"></i>
+                                </div>
+                                <select 
+                                    value={sortType}
+                                    onChange={(e) => setSortType(e.target.value)}
+                                    className="appearance-none bg-slate-100 text-slate-700 text-sm font-medium pl-9 pr-8 py-3 rounded-xl border-none outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer w-[50px] md:w-auto overflow-hidden md:overflow-visible text-transparent md:text-slate-700"
+                                >
                                     <option value="id_asc" className="text-black">No. 小→大</option>
                                     <option value="id_desc" className="text-black">No. 大→小</option>
                                     <option value="review_asc" className="text-black">複習 遠→近</option>
                                     <option value="review_desc" className="text-black">複習 近→遠</option>
                                 </select>
-                                <span className="absolute inset-0 flex md:hidden items-center justify-center pointer-events-none text-slate-500"><i className="ph-fill ph-sort-ascending text-xl"></i></span>
                             </div>
                             <div className="relative flex-grow">
                                 <i className="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
-                                <input type="text" placeholder="搜尋..." className="w-full pl-10 pr-4 py-3 bg-slate-100 rounded-xl border-none text-slate-800 placeholder-slate-400 outline-none focus:ring-2 focus:ring-emerald-400 focus:bg-white transition-all shadow-inner text-base" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                                <input 
+                                    type="text" placeholder="搜尋..." 
+                                    className="w-full pl-10 pr-4 py-3 bg-slate-100 rounded-xl border-none text-slate-800 placeholder-slate-400 outline-none focus:ring-2 focus:ring-emerald-400 focus:bg-white transition-all shadow-inner text-base"
+                                    value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+                                />
                             </div>
-                            <button onClick={openNewModal} className="shrink-0 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-xl shadow-lg flex items-center justify-center transition-transform active:scale-90"><i className="ph-bold ph-plus text-2xl"></i></button>
+                            <button onClick={openNewModal} className="shrink-0 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 rounded-xl shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+                                <i className="ph-bold ph-plus text-2xl"></i>
+                            </button>
                         </div>
                     </div>
 
-                    {/* Modal */}
+                    {/* Backup Reminder Toast */}
+                    {showBackupReminder && (
+                        <div className="fixed bottom-24 left-0 w-full z-40 px-4 animate-slide-up">
+                            <div className="max-w-3xl mx-auto bg-slate-800 text-white rounded-xl shadow-2xl p-4 flex items-center justify-between border border-slate-700">
+                                <div className="flex items-center gap-3">
+                                    <div className="bg-amber-500/20 p-2 rounded-full text-amber-400">
+                                        <i className="ph-fill ph-warning-circle text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-sm">需要備份嗎？</h4>
+                                        <p className="text-xs text-slate-400">您已經超過 3 天沒有備份資料了。</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button 
+                                        onClick={() => setShowBackupReminder(false)}
+                                        className="px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors"
+                                    >
+                                        稍後
+                                    </button>
+                                    <button 
+                                        onClick={handleExport}
+                                        className="px-4 py-1.5 text-xs font-bold bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors shadow-lg"
+                                    >
+                                        立即備份
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} onSave={handleSave} initialData={currentEntry} />}
                 </div>
             );
         }
 
+        // --- Components ---
+
         function EntryCard({ entry, onEdit, onDelete, onReview }) {
             const isReviewedToday = new Date(entry.lastReviewed).toDateString() === new Date().toDateString();
+
+            // 處理來源顯示：優先顯示 sourceTitle + sourceSentence，如果沒有則顯示舊的 source
+            const hasDetailedSource = entry.sourceTitle || entry.sourceSentence;
+            const sourceDisplay = hasDetailedSource 
+                ? (
+                    <span>
+                        {entry.sourceTitle && <span className="font-bold text-slate-600 not-italic mr-2">{entry.sourceTitle}</span>}
+                        {entry.sourceSentence}
+                    </span>
+                  )
+                : (entry.source || "無來源");
 
             return (
                 <div className={`bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group transition-all duration-300 ${isReviewedToday ? 'ring-2 ring-emerald-400/30' : ''}`}>
                     <div className={`h-1.5 w-full bg-gradient-to-r ${isReviewedToday ? 'from-emerald-400 to-emerald-600' : 'from-slate-300 to-slate-400'}`}></div>
                     
                     <div className="p-5 space-y-4">
-                        {/* 1. Word Header */}
-                        <div className="flex items-start justify-between border-b border-slate-100 pb-3">
-                            <div>
-                                <div className="flex items-center gap-2 mb-1">
-                                    <span className="font-mono text-xs text-slate-400 font-bold bg-slate-50 px-1.5 py-0.5 rounded">#{entry.id}</span>
-                                    {entry.partOfSpeech && <span className="font-serif italic text-slate-500 text-sm">{entry.partOfSpeech}</span>}
-                                </div>
-                                <div className="flex items-baseline gap-2 flex-wrap">
+                        {/* Word Header */}
+                        <div className="flex items-baseline justify-between border-b border-slate-100 pb-3">
+                            <div className="flex flex-col gap-1">
+                                <span className="font-mono text-[10px] text-slate-400 font-bold bg-slate-50 px-1.5 py-0.5 rounded w-fit">#{entry.id}</span>
+                                <div className="flex items-baseline flex-wrap gap-2">
                                     <h2 className="text-2xl font-bold text-slate-800 tracking-tight">{entry.word}</h2>
-                                    {entry.phonetic && <span className="font-mono text-slate-400 text-sm">[{entry.phonetic}]</span>}
+                                    {entry.partOfSpeech && <span className="text-sm font-mono text-slate-500 italic">{entry.partOfSpeech}</span>}
+                                    {entry.phonetic && <span className="text-sm font-mono text-slate-400">{entry.phonetic}</span>}
                                 </div>
                             </div>
                             <div className="flex gap-1">
-                                <button onClick={onEdit} className="p-1.5 text-slate-300 hover:text-blue-500 rounded transition-colors"><i className="ph-fill ph-pencil-simple text-lg"></i></button>
-                                <button onClick={onDelete} className="p-1.5 text-slate-300 hover:text-red-500 rounded transition-colors"><i className="ph-fill ph-trash text-lg"></i></button>
+                                <button onClick={onEdit} className="p-1.5 text-slate-300 hover:text-blue-500 rounded"><i className="ph-fill ph-pencil-simple text-lg"></i></button>
+                                <button onClick={onDelete} className="p-1.5 text-slate-300 hover:text-red-500 rounded"><i className="ph-fill ph-trash text-lg"></i></button>
                             </div>
                         </div>
 
-                        {/* 2. Meaning */}
+                        {/* Meaning */}
                         {entry.meaning && <div className="text-slate-700 font-medium text-lg">{entry.meaning}</div>}
 
-                        {/* 3. Source (Split: Title & Sentence) */}
-                        <div className="bg-slate-50/50 rounded-lg p-3 border border-slate-100">
-                            <div className="flex items-center gap-2 mb-2">
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-slate-100 shadow-sm">
-                                    {entry.sourceTitle || "未知來源"}
-                                </span>
+                        {/* Source (Updated for new fields) */}
+                        <div className="flex gap-2 items-start text-sm">
+                            <span className="shrink-0 text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5 py-0.5">Source</span>
+                            <div className="text-slate-500 italic bg-slate-50 px-3 py-1.5 rounded leading-relaxed border border-slate-100/50">
+                                {sourceDisplay}
                             </div>
-                            {entry.sourceSentence ? (
-                                <p className="text-slate-600 text-sm italic border-l-2 border-slate-300 pl-3 leading-relaxed">
-                                    "{entry.sourceSentence}"
-                                </p>
-                            ) : (
-                                <span className="text-slate-400 text-xs italic">無來源例句</span>
-                            )}
                         </div>
 
-                        {/* 4. My Sentence */}
+                        {/* My Sentence */}
                         <div className="bg-amber-50/80 p-3 rounded-lg border-l-4 border-amber-400">
                             <div className="text-[10px] font-bold text-amber-600/70 uppercase tracking-wider mb-1 flex items-center gap-1">
                                 <i className="ph-fill ph-star text-amber-500"></i> My Sentence
@@ -352,15 +444,15 @@
                             <p className="text-slate-800 font-medium leading-relaxed">{entry.sentence || "尚未造句"}</p>
                         </div>
 
-                        {/* 5. Association */}
+                        {/* Association */}
                         {entry.association && (
-                            <div className="flex gap-2 items-center text-sm group/assoc">
-                                <i className="ph-fill ph-brain text-purple-400"></i>
+                            <div className="flex gap-2 items-start text-sm">
+                                <span className="shrink-0 text-[10px] font-bold text-purple-400 uppercase tracking-wider mt-0.5 py-0.5">Assoc.</span>
                                 <span className="text-slate-600 border-b border-dashed border-slate-300 pb-0.5">{entry.association}</span>
                             </div>
                         )}
 
-                        {/* 6. Tags & Review */}
+                        {/* Footer */}
                         <div className="pt-3 mt-2 border-t border-slate-100 flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 {entry.tags ? (
@@ -369,7 +461,14 @@
                                     </span>
                                 ) : <span className="text-slate-300 text-xs">No Tags</span>}
                             </div>
-                            <button onClick={(e) => { e.stopPropagation(); onReview(); }} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 shadow-sm ${isReviewedToday ? 'bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200' : 'bg-white text-slate-500 ring-1 ring-slate-200 hover:text-emerald-600 hover:ring-emerald-400'}`}>
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); onReview(); }}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 shadow-sm ${
+                                    isReviewedToday 
+                                    ? 'bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200'
+                                    : 'bg-white text-slate-500 ring-1 ring-slate-200 hover:text-emerald-600 hover:ring-emerald-400'
+                                }`}
+                            >
                                 <i className={`ph-fill ${isReviewedToday ? 'ph-check-circle' : 'ph-circle'}`}></i>
                                 {isReviewedToday ? formatDate(entry.lastReviewed) : '打卡複習'}
                             </button>
@@ -380,75 +479,62 @@
         }
 
         function Modal({ onClose, onSave, initialData }) {
+            // 支援新舊欄位
             const [formData, setFormData] = useState({
                 word: "", partOfSpeech: "", phonetic: "", meaning: "", 
-                sourceTitle: "", sourceSentence: "", 
+                sourceTitle: "", sourceSentence: "", source: "", // source 用於相容舊資料
                 sentence: "", association: "", tags: ""
             });
 
             useEffect(() => { 
                 if (initialData) {
-                    // Backwards compatibility for editing old data
                     setFormData({
                         ...initialData,
-                        sourceTitle: initialData.sourceTitle || initialData.source || "",
-                        sourceSentence: initialData.sourceSentence || ""
-                    });
+                        // 如果有舊 source 但沒新欄位，嘗試填入 sourceSentence 以利編輯
+                        sourceSentence: initialData.sourceSentence || initialData.source || ""
+                    }); 
                 }
             }, [initialData]);
-            
+
             const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
             return (
-                <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-end md:items-center justify-center p-4 md:p-4 backdrop-blur-sm animate-fade-in">
+                <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-end md:items-center justify-center p-4 backdrop-blur-sm animate-fade-in">
                     <div className="bg-white w-full max-w-lg rounded-t-2xl md:rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
                         <div className="bg-slate-50 px-6 py-4 flex justify-between items-center border-b border-slate-100 shrink-0">
                             <h3 className="text-lg font-bold text-slate-700">{initialData ? '編輯卡片' : '新增卡片'}</h3>
                             <button onClick={onClose} className="bg-slate-200 hover:bg-slate-300 text-slate-500 rounded-full p-1"><i className="ph-bold ph-x text-lg"></i></button>
                         </div>
-                        <form onSubmit={(e) => { e.preventDefault(); onSave(formData); }} className="p-6 space-y-5 overflow-y-auto overflow-x-hidden">
-                            
-                            {/* Row 1: Word */}
-                            <div>
-                                <label className="block text-xs font-bold text-slate-500 mb-1">單字 (Word)</label>
-                                <input type="text" name="word" required className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none font-bold text-lg" value={formData.word} onChange={handleChange} placeholder="Required" />
-                            </div>
-
-                            {/* Row 2: PoS, Phonetic, Meaning */}
-                            <div className="grid grid-cols-6 gap-3">
-                                <div className="col-span-2">
-                                    <label className="block text-xs font-bold text-slate-500 mb-1">詞性 (PoS)</label>
-                                    <input type="text" name="partOfSpeech" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm font-serif italic" value={formData.partOfSpeech} onChange={handleChange} placeholder="v. / n." />
+                        <form onSubmit={(e) => { e.preventDefault(); onSave(formData); }} className="p-6 space-y-5 overflow-y-auto">
+                            {/* Word Row */}
+                            <div className="space-y-3">
+                                <label className="block text-xs font-bold text-slate-500">單字基本資料</label>
+                                <div className="flex gap-2">
+                                    <input type="text" name="word" required className="flex-grow px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none font-bold text-lg" value={formData.word} onChange={handleChange} placeholder="單字 (Word)" />
+                                    <input type="text" name="partOfSpeech" className="w-20 px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm font-mono" value={formData.partOfSpeech} onChange={handleChange} placeholder="詞性" />
                                 </div>
-                                <div className="col-span-4">
-                                    <label className="block text-xs font-bold text-slate-500 mb-1">音標 (Phonetic)</label>
-                                    <input type="text" name="phonetic" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm font-mono" value={formData.phonetic} onChange={handleChange} placeholder="/IPA/" />
-                                </div>
-                                <div className="col-span-6">
-                                    <label className="block text-xs font-bold text-slate-500 mb-1">中文意思 (Meaning)</label>
-                                    <input type="text" name="meaning" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none" value={formData.meaning} onChange={handleChange} />
+                                <div className="flex gap-2">
+                                    <input type="text" name="phonetic" className="w-1/2 px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm font-mono" value={formData.phonetic} onChange={handleChange} placeholder="音標 ex: /.../" />
+                                    <input type="text" name="meaning" className="w-1/2 px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none" value={formData.meaning} onChange={handleChange} placeholder="中文意思" />
                                 </div>
                             </div>
 
-                            {/* Row 3: Source (Split) */}
-                            <div className="bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
-                                <div>
-                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-1">來源出處 (Source Title)</label>
-                                    <input type="text" name="sourceTitle" className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm" value={formData.sourceTitle} onChange={handleChange} placeholder="ex: BBC News, PAF p167" />
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-1">來源例句 (Original Sentence)</label>
-                                    <textarea name="sourceSentence" rows="2" className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm font-medium text-slate-600" value={formData.sourceSentence} onChange={handleChange} placeholder="The sentence where you found this word..."></textarea>
+                            {/* Source Row */}
+                            <div className="space-y-2 pt-2 border-t border-slate-50">
+                                <label className="block text-xs font-bold text-slate-500">來源 (Source)</label>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <input type="text" name="sourceTitle" className="col-span-1 px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm" value={formData.sourceTitle} onChange={handleChange} placeholder="出處 (ex: PAF)" />
+                                    <textarea name="sourceSentence" rows="1" className="col-span-2 px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm resize-none" value={formData.sourceSentence} onChange={handleChange} placeholder="來源原句"></textarea>
                                 </div>
                             </div>
 
-                            {/* Row 4: My Sentence */}
-                            <div>
-                                <label className="block text-xs font-bold text-amber-600 mb-1">★ 我的造句 (My Sentence)</label>
-                                <textarea name="sentence" rows="3" className="w-full px-3 py-2 border border-amber-200 bg-amber-50 rounded-lg focus:ring-2 focus:ring-amber-400 outline-none text-sm" value={formData.sentence} onChange={handleChange} placeholder="Create your own sentence context..."></textarea>
+                            {/* My Sentence */}
+                            <div className="space-y-2">
+                                <label className="block text-xs font-bold text-amber-600">我的造句 (My Sentence)</label>
+                                <textarea name="sentence" rows="3" className="w-full px-3 py-2 border border-amber-200 bg-amber-50 rounded-lg focus:ring-2 focus:ring-amber-400 outline-none text-sm" value={formData.sentence} onChange={handleChange} placeholder="試著造個句子..."></textarea>
                             </div>
 
-                            {/* Row 5: Assoc & Tags */}
+                            {/* Others */}
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-bold text-slate-500 mb-1">聯想 (Association)</label>
@@ -456,12 +542,11 @@
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold text-slate-500 mb-1">標籤 (Tags)</label>
-                                    <input type="text" name="tags" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm" value={formData.tags} onChange={handleChange} placeholder="Comma separated" />
+                                    <input type="text" name="tags" className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none text-sm" value={formData.tags} onChange={handleChange} />
                                 </div>
                             </div>
-                            <div className="pt-2">
-                                <button type="submit" className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-md active:scale-95 transition-transform">儲存單字</button>
-                            </div>
+
+                            <button type="submit" className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-md active:scale-95 transition-transform mt-2">儲存單字</button>
                         </form>
                     </div>
                 </div>
