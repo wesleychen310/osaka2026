@@ -1,258 +1,423 @@
-import React, { useState } from 'react';
-import { Plus, Trash2, Copy, Check, Tag, Calendar, BookOpen } from 'lucide-react';
-
-const INITIAL_DATA = [
-  {
-    id: 1,
-    word: "collaborate",
-    meaning: "to work together with other people to produce or achieve something; 與他人合作以完成某件事或達成目標",
-    source: 'PAF p167: "your ability to communicate and collaborate is improved"',
-    re_sentence: "We need to collaborate with the valuation team to finalize the pricing assumptions.",
-    your_sentence: "Our product development team must collaborate closely with valuation to align the pricing assumptions with IFRS 17 requirements.",
-    association: "work on setting assumptions",
-    tags: "SOA",
-    last_used: "2025-12-07"
-  },
-  {
-    id: 2,
-    word: "itinerary",
-    meaning: "a detailed plan or list of places and times for a journey; 旅程的詳細行程或時間表",
-    source: 'Agoda: "itinerary"',
-    re_sentence: "I emailed Oscar’s itinerary to you.",
-    your_sentence: "Please attach the client’s full travel itinerary to the policy file for our underwriting review.",
-    association: "imagine the air company",
-    tags: "",
-    last_used: "2025-12-07"
-  }
-];
-
-export default function VocabularyJournalFixed() {
-  const [entries, setEntries] = useState(INITIAL_DATA);
-  const [copied, setCopied] = useState(false);
-
-  // 新增一行
-  const handleAddRow = () => {
-    const today = new Date().toISOString().split('T')[0];
-    const newEntry = {
-      id: Date.now(),
-      word: "New Word",
-      meaning: "",
-      source: "",
-      re_sentence: "",
-      your_sentence: "",
-      association: "",
-      tags: "",
-      last_used: today
-    };
-    setEntries([...entries, newEntry]);
-  };
-
-  // 刪除一行
-  const handleDeleteRow = (id) => {
-    if (confirm('確定要刪除這一行嗎？')) {
-      setEntries(entries.filter(entry => entry.id !== id));
-    }
-  };
-
-  // 編輯內容
-  const handleEdit = (id, field, value) => {
-    setEntries(entries.map(entry => 
-      entry.id === id ? { ...entry, [field]: value } : entry
-    ));
-  };
-
-  // 複製 Markdown
-  const handleCopyToClipboard = () => {
-    let text = "| Word | Meaning | Source | Re-Sentence | My Sentence | Association | Tags | Last Used |\n|---|---|---|---|---|---|---|---|\n";
-    entries.forEach(e => {
-      const clean = (str) => str ? str.toString().replace(/\n/g, ' ') : '';
-      text += `| **${clean(e.word)}** | ${clean(e.meaning)} | ${clean(e.source)} | ${clean(e.re_sentence)} | ${clean(e.your_sentence)} | ${clean(e.association)} | #${clean(e.tags)} | ${clean(e.last_used)} |\n`;
-    });
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vocabulary Journal</title>
     
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  return (
-    <div className="min-h-screen bg-[#F8F9FA] p-4 md:p-8 font-sans text-slate-800">
-      
-      {/* Header */}
-      <div className="max-w-[1600px] mx-auto mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <BookOpen className="text-blue-600" size={24}/>
-            Vocabulary Journal
-          </h1>
-          <p className="text-slate-500 text-sm mt-1">
-            Context-Based Learning System | Total Entries: {entries.length}
-          </p>
-        </div>
-        
-        <div className="flex gap-3">
-          <button 
-            onClick={handleAddRow}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
-          >
-            <Plus size={16} />
-            Add Word
-          </button>
-          
-          <button 
-            onClick={handleCopyToClipboard}
-            className={`flex items-center gap-2 px-4 py-2 border border-slate-200 bg-white text-slate-700 text-sm rounded-lg hover:bg-slate-50 transition-colors shadow-sm font-medium ${copied ? 'text-green-600 border-green-200 bg-green-50' : ''}`}
-          >
-            {copied ? <Check size={16} /> : <Copy size={16} />}
-            {copied ? 'Copied!' : 'Copy as Markdown'}
-          </button>
-        </div>
-      </div>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
-      {/* Main Table Container */}
-      <div className="max-w-[1600px] mx-auto bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto pb-4">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-slate-100 bg-slate-50/80">
-                {/* 修正：使用 min-w 而不是 w，確保有足夠空間延展 */}
-                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[180px]">Word</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[280px]">Meaning</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[200px]">Source & Context</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[250px]">Original Sentence</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-blue-500 uppercase tracking-wider min-w-[320px] bg-blue-50/50 border-l border-blue-100">
-                  ★ Your Sentence (Active Use)
-                </th>
-                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[180px]">Association</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[120px]">Tags</th>
-                <th className="py-4 px-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider min-w-[130px]">Last Used</th>
-                <th className="py-4 px-2 min-w-[50px]"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-50">
-              {entries.map((entry) => (
-                <tr key={entry.id} className="group hover:bg-slate-50/80 transition-colors duration-150">
-                  
-                  {/* Word - Increased width & adjusted font size */}
-                  <td className="p-4 align-top">
-                    <input 
-                      type="text" 
-                      value={entry.word}
-                      onChange={(e) => handleEdit(entry.id, 'word', e.target.value)}
-                      className="w-full bg-transparent font-bold text-slate-900 text-base focus:outline-none focus:text-blue-600 transition-colors placeholder-slate-300"
-                      placeholder="Word"
-                    />
-                  </td>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-                  {/* Meaning */}
-                  <td className="p-4 align-top">
-                    <textarea 
-                      value={entry.meaning}
-                      onChange={(e) => handleEdit(entry.id, 'meaning', e.target.value)}
-                      rows={3}
-                      className="w-full bg-transparent text-sm leading-relaxed text-slate-600 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
-                      placeholder="Definition..."
-                    />
-                  </td>
+        // 初始範例資料 (已更新 collaborate 的例句)
+        const INITIAL_DATA = [
+            {
+                id: 1,
+                word: "collaborate",
+                meaning: "",
+                source: "PAF p167 your ability to communicate and collaborate is improved",
+                sentence: "We need to collaborate with the valuation team on finalizing the pricing assumptions.",
+                association: "work on setting assumptions",
+                tags: "SOA",
+                createdAt: Date.now()
+            },
+            {
+                id: 2,
+                word: "itinerary",
+                meaning: "行程",
+                source: "Agoda : itinerary",
+                sentence: "I email the itinerary of Oscar to you.",
+                association: "",
+                tags: "",
+                createdAt: Date.now() - 1000
+            }
+        ];
 
-                  {/* Source */}
-                  <td className="p-4 align-top">
-                     <textarea 
-                      value={entry.source}
-                      onChange={(e) => handleEdit(entry.id, 'source', e.target.value)}
-                      rows={3}
-                      className="w-full bg-transparent text-xs text-slate-500 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
-                      placeholder="Source..."
-                    />
-                  </td>
+        function App() {
+            const [entries, setEntries] = useState(() => {
+                const saved = localStorage.getItem('vocab-journal-data');
+                return saved ? JSON.parse(saved) : INITIAL_DATA;
+            });
+            const [searchTerm, setSearchTerm] = useState("");
+            const [isModalOpen, setIsModalOpen] = useState(false);
+            const [currentEntry, setCurrentEntry] = useState(null);
 
-                  {/* Original Sentence */}
-                  <td className="p-4 align-top">
-                    <textarea 
-                      value={entry.re_sentence}
-                      onChange={(e) => handleEdit(entry.id, 're_sentence', e.target.value)}
-                      rows={4}
-                      className="w-full bg-transparent text-sm leading-relaxed text-slate-600 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all italic placeholder-slate-300"
-                      placeholder="Context sentence..."
-                    />
-                  </td>
+            // Auto-save
+            useEffect(() => {
+                localStorage.setItem('vocab-journal-data', JSON.stringify(entries));
+            }, [entries]);
 
-                   {/* Your Sentence (Highlight) */}
-                  <td className="p-4 align-top bg-blue-50/30 group-hover:bg-blue-50/60 border-l border-blue-50 group-hover:border-blue-100 transition-colors">
-                    <textarea 
-                      value={entry.your_sentence}
-                      onChange={(e) => handleEdit(entry.id, 'your_sentence', e.target.value)}
-                      rows={5}
-                      className="w-full bg-transparent text-sm leading-7 text-slate-800 resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-200 rounded p-2 -ml-2 transition-all font-medium placeholder-blue-200"
-                      placeholder="Make it real..."
-                    />
-                  </td>
+            // CRUD Operations
+            const handleDelete = (id) => {
+                if (window.confirm("確定要刪除這個單字卡嗎？")) {
+                    setEntries(entries.filter(entry => entry.id !== id));
+                }
+            };
 
-                  {/* Association */}
-                  <td className="p-4 align-top">
-                    <textarea 
-                      value={entry.association}
-                      onChange={(e) => handleEdit(entry.id, 'association', e.target.value)}
-                      rows={3}
-                      className="w-full bg-transparent text-xs text-slate-500 italic resize-none focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-100 rounded transition-all placeholder-slate-300"
-                      placeholder="Mental image..."
-                    />
-                  </td>
+            const handleReset = () => {
+                if (window.confirm("這會清除目前所有變更並恢復成預設範例（含最新的修正），確定嗎？")) {
+                    setEntries(INITIAL_DATA);
+                    localStorage.removeItem('vocab-journal-data');
+                }
+            };
 
-                  {/* Tags */}
-                  <td className="p-4 align-top">
-                    <div className="flex items-center gap-1 mb-1">
-                      <Tag size={12} className="text-slate-400"/>
+            const handleSave = (entryData) => {
+                if (currentEntry) {
+                    setEntries(entries.map(e => e.id === currentEntry.id ? { ...entryData, id: currentEntry.id, createdAt: currentEntry.createdAt } : e));
+                } else {
+                    setEntries([{ ...entryData, id: Date.now(), createdAt: Date.now() }, ...entries]);
+                }
+                setIsModalOpen(false);
+                setCurrentEntry(null);
+            };
+
+            const openEditModal = (entry) => {
+                setCurrentEntry(entry);
+                setIsModalOpen(true);
+            };
+
+            const openNewModal = () => {
+                setCurrentEntry(null);
+                setIsModalOpen(true);
+            };
+
+            // Export Data
+            const handleExport = () => {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entries));
+                const downloadAnchorNode = document.createElement('a');
+                downloadAnchorNode.setAttribute("href", dataStr);
+                downloadAnchorNode.setAttribute("download", "vocabulary_backup.json");
+                document.body.appendChild(downloadAnchorNode);
+                downloadAnchorNode.click();
+                downloadAnchorNode.remove();
+            };
+
+            // Import Data
+            const handleImport = (event) => {
+                const fileReader = new FileReader();
+                fileReader.readAsText(event.target.files[0], "UTF-8");
+                fileReader.onload = e => {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        if (Array.isArray(importedData)) {
+                            if(window.confirm("匯入將會覆蓋目前的資料，確定嗎？")) {
+                                setEntries(importedData);
+                            }
+                        } else {
+                            alert("檔案格式錯誤");
+                        }
+                    } catch (error) {
+                        alert("無法讀取檔案");
+                    }
+                };
+            };
+
+            const filteredEntries = entries.filter(entry => {
+                const searchLower = searchTerm.toLowerCase();
+                return (
+                    entry.word.toLowerCase().includes(searchLower) ||
+                    entry.tags.toLowerCase().includes(searchLower) ||
+                    entry.sentence.toLowerCase().includes(searchLower)
+                );
+            });
+
+            return (
+                <div className="min-h-screen pb-12">
+                    {/* Header */}
+                    <header className="bg-slate-800 text-white shadow-lg sticky top-0 z-10">
+                        <div className="max-w-4xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div className="flex items-center gap-3">
+                                <i className="ph ph-book-bookmark text-3xl text-emerald-400"></i>
+                                <h1 className="text-xl md:text-2xl font-bold tracking-wide">Vocabulary Journal</h1>
+                            </div>
+                            
+                            <div className="flex w-full md:w-auto gap-3">
+                                <div className="relative flex-grow md:w-64">
+                                    <i className="ph ph-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                                    <input 
+                                        type="text" 
+                                        placeholder="搜尋單字、例句或標籤..." 
+                                        className="w-full pl-10 pr-4 py-2 rounded-full bg-slate-700 border-none text-white focus:ring-2 focus:ring-emerald-400 outline-none placeholder-slate-400 text-sm"
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
+                                </div>
+                                <button 
+                                    onClick={openNewModal}
+                                    className="bg-emerald-500 hover:bg-emerald-600 text-white p-2 rounded-full shadow-md transition-transform transform hover:scale-105 flex-shrink-0"
+                                    title="新增單字"
+                                >
+                                    <i className="ph ph-plus text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Controls Bar */}
+                    <div className="max-w-4xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center text-xs text-slate-500 gap-2">
+                        <span>共 {entries.length} 個單字</span>
+                        <div className="flex gap-4">
+                            <button onClick={handleReset} className="hover:text-red-500 flex items-center gap-1 transition-colors">
+                                <i className="ph ph-arrow-counter-clockwise"></i> 清除重置
+                            </button>
+                            <button onClick={handleExport} className="hover:text-emerald-600 flex items-center gap-1 transition-colors">
+                                <i className="ph ph-download-simple"></i> 備份資料
+                            </button>
+                            <label className="hover:text-blue-600 flex items-center gap-1 cursor-pointer transition-colors">
+                                <i className="ph ph-upload-simple"></i> 匯入資料
+                                <input type="file" onChange={handleImport} className="hidden" accept=".json" />
+                            </label>
+                        </div>
                     </div>
-                    <input 
-                      type="text" 
-                      value={entry.tags}
-                      onChange={(e) => handleEdit(entry.id, 'tags', e.target.value)}
-                      className="w-full bg-slate-100 text-xs text-slate-600 rounded-full px-2 py-1 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-200 transition-all text-center"
-                      placeholder="Tag"
-                    />
-                  </td>
 
-                  {/* Last Used */}
-                  <td className="p-4 align-top">
-                    <div className="flex items-center gap-1 mb-1">
-                      <Calendar size={12} className="text-slate-400"/>
+                    {/* Card Grid */}
+                    <main className="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+                        {filteredEntries.length === 0 ? (
+                            <div className="col-span-1 md:col-span-2 text-center py-20 text-slate-400">
+                                <i className="ph ph-notebook text-6xl mb-4"></i>
+                                <p>找不到符合的單字，點擊右上角「+」新增一個吧！</p>
+                            </div>
+                        ) : (
+                            filteredEntries.map(entry => (
+                                <EntryCard 
+                                    key={entry.id} 
+                                    entry={entry} 
+                                    onEdit={() => openEditModal(entry)} 
+                                    onDelete={() => handleDelete(entry.id)} 
+                                />
+                            ))
+                        )}
+                    </main>
+
+                    {/* Modal */}
+                    {isModalOpen && (
+                        <Modal 
+                            onClose={() => setIsModalOpen(false)} 
+                            onSave={handleSave} 
+                            initialData={currentEntry} 
+                        />
+                    )}
+                </div>
+            );
+        }
+
+        function EntryCard({ entry, onEdit, onDelete }) {
+            return (
+                <div className="bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 flex flex-col overflow-hidden relative group">
+                    <div className="h-1.5 w-full bg-gradient-to-r from-emerald-400 to-blue-500"></div>
+                    
+                    <div className="p-5 flex-grow">
+                        <div className="flex justify-between items-start mb-3">
+                            <div>
+                                <h2 className="text-2xl font-bold text-slate-800 tracking-tight">{entry.word}</h2>
+                                {entry.meaning && <span className="text-sm text-slate-500 font-medium">{entry.meaning}</span>}
+                            </div>
+                            {entry.tags && (
+                                <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-md font-medium">
+                                    {entry.tags}
+                                </span>
+                            )}
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="text-sm">
+                                <div className="flex items-center gap-1 text-slate-400 text-xs mb-0.5 font-bold uppercase tracking-wider">
+                                    <i className="ph ph-book-open"></i> 來源 & 原句
+                                </div>
+                                <p className="text-slate-600 bg-slate-50 p-2 rounded border border-slate-100 italic">
+                                    {entry.source || "無來源資料"}
+                                </p>
+                            </div>
+
+                            <div className="text-sm">
+                                <div className="flex items-center gap-1 text-amber-500 text-xs mb-0.5 font-bold uppercase tracking-wider">
+                                    <i className="ph ph-star-fill"></i> 我的造句
+                                </div>
+                                <p className="text-slate-800 font-medium border-l-2 border-amber-400 pl-3 py-1">
+                                    {entry.sentence || "尚未造句"}
+                                </p>
+                            </div>
+
+                            {entry.association && (
+                                <div className="text-sm">
+                                    <div className="flex items-center gap-1 text-purple-500 text-xs mb-0.5 font-bold uppercase tracking-wider">
+                                        <i className="ph ph-brain"></i> 私人聯想
+                                    </div>
+                                    <p className="text-slate-600">{entry.association}</p>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    <input 
-                      type="date" 
-                      value={entry.last_used}
-                      onChange={(e) => handleEdit(entry.id, 'last_used', e.target.value)}
-                      className="w-full bg-transparent text-xs text-slate-500 focus:outline-none font-mono"
-                    />
-                  </td>
 
-                  {/* Delete Action */}
-                  <td className="p-4 align-middle text-center">
-                    <button 
-                      onClick={() => handleDeleteRow(entry.id)}
-                      className="text-slate-300 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 opacity-0 group-hover:opacity-100"
-                      title="Delete"
-                    >
-                      <Trash2 size={14} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          
-          {entries.length === 0 && (
-            <div className="p-12 text-center text-slate-400 bg-slate-50">
-              <p>點擊上方 "Add Word" 開始新增您的第一筆詞彙。</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+                    <div className="bg-slate-50 px-5 py-3 border-t border-slate-100 flex justify-end gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button 
+                            onClick={onEdit}
+                            className="text-slate-500 hover:text-blue-600 p-1.5 hover:bg-white rounded-full transition-colors"
+                            title="編輯"
+                        >
+                            <i className="ph ph-pencil-simple text-lg"></i>
+                        </button>
+                        <button 
+                            onClick={onDelete}
+                            className="text-slate-500 hover:text-red-600 p-1.5 hover:bg-white rounded-full transition-colors"
+                            title="刪除"
+                        >
+                            <i className="ph ph-trash text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        function Modal({ onClose, onSave, initialData }) {
+            const [formData, setFormData] = useState({
+                word: "",
+                meaning: "",
+                source: "",
+                sentence: "",
+                association: "",
+                tags: ""
+            });
+
+            useEffect(() => {
+                if (initialData) {
+                    setFormData(initialData);
+                }
+            }, [initialData]);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                onSave(formData);
+            };
+
+            const handleChange = (e) => {
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+            };
+
+            return (
+                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-fade-in">
+                        <div className="bg-slate-800 px-6 py-4 flex justify-between items-center text-white">
+                            <h3 className="text-lg font-bold">{initialData ? '編輯單字' : '新增單字'}</h3>
+                            <button onClick={onClose} className="hover:text-red-300">
+                                <i className="ph ph-x text-xl"></i>
+                            </button>
+                        </div>
+                        
+                        <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">單字 (Word)</label>
+                                    <input 
+                                        type="text" name="word" required
+                                        className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none font-bold text-lg"
+                                        value={formData.word} onChange={handleChange}
+                                        placeholder="ex: collaborate"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">中文意思 (Meaning)</label>
+                                    <input 
+                                        type="text" name="meaning"
+                                        className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none"
+                                        value={formData.meaning} onChange={handleChange}
+                                        placeholder="ex: 合作"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">來源 & 原句 (Source)</label>
+                                <textarea 
+                                    name="source" rows="2"
+                                    className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none text-sm"
+                                    value={formData.source} onChange={handleChange}
+                                    placeholder="書名、頁數、文章來源..."
+                                ></textarea>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-amber-600 mb-1 uppercase">★ 我的造句 (My Sentence)</label>
+                                <textarea 
+                                    name="sentence" rows="2"
+                                    className="w-full p-2 border border-amber-200 rounded focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none bg-amber-50 text-sm"
+                                    value={formData.sentence} onChange={handleChange}
+                                    placeholder="試著用這個單字造個句子..."
+                                ></textarea>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">私人聯想 (Association)</label>
+                                    <input 
+                                        type="text" name="association"
+                                        className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none text-sm"
+                                        value={formData.association} onChange={handleChange}
+                                        placeholder="工作場景、圖像記憶..."
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">標籤 (Tags)</label>
+                                    <input 
+                                        type="text" name="tags"
+                                        className="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none text-sm"
+                                        value={formData.tags} onChange={handleChange}
+                                        placeholder="ex: SOA, Finance"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="pt-4 flex justify-end gap-3 border-t border-slate-100">
+                                <button 
+                                    type="button" 
+                                    onClick={onClose}
+                                    className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded transition-colors"
+                                >
+                                    取消
+                                </button>
+                                <button 
+                                    type="submit" 
+                                    className="px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded shadow-sm transition-colors"
+                                >
+                                    儲存
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
