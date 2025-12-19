@@ -14,7 +14,7 @@
         
         /* 狀態標籤 - 改回小巧尺寸 */
         .status-tag {
-            font-size: 0.75rem; /* 回復原大小 */
+            font-size: 0.75rem;
             padding: 2px 8px;
             border-radius: 9999px;
             font-weight: 700;
@@ -34,14 +34,14 @@
             text-decoration-thickness: 2px;
             text-underline-offset: 2px;
             cursor: pointer; 
-            font-weight: 700; /* 改回 700 */
+            font-weight: 700; 
             transition: all 0.2s;
         }
         .map-link:hover { color: #dc2626; background-color: #fee2e2; border-radius: 2px; } 
         
         .sub-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; }
         
-        /* 交通指引區塊樣式 - 改回精緻尺寸 */
+        /* 交通指引區塊樣式 */
         .transport-box {
             background-color: #f1f5f9; /* slate-100 */
             border-left: 4px solid #64748b; /* slate-500 */
@@ -49,7 +49,7 @@
             margin-top: 8px;
             margin-bottom: 8px;
             border-radius: 0 4px 4px 0;
-            font-size: 0.85rem; /* 回復原大小 */
+            font-size: 0.85rem; 
             color: #334155;
             line-height: 1.5;
         }
@@ -66,7 +66,7 @@
 
         /* 標題樣式 - 卡片化但字體正常 */
         .big-title {
-            font-size: 1.25rem; /* 恢復正常大小 (約 text-xl) */
+            font-size: 1.25rem; /* 正常標題大小 */
             line-height: 1.4;
             font-weight: 900; /* Black weight */
             color: #1e293b; /* slate-800 */
@@ -75,7 +75,7 @@
         }
         
         .section-header {
-            font-size: 0.75rem; /* 輔助標題縮小 */
+            font-size: 0.75rem; /* 輔助標題 */
             font-weight: 700;
             color: #64748b; 
             margin-bottom: 2px;
@@ -98,12 +98,12 @@
         .badge-taxi { background-color: #fef08a; color: #854d0e; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #fde047; font-weight: bold; display: inline-block; margin-bottom: 4px; }
         .badge-rest { background-color: #dcfce7; color: #166534; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #86efac; font-weight: bold; display: inline-block; margin-bottom: 4px;}
         
-        /* 調整卡片內距 - 恢復適中 */
+        /* 調整卡片內距 */
         .card-padding { padding: 1rem; } 
         
         /* 景點專用大區塊 */
         .spot-container {
-            border-bottom: 1px solid #e2e8f0; /* 線條改細 */
+            border-bottom: 1px solid #e2e8f0; 
         }
     </style>
 </head>
@@ -277,13 +277,20 @@
                 <!-- 奈良重點 1 -->
                 <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
                     <h2 class="section-header">奈良第一站</h2>
-                    <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=中谷堂" target="_blank" class="map-link text-amber-900">中谷堂 (搗麻糬)</a></div>
-                    <p class="text-sm text-gray-700 mt-1">商店街底，看現場表演。</p>
+                    <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=興福寺" target="_blank" class="map-link text-amber-900">興福寺 五重塔</a></div>
+                    <p class="text-sm text-gray-700 mt-1">奈良地標，離車站最近。</p>
                 </div>
 
                 <!-- 奈良重點 2 -->
                 <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
                     <h2 class="section-header">奈良第二站</h2>
+                    <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=中谷堂" target="_blank" class="map-link text-amber-900">中谷堂 (搗麻糬)</a></div>
+                    <p class="text-sm text-gray-700 mt-1">商店街底，看現場表演。</p>
+                </div>
+
+                <!-- 奈良重點 3 -->
+                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
+                    <h2 class="section-header">奈良第三站</h2>
                     <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=東大寺" target="_blank" class="map-link text-amber-900">東大寺 & 奈良公園</a></div>
                     <p class="text-sm text-gray-700 mt-1">看大佛與餵鹿。</p>
                 </div>
@@ -293,6 +300,13 @@
                     <span class="badge-rest">推薦長輩休息點</span>
                     <div class="big-title text-amber-900 mt-2"><a href="https://www.google.com/maps/search/?api=1&query=東大寺+二月堂" target="_blank" class="map-link text-amber-900">二月堂</a></div>
                     <p class="text-sm text-gray-800 mt-1">爬一段樓梯後，可坐著吹風看奈良全景，避開人潮。</p>
+                </div>
+
+                <!-- 奈良重點 4 -->
+                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
+                    <h2 class="section-header">奈良第四站</h2>
+                    <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=春日大社" target="_blank" class="map-link text-amber-900">春日大社</a></div>
+                    <p class="text-sm text-gray-700 mt-1">充滿燈籠的神社與原始林。</p>
                 </div>
 
                 <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
@@ -550,16 +564,7 @@
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
                     <div class="transport-box">
                         <p>🚶 <b>前往：</b><a href="https://www.google.com/maps/search/?api=1&query=南海難波站" target="_blank" class="map-link">南海難波站</a></p>
-                        <p>🚆 <b>搭乘：</b>南海空港急行 ➔ <a href="https://www.google.com/maps/search/?api=1&query=Rinku+Town+Station" target="_blank" class="map-link">臨空城站 (Rinku Town)</a></p>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-pink-50 border-l-4 border-pink-400">
-                    <h2 class="section-header">最終採買</h2>
-                    <div class="big-title text-pink-700"><a href="https://www.google.com/maps/search/?api=1&query=Rinku+Premium+Outlets" target="_blank" class="map-link text-pink-700">臨空城 Outlet</a></div>
-                    <div class="transport-box">
-                        <p>🚪 <b>出口：</b><span class="exit-badge">Exit 2</span> 過天橋即達。</p>
-                        <p>🛅 <b>行李：</b>車站或 Outlet 內有置物櫃。</p>
+                        <p>🚆 <b>搭乘：</b>南海 Rapi:t (特急) 或 空港急行。</p>
                     </div>
                 </div>
 
@@ -568,7 +573,7 @@
                     <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=關西國際機場+第一航廈" target="_blank" class="map-link">關西機場 T1</a></div>
                     <p class="text-lg font-bold text-indigo-700 mt-1">14:30 飛機回台</p>
                     <div class="transport-box">
-                        <p>🚆 <b>移動：</b>臨空城站 ➔ 關西機場 (1站)。</p>
+                        <p>🚆 <b>直達：</b>不中途下車，直接抵達關西機場。</p>
                         <p>📍 第一航廈 4F 出境。</p>
                     </div>
                 </div>
@@ -608,3 +613,5 @@
     </script>
 </body>
 </html>
+
+
