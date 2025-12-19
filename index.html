@@ -12,62 +12,62 @@
         body { font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; }
         .info-card-container { max-width: 420px; width: 100%; }
         
-        /* 狀態標籤優化 */
+        /* 狀態標籤 - 改回小巧尺寸 */
         .status-tag {
-            font-size: 0.85rem;
-            padding: 4px 10px;
+            font-size: 0.75rem; /* 回復原大小 */
+            padding: 2px 8px;
             border-radius: 9999px;
             font-weight: 700;
             letter-spacing: 0.05em;
             display: inline-block;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         .status-ok { background-color: #d1fae5; color: #065f46; }
         .status-todo { background-color: #fee2e2; color: #991b1b; }
         .status-pending { background-color: #fef3c7; color: #b45309; }
         
         /* 連結樣式優化 */
-        .link-style { color: #2563eb; text-decoration: underline; font-weight: bold; font-size: 1.1em; }
+        .link-style { color: #2563eb; text-decoration: underline; font-weight: bold; }
         .map-link { 
             color: #0369a1; 
             text-decoration: underline; 
             text-decoration-thickness: 2px;
-            text-underline-offset: 4px;
+            text-underline-offset: 2px;
             cursor: pointer; 
-            font-weight: 900; 
+            font-weight: 700; /* 改回 700 */
             transition: all 0.2s;
         }
-        .map-link:hover { color: #dc2626; background-color: #fee2e2; border-radius: 4px; } 
+        .map-link:hover { color: #dc2626; background-color: #fee2e2; border-radius: 2px; } 
         
-        .sub-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; margin-top: 0.75rem; }
+        .sub-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; }
         
-        /* 交通指引區塊樣式 */
+        /* 交通指引區塊樣式 - 改回精緻尺寸 */
         .transport-box {
             background-color: #f1f5f9; /* slate-100 */
-            border-left: 6px solid #64748b; /* slate-500 */
-            padding: 10px 14px;
+            border-left: 4px solid #64748b; /* slate-500 */
+            padding: 8px 12px;
             margin-top: 8px;
             margin-bottom: 8px;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.95rem;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.85rem; /* 回復原大小 */
             color: #334155;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         .exit-badge {
             display: inline-block;
             background-color: #334155;
             color: #ffffff;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: bold;
-            margin: 0 3px;
+            margin: 0 2px;
         }
 
-        /* 標題樣式 - 長輩友善版 */
+        /* 標題樣式 - 卡片化但字體正常 */
         .big-title {
-            font-size: 1.6rem; /* 標題再加大 */
-            line-height: 1.3;
+            font-size: 1.25rem; /* 恢復正常大小 (約 text-xl) */
+            line-height: 1.4;
             font-weight: 900; /* Black weight */
             color: #1e293b; /* slate-800 */
             margin-bottom: 0.25rem;
@@ -75,9 +75,9 @@
         }
         
         .section-header {
-            font-size: 1rem;
+            font-size: 0.75rem; /* 輔助標題縮小 */
             font-weight: 700;
-            color: #64748b; /* 輔助說明文字顏色淡一點 */
+            color: #64748b; 
             margin-bottom: 2px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -95,15 +95,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .badge-taxi { background-color: #fef08a; color: #854d0e; font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; border: 2px solid #fde047; font-weight: bold; display: inline-block; margin-bottom: 4px; }
-        .badge-rest { background-color: #dcfce7; color: #166534; font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; border: 2px solid #86efac; font-weight: bold; display: inline-block; margin-bottom: 4px;}
+        .badge-taxi { background-color: #fef08a; color: #854d0e; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #fde047; font-weight: bold; display: inline-block; margin-bottom: 4px; }
+        .badge-rest { background-color: #dcfce7; color: #166534; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #86efac; font-weight: bold; display: inline-block; margin-bottom: 4px;}
         
-        /* 調整卡片內距 */
-        .card-padding { padding: 1.5rem 1.25rem; } /* 增加上下間距 */
+        /* 調整卡片內距 - 恢復適中 */
+        .card-padding { padding: 1rem; } 
         
         /* 景點專用大區塊 */
         .spot-container {
-            border-bottom: 4px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0; /* 線條改細 */
         }
     </style>
 </head>
@@ -112,25 +112,25 @@
     <div class="info-card-container bg-white shadow-2xl rounded-xl overflow-hidden mb-10">
         <!-- 標頭 -->
         <div class="bg-indigo-700 text-white p-6 relative overflow-hidden sticky top-0 z-20">
-            <h1 class="text-2xl font-black tracking-wider mb-2">
+            <h1 class="text-xl font-bold tracking-wider mb-1">
                 🇯🇵 大阪之旅 2026
             </h1>
-            <p class="text-indigo-100 text-lg font-bold">
+            <p class="text-indigo-200 text-sm font-bold">
                 2026/02/22 ~ 02/28 (6晚)
             </p>
         </div>
 
         <!-- 導覽列 -->
-        <div class="sticky top-[96px] z-10 bg-gray-50 border-b border-gray-200 shadow-sm">
-            <div class="flex overflow-x-auto no-scrollbar py-4 px-2 space-x-3" id="tab-nav">
-                <button onclick="switchTab('planning')" id="btn-planning" class="tab-active px-5 py-2 rounded-full text-base font-bold whitespace-nowrap border transition-colors shadow-sm">📋 行前</button>
-                <button onclick="switchTab('day1')" id="btn-day1" class="tab-inactive px-5 py-2 rounded-full text-base font-bold whitespace-nowrap border transition-colors">D1 大阪</button>
-                <button onclick="switchTab('day2')" id="btn-day2" class="tab-inactive px-5 py-2 rounded-full text-base font-bold whitespace-nowrap border transition-colors">D2 奈良</button>
-                <button onclick="switchTab('day3')" id="btn-day3" class="tab-inactive px-5 py-2 rounded-full text-base font-bold whitespace-nowrap border transition-colors">D3 清水</button>
-                <button onclick="switchTab('day4')" id="btn-day4" class="tab-inactive px-5 py-2 rounded-full text-base font-bold whitespace-nowrap border transition-colors">D4 宇治</button>
-                <button onclick="switchTab('day5')" id="btn-day5" class="tab-inactive px-5 py-2 rounded-full text-base font-bold whitespace-nowrap border transition-colors">D5 嵐山</button>
-                <button onclick="switchTab('day6')" id="btn-day6" class="tab-inactive px-5 py-2 rounded-full text-base font-bold whitespace-nowrap border transition-colors">D6 梅田</button>
-                <button onclick="switchTab('day7')" id="btn-day7" class="tab-inactive px-5 py-2 rounded-full text-base font-bold whitespace-nowrap border transition-colors">D7 返程</button>
+        <div class="sticky top-[88px] z-10 bg-gray-50 border-b border-gray-200 shadow-sm">
+            <div class="flex overflow-x-auto no-scrollbar py-3 px-2 space-x-2" id="tab-nav">
+                <button onclick="switchTab('planning')" id="btn-planning" class="tab-active px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors shadow-sm">📋 行前</button>
+                <button onclick="switchTab('day1')" id="btn-day1" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D1 大阪</button>
+                <button onclick="switchTab('day2')" id="btn-day2" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D2 奈良</button>
+                <button onclick="switchTab('day3')" id="btn-day3" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D3 清水</button>
+                <button onclick="switchTab('day4')" id="btn-day4" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D4 宇治</button>
+                <button onclick="switchTab('day5')" id="btn-day5" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D5 嵐山</button>
+                <button onclick="switchTab('day6')" id="btn-day6" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D6 梅田</button>
+                <button onclick="switchTab('day7')" id="btn-day7" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D7 返程</button>
             </div>
         </div>
 
@@ -139,15 +139,15 @@
             
             <!-- TAB: 行前規劃 -->
             <div id="content-planning" class="divide-y divide-gray-100 content-list fade-in">
-                <div class="bg-gray-100 p-4 text-sm font-bold text-gray-600 uppercase tracking-wide">行前準備清單</div>
+                <div class="bg-gray-50 p-3 text-xs font-bold text-gray-500 uppercase tracking-wide">行前準備清單</div>
                 
                 <!-- eSIM -->
-                <div class="card-padding spot-container bg-red-50 hover:bg-red-100 transition-colors border-l-8 border-red-400">
+                <div class="card-padding spot-container bg-red-50 hover:bg-red-100 transition-colors border-l-4 border-red-400">
                     <span class="status-tag status-todo float-right">🔴 尚未訂</span>
                     <div class="big-title text-gray-800">1. eSIM 網卡</div>
-                    <div class="ml-1 text-base text-gray-700 mt-2">
+                    <div class="ml-1 text-sm text-gray-700 mt-1">
                         <p class="mb-1 font-bold">吃到飽 x 5人份</p>
-                        <p class="text-sm">💡 出發前一天掃 QR Code 設定。</p>
+                        <p class="text-xs text-gray-500">💡 出發前一天掃 QR Code 設定。</p>
                     </div>
                 </div>
 
@@ -155,8 +155,8 @@
                 <div class="card-padding spot-container bg-red-50/50 hover:bg-red-100 transition-colors">
                     <span class="status-tag status-todo float-right">🔴 尚未填寫</span>
                     <div class="big-title text-gray-800">2. VJW 入境卡</div>
-                    <div class="ml-1 mt-2">
-                        <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/" target="_blank" class="link-style flex items-center gap-2 text-lg">🔗 點此前往官方網站</a>
+                    <div class="ml-1 mt-1">
+                        <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/" target="_blank" class="link-style flex items-center gap-1 text-sm">🔗 點此前往官方網站</a>
                     </div>
                 </div>
 
@@ -164,18 +164,18 @@
                 <div class="card-padding spot-container bg-purple-50/50 hover:bg-purple-50 transition-colors">
                     <span class="status-tag status-pending float-right">🔴 待訂</span>
                     <div class="big-title text-gray-800">3. 接送 (去程)</div>
-                    <div class="ml-1 text-base text-gray-700 mt-2">
-                        <p class="mb-2">⏰ 2/22 (日) <span class="text-xl font-bold text-red-600">凌晨 04:00</span> 出發</p>
-                        <p class="text-lg">📍 目的地：<a href="http://maps.google.com/?q=%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%B8%80%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園機場 T1</a></p>
+                    <div class="ml-1 text-sm text-gray-700 mt-1">
+                        <p class="mb-1">⏰ 2/22 (日) <span class="font-bold text-red-600">凌晨 04:00</span> 出發</p>
+                        <p>📍 目的地：<a href="http://maps.google.com/?q=%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9B%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%B8%80%E8%88%AA%E5%BB%B3" target="_blank" class="map-link">桃園機場 T1</a></p>
                     </div>
                 </div>
 
                 <!-- 機票 -->
-                <div class="card-padding spot-container hover:bg-gray-50 transition-colors border-l-8 border-indigo-400">
+                <div class="card-padding spot-container hover:bg-gray-50 transition-colors border-l-4 border-indigo-400">
                     <span class="status-tag status-ok float-right">✅ 已確認</span>
                     <div class="big-title text-gray-800">4. 機票 (虎航)</div>
-                    <div class="ml-1 text-base text-gray-700 mt-2">
-                        <p class="font-bold text-lg">IT210</p>
+                    <div class="ml-1 text-sm text-gray-700 mt-1">
+                        <p class="font-bold">IT210</p>
                         <p>07:00 桃園 T1 ➔ 10:25 關西 T1</p>
                     </div>
                 </div>
@@ -185,8 +185,8 @@
                     <span class="status-tag status-ok float-right">✅ 已確認</span>
                     <div class="section-header">6晚住宿</div>
                     <div class="big-title text-orange-700"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link text-orange-700">東橫INN 大阪難波</a></div>
-                    <div class="transport-box mt-3">
-                        <p class="font-bold text-lg mb-2">🚇 飯店交通攻略：</p>
+                    <div class="transport-box mt-2">
+                        <p class="font-bold mb-1">🚇 飯店交通攻略：</p>
                         <p>從 <a href="https://www.google.com/maps/search/?api=1&query=大阪地鐵+難波站" target="_blank" class="map-link">大阪地鐵 難波站</a></p>
                         <p>往 <span class="exit-badge">Exit 5</span> 出口，步行 5 分鐘。</p>
                     </div>
@@ -195,13 +195,13 @@
 
             <!-- TAB: Day 1 (Osaka) -->
             <div id="content-day1" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-8 border-indigo-700 bg-indigo-100/50 p-4">
-                    <h2 class="text-2xl font-black text-indigo-900">📅 D1 抵達與歷史</h2>
-                    <p class="text-indigo-700 font-bold mt-1">2/22 (日)</p>
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D1 抵達與歷史</h2>
+                    <p class="text-xs text-indigo-700 font-bold mt-1">2/22 (日)</p>
                 </div>
 
                 <!-- D1 起點 -->
-                <div class="card-padding spot-container bg-gray-50 border-l-8 border-gray-400">
+                <div class="card-padding spot-container bg-gray-50 border-l-4 border-gray-400">
                     <h2 class="section-header">起點</h2>
                     <div class="big-title">關西機場 T1</div>
                     <div class="transport-box">
@@ -212,59 +212,59 @@
                 </div>
 
                 <!-- Hotel Check-in -->
-                <div class="card-padding spot-container bg-orange-50 border-l-8 border-orange-400">
+                <div class="card-padding spot-container bg-orange-50 border-l-4 border-orange-400">
                     <h2 class="section-header">飯店 Check-in</h2>
                     <div class="big-title text-orange-800"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link text-orange-800">東橫INN 大阪難波</a></div>
-                    <p class="text-base text-gray-600 mt-2">先寄放行李。</p>
+                    <p class="text-sm text-gray-600 mt-1">先寄放行李。</p>
                 </div>
 
                 <!-- Osaka Castle -->
-                <div class="card-padding spot-container bg-blue-50 border-l-8 border-blue-400">
+                <div class="card-padding spot-container bg-blue-50 border-l-4 border-blue-400">
                     <h2 class="section-header">第一站</h2>
                     <div class="big-title text-blue-900"><a href="https://www.google.com/maps/search/?api=1&query=大阪城天守閣" target="_blank" class="map-link text-blue-900">大阪城天守閣</a></div>
                     
                     <div class="transport-box">
                         <p>🚇 <b>下車：</b><a href="https://www.google.com/maps/search/?api=1&query=谷町四丁目站" target="_blank" class="map-link">谷町四丁目站</a></p>
                         <p>🚪 <b>出口：</b><span class="exit-badge">Exit 1-B</span> 或 <span class="exit-badge">Exit 9</span>。</p>
-                        <p class="mt-2 text-sm">💡 建議搭乘園內火車省力。</p>
+                        <p class="mt-1 text-xs">💡 建議搭乘園內火車省力。</p>
                     </div>
                     
-                    <div class="mt-3 p-3 bg-white rounded border border-blue-200">
+                    <div class="mt-2 p-2 bg-white rounded border border-blue-200">
                         <span class="badge-rest">長輩休息點</span>
-                        <div class="text-xl font-bold mt-1"><a href="https://www.google.com/maps/search/?api=1&query=JO-TERRACE+OSAKA" target="_blank" class="map-link">JO-TERRACE OSAKA</a></div>
-                        <p class="text-gray-600">在此享用午茶。</p>
+                        <div class="text-sm font-bold mt-1"><a href="https://www.google.com/maps/search/?api=1&query=JO-TERRACE+OSAKA" target="_blank" class="map-link">JO-TERRACE OSAKA</a></div>
+                        <p class="text-xs text-gray-600">在此享用午茶。</p>
                     </div>
                 </div>
 
                 <!-- Evening -->
-                <div class="card-padding spot-container bg-red-50 border-l-8 border-red-400">
+                <div class="card-padding spot-container bg-red-50 border-l-4 border-red-400">
                     <h2 class="section-header">晚餐</h2>
                     <div class="big-title text-red-900"><a href="https://www.google.com/maps/search/?api=1&query=道頓堀" target="_blank" class="map-link text-red-900">道頓堀 繁華街</a></div>
                     <div class="transport-box">
                         <p>🚪 <b>出口：</b>難波站 <span class="exit-badge">Exit 14</span> (直通跑跑人)。</p>
                     </div>
-                    <div class="mt-2 text-lg font-bold text-red-800">
+                    <div class="mt-2 text-sm font-bold text-red-800">
                         👉 推薦前往：<a href="https://www.google.com/maps/search/?api=1&query=法善寺橫丁" target="_blank" class="map-link">法善寺橫丁</a> (氣氛佳)
                     </div>
                 </div>
 
                 <!-- D1 終點 -->
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">終點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
-                    <p class="text-base text-gray-600 mt-2">從難波站 <span class="exit-badge">Exit 5</span> 回飯店。</p>
+                    <p class="text-xs text-gray-600 mt-1">從難波站 <span class="exit-badge">Exit 5</span> 回飯店。</p>
                 </div>
             </div>
 
             <!-- TAB: Day 2 (Nara) -->
             <div id="content-day2" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-8 border-indigo-700 bg-indigo-100/50 p-4">
-                    <h2 class="text-2xl font-black text-indigo-900">📅 D2 奈良神鹿</h2>
-                    <p class="text-base font-bold text-red-600 mt-1">2/23 (一) ⚠️ 天皇誕生日 (人多)</p>
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D2 奈良神鹿</h2>
+                    <p class="text-xs font-bold text-red-600 mt-1">2/23 (一) ⚠️ 天皇誕生日 (人多)</p>
                 </div>
                 
                 <!-- D2 起點 -->
-                <div class="card-padding spot-container bg-green-50 border-l-8 border-green-400">
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">起點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
                     <div class="transport-box">
@@ -275,27 +275,27 @@
                 </div>
 
                 <!-- 奈良重點 1 -->
-                <div class="card-padding spot-container bg-amber-50 border-l-8 border-amber-400">
+                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
                     <h2 class="section-header">奈良第一站</h2>
                     <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=中谷堂" target="_blank" class="map-link text-amber-900">中谷堂 (搗麻糬)</a></div>
-                    <p class="text-lg text-gray-700 mt-1">商店街底，看現場表演。</p>
+                    <p class="text-sm text-gray-700 mt-1">商店街底，看現場表演。</p>
                 </div>
 
                 <!-- 奈良重點 2 -->
-                <div class="card-padding spot-container bg-amber-50 border-l-8 border-amber-400">
+                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
                     <h2 class="section-header">奈良第二站</h2>
                     <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=東大寺" target="_blank" class="map-link text-amber-900">東大寺 & 奈良公園</a></div>
-                    <p class="text-lg text-gray-700 mt-1">看大佛與餵鹿。</p>
+                    <p class="text-sm text-gray-700 mt-1">看大佛與餵鹿。</p>
                 </div>
 
                 <!-- 奈良休息點 -->
-                <div class="card-padding spot-container bg-amber-100 border-l-8 border-amber-500">
+                <div class="card-padding spot-container bg-amber-100 border-l-4 border-amber-500">
                     <span class="badge-rest">推薦長輩休息點</span>
                     <div class="big-title text-amber-900 mt-2"><a href="https://www.google.com/maps/search/?api=1&query=東大寺+二月堂" target="_blank" class="map-link text-amber-900">二月堂</a></div>
-                    <p class="text-lg text-gray-800 mt-2">爬一段樓梯後，可坐著吹風看奈良全景，避開人潮。</p>
+                    <p class="text-sm text-gray-800 mt-1">爬一段樓梯後，可坐著吹風看奈良全景，避開人潮。</p>
                 </div>
 
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">晚餐</h2>
                     <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=千日前" target="_blank" class="map-link">千日前 商店街</a></div>
                     <div class="transport-box">
@@ -304,7 +304,7 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">終點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
                 </div>
@@ -312,13 +312,13 @@
 
             <!-- TAB: Day 3 (Kiyomizu) -->
             <div id="content-day3" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-8 border-indigo-700 bg-indigo-100/50 p-4">
-                    <h2 class="text-2xl font-black text-indigo-900">📅 D3 清水與祇園</h2>
-                    <p class="text-base font-bold text-green-700 mt-1">2/24 (二) ✨ 平日 (連假結束)</p>
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D3 清水與祇園</h2>
+                    <p class="text-xs font-bold text-green-700 mt-1">2/24 (二) ✨ 平日 (連假結束)</p>
                 </div>
 
                 <!-- D3 起點 -->
-                <div class="card-padding spot-container bg-green-50 border-l-8 border-green-400">
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">起點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
                     <div class="transport-box">
@@ -328,19 +328,19 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-orange-50 border-l-8 border-orange-400">
+                <div class="card-padding spot-container bg-orange-50 border-l-4 border-orange-400">
                     <h2 class="section-header">京都第一站</h2>
                     <div class="big-title text-orange-900"><a href="https://www.google.com/maps/search/?api=1&query=清水寺" target="_blank" class="map-link text-orange-900">清水寺</a></div>
-                    <div class="ml-1 text-lg text-gray-700 mt-3">
+                    <div class="ml-1 text-sm text-gray-700 mt-2">
                         <p>🚶 <b>輕鬆下坡路線：</b></p>
-                        <div class="font-bold text-xl mt-2 text-orange-800">
+                        <div class="font-bold text-lg mt-1 text-orange-800">
                             <a href="https://www.google.com/maps/search/?api=1&query=產寧坂" target="_blank" class="map-link">產寧坂</a> ➔ <a href="https://www.google.com/maps/search/?api=1&query=二年坂" target="_blank" class="map-link">二年坂</a>
                         </div>
-                        <p class="mt-2 text-base text-gray-500">💡 走到二年坂底部即可準備搭車。</p>
+                        <p class="mt-1 text-xs text-gray-500">💡 走到二年坂底部即可準備搭車。</p>
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-teal-50 border-l-8 border-teal-500">
+                <div class="card-padding spot-container bg-teal-50 border-l-4 border-teal-500">
                     <h2 class="section-header">京都第二站</h2>
                     <div class="big-title text-teal-900"><a href="https://www.google.com/maps/search/?api=1&query=祇園+花見小路" target="_blank" class="map-link text-teal-900">祇園 花見小路</a></div>
                     <div class="transport-box">
@@ -349,29 +349,29 @@
                 </div>
 
                 <!-- 建仁寺休息 -->
-                <div class="card-padding spot-container bg-teal-100 border-l-8 border-teal-600">
+                <div class="card-padding spot-container bg-teal-100 border-l-4 border-teal-600">
                     <span class="badge-rest">推薦長輩休息點 (免預約)</span>
                     <div class="big-title text-teal-900 mt-2"><a href="https://www.google.com/maps/search/?api=1&query=建仁寺" target="_blank" class="map-link text-teal-900">建仁寺 (Kenninji)</a></div>
-                    <p class="text-lg text-gray-800 mt-2">京都最古老禪寺，可坐塌塌米看庭園。</p>
-                    <div class="mt-3 bg-white/70 p-3 rounded border border-teal-300">
-                        <p class="font-bold text-teal-900 text-lg">👀 必看國寶：</p>
-                        <ul class="list-disc list-inside mt-1 text-base">
+                    <p class="text-sm text-gray-800 mt-1">京都最古老禪寺，可坐塌塌米看庭園。</p>
+                    <div class="mt-2 bg-white/70 p-2 rounded border border-teal-300">
+                        <p class="font-bold text-teal-900 text-sm">👀 必看國寶：</p>
+                        <ul class="list-disc list-inside mt-1 text-sm">
                             <li><b>風神雷神圖屏風</b> (高精細複製品，可拍照)</li>
                             <li><b>雙龍圖</b> (法堂天花板)</li>
                         </ul>
                     </div>
                 </div>
 
-                 <div class="card-padding spot-container bg-slate-800 text-slate-200 border-l-8 border-purple-500">
+                 <div class="card-padding spot-container bg-slate-800 text-slate-200 border-l-4 border-purple-500">
                     <h2 class="section-header text-purple-300">夜生活 (年輕組)</h2>
                     <div class="big-title text-white"><a href="https://www.google.com/maps/search/?api=1&query=裏難波" target="_blank" class="map-link text-white">裏難波 Ura-Namba</a></div>
                     <div class="transport-box bg-slate-700 border-slate-500 text-slate-200">
                         <p>🔙 <b>回程：</b>步行至祇園四條 搭京阪 ➔ 難波。</p>
                     </div>
-                    <p class="text-base mt-2">高島屋後方巷弄，適合站著喝一杯。</p>
+                    <p class="text-sm mt-1">高島屋後方巷弄，適合站著喝一杯。</p>
                 </div>
 
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">終點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
                 </div>
@@ -379,13 +379,13 @@
 
             <!-- TAB: Day 4 (Uji) -->
             <div id="content-day4" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-8 border-indigo-700 bg-indigo-100/50 p-4">
-                    <h2 class="text-2xl font-black text-indigo-900">📅 D4 宇治與稻荷</h2>
-                    <p class="text-base font-bold text-green-700 mt-1">2/25 (三) ✨ 平日</p>
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D4 宇治與稻荷</h2>
+                    <p class="text-xs font-bold text-green-700 mt-1">2/25 (三) ✨ 平日</p>
                 </div>
 
                 <!-- D4 起點 -->
-                <div class="card-padding spot-container bg-green-50 border-l-8 border-green-400">
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">起點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
                     <div class="transport-box">
@@ -395,27 +395,27 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-red-50 border-l-8 border-red-400">
+                <div class="card-padding spot-container bg-red-50 border-l-4 border-red-400">
                     <h2 class="section-header">第一站</h2>
                     <div class="big-title text-red-900"><a href="https://www.google.com/maps/search/?api=1&query=伏見稻荷大社" target="_blank" class="map-link text-red-900">伏見稻荷大社</a></div>
-                    <p class="text-xl font-bold text-red-600 mt-2">⚠️ 只走到「奧社奉拜所」即折返。</p>
+                    <p class="text-sm font-bold text-red-600 mt-1">⚠️ 只走到「奧社奉拜所」即折返。</p>
                     <div class="transport-box">
                         <p>🚆 <b>移動：</b>京阪伏見稻荷 ➔ <a href="https://www.google.com/maps/search/?api=1&query=京阪宇治站" target="_blank" class="map-link">京阪宇治站</a> (需在中書島轉宇治線)。</p>
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-green-50 border-l-8 border-green-400">
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">宇治散策</h2>
                     <div class="big-title text-green-900"><a href="https://www.google.com/maps/search/?api=1&query=平等院" target="_blank" class="map-link text-green-900">平等院 (鳳凰堂)</a></div>
                 </div>
 
-                <div class="card-padding spot-container bg-green-100 border-l-8 border-green-500">
+                <div class="card-padding spot-container bg-green-100 border-l-4 border-green-500">
                     <span class="badge-rest">長輩休息點</span>
                     <div class="big-title mt-2 text-green-900"><a href="https://www.google.com/maps/search/?api=1&query=中村藤吉+本店" target="_blank" class="map-link text-green-900">中村藤吉 本店</a></div>
-                    <p class="text-lg mt-2">百年古宅，享用抹茶甜點。</p>
+                    <p class="text-sm mt-1">百年古宅，享用抹茶甜點。</p>
                 </div>
 
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">購物</h2>
                     <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=Bic+Camera+Namba" target="_blank" class="map-link">Bic Camera 難波</a></div>
                     <div class="transport-box">
@@ -424,7 +424,7 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">終點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
                 </div>
@@ -432,13 +432,13 @@
 
              <!-- TAB: Day 5 (Arashiyama) -->
              <div id="content-day5" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-8 border-indigo-700 bg-indigo-100/50 p-4">
-                    <h2 class="text-2xl font-black text-indigo-900">📅 D5 嵐山金閣</h2>
-                    <p class="text-base font-bold text-indigo-700 mt-1">2/26 (四)</p>
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D5 嵐山金閣</h2>
+                    <p class="text-xs font-bold text-indigo-700 mt-1">2/26 (四)</p>
                 </div>
 
                 <!-- D5 起點 -->
-                <div class="card-padding spot-container bg-green-50 border-l-8 border-green-400">
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">起點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
                     <div class="transport-box">
@@ -448,10 +448,10 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-green-50 border-l-8 border-green-400">
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">嵐山風情</h2>
                     <div class="big-title text-green-900"><a href="https://www.google.com/maps/search/?api=1&query=嵐山+渡月橋" target="_blank" class="map-link text-green-900">嵐山 渡月橋</a></div>
-                    <p class="text-lg mt-2">出站後跟隨人潮，步行過橋。</p>
+                    <p class="text-sm mt-1">出站後跟隨人潮，步行過橋。</p>
                     <div class="transport-box">
                         <span class="badge-taxi">🚕 計程車戰略</span>
                         <p class="mt-1">從天龍寺前搭計程車 (約20分)。</p>
@@ -459,21 +459,21 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-yellow-50 border-l-8 border-yellow-500">
+                <div class="card-padding spot-container bg-yellow-50 border-l-4 border-yellow-500">
                     <h2 class="section-header">閃耀古蹟</h2>
                     <div class="big-title text-yellow-900"><a href="https://www.google.com/maps/search/?api=1&query=金閣寺" target="_blank" class="map-link text-yellow-900">金閣寺 (鹿苑寺)</a></div>
                 </div>
 
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">難波之夜</h2>
                     <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=Namba+Parks" target="_blank" class="map-link">難波 Parks</a></div>
-                    <p class="text-lg text-gray-700 mt-2">頂樓花園點燈。</p>
+                    <p class="text-sm text-gray-700 mt-1">頂樓花園點燈。</p>
                     <div class="transport-box">
                         <p>🔙 <b>回程：</b>搭公車/計程車至圓町站 (JR) 或北大路 (地鐵) 回難波。</p>
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">終點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
                 </div>
@@ -481,13 +481,13 @@
 
              <!-- TAB: Day 6 (Umeda) -->
              <div id="content-day6" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-8 border-indigo-700 bg-indigo-100/50 p-4">
-                    <h2 class="text-2xl font-black text-indigo-900">📅 D6 梅田迷宮攻略</h2>
-                    <p class="text-base font-bold text-indigo-700 mt-1">2/27 (五)</p>
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D6 梅田迷宮攻略</h2>
+                    <p class="text-xs font-bold text-indigo-700 mt-1">2/27 (五)</p>
                 </div>
 
                 <!-- D6 起點 -->
-                <div class="card-padding spot-container bg-green-50 border-l-8 border-green-400">
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">起點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
                     <div class="transport-box">
@@ -496,56 +496,56 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-red-50 border-l-8 border-red-400">
+                <div class="card-padding spot-container bg-red-50 border-l-4 border-red-400">
                     <h2 class="section-header">早午餐</h2>
                     <div class="big-title text-red-900"><a href="https://www.google.com/maps/search/?api=1&query=黑門市場" target="_blank" class="map-link text-red-900">黑門市場</a></div>
-                    <p class="text-xl mt-2">和牛、草莓大福、生蠔。</p>
+                    <p class="text-sm mt-1">和牛、草莓大福、生蠔。</p>
                 </div>
 
-                <div class="card-padding spot-container bg-blue-50 border-l-8 border-blue-400">
+                <div class="card-padding spot-container bg-blue-50 border-l-4 border-blue-400">
                     <h2 class="section-header">梅田分流</h2>
                     <div class="transport-box">
                         <p>🚪 <b>關鍵出口：</b>地鐵梅田 <span class="exit-badge">Exit 6</span></p>
                         <p>👆 此出口通往 <b>Lucua / 阪急百貨 / Grand Front</b>。</p>
                     </div>
-                    <div class="mt-4 space-y-4">
+                    <div class="mt-2 space-y-2">
                         <div>
-                            <p class="font-bold text-gray-700 text-lg">👵 爸媽組：</p>
-                            <div class="big-title text-xl"><a href="https://www.google.com/maps/search/?api=1&query=阪急百貨+梅田本店" target="_blank" class="map-link">阪急百貨 梅田本店</a></div>
+                            <p class="font-bold text-gray-700 text-sm">👵 爸媽組：</p>
+                            <div class="big-title text-lg"><a href="https://www.google.com/maps/search/?api=1&query=阪急百貨+梅田本店" target="_blank" class="map-link">阪急百貨 梅田本店</a></div>
                         </div>
                         <div>
-                            <p class="font-bold text-indigo-700 text-lg">🧑 年輕組：</p>
-                            <div class="big-title text-xl"><a href="https://www.google.com/maps/search/?api=1&query=Nintendo+OSAKA" target="_blank" class="map-link">Nintendo OSAKA</a></div>
-                            <p class="text-base">(大丸梅田店 13F)</p>
+                            <p class="font-bold text-indigo-700 text-sm">🧑 年輕組：</p>
+                            <div class="big-title text-lg"><a href="https://www.google.com/maps/search/?api=1&query=Nintendo+OSAKA" target="_blank" class="map-link">Nintendo OSAKA</a></div>
+                            <p class="text-sm">(大丸梅田店 13F)</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-sky-50 border-l-8 border-sky-400">
+                <div class="card-padding spot-container bg-sky-50 border-l-4 border-sky-400">
                     <h2 class="section-header">夜景</h2>
                     <div class="big-title text-sky-900"><a href="https://www.google.com/maps/search/?api=1&query=梅田藍天大廈" target="_blank" class="map-link text-sky-900">梅田藍天大廈</a></div>
-                    <p class="text-lg mt-2">(空中庭園)</p>
+                    <p class="text-sm mt-1">(空中庭園)</p>
                     <div class="transport-box">
                         <p>🚶 <b>動線：</b>從 Grand Front 旁地下道走約 15 分。</p>
                         <p>💡 長輩建議直接搭計程車。</p>
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-indigo-50 border-l-8 border-indigo-500">
+                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
                     <h2 class="section-header">終點</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
-                    <p class="text-base text-gray-600 mt-2">從梅田搭 Midosuji 線直達難波 <span class="exit-badge">Exit 5</span>。</p>
+                    <p class="text-xs text-gray-600 mt-1">從梅田搭 Midosuji 線直達難波 <span class="exit-badge">Exit 5</span>。</p>
                 </div>
             </div>
 
             <!-- TAB: Day 7 (Return) -->
             <div id="content-day7" class="divide-y divide-gray-100 content-list hidden fade-in">
-                 <div class="border-t-8 border-gray-400 bg-gray-100 p-4">
-                    <h2 class="text-2xl font-black text-gray-700">📅 D7 返程</h2>
-                    <p class="text-base font-bold text-gray-600 mt-1">2/28 (六)</p>
+                 <div class="border-t-4 border-gray-400 bg-gray-100 p-3">
+                    <h2 class="text-xl font-bold text-gray-700">📅 D7 返程</h2>
+                    <p class="text-xs font-bold text-gray-600 mt-1">2/28 (六)</p>
                 </div>
 
-                <div class="card-padding spot-container bg-green-50 border-l-8 border-green-400">
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">起點 (退房)</h2>
                     <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
                     <div class="transport-box">
@@ -554,7 +554,7 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container bg-pink-50 border-l-8 border-pink-400">
+                <div class="card-padding spot-container bg-pink-50 border-l-4 border-pink-400">
                     <h2 class="section-header">最終採買</h2>
                     <div class="big-title text-pink-700"><a href="https://www.google.com/maps/search/?api=1&query=Rinku+Premium+Outlets" target="_blank" class="map-link text-pink-700">臨空城 Outlet</a></div>
                     <div class="transport-box">
@@ -563,10 +563,10 @@
                     </div>
                 </div>
 
-                <div class="card-padding spot-container border-l-8 border-indigo-500">
+                <div class="card-padding spot-container border-l-4 border-indigo-500">
                     <h2 class="section-header">機場報到</h2>
                     <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=關西國際機場+第一航廈" target="_blank" class="map-link">關西機場 T1</a></div>
-                    <p class="text-xl font-bold text-indigo-700 mt-2">14:30 飛機回台</p>
+                    <p class="text-lg font-bold text-indigo-700 mt-1">14:30 飛機回台</p>
                     <div class="transport-box">
                         <p>🚆 <b>移動：</b>臨空城站 ➔ 關西機場 (1站)。</p>
                         <p>📍 第一航廈 4F 出境。</p>
@@ -577,7 +577,7 @@
         </div>
 
         <div class="bg-gray-50 p-4 text-sm font-bold text-gray-500 text-center border-t">
-            *長輩友善導航版 - 點擊粗體地點開啟地圖*
+            *戰術導航版 - 點擊粗體地點開啟地圖*
         </div>
     </div>
 
