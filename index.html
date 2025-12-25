@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; }
-        .info-card-container { max-width: 420px; width: 100%; }
+        .info-card-container { max-width: 420px; width: 100%; margin: 0 auto; }
         
-        /* 狀態標籤 - 改回小巧尺寸 */
+        /* 狀態標籤 */
         .status-tag {
             font-size: 0.75rem;
             padding: 2px 8px;
@@ -64,18 +64,18 @@
             margin: 0 2px;
         }
 
-        /* 標題樣式 - 卡片化但字體正常 */
+        /* 標題樣式 */
         .big-title {
-            font-size: 1.25rem; /* 正常標題大小 */
+            font-size: 1.25rem; 
             line-height: 1.4;
-            font-weight: 900; /* Black weight */
-            color: #1e293b; /* slate-800 */
+            font-weight: 900; 
+            color: #1e293b; 
             margin-bottom: 0.25rem;
             display: block;
         }
         
         .section-header {
-            font-size: 0.75rem; /* 輔助標題 */
+            font-size: 0.75rem; 
             font-weight: 700;
             color: #64748b; 
             margin-bottom: 2px;
@@ -98,13 +98,34 @@
         .badge-taxi { background-color: #fef08a; color: #854d0e; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #fde047; font-weight: bold; display: inline-block; margin-bottom: 4px; }
         .badge-rest { background-color: #dcfce7; color: #166534; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #86efac; font-weight: bold; display: inline-block; margin-bottom: 4px;}
         
-        /* 調整卡片內距 */
         .card-padding { padding: 1rem; } 
-        
-        /* 景點專用大區塊 */
-        .spot-container {
-            border-bottom: 1px solid #e2e8f0; 
+        .spot-container { border-bottom: 1px solid #e2e8f0; }
+
+        /* 餐廳卡片樣式 */
+        .restaurant-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 0.5rem;
+            padding-bottom: 0.5rem;
+            padding-top: 0.25rem;
         }
+        .restaurant-card {
+            flex: 0 0 auto;
+            width: 130px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s;
+            text-decoration: none !important;
+            background-color: white;
+        }
+        .restaurant-card:active { transform: scale(0.95); }
+        .res-name { font-weight: 900; font-size: 0.85rem; line-height: 1.2; margin-bottom: 4px; }
+        .res-desc { font-size: 0.65rem; color: #64748b; line-height: 1.3; }
+        .res-tag { font-size: 0.6rem; font-weight: bold; padding: 1px 4px; border-radius: 3px; display: inline-block; margin-bottom: 2px;}
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen p-4 flex justify-center items-start">
@@ -200,11 +221,79 @@
                     <p class="text-xs text-indigo-700 font-bold mt-1">2/22 (日)</p>
                 </div>
 
-                <!-- D1 起點 -->
+                <!-- D1 起點 & 午餐 -->
                 <div class="card-padding spot-container bg-gray-50 border-l-4 border-gray-400">
                     <h2 class="section-header">起點</h2>
                     <div class="big-title">關西機場 T1</div>
+                    <p class="text-sm text-gray-600 mb-2">出關後，請往 2F 鐵道方向移動。</p>
+
+                    <!-- NEW: 餐廳橫向捲軸 -->
+                    <div class="mt-3 mb-2">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-bold text-orange-700 bg-orange-100 px-2 py-0.5 rounded">🍴 順路午餐 (2F & 車站旁)</span>
+                            <span class="text-[10px] text-gray-400">左右滑動選餐廳 👉</span>
+                        </div>
+                        
+                        <div class="restaurant-scroll no-scrollbar">
+                            <!-- 1. 章魚燒 -->
+                            <a href="https://www.google.com/maps/search/?api=1&query=TAKOMASA+Kansai+International+Airport" target="_blank" class="restaurant-card border-orange-200 bg-orange-50/30">
+                                <div>
+                                    <span class="res-tag bg-orange-100 text-orange-700">大阪代表</span>
+                                    <div class="res-name text-orange-900">TAKOMASA<br>章魚燒</div>
+                                </div>
+                                <div class="res-desc mt-1">🐙 點了就走<br>最道地風味</div>
+                            </a>
+
+                            <!-- 2. 拉麵 -->
+                            <a href="https://www.google.com/maps/search/?api=1&query=DOTONBORI+KAMUKURA+Kansai+International+Airport" target="_blank" class="restaurant-card border-red-200 bg-red-50/30">
+                                <div>
+                                    <span class="res-tag bg-red-100 text-red-700">熱食首選</span>
+                                    <div class="res-name text-red-900">神座拉麵<br>Kamukura</div>
+                                </div>
+                                <div class="res-desc mt-1">🍜 醬油白菜湯<br>快速不踩雷</div>
+                            </a>
+
+                            <!-- 3. 烏龍麵 -->
+                            <a href="https://www.google.com/maps/search/?api=1&query=Homemade+Udon+KINEYA+MUGIMARU+Kansai+International+Airport" target="_blank" class="restaurant-card border-yellow-200 bg-yellow-50/30">
+                                <div>
+                                    <span class="res-tag bg-yellow-100 text-yellow-700">清爽系</span>
+                                    <div class="res-name text-yellow-900">杵屋麥丸<br>烏龍麵</div>
+                                </div>
+                                <div class="res-desc mt-1">🥣 自助式炸物<br>快速坐下吃</div>
+                            </a>
+
+                            <!-- 4. 蕎麥/定食 -->
+                            <a href="https://www.google.com/maps/search/?api=1&query=SOJIBO+Kansai+International+Airport" target="_blank" class="restaurant-card border-green-200 bg-green-50/30">
+                                <div>
+                                    <span class="res-tag bg-green-100 text-green-700">日式老派</span>
+                                    <div class="res-name text-green-900">信州蕎麥<br>SOJIBO</div>
+                                </div>
+                                <div class="res-desc mt-1">🍱 完整定食<br>像日本日常</div>
+                            </a>
+
+                             <!-- 5. 食堂 -->
+                             <a href="https://www.google.com/maps/search/?api=1&query=Maidoookini+Shokudo+Kansai+Airport+Shokudo" target="_blank" class="restaurant-card border-blue-200 bg-blue-50/30">
+                                <div>
+                                    <span class="res-tag bg-blue-100 text-blue-700">最日常</span>
+                                    <div class="res-name text-blue-900">關空食堂<br>Shokudo</div>
+                                </div>
+                                <div class="res-desc mt-1">🍚 家常菜<br>直觀不思考</div>
+                            </a>
+
+                            <!-- 6. 牛丼 (Aeroplaza) -->
+                            <a href="https://www.google.com/maps/search/?api=1&query=NAKAU+Kansai+International+Airport" target="_blank" class="restaurant-card border-gray-300 bg-gray-50">
+                                <div>
+                                    <span class="res-tag bg-gray-200 text-gray-700">車站旁</span>
+                                    <div class="res-name text-gray-900">NAKAU<br>親子丼/牛丼</div>
+                                </div>
+                                <div class="res-desc mt-1">🚉 在Aeroplaza<br>24H 通勤風</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- END: 餐廳橫向捲軸 -->
+
                     <div class="transport-box">
+                        <p class="font-bold text-indigo-700 mb-1">吃飽出發 ➔</p>
                         <p>🚆 <b>搭乘：</b><a href="https://www.google.com/maps/search/?api=1&query=南海電鐵+關西機場站" target="_blank" class="map-link">南海電鐵</a> Rapi:t (特急)</p>
                         <p>🏁 <b>下車：</b><a href="https://www.google.com/maps/search/?api=1&query=南海難波站" target="_blank" class="map-link">南海難波站</a></p>
                         <p>🚪 <b>出口：</b><span class="exit-badge">3F 北改札口</span> (North Gate)。</p>
@@ -613,5 +702,3 @@
     </script>
 </body>
 </html>
-
-
