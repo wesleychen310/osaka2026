@@ -3,128 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大阪之旅 2026</title>
-    <!-- 載入 Tailwind CSS -->
+    <title>京都避人潮之旅 (完整版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 載入 Noto Sans TC 字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; }
         .info-card-container { max-width: 420px; width: 100%; margin: 0 auto; }
         
         /* 狀態標籤 */
-        .status-tag {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 9999px;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            display: inline-block;
-            margin-top: 2px;
-        }
+        .status-tag { font-size: 0.75rem; padding: 2px 8px; border-radius: 9999px; font-weight: 700; display: inline-block; margin-top: 2px;}
         .status-ok { background-color: #d1fae5; color: #065f46; }
         .status-todo { background-color: #fee2e2; color: #991b1b; }
         .status-pending { background-color: #fef3c7; color: #b45309; }
         
-        /* 連結樣式優化 */
         .link-style { color: #2563eb; text-decoration: underline; font-weight: bold; }
         .map-link { 
-            color: #0369a1; 
-            text-decoration: underline; 
-            text-decoration-thickness: 2px;
-            text-underline-offset: 2px;
-            cursor: pointer; 
-            font-weight: 700; 
-            transition: all 0.2s;
+            color: #0369a1; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px;
+            cursor: pointer; font-weight: 700; transition: all 0.2s;
         }
         .map-link:hover { color: #dc2626; background-color: #fee2e2; border-radius: 2px; } 
         
-        .sub-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; }
-        
-        /* 交通指引區塊樣式 */
         .transport-box {
-            background-color: #f1f5f9; /* slate-100 */
-            border-left: 4px solid #64748b; /* slate-500 */
-            padding: 8px 12px;
-            margin-top: 8px;
-            margin-bottom: 8px;
-            border-radius: 0 4px 4px 0;
-            font-size: 0.85rem; 
-            color: #334155;
-            line-height: 1.5;
+            background-color: #f1f5f9; border-left: 4px solid #64748b; padding: 8px 12px;
+            margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 0.85rem; color: #334155;
         }
-        .exit-badge {
-            display: inline-block;
-            background-color: #334155;
-            color: #ffffff;
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin: 0 2px;
-        }
+        .exit-badge { background-color: #334155; color: #ffffff; padding: 1px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin: 0 2px; }
 
-        /* 標題樣式 */
-        .big-title {
-            font-size: 1.25rem; 
-            line-height: 1.4;
-            font-weight: 900; 
-            color: #1e293b; 
-            margin-bottom: 0.25rem;
-            display: block;
-        }
-        
-        .section-header {
-            font-size: 0.75rem; 
-            font-weight: 700;
-            color: #64748b; 
-            margin-bottom: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+        .big-title { font-size: 1.25rem; line-height: 1.4; font-weight: 900; color: #1e293b; margin-bottom: 0.25rem; display: block; }
+        .section-header { font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 2px; text-transform: uppercase; }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        .tab-active { background-color: #4338ca; color: white; border-color: transparent; }
-        .tab-inactive { background-color: white; color: #4b5563; border-color: #e5e7eb; }
+        .tab-active { background-color: #4338ca; color: white; }
+        .tab-inactive { background-color: white; color: #4b5563; border: 1px solid #e5e7eb; }
         
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .badge-taxi { background-color: #fef08a; color: #854d0e; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #fde047; font-weight: bold; display: inline-block; margin-bottom: 4px; }
         .badge-rest { background-color: #dcfce7; color: #166534; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #86efac; font-weight: bold; display: inline-block; margin-bottom: 4px;}
-        
         .card-padding { padding: 1rem; } 
         .spot-container { border-bottom: 1px solid #e2e8f0; }
 
-        /* 餐廳卡片樣式 */
-        .restaurant-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 0.5rem;
-            padding-bottom: 0.5rem;
-            padding-top: 0.25rem;
-        }
-        .restaurant-card {
-            flex: 0 0 auto;
-            width: 130px;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            padding: 0.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.2s;
-            text-decoration: none !important;
-            background-color: white;
-        }
-        .restaurant-card:active { transform: scale(0.95); }
+        .restaurant-scroll { display: flex; overflow-x: auto; gap: 0.5rem; padding-bottom: 0.5rem; padding-top: 0.25rem; }
+        .restaurant-card { flex: 0 0 auto; width: 130px; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.5rem; background-color: white; }
         .res-name { font-weight: 900; font-size: 0.85rem; line-height: 1.2; margin-bottom: 4px; }
-        .res-desc { font-size: 0.65rem; color: #64748b; line-height: 1.3; }
         .res-tag { font-size: 0.6rem; font-weight: bold; padding: 1px 4px; border-radius: 3px; display: inline-block; margin-bottom: 2px;}
     </style>
 </head>
@@ -132,25 +55,21 @@
 
     <div class="info-card-container bg-white shadow-2xl rounded-xl overflow-hidden mb-10">
         <!-- 標頭 -->
-        <div class="bg-indigo-700 text-white p-6 relative overflow-hidden sticky top-0 z-20">
-            <h1 class="text-xl font-bold tracking-wider mb-1">
-                🇯🇵 大阪之旅 2026
-            </h1>
-            <p class="text-indigo-200 text-sm font-bold">
-                2026/02/22 ~ 02/28 (6晚)
-            </p>
+        <div class="bg-indigo-700 text-white p-6 sticky top-0 z-20">
+            <h1 class="text-xl font-bold tracking-wider mb-1">🇯🇵 京都 避開人潮版</h1>
+            <p class="text-indigo-200 text-sm font-bold">2026/02/22 ~ 02/28 (6晚 @ 京都)</p>
         </div>
 
         <!-- 導覽列 -->
         <div class="sticky top-[88px] z-10 bg-gray-50 border-b border-gray-200 shadow-sm">
             <div class="flex overflow-x-auto no-scrollbar py-3 px-2 space-x-2" id="tab-nav">
                 <button onclick="switchTab('planning')" id="btn-planning" class="tab-active px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors shadow-sm">📋 行前</button>
-                <button onclick="switchTab('day1')" id="btn-day1" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D1 大阪</button>
-                <button onclick="switchTab('day2')" id="btn-day2" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D2 奈良</button>
+                <button onclick="switchTab('day1')" id="btn-day1" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D1 抵達</button>
+                <button onclick="switchTab('day2')" id="btn-day2" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors text-red-600">D2 市區</button>
                 <button onclick="switchTab('day3')" id="btn-day3" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D3 清水</button>
-                <button onclick="switchTab('day4')" id="btn-day4" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D4 宇治</button>
+                <button onclick="switchTab('day4')" id="btn-day4" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D4 奈良</button>
                 <button onclick="switchTab('day5')" id="btn-day5" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D5 嵐山</button>
-                <button onclick="switchTab('day6')" id="btn-day6" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D6 梅田</button>
+                <button onclick="switchTab('day6')" id="btn-day6" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D6 稻荷</button>
                 <button onclick="switchTab('day7')" id="btn-day7" class="tab-inactive px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap border transition-colors">D7 返程</button>
             </div>
         </div>
@@ -158,7 +77,7 @@
         <!-- 內容區塊 -->
         <div class="min-h-[50vh] bg-white text-gray-800">
             
-            <!-- TAB: 行前規劃 -->
+            <!-- TAB: 行前規劃 (完整保留) -->
             <div id="content-planning" class="divide-y divide-gray-100 content-list fade-in">
                 <div class="bg-gray-50 p-3 text-xs font-bold text-gray-500 uppercase tracking-wide">行前準備清單</div>
                 
@@ -204,230 +123,114 @@
                 <!-- 住宿 -->
                 <div class="card-padding spot-container bg-white hover:bg-gray-50 transition-colors">
                     <span class="status-tag status-ok float-right">✅ 已確認</span>
-                    <div class="section-header">6晚住宿</div>
-                    <div class="big-title text-orange-700"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link text-orange-700">東橫INN 大阪難波</a></div>
+                    <div class="section-header">6晚住宿 (京都)</div>
+                    <div class="big-title text-orange-700"><a href="https://www.google.com/maps/search/?api=1&query=Ibis+Styles+Kyoto+Shijo" target="_blank" class="map-link text-orange-700">京都四條宜必思尚品酒店</a></div>
+                    <p class="text-xs text-gray-500 mb-1">イビススタイルズ 京都四条</p>
                     <div class="transport-box mt-2">
                         <p class="font-bold mb-1">🚇 飯店交通攻略：</p>
-                        <p>從 <a href="https://www.google.com/maps/search/?api=1&query=大阪地鐵+難波站" target="_blank" class="map-link">大阪地鐵 難波站</a></p>
-                        <p>往 <span class="exit-badge">Exit 5</span> 出口，步行 5 分鐘。</p>
+                        <p>從 <a href="https://www.google.com/maps/search/?api=1&query=四條站+京都地鐵" target="_blank" class="map-link">地鐵 四條站</a></p>
+                        <p>往 <span class="exit-badge">Exit 3</span> (有電梯)，步行 3 分鐘。</p>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB: Day 1 (Osaka) -->
+            <!-- TAB: Day 1 (Arrival) -->
             <div id="content-day1" class="divide-y divide-gray-100 content-list hidden fade-in">
                 <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
-                    <h2 class="text-xl font-bold text-indigo-900">📅 D1 抵達與歷史</h2>
-                    <p class="text-xs text-indigo-700 font-bold mt-1">2/22 (日)</p>
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D1 抵達京都</h2>
+                    <p class="text-xs text-indigo-700 font-bold mt-1">2/22 (日) 關西機場 ➔ 京都</p>
                 </div>
 
-                <!-- D1 起點 & 午餐 -->
                 <div class="card-padding spot-container bg-gray-50 border-l-4 border-gray-400">
                     <h2 class="section-header">起點</h2>
                     <div class="big-title">關西機場 T1</div>
-                    <p class="text-sm text-gray-600 mb-2">出關後，請往 2F 鐵道方向移動。</p>
-
-                    <!-- NEW: 餐廳橫向捲軸 -->
-                    <div class="mt-3 mb-2">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs font-bold text-orange-700 bg-orange-100 px-2 py-0.5 rounded">🍴 順路午餐 (2F & 車站旁)</span>
-                            <span class="text-[10px] text-gray-400">左右滑動選餐廳 👉</span>
-                        </div>
-                        
-                        <div class="restaurant-scroll no-scrollbar">
-                            <!-- 1. 章魚燒 -->
-                            <a href="https://www.google.com/maps/search/?api=1&query=TAKOMASA+Kansai+International+Airport" target="_blank" class="restaurant-card border-orange-200 bg-orange-50/30">
-                                <div>
-                                    <span class="res-tag bg-orange-100 text-orange-700">大阪代表</span>
-                                    <div class="res-name text-orange-900">TAKOMASA<br>章魚燒</div>
-                                </div>
-                                <div class="res-desc mt-1">🐙 點了就走<br>最道地風味</div>
-                            </a>
-
-                            <!-- 2. 拉麵 -->
+                    
+                    <div class="mt-2 mb-2">
+                        <span class="text-xs font-bold text-orange-700 bg-orange-100 px-2 py-0.5 rounded">🍴 機場午餐推薦 (2F)</span>
+                        <div class="restaurant-scroll no-scrollbar mt-1">
                             <a href="https://www.google.com/maps/search/?api=1&query=DOTONBORI+KAMUKURA+Kansai+International+Airport" target="_blank" class="restaurant-card border-red-200 bg-red-50/30">
-                                <div>
-                                    <span class="res-tag bg-red-100 text-red-700">熱食首選</span>
-                                    <div class="res-name text-red-900">神座拉麵<br>Kamukura</div>
-                                </div>
-                                <div class="res-desc mt-1">🍜 醬油白菜湯<br>快速不踩雷</div>
+                                <span class="res-tag bg-red-100 text-red-700">熱食</span>
+                                <div class="res-name text-red-900">神座拉麵</div>
                             </a>
-
-                            <!-- 3. 烏龍麵 -->
-                            <a href="https://www.google.com/maps/search/?api=1&query=Homemade+Udon+KINEYA+MUGIMARU+Kansai+International+Airport" target="_blank" class="restaurant-card border-yellow-200 bg-yellow-50/30">
-                                <div>
-                                    <span class="res-tag bg-yellow-100 text-yellow-700">清爽系</span>
-                                    <div class="res-name text-yellow-900">杵屋麥丸<br>烏龍麵</div>
-                                </div>
-                                <div class="res-desc mt-1">🥣 自助式炸物<br>快速坐下吃</div>
-                            </a>
-
-                            <!-- 4. 蕎麥/定食 -->
                             <a href="https://www.google.com/maps/search/?api=1&query=SOJIBO+Kansai+International+Airport" target="_blank" class="restaurant-card border-green-200 bg-green-50/30">
-                                <div>
-                                    <span class="res-tag bg-green-100 text-green-700">日式老派</span>
-                                    <div class="res-name text-green-900">信州蕎麥<br>SOJIBO</div>
-                                </div>
-                                <div class="res-desc mt-1">🍱 完整定食<br>像日本日常</div>
-                            </a>
-
-                             <!-- 5. 食堂 -->
-                             <a href="https://www.google.com/maps/search/?api=1&query=Maidoookini+Shokudo+Kansai+Airport+Shokudo" target="_blank" class="restaurant-card border-blue-200 bg-blue-50/30">
-                                <div>
-                                    <span class="res-tag bg-blue-100 text-blue-700">最日常</span>
-                                    <div class="res-name text-blue-900">關空食堂<br>Shokudo</div>
-                                </div>
-                                <div class="res-desc mt-1">🍚 家常菜<br>直觀不思考</div>
-                            </a>
-
-                            <!-- 6. 牛丼 (Aeroplaza) -->
-                            <a href="https://www.google.com/maps/search/?api=1&query=NAKAU+Kansai+International+Airport" target="_blank" class="restaurant-card border-gray-300 bg-gray-50">
-                                <div>
-                                    <span class="res-tag bg-gray-200 text-gray-700">車站旁</span>
-                                    <div class="res-name text-gray-900">NAKAU<br>親子丼/牛丼</div>
-                                </div>
-                                <div class="res-desc mt-1">🚉 在Aeroplaza<br>24H 通勤風</div>
+                                <span class="res-tag bg-green-100 text-green-700">清淡</span>
+                                <div class="res-name text-green-900">信州蕎麥</div>
                             </a>
                         </div>
                     </div>
-                    <!-- END: 餐廳橫向捲軸 -->
 
                     <div class="transport-box">
                         <p class="font-bold text-indigo-700 mb-1">吃飽出發 ➔</p>
-                        <p>🚆 <b>搭乘：</b><a href="https://www.google.com/maps/search/?api=1&query=南海電鐵+關西機場站" target="_blank" class="map-link">南海電鐵</a> Rapi:t (特急)</p>
-                        <p>🏁 <b>下車：</b><a href="https://www.google.com/maps/search/?api=1&query=南海難波站" target="_blank" class="map-link">南海難波站</a></p>
-                        <p>🚪 <b>出口：</b><span class="exit-badge">3F 北改札口</span> (North Gate)。</p>
+                        <p>🚆 <b>搭乘：</b>JR <a href="https://www.google.com/maps/search/?api=1&query=關西機場站+JR" target="_blank" class="map-link">HARUKA (特急)</a></p>
+                        <p class="text-xs text-gray-500 ml-5 mb-1">(約 80 分鐘直達京都)</p>
+                        <p>🏁 <b>下車：</b>京都車站 轉 地鐵烏丸線</p>
+                        <p>📍 <b>最終：</b><a href="https://www.google.com/maps/search/?api=1&query=四條站+京都" target="_blank" class="map-link">四條站</a></p>
                     </div>
                 </div>
 
-                <!-- Hotel Check-in -->
-                <div class="card-padding spot-container bg-orange-50 border-l-4 border-orange-400">
-                    <h2 class="section-header">飯店 Check-in</h2>
-                    <div class="big-title text-orange-800"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link text-orange-800">東橫INN 大阪難波</a></div>
-                    <p class="text-sm text-gray-600 mt-1">先寄放行李。</p>
-                </div>
-
-                <!-- Osaka Castle -->
-                <div class="card-padding spot-container bg-blue-50 border-l-4 border-blue-400">
-                    <h2 class="section-header">第一站</h2>
-                    <div class="big-title text-blue-900"><a href="https://www.google.com/maps/search/?api=1&query=大阪城天守閣" target="_blank" class="map-link text-blue-900">大阪城天守閣</a></div>
-                    
-                    <div class="transport-box">
-                        <p>🚇 <b>下車：</b><a href="https://www.google.com/maps/search/?api=1&query=谷町四丁目站" target="_blank" class="map-link">谷町四丁目站</a></p>
-                        <p>🚪 <b>出口：</b><span class="exit-badge">Exit 1-B</span> 或 <span class="exit-badge">Exit 9</span>。</p>
-                        <p class="mt-1 text-xs">💡 建議搭乘園內火車省力。</p>
-                    </div>
-                    
-                    <div class="mt-2 p-2 bg-white rounded border border-blue-200">
-                        <span class="badge-rest">長輩休息點</span>
-                        <div class="text-sm font-bold mt-1"><a href="https://www.google.com/maps/search/?api=1&query=JO-TERRACE+OSAKA" target="_blank" class="map-link">JO-TERRACE OSAKA</a></div>
-                        <p class="text-xs text-gray-600">在此享用午茶。</p>
-                    </div>
-                </div>
-
-                <!-- Evening -->
                 <div class="card-padding spot-container bg-red-50 border-l-4 border-red-400">
                     <h2 class="section-header">晚餐</h2>
-                    <div class="big-title text-red-900"><a href="https://www.google.com/maps/search/?api=1&query=道頓堀" target="_blank" class="map-link text-red-900">道頓堀 繁華街</a></div>
-                    <div class="transport-box">
-                        <p>🚪 <b>出口：</b>難波站 <span class="exit-badge">Exit 14</span> (直通跑跑人)。</p>
-                    </div>
-                    <div class="mt-2 text-sm font-bold text-red-800">
-                        👉 推薦前往：<a href="https://www.google.com/maps/search/?api=1&query=法善寺橫丁" target="_blank" class="map-link">法善寺橫丁</a> (氣氛佳)
-                    </div>
-                </div>
-
-                <!-- D1 終點 -->
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">終點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
-                    <p class="text-xs text-gray-600 mt-1">從難波站 <span class="exit-badge">Exit 5</span> 回飯店。</p>
+                    <div class="big-title text-red-900"><a href="https://www.google.com/maps/search/?api=1&query=先斗町" target="_blank" class="map-link text-red-900">先斗町 / 鴨川</a></div>
+                    <p class="text-sm text-gray-700 mt-1">從飯店步行約 15 分鐘，感受京都夜景。</p>
                 </div>
             </div>
 
-            <!-- TAB: Day 2 (Nara) -->
+            <!-- TAB: Day 2 (City Walk - Holiday Strategy) -->
             <div id="content-day2" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
-                    <h2 class="text-xl font-bold text-indigo-900">📅 D2 奈良神鹿</h2>
-                    <p class="text-xs font-bold text-red-600 mt-1">2/23 (一) ⚠️ 天皇誕生日 (人多)</p>
+                <div class="border-t-4 border-red-500 bg-red-50 p-3">
+                    <h2 class="text-xl font-bold text-red-900">📅 D2 京都市區散策</h2>
+                    <p class="text-xs font-bold text-red-600 mt-1">2/23 (一) ⚠️ 國定假日 (避開景點人潮)</p>
                 </div>
-                
-                <!-- D2 起點 -->
+
                 <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
-                    <h2 class="section-header">起點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
+                    <h2 class="section-header">策略</h2>
+                    <div class="big-title">避開公車與大景點</div>
+                    <p class="text-sm text-gray-700 mt-1">假日伏見稻荷與清水寺會塞爆。今天留在市區，逛腹地大的二條城與百貨商圈，輕鬆不擠。</p>
+                </div>
+
+                <div class="card-padding spot-container bg-blue-50 border-l-4 border-blue-400">
+                    <h2 class="section-header">上午：大氣古蹟</h2>
+                    <div class="big-title text-blue-900"><a href="https://www.google.com/maps/search/?api=1&query=二條城" target="_blank" class="map-link text-blue-900">二條城 (世界遺產)</a></div>
+                    <p class="text-sm mt-1">德川家康的將軍府。因為腹地極大，就算假日人多也不覺得擁擠。</p>
                     <div class="transport-box">
-                        <p>🚶 <b>出發：</b>09:00 往 <a href="https://www.google.com/maps/search/?api=1&query=大阪難波站" target="_blank" class="map-link">大阪難波站 (近鐵)</a></p>
-                        <p>🏁 <b>下車：</b><a href="https://www.google.com/maps/search/?api=1&query=近鐵奈良站" target="_blank" class="map-link">近鐵奈良站</a></p>
-                        <p>🚪 <b>出口：</b><span class="exit-badge">Exit 2</span> (噴水池)。</p>
+                        <p>🚇 <b>交通：</b>搭地鐵 (烏丸御池轉東西線) 至 <a href="https://www.google.com/maps/search/?api=1&query=二條城前站" target="_blank" class="map-link">二條城前站</a>。</p>
                     </div>
                 </div>
 
-                <!-- 奈良重點 1 -->
-                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
-                    <h2 class="section-header">奈良第一站</h2>
-                    <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=興福寺" target="_blank" class="map-link text-amber-900">興福寺 五重塔</a></div>
-                    <p class="text-sm text-gray-700 mt-1">奈良地標，離車站最近。</p>
+                <div class="card-padding spot-container bg-red-50 border-l-4 border-red-400">
+                    <h2 class="section-header">午餐：京都廚房</h2>
+                    <div class="big-title text-red-900"><a href="https://www.google.com/maps/search/?api=1&query=錦市場" target="_blank" class="map-link text-red-900">錦市場 (Nishiki Market)</a></div>
+                    <p class="text-sm mt-1">參觀完二條城搭地鐵回「烏丸御池」，步行即達。</p>
+                    <p class="text-xs text-gray-500 mt-1">💡 吃豆乳甜甜圈、玉子燒、生蠔。</p>
                 </div>
 
-                <!-- 奈良重點 2 -->
-                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
-                    <h2 class="section-header">奈良第二站</h2>
-                    <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=中谷堂" target="_blank" class="map-link text-amber-900">中谷堂 (搗麻糬)</a></div>
-                    <p class="text-sm text-gray-700 mt-1">商店街底，看現場表演。</p>
-                </div>
-
-                <!-- 奈良重點 3 -->
-                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
-                    <h2 class="section-header">奈良第三站</h2>
-                    <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=東大寺" target="_blank" class="map-link text-amber-900">東大寺 & 奈良公園</a></div>
-                    <p class="text-sm text-gray-700 mt-1">看大佛與餵鹿。</p>
-                </div>
-
-                <!-- 奈良休息點 -->
-                <div class="card-padding spot-container bg-amber-100 border-l-4 border-amber-500">
-                    <span class="badge-rest">推薦長輩休息點</span>
-                    <div class="big-title text-amber-900 mt-2"><a href="https://www.google.com/maps/search/?api=1&query=東大寺+二月堂" target="_blank" class="map-link text-amber-900">二月堂</a></div>
-                    <p class="text-sm text-gray-800 mt-1">爬一段樓梯後，可坐著吹風看奈良全景，避開人潮。</p>
-                </div>
-
-                <!-- 奈良重點 4 -->
-                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
-                    <h2 class="section-header">奈良第四站</h2>
-                    <div class="big-title text-amber-900"><a href="https://www.google.com/maps/search/?api=1&query=春日大社" target="_blank" class="map-link text-amber-900">春日大社</a></div>
-                    <p class="text-sm text-gray-700 mt-1">充滿燈籠的神社與原始林。</p>
-                </div>
-
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">晚餐</h2>
-                    <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=千日前" target="_blank" class="map-link">千日前 商店街</a></div>
-                    <div class="transport-box">
-                        <p>🔙 <b>回程：</b>近鐵奈良 ➔ 大阪難波。</p>
-                        <p>🚶 <b>前往：</b>B21 出口附近。</p>
+                <div class="card-padding spot-container bg-pink-50 border-l-4 border-pink-400">
+                    <h2 class="section-header">下午：逛街採買</h2>
+                    <div class="big-title text-pink-900"><a href="https://www.google.com/maps/search/?api=1&query=四條河原町" target="_blank" class="map-link text-pink-900">四條河原町 商圈</a></div>
+                    <p class="text-sm mt-1">百貨公司林立，人行道寬敞，適合假日。</p>
+                    <div class="mt-2 text-sm text-gray-700">
+                         <ul class="list-disc list-inside">
+                            <li>京都高島屋 / 大丸百貨</li>
+                            <li>Pokemon Center (SUINA 室町)</li>
+                            <li>Loft 文具</li>
+                        </ul>
                     </div>
-                </div>
-
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">終點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
                 </div>
             </div>
 
-            <!-- TAB: Day 3 (Kiyomizu) -->
+            <!-- TAB: Day 3 (Kiyomizu - Weekday) -->
             <div id="content-day3" class="divide-y divide-gray-100 content-list hidden fade-in">
                 <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
                     <h2 class="text-xl font-bold text-indigo-900">📅 D3 清水與祇園</h2>
-                    <p class="text-xs font-bold text-green-700 mt-1">2/24 (二) ✨ 平日 (連假結束)</p>
+                    <p class="text-xs font-bold text-green-700 mt-1">2/24 (二) ✨ 平日</p>
                 </div>
 
-                <!-- D3 起點 -->
                 <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">起點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
                     <div class="transport-box">
-                        <p>🚇 <b>Step 1：</b>地鐵難波 ➔ 淀屋橋。</p>
-                        <p>🚆 <b>Step 2：</b>京阪電車 (特急) ➔ <a href="https://www.google.com/maps/search/?api=1&query=清水五條站" target="_blank" class="map-link">清水五條站</a></p>
-                        <p>🚕 <b>Step 3：</b><span class="exit-badge">Exit 4</span> 地面搭計程車 ➔ 清水寺仁王門 (省爬坡)。</p>
+                        <p class="font-bold text-indigo-800">🚕 推薦戰術：搭計程車</p>
+                        <p>平日早晨搭計程車直達山上，省力。</p>
+                        <p>📍 設定：<a href="https://www.google.com/maps/search/?api=1&query=清水寺+仁王門" target="_blank" class="map-link">清水寺 仁王門</a>。</p>
                     </div>
                 </div>
 
@@ -439,205 +242,121 @@
                         <div class="font-bold text-lg mt-1 text-orange-800">
                             <a href="https://www.google.com/maps/search/?api=1&query=產寧坂" target="_blank" class="map-link">產寧坂</a> ➔ <a href="https://www.google.com/maps/search/?api=1&query=二年坂" target="_blank" class="map-link">二年坂</a>
                         </div>
-                        <p class="mt-1 text-xs text-gray-500">💡 走到二年坂底部即可準備搭車。</p>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-teal-50 border-l-4 border-teal-500">
-                    <h2 class="section-header">京都第二站</h2>
-                    <div class="big-title text-teal-900"><a href="https://www.google.com/maps/search/?api=1&query=祇園+花見小路" target="_blank" class="map-link text-teal-900">祇園 花見小路</a></div>
-                    <div class="transport-box">
-                        <p>🚕 <b>移動：</b>從東大路通(大馬路) 搭計程車 (約10分)。</p>
                     </div>
                 </div>
 
                 <!-- 建仁寺休息 -->
                 <div class="card-padding spot-container bg-teal-100 border-l-4 border-teal-600">
                     <span class="badge-rest">推薦長輩休息點 (免預約)</span>
-                    <div class="big-title text-teal-900 mt-2"><a href="https://www.google.com/maps/search/?api=1&query=建仁寺" target="_blank" class="map-link text-teal-900">建仁寺 (Kenninji)</a></div>
-                    <p class="text-sm text-gray-800 mt-1">京都最古老禪寺，可坐塌塌米看庭園。</p>
-                    <div class="mt-2 bg-white/70 p-2 rounded border border-teal-300">
-                        <p class="font-bold text-teal-900 text-sm">👀 必看國寶：</p>
-                        <ul class="list-disc list-inside mt-1 text-sm">
-                            <li><b>風神雷神圖屏風</b> (高精細複製品，可拍照)</li>
-                            <li><b>雙龍圖</b> (法堂天花板)</li>
-                        </ul>
-                    </div>
-                </div>
-
-                 <div class="card-padding spot-container bg-slate-800 text-slate-200 border-l-4 border-purple-500">
-                    <h2 class="section-header text-purple-300">夜生活 (年輕組)</h2>
-                    <div class="big-title text-white"><a href="https://www.google.com/maps/search/?api=1&query=裏難波" target="_blank" class="map-link text-white">裏難波 Ura-Namba</a></div>
-                    <div class="transport-box bg-slate-700 border-slate-500 text-slate-200">
-                        <p>🔙 <b>回程：</b>步行至祇園四條 搭京阪 ➔ 難波。</p>
-                    </div>
-                    <p class="text-sm mt-1">高島屋後方巷弄，適合站著喝一杯。</p>
-                </div>
-
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">終點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
+                    <div class="big-title text-teal-900 mt-2"><a href="https://www.google.com/maps/search/?api=1&query=建仁寺" target="_blank" class="map-link text-teal-900">建仁寺</a></div>
+                    <p class="text-sm text-gray-800 mt-1">花見小路底端，人少安靜，可坐塌塌米休息。</p>
                 </div>
             </div>
 
-            <!-- TAB: Day 4 (Uji) -->
+            <!-- TAB: Day 4 (Nara - Weekday) -->
             <div id="content-day4" class="divide-y divide-gray-100 content-list hidden fade-in">
                 <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
-                    <h2 class="text-xl font-bold text-indigo-900">📅 D4 宇治與稻荷</h2>
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D4 奈良神鹿</h2>
                     <p class="text-xs font-bold text-green-700 mt-1">2/25 (三) ✨ 平日</p>
                 </div>
 
-                <!-- D4 起點 -->
                 <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
-                    <h2 class="section-header">起點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
+                    <h2 class="section-header">交通</h2>
                     <div class="transport-box">
-                        <p>🚇 <b>Step 1：</b>地鐵難波 ➔ <a href="https://www.google.com/maps/search/?api=1&query=淀屋橋站" target="_blank" class="map-link">淀屋橋站</a></p>
-                        <p>🚆 <b>Step 2：</b>轉乘 <a href="https://www.google.com/maps/search/?api=1&query=京阪電車" target="_blank" class="map-link">京阪電車</a> (特急)</p>
-                        <p>🏁 <b>下車：</b><a href="https://www.google.com/maps/search/?api=1&query=伏見稻荷站" target="_blank" class="map-link">伏見稻荷站</a> (急行停，特急不停需轉車)。</p>
+                        <p>🚇 <b>去程：</b>地鐵四條 ➔ 京都車站</p>
+                        <p>🚆 <b>轉乘：</b><a href="https://www.google.com/maps/search/?api=1&query=近鐵京都站" target="_blank" class="map-link">近鐵京都線 (特急)</a></p>
+                        <p>🏁 <b>下車：</b><a href="https://www.google.com/maps/search/?api=1&query=近鐵奈良站" target="_blank" class="map-link">近鐵奈良站</a> Exit 2</p>
+                    </div>
+                </div>
+
+                <div class="card-padding spot-container bg-amber-50 border-l-4 border-amber-400">
+                    <h2 class="section-header">奈良精華</h2>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="big-title text-amber-900">1. <a href="https://www.google.com/maps/search/?api=1&query=興福寺" target="_blank" class="map-link">興福寺 五重塔</a></div>
+                        </div>
+                        <div>
+                            <div class="big-title text-amber-900">2. <a href="https://www.google.com/maps/search/?api=1&query=東大寺" target="_blank" class="map-link">東大寺 (大佛)</a></div>
+                        </div>
+                        <div>
+                            <div class="big-title text-amber-900">3. <a href="https://www.google.com/maps/search/?api=1&query=奈良公園" target="_blank" class="map-link">餵鹿體驗</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-padding spot-container bg-amber-100 border-l-4 border-amber-500">
+                    <span class="badge-rest">絕景休息</span>
+                    <div class="big-title text-amber-900 mt-2"><a href="https://www.google.com/maps/search/?api=1&query=東大寺+二月堂" target="_blank" class="map-link text-amber-900">二月堂</a></div>
+                    <p class="text-sm text-gray-800 mt-1">稍微爬點坡，可以俯瞰奈良市區，遊客稀少。</p>
+                </div>
+            </div>
+
+             <!-- TAB: Day 5 (Arashiyama - Weekday) -->
+             <div id="content-day5" class="divide-y divide-gray-100 content-list hidden fade-in">
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D5 嵐山金閣</h2>
+                    <p class="text-xs font-bold text-indigo-700 mt-1">2/26 (四) ✨ 平日</p>
+                </div>
+
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
+                    <h2 class="section-header">交通</h2>
+                    <div class="transport-box">
+                        <p>🚶 <b>Step 1：</b>步行至 <a href="https://www.google.com/maps/search/?api=1&query=烏丸站" target="_blank" class="map-link">阪急烏丸站</a>。</p>
+                        <p>🚆 <b>Step 2：</b>阪急線 ➔ <b>桂站</b> 轉嵐山線 ➔ <a href="https://www.google.com/maps/search/?api=1&query=阪急嵐山站" target="_blank" class="map-link">嵐山站</a>。</p>
+                    </div>
+                </div>
+
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
+                    <h2 class="section-header">嵐山</h2>
+                    <div class="big-title text-green-900"><a href="https://www.google.com/maps/search/?api=1&query=嵐山+渡月橋" target="_blank" class="map-link text-green-900">渡月橋 & 竹林之道</a></div>
+                    <p class="text-sm mt-1">平日遊客較少，適合拍照。</p>
+                    <div class="transport-box">
+                        <span class="badge-taxi">🚕 轉場</span>
+                        <p class="mt-1">從嵐山搭計程車直達 <a href="https://www.google.com/maps/search/?api=1&query=金閣寺" target="_blank" class="map-link">金閣寺</a> (約20分)，最省時。</p>
+                    </div>
+                </div>
+
+                <div class="card-padding spot-container bg-yellow-50 border-l-4 border-yellow-500">
+                    <h2 class="section-header">金閣寺</h2>
+                    <div class="big-title text-yellow-900">閃耀金閣 (鹿苑寺)</div>
+                </div>
+            </div>
+
+             <!-- TAB: Day 6 (Inari & Uji - Weekday Strategy) -->
+             <div id="content-day6" class="divide-y divide-gray-100 content-list hidden fade-in">
+                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
+                    <h2 class="text-xl font-bold text-indigo-900">📅 D6 稻荷與宇治</h2>
+                    <p class="text-xs font-bold text-indigo-700 mt-1">2/27 (五) ✨ 週五 (比週一好太多)</p>
+                </div>
+
+                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
+                    <h2 class="section-header">策略</h2>
+                    <div class="big-title">避開假日人潮</div>
+                    <p class="text-sm text-gray-700 mt-1">這天是週五，雖然人還是有，但絕對比 Day 2 (連假) 少非常多。</p>
+                    <div class="transport-box">
+                        <p>🚇 <b>去程：</b>地鐵四條 ➔ 京都站 轉 <a href="https://www.google.com/maps/search/?api=1&query=京都站+JR奈良線" target="_blank" class="map-link">JR 奈良線</a></p>
+                        <p>🏁 <b>下車：</b><a href="https://www.google.com/maps/search/?api=1&query=稻荷站" target="_blank" class="map-link">稻荷站</a> (直達門口)</p>
                     </div>
                 </div>
 
                 <div class="card-padding spot-container bg-red-50 border-l-4 border-red-400">
                     <h2 class="section-header">第一站</h2>
                     <div class="big-title text-red-900"><a href="https://www.google.com/maps/search/?api=1&query=伏見稻荷大社" target="_blank" class="map-link text-red-900">伏見稻荷大社</a></div>
-                    <p class="text-sm font-bold text-red-600 mt-1">⚠️ 只走到「奧社奉拜所」即折返。</p>
-                    <div class="transport-box">
-                        <p>🚆 <b>移動：</b>京阪伏見稻荷 ➔ <a href="https://www.google.com/maps/search/?api=1&query=京阪宇治站" target="_blank" class="map-link">京阪宇治站</a> (需在中書島轉宇治線)。</p>
-                    </div>
+                    <p class="text-sm font-bold text-red-600 mt-1">⚠️ 走到「奧社奉拜所」拍完千本鳥居就可回頭。</p>
                 </div>
 
                 <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
-                    <h2 class="section-header">宇治散策</h2>
+                    <h2 class="section-header">第二站：宇治</h2>
                     <div class="big-title text-green-900"><a href="https://www.google.com/maps/search/?api=1&query=平等院" target="_blank" class="map-link text-green-900">平等院 (鳳凰堂)</a></div>
+                    <div class="transport-box">
+                        <p>🚆 <b>移動：</b>JR 稻荷 ➔ <a href="https://www.google.com/maps/search/?api=1&query=宇治站+JR" target="_blank" class="map-link">宇治站</a>。</p>
+                    </div>
                 </div>
 
                 <div class="card-padding spot-container bg-green-100 border-l-4 border-green-500">
-                    <span class="badge-rest">長輩休息點</span>
+                    <span class="badge-rest">抹茶控必去</span>
                     <div class="big-title mt-2 text-green-900"><a href="https://www.google.com/maps/search/?api=1&query=中村藤吉+本店" target="_blank" class="map-link text-green-900">中村藤吉 本店</a></div>
-                    <p class="text-sm mt-1">百年古宅，享用抹茶甜點。</p>
-                </div>
-
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">購物</h2>
-                    <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=Bic+Camera+Namba" target="_blank" class="map-link">Bic Camera 難波</a></div>
-                    <div class="transport-box">
-                        <p>🔙 <b>回程：</b>京阪宇治 ➔ 淀屋橋 ➔ 難波。</p>
-                        <p>📍 難波站 <span class="exit-badge">B17</span> 連通。</p>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">終點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
-                </div>
-            </div>
-
-             <!-- TAB: Day 5 (Arashiyama) -->
-             <div id="content-day5" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
-                    <h2 class="text-xl font-bold text-indigo-900">📅 D5 嵐山金閣</h2>
-                    <p class="text-xs font-bold text-indigo-700 mt-1">2/26 (四)</p>
-                </div>
-
-                <!-- D5 起點 -->
-                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
-                    <h2 class="section-header">起點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
-                    <div class="transport-box">
-                        <p>🚇 <b>Step 1：</b>地鐵難波 ➔ <a href="https://www.google.com/maps/search/?api=1&query=梅田站" target="_blank" class="map-link">梅田站</a></p>
-                        <p>🚶 <b>轉乘：</b>步行至 <a href="https://www.google.com/maps/search/?api=1&query=阪急大阪梅田站" target="_blank" class="map-link">阪急梅田站</a> (跟著指標走)。</p>
-                        <p>🚆 <b>Step 2：</b>阪急京都線 (桂站轉嵐山線) ➔ <a href="https://www.google.com/maps/search/?api=1&query=阪急嵐山站" target="_blank" class="map-link">嵐山站</a></p>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
-                    <h2 class="section-header">嵐山風情</h2>
-                    <div class="big-title text-green-900"><a href="https://www.google.com/maps/search/?api=1&query=嵐山+渡月橋" target="_blank" class="map-link text-green-900">嵐山 渡月橋</a></div>
-                    <p class="text-sm mt-1">出站後跟隨人潮，步行過橋。</p>
-                    <div class="transport-box">
-                        <span class="badge-taxi">🚕 計程車戰略</span>
-                        <p class="mt-1">從天龍寺前搭計程車 (約20分)。</p>
-                        <p>📍 直達 <a href="https://www.google.com/maps/search/?api=1&query=金閣寺" target="_blank" class="map-link">金閣寺</a>。</p>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-yellow-50 border-l-4 border-yellow-500">
-                    <h2 class="section-header">閃耀古蹟</h2>
-                    <div class="big-title text-yellow-900"><a href="https://www.google.com/maps/search/?api=1&query=金閣寺" target="_blank" class="map-link text-yellow-900">金閣寺 (鹿苑寺)</a></div>
-                </div>
-
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">難波之夜</h2>
-                    <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=Namba+Parks" target="_blank" class="map-link">難波 Parks</a></div>
-                    <p class="text-sm text-gray-700 mt-1">頂樓花園點燈。</p>
-                    <div class="transport-box">
-                        <p>🔙 <b>回程：</b>搭公車/計程車至圓町站 (JR) 或北大路 (地鐵) 回難波。</p>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">終點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
-                </div>
-            </div>
-
-             <!-- TAB: Day 6 (Umeda) -->
-             <div id="content-day6" class="divide-y divide-gray-100 content-list hidden fade-in">
-                <div class="border-t-4 border-indigo-700 bg-indigo-100/50 p-3">
-                    <h2 class="text-xl font-bold text-indigo-900">📅 D6 梅田迷宮攻略</h2>
-                    <p class="text-xs font-bold text-indigo-700 mt-1">2/27 (五)</p>
-                </div>
-
-                <!-- D6 起點 -->
-                <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
-                    <h2 class="section-header">起點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
-                    <div class="transport-box">
-                        <p>🚶 <b>Step 1：</b>步行至 <a href="https://www.google.com/maps/search/?api=1&query=黑門市場" target="_blank" class="map-link">黑門市場</a> (日本橋站旁) 吃早午餐。</p>
-                        <p>🚇 <b>Step 2：</b>千日前線日本橋 ➔ 難波 轉 Midosuji ➔ <a href="https://www.google.com/maps/search/?api=1&query=梅田站" target="_blank" class="map-link">梅田站</a></p>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-red-50 border-l-4 border-red-400">
-                    <h2 class="section-header">早午餐</h2>
-                    <div class="big-title text-red-900"><a href="https://www.google.com/maps/search/?api=1&query=黑門市場" target="_blank" class="map-link text-red-900">黑門市場</a></div>
-                    <p class="text-sm mt-1">和牛、草莓大福、生蠔。</p>
-                </div>
-
-                <div class="card-padding spot-container bg-blue-50 border-l-4 border-blue-400">
-                    <h2 class="section-header">梅田分流</h2>
-                    <div class="transport-box">
-                        <p>🚪 <b>關鍵出口：</b>地鐵梅田 <span class="exit-badge">Exit 6</span></p>
-                        <p>👆 此出口通往 <b>Lucua / 阪急百貨 / Grand Front</b>。</p>
-                    </div>
-                    <div class="mt-2 space-y-2">
-                        <div>
-                            <p class="font-bold text-gray-700 text-sm">👵 爸媽組：</p>
-                            <div class="big-title text-lg"><a href="https://www.google.com/maps/search/?api=1&query=阪急百貨+梅田本店" target="_blank" class="map-link">阪急百貨 梅田本店</a></div>
-                        </div>
-                        <div>
-                            <p class="font-bold text-indigo-700 text-sm">🧑 年輕組：</p>
-                            <div class="big-title text-lg"><a href="https://www.google.com/maps/search/?api=1&query=Nintendo+OSAKA" target="_blank" class="map-link">Nintendo OSAKA</a></div>
-                            <p class="text-sm">(大丸梅田店 13F)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-sky-50 border-l-4 border-sky-400">
-                    <h2 class="section-header">夜景</h2>
-                    <div class="big-title text-sky-900"><a href="https://www.google.com/maps/search/?api=1&query=梅田藍天大廈" target="_blank" class="map-link text-sky-900">梅田藍天大廈</a></div>
-                    <p class="text-sm mt-1">(空中庭園)</p>
-                    <div class="transport-box">
-                        <p>🚶 <b>動線：</b>從 Grand Front 旁地下道走約 15 分。</p>
-                        <p>💡 長輩建議直接搭計程車。</p>
-                    </div>
-                </div>
-
-                <div class="card-padding spot-container bg-indigo-50 border-l-4 border-indigo-500">
-                    <h2 class="section-header">終點</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">返回東橫INN</a></div>
-                    <p class="text-xs text-gray-600 mt-1">從梅田搭 Midosuji 線直達難波 <span class="exit-badge">Exit 5</span>。</p>
+                    <p class="text-sm mt-1">最後一天的悠閒下午茶。</p>
                 </div>
             </div>
 
@@ -650,20 +369,19 @@
 
                 <div class="card-padding spot-container bg-green-50 border-l-4 border-green-400">
                     <h2 class="section-header">起點 (退房)</h2>
-                    <div class="big-title"><a href="http://maps.google.com/?q=%E6%9D%B1%E6%A9%ABINN%E5%A4%A7%E9%98%AA%E9%9B%A3%E6%B3%A2" target="_blank" class="map-link">東橫INN</a></div>
+                    <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=Ibis+Styles+Kyoto+Shijo" target="_blank" class="map-link">Ibis 飯店</a></div>
                     <div class="transport-box">
-                        <p>🚶 <b>前往：</b><a href="https://www.google.com/maps/search/?api=1&query=南海難波站" target="_blank" class="map-link">南海難波站</a></p>
-                        <p>🚆 <b>搭乘：</b>南海 Rapi:t (特急) 或 空港急行。</p>
+                        <p>🚇 <b>Step 1：</b>地鐵四條 ➔ 京都車站</p>
+                        <p>🚆 <b>Step 2：</b>換乘 <a href="https://www.google.com/maps/search/?api=1&query=京都站+Haruka" target="_blank" class="map-link">JR HARUKA</a> (特急)</p>
                     </div>
                 </div>
 
                 <div class="card-padding spot-container border-l-4 border-indigo-500">
                     <h2 class="section-header">機場報到</h2>
-                    <div class="big-title"><a href="https://www.google.com/maps/search/?api=1&query=關西國際機場+第一航廈" target="_blank" class="map-link">關西機場 T1</a></div>
+                    <div class="big-title">關西機場 T1</div>
                     <p class="text-lg font-bold text-indigo-700 mt-1">14:30 飛機回台</p>
                     <div class="transport-box">
                         <p>🚆 <b>直達：</b>不中途下車，直接抵達關西機場。</p>
-                        <p>📍 第一航廈 4F 出境。</p>
                     </div>
                 </div>
             </div>
@@ -671,7 +389,7 @@
         </div>
 
         <div class="bg-gray-50 p-4 text-sm font-bold text-gray-500 text-center border-t">
-            *戰術導航版 - 點擊粗體地點開啟地圖*
+            *D2 假日策略：留在市區，避開觀光熱點*
         </div>
     </div>
 
@@ -702,3 +420,4 @@
     </script>
 </body>
 </html>
+
