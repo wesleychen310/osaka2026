@@ -27,7 +27,7 @@
         }
         /* 輕微毛玻璃與陰影 */
         .glass-header {
-            background: rgba(250, 246, 240, 0.92);
+            background: rgba(250, 246, 240, 0.96);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
@@ -41,69 +41,102 @@
             width: 2px;
             background-color: #E6DDD0;
         }
+        /* 百貨分區分隔線 */
+        .dept-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #8C6239;
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin: 1.5rem 0 1rem 0;
+            letter-spacing: 0.05em;
+        }
+        .dept-divider::before, .dept-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid #EBE3D5;
+        }
+        .dept-divider::before { margin-right: .75em; }
+        .dept-divider::after { margin-left: .75em; }
     </style>
 </head>
 <body class="max-w-md mx-auto min-h-screen relative flex flex-col pb-24">
 
     <!-- 頂部精緻 Header -->
-    <header class="sticky top-0 glass-header z-40 pt-4 pb-2 px-4 border-b border-[#EBE3D5]">
+    <header class="sticky top-0 glass-header z-40 pt-4 pb-3 px-4 border-b border-[#EBE3D5] shadow-xs">
         <div class="flex items-center justify-between mb-3">
             <div class="flex items-center space-x-2">
                 <span class="text-xl">🌸</span>
                 <div>
                     <h1 class="text-base font-black tracking-wider text-[#704E2E]">樂京都 2026</h1>
-                    <p class="text-[10px] text-[#A69C8F] font-medium tracking-widest">KYOTO TRAVEL NOTE</p>
+                    <p class="text-[9px] text-[#A69C8F] font-bold tracking-widest">KYOTO TRAVEL NOTE</p>
                 </div>
             </div>
             <!-- 快速工具按鈕 -->
-            <button onclick="toggleToolbox()" class="bg-[#F0E6D6] hover:bg-[#E6DDD0] text-[#704E2E] text-xs px-3 py-1.5 rounded-full font-bold flex items-center space-x-1 transition-all">
-                <span>🧳 旅行工具</span>
+            <button onclick="toggleToolbox()" class="bg-[#F0E6D6] hover:bg-[#E6DDD0] text-[#704E2E] text-xs px-3.5 py-1.5 rounded-full font-bold flex items-center space-x-1.5 transition-all shadow-2xs">
+                <span>🧳 工具箱</span>
             </button>
         </div>
 
         <!-- 頂部置頂飯店資訊 -->
-        <div class="bg-white border border-[#EBE3D5] rounded-2xl p-3.5 mb-3 shadow-sm flex items-center justify-between">
+        <div class="bg-white border border-[#EBE3D5] rounded-2xl p-3.5 mb-3.5 shadow-2xs flex items-center justify-between">
             <div class="flex-1">
                 <div class="flex items-center space-x-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[10px] text-[#A69C8F] font-bold tracking-wider">首選住宿 BASE HOTEL</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[9px] text-[#A69C8F] font-bold tracking-wider">首選住宿 BASE HOTEL</span>
                 </div>
-                <div class="text-sm font-black text-[#5C3E21] mt-0.5">イビススタイルズ京都四条</div>
-                <div class="text-[11px] text-[#8C8275] flex items-center space-x-2 mt-0.5">
-                    <span>🗓️ 7/9 入住 – 7/14 退房</span>
+                <div class="text-xs font-black text-[#5C3E21] mt-0.5">イビススタイルズ京都四条</div>
+                <div class="text-[10px] text-[#8C8275] flex items-center space-x-1.5 mt-0.5">
+                    <span>🗓️ 7/9 – 7/14</span>
                     <span class="text-[#C2B29D]">|</span>
-                    <span class="text-[#8C6239] font-medium">四条烏丸/山鉾町</span>
+                    <span class="text-[#8C6239] font-bold">四條烏丸 (地鐵四條站/大丸旁)</span>
                 </div>
             </div>
-            <a href="https://www.google.com/maps/search/?api=1&query=イビススタイルズ京都四条" target="_blank" class="bg-[#E6EFE6] text-[#3D5240] hover:bg-[#D4E2D4] text-xs px-3.5 py-2.5 rounded-xl font-bold transition-all text-center flex flex-col justify-center items-center">
-                <span class="text-xs">📍</span>
-                <span class="text-[9px] mt-0.5">導航</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=イビススタイルズ京都四条" target="_blank" class="bg-[#E6EFE6] text-[#3D5240] hover:bg-[#D4E2D4] text-[10px] px-3 py-2 rounded-xl font-bold transition-all flex items-center space-x-1 shrink-0">
+                <span>📍 導航</span>
             </a>
         </div>
 
-        <!-- 主導航 Tab 切換 -->
-        <div class="flex space-x-1.5 overflow-x-auto no-scrollbar pb-1">
-            <button onclick="switchTab('day1')" id="tab-day1" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
-                7/9 D1 奈良
-            </button>
-            <button onclick="switchTab('day2')" id="tab-day2" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
-                7/10 D2 清水‧祭典
-            </button>
-            <button onclick="switchTab('day3')" id="tab-day3" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
-                7/11 D3 宇治
-            </button>
-            <button onclick="switchTab('day4')" id="tab-day4" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
-                7/12 D4 南禪‧老舖
-            </button>
-            <button onclick="switchTab('backups')" id="tab-backups" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
-                🎒 備選池
-            </button>
+        <!-- 分區按鈕佈局 -->
+        <div class="space-y-3">
+            <!-- 區塊一：🗓️ 每日行程 -->
+            <div>
+                <div class="text-[9px] text-[#A69C8F] font-black uppercase tracking-widest mb-1 pl-1">🗓️ 每日行程 ITINERARY</div>
+                <div class="grid grid-cols-4 gap-1.5">
+                    <button onclick="switchTab('day1')" id="tab-day1" class="py-2.5 rounded-xl text-[11px] font-black transition-all duration-200 text-center">
+                        7/9 D1
+                    </button>
+                    <button onclick="switchTab('day2')" id="tab-day2" class="py-2.5 rounded-xl text-[11px] font-black transition-all duration-200 text-center">
+                        7/10 D2
+                    </button>
+                    <button onclick="switchTab('day3')" id="tab-day3" class="py-2.5 rounded-xl text-[11px] font-black transition-all duration-200 text-center">
+                        7/11 D3
+                    </button>
+                    <button onclick="switchTab('day4')" id="tab-day4" class="py-2.5 rounded-xl text-[11px] font-black transition-all duration-200 text-center">
+                        7/12 D4
+                    </button>
+                </div>
+            </div>
+
+            <!-- 區塊二：🔍 各地點分類 -->
+            <div class="pt-1.5 border-t border-dashed border-[#EBE3D5]">
+                <div class="text-[9px] text-[#A69C8F] font-black uppercase tracking-widest mb-1 pl-1">🔍 各地點備選分類 EXPLORE</div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="switchTab('dept')" id="tab-dept" class="py-2 rounded-xl text-xs font-black transition-all duration-200 flex items-center justify-center space-x-1.5">
+                        <span>🏬</span> <span>百貨全餐廳</span>
+                    </button>
+                    <button onclick="switchTab('backups')" id="tab-backups" class="py-2 rounded-xl text-xs font-black transition-all duration-200 flex items-center justify-center space-x-1.5">
+                        <span>🎒</span> <span>全旅程備選</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- 彈出式旅行小工具箱 -->
     <div id="toolbox" class="hidden fixed inset-0 bg-black/40 z-50 flex items-end justify-center px-4 pb-6">
-        <div class="bg-[#FAF6F0] w-full max-w-md rounded-3xl shadow-xl overflow-hidden animate-slide-up border border-[#EBE3D5]">
+        <div class="bg-[#FAF6F0] w-full max-w-md rounded-3xl shadow-xl overflow-hidden border border-[#EBE3D5]">
             <div class="p-4 border-b border-[#EBE3D5] flex justify-between items-center bg-[#F0E6D6]">
                 <h3 class="font-bold text-[#5C3E21] flex items-center space-x-2">
                     <span>🧳</span> <span>京都旅行隨身工具</span>
@@ -123,7 +156,7 @@
                             <input type="number" id="twdInput" oninput="convertCurrency('twd')" value="100" class="w-full bg-[#FAF6F0] border border-[#EBE3D5] rounded-xl px-3 py-2 text-sm font-bold text-[#5C3E21] focus:outline-none focus:border-[#8C6239]">
                         </div>
                         <div>
-                            <label class="text-[10px] text-gray-400 block mb-1">日幣 (JPY) <span class="text-[8px] text-emerald-600">(預設 1:4.8)</span></label>
+                            <label class="text-[10px] text-gray-400 block mb-1">日幣 (JPY) <span class="text-[8px] text-emerald-600">(預估 1:4.8)</span></label>
                             <input type="number" id="jpyInput" oninput="convertCurrency('jpy')" value="480" class="w-full bg-[#FAF6F0] border border-[#EBE3D5] rounded-xl px-3 py-2 text-sm font-bold text-[#5C3E21] focus:outline-none focus:border-[#8C6239]">
                         </div>
                     </div>
@@ -133,18 +166,30 @@
                 <div class="bg-white rounded-2xl p-4 border border-[#EBE3D5] shadow-sm">
                     <h4 class="text-xs font-bold text-[#8C6239] mb-2 flex items-center justify-between">
                         <span class="flex items-center space-x-1">📝 <span>隨手筆記 / 待買清單</span></span>
-                        <button onclick="clearNotes()" class="text-[10px] text-red-500 font-medium">清空</button>
+                        <button onclick="openConfirmModal()" class="text-[10px] text-red-500 font-medium">清空</button>
                     </h4>
                     <textarea id="travelNotes" oninput="saveNotes()" rows="4" placeholder="例如：
-- 有次買廚房剪刀 ✂️
-- 鳩居堂買薰香與信紙 ✉️
-- 大丸百貨B1買 MTR 的伴手禮" class="w-full bg-[#FAF6F0] border border-[#EBE3D5] rounded-xl p-3 text-xs leading-relaxed text-[#3D3A36] focus:outline-none focus:border-[#8C6239]"></textarea>
+- 有次刀具買不銹鋼剪刀 ✂️
+- 鳩居堂買線香 ✉️
+- 大丸百貨B1買茶之菓 🎁" class="w-full bg-[#FAF6F0] border border-[#EBE3D5] rounded-xl p-3 text-xs leading-relaxed text-[#3D3A36] focus:outline-none focus:border-[#8C6239]"></textarea>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 吐司通知 (取代 alert) -->
+    <!-- iOS 樣式確認 Modal -->
+    <div id="confirmModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center px-6">
+        <div class="bg-[#FAF6F0] rounded-3xl p-6 max-w-xs w-full shadow-xl border border-[#EBE3D5] text-center">
+            <h4 class="font-bold text-[#5C3E21] text-sm">確定要清空筆記內容嗎？</h4>
+            <p class="text-[11px] text-gray-500 mt-2">此動作將清除您記錄的採買清單與備忘錄。</p>
+            <div class="flex space-x-2 mt-5">
+                <button onclick="closeConfirmModal()" class="flex-1 py-2 bg-[#EBE3D5] hover:bg-[#D4C9B8] text-gray-700 text-xs font-bold rounded-xl transition-all">取消</button>
+                <button onclick="executeClearNotes()" class="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-all">確認清空</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮動吐司提示 -->
     <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 bg-[#5C3E21] text-[#FAF6F0] text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-50 opacity-0 pointer-events-none transition-all duration-300">
         已成功複製/收藏！
     </div>
@@ -154,42 +199,38 @@
 
         <!-- ==================== DAY 1 ==================== -->
         <div id="day1-content" class="tab-content hidden space-y-4">
-            <!-- 概要 -->
             <div class="bg-[#F0E6D6]/60 border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">
                 <span class="text-[10px] font-bold text-[#8C6239] bg-white px-2 py-0.5 rounded-full shadow-xs">DAY 1 行程重點</span>
-                <p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">
-                    下飛機後利用 <strong>Airporter 託運大行李</strong>，無後顧之憂直衝奈良！與小鹿互動、朝聖東大寺與春日大社的靜謐森林。傍晚回京都 Check-in，於四條烏丸悠閒享用晚餐。
-                </p>
+                <p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">抵達關西空港後利用 <strong>Airporter 託運大行李</strong> 直寄飯店，接著直奔奈良與鹿互動，黃昏返回京都辦理 Check-in。</p>
             </div>
-
+            
             <!-- 時間軸 -->
             <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm space-y-6 relative timeline-line">
                 <!-- 06:05-07:40 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        ✈️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">✈️</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">06:05–07:40</div>
                         <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">桃園機場 ➔ 關西空港</h4>
-                        <p class="text-xs text-gray-500 mt-1">捷星 GK50。抵達後通關、拿行李，並於櫃檯使用 Airporter 服務將 2 件大行李寄往京都飯店。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=關西國際機場" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 關西空港定位</a>
+                        <p class="text-xs text-gray-500 mt-1">捷星 GK50。抵達後入境出關，於航廈尋找 Airporter 寄件櫃檯將 2 件大行李配送至京都飯店。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=桃園國際機場" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 桃園機場</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=關西國際機場" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 關西空港</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 07:40-09:40 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🚃
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🚃</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">07:40–09:40</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">轉乘直奔近鐵奈良</h4>
-                        <p class="text-xs text-gray-500 mt-1">搭乘南海電鐵至難波站，徒步轉乘近鐵奈良線（大阪難波駅）直達近鐵奈良。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=南海なんば駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 南海難波</a>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">關西空港 ➔ 難波 ➔ 近鐵奈良</h4>
+                        <p class="text-xs text-gray-500 mt-1">搭乘南海電鐵至難波站，徒步轉乘近鐵奈良線（大阪難波駅）前往近鐵奈良站。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=南海電鉄+関西空港駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 南海關西空港站</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=南海なんば駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 南海難波站</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=大阪難波駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 大阪難波站</a>
                             <a href="https://www.google.com/maps/search/?api=1&query=近鉄奈良駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 近鐵奈良駅</a>
                         </div>
                     </div>
@@ -197,14 +238,12 @@
 
                 <!-- 09:50-12:00 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🦌
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🦌</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">09:50–12:00</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">奈良公園、東大寺大佛</h4>
-                        <p class="text-xs text-gray-500 mt-1">奈良必訪大景點。與可愛（或貪吃）的鹿打交道，參拜震撼無比的東大寺大佛。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">奈良第一個重點：奈良公園 ➔ 東大寺</h4>
+                        <p class="text-xs text-gray-500 mt-1">觀看小鹿群，隨後朝聖世界上宏偉的木造古建築東大寺，參觀震撼人心的盧舍那大佛。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
                             <a href="https://www.google.com/maps/search/?api=1&query=奈良公園" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 奈良公園</a>
                             <a href="https://www.google.com/maps/search/?api=1&query=東大寺" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 東大寺</a>
                         </div>
@@ -213,26 +252,22 @@
 
                 <!-- 12:00-13:00 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🍱
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🍱</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">12:00–13:00</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">奈良特色午餐時間</h4>
-                        <p class="text-xs text-gray-500 mt-1">在近鐵奈良站或奈良公園周邊覓食，享受當地美味（可選志津香釜飯或柿葉壽司）。</p>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">午餐時間</h4>
+                        <p class="text-xs text-gray-500 mt-1">在近鐵奈良站周邊或公園小街享用午餐。</p>
                     </div>
                 </div>
 
                 <!-- 13:00-14:30 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        ⛩️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">⛩️</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">13:00–14:30</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">春日大社神域探訪</h4>
-                        <p class="text-xs text-gray-500 mt-1">漫步綠樹成蔭、佈滿青苔石燈籠的森林參道，感受神聖莊嚴的氛圍。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">春日大社</h4>
+                        <p class="text-xs text-gray-500 mt-1">漫步綠樹包圍、石燈籠長滿青苔的古樸參道，感受春日大社的靜謐與神聖。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
                             <a href="https://www.google.com/maps/search/?api=1&query=春日大社" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 春日大社</a>
                         </div>
                     </div>
@@ -240,116 +275,121 @@
 
                 <!-- 14:30-16:10 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🛍️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🛍️</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">14:30–16:10</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">奈良古街散策</h4>
-                        <p class="text-xs text-gray-500 mt-1">沿途購買伴手禮與點心，慢慢步行踱回近鐵奈良站。</p>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">奈良散策</h4>
+                        <p class="text-xs text-gray-500 mt-1">散步走回車站，沿途可以挑選特色伴手禮或買份中谷堂麻糬。</p>
                     </div>
                 </div>
 
-                <!-- 16:30-19:00 -->
+                <!-- 16:30-17:20 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🏨
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🚃</div>
                     <div class="flex-1">
-                        <div class="text-xs font-black text-[#8C6239]">16:30–19:00</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">返回京都 ➔ 辦理入住</h4>
-                        <p class="text-xs text-gray-500 mt-1">搭乘近鐵京都線急行直達京都，轉乘地鐵至四條站步行回飯店，確認 Airporter 行李已安全送達。</p>
+                        <div class="text-xs font-black text-[#8C6239]">16:30–17:20</div>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">近鐵奈良 ➔ 京都</h4>
+                        <p class="text-xs text-gray-500 mt-1">搭乘近鐵急行列車，回到古典大氣的京都車站。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=近鉄京都駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 近鐵京都站</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 17:20-19:00 -->
+                <div class="flex items-start space-x-4 relative z-10">
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🏨</div>
+                    <div class="flex-1">
+                        <div class="text-xs font-black text-[#8C6239]">17:20–19:00</div>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">飯店 Check-in</h4>
+                        <p class="text-xs text-gray-500 mt-1">抵達四條烏丸的 ibis 酒店辦理入住手續，同時向櫃檯確認配送的大行李是否已寄達。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=イビススタイルズ京都四条" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 ibis styles 酒店</a>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 19:00 後 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🌙
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🌙</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">19:00 後</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">四條烏丸舒暢晚餐</h4>
-                        <p class="text-xs text-gray-500 mt-1">洗去舟車勞頓，在飯店周邊享用輕鬆晚餐，儲備隔天體力。</p>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">四条烏丸晚餐</h4>
+                        <p class="text-xs text-gray-500 mt-1">不走太遠，在飯店附近隨意挑選一間京風餐館，為第一天畫上溫暖的句點。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=四条烏丸" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 四条烏丸一帶</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 本日專屬備選區 -->
-            <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">
-                <h3 class="text-sm font-black text-[#704E2E] mb-3 flex items-center space-x-1.5">
-                    <span>💡</span> <span>Day 1 本日專屬備選清單</span>
+            <!-- 本日專屬備選與 100% 地圖連結 -->
+            <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm space-y-3">
+                <h3 class="text-sm font-black text-[#704E2E] flex items-center space-x-1.5">
+                    <span>💡</span> <span>Day 1 本日詳細備選（皆附地圖）</span>
                 </h3>
-                <div class="space-y-3">
-                    <div class="border-b border-dashed border-gray-100 pb-2.5">
-                        <span class="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">奈良美食</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">志津香 公園店 (七釜釜飯)</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=志津香+公園店" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
-                        </div>
-                    </div>
-                    <div class="border-b border-dashed border-gray-100 pb-2.5">
-                        <span class="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">奈良美食</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">柿の葉すし本舗たなか (柿葉壽司)</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=柿の葉すし本舗たなか" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
-                        </div>
-                    </div>
-                    <div class="border-b border-dashed border-gray-100 pb-2.5">
-                        <span class="text-[10px] font-bold text-[#8C6239] bg-[#FAF6F0] px-2 py-0.5 rounded-md">奈良甜點 / 景點</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-medium text-gray-700">中谷堂 (艾草麻糬) / 興福寺 / 猿沢池</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=中谷堂" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-md">京都晚餐 / 補給</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">大丸京都店 B1食品街 / 高島屋 B1食品街</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=大丸京都店" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
-                        </div>
-                    </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=志津香+公園店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-left block">
+                        <span class="text-[10px] text-amber-700 font-bold block">🍲 奈良釜飯</span>
+                        <span class="text-xs font-bold text-gray-700 block mt-0.5">志津香 公園店</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=柿の葉すし本舗たなか+奈良駅" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-left block">
+                        <span class="text-[10px] text-amber-700 font-bold block">🍣 柿葉壽司</span>
+                        <span class="text-xs font-bold text-gray-700 block mt-0.5">柿の葉すし本舗たなか</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=中谷堂" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-left block">
+                        <span class="text-[10px] text-pink-700 font-bold block">🍡 艾草麻糬</span>
+                        <span class="text-xs font-bold text-gray-700 block mt-0.5">中谷堂</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=ほうせき箱" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-left block">
+                        <span class="text-[10px] text-blue-700 font-bold block">🍧 排隊刨冰</span>
+                        <span class="text-xs font-bold text-gray-700 block mt-0.5">ほうせき箱</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=興福寺" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-left block">
+                        <span class="text-[10px] text-gray-500 font-bold block">⛩️ 備選景點</span>
+                        <span class="text-xs font-bold text-gray-700 block mt-0.5">興福寺</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=猿沢池" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-left block">
+                        <span class="text-[10px] text-gray-500 font-bold block">🏞️ 備選散步</span>
+                        <span class="text-xs font-bold text-gray-700 block mt-0.5">猿澤池</span>
+                    </a>
                 </div>
             </div>
         </div>
 
         <!-- ==================== DAY 2 ==================== -->
         <div id="day2-content" class="tab-content hidden space-y-4">
-            <!-- 概要 -->
             <div class="bg-[#F0E6D6]/60 border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">
                 <span class="text-[10px] font-bold text-[#8C6239] bg-white px-2 py-0.5 rounded-full shadow-xs">DAY 2 行程重點</span>
-                <p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">
-                    今天結合了<strong>清水老街古風、高島屋質感血拼、以及京都夏季最盛大祭典：祇園祭</strong>。傍晚看熱鬧的迎神提燈，晚間到四條大橋親睹肅穆的神輿洗，完美體驗京城盛夏的一天。
-                </p>
+                <p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">上午走清水寺、清水坂、清水燒老店。下午到高島屋享受甜點購物。傍晚至夜晚融入京都夏日盛典祇園祭，觀看迎神提燈與神輿洗。</p>
             </div>
 
             <!-- 時間軸 -->
             <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm space-y-6 relative timeline-line">
                 <!-- 08:30-10:30 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🚕
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🚕</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">08:30–10:30</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">搭車直攻清水寺</h4>
-                        <p class="text-xs text-gray-500 mt-1">建議由飯店搭計程車直接前往五条坂或茶わん坂，省下體力從高點開始漫步下山。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=清水寺" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 清水寺地圖</a>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">飯店 ➔ 五条坂/茶わん坂 ➔ 清水寺</h4>
+                        <p class="text-xs text-gray-500 mt-1">從飯店搭乘計程車直達五條坂高點，順行茶碗坂步行進入清水寺本堂，居高臨下俯瞰京都全景。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=五条坂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 五条坂</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=茶わん坂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 茶わん坂</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=清水寺" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 清水寺</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 10:30-12:00 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🍵
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🏺</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">10:30–12:00</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">清水坂與大師器物巡禮</h4>
-                        <p class="text-xs text-gray-500 mt-1">走逛代表性的清水燒名店：朝日堂，並造訪隱密雅緻的「あさひ坂」精緻陶器街區。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">清水坂與清水燒匠人店鋪</h4>
+                        <p class="text-xs text-gray-500 mt-1">走下清水坂，尋找極富盛名的清水燒瓷器。可走進充滿禪意的陶藝聚集街區「あさひ坂」與名店「朝日堂」。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=清水坂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 清水坂</a>
                             <a href="https://www.google.com/maps/search/?api=1&query=朝日堂+清水坂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 朝日堂</a>
                             <a href="https://www.google.com/maps/search/?api=1&query=あさひ坂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 あさひ坂</a>
                         </div>
@@ -358,120 +398,70 @@
 
                 <!-- 12:00-13:15 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🍜
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🍜</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">12:00–13:15</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">三年坂 ➔ 二寧坂古風午餐</h4>
-                        <p class="text-xs text-gray-500 mt-1">漫步充滿京風的石坂坡道，在老街中尋找有眼緣的餐廳品嚐午餐或甜點。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=二年坂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 二年坂</a>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">二寧坂、三年坂午餐</h4>
+                        <p class="text-xs text-gray-500 mt-1">沿著古意盎然的木造石階漫步，挑選有眼緣的餐廳享用京風味午餐。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=二年坂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 二年坂 (二寧坂)</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=産寧坂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 三年坂 (產寧坂)</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 13:15-14:30 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        ⛩️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">⛩️</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">13:15–14:30</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">法觀寺八坂之塔 ➔ 祇園</h4>
-                        <p class="text-xs text-gray-500 mt-1">拍攝經典的法觀寺五重塔（八坂之塔），順行寧寧之道，經八坂神社悠游散步至祇園。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">八坂之塔 ➔ ねねの道 ➔ 八坂神社</h4>
+                        <p class="text-xs text-gray-500 mt-1">拍攝最具指標性的法觀寺「八坂之塔」，行經寧靜高雅的「ねねの道」，直通祇園祭的大本營八坂神社。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
                             <a href="https://www.google.com/maps/search/?api=1&query=法観寺+八坂の塔" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 八坂之塔</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=ねねの道" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 ねねの道</a>
                             <a href="https://www.google.com/maps/search/?api=1&query=八坂神社" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 八坂神社</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=祇園" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 祇園</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 14:30-16:20 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🛍️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🛍️</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">14:30–16:20</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">京都高島屋避暑與下午茶</h4>
-                        <p class="text-xs text-gray-500 mt-1">在有冷氣的京都髙島屋S.C.放鬆休息，到「無碍山房」補吃抹茶聖代、或預購 fiveran 的美味麵包。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=京都高島屋" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 高島屋</a>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">京都高島屋血拼避暑</h4>
+                        <p class="text-xs text-gray-500 mt-1">在大飽眼福之後，步行穿過鴨川進入京都高島屋百貨休息，順便在B1採購點心。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=京都高島屋" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 京都高島屋</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 16:30-17:30 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🏮
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🏮</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">16:30–17:30</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">祇園祭 ‧ お迎提灯遊行</h4>
-                        <p class="text-xs text-gray-500 mt-1">卡位四条河原町至八坂神社一帶，迎面觀賞極具童心與優雅氣質的提燈迎神大遊行。</p>
-                    </div>
-                </div>
-
-                <!-- 17:30-19:30 -->
-                <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🍱
-                    </div>
-                    <div class="flex-1">
-                        <div class="text-xs font-black text-[#8C6239]">17:30–19:30</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">彈性晚餐時光</h4>
-                        <p class="text-xs text-gray-500 mt-1">因應祭典人潮，可選擇在冷氣充足的高島屋吃咖哩烏龍「味味香」或雞料理「八起庵」。</p>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">祇園祭 お迎提灯</h4>
+                        <p class="text-xs text-gray-500 mt-1">在四條河原町至八坂神社沿途卡位，觀賞極富古雅風味與稚氣童趣的「迎神提燈遊行」。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=四条河原町" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 四條河原町</a>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 20:00 前後 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        ⚔️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">⚔️</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">20:00 前後</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">重頭戲：祇園祭 ‧ 神輿洗</h4>
-                        <p class="text-xs text-gray-500 mt-1">於四条大橋上，親眼目睹神職人員高舉神轎，以鴨川清水進行淨化，氣氛浩大感人。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">祇園祭 神輿洗</h4>
+                        <p class="text-xs text-gray-500 mt-1">於四條大橋觀看莊嚴雄偉的「神輿洗」淨化神轎儀式。隨後沿著亮起大紅提燈的「山鉾町」漫步回四條烏丸的飯店。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
                             <a href="https://www.google.com/maps/search/?api=1&query=四条大橋" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 四條大橋</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 20:45 後 -->
-                <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        ✨
-                    </div>
-                    <div class="flex-1">
-                        <div class="text-xs font-black text-[#8C6239]">20:45 後</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">山鉾町漫步回飯店</h4>
-                        <p class="text-xs text-gray-500 mt-1">四條烏丸一帶的山鉾此時已點亮駒形提燈，伴隨着悠揚的「祭囃子」樂音，散步感受夏夜祭典風情。</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 本日專屬備選區 -->
-            <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">
-                <h3 class="text-sm font-black text-[#704E2E] mb-3 flex items-center space-x-1.5">
-                    <span>💡</span> <span>Day 2 本日專屬備選清單</span>
-                </h3>
-                <div class="space-y-3">
-                    <div class="border-b border-dashed border-gray-100 pb-2.5">
-                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">高島屋精選</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">無碍山房 (聖代) / 味味香 (咖哩烏龍) / 八起庵</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=無碍山房+高島屋" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
-                        </div>
-                    </div>
-                    <div class="border-b border-dashed border-gray-100 pb-2.5">
-                        <span class="text-[10px] font-bold text-[#8C6239] bg-[#FAF6F0] px-2 py-0.5 rounded-md">大丸百貨備選</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">炭焼 うな富士 (精緻鰻魚) / ル・プチメック</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=炭焼+うな富士+大丸京都" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=京都+山鉾町" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 四條烏丸山鉾町</a>
                         </div>
                     </div>
                 </div>
@@ -480,388 +470,594 @@
 
         <!-- ==================== DAY 3 ==================== -->
         <div id="day3-content" class="tab-content hidden space-y-4">
-            <!-- 概要 -->
             <div class="bg-[#F0E6D6]/60 border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">
                 <span class="text-[10px] font-bold text-[#8C6239] bg-white px-2 py-0.5 rounded-full shadow-xs">DAY 3 行程重點</span>
-                <p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">
-                    今天是專屬於<strong>宇治抹茶名店與平安佛國凈土的散策</strong>。品嚐最經典的抹茶冰品與甜點，拜訪列入世界遺產、精美如畫的平等院鳳凰堂，在波光粼粼的宇治川旁吹風漫步。
-                </p>
+                <p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">主打宇治茶名鋪巡禮、抹茶冰品與世界文化遺產平等院。享受宇治川與最古老宇治橋畔的幽靜和風慢活。</p>
             </div>
 
             <!-- 時間軸 -->
             <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm space-y-6 relative timeline-line">
                 <!-- 上午 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🚃
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🚃</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">上午</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">京都 ➔ 宇治</h4>
-                        <p class="text-xs text-gray-500 mt-1">從飯店出發步行至京都站，轉乘 JR 奈良線快速列車，約半小時即達古樸綠意的宇治。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=宇治駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 JR 宇治駅</a>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">飯店 ➔ 京都駅 ➔ JR 宇治駅</h4>
+                        <p class="text-xs text-gray-500 mt-1">自飯店乘地鐵至京都站，搭乘 JR 快速列車直達古樸恬靜的宇治茶鄉。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=京都駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 京都站</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=宇治駅" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 JR 宇治站</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 中午前後 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🍵
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🍵</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">中午前後</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">名舖大抉擇：宇治茶聖代或蕎麥麵</h4>
-                        <p class="text-xs text-gray-500 mt-1">主攻名牌：中村藤吉本店、伊藤久右衛門或辻利、三星園，品嚐最道地的濃醇抹茶冰品及午餐。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=中村藤吉本店+宇治本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 中村藤吉</a>
-                            <a href="https://www.google.com/maps/search/?api=1&query=伊藤久右衛門+JR宇治駅前店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 伊藤久右衛門</a>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">宇治名門茶店大抉擇</h4>
+                        <p class="text-xs text-gray-500 mt-1">朝聖代表性的抹茶專賣老舖，吃一碗招牌抹茶聖代、濃郁冰淇淋或清新的抹茶蕎麥麵。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=中村藤吉本店+宇治本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 中村藤吉本店</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=伊藤久右衛門+JR宇治駅前店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 伊藤久右衛門 JR店</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=辻利+宇治本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 辻利 宇治本店</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=三星園上林三入本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 三星園</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 下午 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🏯
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🏯</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">下午</div>
                         <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">平等院鳳凰堂（世界遺產）</h4>
-                        <p class="text-xs text-gray-500 mt-1">觀賞極致對稱的日本淨土庭園，走訪精美的「鳳翔館」展示廳，欣賞千年佛像神彩。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
+                        <p class="text-xs text-gray-500 mt-1">拜訪十圓硬幣背後的建築。進入「鳳翔館」欣賞精美的鳳凰雕像與國寶大佛造像。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
                             <a href="https://www.google.com/maps/search/?api=1&query=平等院鳳凰堂" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 平等院鳳凰堂</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=平等院+鳳翔館" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 鳳翔館博物館</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 下午後段 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🌊
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🌊</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">下午後段</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">宇治川與宇治橋散步</h4>
-                        <p class="text-xs text-gray-500 mt-1">漫步於宇治川中的沙洲，看川水奔騰流淌，欣賞全日本最古老的石橋之一：宇治橋。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=宇治川" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 宇治川</a>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">宇治橋 ➔ 宇治川散步</h4>
+                        <p class="text-xs text-gray-500 mt-1">沿著奔騰開闊的宇治川河畔散步，拍攝極具古意、被尊為全日最古老木造石結構的「宇治橋」。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=宇治橋" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 宇治橋</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=宇治川" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 宇治川河畔</a>
                         </div>
-                    </div>
-                </div>
-
-                <!-- 傍晚 -->
-                <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🌙
-                    </div>
-                    <div class="flex-1">
-                        <div class="text-xs font-black text-[#8C6239]">傍晚</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">宇治 ➔ 返回京都</h4>
-                        <p class="text-xs text-gray-500 mt-1">搭乘 JR 返程。晚餐可於京都站或回四条烏丸周邊輕鬆解決。</p>
                     </div>
                 </div>
             </div>
 
-            <!-- 本日專屬備選區 -->
-            <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">
-                <h3 class="text-sm font-black text-[#704E2E] mb-3 flex items-center space-x-1.5">
-                    <span>💡</span> <span>Day 3 本日專屬備選清單</span>
+            <!-- 本日專屬備選與地圖連結 -->
+            <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm space-y-3">
+                <h3 class="text-sm font-black text-[#704E2E] flex items-center space-x-1.5">
+                    <span>💡</span> <span>Day 3 宇治其他備選地標導航</span>
                 </h3>
-                <div class="space-y-3">
-                    <div class="border-b border-dashed border-gray-100 pb-2.5">
-                        <span class="text-[10px] font-bold text-[#8C6239] bg-[#FAF6F0] px-2 py-0.5 rounded-md">宇治其他茶老店 / 文化景點</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">三星園上林三入 / 宇治上神社 / 源氏物語博物館</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=宇治上神社" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded-md">京都精緻大餐（需預訂）</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">弘 先斗町別邸 (和牛燒肉) / 三嶋亭 壽喜燒</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=京の焼肉処+弘+先斗町別邸" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
-                        </div>
-                    </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=宇治上神社" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-left block">
+                        <span class="text-[10px] text-emerald-700 font-bold block">⛩️ 世界遺產古社</span>
+                        <span class="text-xs font-bold text-gray-700 block mt-0.5">宇治上神社</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=源氏物語ミュージアム" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-left block">
+                        <span class="text-[10px] text-indigo-700 font-bold block">📖 文學博物館</span>
+                        <span class="text-xs font-bold text-gray-700 block mt-0.5">源氏物語博物館</span>
+                    </a>
                 </div>
             </div>
         </div>
 
         <!-- ==================== DAY 4 ==================== -->
         <div id="day4-content" class="tab-content hidden space-y-4">
-            <!-- 概要 -->
             <div class="bg-[#F0E6D6]/60 border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">
                 <span class="text-[10px] font-bold text-[#8C6239] bg-white px-2 py-0.5 rounded-full shadow-xs">DAY 4 行程重點</span>
-                <p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">
-                    今天漫遊<strong>東山南禪寺、平安神宮一帶的優雅古建築</strong>。下午折返市區，專程走訪傳承百年的京都手工匠人老店（茶葉、薰香、扇子、極品刀剪），並在熱鬧的錦市場與新京極收尾。
-                </p>
+                <p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">上午南禪寺與優美紅磚水路閣、平安神宮神苑。下午回到三條、四條，開啟京都最尊貴的百年老店名品探尋。</p>
             </div>
 
             <!-- 時間軸 -->
             <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm space-y-6 relative timeline-line">
                 <!-- 上午 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🍁
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🍁</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">上午</div>
                         <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">南禪寺 ‧ 水路閣</h4>
-                        <p class="text-xs text-gray-500 mt-1">觀賞高聳壯麗的三門，在紅磚復古的洋風水路閣（水道橋）拍照，感受悠遠禪意。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=南禅寺+水路閣" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 南禪寺水路閣</a>
+                        <p class="text-xs text-gray-500 mt-1">造訪氣勢雄偉的三門。漫步到寺內深處、極具歐式復古風情與日式禪意融合的紅磚拱形渠「水路閣」拍照。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=南禅寺" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 南禪寺</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=南禅寺+三門" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 三門</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=南禅寺+水路閣" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 水路閣</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 中午前後 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        ⛩️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">⛩️</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">中午前後</div>
                         <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">岡崎 ‧ 平安神宮與神苑</h4>
-                        <p class="text-xs text-gray-500 mt-1">漫步廣闊的岡崎公園，參拜紅色宏大的平安神宮本堂與絕美庭園「神苑」。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
+                        <p class="text-xs text-gray-500 mt-1">走過鮮紅的大鳥居進入平安神宮，拜訪擁有古典池泉環繞的池泉式大庭園「神苑」。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
                             <a href="https://www.google.com/maps/search/?api=1&query=平安神宮" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 平安神宮</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=平安神宮+神苑" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 神苑庭園</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=岡崎公園+京都" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 岡崎公園</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 下午 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🛠️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🛍️</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">下午</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">寺町三條 ➔ 京都頂級老舖巡禮</h4>
-                        <p class="text-xs text-gray-500 mt-1">進行專屬京都的極美器物採購。前往一保堂買好茶、鳩居堂挑選精緻薰香與文具、宮脇賣扇庵賞京扇、永樂屋買特色手拭巾。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=一保堂茶舗+京都本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 一保堂</a>
-                            <a href="https://www.google.com/maps/search/?api=1&query=鳩居堂+京都本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 鳩居堂</a>
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">寺町京極 ➔ 京都老舖百年巡禮</h4>
+                        <p class="text-xs text-gray-500 mt-1">這是高雅的採買行程！前往「一保堂」喝名茶、「鳩居堂」挑薰香、「宮脇賣扇庵」賞精美紙扇、「永樂屋」選日式手拭巾。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            <a href="https://www.google.com/maps/search/?api=1&query=一保堂茶舗+京都本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 一保堂本店</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=鳩居堂+京都本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 鳩居堂本店</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=宮脇賣扇庵+京都" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 宮脇賣扇庵</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=永楽屋+本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 永樂屋本店</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 傍晚 -->
                 <div class="flex items-start space-x-4 relative z-10">
-                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">
-                        🛍️
-                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0 text-[#8C6239]">🛒</div>
                     <div class="flex-1">
                         <div class="text-xs font-black text-[#8C6239]">傍晚</div>
-                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">錦市場 ➔ 新京極 ➔ 錦天滿宮</h4>
-                        <p class="text-xs text-gray-500 mt-1">至錦市場尋找傳說中的「有次刀具」物色專業修剪剪刀。最後於新京極採購藥妝、於熱鬧商圈晚餐。</p>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
+                        <h4 class="text-sm font-bold text-[#3D3A36] mt-0.5">錦市場 ➔ 新京極 ➔ 尋找有次剪刀</h4>
+                        <p class="text-xs text-gray-500 mt-1">探訪錦市場名店「有次刀具」，挑選手工不銹鋼剪刀，隨後在新京極選購藥妝、享受晚餐。</p>
+                        <div class="flex flex-wrap gap-1 mt-2">
                             <a href="https://www.google.com/maps/search/?api=1&query=有次+錦市場" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 有次刀具</a>
                             <a href="https://www.google.com/maps/search/?api=1&query=新京極商店街" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 新京極</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 本日專屬備選區 -->
-            <div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">
-                <h3 class="text-sm font-black text-[#704E2E] mb-3 flex items-center space-x-1.5">
-                    <span>💡</span> <span>Day 4 本日專屬備選清單</span>
-                </h3>
-                <div class="space-y-3">
-                    <div class="border-b border-dashed border-gray-100 pb-2.5">
-                        <span class="text-[10px] font-bold text-[#8C6239] bg-[#FAF6F0] px-2 py-0.5 rounded-md">百年老牌和菓子 / 刀剪老店</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">亀屋良長 (和菓子) / 菊一文字 (剪刀、刀具)</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=亀屋良長+本店" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">老店美食推薦</span>
-                        <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-bold text-gray-700">本家尾張屋 本店 (傳承數百年老蕎麥麵)</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=本家尾張屋+本店" target="_blank" class="text-[10px] text-blue-600">🗺️ 地圖</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=錦市場" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-2.5 py-1 rounded-lg">📍 錦市場</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== BACKUPS (備選池) ==================== -->
+        <!-- ==================== 🏬 百貨全餐廳（大擴張版，100% 導航） ==================== -->
+        <div id="dept-content" class="tab-content hidden space-y-4">
+            
+            <div class="bg-[#ECE5DA] border border-[#DCD3C5] rounded-[24px] p-5 shadow-xs">
+                <span class="text-[10px] font-bold text-emerald-800 bg-white px-2 py-0.5 rounded-full shadow-2xs">🏬 百貨美食殿堂 (大丸 ‧ 高島屋全導航)</span>
+                <p class="text-xs text-[#5C4F43] leading-relaxed mt-2 font-medium">
+                    兩大百貨的餐廳極為豐富。在現場只要在搜尋框輸入關鍵字（如「肉」、「抹茶」、「B1」），App 就會即時篩選相符店家，每個店家均有專屬地圖導航連結！
+                </p>
+                
+                <!-- 即時搜尋欄 -->
+                <div class="relative mt-3.5">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8C8275] text-xs">🔍</span>
+                    <input type="text" id="deptSearch" onkeyup="filterDeptRestaurants()" placeholder="搜尋：肉、抹茶、伴手禮、B1、7F..." class="w-full bg-white border border-[#DCD3C5] rounded-xl pl-9 pr-4 py-2 text-xs font-bold text-[#3D3A36] focus:outline-none focus:border-[#8C6239] focus:ring-1 focus:ring-[#8C6239] transition-all shadow-2xs">
+                </div>
+            </div>
+
+            <!-- 百貨標籤篩選按鈕 -->
+            <div class="flex space-x-1 overflow-x-auto no-scrollbar pb-1">
+                <button onclick="setDeptFilter('all')" id="btn-d-all" class="px-3 py-1.5 text-[10px] font-bold rounded-full whitespace-nowrap bg-[#5C3E21] text-[#FAF6F0] transition-all">全部 (22)</button>
+                <button onclick="setDeptFilter('taka')" id="btn-d-taka" class="px-3 py-1.5 text-[10px] font-bold rounded-full whitespace-nowrap bg-white text-[#8C8275] border border-[#EBE3D5] transition-all">高島屋 (11)</button>
+                <button onclick="setDeptFilter('daimaru')" id="btn-d-daimaru" class="px-3 py-1.5 text-[10px] font-bold rounded-full whitespace-nowrap bg-white text-[#8C8275] border border-[#EBE3D5] transition-all">大丸京都 (11)</button>
+                <button onclick="setDeptFilter('meal')" id="btn-d-meal" class="px-3 py-1.5 text-[10px] font-bold rounded-full whitespace-nowrap bg-white text-[#8C8275] border border-[#EBE3D5] transition-all">🍱 豐盛正餐</button>
+                <button onclick="setDeptFilter('sweets')" id="btn-d-sweets" class="px-3 py-1.5 text-[10px] font-bold rounded-full whitespace-nowrap bg-white text-[#8C8275] border border-[#EBE3D5] transition-all">🍰 甜點與外帶</button>
+            </div>
+
+            <!-- 百貨卡片容器 -->
+            <div class="space-y-3" id="dept-cards-container">
+
+                <!-- ===== 高島屋 S.C. ===== -->
+                <div class="dept-divider" data-dept-group="taka">
+                    <span>📍 京都高島屋 S.C. 餐廳街 & B1</span>
+                </div>
+
+                <!-- 1 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="sweets" id="card-taka-muge">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">🍰 甜點 ‧ 高島屋 7F</span>
+                        <button onclick="toggleFav('card-taka-muge')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">無碍山房 Salon de Muge</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">米其林三星料亭「新派精緻甜點」。濃茶抹茶聖代、高雅抹茶冰沙香氣一絕，排在 Day 2 下午避暑最推薦。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=無碍山房+Salon+de+Muge+京都髙島屋店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="meal" id="card-taka-mimikou">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-orange-700 bg-orange-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 高島屋 7F</span>
+                        <button onclick="toggleFav('card-taka-mimikou')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">京のカレーうどん 味味香</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">經典和風鰹魚高湯咖哩烏龍麵。麵條微Q、咖哩香辣濃醇，適合夏夜祭典前快速補充體力。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=味味香+京都高島屋" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="meal" id="card-taka-hachiokian">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 高島屋 7F</span>
+                        <button onclick="toggleFav('card-taka-hachiokian')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">八起庵 (はちきあん)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">京都極為著名的軍雞/禽鳥料理名店。親子丼與高湯燉煮的鴨肉烏龍麵溫潤鮮甜，深得老饕喜愛。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=八起庵+京都髙島屋店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="meal" id="card-taka-katsukura">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 高島屋 7F</span>
+                        <button onclick="toggleFav('card-taka-katsukura')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">名代とんかつ かつくら</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">發源於京都三條的頂級炸豬排店！麥飯、高麗菜絲、特製麥味噌湯均可無限續加，金黃鬆軟酥脆極致。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=かつくら+京都髙島屋店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="meal" id="card-taka-minokichi">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 高島屋 7F</span>
+                        <button onclick="toggleFav('card-taka-minokichi')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">京料理 美濃吉</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">傳承超過300年的正統京懷石料亭。在百貨即可享用高水準、呈現和風時令美學的精緻京料理與便當。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=京料理+美濃吉+京都高島屋" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="meal" id="card-taka-unagitoku">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 高島屋 7F</span>
+                        <button onclick="toggleFav('card-taka-unagitoku')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">うなぎ 徳 (鰻魚 德)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">來自鰻魚聖地靜岡濱松的老店。堅持炭火手烤，招牌的「鰻魚茶泡飯飯三吃」高湯香甜，溫潤補氣。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=うなぎ+徳+京都高島屋" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="meal" id="card-taka-hageten">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 高島屋 7F</span>
+                        <button onclick="toggleFav('card-taka-hageten')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">銀座ハゲ天</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">銀座經典的天婦羅。選用香濃芝麻油，職人當面現炸出輕薄如紙、黃金酥脆的野菜與大蝦天婦羅。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=銀座ハゲ天+京都高島屋" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="sweets" id="card-taka-arabica">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-yellow-700 bg-yellow-50 px-2 py-0.5 rounded">☕ 咖啡 ‧ T8 1F</span>
+                        <button onclick="toggleFav('card-taka-arabica')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">% Arabica Kyoto (Takashimaya S.C.)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">入駐全新潮流T8館。極具太空美感的純白吧台，提供拉花一流、奶香與咖啡豆氣息醇厚的香濃拿鐵。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=%25+Arabica+Kyoto+Takashimaya" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 9 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="sweets" id="card-taka-fiveran">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-yellow-700 bg-yellow-50 px-2 py-0.5 rounded">🥖 烘焙 ‧ 高島屋 B1</span>
+                        <button onclick="toggleFav('card-taka-fiveran')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">fiveran (ファイブラン)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">烏丸御池當地大人氣的極美麵包店分店。明太子法國麵包、特製Q軟吐司買回飯店吃極度幸福。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=fiveran+京都高島屋" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 10 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="sweets" id="card-taka-horai">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-pink-700 bg-pink-50 px-2 py-0.5 rounded">🥟 排隊外帶 ‧ 高島屋 B1</span>
+                        <button onclick="toggleFav('card-taka-horai')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">551蓬萊 (551 HORAI)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">關西人的驕傲！外皮甘甜、內餡洋蔥豬肉多汁的爆漿肉包。熱呼呼排隊買來當宵夜非常過癮。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=551蓬莱+京都高島屋" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 11 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="taka" data-type="sweets" id="card-taka-giontsujiri">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🍵 伴手禮 ‧ 高島屋 B1</span>
+                        <button onclick="toggleFav('card-taka-giontsujiri')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">祇園辻里 (宇治茶老店)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">創始於1860年的祇園宇治茶代表。售有高雅的茶餅與茶包，現場還可以品嚐現打的抹茶冰淇淋。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=祇園辻里+京都高島屋" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- ===== 大丸京都店 ===== -->
+                <div class="dept-divider" data-dept-group="daimaru">
+                    <span>📍 大丸京都店 餐廳街 & B1</span>
+                </div>
+
+                <!-- 12 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="meal" id="card-daimaru-unafuji">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 大丸京都 8F</span>
+                        <button onclick="toggleFav('card-daimaru-unafuji')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">炭焼 うな富士 大丸京都別邸</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">名古屋神級鰻魚飯名店。嚴選大規格「青鰻」以千度炭火地燒，外層酥脆帶焦香、內部脂腴厚實。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=炭焼+うな富士+大丸京都別邸" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 13 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="meal" id="card-daimaru-rin">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">🍜 職人拉麵 ‧ 大丸京都 8F</span>
+                        <button onclick="toggleFav('card-daimaru-rin')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">Nippon Ramen 凛 離れ</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">北海道拉麵神店 Lab Q 總監修。將日式拉麵淬煉出如同精緻法餐般的高雅透亮，醬油與鹽味湯頭驚豔無比。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Nippon+Ramen+凛+離れ" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 14 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="meal" id="card-daimaru-sushisay">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 手握壽司 ‧ 大丸京都 8F</span>
+                        <button onclick="toggleFav('card-daimaru-sushisay')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">築地寿司清 (老字號壽司)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">創始於1889年的傳奇江戶前手握壽司。提供極富溫度的「板前座位」，欣賞師傅巧手揉捏現送漁獲。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=築地寿司清+大丸京都" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 15 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="meal" id="card-daimaru-tenichi">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 大丸京都 8F</span>
+                        <button onclick="toggleFav('card-daimaru-tenichi')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">銀座天一 (天婦羅老名門)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">政商名流雲集的極致天婦羅名店。薄如蟬翼的金黃炸衣將食材的原汁甜美徹底封存。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=銀座天一+大丸京都店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 16 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="meal" id="card-daimaru-soba">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🍱 正餐 ‧ 大丸京都 8F</span>
+                        <button onclick="toggleFav('card-daimaru-soba')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">永坂更科 寛兵衛</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">擁有 200 餘年傳統的純手工蕎麥麵。招牌「御前蕎麥」皎潔如雪、入口帶有清脆彈性與淡雅蕎麥香。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=永坂更科+寛兵衛+大丸京都" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 17 (超級隱藏版吧台) -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="meal" id="card-daimaru-mishimatei">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 超值和牛 ‧ 大丸京都 B1</span>
+                        <button onclick="toggleFav('card-daimaru-mishimatei')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">三嶋亭 大丸精肉店直營吧台</h4>
+                    <p class="text-[11px] text-emerald-800 font-bold mt-1">【超級隱藏版推薦！】不需要預約，在地下精肉專櫃旁的吧台即可用 2500 日圓享用現煎和牛壽喜燒丼與牛排蓋飯！</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=三嶋亭+大丸京都店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 18 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="sweets" id="card-daimaru-harbs">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-pink-700 bg-pink-50 px-2 py-0.5 rounded">🍰 甜點下午茶 ‧ 大丸 4F</span>
+                        <button onclick="toggleFav('card-daimaru-harbs')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">HARBS (ハーブス) 大丸京都店</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">超名動全日的「新鮮水果千層蛋糕」。蛋皮輕透、千層夾入草莓、奇異果與哈密瓜，美味無與倫比。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=HARBS+大丸京都店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 19 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="sweets" id="card-daimaru-lepetit">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-yellow-700 bg-yellow-50 px-2 py-0.5 rounded">🥐 法式烘焙 ‧ 大丸京都 B1</span>
+                        <button onclick="toggleFav('card-daimaru-lepetit')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">ル・プチメック (Le Petit Mec)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">被京都本地推崇為「正統法式烘焙天花板」！可頌外酥內柔，無花果與硬法國麵包麥香飽滿。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=ルプチメック+大丸京都" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 20 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="sweets" id="card-daimaru-malebranche">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🎁 伴手禮 ‧ 大丸京都 B1</span>
+                        <button onclick="toggleFav('card-daimaru-malebranche')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">マールブランシュ (京都北山)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">京都超夯伴手禮「茶之菓」濃茶貓舌餅夾白巧克力，大丸店內即可輕鬆買足，完全省去跑店麻煩。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=マールブランシュ+大丸京都店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 21 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="sweets" id="card-daimaru-horai">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-pink-700 bg-pink-50 px-2 py-0.5 rounded">🥟 排隊外帶 ‧ 大丸京都 B1</span>
+                        <button onclick="toggleFav('card-daimaru-horai')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">551蓬萊 (551 HORAI) 大丸店</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">如果您住在附近的 ibis 酒店，回房前繞進大丸地下一樓買盒大包子和蝦燒賣，配杯冰啤酒最讚。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=551蓬莱+大丸京都" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 22 -->
+                <div class="dept-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-dept="daimaru" data-type="sweets" id="card-daimaru-toraya">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🎁 皇家御用 ‧ 大丸京都 B1</span>
+                        <button onclick="toggleFav('card-daimaru-toraya')" class="fav-btn text-base text-gray-300">🤍</button>
+                    </div>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">虎屋 (TORAYA) 御用京菓子</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">創始於室町時代後期（500餘年歷史）的日本皇室御用京菓子。羊羹細緻入口即化、包裝極富和風底蘊。</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=虎屋+大丸京都店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
+                    </div>
+                </div>
+
+                <!-- 搜尋無結果 -->
+                <div id="no-search-results" class="hidden text-center py-10 bg-white border border-[#EBE3D5] rounded-3xl">
+                    <p class="text-2xl">🧐</p>
+                    <p class="text-xs text-[#8C8275] font-bold mt-2">找不到符合關鍵字的百貨餐廳...</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== BACKUPS (其他備選池，100% 導航) ==================== -->
         <div id="backups-content" class="tab-content hidden space-y-4">
             
-            <!-- 備選池分類按鈕 -->
             <div class="bg-white border border-[#EBE3D5] rounded-2xl p-3 shadow-sm flex space-x-1.5 overflow-x-auto no-scrollbar">
-                <button onclick="filterBackups('all')" id="btn-f-all" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#5C3E21] text-white">
-                    全看
-                </button>
-                <button onclick="filterBackups('gourmet')" id="btn-f-gourmet" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5]">
-                    🍱 美食大餐
-                </button>
-                <button onclick="filterBackups('cafe')" id="btn-f-cafe" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5]">
-                    ☕ 咖啡甜點
-                </button>
-                <button onclick="filterBackups('souvenir')" id="btn-f-souvenir" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5]">
-                    🍵 茶‧伴手禮
-                </button>
-                <button onclick="filterBackups('tools')" id="btn-f-tools" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5]">
-                    🛠️ 職人刀剪
-                </button>
+                <button onclick="filterBackups('all')" id="btn-f-all" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#5C3E21] text-white">全看</button>
+                <button onclick="filterBackups('gourmet')" id="btn-f-gourmet" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5]">🍱 經典大餐</button>
+                <button onclick="filterBackups('souvenir')" id="btn-f-souvenir" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5]">🍵 茶老舖與伴手</button>
+                <button onclick="filterBackups('tools')" id="btn-f-tools" class="px-3 py-1.5 text-[11px] font-bold rounded-full transition-all bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5]">🛠️ 職人刀剪</button>
             </div>
 
             <div class="text-[10px] text-[#A69C8F] px-1 flex justify-between items-center">
-                <span>點擊 ❤️ 可加至常用，點擊 🗺️ 開啟 Google 地圖定位</span>
+                <span>點擊 ❤️ 收藏，點擊下方按鈕可跳轉 Google Maps 導航</span>
                 <span id="fav-count" class="text-xs font-bold text-rose-500">❤️ 0 個收藏</span>
             </div>
 
-            <!-- 卡片容器 -->
+            <!-- 卡片 -->
             <div class="space-y-3" id="backup-cards-list">
 
-                <!-- 經典名店美食 -->
                 <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="gourmet" id="card-mishimatei">
                     <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 頂級美食 / 壽喜燒</span>
-                        <button onclick="toggleFav('card-mishimatei')" class="fav-btn text-base text-gray-300">❤️</button>
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 三條 ‧ 壽喜燒</span>
+                        <button onclick="toggleFav('card-mishimatei')" class="fav-btn text-base text-gray-300">🤍</button>
                     </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">三嶋亭 本店</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">傳承過百年的關西風頂級壽喜燒。砂糖與醬汁完美包覆頂級黑毛和牛，入口即化。</p>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">三嶋亭 本店</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">百年老建築內的壽喜燒鼻祖。砂糖醬汁完美包覆黑毛和牛，入口即化。</p>
                     <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=三嶋亭+本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=三嶋亭+本店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
                     </div>
                 </div>
 
                 <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="gourmet" id="card-hiro">
                     <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 燒肉大餐</span>
-                        <button onclick="toggleFav('card-hiro')" class="fav-btn text-base text-gray-300">❤️</button>
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 鴨川 ‧ 燒肉</span>
+                        <button onclick="toggleFav('card-hiro')" class="fav-btn text-base text-gray-300">🤍</button>
                     </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">京の焼肉処 弘 先斗町別邸</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">京都超人氣和牛燒肉老字號。先斗町分店臨近鴨川，環境雅緻，適合慶祝或晚餐。</p>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">京の燒肉處 弘 先斗町別邸</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">先斗町小巷中的超人氣精緻和牛燒肉，環境一流，慶祝首選。</p>
                     <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=京の焼肉処+弘+先斗町別邸" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
-                    </div>
-                </div>
-
-                <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="gourmet" id="card-unafuji">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 備長炭鰻魚</span>
-                        <button onclick="toggleFav('card-unafuji')" class="fav-btn text-base text-gray-300">❤️</button>
-                    </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">炭焼 うな富士 大丸京都別邸</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">名古屋鰻魚名店登陸京都大丸。肥厚、外酥內嫩的頂級青鰻，與香濃醬汁絕配。</p>
-                    <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=炭焼+うな富士+大丸京都別邸" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=京の焼肉処+弘+先斗町別邸" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
                     </div>
                 </div>
 
                 <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="gourmet" id="card-daiichi">
                     <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 頂級甲魚料理</span>
-                        <button onclick="toggleFav('card-daiichi')" class="fav-btn text-base text-gray-300">❤️</button>
+                        <span class="text-[9px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded">🍱 傳承 300 年甲魚</span>
+                        <button onclick="toggleFav('card-daiichi')" class="fav-btn text-base text-gray-300">🤍</button>
                     </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">大市 (だいいち)</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">具有 300 多年歷史的京都極致老店。以高溫陶鍋燉煮極品甲魚湯與稀有的甲魚雜炊。</p>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">大市 (だいいち)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">使用超高溫黏土砂鍋燉煮的極致老派甲魚，歷史底蘊極厚。</p>
                     <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=すっぽん料理+大市" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=すっぽん料理+大市" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
                     </div>
                 </div>
 
-                <!-- 咖啡甜點 -->
-                <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="cafe" id="card-muge">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">☕ 精緻甜點 / 喫茶</span>
-                        <button onclick="toggleFav('card-muge')" class="fav-btn text-base text-gray-300">❤️</button>
-                    </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">無碍山房 Salon de Muge (高島屋)</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">米其林名店菊乃井旗下的甜點沙龍。招牌「無碍山房濃い抹茶パフェ」抹茶香氣極度香濃。</p>
-                    <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=無碍山房+Salon+de+Muge+京都髙島屋店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
-                    </div>
-                </div>
-
-                <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="cafe" id="card-francois">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">☕ 古典復古喫茶</span>
-                        <button onclick="toggleFav('card-francois')" class="fav-btn text-base text-gray-300">❤️</button>
-                    </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">フランソア喫茶室 (François)</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">創立於1934年，日本首個被指定為註冊有形文化遺產的喫茶店。巴洛克圓頂裝潢、古典樂悠揚。</p>
-                    <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=フランソア喫茶室" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
-                    </div>
-                </div>
-
-                <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="cafe" id="card-inoda">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">☕ 京都人早晨</span>
-                        <button onclick="toggleFav('card-inoda')" class="fav-btn text-base text-gray-300">❤️</button>
-                    </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">イノダコーヒ 本店 (Inoda Coffee)</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">「京都的早晨從 Inoda 開始」。經典「阿拉比亞之真珠」黑咖啡搭配豐富朝食，極致治癒。</p>
-                    <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=イノダコーヒ+本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
-                    </div>
-                </div>
-
-                <!-- 伴手禮、茶葉、菓子 -->
                 <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="souvenir" id="card-ippodo">
                     <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🍵 百年茶行伴手禮</span>
-                        <button onclick="toggleFav('card-ippodo')" class="fav-btn text-base text-gray-300">❤️</button>
+                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🍵 寺町 ‧ 百年茶行</span>
+                        <button onclick="toggleFav('card-ippodo')" class="fav-btn text-base text-gray-300">🤍</button>
                     </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">一保堂茶舗 京都本店</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">創業於1717年的京都茶葉殿堂。無論是經典抹茶、極上焙茶，還是高級玉露，都是極品手信。</p>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">一保堂茶舗 京都本店</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">1717年創立，極上煎茶、抹茶、玄米茶代表。百年家町老店。</p>
                     <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=一保堂茶舗+京都本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=一保堂茶舗+京都本店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
                     </div>
                 </div>
 
                 <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="souvenir" id="card-shoyeido">
                     <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🍵 京都御香</span>
-                        <button onclick="toggleFav('card-shoyeido')" class="fav-btn text-base text-gray-300">❤️</button>
+                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🍵 烏丸 ‧ 百年御香</span>
+                        <button onclick="toggleFav('card-shoyeido')" class="fav-btn text-base text-gray-300">🤍</button>
                     </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">松栄堂 京都本店</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">京都300餘年老香鋪，傳承香道文化。這裡的天然草本線香、小香囊（匂い袋）深受喜愛。</p>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">松栄堂 京都本店</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">傳承 300 餘年，日本頂級天然薰香老舖。其香包與線香味道典雅高尚。</p>
                     <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=松栄堂+京都本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=松栄堂+京都本店" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
                     </div>
                 </div>
 
-                <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="souvenir" id="card-kyukyodo">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">🍵 典雅文房紙品</span>
-                        <button onclick="toggleFav('card-kyukyodo')" class="fav-btn text-base text-gray-300">❤️</button>
-                    </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">鳩居堂 京都本店</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">創始於1663年，專營筆、墨、和紙與優雅紙扇。店內精緻和紙信套組，流露日式簡約大氣美學。</p>
-                    <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=鳩居堂+京都本店" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
-                    </div>
-                </div>
-
-                <!-- 職人刀剪 -->
                 <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="tools" id="card-aritsugu">
                     <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded">🛠️ 皇家名器 / 頂級廚具</span>
-                        <button onclick="toggleFav('card-aritsugu')" class="fav-btn text-base text-gray-300">❤️</button>
+                        <span class="text-[9px] font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded">🛠️ 錦市場 ‧ 頂級刀剪</span>
+                        <button onclick="toggleFav('card-aritsugu')" class="fav-btn text-base text-gray-300">🤍</button>
                     </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">有次 錦市場</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">創始於 1560 年的刀具名門（曾為皇室鑄造刀劍）。這裡的廚房用具、精緻不銹鋼剪刀手工藝一流，剪塑膠袋和布料毫不費力。</p>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">有次 錦市場 (Aritsugu)</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">1560年創始國寶級鋼刃世家。其不銹鋼廚房料理剪刀鋒利無雙。</p>
                     <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=有次+錦市場" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=有次+錦市場" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
                     </div>
                 </div>
 
                 <div class="backup-card bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm" data-category="tools" id="card-kiku">
                     <div class="flex justify-between items-start">
-                        <span class="text-[9px] font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded">🛠️ 日本頂級刀剪</span>
-                        <button onclick="toggleFav('card-kiku')" class="fav-btn text-base text-gray-300">❤️</button>
+                        <span class="text-[9px] font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded">🛠️ 三條 ‧ 職人鋼刃</span>
+                        <button onclick="toggleFav('card-kiku')" class="fav-btn text-base text-gray-300">🤍</button>
                     </div>
-                    <h4 class="text-sm font-bold text-[#3D3A36] mt-1.5">菊一文字</h4>
-                    <p class="text-[11px] text-gray-500 mt-1">傳承源氏御用刀劍工藝，三條大橋旁的刀刃名鋪。店內指甲剪、專業工藝剪刀等極度鋒利耐用。</p>
+                    <h4 class="text-sm font-black text-[#3D3A36] mt-1.5">菊一文字</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">傳承武士刀工藝之名舖，指甲剪、專業工藝剪刀一絕。</p>
                     <div class="flex justify-end mt-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=菊一文字+京都" target="_blank" class="bg-[#FAF6F0] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3 py-1 rounded-lg">🗺️ 開啟地圖定位</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=菊一文字+京都" target="_blank" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] text-[#8C6239] border border-[#EBE3D5] text-[10px] px-3.5 py-1.5 rounded-lg font-bold">🗺️ 開啟 Google Map 導航</a>
                     </div>
                 </div>
 
@@ -870,25 +1066,25 @@
 
     </main>
 
-    <!-- 底部固定的 Mini-Note 簽到資訊與底部裝飾 -->
+    <!-- 底部 Mini-Note -->
     <footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#FAF6F0]/95 backdrop-blur-md border-t border-[#EBE3D5] p-3 z-30 flex items-center justify-between text-[11px] text-[#8C8275]">
         <div class="flex items-center space-x-1">
-            <span>🔖</span>
-            <span class="font-bold">2026 夏 ‧ 盛宴</span>
+            <span>🌸</span>
+            <span class="font-bold">樂京都 2026 夏日誌</span>
         </div>
         <div class="text-right">
-            <span>© 京都旅行隨身誌 | 手機專用排版</span>
+            <span>手機專用 ‧ 雙層導航 ‧ 100% 地圖連結</span>
         </div>
     </footer>
 
     <!-- JS 核心邏輯 -->
     <script>
-        // 初始化載入狀態
         let currentTab = 'day1';
-        let favorites = JSON.parse(localStorage.getItem('kyoto_favs') || '[]');
+        let currentDeptFilter = 'all';
+        let favorites = JSON.parse(localStorage.getItem('kyoto_favs_v2') || '[]');
 
         window.onload = function() {
-            // 從 LocalStorage 載入筆記內容與我的最愛
+            // 載入筆記內容
             const savedNotes = localStorage.getItem('kyoto_notes');
             if (savedNotes) {
                 document.getElementById('travelNotes').value = savedNotes;
@@ -897,7 +1093,21 @@
             switchTab('day1');
         };
 
-        // Tab 切換
+        function openConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('hidden');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+
+        function executeClearNotes() {
+            document.getElementById('travelNotes').value = '';
+            localStorage.removeItem('kyoto_notes');
+            closeConfirmModal();
+            showToast("📝 筆記已成功清空");
+        }
+
         function switchTab(tabId) {
             currentTab = tabId;
 
@@ -913,35 +1123,45 @@
             }
 
             // 更新按鈕樣式
-            const tabIds = ['day1', 'day2', 'day3', 'day4', 'backups'];
-            tabIds.forEach(id => {
-                const tabBtn = document.getElementById(`tab-${id}`);
-                if (tabBtn) {
+            const days = ['day1', 'day2', 'day3', 'day4'];
+            const explores = ['dept', 'backups'];
+
+            days.forEach(id => {
+                const btn = document.getElementById(`tab-${id}`);
+                if (btn) {
                     if (id === tabId) {
-                        tabBtn.className = "px-4 py-2.5 rounded-full text-xs font-black whitespace-nowrap transition-all duration-200 bg-[#5C3E21] text-[#FAF6F0] shadow-md scale-105";
+                        btn.className = "py-2.5 rounded-xl text-[11px] font-black text-center bg-[#5C3E21] text-[#FAF6F0] shadow-sm scale-102 transition-all";
                     } else {
-                        tabBtn.className = "px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 bg-white text-[#8C8275] border border-[#EBE3D5] hover:bg-gray-50";
+                        btn.className = "py-2.5 rounded-xl text-[11px] font-black text-center bg-white text-[#8C8275] border border-[#EBE3D5] hover:bg-gray-50 transition-all";
                     }
                 }
             });
 
-            // 自動平滑滾動回頂部
+            explores.forEach(id => {
+                const btn = document.getElementById(`tab-${id}`);
+                if (btn) {
+                    if (id === tabId) {
+                        btn.className = "py-2.5 rounded-xl text-xs font-black flex items-center justify-center space-x-1.5 bg-[#5C3E21] text-[#FAF6F0] shadow-sm scale-102 transition-all";
+                    } else {
+                        btn.className = "py-2.5 rounded-xl text-xs font-black flex items-center justify-center space-x-1.5 bg-white text-[#8C8275] border border-[#EBE3D5] hover:bg-gray-50 transition-all";
+                    }
+                }
+            });
+
+            if (tabId === 'dept') {
+                filterDeptRestaurants();
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 彈出工具箱開關
         function toggleToolbox() {
             const toolbox = document.getElementById('toolbox');
-            if (toolbox.classList.contains('hidden')) {
-                toolbox.classList.remove('hidden');
-            } else {
-                toolbox.classList.add('hidden');
-            }
+            toolbox.classList.toggle('hidden');
         }
 
-        // 匯率折算功能
         function convertCurrency(source) {
-            const rate = 4.8; // 預設 2026 估算或極度優惠匯率
+            const rate = 4.8;
             const twdInput = document.getElementById('twdInput');
             const jpyInput = document.getElementById('jpyInput');
 
@@ -954,20 +1174,78 @@
             }
         }
 
-        // 儲存與清除自訂旅行筆記
         function saveNotes() {
             const val = document.getElementById('travelNotes').value;
             localStorage.setItem('kyoto_notes', val);
         }
 
-        function clearNotes() {
-            if (confirm('確定要清空所有筆記嗎？')) {
-                document.getElementById('travelNotes').value = '';
-                localStorage.removeItem('kyoto_notes');
+        function setDeptFilter(filterType) {
+            currentDeptFilter = filterType;
+            const filterTypes = ['all', 'taka', 'daimaru', 'meal', 'sweets'];
+            filterTypes.forEach(type => {
+                const btn = document.getElementById(`btn-d-${type}`);
+                if (btn) {
+                    if (type === filterType) {
+                        btn.className = "px-3 py-1.5 text-[10px] font-bold rounded-full whitespace-nowrap bg-[#5C3E21] text-[#FAF6F0] transition-all";
+                    } else {
+                        btn.className = "px-3 py-1.5 text-[10px] font-bold rounded-full whitespace-nowrap bg-white text-[#8C8275] border border-[#EBE3D5] transition-all";
+                    }
+                }
+            });
+            filterDeptRestaurants();
+        }
+
+        function filterDeptRestaurants() {
+            const q = document.getElementById('deptSearch').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.dept-card');
+            const dividers = document.querySelectorAll('.dept-divider');
+            let visibleCount = 0;
+
+            const hideDividers = (currentDeptFilter !== 'all' || q !== '');
+            dividers.forEach(div => {
+                if (hideDividers) {
+                    div.classList.add('hidden');
+                } else {
+                    div.classList.remove('hidden');
+                }
+            });
+
+            cards.forEach(card => {
+                const textContent = card.innerText.toLowerCase();
+                const cardDept = card.getAttribute('data-dept');
+                const cardType = card.getAttribute('data-type');
+
+                let matchesFilter = false;
+                if (currentDeptFilter === 'all') {
+                    matchesFilter = true;
+                } else if (currentDeptFilter === 'taka' && cardDept === 'taka') {
+                    matchesFilter = true;
+                } else if (currentDeptFilter === 'daimaru' && cardDept === 'daimaru') {
+                    matchesFilter = true;
+                } else if (currentDeptFilter === 'meal' && cardType === 'meal') {
+                    matchesFilter = true;
+                } else if (currentDeptFilter === 'sweets' && cardType === 'sweets') {
+                    matchesFilter = true;
+                }
+
+                const matchesSearch = textContent.includes(q);
+
+                if (matchesFilter && matchesSearch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            const noResults = document.getElementById('no-search-results');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
             }
         }
 
-        // 備選池分類過濾
         function filterBackups(category) {
             const cards = document.querySelectorAll('.backup-card');
             cards.forEach(card => {
@@ -982,8 +1260,7 @@
                 }
             });
 
-            // 更新按鈕顏色
-            const categories = ['all', 'gourmet', 'cafe', 'souvenir', 'tools'];
+            const categories = ['all', 'gourmet', 'souvenir', 'tools'];
             categories.forEach(cat => {
                 const btn = document.getElementById(`btn-f-${cat}`);
                 if (btn) {
@@ -996,24 +1273,24 @@
             });
         }
 
-        // 我的最愛 (Favorite) 收藏機制
         function toggleFav(cardId) {
             const index = favorites.indexOf(cardId);
             if (index > -1) {
                 favorites.splice(index, 1);
-                showToast("已取消收藏");
+                showToast("🤍 已取消收藏");
             } else {
                 favorites.push(cardId);
-                showToast("❤️ 已加入收藏，方便隨時查看！");
+                showToast("❤️ 已加入我的最愛！");
             }
-            localStorage.setItem('kyoto_favs', JSON.stringify(favorites));
+            localStorage.setItem('kyoto_favs_v2', JSON.stringify(favorites));
             applyFavoritesUI();
         }
 
         function applyFavoritesUI() {
-            const cards = document.querySelectorAll('.backup-card');
+            const allCards = [...document.querySelectorAll('.dept-card'), ...document.querySelectorAll('.backup-card')];
             let count = 0;
-            cards.forEach(card => {
+
+            allCards.forEach(card => {
                 const id = card.id;
                 const favBtn = card.querySelector('.fav-btn');
                 if (favBtn) {
@@ -1023,14 +1300,17 @@
                         count++;
                     } else {
                         favBtn.textContent = '🤍';
-                        favBtn.className = 'fav-btn text-base text-gray-300 transition-transform';
+                        favBtn.className = 'fav-btn text-base text-gray-300 hover:text-rose-400 transition-transform';
                     }
                 }
             });
-            document.getElementById('fav-count').textContent = `❤️ ${count} 個收藏`;
+            
+            const countEl = document.getElementById('fav-count');
+            if (countEl) {
+                countEl.textContent = `❤️ ${count} 個收藏`;
+            }
         }
 
-        // 自製精緻吐司通知
         function showToast(msg) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
@@ -1040,7 +1320,7 @@
             setTimeout(() => {
                 toast.classList.remove('opacity-100');
                 toast.classList.add('opacity-0', 'pointer-events-none');
-            }, 2000);
+            }, 1800);
         }
     </script>
 </body>
