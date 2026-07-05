@@ -1,247 +1,494 @@
+```html
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>匯率與債券殖利率趨勢儀表板</title>
+    <title>🌸 樂京都 2026 行程總覽</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Noto Sans TC 對於中文排版更簡約乾淨 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; background-color: #f3f4f6; }
-        .card { background: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: all 0.3s ease; }
-        .card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-        .chart-container { position: relative; height: 300px; width: 100%; }
+        body {
+            background-color: #FDFBF7;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4A4540;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 隱藏滾動條 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
-<body class="pb-10">
+<body class="max-w-md mx-auto min-h-screen relative flex flex-col pb-10">
 
-    <!-- Navbar -->
-    <nav class="bg-slate-800 text-white p-4 sticky top-0 z-50 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold tracking-wide">金融市場關鍵指標儀表板</h1>
-            <div class="text-xs text-slate-400">資料基準日: 2025-11-24</div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-6">
-        
-        <!-- Summary Section -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-            <!-- USD/TWD -->
-            <div class="card p-4 border-l-4 border-blue-500">
-                <div class="text-sm text-gray-500 font-medium">美元/台幣 (USD/TWD)</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">31.35</div>
-                <div class="text-xs text-red-500 mt-1">▲ 近期回升</div>
-            </div>
-            <!-- JPY/TWD -->
-            <div class="card p-4 border-l-4 border-orange-400">
-                <div class="text-sm text-gray-500 font-medium">日圓/台幣 (JPY/TWD)</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">0.2005</div>
-                <div class="text-xs text-green-600 mt-1">▼ 持續低檔</div>
-            </div>
-            <!-- US 10Y -->
-            <div class="card p-4 border-l-4 border-indigo-600">
-                <div class="text-sm text-gray-500 font-medium">美債 10年期殖利率</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">4.06%</div>
-                <div class="text-xs text-gray-500 mt-1">修正後盤整</div>
-            </div>
-            <!-- TW 10Y -->
-            <div class="card p-4 border-l-4 border-emerald-500">
-                <div class="text-sm text-gray-500 font-medium">台債 10年期殖利率</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">1.31%</div>
-                <div class="text-xs text-green-600 mt-1">▼ 歷史相對低點</div>
-            </div>
-            <!-- AU 10Y -->
-            <div class="card p-4 border-l-4 border-yellow-500">
-                <div class="text-sm text-gray-500 font-medium">澳債 10年期殖利率</div>
-                <div class="text-2xl font-bold text-gray-800 mt-1">4.47%</div>
-                <div class="text-xs text-gray-500 mt-1">高檔震盪</div>
-            </div>
+    <!-- 頂部模擬原圖 iOS Sheet 質感頂部 -->
+    <header class="sticky top-0 bg-[#FDFBF7]/90 backdrop-blur-md z-50 pt-4 pb-2 px-4 border-b border-[#F3ECE0]">
+        <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold text-[#8C6239] bg-[#F3ECE0] px-2.5 py-1 rounded-full">
+                🌸 樂京都 2026
+            </span>
+            <span class="text-xs text-gray-400">kyoto_2026_itinerary.html</span>
+            <button onclick="resetTabs()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
 
-        <!-- Charts Section -->
-        <h2 class="text-xl font-bold text-gray-800 mb-4 pl-2 border-l-4 border-slate-800">三年走勢分析 (2022 Nov - 2025 Nov)</h2>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            
-            <!-- USD Chart -->
-            <div class="card p-5">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>美元/台幣匯率 (USD/TWD)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartUSD"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: 台灣中央銀行 / 台北外匯市場</p>
+        <!-- 0. 住宿資訊置頂欄 -->
+        <div class="bg-white border border-[#EBE6DD] rounded-2xl p-3 mb-3 shadow-sm flex items-center justify-between">
+            <div class="flex-1">
+                <div class="text-[10px] text-[#A69C8F] font-medium uppercase tracking-wider">住宿酒店 HOTEL</div>
+                <div class="text-sm font-bold text-[#704E2E]">イビススタイルズ京都四条</div>
+                <div class="text-[11px] text-gray-500 mt-0.5">7/9 入住 — 7/14 退房</div>
             </div>
-
-            <!-- JPY Chart -->
-            <div class="card p-5">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-orange-400 rounded-full mr-2"></span>日圓/台幣匯率 (JPY/TWD)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartJPY"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: 台灣銀行牌告匯率參考</p>
-            </div>
-
-            <!-- US Yield Chart -->
-            <div class="card p-5">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-indigo-600 rounded-full mr-2"></span>美國 10 年期公債殖利率 (US 10Y Yield)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartUS10Y"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: U.S. Department of the Treasury</p>
-            </div>
-
-            <!-- TW Yield Chart -->
-            <div class="card p-5">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>台灣 10 年期公債殖利率 (TW 10Y Yield)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartTW10Y"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: 證券櫃檯買賣中心 (TPEx) / 中央銀行</p>
-            </div>
-
-             <!-- AU Yield Chart -->
-             <div class="card p-5 lg:col-span-2">
-                <h3 class="font-bold text-gray-700 mb-2 flex items-center">
-                    <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>澳洲 10 年期公債殖利率 (AU 10Y Yield)
-                </h3>
-                <div class="chart-container">
-                    <canvas id="chartAU10Y"></canvas>
-                </div>
-                <p class="text-xs text-gray-400 mt-2 text-right">資料來源: Reserve Bank of Australia / Investing.com</p>
-            </div>
-
+            <a href="https://www.google.com/maps/search/?api=1&query=イビススタイルズ京都四条" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full font-medium active:bg-[#D9E3D9]">
+                📍 導航
+            </a>
         </div>
 
-        <!-- Data Sources & Disclaimer -->
-        <div class="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h4 class="font-bold text-gray-800 mb-3">資料來源說明</h4>
-            <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
-                <li><strong>美元/台幣 & 日圓/台幣：</strong> 資料參照台灣中央銀行及台北外匯經紀公司歷史成交均價趨勢。</li>
-                <li><strong>美債殖利率：</strong> 參照美國財政部 (U.S. Treasury) 每日殖利率曲線利率 (CMT)。</li>
-                <li><strong>台債殖利率：</strong> 參照中華民國證券櫃檯買賣中心 (TPEx) 公債等殖成交系統之加權平均殖利率。</li>
-                <li><strong>澳幣殖利率：</strong> 參照澳洲儲備銀行 (RBA) 及國際金融市場報價。</li>
-            </ul>
-            <div class="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-400">
-                免責聲明：本儀表板數據僅供參考，實際交易價格請以各金融機構當下報價為準。歷史績效不代表未來走勢。
+        <!-- 簡約極美天數切換導航 -->
+        <div class="flex space-x-2 overflow-x-auto no-scrollbar pb-1">
+            <button onclick="switchDay(1)" id="tab-1" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
+                Day 1 奈良
+            </button>
+            <button onclick="switchDay(2)" id="tab-2" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
+                Day 2 清水寺 ‧ 祇園祭
+            </button>
+            <button onclick="switchDay(3)" id="tab-3" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
+                Day 3 宇治
+            </button>
+            <button onclick="switchDay(4)" id="tab-4" class="px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200">
+                Day 4 東山 ‧ 岡崎 ‧ 老鋪
+            </button>
+        </div>
+    </header>
+
+    <!-- 核心日程內容 -->
+    <main class="flex-1 px-4 pt-4">
+
+        <!-- ==================== DAY 1 ==================== -->
+        <div id="day-1-content" class="day-section hidden space-y-4">
+            <!-- 摘要卡片 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-5 shadow-sm">
+                <div class="text-xs text-[#A69C8F] font-bold mb-1">DAY 1 今日摘要</div>
+                <p class="text-xs text-[#605A54] leading-relaxed">
+                    抵達關西機場後，先用 Airporter 寄送大行李。經難波轉乘近鐵前往奈良。主軸為奈良公園、東大寺、春日大社。傍晚回京都後，先到飯店 Check in。
+                </p>
+            </div>
+
+            <!-- 卡片 1-1 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    06:05–07:40 <span class="mx-1 text-[#C5A880]">|</span> 抵達關西空港・寄送行李
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    台灣桃園國際機場搭乘 Jetstar GK50 班機抵達關西國際機場。完成入境通關後，使用 Airporter 將 2 件大行李直接配送到京都飯店。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=桃園國際機場" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">台灣桃園國際機場</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=關西國際機場" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">關西國際機場</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=關西機場+Airporter" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">Airporter 櫃檯</a>
+                </div>
+            </div>
+
+            <!-- 卡片 1-2 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    07:40–09:40 <span class="mx-1 text-[#C5A880]">|</span> 關西空港 → 難波 → 奈良
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    南海到難波，徒步轉乘大阪難波，近鐵到奈良。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=南海+関西空港駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">南海 關西空港駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=南海なんば駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">南海なんば駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=大阪難波駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">大阪難波駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=近鉄奈良駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">近鐵奈良駅</a>
+                </div>
+            </div>
+
+            <!-- 卡片 1-3 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    09:50–16:10 <span class="mx-1 text-[#C5A880]">|</span> 奈良古都散策
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    抵達近鐵奈良站後，悠閒漫步至奈良公園看鹿，隨後參訪世界遺產東大寺，於周邊享用午餐後，前往森林懷抱的春日大社，隨後返回車站。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=近鉄奈良駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">近鐵奈良駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=奈良公園" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">奈良公園</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=東大寺" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">東大寺</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=春日大社" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">春日大社</a>
+                </div>
+            </div>
+
+            <!-- 卡片 1-4 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    16:30–19:00 <span class="mx-1 text-[#C5A880]">|</span> 奈良 → 京都 → 飯店 check in
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    近鐵回京都，轉地下鐵到四條，先回飯店 check in 並確認行李送達。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=近鉄京都駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">近鐵京都駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=京都駅+京都市営地下鉄" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">京都市營地下鐵 京都駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=四条駅+京都市営地下鉄" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">京都市營地下鐵 四條駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=イビススタイルズ京都四条" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">イビススタイルズ京都四条</a>
+                </div>
+            </div>
+
+            <!-- 卡片 1-5 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    19:00 後 <span class="mx-1 text-[#C5A880]">|</span> 晚餐・休息
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    四條烏丸周邊晚餐，回飯店休息。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=四条烏丸" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">四條烏丸</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DAY 2 ==================== -->
+        <div id="day-2-content" class="day-section hidden space-y-4">
+            <!-- 摘要卡片 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-5 shadow-sm">
+                <div class="text-xs text-[#A69C8F] font-bold mb-1">DAY 2 今日摘要</div>
+                <p class="text-xs text-[#605A54] leading-relaxed">
+                    上午搭計程車前往清水寺一帶，走訪二年坂、三年坂、清水燒老店。下午到高島屋享受甜點購物。傍晚至夜晚融入京都夏日盛典祇園祭，觀看迎神提燈與極富張力的神輿洗。
+                </p>
+            </div>
+
+            <!-- 卡片 2-1 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    08:30–10:30 <span class="mx-1 text-[#C5A880]">|</span> 飯店 → 清水寺
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    從宜必思酒店出發，步行或搭乘計程車經由五条坂、茶わん坂前往清水寺本堂，遠眺市區風景。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=五条坂" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">五条坂</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=茶わん坂" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">茶わん坂</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=音羽山+清水寺" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">音羽山 清水寺</a>
+                </div>
+            </div>
+
+            <!-- 卡片 2-2 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    10:30–13:15 <span class="mx-1 text-[#C5A880]">|</span> 清水坂 ‧ 清水燒 ‧ 二寧坂 ‧ 三年坂
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    沿清水坂下山，尋訪朝日堂精緻陶器。路經あさひ坂，於三年坂、二寧坂古街散步，並在周邊享用京風午餐。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=清水坂" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">清水坂</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=京清水焼+朝日堂" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">京清水焼 朝日堂</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=あさひ坂" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">あさひ坂</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=産寧坂" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">産寧坂（三年坂）</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=二寧坂" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">二寧坂</a>
+                </div>
+            </div>
+
+            <!-- 卡片 2-3 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    13:15–14:30 <span class="mx-1 text-[#C5A880]">|</span> 八坂之塔 → 祇園方向
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    途經京都代表性的法觀寺八坂之塔，順著石板路「ねねの道」步行前往八坂神社與熱鬧的祇園商圈。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=法観寺+八坂の塔" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">法観寺 八坂の塔</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=ねねの道" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">ねねの道</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=八坂神社" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">八坂神社</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=祇園" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">祇園</a>
+                </div>
+            </div>
+
+            <!-- 卡片 2-4 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    14:30–16:20 <span class="mx-1 text-[#C5A880]">|</span> 京都高島屋
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    可排行程：無碍山房頂級甜點、fiveran精美烘焙、味味香咖哩烏龍麵或八起庵。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=京都髙島屋S.C." target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">京都髙島屋S.C.</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=無碍山房+Salon+de+Muge+京都髙島屋店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">無碍山房 Salon de Muge</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=fiveran+京都高島屋店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">fiveran</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=京のカレーうどん+味味香+京都髙島屋S.C.店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">味味香</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=八起庵+京都髙島屋店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">八起庵</a>
+                </div>
+            </div>
+
+            <!-- 卡片 2-5 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    16:30–17:30 <span class="mx-1 text-[#C5A880]">|</span> 祇園祭・お迎提灯
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    四条河原町～八坂神社方向看お迎提灯遊行，迎神氛圍極佳。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=四条河原町" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">四條河原町</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=八坂神社" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">八坂神社</a>
+                </div>
+            </div>
+
+            <!-- 卡片 2-6 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    17:30–19:30 <span class="mx-1 text-[#C5A880]">|</span> 高島屋・四条河原町晚餐
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    於河原町附近尋找京都風味晚餐，為接下來的夜間神事保留精力。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=京都髙島屋S.C." target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">京都髙島屋S.C.</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=四条河原町+ディナー" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">四條河原町周邊</a>
+                </div>
+            </div>
+
+            <!-- 卡片 2-7 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    20:00 前後 <span class="mx-1 text-[#C5A880]">|</span> 祇園祭・神輿洗
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    於四條大橋觀賞莊嚴震撼的神輿洗（神輿淨化儀式）。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=四条大橋" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">四條大橋</a>
+                </div>
+            </div>
+
+            <!-- 卡片 2-8 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    20:45 後 <span class="mx-1 text-[#C5A880]">|</span> 回飯店・山鉾町氣氛
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    步行回四條烏丸，欣賞路旁高掛駒形提燈的山鉾町，感受夏祭祭囃子氛圍後回飯店休息。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=四条烏丸" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">四條烏丸</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=祇園祭+山鉾町" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">祇園祭 山鉾町</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DAY 3 ==================== -->
+        <div id="day-3-content" class="day-section hidden space-y-4">
+            <!-- 摘要卡片 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-5 shadow-sm">
+                <div class="text-xs text-[#A69C8F] font-bold mb-1">DAY 3 今日摘要</div>
+                <p class="text-xs text-[#605A54] leading-relaxed">
+                    主軸為宇治茶名店巡禮、抹茶甜點與宇治文化漫步。參訪絕美的平等院鳳凰堂，在宇治川及宇治橋畔散心，體驗古雅悠閒的一天。
+                </p>
+            </div>
+
+            <!-- 卡片 3-1 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    上午 <span class="mx-1 text-[#C5A880]">|</span> 京都 → 宇治
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    由飯店步行前往京都站，搭乘JR快速列車前往宇治，開啟綠意盎然的宇治茶鄉之旅。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=京都駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">京都駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=宇治駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">宇治駅</a>
+                </div>
+            </div>
+
+            <!-- 卡片 3-2 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    中午前後 <span class="mx-1 text-[#C5A880]">|</span> 宇治茶老舖大巡禮
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    品嚐最正宗的宇治抹茶與冰品！可自由選擇以下知名老店享用抹茶聖代或抹茶蕎麥麵：
+                </p>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=中村藤吉本店+宇治本店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">中村藤吉本店</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=伊藤久右衛門+JR宇治駅前店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">伊藤久右衛門</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=三星園上林三入本店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">三星園上林三入</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=辻利+宇治本店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">辻利 宇治本店</a>
+                </div>
+            </div>
+
+            <!-- 卡片 3-3 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    下午 <span class="mx-1 text-[#C5A880]">|</span> 平等院鳳凰堂・宇治川周邊
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    親眼見證日幣十圓硬幣背後的建築物。隨後漫步至歷史悠久的宇治橋，沿著美麗的宇治川河畔散步，沉浸在優美的山水景色中。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=平等院鳳凰堂" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">平等院鳳凰堂</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=宇治橋" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">宇治橋</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=宇治川" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">宇治川</a>
+                </div>
+            </div>
+
+            <!-- 卡片 3-4 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    傍晚 <span class="mx-1 text-[#C5A880]">|</span> 宇治 → 京都
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    搭乘JR奈良線返回京都車站，並返回四條烏丸的飯店休息。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=宇治駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">宇治駅</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=京都駅" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">京都駅</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DAY 4 ==================== -->
+        <div id="day-4-content" class="day-section hidden space-y-4">
+            <!-- 摘要卡片 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-5 shadow-sm">
+                <div class="text-xs text-[#A69C8F] font-bold mb-1">DAY 4 今日摘要</div>
+                <p class="text-xs text-[#605A54] leading-relaxed">
+                    上午漫遊幽靜的南禪寺水路閣與平安神宮，下午展開經典的京都百年老店巡禮（茶香、文具、扇子等），傍晚到熱鬧的錦市場與新京極散步。
+                </p>
+            </div>
+
+            <!-- 卡片 4-1 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    上午 <span class="mx-1 text-[#C5A880]">|</span> 南禪寺・水路閣
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    參觀宏偉的南禪寺三門，在融合西洋復古感與日式庭園的紅磚水道「水路閣」拍照，並參觀南禪院。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=南禅寺" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">南禪寺</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=南禅寺+三門" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">南禪寺 三門</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=南禅寺+水路閣" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">南禪寺 水路閣</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=南禅院" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">南禪院</a>
+                </div>
+            </div>
+
+            <!-- 卡片 4-2 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    中午前後 <span class="mx-1 text-[#C5A880]">|</span> 岡崎・平安神宮
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    經由岡崎公園步行至雄偉的平安神宮，並進入絕美池泉式庭園「神苑」探訪。若有時間可前往京瓷美術館。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=岡崎公園+京都" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">岡崎公園</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=平安神宮" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">平安神宮</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=平安神宮+神苑" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">平安神宮 神苑</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=京都市京セラ美術館" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">京都市京瓷美術館</a>
+                </div>
+            </div>
+
+            <!-- 卡片 4-3 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    下午 <span class="mx-1 text-[#C5A880]">|</span> 寺町・京都老店大巡禮
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    這是專屬京都的高雅漫步之旅。寺町京極周邊匯聚了日本極致的美學老字號商店：
+                </p>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=一保堂茶舗+京都本店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">一保堂茶舗 (名茶)</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=鳩居堂+京都本店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">鳩居堂 (香‧文具)</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=永楽屋+本店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">永楽屋 本店 (町家)</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=宮脇賣扇庵" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">宮脇賣扇庵 (京扇)</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=松栄堂+京都本店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">松栄堂 (薰香)</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=亀屋良長+本店" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-3 py-2 rounded-full text-center active:bg-[#D9E3D9]">亀屋良長 本店 (和菓子)</a>
+                </div>
+                <div class="mt-3 text-center">
+                    <a href="https://www.google.com/maps/search/?api=1&query=寺町京極商店街" target="_blank" class="inline-block bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">
+                        🛒 點此定位：寺町京極商店街
+                    </a>
+                </div>
+            </div>
+
+            <!-- 卡片 4-4 -->
+            <div class="bg-white border border-[#EBE6DD] rounded-[24px] p-6 shadow-sm">
+                <h3 class="text-[#8C6239] text-base font-bold mb-2">
+                    傍晚 <span class="mx-1 text-[#C5A880]">|</span> 四條散步與採購
+                </h3>
+                <p class="text-xs text-[#605A54] leading-relaxed mb-4">
+                    漫步新京極商店街採購藥妝與紀念品，隨後至有「京都廚房」之稱的錦市場吃美食小吃，享用豐富的晚餐。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=新京極商店街" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">新京極商店街</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=錦市場" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">錦市場</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=四条烏丸" target="_blank" class="bg-[#E9EFE9] text-[#485C4B] text-xs px-4 py-2 rounded-full active:bg-[#D9E3D9]">四條周邊</a>
+                </div>
             </div>
         </div>
 
     </main>
 
+    <!-- JS 邏輯控制切換 -->
     <script>
-        // Chart Configuration
-        const commonOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: 'rgba(30, 41, 59, 0.9)',
-                    padding: 10,
-                    cornerRadius: 4,
-                }
-            },
-            scales: {
-                x: {
-                    grid: { display: false },
-                    ticks: { maxTicksLimit: 6, font: { size: 10 } }
-                },
-                y: {
-                    grid: { borderDash: [2, 4], color: '#f0f0f0' },
-                    ticks: { font: { size: 10 } }
+        function switchDay(dayNum) {
+            // 隱藏所有日程區塊
+            const sections = document.querySelectorAll('.day-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+
+            // 顯示當天區塊
+            const activeSection = document.getElementById(`day-${dayNum}-content`);
+            if (activeSection) {
+                activeSection.classList.remove('hidden');
+            }
+
+            // 更新按鈕樣式
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`tab-${i}`);
+                if (btn) {
+                    if (i === dayNum) {
+                        // 作用中的 Tab 樣式 (截圖中是淺灰色底、深棕色字)
+                        btn.className = "px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 bg-[#ECE5DA] text-[#704E2E]";
+                    } else {
+                        // 未作用的 Tab 樣式 (白色底、淺灰棕色字)
+                        btn.className = "px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 bg-white text-[#A69C8F] border border-[#EBE6DD]";
+                    }
                 }
             }
-        };
 
-        // Simulated Data Generation based on historical trends (Nov 2022 - Nov 2025)
-        // Labels (Months)
-        const labels = [];
-        for (let y = 2022; y <= 2025; y++) {
-            for (let m = 1; m <= 12; m++) {
-                if (y === 2022 && m < 11) continue;
-                if (y === 2025 && m > 11) break;
-                labels.push(`${y}/${m.toString().padStart(2, '0')}`);
-            }
+            // 切換時自動平滑滾動回頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 1. USD/TWD Data (Trend: 2022~31 -> 2023 dip -> 2024 rise -> 2025 stable/high)
-        const usdData = [
-            30.9, 30.7, 30.3, 29.9, 30.5, 30.6, 30.7, 30.8, 31.2, 31.8, 32.1, 32.4, // 2022-2023
-            31.6, 31.3, 31.2, 31.6, 32.1, 32.5, 32.3, 32.4, 32.5, 32.1, 31.9, 32.0, // 2023-2024
-            32.2, 32.4, 32.7, 32.9, 32.7, 32.6, 32.8, 32.5, 31.9, 31.8, 31.5, 31.3  // 2024-2025
-        ];
-
-        // 2. JPY/TWD Data (Trend: Long term downtrend, recent slight rebound then drop)
-        const jpyData = [
-            0.222, 0.225, 0.231, 0.228, 0.224, 0.232, 0.229, 0.225, 0.218, 0.216, 0.220, 0.219, // 2022-2023
-            0.215, 0.216, 0.213, 0.210, 0.208, 0.213, 0.211, 0.206, 0.206, 0.206, 0.202, 0.213, // 2023-2024
-            0.218, 0.225, 0.222, 0.214, 0.210, 0.215, 0.207, 0.210, 0.216, 0.221, 0.203, 0.200  // 2024-2025
-        ];
-
-        // 3. US 10Y Yield (Trend: Rise -> Peak Oct 2023 -> Drop -> Rise -> Current ~4.06)
-        const us10yData = [
-            3.70, 3.60, 3.50, 3.90, 3.95, 3.45, 3.40, 3.70, 3.80, 4.10, 4.30, 4.80, // 2022-2023 (Peak near end)
-            4.50, 4.00, 3.90, 4.20, 4.30, 4.50, 4.40, 4.30, 4.20, 3.90, 3.80, 3.90, // 2023-2024
-            4.00, 4.10, 4.20, 4.30, 4.40, 4.35, 4.25, 3.90, 3.75, 3.90, 4.15, 4.06  // 2024-2025
-        ];
-
-        // 4. TW 10Y Yield (Trend: Stable, low volatility, recent low ~1.31)
-        const tw10yData = [
-            1.65, 1.50, 1.30, 1.25, 1.20, 1.18, 1.17, 1.20, 1.22, 1.25, 1.30, 1.40, // 2022-2023
-            1.35, 1.25, 1.22, 1.25, 1.35, 1.45, 1.50, 1.60, 1.65, 1.60, 1.55, 1.50, // 2023-2024
-            1.45, 1.42, 1.40, 1.55, 1.60, 1.58, 1.50, 1.45, 1.40, 1.35, 1.32, 1.31  // 2024-2025
-        ];
-
-        // 5. AU 10Y Yield (Trend: Correlated with US but higher spread recently)
-        const au10yData = [
-            3.60, 3.70, 3.55, 3.80, 3.40, 3.30, 3.50, 3.90, 4.00, 4.10, 4.40, 4.80, // 2022-2023
-            4.60, 4.20, 4.10, 4.00, 4.15, 4.30, 4.40, 4.35, 4.25, 4.00, 3.90, 4.00, // 2023-2024
-            4.10, 4.20, 4.30, 4.50, 4.60, 4.50, 4.30, 4.00, 3.95, 4.20, 4.50, 4.47  // 2024-2025
-        ];
-
-        // Chart Initialization Helper
-        function createChart(canvasId, label, data, color) {
-            new Chart(document.getElementById(canvasId), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: label,
-                        data: data,
-                        borderColor: color,
-                        backgroundColor: color + '10', // 10% opacity
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.3,
-                        pointRadius: 0,
-                        pointHoverRadius: 4
-                    }]
-                },
-                options: commonOptions
-            });
+        function resetTabs() {
+            switchDay(1);
         }
 
-        // Render Charts
-        createChart('chartUSD', 'USD/TWD', usdData, '#3b82f6'); // Blue-500
-        createChart('chartJPY', 'JPY/TWD', jpyData, '#fb923c'); // Orange-400
-        createChart('chartUS10Y', 'US 10Y %', us10yData, '#4f46e5'); // Indigo-600
-        createChart('chartTW10Y', 'TW 10Y %', tw10yData, '#10b981'); // Emerald-500
-        createChart('chartAU10Y', 'AU 10Y %', au10yData, '#eab308'); // Yellow-500
-
+        // 預設載入 Day 1
+        window.onload = function() {
+            switchDay(1);
+        }
     </script>
 </body>
 </html>
+
+```
