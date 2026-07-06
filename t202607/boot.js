@@ -1,4 +1,4 @@
-const KYOTO_CACHE_VERSION='clean1';
+const KYOTO_CACHE_VERSION='clean2';
 function loadScript(src){document.write('<script src="'+src+'?v='+KYOTO_CACHE_VERSION+'"><\/script>');}
 loadScript('../t202607-data.js');
 loadScript('../t202607-books-data.js');
