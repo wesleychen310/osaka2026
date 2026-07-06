@@ -1,236 +1,41 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌸 樂京都 2026 行程隨身誌</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; background:#FAF6F0; color:#5C3E21; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; }
-    .loading { text-align:center; font-weight:800; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🌸 樂京都 2026 行程隨身誌</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{background:#FAF6F0;font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC','Microsoft JhengHei',sans-serif;color:#3D3A36;-webkit-tap-highlight-color:transparent}.glass{background:rgba(250,246,240,.96);backdrop-filter:blur(12px)}.no-scrollbar::-webkit-scrollbar{display:none}.card{background:white;border:1px solid #EBE3D5;border-radius:24px;box-shadow:0 1px 2px rgba(0,0,0,.04)}.pill{background:#FAF6F0;color:#8C6239;border:1px solid #EBE3D5;border-radius:10px;font-size:10px;font-weight:800;padding:6px 10px;display:inline-flex;gap:4px;align-items:center}.active{background:#5C3E21!important;color:#FAF6F0!important;border-color:#5C3E21!important}.timeline:before{content:'';position:absolute;left:19px;top:12px;bottom:12px;width:2px;background:#E6DDD0}.divider{display:flex;align-items:center;text-align:center;color:#8C6239;font-size:12px;font-weight:900;margin:20px 0 12px}.divider:before,.divider:after{content:'';flex:1;border-bottom:2px solid #EBE3D5}.divider:before{margin-right:.75em}.divider:after{margin-left:.75em}
+</style>
 </head>
-<body>
-  <div class="loading">🌸 載入樂京都 2026...</div>
-  <script>
-    const ORIGINAL_HTML_URL = 'https://raw.githubusercontent.com/wesleychen310/osaka2026/1cfa9d8551bd36a70f0f9d9b1e455528c42656a9/tt.html';
-
-    const textPatchScript = `
-      (function () {
-        const replacements = [
-          ['🗺️ 開啟 Google Map 導航', '🗺️ 開啟地圖導航'],
-          ['イビススタイルズ京都四条', '宜必思尚品京都四條'],
-          ['📍 ibis styles 酒店', '📍 宜必思尚品京都四條'],
-          ['ibis 酒店', '宜必思酒店'],
-          ['KYOTO TRAVEL NOTE', '京都旅行筆記'],
-          ['首選住宿 BASE HOTEL', '首選住宿｜京都四條基地'],
-          ['🗓️ 每日行程 ITINERARY', '🗓️ 每日行程'],
-          ['🔍 各地點備選分類 EXPLORE', '🔍 各地點備選分類'],
-          ['Check-in', '入住'],
-          ['Google Map', 'Google 地圖'],
-          ['近鐵奈良駅', '近鐵奈良站'],
-          ['京都駅', '京都站'],
-          ['JR 宇治駅', 'JR 宇治站'],
-          ['五条坂', '五條坂'],
-          ['茶わん坂', '茶碗坂'],
-          ['あさひ坂', '朝日坂'],
-          ['八坂の塔', '八坂之塔'],
-          ['ねねの道', '寧寧之道'],
-          ['柿の葉すし本舗たなか', '柿葉壽司本舖 田中'],
-          ['ほうせき箱', '寶石箱'],
-          ['京のカレーうどん 味味香', '京都咖哩烏龍麵 味味香'],
-          ['八起庵 (はちきあん)', '八起庵'],
-          ['名代とんかつ かつくら', '名代豬排 勝藏'],
-          ['うなぎ 徳 (鰻魚 德)', '鰻魚 德'],
-          ['銀座ハゲ天', '銀座羽毛天'],
-          ['% Arabica Kyoto (Takashimaya S.C.)', '% 阿拉比卡 京都高島屋'],
-          ['fiveran (ファイブラン)', '五跑烘焙坊'],
-          ['551蓬萊 (551 HORAI) 大丸店', '551蓬萊 大丸店'],
-          ['551蓬萊 (551 HORAI)', '551蓬萊'],
-          ['炭焼 うな富士 大丸京都別邸', '炭燒鰻富士 大丸京都別邸'],
-          ['Nippon Ramen 凛 離れ', '日本拉麵 凜 離'],
-          ['築地寿司清 (老字號壽司)', '築地壽司清（老字號壽司）'],
-          ['永坂更科 寛兵衛', '永坂更科 寬兵衛'],
-          ['HARBS (ハーブス) 大丸京都店', '哈布斯 大丸京都店'],
-          ['ル・プチメック (Le Petit Mec)', '小傢伙法式麵包店'],
-          ['マールブランシュ (京都北山)', '京都北山 馬爾布朗修'],
-          ['虎屋 (TORAYA) 御用京菓子', '虎屋 御用京菓子'],
-          ['フランソア喫茶室 (François)', '法蘭索瓦喫茶室'],
-          ['イノダコーヒ 本店 (Inoda\\'s)', '伊諾田咖啡 本店'],
-          ['スマート珈琲店 (Smart Coffee)', '智慧咖啡店'],
-          ['喫茶ソワレ (Soiree)', '蘇瓦雷喫茶'],
-          ['長楽館 (Chorakukan)', '長樂館'],
-          ['レストラン 菊水 (Kikusui)', '菊水餐廳'],
-          ['FUNATSURU KAMOGAWA RESORT', '船鶴鴨川度假餐廳'],
-          ['THE SODOH HIGASHIYAMA KYOTO', '東山艸堂'],
-          ['Fortune Garden Kyoto', '京都幸運花園'],
-          ['京都府庁旧本館', '京都府廳舊本館'],
-          ['大市 (だいいち)', '大市'],
-          ['松栄堂 京都本店', '松榮堂 京都本店'],
-          ['Salon de Muge', '無碍山房沙龍'],
-          ['Malebranche', '京都北山 馬爾布朗修'],
-          ['Airporter', '機場行李配送'],
-          ['うな富士', '鰻富士'],
-          ['炭焼', '炭燒'],
-          ['うなぎ', '鰻魚'],
-          ['かつくら', '勝藏'],
-          ['とんかつ', '豬排'],
-          ['カレーうどん', '咖哩烏龍麵'],
-          ['ハゲ天', '羽毛天'],
-          ['ファイブラン', '五跑'],
-          ['マールブランシュ', '馬爾布朗修'],
-          ['ル・プチメック', '小傢伙'],
-          ['フランソア', '法蘭索瓦'],
-          ['イノダコーヒ', '伊諾田咖啡'],
-          ['スマート珈琲店', '智慧咖啡店'],
-          ['喫茶ソワレ', '蘇瓦雷喫茶'],
-          ['レストラン', '餐廳'],
-          ['ハーブス', '哈布斯'],
-          ['JR店', 'JR店']
-        ];
-
-        const mapUrl = name => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name);
-
-        const nearbyRestaurants = [
-          ['鰻魚飯', '炭燒鰻富士 大丸京都別邸', '大丸 8F。名古屋系鰻魚飯，住宿附近最強正餐之一。'],
-          ['和牛', '三嶋亭 大丸京都店', '大丸 B1。和牛丼、壽喜燒系餐點，離飯店很近。'],
-          ['壽司', '築地壽司清 大丸京都店', '大丸 8F。穩定、方便、有冷氣。'],
-          ['天婦羅', '銀座天一 大丸京都店', '老牌天婦羅，適合不用跑遠的正式餐。'],
-          ['蕎麥麵', '永坂更科 大丸京都店', '清爽，夏天好用。'],
-          ['壽喜燒', '三嶋亭 本店', '京都老舖壽喜燒，氣氛強，價位高。'],
-          ['燒肉', '京之燒肉處 弘 先斗町別邸', '先斗町氣氛好，晚餐適合。'],
-          ['洋館中華', '東華菜館 本店', '四條大橋旁，建築很有看點。'],
-          ['洋食', '菊水餐廳', '祇園四條橋頭老洋食館。'],
-          ['拉麵', '麵屋豬一 京都', '清湯系人氣拉麵，常排隊。']
-        ];
-
-        const nearbyCafes = [
-          ['水果千層', 'HARBS 大丸京都店', '大丸內，休息、吹冷氣、吃蛋糕。'],
-          ['咖啡', '% Arabica 京都高島屋', '高島屋 T8，設計感強。'],
-          ['麵包', 'Le Petit Mec 大丸京都店', '京都名麵包店，外帶回飯店方便。'],
-          ['伴手禮', '京都北山 馬爾布朗修 大丸京都店', '茶之菓，住這裡很順路。'],
-          ['京菓子', '虎屋 大丸京都店', '羊羹、和菓子，品質穩。'],
-          ['老咖啡', '伊諾田咖啡 本店', '京都經典早餐、咖啡老店。'],
-          ['昭和喫茶', 'Smart Coffee 京都', '熱蛋糕、布丁，寺町附近。'],
-          ['古典喫茶', '法蘭索瓦喫茶室', '昭和老喫茶，室內氣氛很強。'],
-          ['藍色喫茶', '喫茶索瓦雷', '藍光、果凍汽水，拍照感強。'],
-          ['明治洋館', '長樂館', '下午茶氣氛最好，離飯店稍遠。']
-        ];
-
-        function patchNodeText(node) {
-          let value = node.nodeValue;
-          for (const [from, to] of replacements) value = value.split(from).join(to);
-          if (value !== node.nodeValue) node.nodeValue = value;
-        }
-
-        function patchVisibleText() {
-          const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-            acceptNode(node) {
-              const parent = node.parentElement;
-              if (!parent) return NodeFilter.FILTER_REJECT;
-              const tag = parent.tagName;
-              if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
-              if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-              return NodeFilter.FILTER_ACCEPT;
-            }
-          });
-          const nodes = [];
-          while (walker.nextNode()) nodes.push(walker.currentNode);
-          nodes.forEach(patchNodeText);
-        }
-
-        function card(item) {
-          return '<a href="' + mapUrl(item[1]) + '" target="_blank" class="block bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm hover:bg-[#FAF6F0] transition-all">' +
-            '<div class="flex items-start justify-between gap-2">' +
-              '<div><span class="text-[10px] font-black text-[#8C6239] bg-[#F0E6D6] px-2 py-0.5 rounded-full">' + item[0] + '</span>' +
-              '<h4 class="text-sm font-black text-[#3D3A36] mt-2">📍 ' + item[1] + '</h4>' +
-              '<p class="text-[11px] text-gray-500 mt-1 leading-relaxed">' + item[2] + '</p></div>' +
-              '<span class="text-[10px] text-[#8C6239] font-bold shrink-0">地圖</span>' +
-            '</div></a>';
-        }
-
-        function addNearbyPage() {
-          if (document.getElementById('nearby-content')) return;
-
-          const navGrid = document.querySelector('#tab-dept')?.parentElement;
-          if (navGrid && !document.getElementById('tab-nearby')) {
-            navGrid.classList.remove('grid-cols-3');
-            navGrid.classList.add('grid-cols-4');
-            const btn = document.createElement('button');
-            btn.id = 'tab-nearby';
-            btn.onclick = () => switchTab('nearby');
-            btn.className = 'py-2 rounded-xl text-[11px] font-black transition-all duration-200 flex items-center justify-center space-x-1 bg-white text-[#8C8275] border border-[#EBE3D5] hover:bg-gray-50 transition-all';
-            btn.innerHTML = '<span>🍽️</span><span class="truncate">飯店周邊</span>';
-            navGrid.appendChild(btn);
-          }
-
-          const main = document.querySelector('main');
-          if (!main) return;
-          const page = document.createElement('div');
-          page.id = 'nearby-content';
-          page.className = 'tab-content hidden space-y-4';
-          page.innerHTML =
-            '<div class="bg-[#F0E6D6]/60 border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">' +
-              '<span class="text-[10px] font-bold text-[#8C6239] bg-white px-2 py-0.5 rounded-full shadow-xs">🍽️ 宜必思京都四條周邊</span>' +
-              '<p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">以四條烏丸、大丸京都店、高島屋、錦市場、河原町為主。按店名可直接開 Google 地圖。</p>' +
-            '</div>' +
-            '<div class="section-divider">🍱 餐廳</div>' +
-            '<div class="space-y-3">' + nearbyRestaurants.map(card).join('') + '</div>' +
-            '<div class="section-divider">☕ 咖啡廳・甜點・伴手禮</div>' +
-            '<div class="space-y-3">' + nearbyCafes.map(card).join('') + '</div>' +
-            '<div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm text-xs text-gray-600 leading-relaxed">' +
-              '<div class="font-black text-[#704E2E] mb-2">最省力組合</div>' +
-              '<div>白天大丸／高島屋，晚上先斗町或四條大橋一帶。懶得跑遠就直接吃大丸 8F 或 B1。</div>' +
-            '</div>';
-          main.appendChild(page);
-
-          if (typeof window.switchTab === 'function' && !window.__nearbySwitchPatched) {
-            window.__nearbySwitchPatched = true;
-            const oldSwitchTab = window.switchTab;
-            window.switchTab = function(tabId) {
-              oldSwitchTab(tabId);
-              if (tabId === 'nearby') {
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-                document.getElementById('nearby-content')?.classList.remove('hidden');
-                document.querySelectorAll('[id^="tab-"]').forEach(btn => {
-                  if (btn.id === 'tab-nearby') {
-                    btn.className = 'py-2 rounded-xl text-[11px] font-black flex items-center justify-center space-x-1 bg-[#5C3E21] text-[#FAF6F0] shadow-sm scale-102 transition-all';
-                  }
-                });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-            };
-          }
-        }
-
-        function runAllPatches() {
-          patchVisibleText();
-          addNearbyPage();
-        }
-
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', runAllPatches);
-        else runAllPatches();
-        window.addEventListener('load', runAllPatches);
-        setTimeout(runAllPatches, 100);
-        setTimeout(runAllPatches, 500);
-        setTimeout(runAllPatches, 1000);
-      })();
-    `;
-
-    fetch(ORIGINAL_HTML_URL, { cache: 'no-store' })
-      .then(response => {
-        if (!response.ok) throw new Error('原始頁面載入失敗');
-        return response.text();
-      })
-      .then(html => {
-        const patchedHtml = html.replace('</body>', `<script>${textPatchScript.replace(/<\\/g, '<\\\\/')}<\\/script></body>`);
-        document.open();
-        document.write(patchedHtml);
-        document.close();
-      })
-      .catch(error => {
-        document.body.innerHTML = '<div class="loading">頁面載入失敗，請重新整理。</div>';
-        console.error(error);
-      });
-  </script>
+<body class="max-w-md mx-auto min-h-screen relative flex flex-col pb-24">
+<header class="sticky top-0 glass z-40 pt-4 pb-3 px-4 border-b border-[#EBE3D5]">
+<div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><span class="text-xl">🌸</span><div><h1 class="text-base font-black tracking-wider text-[#704E2E]">樂京都 2026</h1><p class="text-[9px] text-[#A69C8F] font-bold tracking-widest">京都旅行筆記</p></div></div><button onclick="toggleToolbox()" class="bg-[#F0E6D6] text-[#704E2E] text-xs px-3.5 py-1.5 rounded-full font-bold">🧳 工具箱</button></div>
+<div class="card p-3.5 mb-3.5 flex items-center justify-between gap-2"><div class="flex-1"><div class="text-[9px] text-[#A69C8F] font-bold tracking-wider">首選住宿｜京都四條基地</div><div class="text-xs font-black text-[#5C3E21] mt-0.5">宜必思尚品京都四條</div><div class="text-[10px] text-[#8C8275] mt-0.5">🗓️ 7/9 – 7/14｜四條烏丸地鐵站旁（大丸旁）</div></div><a class="pill shrink-0" target="_blank" href="https://www.google.com/maps/search/?api=1&query=%E3%82%A4%E3%83%93%E3%82%B9%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%82%BA%E4%BA%AC%E9%83%BD%E5%9B%9B%E6%9D%A1">📍 飯店</a></div>
+<div class="space-y-3"><div><div class="text-[9px] text-[#A69C8F] font-black tracking-widest mb-1 pl-1">🗓️ 每日行程</div><div class="grid grid-cols-4 gap-1.5" id="dayTabs"></div></div><div class="pt-1.5 border-t border-dashed border-[#EBE3D5]"><div class="text-[9px] text-[#A69C8F] font-black tracking-widest mb-1.5 pl-1">🔍 各地點備選分類</div><div class="grid grid-cols-4 gap-1.5" id="moreTabs"></div></div></div>
+</header>
+<div id="toolbox" class="hidden fixed inset-0 bg-black/40 z-50 flex items-end justify-center px-4 pb-6"><div class="bg-[#FAF6F0] w-full max-w-md rounded-3xl shadow-xl overflow-hidden border border-[#EBE3D5]"><div class="p-4 border-b border-[#EBE3D5] flex justify-between items-center bg-[#F0E6D6]"><h3 class="font-bold text-[#5C3E21]">🧳 京都旅行隨身工具</h3><button onclick="toggleToolbox()" class="text-gray-500 text-lg font-bold">✕</button></div><div class="p-5 space-y-5 max-h-[70vh] overflow-y-auto"><div class="bg-white rounded-2xl p-4 border border-[#EBE3D5]"><h4 class="text-xs font-bold text-[#8C6239] mb-3">💴 日幣匯率即時折算</h4><div class="grid grid-cols-2 gap-3"><div><label class="text-[10px] text-gray-400 block mb-1">台幣 TWD</label><input type="number" id="twdInput" oninput="convertCurrency('twd')" value="100" class="w-full bg-[#FAF6F0] border border-[#EBE3D5] rounded-xl px-3 py-2 text-sm font-bold"></div><div><label class="text-[10px] text-gray-400 block mb-1">日幣 JPY <span class="text-[8px] text-emerald-600">1:4.8</span></label><input type="number" id="jpyInput" oninput="convertCurrency('jpy')" value="480" class="w-full bg-[#FAF6F0] border border-[#EBE3D5] rounded-xl px-3 py-2 text-sm font-bold"></div></div></div><div class="bg-white rounded-2xl p-4 border border-[#EBE3D5]"><h4 class="text-xs font-bold text-[#8C6239] mb-2 flex justify-between"><span>📝 隨手筆記 / 待買清單</span><button onclick="clearNotes()" class="text-[10px] text-red-500">清空</button></h4><textarea id="travelNotes" oninput="saveNotes()" rows="4" placeholder="例如：大丸 B1 買茶之菓" class="w-full bg-[#FAF6F0] border border-[#EBE3D5] rounded-xl p-3 text-xs leading-relaxed"></textarea></div></div></div></div>
+<div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 bg-[#5C3E21] text-[#FAF6F0] text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-50 opacity-0 pointer-events-none transition-all duration-300"></div>
+<main class="flex-1 px-4 pt-4" id="app"></main>
+<footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#FAF6F0]/95 backdrop-blur-md border-t border-[#EBE3D5] p-3 z-30 flex items-center justify-between text-[11px] text-[#8C8275]"><div>🌸 <span class="font-bold">樂京都 2026 夏日誌</span></div><div>手機專用 ‧ 漢字地名</div></footer>
+<script>
+const $=id=>document.getElementById(id);const map=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+const days={day1:{label:'7/9 D1',title:'DAY 1 行程重點',lead:'抵達關西空港後利用機場行李配送直寄飯店，接著直奔奈良與鹿互動，黃昏返回京都辦理入住。',items:[['✈️','06:05–07:40','桃園機場 ➔ 關西空港','捷星 GK50。通關、領取大行李，將大行李配送至京都飯店。',['桃園國際機場','關西國際機場']],['🚃','07:40–09:40','南海空港線 ➔ 難波 ➔ 近鐵奈良','搭南海電鐵至難波，轉近鐵奈良線前往近鐵奈良站。',['南海關西機場站','南海難波站','大阪難波站','近鐵奈良站']],['🦌','09:50–12:00','奈良公園 ➔ 東大寺','看鹿群、參拜東大寺大佛。',['奈良公園','東大寺']],['⛩️','13:00–14:30','春日大社','沿石燈籠森林參道慢行，造訪春日大社。',['春日大社']],['🏨','16:30–17:20','奈良近鐵 ➔ 京都站 ➔ 四條烏丸飯店','返回京都，轉地鐵至四條站步行回飯店。',['近鐵京都站','宜必思尚品京都四條']]],extra:['志津香釜飯 公園店','田中柿葉壽司','中谷堂','寶石箱 刨冰']},day2:{label:'7/10 D2',title:'DAY 2 行程重點',lead:'上午清水寺老街、清水燒，下午高島屋休息，晚間至四條大橋看祇園祭神輿洗。',items:[['🚕','08:30–10:30','飯店 ➔ 五條坂 / 茶碗坂 ➔ 清水寺','計程車直達五條坂高處，從高點漫步進入清水寺。',['五條坂','茶碗坂','清水寺']],['🏺','10:30–12:00','清水坂 ➔ 清水燒店舖散策','探訪清水燒精品、朝日堂與陶藝街。',['清水坂','清水燒 朝日堂','朝日坂 陶藝街']],['🍜','12:00–13:15','三年坂 ➔ 二年坂午餐','穿行石板街，邊逛邊挑午餐。',['二年坂','三年坂']],['⛩️','13:15–14:30','八坂之塔 ➔ 寧寧之道 ➔ 八坂神社','拍攝法觀寺八坂之塔，行經寧寧之道。',['法觀寺 八坂之塔','寧寧之道','八坂神社']],['🛍️','14:30–16:20','京都高島屋避暑與甜點','跨過鴨川，到高島屋休息。',['京都高島屋 S.C.']],['⚔️','20:00 前後','祇園祭・迎提燈與神輿洗','晚間至四條大橋觀看神輿洗。',['四條大橋','四條烏丸山鉾町']]]},day3:{label:'7/11 D3',title:'DAY 3 行程重點',lead:'宇治茶名店、抹茶美味大比拼，參訪世界文化遺產平等院鳳凰堂。',items:[['🚃','上午','京都 ➔ 宇治','從京都站搭 JR 快速列車直達宇治。',['京都車站','JR 宇治站']],['🍵','中午前後','茶老舖美味巡禮','品嚐抹茶聖代、抹茶蕎麥麵與甜點。',['中村藤吉本店','伊藤久右衛門 JR宇治站前店','辻利 宇治本店','三星園上林三入本店']],['🏯','下午','平等院鳳凰堂','走進平安極樂淨土般的木造寺殿。',['平等院鳳凰堂']],['🌊','下午後段','宇治川與宇治橋散步','沿宇治川河畔散步拍照。',['宇治橋','宇治川']]]},day4:{label:'7/12 D4',title:'DAY 4 行程重點',lead:'上午南禪寺、水路閣與平安神宮。下午三條、四條百年老店巡禮。',items:[['🍁','上午','南禪寺 ‧ 水路閣 ‧ 平安神宮','參觀三門與紅磚水路閣，再前往平安神宮。',['南禪寺','南禪寺 水路閣','平安神宮']],['🛠️','下午','寺町京極 ➔ 京都老舖百年巡禮','拜訪一保堂、鳩居堂、宮脇賣扇庵等老店。',['一保堂茶舖 京都本店','鳩居堂 京都本店','宮脇賣扇庵']],['🛍️','傍晚','新京極 ➔ 錦市場','走訪錦市場、新京極與錦天滿宮。',['新京極商店街','錦市場']]]}};
+const dept=[['甜點','無碍山房 高島屋店','濃茶抹茶聖代，高島屋 7F。'],['正餐','咖哩烏龍麵 味味香','京都咖哩烏龍麵，高島屋 7F。'],['正餐','八起庵 高島屋店','京都禽鳥料理名店。'],['正餐','名代豬排 勝藏','炸豬排、麥飯、高麗菜絲。'],['正餐','京料理 美濃吉','正統京料理與便當。'],['正餐','鰻魚 德 高島屋店','鰻魚茶泡飯三吃。'],['正餐','銀座天婦羅 哈根天','天婦羅老店。'],['咖啡','阿拉比卡咖啡 高島屋店','T8 館精品咖啡。'],['烘焙','五跑烘焙坊','高島屋 B1 麵包。'],['外帶','551蓬萊 高島屋店','肉包與燒賣。'],['伴手禮','祇園辻里 高島屋店','宇治茶伴手禮。'],['鰻魚飯','炭燒鰻富士 大丸京都別邸','大丸 8F 鰻魚飯。'],['拉麵','日本拉麵 凜 離','大丸 8F 職人拉麵。'],['壽司','築地壽司清 大丸京都店','大丸 8F 壽司。'],['天婦羅','銀座天一 大丸京都店','大丸 8F 天婦羅。'],['蕎麥','永坂更科 大丸京都店','大丸 8F 蕎麥麵。'],['和牛','三嶋亭 大丸京都店','大丸 B1 和牛吧台。'],['甜點','HARBS 大丸京都店','水果千層蛋糕。'],['烘焙','Le Petit Mec 大丸京都店','法式麵包。'],['伴手禮','京都北山 馬爾布朗修 大丸京都店','茶之菓。'],['外帶','551蓬萊 大丸店','肉包、蝦燒賣。'],['京菓子','虎屋 大丸京都店','羊羹、和菓子。']];
+const cafes=[['古典喫茶','法蘭索瓦喫茶室','昭和老喫茶，室內氣氛強。'],['老咖啡','伊諾田咖啡 本店','京都經典早餐與咖啡。'],['昭和喫茶','Smart Coffee 京都','熱蛋糕、布丁。'],['藍色喫茶','喫茶索瓦雷','藍光、果凍汽水。'],['明治洋館','長樂館','正式下午茶氣氛最好。'],['洋館中華','東華菜館 本店','四條大橋旁，建築很有看點。'],['洋食','菊水餐廳','祇園四條橋頭老洋食館。'],['鴨川餐廳','船鶴鴨川度假餐廳','鴨川納涼床與老旅館改建。'],['東山餐廳','東山艸堂','東山老宅園林餐廳。'],['近代洋樓','京都幸運花園','舊島津製作所總部。'],['官署遺產','京都府廳舊本館','明治官署建築。'],['文化財','京都文化博物館 別館','舊日本銀行京都支店。']];
+const nearby=[['鰻魚飯','炭燒鰻富士 大丸京都別邸','大丸 8F，住宿附近最強正餐之一。'],['和牛','三嶋亭 大丸京都店','大丸 B1，和牛丼、壽喜燒系餐點。'],['壽司','築地壽司清 大丸京都店','大丸 8F，穩定、方便、有冷氣。'],['天婦羅','銀座天一 大丸京都店','老牌天婦羅，適合正式餐。'],['蕎麥麵','永坂更科 大丸京都店','清爽，夏天好用。'],['壽喜燒','三嶋亭 本店','京都老舖壽喜燒，氣氛強。'],['燒肉','京之燒肉處 弘 先斗町別邸','先斗町氣氛好，晚餐適合。'],['洋館中華','東華菜館 本店','四條大橋旁，建築很有看點。'],['洋食','菊水餐廳','祇園四條橋頭老洋食館。'],['拉麵','麵屋豬一 京都','清湯系人氣拉麵。'],['水果千層','HARBS 大丸京都店','大丸內，休息吹冷氣。'],['咖啡','% Arabica 京都高島屋','高島屋 T8，設計感強。'],['麵包','Le Petit Mec 大丸京都店','外帶回飯店方便。'],['伴手禮','京都北山 馬爾布朗修 大丸京都店','茶之菓，住這裡很順路。'],['京菓子','虎屋 大丸京都店','羊羹、和菓子，品質穩。'],['老咖啡','伊諾田咖啡 本店','京都經典早餐。'],['昭和喫茶','Smart Coffee 京都','熱蛋糕、布丁。'],['古典喫茶','法蘭索瓦喫茶室','昭和老喫茶。'],['藍色喫茶','喫茶索瓦雷','藍光、果凍汽水。'],['明治洋館','長樂館','下午茶氣氛最好。']];
+const backups=[['壽喜燒','三嶋亭 本店','關西風頂級壽喜燒鼻祖。'],['燒肉','京之燒肉處 弘 先斗町別邸','京都人氣和牛燒肉老店。'],['甲魚','甲魚料理 大市','傳承 300 年老派甲魚料理。'],['薰香','松榮堂 京都本店','日本頂級天然薰香老舖。']];
+let current='day1',fav=JSON.parse(localStorage.getItem('kyoto_favs_v3')||'[]');
+function link(name){return `<a class="pill" target="_blank" href="${map(name)}">📍 ${name}</a>`}function favBtn(id){return `<button onclick="toggleFav('${id}')" class="text-base">${fav.includes(id)?'❤️':'🤍'}</button>`}
+function itemCard(arr,id){return `<div class="card p-4"><div class="flex justify-between items-start gap-2"><span class="text-[10px] font-black text-[#8C6239] bg-[#F0E6D6] px-2 py-0.5 rounded-full">${arr[0]}</span>${favBtn(id)}</div><h4 class="text-sm font-black mt-2">${arr[1]}</h4><p class="text-[11px] text-gray-500 mt-1 leading-relaxed">${arr[2]}</p><div class="flex justify-end mt-2">${link(arr[1])}</div></div>`}
+function dayPage(d){return `<section class="space-y-4"><div class="card p-5"><span class="text-[10px] font-bold text-[#8C6239] bg-[#FAF6F0] px-2 py-0.5 rounded-full">${d.title}</span><p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">${d.lead}</p></div><div class="card p-5 space-y-6 relative timeline">${d.items.map(it=>`<div class="flex items-start gap-4 relative z-10"><div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-[#8C6239] flex items-center justify-center text-xs font-bold shrink-0">${it[0]}</div><div class="flex-1"><div class="text-xs font-black text-[#8C6239]">${it[1]}</div><h4 class="text-sm font-bold mt-0.5">${it[2]}</h4><p class="text-xs text-gray-500 mt-1">${it[3]}</p><div class="flex flex-wrap gap-1 mt-2">${it[4].map(link).join('')}</div></div></div>`).join('')}</div>${d.extra?`<div class="card p-5"><h3 class="text-sm font-black text-[#704E2E] mb-3">💡 奈良備選</h3><div class="grid grid-cols-2 gap-2">${d.extra.map(x=>`<a target="_blank" href="${map(x)}" class="bg-[#FAF6F0] hover:bg-[#F0E6D6] border border-[#EBE3D5] p-2.5 rounded-xl text-xs font-bold text-gray-700">📍 ${x}</a>`).join('')}</div></div>`:''}</section>`}
+function listPage(title,lead,data,prefix){return `<section class="space-y-4"><div class="card p-5"><span class="text-[10px] font-bold text-[#8C6239] bg-[#FAF6F0] px-2 py-0.5 rounded-full">${title}</span><p class="text-xs text-[#5C4F43] leading-relaxed mt-2">${lead}</p></div><div class="space-y-3">${data.map((x,i)=>itemCard(x,prefix+i)).join('')}</div>${prefix==='nearby'?'<div class="card p-5 text-xs text-gray-600 leading-relaxed"><b class="text-[#704E2E]">最省力組合：</b>白天大丸／高島屋，晚上先斗町或四條大橋一帶。懶得跑遠就直接吃大丸 8F 或 B1。</div>':''}</section>`}
+function renderTabs(){dayTabs.innerHTML=Object.entries(days).map(([k,v])=>`<button id="tab-${k}" onclick="switchTab('${k}')" class="py-2 rounded-xl text-[11px] font-black bg-white text-[#8C8275] border border-[#EBE3D5]">${v.label}</button>`).join('');moreTabs.innerHTML=[['dept','🏬 百貨'],['cafe','☕ 洋館'],['backups','🎒 備選'],['nearby','🍽️ 周邊']].map(x=>`<button id="tab-${x[0]}" onclick="switchTab('${x[0]}')" class="py-2 rounded-xl text-[11px] font-black bg-white text-[#8C8275] border border-[#EBE3D5]">${x[1]}</button>`).join('')}
+function switchTab(id){current=id;document.querySelectorAll('[id^=tab-]').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id)?.classList.add('active');let html=days[id]?dayPage(days[id]):id==='dept'?listPage('🏬 百貨美食','京都高島屋 S.C. 與大丸京都店名店清單。',dept,'dept'):id==='cafe'?listPage('☕ 古蹟咖啡・洋館餐廳','明治、大正與昭和風華的喫茶店、洋食館與近代建築。',cafes,'cafe'):id==='nearby'?listPage('🍽️ 宜必思京都四條周邊','以四條烏丸、大丸京都店、高島屋、錦市場、河原町為主。按店名可直接開 Google 地圖。',nearby,'nearby'):listPage('🎒 經典備選','不在主行程內，但值得保留的餐廳與伴手禮。',backups,'backup');app.innerHTML=html;window.scrollTo({top:0,behavior:'smooth'})}
+function toggleFav(id){let i=fav.indexOf(id);if(i>-1){fav.splice(i,1);showToast('🤍 已取消收藏')}else{fav.push(id);showToast('❤️ 已加入我的最愛')}localStorage.setItem('kyoto_favs_v3',JSON.stringify(fav));switchTab(current)}
+function toggleToolbox(){toolbox.classList.toggle('hidden')}function convertCurrency(s){let r=4.8,t=twdInput,j=jpyInput;if(s==='twd')j.value=Math.round((parseFloat(t.value)||0)*r);else t.value=Math.round((parseFloat(j.value)||0)/r)}function saveNotes(){localStorage.setItem('kyoto_notes',travelNotes.value)}function clearNotes(){travelNotes.value='';localStorage.removeItem('kyoto_notes');showToast('📝 筆記已清空')}function showToast(m){toast.textContent=m;toast.classList.remove('opacity-0','pointer-events-none');toast.classList.add('opacity-100');setTimeout(()=>{toast.classList.remove('opacity-100');toast.classList.add('opacity-0','pointer-events-none')},1500)}
+window.onload=()=>{renderTabs();travelNotes.value=localStorage.getItem('kyoto_notes')||'';switchTab('day1')};
+</script>
 </body>
 </html>
