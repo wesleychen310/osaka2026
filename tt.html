@@ -55,7 +55,7 @@
           ['マールブランシュ (京都北山)', '京都北山 馬爾布朗修'],
           ['虎屋 (TORAYA) 御用京菓子', '虎屋 御用京菓子'],
           ['フランソア喫茶室 (François)', '法蘭索瓦喫茶室'],
-          ['イノダコーヒ 本店 (Inoda\'s)', '伊諾田咖啡 本店'],
+          ['イノダコーヒ 本店 (Inoda\\'s)', '伊諾田咖啡 本店'],
           ['スマート珈琲店 (Smart Coffee)', '智慧咖啡店'],
           ['喫茶ソワレ (Soiree)', '蘇瓦雷喫茶'],
           ['長楽館 (Chorakukan)', '長樂館'],
@@ -88,11 +88,37 @@
           ['JR店', 'JR店']
         ];
 
+        const mapUrl = name => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name);
+
+        const nearbyRestaurants = [
+          ['鰻魚飯', '炭燒鰻富士 大丸京都別邸', '大丸 8F。名古屋系鰻魚飯，住宿附近最強正餐之一。'],
+          ['和牛', '三嶋亭 大丸京都店', '大丸 B1。和牛丼、壽喜燒系餐點，離飯店很近。'],
+          ['壽司', '築地壽司清 大丸京都店', '大丸 8F。穩定、方便、有冷氣。'],
+          ['天婦羅', '銀座天一 大丸京都店', '老牌天婦羅，適合不用跑遠的正式餐。'],
+          ['蕎麥麵', '永坂更科 大丸京都店', '清爽，夏天好用。'],
+          ['壽喜燒', '三嶋亭 本店', '京都老舖壽喜燒，氣氛強，價位高。'],
+          ['燒肉', '京之燒肉處 弘 先斗町別邸', '先斗町氣氛好，晚餐適合。'],
+          ['洋館中華', '東華菜館 本店', '四條大橋旁，建築很有看點。'],
+          ['洋食', '菊水餐廳', '祇園四條橋頭老洋食館。'],
+          ['拉麵', '麵屋豬一 京都', '清湯系人氣拉麵，常排隊。']
+        ];
+
+        const nearbyCafes = [
+          ['水果千層', 'HARBS 大丸京都店', '大丸內，休息、吹冷氣、吃蛋糕。'],
+          ['咖啡', '% Arabica 京都高島屋', '高島屋 T8，設計感強。'],
+          ['麵包', 'Le Petit Mec 大丸京都店', '京都名麵包店，外帶回飯店方便。'],
+          ['伴手禮', '京都北山 馬爾布朗修 大丸京都店', '茶之菓，住這裡很順路。'],
+          ['京菓子', '虎屋 大丸京都店', '羊羹、和菓子，品質穩。'],
+          ['老咖啡', '伊諾田咖啡 本店', '京都經典早餐、咖啡老店。'],
+          ['昭和喫茶', 'Smart Coffee 京都', '熱蛋糕、布丁，寺町附近。'],
+          ['古典喫茶', '法蘭索瓦喫茶室', '昭和老喫茶，室內氣氛很強。'],
+          ['藍色喫茶', '喫茶索瓦雷', '藍光、果凍汽水，拍照感強。'],
+          ['明治洋館', '長樂館', '下午茶氣氛最好，離飯店稍遠。']
+        ];
+
         function patchNodeText(node) {
           let value = node.nodeValue;
-          for (const [from, to] of replacements) {
-            value = value.split(from).join(to);
-          }
+          for (const [from, to] of replacements) value = value.split(from).join(to);
           if (value !== node.nodeValue) node.nodeValue = value;
         }
 
@@ -112,14 +138,81 @@
           nodes.forEach(patchNodeText);
         }
 
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', patchVisibleText);
-        } else {
-          patchVisibleText();
+        function card(item) {
+          return '<a href="' + mapUrl(item[1]) + '" target="_blank" class="block bg-white border border-[#EBE3D5] rounded-2xl p-4 shadow-sm hover:bg-[#FAF6F0] transition-all">' +
+            '<div class="flex items-start justify-between gap-2">' +
+              '<div><span class="text-[10px] font-black text-[#8C6239] bg-[#F0E6D6] px-2 py-0.5 rounded-full">' + item[0] + '</span>' +
+              '<h4 class="text-sm font-black text-[#3D3A36] mt-2">📍 ' + item[1] + '</h4>' +
+              '<p class="text-[11px] text-gray-500 mt-1 leading-relaxed">' + item[2] + '</p></div>' +
+              '<span class="text-[10px] text-[#8C6239] font-bold shrink-0">地圖</span>' +
+            '</div></a>';
         }
-        window.addEventListener('load', patchVisibleText);
-        setTimeout(patchVisibleText, 100);
-        setTimeout(patchVisibleText, 500);
+
+        function addNearbyPage() {
+          if (document.getElementById('nearby-content')) return;
+
+          const navGrid = document.querySelector('#tab-dept')?.parentElement;
+          if (navGrid && !document.getElementById('tab-nearby')) {
+            navGrid.classList.remove('grid-cols-3');
+            navGrid.classList.add('grid-cols-4');
+            const btn = document.createElement('button');
+            btn.id = 'tab-nearby';
+            btn.onclick = () => switchTab('nearby');
+            btn.className = 'py-2 rounded-xl text-[11px] font-black transition-all duration-200 flex items-center justify-center space-x-1 bg-white text-[#8C8275] border border-[#EBE3D5] hover:bg-gray-50 transition-all';
+            btn.innerHTML = '<span>🍽️</span><span class="truncate">飯店周邊</span>';
+            navGrid.appendChild(btn);
+          }
+
+          const main = document.querySelector('main');
+          if (!main) return;
+          const page = document.createElement('div');
+          page.id = 'nearby-content';
+          page.className = 'tab-content hidden space-y-4';
+          page.innerHTML =
+            '<div class="bg-[#F0E6D6]/60 border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm">' +
+              '<span class="text-[10px] font-bold text-[#8C6239] bg-white px-2 py-0.5 rounded-full shadow-xs">🍽️ 宜必思京都四條周邊</span>' +
+              '<p class="text-xs text-[#5C554E] leading-relaxed mt-2.5 font-medium">以四條烏丸、大丸京都店、高島屋、錦市場、河原町為主。按店名可直接開 Google 地圖。</p>' +
+            '</div>' +
+            '<div class="section-divider">🍱 餐廳</div>' +
+            '<div class="space-y-3">' + nearbyRestaurants.map(card).join('') + '</div>' +
+            '<div class="section-divider">☕ 咖啡廳・甜點・伴手禮</div>' +
+            '<div class="space-y-3">' + nearbyCafes.map(card).join('') + '</div>' +
+            '<div class="bg-white border border-[#EBE3D5] rounded-[24px] p-5 shadow-sm text-xs text-gray-600 leading-relaxed">' +
+              '<div class="font-black text-[#704E2E] mb-2">最省力組合</div>' +
+              '<div>白天大丸／高島屋，晚上先斗町或四條大橋一帶。懶得跑遠就直接吃大丸 8F 或 B1。</div>' +
+            '</div>';
+          main.appendChild(page);
+
+          if (typeof window.switchTab === 'function' && !window.__nearbySwitchPatched) {
+            window.__nearbySwitchPatched = true;
+            const oldSwitchTab = window.switchTab;
+            window.switchTab = function(tabId) {
+              oldSwitchTab(tabId);
+              if (tabId === 'nearby') {
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById('nearby-content')?.classList.remove('hidden');
+                document.querySelectorAll('[id^="tab-"]').forEach(btn => {
+                  if (btn.id === 'tab-nearby') {
+                    btn.className = 'py-2 rounded-xl text-[11px] font-black flex items-center justify-center space-x-1 bg-[#5C3E21] text-[#FAF6F0] shadow-sm scale-102 transition-all';
+                  }
+                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            };
+          }
+        }
+
+        function runAllPatches() {
+          patchVisibleText();
+          addNearbyPage();
+        }
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', runAllPatches);
+        else runAllPatches();
+        window.addEventListener('load', runAllPatches);
+        setTimeout(runAllPatches, 100);
+        setTimeout(runAllPatches, 500);
+        setTimeout(runAllPatches, 1000);
       })();
     `;
 
