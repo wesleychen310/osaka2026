@@ -3,45 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>樂京都 2026｜地區資料庫</title>
-<style>
-body{margin:0;background:#faf6f0;color:#3d3a36;font-family:-apple-system,BlinkMacSystemFont,'Microsoft JhengHei','Noto Sans TC',sans-serif}header,main{max-width:460px;margin:auto}.top{position:sticky;top:0;background:#faf6f0f7;backdrop-filter:blur(10px);border-bottom:1px solid #ebe3d5;padding:14px;z-index:5}.card{background:#fff;border:1px solid #ebe3d5;border-radius:18px;padding:13px;margin:8px 0;box-shadow:0 1px 2px #00000008}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.btn{border:1px solid #ebe3d5;border-radius:12px;padding:9px 2px;background:white;color:#704e2e;font-size:11px;font-weight:900}.btn.on{background:#5c3e21;color:#faf6f0}.label{font-size:9px;color:#a69c8f;font-weight:900;margin-top:10px;letter-spacing:.08em}.tag{display:inline-block;font-size:10px;font-weight:900;background:#f0e6d6;color:#704e2e;border-radius:999px;padding:3px 8px;margin:0 4px 4px 0}.near{background:#eaf7ef;color:#26734d}.old{background:#fff4d6;color:#8a5a00}.western{background:#eaf0ff;color:#3855a3}.map{display:inline-block;margin:4px 4px 4px 0;text-decoration:none;background:#faf6f0;border:1px solid #ebe3d5;color:#8c6239;border-radius:10px;font-size:11px;font-weight:900;padding:6px 9px}h1{font-size:18px;color:#704e2e;margin:0}h2{font-size:18px;color:#5c3e21;margin:14px 0 8px;border-bottom:2px solid #ebe3d5;padding-bottom:7px}h3{font-size:14px;color:#704e2e;margin:16px 0 6px}.note{font-size:12px;line-height:1.6;color:#5c554e;margin:6px 0}.small{font-size:11px;color:#8c8275}.toc{max-height:52vh;overflow:auto;padding-right:2px}.page{padding:14px}.typebar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}.count{font-size:10px;color:#8c8275;font-weight:800}.empty{padding:20px;text-align:center;color:#8c8275}.back{position:fixed;right:14px;bottom:14px;background:#5c3e21;color:white;text-decoration:none;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:900}
-</style>
+<meta http-equiv="refresh" content="0; url=t202607/index.html">
+<title>樂京都 2026｜入口</title>
+<style>body{margin:0;background:#faf6f0;color:#3d3a36;font-family:-apple-system,BlinkMacSystemFont,'Microsoft JhengHei','Noto Sans TC',sans-serif}main{max-width:460px;margin:auto;padding:18px}.card{background:white;border:1px solid #ebe3d5;border-radius:18px;padding:16px;margin:10px 0}.btn{display:block;text-align:center;text-decoration:none;border:1px solid #ebe3d5;border-radius:12px;padding:12px;background:#5c3e21;color:#faf6f0;font-weight:900;margin:8px 0}h1{font-size:20px;color:#704e2e}.small{font-size:12px;color:#8c8275}</style>
 </head>
 <body>
-<header class="top">
-<h1>🌸 樂京都 2026｜地區資料庫</h1>
-<div class="small">第一層：地區｜第二層：景點・餐廳・咖啡茶店・商店老舖</div>
-<div class="card"><b>住宿基地：宜必思尚品京都四條</b><br><span class="small">四條西洞院・四條烏丸生活圈</span><br><a class="map" href="https://www.google.com/maps/search/?api=1&query=宜必思尚品京都四條" target="_blank">📍 飯店</a></div>
-<div class="toc">
-<div class="label">① 每日行程｜先維持</div>
-<div class="grid4"><button class="btn day" data-day="d1">7/9</button><button class="btn day" data-day="d2">7/10</button><button class="btn day" data-day="d3">7/11</button><button class="btn day" data-day="d4">7/12</button></div>
-<div class="label">② 地區分類</div>
-<div id="areaBtns" class="grid6"></div>
-</div>
-</header>
-<main id="app" class="page"></main>
-<a class="back" href="#" onclick="scrollTo({top:0,behavior:'smooth'});return false;">↑ 上方</a>
-<script src="t202607-data.js?v=20260706-rich1"></script>
-<script>
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const map=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
-const dayData={
- d1:{title:'7/9｜關西空港・奈良・京都入住',items:['關西空港通關與行李配送','南海難波轉近鐵奈良','奈良公園・東大寺・春日大社','傍晚回京都入住']},
- d2:{title:'7/10｜清水寺・東山・祇園祭',items:['五條坂・茶碗坂・清水寺','清水燒・二年坂・三年坂','高台寺・圓德院・八坂神社','京都高島屋與四條大橋神輿洗']},
- d3:{title:'7/11｜宇治',items:['京都到宇治','中村藤吉・伊藤久右衛門・辻利・三星園','平等院鳳凰堂','宇治川・宇治橋']},
- d4:{title:'7/12｜南禪寺・老舖・三條近代建築線',items:['南禪寺・水路閣・天授庵','平安神宮神苑','一保堂・鳩居堂・宮脇賣扇庵','新風館・中京郵便局・京都文化博物館別館']}
-};
-const areaOrder=[['karasuma','四條烏丸'],['sanjo','烏丸御池'],['kawaramachi','河原町'],['pontocho','先斗町'],['gion','祇園清水'],['okazaki','岡崎銀閣'],['rakuhoku','洛北大原'],['rakusai','洛西嵐山'],['rakunan','洛南伏見'],['uji','宇治'],['nara','奈良公園'],['nara_far','奈良遠郊']];
-const typeNames={spots:'景點',food:'餐廳',cafe:'咖啡茶店',shop:'商店老舖'};
-let currentArea='karasuma', currentType='spots';
-function tagsClass(t){if(t.includes('飯店'))return 'near'; if(t.includes('老舖')||t.includes('老屋')||t.includes('町家'))return 'old'; if(t.includes('洋風')||t.includes('近代')||t.includes('昭和')||t.includes('大正')||t.includes('明治'))return 'western'; return '';}
-function itemCard(str){const [name,tags,note]=str.split('|');return `<div class="card"><span class="tag ${tagsClass(tags)}">${tags}</span><h3>${name}</h3><p class="note">${note||''}</p><a class="map" href="${map(name)}" target="_blank">📍 Google Maps</a></div>`;}
-function setButtons(kind,id){$$('.btn').forEach(b=>b.classList.remove('on'));$$(`[data-${kind}="${id}"]`).forEach(b=>b.classList.add('on'));}
-function renderDay(id){setButtons('day',id);const d=dayData[id];app.innerHTML=`<h2>${d.title}</h2><div class="card"><span class="tag">每日行程先維持</span><p class="note">這區之後再改；目前先保留簡略內容。</p>${d.items.map(x=>`<div class="map">${x}</div>`).join('')}</div>`;scrollTo({top:0,behavior:'smooth'});}
-function renderArea(area=currentArea,type=currentType){currentArea=area;currentType=type;setButtons('area',area);const a=KYOTO_AREAS[area];const list=a[type]||[];const total=['spots','food','cafe','shop'].reduce((s,k)=>s+(a[k]?.length||0),0);app.innerHTML=`<h2>${a.title}</h2><p class="note">${a.lead}</p><div class="card"><span class="tag">本區共 ${total} 筆</span><span class="tag">目前：${typeNames[type]} ${list.length} 筆</span></div><div class="typebar">${Object.entries(typeNames).map(([k,v])=>`<button class="btn ${k===type?'on':''}" onclick="renderArea('${area}','${k}')">${v}<br><span class='count'>${a[k]?.length||0}</span></button>`).join('')}</div>${list.length?list.map(itemCard).join(''):`<div class='empty'>這類還沒資料</div>`}`;scrollTo({top:0,behavior:'smooth'});}
-function init(){areaBtns.innerHTML=areaOrder.map(([id,label])=>`<button class="btn" data-area="${id}" onclick="renderArea('${id}','spots')">${label}</button>`).join('');$$('.day').forEach(b=>b.onclick=()=>renderDay(b.dataset.day));renderArea('karasuma','spots');}
-init();
-</script>
+<main>
+<h1>🌸 樂京都 2026</h1>
+<div class="card"><b>多頁版已建立</b><p class="small">若沒有自動跳轉，請點下面連結。</p><a class="btn" href="t202607/index.html">進入地區總目錄</a><a class="btn" href="t202607/itinerary.html">每日行程</a></div>
+</main>
 </body>
 </html>
