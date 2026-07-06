@@ -1,7 +1,6 @@
 window.KYOTO_THEMES={
  hotel_nearby:{
-  id:'hotel_nearby',
-  title:'飯店附近',
+  id:'hotel_nearby',title:'飯店附近',
   lead:'範圍抓 ibis Styles Kyoto Shijo、四条烏丸、錦市場、河原町、先斗町一帶。這頁以「從飯店出門要吃、喝、買、散步」為主，不混入遠距離名店。',
   base:{name:'ibis Styles Kyoto Shijo',map:'ibis Styles Kyoto Shijo',note:'住宿基準點。從這裡往四条烏丸、錦市場、河原町與先斗町都能形成步行或短程移動圈。'},
   sections:[
@@ -9,7 +8,7 @@ window.KYOTO_THEMES={
     {name:'ibis Styles Kyoto Shijo',typeLabel:'住宿基準',area:'karasuma',category:'hotel',note:'這趟京都市區移動的住宿基準。適合用來判斷四条烏丸、錦市場、河原町與先斗町的距離感。'},
     {name:'京都ことこと 四条店',typeLabel:'飯店內／和食',area:'karasuma',category:'food',note:'位在飯店內，晚歸或早上不想找店時最省力。定位是安全牌，不是特地朝聖型餐廳。'}]},
    {id:'breakfast',title:'早餐／定食／魚類定食',lead:'這組偏實用早餐與定食。適合早出發前吃飽，不把早上浪費在排隊名店。',items:[
-    {name:'室町干物食堂 めし さんど',typeLabel:'早餐／魚類定食',area:'karasuma',category:'food',note:'主攻魚類定食與乾物飯食，適合你想吃比較像日本日常早餐的時候。比咖啡麵包更有飽足感，早上接行程會穩。'},
+    {name:'室町干物食堂 めし さんど',typeLabel:'早餐／魚類定食',area:'karasuma',category:'food',note:'主攻魚類定食與乾物飯食，適合想吃比較像日本日常早餐的時候。比咖啡麵包更有飽足感，早上接行程會穩。'},
     {name:'四条西洞院食堂',typeLabel:'定食／日常食堂',area:'karasuma',category:'food',note:'飯店附近的實用型食堂。適合不想思考菜單、只想吃白飯配菜與熱食的早晚餐。'},
     {name:'やよい軒 四条烏丸店',typeLabel:'連鎖定食',area:'karasuma',category:'food',note:'定食連鎖，菜單清楚，份量穩。適合早出門或晚回來時快速解決一餐。'},
     {name:'やよい軒 五条烏丸店',typeLabel:'連鎖定食',area:'karasuma',category:'food',note:'同樣是穩定的定食連鎖，位置偏五条烏丸方向。若當天往京都站、五条移動，可當備用點。'},
@@ -41,7 +40,7 @@ window.KYOTO_THEMES={
     {name:'GOICHI PIZZA',typeLabel:'披薩／義式',area:'karasuma',category:'food',note:'飯店附近常被列為披薩備案的店。適合多人共享，晚餐決策壓力低。'},
     {name:'Burger Revolution Kyoto',typeLabel:'漢堡／晚餐',area:'karasuma',category:'food',note:'想吃西式肉感主餐時可用。適合小孩或同行者不想吃日式時當安全牌。'},
     {name:'京都 豚しゃぶ英 四条烏丸本店',typeLabel:'豚しゃぶ／晚餐',area:'karasuma',category:'food',note:'四条烏丸本店，主打豬肉涮涮鍋。適合晚餐想坐下來吃熱食，又不想跑太遠。'},
-    {name:'大衆すき焼き北斗 四条烏丸店',typeLabel:'壽喜燒／大眾店',area:'karasuma',category:'food',note:'四条烏丸附近的壽喜燒選項。定位較大眾，適合想吃壽喜燒但不想排高價老舖時。'},
+    {name:'大衆すき焼き北斗 四条烏丸店',typeLabel:'壽喜燒／大眾店',area:'karasuma',category:'food',note:'四条烏丸附近的壽喜燒選項。定位較大眾，適合想吃壽喜燒但不排高價老舖時。'},
     {name:'京鰻和 本店',typeLabel:'鰻魚／正餐',area:'karasuma',category:'food',note:'飯店圈可列入的鰻魚備案。你本來就對鰻魚有興趣，這家適合作為不離市中心的選項。'},
     {name:'焼肉矢澤 京都',typeLabel:'燒肉／高級肉',area:'kawaramachi',category:'food',note:'河原町方向的燒肉選項，肉質與品牌感較強。適合想安排一餐比較正式的燒肉晚餐。'},
     {name:'京都焼肉 牛楽亭',typeLabel:'燒肉／晚餐',area:'karasuma',category:'food',note:'四条烏丸圈的燒肉備案。適合想吃燒肉但不想走到先斗町或祇園時。'},
@@ -76,6 +75,36 @@ window.KYOTO_THEMES={
     {name:'ぽんしゅや三徳六味 五条高倉店',typeLabel:'日本酒／小料理',area:'karasuma',category:'food',note:'五条高倉方向，偏日本酒與小料理。適合大人晚餐或宵夜，不作早餐或家庭輕鬆餐。'},
     {name:'Kacto',typeLabel:'河原町／鴨川邊餐廳',area:'pontocho',category:'food',note:'靠鴨川與高瀨川一帶，空間感比一般飯店周邊餐廳更強。適合想要河邊氣氛的早餐、午餐或晚餐。'},
     {name:'葱や平吉 高瀬川店',typeLabel:'高瀨川／和食',area:'pontocho',category:'food',note:'高瀨川沿線的和食餐廳，位置適合河原町與先斗町延伸。若想吃蔬菜、蔥料理與京都河岸氣氛，可列入備案。'}]}
+  ]
+ },
+ beef_tongue:{
+  id:'beef_tongue',title:'牛肉／牛舌',
+  lead:'先用地區分，再看店。範圍以四条烏丸、河原町、先斗町、祇園與京都站可接的牛舌、燒肉、壽喜燒、牛肉料理為主；牛舌專門店優先，燒肉與壽喜燒列為同主題備案。',
+  base:{name:'四条烏丸',map:'四条烏丸 京都',note:'飯店所在區域，往河原町、先斗町、錦市場與祇園都容易接。'},
+  sections:[
+   {id:'kawaramachi',title:'河原町・四条河原町',lead:'牛舌與燒肉選擇最集中，晚餐動線最好。從高島屋、河原町、祇園祭或先斗町前後都能接。',items:[
+    {name:'牛たんの檸檬 京都店',typeLabel:'第1名／牛舌專門',area:'kawaramachi',category:'food',note:'新開、厚切牛舌主打，河原町動線好。適合想直接吃牛舌、不想進高價燒肉店時排第一順位。'},
+    {name:'坂之上商店 四条河原町店',typeLabel:'第2名／牛舌專門',area:'kawaramachi',category:'food',note:'牛舌專門方向，座位選擇多，適合晚餐。定位比一般燒肉更明確，想吃牛舌時比綜合燒肉更好判斷。'},
+    {name:'焼肉矢澤 京都',typeLabel:'高級燒肉／牛肉',area:'kawaramachi',category:'food',note:'河原町方向的高級燒肉選項，肉質與品牌感強。牛舌不是唯一主角，但若想把晚餐拉高等級，這家適合放進牛肉主題。'},
+    {name:'焼肉・塩ホルモン アジェ 木屋町団栗店',typeLabel:'燒肉／木屋町',area:'kawaramachi',category:'food',note:'木屋町、河原町晚餐圈可接的燒肉選項。適合晚間在河原町或先斗町周邊活動後，想吃較熱鬧的燒肉氣氛。'},
+    {name:'京の焼肉処 弘 三条木屋町店',typeLabel:'燒肉／弘系列',area:'kawaramachi',category:'food',note:'弘系列在京都辨識度高，三条木屋町位置適合河原町、木屋町散策後。若先斗町別邸客滿，可用同系列作替代。'}]},
+   {id:'pontocho',title:'先斗町・木屋町',lead:'適合安排成比較有京都夜晚氣氛的一餐。若重視空間、河岸、巷弄感，這區比單純交通方便更有記憶點。',items:[
+    {name:'弘 先斗町別邸',typeLabel:'第4名／高級燒肉',area:'pontocho',category:'food',note:'高級燒肉，牛舌是強項之一。適合想把燒肉安排成正式晚餐，也想要先斗町巷弄氣氛時。'},
+    {name:'焼肉 弘 先斗町店',typeLabel:'燒肉／先斗町',area:'pontocho',category:'food',note:'同屬弘系列，地點在先斗町動線內。若別邸不方便或訂位不合，可作為同區備案。'},
+    {name:'京やきにく 弘 木屋町店',typeLabel:'燒肉／木屋町',area:'pontocho',category:'food',note:'木屋町一帶的弘系列燒肉。適合河原町、四条大橋、先斗町夜間散步後接晚餐。'}]},
+   {id:'karasuma',title:'四条烏丸・錦市場・飯店附近',lead:'離飯店近，適合第一晚、晚歸或不想再走到河原町時使用。這區把實用燒肉、壽喜燒與牛肉店放一起。',items:[
+    {name:'弘商店 烏丸錦',typeLabel:'第5名／燒肉・牛肉',area:'karasuma',category:'food',note:'靠烏丸錦，離飯店與錦市場動線近。比先斗町更實用，適合想吃弘系列但不想走遠時。'},
+    {name:'大衆すき焼き北斗 四条烏丸店',typeLabel:'壽喜燒／大眾店',area:'karasuma',category:'food',note:'四条烏丸附近的壽喜燒選項，定位較大眾。適合想吃牛肉鍋物，但不想排或花到三嶋亭等老舖級別時。'},
+    {name:'三嶋亭 本店',typeLabel:'壽喜燒／老舖',area:'kawaramachi',category:'food',note:'京都壽喜燒老舖代表，適合想體驗傳統牛肉料理。價位與儀式感都較高，不是臨時晚餐備案，適合正式安排。'},
+    {name:'京都焼肉 牛楽亭',typeLabel:'燒肉／飯店圈',area:'karasuma',category:'food',note:'四条烏丸圈的燒肉備案。適合晚餐想吃燒肉，但不想往河原町、先斗町移動時。'},
+    {name:'焼肉の名門 天壇 四条本店',typeLabel:'燒肉／京都名店',area:'karasuma',category:'food',note:'京都燒肉名店系統，四条本店位置方便。適合想吃京都在地知名燒肉，而不是只找牛舌專門店時。'}]},
+   {id:'gion',title:'祇園・八坂周邊',lead:'適合清水寺、祇園、八坂神社行程後接晚餐。這區比較偏正式或觀光晚餐，不一定比河原町實用。',items:[
+    {name:'祇園 鹿六',typeLabel:'燒肉／祇園',area:'gion',category:'food',note:'祇園一帶的燒肉餐廳，適合東山、八坂神社後延伸晚餐。氣氛比飯店周邊更像京都夜晚，但也要注意訂位與價位。'},
+    {name:'祇園肉亭 新',typeLabel:'牛肉料理／祇園',area:'gion',category:'food',note:'祇園牛肉料理方向，適合想吃比較正式的肉料理時。若重視氣氛與地點，會比單純牛舌專門店更有儀式感。'},
+    {name:'京都焼肉 enen 四条河原町店',typeLabel:'燒肉／祇園河原町接點',area:'gion',category:'food',note:'位置可接祇園與四条河原町。適合東山行程後不想回四条烏丸，直接在河原町、祇園周邊吃肉。'}]},
+   {id:'kyoto-station',title:'京都站・回程前後',lead:'京都站周邊不是牛舌主戰場，但適合抵達、回程、雨天或等車時使用。',items:[
+    {name:'牛たん 伊之助 京都駅ビル店',typeLabel:'牛舌／京都站',area:'rakunan',category:'food',note:'京都站可用的牛舌選項，適合抵達、回程或等車前後。若不想特地去河原町，這家在交通便利性上有優勢。'},
+    {name:'焼肉トラジ 京都店',typeLabel:'燒肉／京都站',area:'rakunan',category:'food',note:'京都站周邊較容易安排的燒肉選項。適合回程前或京都站用餐，但旅遊氣氛不如先斗町、祇園。'}]}
   ]
  }
 };
