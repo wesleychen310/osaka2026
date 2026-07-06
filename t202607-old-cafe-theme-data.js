@@ -1,6 +1,6 @@
 window.KYOTO_THEMES=window.KYOTO_THEMES||{};
-window.KYOTO_THEMES.old_cafe_tea={
- id:'old_cafe_tea',title:'老咖啡老茶舖',
+window.KYOTO_THEMES.old_coffee_tea={
+ id:'old_coffee_tea',title:'老咖啡老茶舖',
  lead:'集中放京都古蹟咖啡廳、町家改裝咖啡、老舖茶店、抹茶甜點、和菓子茶寮與開很久的知名喫茶店。這頁只收有空間感、歷史感、老舖感或京都感的店，不放一般連鎖補給點。',
  base:{name:'四条烏丸',map:'四条烏丸 京都',note:'以飯店所在的四条烏丸為基準，依地區分段看老咖啡、老茶舖與町家甜點。'},
  sections:[
