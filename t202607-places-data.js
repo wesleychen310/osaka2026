@@ -1,9 +1,7 @@
 const AREA_META=[
  ['karasuma','四條烏丸'],['sanjo','烏丸御池'],['kawaramachi','河原町'],['pontocho','先斗町'],['gion','祇園清水'],['okazaki','岡崎銀閣'],['rakuhoku','洛北大原'],['rakusai','洛西嵐山'],['rakunan','洛南伏見'],['uji','宇治'],['nara','奈良公園'],['nara_far','奈良遠郊']
 ];
-const CATEGORY_META={
- books:{label:'書店／古書店',rank:1},food:{label:'餐廳',rank:2},drinks:{label:'飲料／咖啡／茶點',rank:3},shops:{label:'商店',rank:4},shinise:{label:'老舖',rank:5},heritage:{label:'古蹟／近代建築／老屋',rank:6},sights:{label:'景點',rank:7}
-};
+const CATEGORY_META={books:{label:'書店／古書店',rank:1},food:{label:'餐廳',rank:2},drinks:{label:'飲料／咖啡／茶點',rank:3},shops:{label:'商店',rank:4},shinise:{label:'老舖',rank:5},heritage:{label:'古蹟／近代建築／老屋',rank:6},sights:{label:'景點',rank:7}};
 const TEA_EXTRA={
  karasuma:['丸久小山園 西洞院店|和風茶店・抹茶|離飯店近，適合喝茶或買抹茶伴手禮。','虎屋菓寮 京都四条南座店|和菓子・喫茶|若往四条大橋方向，可排和菓子與茶。','仙太郎 大丸京都店|和菓子・外帶|百貨地下好買，適合回飯店。'],
  sanjo:['一保堂茶舗 京都本店|老舖茶店・喫茶|買茶與喝茶都適合，Day 4 老舖線核心。','柳桜園茶舗|老舖茶店・抹茶|寺町二條附近，適合買茶葉。','然花抄院 京都室町本店|老屋・和菓子喫茶|町家感強，可當老屋甜點備案。'],
@@ -18,17 +16,12 @@ const TEA_EXTRA={
  nara:['春日荷茶屋|和風茶屋・春日大社|春日大社周邊，萬葉粥與茶屋感。','中谷堂|和菓子・外帶|路過買艾草麻糬。','萬御菓子誂處 樫舎|和菓子・奈良町|奈良町和菓子，適合慢慢坐。','ほうせき箱|刨冰・奈良|熱天甜點備案。'],
  nara_far:['法隆寺參道茶店|門前茶店・斑鳩|法隆寺後休息。','長谷寺門前草餅店|門前甘味・長谷寺|長谷寺線適合。','室生寺門前茶屋|山寺茶屋・室生寺|室生寺後休息。','當麻寺門前茶店|門前茶店・當麻寺|遠郊古寺線備案。']
 };
-const BOOK_SECTION_AREA={
- kawaramachi:'kawaramachi','teramachi-shijo':'kawaramachi','kyoto-station':'rakunan',okazaki:'okazaki',gosho:'sanjo',ginkaku:'okazaki',demachiyanagi:'rakuhoku',ichijoji:'rakuhoku','gion-higashiyama':'gion',arashiyama:'rakusai'
-};
+const BOOK_SECTION_AREA={kawaramachi:'kawaramachi','teramachi-shijo':'kawaramachi','kyoto-station':'rakunan',okazaki:'okazaki',gosho:'sanjo',ginkaku:'okazaki',demachiyanagi:'rakuhoku',ichijoji:'rakuhoku','gion-higashiyama':'gion',arashiyama:'rakusai'};
 function splitLegacy(s){const [name='',typeLabel='地點',description='']=(s||'').split('|');return {name,typeLabel,description};}
 function mkid(s){return String(s||'').toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u3400-\u9fff]+/g,'-').replace(/^-|-$/g,'').slice(0,80);}
 function tagsFrom(text){return [...new Set(String(text||'').split(/[・／\/、,｜|\s]+/).filter(Boolean))];}
 function hasAny(text,words){return words.some(w=>String(text||'').includes(w));}
-function flagFor(typeLabel,description,category){const text=`${typeLabel} ${description}`;return {
- shinise:hasAny(text,['老舖','老店','老咖啡','老茶','老派','創業','伝統','傳統','百年','寛延','老古書店'])||category==='books'&&hasAny(text,['古典籍','老舖']),
- heritage:hasAny(text,['古寺','神社','庭園','洋風','近代','昭和','大正','明治','舊','旧','老屋','町家','水路','塔頭','門跡','文化財','建築','古蹟','古都','老街','古典籍','木版畫','浮世繪'])
-};}
+function flagFor(typeLabel,description,category){const text=`${typeLabel} ${description}`;return {shinise:hasAny(text,['老舖','老店','老咖啡','老茶','老派','創業','伝統','傳統','百年','寛延','老古書店'])||category==='books'&&hasAny(text,['古典籍','老舖']),heritage:hasAny(text,['古寺','神社','庭園','洋風','近代','昭和','大正','明治','舊','旧','老屋','町家','水路','塔頭','門跡','文化財','建築','古蹟','古都','老街','古典籍','木版畫','浮世繪'])};}
 function areaLabel(area){return AREA_META.find(x=>x[0]===area)?.[1]||area;}
 function normalizeCategory(category){return CATEGORY_META[category]?category:(category==='hotel'?'shops':'food');}
 function makePlace({name,typeLabel,description,area,category,source='legacy',bookSection=null,priority='normal',themeIds=[],themeLabels=[]}){const cat=normalizeCategory(category);const flags=flagFor(typeLabel,description,cat);return {id:`${area}-${cat}-${mkid(name)}`,name,typeLabel,summary:description,description,area,areaLabel:areaLabel(area),category:cat,categoryLabel:CATEGORY_META[cat]?.label||cat,tags:tagsFrom(typeLabel),mapQuery:name,source,bookSection,priority,themeIds:[...new Set(themeIds)],themeLabels:[...new Set(themeLabels)],flags};}
@@ -36,8 +29,6 @@ function mergePlaces(list){const byKey=new Map();list.forEach(p=>{const key=[p.n
 function buildPlaces(){const places=[];const areas=AREA_META.map(([id,label])=>({id,label,title:window.KYOTO_AREAS?.[id]?.title||label,lead:window.KYOTO_AREAS?.[id]?.lead||''}));
  areas.forEach(a=>{const raw=window.KYOTO_AREAS?.[a.id]||{};[['food','food'],['shop','shops'],['spots','sights']].forEach(([legacy,category])=>(raw[legacy]||[]).forEach(s=>{const x=splitLegacy(s);places.push(makePlace({...x,area:a.id,category,source:'areas'}));}));[...(raw.cafe||[]),...(raw.tea||[]),...(TEA_EXTRA[a.id]||[])].forEach(s=>{const x=splitLegacy(s);places.push(makePlace({...x,area:a.id,category:'drinks',source:'areas'}));});});
  const bookSections=(window.KYOTO_BOOKS?.sections||[]).map(sec=>{const mapped=BOOK_SECTION_AREA[sec.id]||'kawaramachi';sec.items.forEach(x=>places.push(makePlace({name:x.name,typeLabel:x.type,description:x.note,area:mapped,category:'books',source:'books',bookSection:sec.id,priority:/必放|代表|老舖|京都代表|核心/.test(`${x.type} ${x.note}`)?'high':'normal'})));return {id:sec.id,title:sec.title,lead:sec.lead,area:mapped};});
- const themes={...(window.KYOTO_THEMES||{}),...(window.KYOTO_EXTRA_THEMES||{})};
- Object.values(themes).forEach(theme=>{(theme.sections||[]).forEach(sec=>{(sec.items||[]).forEach(x=>{places.push(makePlace({name:x.name,typeLabel:x.typeLabel||'主題地點',description:x.note||'',area:x.area||'karasuma',category:x.category||'food',source:'themes',priority:/第1名|第2名|第3名|第4名|第5名|主打|必/.test(`${x.typeLabel||''} ${x.note||''}`)?'high':'normal',themeIds:[theme.id],themeLabels:[theme.title]}));});});});
- const dedup=mergePlaces(places);
- return {version:'places-audit1',areas,categories:CATEGORY_META,places:dedup,bookSections,bookPriority:window.KYOTO_BOOKS?.priority||{title:'優先',groups:[]},bookRoutes:window.KYOTO_BOOKS?.routes||[],themes,sourceFiles:['t202607-data.js','t202607-books-data.js','t202607-themes-data.js','t202607-beef-theme-data.js','t202607-places-data.js']};}
+ const themes=window.KYOTO_THEMES||{};Object.values(themes).forEach(theme=>{(theme.sections||[]).forEach(sec=>{(sec.items||[]).forEach(x=>{places.push(makePlace({name:x.name,typeLabel:x.typeLabel||'主題地點',description:x.note||'',area:x.area||'karasuma',category:x.category||'food',source:'themes',priority:/第1名|第2名|第3名|第4名|第5名|主打|必/.test(`${x.typeLabel||''} ${x.note||''}`)?'high':'normal',themeIds:[theme.id],themeLabels:[theme.title]}));});});});
+ const dedup=mergePlaces(places);return {version:'places-clean1',areas,categories:CATEGORY_META,places:dedup,bookSections,bookPriority:window.KYOTO_BOOKS?.priority||{title:'優先',groups:[]},bookRoutes:window.KYOTO_BOOKS?.routes||[],themes,sourceFiles:['t202607-data.js','t202607-books-data.js','t202607-themes-data.js','t202607-places-data.js']};}
 window.KYOTO_PLACES=buildPlaces();
