@@ -7,3 +7,4 @@ loadScript('../t202607-old-cafe-theme-data.js');
 loadScript('../t202607-architecture-data.js');
 loadScript('../t202607-places-data.js');
 loadScript('site.js');
+loadScript('site-patch.js');
