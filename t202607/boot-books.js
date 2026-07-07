@@ -12,7 +12,8 @@ const KYOTO_FILES=[
  '../t202607-beef-tongue-clean-data.js',
  '../t202607-places-data.js',
  '../t202607-places-book-map-build.js',
- 'site-books9.js'
+ 'site-books9.js',
+ 'site-books9-start.js'
 ];
 function loadKyotoFile(i){
  if(i>=KYOTO_FILES.length)return;
