@@ -1,5 +1,5 @@
-const KYOTO_CACHE_VERSION='clean6';
-const KYOTO_FILES=['../t202607-data.js','../t202607-books-data.js','../t202607-themes-data.js','../t202607-old-cafe-theme-data.js','../t202607-architecture-data.js','../t202607-must-go-theme-data.js','../t202607-places-data.js','site-clean6.js'];
+const KYOTO_CACHE_VERSION='clean7';
+const KYOTO_FILES=['../t202607-data.js','../t202607-books-data.js','../t202607-themes-data.js','../t202607-old-cafe-theme-data.js','../t202607-architecture-data.js','../t202607-must-go-theme-data.js','../t202607-beef-tongue-clean-data.js','../t202607-places-data.js','site-clean6.js'];
 function loadKyotoFile(i){
  if(i>=KYOTO_FILES.length){if(document.readyState!=='loading'&&typeof boot==='function')boot();return;}
  const n=document.createElement('script');
