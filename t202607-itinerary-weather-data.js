@@ -1,0 +1,22 @@
+window.KYOTO_ITINERARY_WEATHER={
+ source:{name:'Open-Meteo',url:'https://open-meteo.com/'},
+ timezone:'Asia/Tokyo',
+ refreshHours:4,
+ locations:{
+  nara:{name:'奈良',latitude:34.6851,longitude:135.8048},
+  kyoto_higashiyama:{name:'京都・東山',latitude:35.0037,longitude:135.7788},
+  kyoto_okazaki:{name:'京都・岡崎',latitude:35.0142,longitude:135.7825},
+  uji:{name:'宇治',latitude:34.8845,longitude:135.7997},
+  kyoto_shichijo:{name:'京都・七条',latitude:34.9892,longitude:135.7725},
+  kyoto_shijo:{name:'京都・四条',latitude:35.0037,longitude:135.7594},
+  kix:{name:'關西機場',latitude:34.4347,longitude:135.2440}
+ },
+ days:{
+  d1:['nara'],
+  d2:['kyoto_higashiyama'],
+  d3:['kyoto_okazaki'],
+  d4:['uji'],
+  d5:['kyoto_shichijo'],
+  d6:['kyoto_shijo','kix']
+ }
+};
