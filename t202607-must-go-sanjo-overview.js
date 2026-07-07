@@ -1,0 +1,4 @@
+window.KYOTO_THEMES=window.KYOTO_THEMES||{};
+const routeItem=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob('eyJuYW1lIjoi5LiJ5qKd6YCa44O75aSn5q2j5rWq5ryr6IiH6L+R5Luj5rSL6aSo5pWj5q2lIiwidHlwZUxhYmVsIjoi5bu656+J5pWj5q2l6Lev57ea77yP5piO5rK744O75aSn5q2j44O75pit5ZKMIiwiYXJlYSI6InNhbmpvIiwiY2F0ZWdvcnkiOiJzaWdodHMiLCJtYXAiOiLkuInmnaHpgJog5Lqs6YO9Iiwibm90ZSI6IuW7uuitsOeUseeDj+S4uOW+oeaxoOW+gOays+WOn+eUuuS+neW6j+i1sO+8muS4reS6rOmDteS+v+WxgCDihpIgVFNVR1Ug5Lqs6YO95LiJ5p2hIOKGkiDkuqzpg73mlofljJbljZrnianppKjliKXppKgg4oaSIFNBQ1JB44OT44OrIOKGkiAxOTI444OT44Or44CC5rK/6YCU55yL54++5b256YO15bGA44CB6IiK6YqA6KGM44CB6Kit6KiI5peF5a6/44CB5ZWG5qWt5rS75YyW6IiH5YqH5aC044CCIn0='),c=>c.charCodeAt(0))));
+const mustGo=window.KYOTO_THEMES.must_go;
+if(mustGo){const sanjo=mustGo.sections.find(x=>x.id==='sanjo');if(sanjo&&!sanjo.items.some(x=>x.name===routeItem.name))sanjo.items.unshift(routeItem);}
