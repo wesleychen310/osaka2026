@@ -1,8 +1,9 @@
-const ITINERARY_CACHE_VERSION='flight2';
+const ITINERARY_CACHE_VERSION='transport1';
 const ITINERARY_FILES=[
  '../t202607-itinerary-route4-data.js',
  '../t202607-itinerary-weather-data.js',
  '../t202607-itinerary-flight-data.js',
+ '../t202607-itinerary-luggage-data.js',
  'itinerary.js'
 ];
 function loadItineraryFile(index){
