@@ -1,4 +1,5 @@
-const map=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+const googleMap=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+const appleMap=q=>'https://maps.apple.com/?q='+encodeURIComponent(q);
 const WEATHER=window.KYOTO_ITINERARY_WEATHER;
 const FLIGHTS=window.KYOTO_ITINERARY_FLIGHTS||{};
 const LUGGAGE=window.KYOTO_ITINERARY_LUGGAGE||{};
@@ -6,13 +7,14 @@ const WEATHER_DAILY='weather_code,temperature_2m_max,temperature_2m_min,apparent
 const WEATHER_REFRESH_MS=(WEATHER?.refreshHours||4)*60*60*1000;
 const JST_OFFSET_MS=9*60*60*1000;
 const WEATHER_CODES={0:['☀️','晴朗'],1:['🌤️','大致晴朗'],2:['⛅','局部多雲'],3:['☁️','陰天'],45:['🌫️','霧'],48:['🌫️','霧淞'],51:['🌦️','輕微毛毛雨'],53:['🌦️','毛毛雨'],55:['🌧️','較強毛毛雨'],56:['🌧️','凍毛毛雨'],57:['🌧️','強凍毛毛雨'],61:['🌦️','小雨'],63:['🌧️','中雨'],65:['🌧️','大雨'],66:['🌧️','凍雨'],67:['🌧️','強凍雨'],71:['🌨️','小雪'],73:['🌨️','中雪'],75:['❄️','大雪'],77:['🌨️','雪粒'],80:['🌦️','局部陣雨'],81:['🌧️','陣雨'],82:['⛈️','強陣雨'],85:['🌨️','局部陣雪'],86:['❄️','強陣雪'],95:['⛈️','雷雨'],96:['⛈️','雷雨伴小冰雹'],99:['⛈️','雷雨伴大冰雹']};
-function mlink(label,q,cls='map'){return `<a class="${cls}" target="_blank" rel="noopener" href="${map(q||label)}">${label}</a>`;}
+function mapButton(label,url,cls='map'){return `<a class="${cls}" target="_blank" rel="noopener" href="${url}">${label}</a>`;}
+function mapPair(q,googleLabel='📍 Google Maps',appleLabel=' Apple Maps',cls='map'){return `${mapButton(googleLabel,googleMap(q),cls)}${mapButton(appleLabel,appleMap(q),cls)}`;}
 function setActiveDay(id){document.querySelectorAll('[data-day-link]').forEach(a=>a.classList.toggle('primary',a.dataset.dayLink===id));document.querySelectorAll('.day-section').forEach(s=>s.classList.toggle('is-active',s.id===id));}
 function syncActiveDay(){setActiveDay((location.hash||'#d1').slice(1));}
 function dayNav(days){return `<div class="daynav">${days.map(d=>`<a class="btn datebtn" data-day-link="${d.id}" href="#${d.id}"><span>${d.day}</span><b>${d.dateText}</b></a>`).join('')}</div>`;}
-function routeChip(x){if(typeof x==='string')return `<span>${x}</span>`;const label=x.label||x.name||'';return x.map?mlink(label,x.map,'route-link'):`<span>${label}</span>`;}
-function stepCard(s){return `<div class="step"><div class="time">${s.time}</div><b>${s.title}</b><p class="why">${s.why}</p><div class="route">${s.route.map(routeChip).join('')}</div>${mlink('🎯 終點：'+s.dest,s.map,'map dest')}</div>`;}
-function backupCard(b){return `<div class="card"><span class="tag local">${b.title}</span><div>${b.items.map(x=>mlink(x,x)).join('')}</div></div>`;}
+function routeChip(x){if(typeof x==='string')return `<span>${x}</span>`;const label=x.label||x.name||'';return x.map?`<span><b>${label}</b>${mapPair(x.map,'Google','Apple','route-link')}</span>`:`<span>${label}</span>`;}
+function stepCard(s){return `<div class="step"><div class="time">${s.time}</div><b>${s.title}</b><p class="why">${s.why}</p><div class="route">${s.route.map(routeChip).join('')}</div><div>${mapPair(s.map,'📍 Google Maps：'+s.dest,' Apple Maps：'+s.dest,'map dest')}</div></div>`;}
+function backupCard(b){return `<div class="card"><span class="tag local">${b.title}</span><div>${b.items.map(x=>`<div>${mapPair(x,'📍 '+x+'｜Google',' '+x+'｜Apple')}</div>`).join('')}</div></div>`;}
 function setupDayClicks(){document.querySelectorAll('[data-day-link]').forEach(a=>a.addEventListener('click',()=>setActiveDay(a.dataset.dayLink)));}
 function setupDayObserver(){if(!('IntersectionObserver' in window))return;const io=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)setActiveDay(visible.target.id);},{rootMargin:'-30% 0px -55% 0px',threshold:[0,.25,.5,.75,1]});document.querySelectorAll('.day-section').forEach(s=>io.observe(s));}
 function weatherSlot(){return Math.floor((Date.now()+JST_OFFSET_MS)/WEATHER_REFRESH_MS);}
@@ -32,8 +34,8 @@ function flightCard(f){return `<article class="flight-card"><div class="flight-t
 function flightBlock(dayId){const items=FLIGHTS[dayId]||[];if(!items.length)return '';return `<div class="flight-day"><div class="weather-heading"><h3>航班動態連結</h3></div>${items.map(flightCard).join('')}</div>`;}
 function luggageCard(x){return `<article class="flight-card"><div class="flight-top"><div><div class="flight-kicker">🧳 行李櫃檯</div><div class="flight-no">${x.title}</div><div class="flight-route">${x.location}</div><span class="flight-terminal">營業 ${x.time}</span></div><div class="flight-time">${x.date}<br>2 件大行李</div></div><p class="flight-note">${x.action}<br>${x.note}</p><div class="flight-links">${x.links.map(extLink).join('')}</div></article>`;}
 function luggageBlock(dayId){const items=LUGGAGE[dayId]||[];if(!items.length)return '';return `<div class="flight-day"><div class="weather-heading"><h3>行李櫃檯</h3></div>${items.map(luggageCard).join('')}</div>`;}
-function renderItinerary(){const data=window.KYOTO_ITINERARY;document.body.insertAdjacentHTML('afterbegin',`<header class="top"><h1>🌸 樂京都 2026｜每日行程</h1><div class="small">日期醒目版｜天氣每 4 小時更新一次（每日 6 次）｜航班與行李櫃檯連結｜地點節點可點 Google Maps</div><div class="nav"><a class="btn" href="index.html">總目錄</a><a class="btn primary" href="itinerary.html">每日行程</a><a class="btn" href="transport.html">交通與行李</a></div><div class="label">按日期跳轉</div>${dayNav(data.days)}</header>`);
- const lodging=`<section class="card"><span class="tag near">住宿基準</span><h2>0｜住宿</h2><h3>${data.lodging.name}</h3><p class="note">${data.lodging.period}。${data.lodging.note}</p>${mlink('🎯 飯店：'+data.lodging.name,data.lodging.map,'map dest')}</section>`;
+function renderItinerary(){const data=window.KYOTO_ITINERARY;document.body.insertAdjacentHTML('afterbegin',`<header class="top"><h1>🌸 樂京都 2026｜每日行程</h1><div class="small">日期醒目版｜天氣每 4 小時更新一次（每日 6 次）｜每個地點提供 Google Maps 與 Apple Maps｜航班與行李櫃檯連結</div><div class="nav"><a class="btn" href="index.html">總目錄</a><a class="btn primary" href="itinerary.html">每日行程</a><a class="btn" href="transport.html">交通與行李</a></div><div class="label">按日期跳轉</div>${dayNav(data.days)}</header>`);
+ const lodging=`<section class="card"><span class="tag near">住宿基準</span><h2>0｜住宿</h2><h3>${data.lodging.name}</h3><p class="note">${data.lodging.period}。${data.lodging.note}</p><div>${mapPair(data.lodging.map,'📍 Google Maps：'+data.lodging.name,' Apple Maps：'+data.lodging.name,'map dest')}</div></section>`;
  const days=data.days.map(d=>`<section class="day-section" id="${d.id}" data-date="${d.date}"><div class="date-hero"><div><span class="tag">${d.day}</span><h2><span class="date-title">${d.dateText}</span>｜${d.title}</h2></div><div class="date-chip"><small>7月</small><b>${d.shortDate.split('/')[1]}日</b></div></div>${flightBlock(d.id)}${luggageBlock(d.id)}<div class="weather-day" id="weather-${d.id}"><div class="weather-loading">準備天氣資料…</div></div><div class="card"><span class="tag">今日摘要</span><p class="note">${d.summary}</p></div><h3>主行程</h3><div class="card">${d.steps.map(stepCard).join('')}</div><h3>就地備選</h3><div class="cols">${d.backups.map(backupCard).join('')}</div></section>`).join('');
  document.querySelector('main').innerHTML=lodging+days+'<a class="back" href="#">↑ 上方</a>';setupDayClicks();syncActiveDay();setupDayObserver();refreshAllWeather();scheduleWeatherRefresh();}
 window.refreshWeatherDay=refreshWeatherDay;
