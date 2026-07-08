@@ -1,4 +1,4 @@
-const ITINERARY_CACHE_VERSION='flight1';
+const ITINERARY_CACHE_VERSION='flight2';
 const ITINERARY_FILES=[
  '../t202607-itinerary-route4-data.js',
  '../t202607-itinerary-weather-data.js',
