@@ -1,4 +1,4 @@
-const KYOTO_CACHE_VERSION='clean11';
+const KYOTO_CACHE_VERSION='cityday1';
 const KYOTO_FILES=['../t202607-data.js','../t202607-books-data.js','../t202607-books-map-data.js','../t202607-themes-data.js','../t202607-old-cafe-theme-data.js','../t202607-architecture-data.js','../t202607-must-go-theme-data.js','../t202607-must-go-sanjo-data.js','../t202607-must-go-sanjo-overview.js','../t202607-beef-tongue-clean-data.js','../t202607-places-data.js','../t202607-places-book-map-build.js','site-mustgo.js'];
 function loadKyotoFile(i){if(i>=KYOTO_FILES.length){if(document.readyState!=='loading'&&typeof boot==='function')boot();return;}const n=document.createElement('script');n.src=KYOTO_FILES[i]+'?v='+KYOTO_CACHE_VERSION;n.onload=function(){loadKyotoFile(i+1);};document.head.appendChild(n);}
 loadKyotoFile(0);
