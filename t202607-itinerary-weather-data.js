@@ -6,7 +6,8 @@ window.KYOTO_ITINERARY_WEATHER={
   nara:{name:'奈良',latitude:34.6851,longitude:135.8048},
   kyoto_higashiyama:{name:'京都・東山',latitude:35.0037,longitude:135.7788},
   kyoto_okazaki:{name:'京都・岡崎',latitude:35.0142,longitude:135.7825},
-  uji:{name:'宇治',latitude:34.8845,longitude:135.7997},
+  kyoto_nakagyo:{name:'京都・烏丸御池',latitude:35.0104,longitude:135.7597},
+  kyoto_sakyo:{name:'京都・京都大學',latitude:35.0280,longitude:135.7807},
   kyoto_shichijo:{name:'京都・七条',latitude:34.9892,longitude:135.7725},
   kyoto_shijo:{name:'京都・四条',latitude:35.0037,longitude:135.7594},
   kix:{name:'關西機場',latitude:34.4347,longitude:135.2440}
@@ -15,7 +16,7 @@ window.KYOTO_ITINERARY_WEATHER={
   d1:['nara'],
   d2:['kyoto_higashiyama'],
   d3:['kyoto_okazaki'],
-  d4:['uji'],
+  d4:['kyoto_nakagyo','kyoto_sakyo'],
   d5:['kyoto_shichijo'],
   d6:['kyoto_shijo','kix']
  }
