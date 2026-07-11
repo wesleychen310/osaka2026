@@ -1,4 +1,4 @@
-const ITINERARY_CACHE_VERSION='d3-bal-isetan-20260711';
+const ITINERARY_CACHE_VERSION='d4-koyamaen-shoseien-nishiki-bal-20260712';
 const ITINERARY_FILES=[
  '../t202607-itinerary-route4-data.js',
  '../t202607-itinerary-weather-data.js',
