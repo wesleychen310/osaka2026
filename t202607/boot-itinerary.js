@@ -1,6 +1,7 @@
-const ITINERARY_CACHE_VERSION='d4-koyamaen-shoseien-nishiki-bal-20260712';
+const ITINERARY_CACHE_VERSION='d4-actual-kamigamo-20260712';
 const ITINERARY_FILES=[
  '../t202607-itinerary-route4-data.js',
+ '../t202607-itinerary-day4-actual-data.js',
  '../t202607-itinerary-weather-data.js',
  '../t202607-itinerary-flight-data.js',
  '../t202607-itinerary-luggage-data.js',
