@@ -1,4 +1,4 @@
-const KYOTO2027_CACHE_VERSION='20260928-5';
+const KYOTO2027_CACHE_VERSION='20260928-6';
 const KYOTO2027_FILES=[
   '../t202607-data.js',
   '../t202607-books-data.js',
