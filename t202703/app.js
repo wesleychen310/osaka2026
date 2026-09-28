@@ -85,29 +85,16 @@
   let activeCat='all';
   let query='';
 
-  function geminiPrompt(p){
+  function gptPrompt(p){
     const cats = p.categories ? p.categories.map(c=>CAT[c]||c).join('、') : (p.type||'地點');
     const region = p.region ? `地區：${p.region}。` : '';
     const known = p.description || p.intro || p.note || '';
     return `請用台灣繁體中文介紹「${p.jp||p.name}」。背景：2027/3/27–4/5 京都賞櫻旅行，4人同行，住宿基地四條河原町。${region}分類：${cats}。目前筆記：${known}。請先查證最新公開資料，整理：1.核心特色 2.歷史／建築／庭園或店家背景 3.櫻花季適合的造訪時段（如適用）4.建議停留時間 5.周邊順遊 6.餐廳請補招牌、價位與訂位；商店請補值得買的品項。`;
   }
-
-  function copyText(s){
-    if(navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(s);
-    const ta=document.createElement('textarea'); ta.value=s; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
-    try{document.execCommand('copy');}catch(e){} ta.remove(); return Promise.resolve();
-  }
-  function toast(msg){
-    let e=document.getElementById('toast'); if(!e){e=document.createElement('div');e.id='toast';document.body.appendChild(e);} e.textContent=msg;e.classList.add('show');
-    clearTimeout(window.__toast);window.__toast=setTimeout(()=>e.classList.remove('show'),2400);
-  }
-  function openGemini(p){
-    const prompt=geminiPrompt(p); window.open('https://gemini.google.com/app','_blank','noopener');
-    copyText(prompt).then(()=>toast('已開啟 Gemini；介紹提示詞已複製，貼上即可')).catch(()=>toast('已開啟 Gemini'));
-  }
+  const gptUrl = p => 'https://chatgpt.com/?q=' + encodeURIComponent(gptPrompt(p));
 
   function manualCard(p,i){
-    return `<article class="card locked-card"><div class="type">${esc(p.type)}</div><h3>${esc(p.jp||p.name)}</h3><p class="note">${esc(p.note)}</p><div class="tags">${(p.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="actions"><button class="gemini manual-gemini" data-i="${i}">✨ Gemini 簡介</button><a class="map" href="${mapUrl(p)}" target="_blank" rel="noopener">📍 Google Maps</a></div></article>`;
+    return `<article class="card locked-card"><div class="type">${esc(p.type)}</div><h3>${esc(p.jp||p.name)}</h3><p class="note">${esc(p.note)}</p><div class="tags">${(p.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="actions"><a class="gpt" href="${gptUrl(p)}" target="_blank" rel="noopener">✨ GPT 簡介</a><a class="map" href="${mapUrl(p)}" target="_blank" rel="noopener">📍 Google Maps</a></div></article>`;
   }
 
   app.innerHTML = `
@@ -125,7 +112,7 @@
 
     <section><div class="section-title"><h2>每日骨架</h2><small>依花況逐日填入</small></div><div class="days">${d.days.map((x,i)=>`<div class="day"><b>${x}</b><small>Day ${i+1} · 待排</small></div>`).join('')}</div></section>
 
-    <section><div class="section-title"><h2>2027 已鎖定</h2><small>每個點都有 Gemini / Google Maps</small></div><div class="grid locked-grid">${d.places.map(manualCard).join('')}</div></section>
+    <section><div class="section-title"><h2>2027 已鎖定</h2><small>每個點都有 GPT / Google Maps</small></div><div class="grid locked-grid">${d.places.map(manualCard).join('')}</div></section>
 
     <section id="catalog"><div class="section-title"><h2>樂京都店家資料庫</h2><small id="resultCount">整批自 2026 樂京都正本載入</small></div>
       <div class="catalog-tools"><input id="placeSearch" type="search" placeholder="搜尋店名、類型、地區…" autocomplete="off"><div class="filters" id="filters"></div></div>
@@ -135,8 +122,6 @@
     <section><div class="section-title"><h2>待確認</h2></div>${d.pending.map(x=>`<div class="pending">${esc(x)}</div>`).join('')}</section>
   `;
 
-  document.querySelectorAll('.manual-gemini').forEach(b=>b.addEventListener('click',()=>openGemini(d.places[Number(b.dataset.i)])));
-
   const filtersEl=document.getElementById('filters');
   filtersEl.innerHTML=[['all','全部'],...Object.entries(CAT)].map(([k,v])=>`<button class="filter ${k==='all'?'active':''}" data-cat="${k}">${v}</button>`).join('');
   filtersEl.addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;activeCat=b.dataset.cat;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));renderCatalog();});
@@ -145,7 +130,7 @@
   function cardHtml(p){
     const cats=p.categories.map(c=>CAT[c]||c).join('・');
     const type=[...p.typeLabels].slice(0,2).join('／');
-    return `<article class="card catalog-card"><div class="type">${esc(cats)}</div><h3>${esc(p.name)}</h3><div class="subtype">${esc(type)}</div><p class="note">${esc(p.description||'樂京都既有收錄點。')}</p><div class="actions"><button class="gemini catalog-gemini" data-i="${p.idx}">✨ Gemini 簡介</button><a class="map" href="${mapUrl(p)}" target="_blank" rel="noopener">📍 Google Maps</a></div></article>`;
+    return `<article class="card catalog-card"><div class="type">${esc(cats)}</div><h3>${esc(p.name)}</h3><div class="subtype">${esc(type)}</div><p class="note">${esc(p.description||'樂京都既有收錄點。')}</p><div class="actions"><a class="gpt" href="${gptUrl(p)}" target="_blank" rel="noopener">✨ GPT 簡介</a><a class="map" href="${mapUrl(p)}" target="_blank" rel="noopener">📍 Google Maps</a></div></article>`;
   }
 
   function renderCatalog(){
@@ -162,7 +147,6 @@
       const open=/四條河原町|寺町・新京極|木屋町/.test(r)&&!query&&activeCat==='all';
       return `<details class="region" ${open?'open':''}><summary><span>${esc(r)}</span><b>${items.length}</b></summary><div class="grid region-grid">${items.map(cardHtml).join('')}</div></details>`;
     }).join('') || '<div class="empty">沒有符合條件的項目。</div>';
-    document.querySelectorAll('.catalog-gemini').forEach(b=>b.addEventListener('click',()=>openGemini(catalog[Number(b.dataset.i)])));
   }
   renderCatalog();
 })();
