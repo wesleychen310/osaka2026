@@ -1,4 +1,4 @@
-const KYOTO2027_CACHE_VERSION = '20260928-1';
+const KYOTO2027_CACHE_VERSION = '20260928-2';
 const KYOTO2027_FILES = ['data.js', 'app.js'];
 function loadKyoto2027(i){
   if(i >= KYOTO2027_FILES.length) return;
