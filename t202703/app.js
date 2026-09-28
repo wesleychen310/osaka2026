@@ -4,13 +4,18 @@
   const esc = s => String(s ?? '').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
   const mapUrl = p => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(p.mapQuery || p.jp || p.name);
   const CAT = {food:'餐廳',drinks:'咖啡／茶／甜點',shops:'商店／百貨／伴手禮',books:'書店／古書店'};
-  const allowed = new Set(Object.keys(CAT));
+  const CAT_ORDER = ['food','drinks','shops','books'];
+  const allowed = new Set(CAT_ORDER);
   const REGION_ORDER = [
     '四條河原町・高島屋・BAL','寺町・新京極・河原町','木屋町・先斗町・鴨川','四條烏丸・錦市場','烏丸御池・三條通','寺町・二條・三條',
     '祇園・八坂・白川','清水寺・二三年坂・東山','南禪寺・岡崎・平安神宮','哲學之道・銀閣寺・吉田山','京都御所・神宮丸太町',
     '出町柳・下鴨・京大','一乘寺・修學院','大德寺・今宮神社','大原','貴船・鞍馬','洛北其他',
     '金閣寺・龍安寺・仁和寺','嵐山・嵯峨','京都站・八條口','伏見稻荷・伏見酒藏','東福寺・泉涌寺','山科・醍醐','宇治',
     '奈良公園・奈良町','奈良西之京・斑鳩・遠郊'
+  ];
+  const QUICK_REGIONS = [
+    '四條河原町・高島屋・BAL','寺町・新京極・河原町','木屋町・先斗町・鴨川','祇園・八坂・白川',
+    '南禪寺・岡崎・平安神宮','哲學之道・銀閣寺・吉田山','嵐山・嵯峨','宇治'
   ];
 
   function textOf(p){ return `${p.name||''} ${p.typeLabel||''} ${p.description||p.summary||''} ${p.bookSection||''}`; }
@@ -82,7 +87,7 @@
   }
 
   const catalog = buildCatalog();
-  let activeCat='all';
+  let viewMode='region';
   let query='';
 
   function gptPrompt(p){
@@ -93,8 +98,14 @@
   }
   const gptUrl = p => 'https://chatgpt.com/?q=' + encodeURIComponent(gptPrompt(p));
 
-  function manualCard(p,i){
+  function manualCard(p){
     return `<article class="card locked-card"><div class="type">${esc(p.type)}</div><h3>${esc(p.jp||p.name)}</h3><p class="note">${esc(p.note)}</p><div class="tags">${(p.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="actions"><a class="gpt" href="${gptUrl(p)}" target="_blank" rel="noopener">✨ GPT 簡介</a><a class="map" href="${mapUrl(p)}" target="_blank" rel="noopener">📍 Google Maps</a></div></article>`;
+  }
+
+  function cardHtml(p){
+    const cats=p.categories.map(c=>CAT[c]||c).join('・');
+    const type=[...p.typeLabels].slice(0,2).join('／');
+    return `<article class="card catalog-card"><div class="type">${esc(cats)}</div><h3>${esc(p.name)}</h3><div class="subtype">${esc(type)}</div><p class="note">${esc(p.description||'既有收錄點。')}</p><div class="actions"><a class="gpt" href="${gptUrl(p)}" target="_blank" rel="noopener">✨ GPT 簡介</a><a class="map" href="${mapUrl(p)}" target="_blank" rel="noopener">📍 Google Maps</a></div></article>`;
   }
 
   app.innerHTML = `
@@ -114,39 +125,79 @@
 
     <section><div class="section-title"><h2>2027 已鎖定</h2><small>每個點都有 GPT / Google Maps</small></div><div class="grid locked-grid">${d.places.map(manualCard).join('')}</div></section>
 
-    <section id="catalog"><div class="section-title"><h2>樂京都店家資料庫</h2><small id="resultCount">整批自 2026 樂京都正本載入</small></div>
-      <div class="catalog-tools"><input id="placeSearch" type="search" placeholder="搜尋店名、類型、地區…" autocomplete="off"><div class="filters" id="filters"></div></div>
+    <section class="quick-index"><div class="section-title"><h2>快速入口</h2><small>常用大區與類型直接進</small></div>
+      <div class="quick-block"><div class="quick-label">地區</div><div class="quick-buttons">${QUICK_REGIONS.map(r=>`<button data-quick-region="${esc(r)}">${esc(r)}</button>`).join('')}</div></div>
+      <div class="quick-block"><div class="quick-label">類型</div><div class="quick-buttons">${CAT_ORDER.map(c=>`<button data-quick-cat="${c}">${esc(CAT[c])}</button>`).join('')}</div></div>
+    </section>
+
+    <section id="catalog"><div class="section-title"><h2>店家・商店索引</h2><small id="resultCount"></small></div>
+      <div class="catalog-tools">
+        <input id="placeSearch" type="search" placeholder="搜尋店名、類型、地區…" autocomplete="off">
+        <div class="index-tabs" role="tablist"><button class="index-tab active" data-mode="region">地區 → 類型 → 店家</button><button class="index-tab" data-mode="type">類型 → 地區 → 店家</button></div>
+      </div>
       <div id="catalogGroups"></div>
     </section>
 
     <section><div class="section-title"><h2>待確認</h2></div>${d.pending.map(x=>`<div class="pending">${esc(x)}</div>`).join('')}</section>
   `;
 
-  const filtersEl=document.getElementById('filters');
-  filtersEl.innerHTML=[['all','全部'],...Object.entries(CAT)].map(([k,v])=>`<button class="filter ${k==='all'?'active':''}" data-cat="${k}">${v}</button>`).join('');
-  filtersEl.addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;activeCat=b.dataset.cat;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));renderCatalog();});
   document.getElementById('placeSearch').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();renderCatalog();});
+  document.querySelectorAll('.index-tab').forEach(b=>b.addEventListener('click',()=>{viewMode=b.dataset.mode;document.querySelectorAll('.index-tab').forEach(x=>x.classList.toggle('active',x===b));renderCatalog();}));
 
-  function cardHtml(p){
-    const cats=p.categories.map(c=>CAT[c]||c).join('・');
-    const type=[...p.typeLabels].slice(0,2).join('／');
-    return `<article class="card catalog-card"><div class="type">${esc(cats)}</div><h3>${esc(p.name)}</h3><div class="subtype">${esc(type)}</div><p class="note">${esc(p.description||'樂京都既有收錄點。')}</p><div class="actions"><a class="gpt" href="${gptUrl(p)}" target="_blank" rel="noopener">✨ GPT 簡介</a><a class="map" href="${mapUrl(p)}" target="_blank" rel="noopener">📍 Google Maps</a></div></article>`;
+  function filteredCatalog(){
+    if(!query) return catalog;
+    return catalog.filter(p=>`${p.name} ${p.description} ${p.region} ${p.typeLabels.join(' ')} ${p.categories.map(c=>CAT[c]).join(' ')}`.toLowerCase().includes(query));
+  }
+
+  function regionAnchor(region){const i=REGION_ORDER.indexOf(region);return `region-${i>=0?i:'x'}`;}
+  function regionOrderFor(items){
+    const present=[...new Set(items.map(x=>x.region))];
+    return [...REGION_ORDER,...present.filter(x=>!REGION_ORDER.includes(x))].filter(x=>present.includes(x));
+  }
+
+  function renderRegionFirst(items){
+    return regionOrderFor(items).map((region,ri)=>{
+      const list=items.filter(p=>p.region===region);
+      const sections=CAT_ORDER.map(cat=>{
+        const catItems=list.filter(p=>p.categories.includes(cat)).sort((a,b)=>a.name.localeCompare(b.name,'ja'));
+        if(!catItems.length) return '';
+        return `<section class="subgroup"><h4>${esc(CAT[cat])}<span>${catItems.length}</span></h4><div class="grid region-grid">${catItems.map(cardHtml).join('')}</div></section>`;
+      }).join('');
+      const open=!query && ri<3;
+      return `<details class="index-group" id="${regionAnchor(region)}" ${open?'open':''}><summary><span>${esc(region)}</span><b>${list.length}</b></summary>${sections}</details>`;
+    }).join('');
+  }
+
+  function renderTypeFirst(items){
+    return CAT_ORDER.map((cat,ci)=>{
+      const catAll=items.filter(p=>p.categories.includes(cat));
+      if(!catAll.length) return '';
+      const regions=regionOrderFor(catAll);
+      const sections=regions.map(region=>{
+        const regionItems=catAll.filter(p=>p.region===region).sort((a,b)=>a.name.localeCompare(b.name,'ja'));
+        return `<section class="subgroup"><h4>${esc(region)}<span>${regionItems.length}</span></h4><div class="grid region-grid">${regionItems.map(cardHtml).join('')}</div></section>`;
+      }).join('');
+      const open=!query && ci<2;
+      return `<details class="index-group" id="type-${cat}" ${open?'open':''}><summary><span>${esc(CAT[cat])}</span><b>${catAll.length}</b></summary>${sections}</details>`;
+    }).join('');
   }
 
   function renderCatalog(){
-    const filtered=catalog.filter(p=>{
-      if(activeCat!=='all'&&!p.categories.includes(activeCat)) return false;
-      if(!query) return true;
-      return `${p.name} ${p.description} ${p.region} ${p.typeLabels.join(' ')}`.toLowerCase().includes(query);
-    });
-    const groups=new Map(); filtered.forEach(p=>{if(!groups.has(p.region))groups.set(p.region,[]);groups.get(p.region).push(p);});
-    const order=[...REGION_ORDER,...[...groups.keys()].filter(x=>!REGION_ORDER.includes(x))];
-    document.getElementById('resultCount').textContent=`${filtered.length} 個店家／地點`;
-    document.getElementById('catalogGroups').innerHTML=order.filter(r=>groups.has(r)).map((r,ri)=>{
-      const items=groups.get(r).sort((a,b)=>a.name.localeCompare(b.name,'ja'));
-      const open=/四條河原町|寺町・新京極|木屋町/.test(r)&&!query&&activeCat==='all';
-      return `<details class="region" ${open?'open':''}><summary><span>${esc(r)}</span><b>${items.length}</b></summary><div class="grid region-grid">${items.map(cardHtml).join('')}</div></details>`;
-    }).join('') || '<div class="empty">沒有符合條件的項目。</div>';
+    const items=filteredCatalog();
+    document.getElementById('resultCount').textContent=`共 ${items.length} 個店家／地點`;
+    document.getElementById('catalogGroups').innerHTML=(viewMode==='region'?renderRegionFirst(items):renderTypeFirst(items)) || '<div class="empty">沒有符合條件的項目。</div>';
   }
+
+  function setMode(mode){
+    viewMode=mode;
+    document.querySelectorAll('.index-tab').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));
+    renderCatalog();
+  }
+  function jumpTo(id){
+    requestAnimationFrame(()=>{const e=document.getElementById(id);if(!e)return;e.open=true;e.scrollIntoView({behavior:'smooth',block:'start'});});
+  }
+  document.querySelectorAll('[data-quick-region]').forEach(b=>b.addEventListener('click',()=>{const r=b.dataset.quickRegion;setMode('region');jumpTo(regionAnchor(r));}));
+  document.querySelectorAll('[data-quick-cat]').forEach(b=>b.addEventListener('click',()=>{const c=b.dataset.quickCat;setMode('type');jumpTo(`type-${c}`);}));
+
   renderCatalog();
 })();
