@@ -6,6 +6,21 @@ window.KYOTO2027_DATA = {
     base: "四條河原町",
     hotelCandidates: ["中心 Inn", "Super Hotel"]
   },
+  outboundFlight: {
+    airline: "台灣虎航",
+    flight: "IT212",
+    fareFamily: "tigersmart",
+    date: "2027/03/27（六）",
+    from: "TPE 桃園國際機場 T1",
+    departure: "14:40",
+    to: "KIX 關西國際機場 T1",
+    arrival: "17:55",
+    passengers: 4,
+    checkedBaggage: "20 kg／人",
+    seats: "8B・8C・8E・8D",
+    total: "TWD 27,796",
+    average: "TWD 6,949／人"
+  },
   days: ["3/27","3/28","3/29","3/30","3/31","4/1","4/2","4/3","4/4","4/5"],
   places: [
     {
