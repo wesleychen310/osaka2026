@@ -1,6 +1,6 @@
 window.KYOTO2027_DATA = {
   trip: {
-    title: "2027 櫻京都",
+    title: "京旅抄2027",
     dates: "2027/3/27–4/5",
     people: 4,
     base: "四條河原町",
