@@ -4,9 +4,10 @@ window.KYOTO2027_DATA = {
     dates: "2027/3/27–4/5",
     people: 4,
     base: "四條河原町",
-    hotelCandidates: ["Kyoto Central Inn", "Super Hotel"]
+    hotelStatus: "暫定"
   },
   outboundFlight: {
+    direction: "去程",
     airline: "台灣虎航",
     flight: "IT212",
     fareFamily: "tigersmart",
@@ -16,8 +17,40 @@ window.KYOTO2027_DATA = {
     to: "KIX 關西國際機場 T1",
     arrival: "17:55",
     passengers: 4,
-    checkedBaggage: "20 kg／人",
-    seats: "8B・8C・8E・8D"
+    checkedBaggage: "合計 80 kg",
+    seats: "8B・8C・8D・8E",
+    amount: "TWD 27,796"
+  },
+  returnFlight: {
+    direction: "回程",
+    airline: "台灣虎航",
+    flight: "IT213",
+    fareFamily: "ECO／tigerlight",
+    date: "2027/04/05（一）",
+    from: "KIX 關西國際機場 T1",
+    departure: "19:50",
+    to: "TPE 桃園國際機場 T1",
+    arrival: "21:45",
+    passengers: 4,
+    checkedBaggage: "合計 80 kg",
+    seats: "21B・21C・21D・21E",
+    amount: "實際支出 TWD 42,183.07"
+  },
+  accommodation: {
+    status: "暫定",
+    name: "Kyoto Central Inn（京都中央旅店）",
+    jp: "京都セントラルイン",
+    stay: "2027/03/27–04/05",
+    nights: 9,
+    guests: 4,
+    rooms: "2 間雙床房・禁菸",
+    address: "京都市下京區四條通寺町東入二丁目御旅町30番，600-8002 日本",
+    mapQuery: "Kyoto Central Inn 京都",
+    total: "JPY 378,292",
+    segments: [
+      {platform:"Hotels.com", stay:"03/27–04/01", nights:5, amount:"JPY 203,190", payment:"入住付款", cancel:"03/25 23:59 前免費取消"},
+      {platform:"Agoda", stay:"04/01–04/05", nights:4, amount:"JPY 175,102", payment:"延後扣款", cancel:"03/29 前免費取消"}
+    ]
   },
   days: ["3/27","3/28","3/29","3/30","3/31","4/1","4/2","4/3","4/4","4/5"],
   places: [
