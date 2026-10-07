@@ -64,11 +64,13 @@ These must be configured later in the new Cloudflare Worker project.
 
 ### PA / ATPA super notes
 
-The master source file `超級筆記-PA.ATPA.docx` has been moved into:
+The interactive HTML reading version is now connected:
 
-`pa-atpa/super-notes/`
+- Route: `/pa-atpa/super-notes`
+- Drive file: `超級筆記.html`
+- Drive file ID: `1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa`
 
-It still needs an HTML reading version before the Worker can serve it as a normal study page.
+The Worker reads the private HTML from Google Drive at request time. The service account has reader access to this file.
 
 ## Still to migrate
 
@@ -76,7 +78,7 @@ The published ChatGPT Sites are not yet available as raw HTML in Drive:
 
 - `islp-ch3-reading-0930.wesley310.chatgpt.site`
 - the combined top-level page for `islp-ch3-extensions-0930.wesley310.chatgpt.site`
-- `super-notes-pa-atpa.wesley310.chatgpt.site/progress/`
+- Super Notes has been migrated; the old `super-notes-pa-atpa.wesley310.chatgpt.site/progress/` URL can remain only as a legacy reference.
 
 The Drive folder structure is ready for those HTML files when exported/recreated.
 
