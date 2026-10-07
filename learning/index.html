@@ -18,8 +18,7 @@ h1{font-size:clamp(34px,7vw,54px);line-height:1.08;letter-spacing:-.045em;margin
 .lead{margin:0;color:var(--muted);font-size:15px;line-height:1.7}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:30px}
 .entry{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);color:inherit;transition:transform .15s ease,box-shadow .15s ease}
-.entry:hover{transform:translateY(-1px)}
-.entry:active{transform:scale(.99)}
+.entry:hover{transform:translateY(-1px)}.entry:active{transform:scale(.99)}
 .entry .tag{font-size:11px;font-weight:850;letter-spacing:.1em;color:var(--accent)}
 .entry h2{font-size:24px;letter-spacing:-.025em;color:var(--accent2);margin:8px 0 7px}
 .entry p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
@@ -34,12 +33,17 @@ h1{font-size:clamp(34px,7vw,54px);line-height:1.08;letter-spacing:-.045em;margin
     <h1>私人學習入口</h1>
     <p class="lead">選擇要開啟的內容。Google 授權由各私人文件頁自行處理；入口頁不重複登入。</p>
   </header>
-
   <section class="grid">
     <a class="entry" href="./super-notes/">
       <span class="tag">PA / ATPA</span>
       <h2>超級筆記</h2>
-      <p>點入後自動沿用既有 Google 授權；成功後私人 Drive HTML 直接接管整個頁面。</p>
+      <p>PA / ATPA 學習筆記、閱讀進度與 English Bank。</p>
+      <span class="arrow">開啟 →</span>
+    </a>
+    <a class="entry" href="./islp/">
+      <span class="tag">ISLP · PRIVATE</span>
+      <h2>ISLP 精讀</h2>
+      <p>Chapter 3 Linear Regression 與 Chapter 4 Classification 精讀、圖表、Python Lab 與 PA / ATPA 應用。</p>
       <span class="arrow">開啟 →</span>
     </a>
   </section>
