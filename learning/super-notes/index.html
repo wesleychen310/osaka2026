@@ -5,129 +5,195 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
-<title>超級筆記</title>
+<meta name="color-scheme" content="light">
+<title>超級筆記｜PA / ATPA</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
+:root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84}
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC","Segoe UI",sans-serif;background:#f5f7f9;color:#1d2731}
-.gate{min-height:100dvh;display:grid;place-items:center;padding:24px}
-.card{width:min(440px,100%);background:#fff;border:1px solid #dfe5ea;border-radius:22px;padding:24px;box-shadow:0 14px 36px rgba(27,47,62,.08)}
-.eyebrow{font-size:12px;font-weight:850;letter-spacing:.12em;color:#1f5d84}
-h1{margin:8px 0 8px;font-size:34px;letter-spacing:-.04em;color:#173e5b}
-p{margin:0 0 16px;color:#68737f;line-height:1.65}
-button{width:100%;border:0;border-radius:14px;padding:13px 16px;background:#173e5b;color:#fff;font:inherit;font-weight:820;cursor:pointer}
-button:disabled{opacity:.55;cursor:default}
-.status{margin-top:13px;padding:11px 13px;border-radius:13px;background:#edf5f9;color:#1f5d84;font-size:13px;white-space:pre-wrap}
-.back{display:inline-block;margin-top:15px;color:#68737f;text-decoration:none;font-size:13px}
+html,body{min-height:100%;margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif;background:radial-gradient(circle at top right,#e8f2f7 0,transparent 38%),var(--bg);color:var(--text)}
+.gate{min-height:100vh;display:grid;place-items:center;padding:24px}
+.panel{width:min(420px,100%);background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 16px 45px rgba(27,47,62,.08)}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--accent)}
+h1{font-size:27px;line-height:1.2;margin:7px 0 8px}
+p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
+button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;background:#173e5b;color:#fff;font:inherit;font-weight:800;cursor:pointer}
+button:disabled{opacity:.5}
+.status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}
+.spinner{width:18px;height:18px;border:2px solid #dce5ea;border-top-color:#58798e;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}
+.back{display:inline-block;margin-top:15px;color:var(--muted);font-size:12px;text-decoration:none}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-<main id="gate" class="gate">
-  <section class="card">
+<main class="gate">
+  <section class="panel">
     <div class="eyebrow">PRIVATE · PA / ATPA</div>
     <h1>超級筆記</h1>
-    <p>正在確認 Google 授權。授權有效時會直接載入私人 Google Drive 版本並接管全頁。</p>
+    <p id="message">正在確認 Google 授權；如果已有有效登入，會直接開啟超級筆記。</p>
     <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
-    <div id="status" class="status">正在確認授權…</div>
-    <a class="back" href="../">← 回學習入口</a>
+    <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
+    <a class="back" href="../">← 回私人學習入口</a>
   </section>
 </main>
+
 <script>
-const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
+const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
+const FILE_ID="1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa";
 const SCOPE='https://www.googleapis.com/auth/drive.readonly';
-const FILE_ID='1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa';
-const SESSION_KEY='super-notes-google-oauth-v2';
+
+// 直接沿用 t202703/control/ 已驗證的 token key。
+// 因為同一 GitHub Pages origin、同一 OAuth client、同一 drive.readonly scope，
+// 使用者若已在京都 control 登入，超級筆記可直接共用該 session token。
+const TOKEN_KEY='hanami-kyoto-google-token-v3';
+const LEGACY_TOKEN_KEY='super-notes-google-oauth-v2';
 
 const loginBtn=document.getElementById('loginBtn');
 const statusBox=document.getElementById('status');
-let tokenClient=null;
-let accessToken='';
+const messageBox=document.getElementById('message');
 
-function setStatus(text){statusBox.textContent=text}
-function clearSession(){accessToken='';sessionStorage.removeItem(SESSION_KEY)}
-function saveSession(resp){
-  const expiresIn=Math.max(0,Number(resp.expires_in||3600)-60);
-  sessionStorage.setItem(SESSION_KEY,JSON.stringify({
-    access_token:resp.access_token||'',
-    expires_at:Date.now()+expiresIn*1000
-  }));
+let tokenClient=null;
+
+function setStatus(text,loading=false){
+  statusBox.innerHTML=loading?'<span class="spinner"></span>'+text:text;
 }
-function restoreSession(){
+function showLogin(reason){
+  loginBtn.hidden=false;
+  loginBtn.disabled=false;
+  messageBox.textContent='Google 授權只負責門禁；登入成功後這個畫面會消失，超級筆記直接接管全頁。';
+  setStatus(reason||'需要 Google 帳號授權。');
+}
+function saveToken(resp){
+  const expiresIn=Number(resp.expires_in||3600);
+  const payload={access_token:resp.access_token,expires_at:Date.now()+expiresIn*1000};
+  sessionStorage.setItem(TOKEN_KEY,JSON.stringify(payload));
+  sessionStorage.removeItem(LEGACY_TOKEN_KEY);
+  return payload;
+}
+function readToken(key){
   try{
-    const raw=sessionStorage.getItem(SESSION_KEY);
-    if(!raw)return false;
-    const s=JSON.parse(raw);
-    if(!s?.access_token||!s?.expires_at||Date.now()>=Number(s.expires_at)){
-      clearSession(); return false;
+    const x=JSON.parse(sessionStorage.getItem(key)||'null');
+    if(!x?.access_token||!x?.expires_at)return null;
+    if(Date.now()>x.expires_at-120000){
+      sessionStorage.removeItem(key);
+      return null;
     }
-    accessToken=s.access_token; return true;
-  }catch{clearSession();return false}
-}
-function initGoogle(){
-  if(!window.google?.accounts?.oauth2)return false;
-  if(!tokenClient){
-    tokenClient=google.accounts.oauth2.initTokenClient({
-      client_id:CLIENT_ID,
-      scope:SCOPE,
-      prompt:'',
-      callback:async resp=>{
-        if(resp.error){
-          loginBtn.hidden=false; loginBtn.disabled=false;
-          setStatus('Google 授權失敗：'+resp.error); return;
-        }
-        accessToken=resp.access_token||'';
-        if(accessToken)saveSession(resp);
-        await loadPrivateHtml();
-      },
-      error_callback:()=>{
-        loginBtn.hidden=false; loginBtn.disabled=false;
-        setStatus('需要 Google 授權才能讀取私人超級筆記。');
-      }
-    });
+    return x;
+  }catch{
+    sessionStorage.removeItem(key);
+    return null;
   }
+}
+function getSavedToken(){
+  const shared=readToken(TOKEN_KEY);
+  if(shared)return shared;
+
+  // 相容前一版超級筆記 token；讀到後搬到共用 key。
+  const legacy=readToken(LEGACY_TOKEN_KEY);
+  if(legacy){
+    sessionStorage.setItem(TOKEN_KEY,JSON.stringify(legacy));
+    sessionStorage.removeItem(LEGACY_TOKEN_KEY);
+    return legacy;
+  }
+  return null;
+}
+async function renderDriveHtml(accessToken){
+  setStatus('正在載入私人 Google Drive 超級筆記…',true);
+  const res=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(FILE_ID)+'?alt=media',{
+    headers:{Authorization:'Bearer '+accessToken},
+    cache:'no-store'
+  });
+  if(res.status===401){
+    sessionStorage.removeItem(TOKEN_KEY);
+    throw new Error('TOKEN_EXPIRED');
+  }
+  if(!res.ok)throw new Error('DRIVE_'+res.status);
+
+  const html=await res.text();
+
+  // 關鍵：不是 iframe，也不是把 HTML 塞進容器。
+  // Drive HTML 直接取代目前的 gate document，接管整個頁面。
+  document.open();
+  document.write(html);
+  document.close();
+}
+function initClient(){
+  if(tokenClient||!window.google?.accounts?.oauth2)return !!tokenClient;
+  tokenClient=google.accounts.oauth2.initTokenClient({
+    client_id:CLIENT_ID,
+    scope:SCOPE,
+    callback:async resp=>{
+      if(resp.error){
+        showLogin('Google 尚未完成授權。');
+        return;
+      }
+      loginBtn.disabled=true;
+      try{
+        const t=saveToken(resp);
+        await renderDriveHtml(t.access_token);
+      }catch(e){
+        sessionStorage.removeItem(TOKEN_KEY);
+        showLogin(e?.message==='TOKEN_EXPIRED'
+          ?'登入狀態已過期，請再按一次。'
+          :'超級筆記載入失敗，請再試一次。');
+      }
+    },
+    error_callback:()=>{
+      showLogin('瀏覽器需要你按一次登入按鈕。');
+    }
+  });
   return true;
 }
-async function loadPrivateHtml(){
+function requestQuiet(){
+  if(!initClient())return false;
   try{
-    setStatus('正在從私人 Google Drive 載入超級筆記…');
-    const res=await fetch(
-      'https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(FILE_ID)+'?alt=media',
-      {headers:{Authorization:'Bearer '+accessToken},cache:'no-store'}
-    );
-    if(res.status===401){
-      clearSession();
-      loginBtn.hidden=false; loginBtn.disabled=false;
-      setStatus('Google 授權已到期，按一次即可重新取得授權。');
-      return;
-    }
-    if(!res.ok)throw new Error('Google Drive HTTP '+res.status);
-    const html=await res.text();
-    if(!/^\s*(<!doctype html|<html)/i.test(html))throw new Error('Drive 檔案不是完整 HTML');
-    document.open();
-    document.write(html);
-    document.close();
-  }catch(e){
-    loginBtn.hidden=false; loginBtn.disabled=false;
-    setStatus('載入失敗：'+(e?.message||String(e)));
+    tokenClient.requestAccessToken({prompt:''});
+    return true;
+  }catch{
+    return false;
   }
+}
+async function boot(){
+  // 1. 先吃既有 session token：有就 0 點擊直接進。
+  const saved=getSavedToken();
+  if(saved){
+    try{
+      await renderDriveHtml(saved.access_token);
+      return;
+    }catch{
+      sessionStorage.removeItem(TOKEN_KEY);
+    }
+  }
+
+  // 2. 等 Google GIS 載入。
+  const deadline=Date.now()+6000;
+  while(Date.now()<deadline&&!window.google?.accounts?.oauth2){
+    await new Promise(r=>setTimeout(r,100));
+  }
+  if(!initClient()){
+    showLogin('Google 登入元件載入失敗，請重新整理。');
+    return;
+  }
+
+  // 3. 完全照 control/ 的做法：自動 prompt:''，嘗試沿用 Google session。
+  setStatus('正在嘗試沿用既有 Google 授權…',true);
+  if(!requestQuiet())showLogin('請按一次 Google 登入。');
+
+  // 4. Safari / popup policy 不允許自動流程時，才退回一個按鈕。
+  setTimeout(()=>{
+    if(!loginBtn.hidden)return;
+    if(document.body?.querySelector('.gate'))showLogin('若沒有自動開啟，請按一次 Google 登入。');
+  },3500);
 }
 loginBtn.addEventListener('click',()=>{
   loginBtn.disabled=true;
-  setStatus('正在取得 Google 授權…');
-  if(!initGoogle()){
+  setStatus('正在確認 Google 帳號…',true);
+  if(!requestQuiet()){
     loginBtn.disabled=false;
-    setStatus('Google 登入元件仍在載入，請再按一次。');
-    return;
+    showLogin('無法啟動 Google 授權，請重新整理後再試。');
   }
-  tokenClient.requestAccessToken({prompt:''});
 });
-async function boot(){
-  if(restoreSession()){await loadPrivateHtml();return}
-  // 直接進此網址且沒有本頁 session 時，顯示單一登入按鈕；
-  // 避免瀏覽器阻擋非使用者手勢觸發的 OAuth popup。
-  loginBtn.hidden=false;
-  setStatus('按一次即可開啟超級筆記；已授權過的帳號不會被強制重新 consent。');
-}
 boot();
 </script>
 </body>
