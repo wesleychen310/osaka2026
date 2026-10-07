@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="color-scheme" content="light">
+<title>花見京旅｜私人區</title>
+<link rel="stylesheet" href="private.css?v=20261007">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+<div class="eyebrow">KYOTO 2027 · PRIVATE</div>
+<h1>花見京旅｜私人區</h1>
+<p>登入後才從你的私人 Google Drive 載入帳本與行前事務本。</p>
+</header>
+<section class="card">
+<div class="auth-row">
+<button id="loginBtn" class="primary" type="button">使用 Google 帳號登入</button>
+<button id="logoutBtn" class="ghost" type="button" disabled>登出</button>
+</div>
+<div id="status" class="status">尚未登入。GitHub 頁面本身不包含帳本或訂單內容。</div>
+</section>
+<section id="privateArea" class="private-area">
+<div id="tabs" class="toolbar"></div>
+<div class="viewer-shell">
+<div class="viewer-head">
+<div>
+<div id="viewerTitle" class="viewer-title">私人文件</div>
+<div id="viewerMeta" class="viewer-meta"></div>
+</div>
+</div>
+<iframe id="viewer" title="私人 Google Drive 文件" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
+</div>
+<p class="note">私人 HTML 只在目前瀏覽器取得 Google 授權後載入；重新整理或權杖失效後需重新授權。</p>
+</section>
+</main>
+
+<script>
+const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
+const SCOPE='https://www.googleapis.com/auth/drive.readonly';
+const PRIVATE_FILES=[
+  {id:'19iny4GXWrzgZug-ag4z7_5DHamr0T-m1',label:'花見京旅帳本'},
+  {id:'1XVIMkPdvqccbW7i-y4_QrW8h8VcGj3lY',label:'花見京旅行前事務本'}
+];
+
+const loginBtn=document.getElementById('loginBtn');
+const logoutBtn=document.getElementById('logoutBtn');
+const statusBox=document.getElementById('status');
+const privateArea=document.getElementById('privateArea');
+const tabs=document.getElementById('tabs');
+const viewer=document.getElementById('viewer');
+const viewerTitle=document.getElementById('viewerTitle');
+const viewerMeta=document.getElementById('viewerMeta');
+
+let tokenClient=null;
+let accessToken='';
+let docs=[];
+
+function setStatus(text,kind=''){
+  statusBox.textContent=text;
+  statusBox.className='status '+kind;
+}
+function escapeHtml(s){
+  return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function initGoogle(){
+  if(!window.google?.accounts?.oauth2){
+    setStatus('Google 登入元件仍在載入，請稍後再按一次。','loading');
+    return false;
+  }
+  if(!tokenClient){
+    tokenClient=google.accounts.oauth2.initTokenClient({
+      client_id:CLIENT_ID,
+      scope:SCOPE,
+      callback:loadPrivateDocs
+    });
+  }
+  return true;
+}
+async function loadPrivateDocs(resp){
+  if(resp.error){
+    setStatus('Google 授權失敗：'+resp.error,'err');
+    loginBtn.disabled=false;
+    return;
+  }
+  accessToken=resp.access_token||'';
+  try{
+    setStatus('已登入，正在從私人 Google Drive 載入文件…','loading');
+    docs=[];
+    for(const f of PRIVATE_FILES){
+      const metaRes=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(f.id)+'?fields=id,name,mimeType,size,modifiedTime',{
+        headers:{Authorization:'Bearer '+accessToken}
+      });
+      if(!metaRes.ok) throw new Error(f.label+'：檔案資訊 HTTP '+metaRes.status);
+      const meta=await metaRes.json();
+
+      const bodyRes=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(f.id)+'?alt=media',{
+        headers:{Authorization:'Bearer '+accessToken}
+      });
+      if(!bodyRes.ok) throw new Error(f.label+'：內容 HTTP '+bodyRes.status);
+      const content=await bodyRes.text();
+      docs.push({file:f,meta,html:content});
+    }
+    renderTabs();
+    privateArea.classList.add('show');
+    logoutBtn.disabled=false;
+    loginBtn.textContent='重新選擇 Google 帳號';
+    setStatus('✅ 已登入並成功載入 '+docs.length+' 份私人 Drive 文件。','ok');
+    openDoc(0);
+  }catch(e){
+    setStatus('已登入，但私人 Drive 文件載入失敗：\n'+(e?.message||String(e)),'err');
+  }finally{
+    loginBtn.disabled=false;
+  }
+}
+function renderTabs(){
+  tabs.innerHTML=docs.map((d,i)=>'<button type="button" class="tab'+(i===0?' active':'')+'" data-i="'+i+'">'+escapeHtml(d.file.label)+'</button>').join('');
+  tabs.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>openDoc(Number(b.dataset.i))));
+}
+function openDoc(i){
+  const d=docs[i];
+  if(!d)return;
+  tabs.querySelectorAll('.tab').forEach((b,j)=>b.classList.toggle('active',j===i));
+  viewerTitle.textContent=d.meta.name||d.file.label;
+  const mod=d.meta.modifiedTime?new Date(d.meta.modifiedTime).toLocaleString('zh-TW'):'';
+  viewerMeta.textContent=(d.meta.size?Number(d.meta.size).toLocaleString()+' bytes':'')+(mod?' · Drive 更新 '+mod:'');
+  viewer.srcdoc=d.html;
+  window.scrollTo({top:privateArea.offsetTop-8,behavior:'smooth'});
+}
+loginBtn.addEventListener('click',()=>{
+  loginBtn.disabled=true;
+  setStatus('正在要求 Google 授權…','loading');
+  if(!initGoogle()){
+    loginBtn.disabled=false;
+    return;
+  }
+  tokenClient.requestAccessToken({prompt:'consent'});
+});
+logoutBtn.addEventListener('click',()=>{
+  accessToken='';
+  docs=[];
+  tabs.innerHTML='';
+  viewer.removeAttribute('srcdoc');
+  privateArea.classList.remove('show');
+  logoutBtn.disabled=true;
+  loginBtn.textContent='使用 Google 帳號登入';
+  setStatus('已登出。私人 Drive 內容已從此頁清除。');
+});
+setStatus('登入元件已就緒。請按上方按鈕。');
+</script>
+</body>
+</html>

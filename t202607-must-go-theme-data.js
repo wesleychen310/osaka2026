@@ -4,9 +4,9 @@ window.KYOTO_THEMES.must_go={
  lead:'這頁只收這次京都市區最想優先看的點：老喫茶、南禪寺咖啡、近代建築、舊校舍、茶舖、古書店與大型書店。內容同時依地區與類型分類，每張卡都有 Google Maps 按鈕。',
  base:{name:'四条烏丸',map:'四条烏丸 京都',note:'以住宿圈四条烏丸作為移動基準，主要集中在河原町、三条、岡崎南禪寺與祇園四条。'},
  sections:[
-  {id:'karasuma',title:'四条烏丸・飯店步行圈',lead:'離飯店近，可排成半日散策或回飯店前補點。',items:[
+  {id:'karasuma',title:'四条烏丸',lead:'位於四条烏丸一帶；距離一律從 ARU 起算。',items:[
    {name:'本能寺跡',typeLabel:'古蹟・本能寺舊址',area:'karasuma',category:'sights',map:'本能寺跡 京都',note:'原本能寺相關遺址，位置比現今本能寺更接近四条烏丸與油小路一帶。適合和京都藝術中心、六角堂、四条烏丸散策串在一起。'},
-   {name:'京都芸術センター',typeLabel:'舊小學・近代建築・文化設施',area:'karasuma',category:'sights',map:'京都芸術センター',note:'舊明倫小學校再利用的文化設施。建築、校舍空間與前田咖啡明倫店可一起看，離飯店近。'},
+   {name:'京都芸術センター',typeLabel:'舊小學・近代建築・文化設施',area:'karasuma',category:'sights',map:'京都芸術センター',note:'舊明倫小學校再利用的文化設施。建築、校舍空間與前田咖啡明倫店可一起看，位於四条烏丸一帶。'},
    {name:'紫雲山 頂法寺（六角堂）',typeLabel:'古寺・頂法寺・六角堂',area:'karasuma',category:'sights',map:'頂法寺 六角堂',note:'京都市中心的古寺，六角形本堂辨識度高。適合從四条烏丸往烏丸御池或三条移動時順路。'}]},
   {id:'sanjo',title:'烏丸御池・三条通・寺町',lead:'茶舖、近代建築、老郵局與 1928 ビル都集中在這段。',items:[
    {name:'一保堂茶舗 京都本店',typeLabel:'日本茶老舖／喫茶',area:'sanjo',category:'drinks',map:'一保堂茶舗 京都本店',note:'京都日本茶老舖代表。買茶、喝茶、看茶具都適合，可和寺町通、鳩居堂、京都市役所一帶串成老舖線。'},

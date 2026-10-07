@@ -1,0 +1,68 @@
+私人學習網站｜建置紀錄
+======================
+
+建立日期：2026-10-07
+
+目的
+----
+建立與「花間京旅」完全分離的私人學習網站，但沿用同一個 GitHub repository。
+Google Drive 繼續保存真正的學習內容；GitHub 只放 Worker code；Cloudflare 之後建立獨立 Worker。
+
+GitHub
+------
+Repository:
+wesleychen310/osaka2026
+
+Learning Hub root:
+cloudflare/learning-hub/
+
+Cloudflare 尚待使用者設定：
+Root directory = cloudflare/learning-hub
+Deploy command = npx wrangler deploy
+
+Google Drive
+------------
+Content root:
+1uLenu319fQEQwltPasYv1HH_EL6Swk4q
+
+目前目錄：
+islp/ch03/reading/
+islp/ch03/extensions/
+islp/ch04/
+pa-atpa/super-notes/
+
+現有 HTML 已整理到對應資料夾。
+超級筆記主檔「超級筆記-PA.ATPA.docx」已移入 pa-atpa/super-notes/，Drive File ID 不變。
+
+Google Drive service account
+----------------------------
+暫時沿用：
+id-kyoto-2027-drive-reader@gen-lang-client-0469855556.iam.gserviceaccount.com
+
+目前可供 Worker 使用的既有 HTML 已個別分享 Reader 權限給該 service account。
+
+Secrets
+-------
+只記名稱：
+AUTH_USERS
+GOOGLE_SERVICE_ACCOUNT_JSON
+
+任何 password、private_key、service-account JSON 實際值不得 commit 到 GitHub。
+
+尚未完成的內容移植
+----------------
+1. ISLP Chapter 3 Reading 的完整 HTML
+2. ISLP Chapter 3 Extensions 的「整合首頁／完整站」HTML
+3. Super Notes / progress 的網站 HTML
+
+原因：
+這三個目前是 ChatGPT Sites 網址，Drive 中沒有找到對應的完整原始 HTML。
+已先建立目的資料夾，之後只要把完整 HTML 放入即可。
+
+設計原則
+--------
+- GitHub repo 不另開。
+- Kyoto 與 Learning Hub 使用不同 root directory。
+- Drive File ID 保持穩定；移動檔案不改 ID。
+- Worker code 與私人內容分離。
+- Learning Hub 未來可擴充 ISLP、PA、ATPA、ACTEX、R、Python。

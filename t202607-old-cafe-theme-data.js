@@ -2,13 +2,13 @@ window.KYOTO_THEMES=window.KYOTO_THEMES||{};
 window.KYOTO_THEMES.old_coffee_tea={
  id:'old_coffee_tea',title:'老咖啡老茶舖',
  lead:'集中放京都古蹟咖啡廳、町家改裝咖啡、老舖茶店、抹茶甜點、和菓子茶寮與開很久的知名喫茶店。這頁只收有空間感、歷史感、老舖感或京都感的店，不放一般連鎖補給點。',
- base:{name:'四条烏丸',map:'四条烏丸 京都',note:'以飯店所在的四条烏丸為基準，依地區分段看老咖啡、老茶舖與町家甜點。'},
+ base:{name:'HOTEL ARU KYOTO 三条木屋町通り',map:'HOTEL ARU KYOTO 三条木屋町通り',note:'全站統一步行起點。所有店家與景點距離一律從 ARU 起算。'},
  sections:[
-  {id:'karasuma',title:'四条烏丸・飯店附近',lead:'離飯店近，適合早上、下午或回飯店前使用。這區以京都咖啡老店、舊校舍咖啡、茶寮與町家甜點為主。',items:[
+  {id:'karasuma',title:'四条烏丸',lead:'位於四条烏丸一帶，適合早上、下午或逛四条烏丸時使用。這區以京都咖啡老店、舊校舍咖啡、茶寮與町家甜點為主。',items:[
    {name:'前田珈琲 本店',typeLabel:'京都咖啡老店／本店',area:'karasuma',category:'drinks',note:'京都市中心好用的老咖啡店，本店位置適合四条烏丸、錦市場前後。早餐、午茶、臨時休息都能用。'},
    {name:'前田珈琲 明倫店',typeLabel:'舊校舍咖啡／京都藝術中心',area:'karasuma',category:'drinks',note:'在京都藝術中心與舊明倫小學校一帶，空間比一般咖啡店更有記憶點。適合你喜歡的舊校舍、老建築咖啡路線。'},
-   {name:'茶寮翠泉 高辻本店',typeLabel:'抹茶甜點／茶寮',area:'karasuma',category:'drinks',note:'飯店圈可用的抹茶甜點店，距離不遠。想吃抹茶、蕨餅、和風甜點時，比跑去祇園更省力。'},
-   {name:'丸久小山園 西洞院店',typeLabel:'宇治茶老舖／抹茶',area:'karasuma',category:'drinks',note:'丸久小山園在京都市區的買茶與抹茶點。適合買抹茶、茶葉，也可作飯店附近茶店備案。'},
+   {name:'茶寮翠泉 高辻本店',typeLabel:'抹茶甜點／茶寮',area:'karasuma',category:'drinks',note:'四条烏丸一帶可用的抹茶甜點店，距離不遠。想吃抹茶、蕨餅、和風甜點時，比跑去祇園更省力。'},
+   {name:'丸久小山園 西洞院店',typeLabel:'宇治茶老舖／抹茶',area:'karasuma',category:'drinks',note:'丸久小山園在京都市區的買茶與抹茶點。適合買抹茶、茶葉，也可作四条烏丸一帶茶店備案。'},
    {name:'然花抄院 京都室町本店',typeLabel:'町家和菓子／老屋茶寮',area:'sanjo',category:'drinks',note:'室町本店有町家與和菓子氣氛，適合排在烏丸御池、三条或四条烏丸之間。重點是空間與京都感。'}]},
   {id:'sanjo',title:'烏丸御池・三条・寺町',lead:'老舖茶店、近代建築咖啡與京都代表喫茶集中。適合和新風館、京都文化博物館、寺町老舖線一起排。',items:[
    {name:'イノダコーヒ 本店',typeLabel:'京都代表老咖啡／本店',area:'sanjo',category:'drinks',note:'京都代表性老咖啡店，本店空間與氣氛比一般分店更有記憶點。適合排在三条、烏丸御池、錦市場前後。'},
