@@ -5,7 +5,8 @@ const ROUTES = new Map([
   ["/islp/ch03/extensions/3.6.7", "12NT2teSw2kUy3AO8PYsnunozlo6MHadm"],
   ["/islp/ch03/extensions/3.7", "18k7ahmLOgOYICEuSauWGQhTsLM5ijMyx"],
   ["/islp/ch04", "1FIb_uTyRp11gyrxvHuvbzdL2Nt0H1jox"],
-  ["/islp/ch04/legacy", "12mVTwzC379qQBVlv3fu1NRtdXk7Cdnf6"]
+  ["/islp/ch04/legacy", "12mVTwzC379qQBVlv3fu1NRtdXk7Cdnf6"],
+  ["/pa-atpa/super-notes", "1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa"]
 ]);
 
 function unauthorized() {
@@ -211,7 +212,7 @@ h2{font-size:18px;margin:0 0 10px}
 <div class="grid">
   <div class="card pending"><strong>ISLP Chapter 3｜Reading</strong><span>Drive 目錄已建立；完整 HTML 尚待移植。</span></div>
   <div class="card pending"><strong>ISLP Chapter 3｜Extensions</strong><span>既有分節 HTML 已移入 Drive；整合首頁 HTML 尚待移植。</span></div>
-  <div class="card pending"><strong>PA / ATPA｜超級筆記</strong><span>DOCX 主檔已移入新目錄；HTML 閱讀版尚待建立。</span></div>
+  <a class="card" href="/pa-atpa/super-notes"><strong>PA / ATPA｜超級筆記</strong><span>完整互動 HTML 閱讀版，由 Google Drive 載入。</span><div class="go">開啟超級筆記 →</div></a>
   <a class="card" href="/islp/ch04"><strong>ISLP Chapter 4</strong><span>目前已有完整 Deep Reading HTML。</span><div class="go">開啟 →</div></a>
 </div>
 </section>
