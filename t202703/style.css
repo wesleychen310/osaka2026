@@ -98,3 +98,8 @@ button.active,.quick-buttons button.active,.nearby-tabs button.active{background
   .sakura-simple-card{padding:15px}
   .sakura-simple-actions{grid-template-columns:1.4fr 1fr}
 }
+
+/* Readable names lead; the Japanese original stays available for matching signs. */
+.place-original,.map-name.place-original,.hotel-jp.place-original{font-size:12px;line-height:1.5;color:#82777d;margin:4px 0 8px;overflow-wrap:anywhere;font-weight:400}
+.modern-card-head>div,.nearby-card-top>div{min-width:0}
+.modern-card h3,.nearby-card h3,.catalog-card h3,.locked-card h3{overflow-wrap:anywhere;line-height:1.4}
