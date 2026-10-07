@@ -1,6 +1,7 @@
 (function(){
   const app=document.getElementById('sakuraApp');
   const collection=window.KYOTO2027_SAKURA;
+  const I18N=window.KYOTO_NAME_I18N;
   const C=window.KYOTO2027_CATALOG;
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   if(!app||!collection||!C){if(app)app.innerHTML='<p>資料尚未載入，請重新整理。</p>';return;}
@@ -15,11 +16,12 @@
 
   function card(p){
     const s=p.sakura;
+    const n=I18N.names(p);
     const map=mapUrl(p);
     return '<article class="sakura-simple-card">'+
       '<div class="sakura-simple-kicker">'+esc(areaMap[s.area]||'')+' · '+esc(s.types.map(t=>typeMap[t]).filter(Boolean).join('・'))+'</div>'+
-      '<h3><a href="'+map+'" target="_blank" rel="noopener">'+esc(p.name)+'</a></h3>'+
-      '<div class="sakura-simple-jp">'+esc(p.jp||p.name)+'</div>'+
+      '<h3><a href="'+map+'" target="_blank" rel="noopener">'+esc(n.zh)+'</a></h3>'+
+      (n.zh!==n.original?'<div class="sakura-simple-jp place-original" lang="ja">'+esc(n.original)+'</div>':'')+
       '<p>'+esc(s.description)+'</p>'+
       '<div class="sakura-simple-meta"><span>🌸 '+esc(s.period)+'</span><span>🏨 '+esc(walkText(p))+'</span></div>'+
       '<div class="sakura-simple-actions">'+
@@ -31,7 +33,7 @@
 
   app.innerHTML=
     '<header class="hero nearby-hero sakura-simple-hero">'+
-      '<a class="back-link" href="index.html?v=20261006-02">← 返回花見京旅</a>'+
+      '<a class="back-link" href="index.html?v=20261008-names1">← 返回花見京旅</a>'+
       '<div class="eyebrow">KYOTO · SAKURA 2027</div>'+
       '<h1>京都櫻花景點</h1>'+
       '<p>直接看介紹。想去就按 Google Maps；想深入看歷史、櫻花品種與觀賞重點，就按 GPT 介紹。</p>'+
@@ -49,7 +51,7 @@
     const q=search.value.trim().toLowerCase();
     const rows=items.filter(p=>{
       const s=p.sakura;
-      return !q||[p.name,p.jp,s.description,s.period,areaMap[s.area],...s.types.map(t=>typeMap[t])].join(' ').toLowerCase().includes(q);
+      return !q||I18N.normalize([I18N.searchText(p),s.description,s.period,areaMap[s.area],...s.types.map(t=>typeMap[t])].join(' ')).includes(I18N.normalize(q));
     });
     count.textContent='顯示 '+rows.length+' / '+items.length+' 個景點';
     groups.innerHTML=collection.areas.map(area=>{
