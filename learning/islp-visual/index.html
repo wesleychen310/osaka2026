@@ -128,8 +128,9 @@ async function fetchDriveFile(id,kind='html'){
     if(!res.ok)throw new Error('DRIVE_'+res.status);
     if(kind==='image'){
       const blob=await res.blob();
-      if(!blob.type.startsWith('image/'))throw new Error('INVALID_IMAGE_RESPONSE');
-      return blob;
+      if(blob.size<12)throw new Error('INVALID_IMAGE_RESPONSE');
+      // Drive may label valid WebP bytes as application/octet-stream.
+      return blob.type.startsWith('image/')?blob:new Blob([blob],{type:'image/webp'});
     }
     return await res.text();
   }
