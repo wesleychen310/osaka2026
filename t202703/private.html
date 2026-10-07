@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="color-scheme" content="light">
 <title>花見京旅｜私人區</title>
-<link rel="stylesheet" href="private.css?v=20261007">
+<link rel="stylesheet" href="private.css?v=20261007-2">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
@@ -24,13 +24,10 @@
 <div id="status" class="status">尚未登入。GitHub 頁面本身不包含帳本或訂單內容。</div>
 </section>
 <section id="privateArea" class="private-area">
-<div id="tabs" class="toolbar"></div>
 <div class="viewer-shell">
-<div class="viewer-head">
-<div>
-<div id="viewerTitle" class="viewer-title">私人文件</div>
+<div id="tabs" class="toolbar" role="tablist" aria-label="私人文件"></div>
+<div class="viewer-meta-row">
 <div id="viewerMeta" class="viewer-meta"></div>
-</div>
 </div>
 <iframe id="viewer" title="私人 Google Drive 文件" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
 </div>
@@ -52,7 +49,6 @@ const statusBox=document.getElementById('status');
 const privateArea=document.getElementById('privateArea');
 const tabs=document.getElementById('tabs');
 const viewer=document.getElementById('viewer');
-const viewerTitle=document.getElementById('viewerTitle');
 const viewerMeta=document.getElementById('viewerMeta');
 
 let tokenClient=null;
@@ -117,18 +113,16 @@ async function loadPrivateDocs(resp){
   }
 }
 function renderTabs(){
-  tabs.innerHTML=docs.map((d,i)=>'<button type="button" class="tab'+(i===0?' active':'')+'" data-i="'+i+'">'+escapeHtml(d.file.label)+'</button>').join('');
+  tabs.innerHTML=docs.map((d,i)=>'<button type="button" role="tab" aria-selected="'+(i===0?'true':'false')+'" class="tab'+(i===0?' active':'')+'" data-i="'+i+'">'+escapeHtml(d.file.label)+'</button>').join('');
   tabs.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>openDoc(Number(b.dataset.i))));
 }
 function openDoc(i){
   const d=docs[i];
   if(!d)return;
-  tabs.querySelectorAll('.tab').forEach((b,j)=>b.classList.toggle('active',j===i));
-  viewerTitle.textContent=d.meta.name||d.file.label;
+  tabs.querySelectorAll('.tab').forEach((b,j)=>{const on=j===i;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on));});
   const mod=d.meta.modifiedTime?new Date(d.meta.modifiedTime).toLocaleString('zh-TW'):'';
   viewerMeta.textContent=(d.meta.size?Number(d.meta.size).toLocaleString()+' bytes':'')+(mod?' · Drive 更新 '+mod:'');
   viewer.srcdoc=d.html;
-  window.scrollTo({top:privateArea.offsetTop-8,behavior:'smooth'});
 }
 loginBtn.addEventListener('click',()=>{
   loginBtn.disabled=true;
