@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light">
 <title>ISLP 視覺筆記｜私人學習</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<style>
+<style data-shell>
 :root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84}
 *{box-sizing:border-box}html,body{min-height:100%;margin:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif;background:radial-gradient(circle at top right,#e8f2f7 0,transparent 38%),var(--bg);color:var(--text)}
@@ -22,55 +22,319 @@ button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;
 <main class="gate"><section class="panel">
 <div class="eyebrow">PRIVATE · ISLP · VISUAL NOTES</div>
 <h1>ISLP 視覺筆記</h1>
-<p id="message">正在確認 Google 授權；已有有效登入時會直接開啟 10 張視覺筆記。</p>
+<p id="message">正在確認 Google 授權；已有有效登入時會直接開啟私人視覺筆記。</p>
 <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
 <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
 <a class="back" href="../">← 回私人學習入口</a>
 </section></main>
 <script>
-const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
-const FILE_ID="18c6xkniZissK6cF0x3Xr0_D1h-FEUwFd";
-const SCOPE="https://www.googleapis.com/auth/drive.readonly";
-const TOKEN_KEY="hanami-kyoto-google-token-v3";
-const loginBtn=document.getElementById("loginBtn"),statusBox=document.getElementById("status"),messageBox=document.getElementById("message");
-let tokenClient=null;
-function setStatus(text,loading=false){statusBox.innerHTML=loading?'<span class="spinner"></span>'+text:text}
-function showLogin(reason){loginBtn.hidden=false;loginBtn.disabled=false;messageBox.textContent="Google 授權只負責門禁；登入成功後，視覺筆記直接接管全頁。";setStatus(reason||"需要 Google 帳號授權。")}
-function saveToken(resp){const payload={access_token:resp.access_token,expires_at:Date.now()+Number(resp.expires_in||3600)*1000};sessionStorage.setItem(TOKEN_KEY,JSON.stringify(payload));return payload}
-function getSavedToken(){try{const x=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");if(!x?.access_token||!x?.expires_at)return null;if(Date.now()>x.expires_at-120000){sessionStorage.removeItem(TOKEN_KEY);return null}return x}catch{sessionStorage.removeItem(TOKEN_KEY);return null}}
-async function renderDriveHtml(accessToken){
-  setStatus("正在載入私人 ISLP 視覺筆記…",true);
-  const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(FILE_ID)+"?alt=media",{headers:{Authorization:"Bearer "+accessToken},cache:"no-store"});
-  if(res.status===401){sessionStorage.removeItem(TOKEN_KEY);throw new Error("TOKEN_EXPIRED")}
-  if(!res.ok)throw new Error("DRIVE_"+res.status);
-  const html=await res.text();
-  document.open();document.write(html);document.close();
+'use strict';
+// All OAuth and private image requests remain in this GitHub shell's JS closure.
+// Private Drive HTML contains styles + a JSON manifest only; no OAuth or image-fetch code.
+const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
+const FILE_ID='18c6xkniZissK6cF0x3Xr0_D1h-FEUwFd';
+const SCOPE='https://www.googleapis.com/auth/drive.readonly';
+const TOKEN_KEY='hanami-kyoto-google-token-v3';
+const DRIVE_API='https://www.googleapis.com/drive/v3/files/';
+const ROOT_MARGIN='600px 0px';
+const MAX_OBJECT_URLS=48; // Bounded memory for future 100–200+ notes; all 10 current images remain cached.
+const loginBtn=document.getElementById('loginBtn');
+const statusBox=document.getElementById('status');
+const messageBox=document.getElementById('message');
+let currentToken=null,tokenExpiresAt=0,tokenRequest=null;
+let notes=[],images=[],imageObserver=null,viewerOpenIndex=-1;
+const objectUrls=new Map(); // Drive file ID -> {url, usedAt}
+const inFlight=new Map();
+
+function setStatus(message,loading=false){
+  if(!statusBox.isConnected)return;
+  statusBox.textContent='';
+  if(loading){const spin=document.createElement('span');spin.className='spinner';statusBox.append(spin)}
+  statusBox.append(document.createTextNode(message));
 }
-function initClient(){
-  if(tokenClient||!window.google?.accounts?.oauth2)return !!tokenClient;
-  tokenClient=google.accounts.oauth2.initTokenClient({
-    client_id:CLIENT_ID,scope:SCOPE,
-    callback:async resp=>{
-      if(resp.error){showLogin("Google 尚未完成授權。");return}
-      try{const t=saveToken(resp);await renderDriveHtml(t.access_token)}
-      catch(e){sessionStorage.removeItem(TOKEN_KEY);showLogin(e?.message==="TOKEN_EXPIRED"?"登入狀態已過期，請再按一次。":"視覺筆記載入失敗，請再試一次。")}
-    },
-    error_callback:()=>showLogin("瀏覽器需要你按一次登入按鈕。")
-  });return true;
+function showGateError(message){
+  loginBtn.hidden=false;loginBtn.disabled=false;
+  messageBox.textContent='授權完成後，私人視覺筆記直接接管全頁。';
+  setStatus(message);
 }
-function requestQuiet(){if(!initClient())return false;try{tokenClient.requestAccessToken({prompt:""});return true}catch{return false}}
-async function boot(){
-  const saved=getSavedToken();
-  if(saved){try{await renderDriveHtml(saved.access_token);return}catch{sessionStorage.removeItem(TOKEN_KEY)}}
-  const deadline=Date.now()+6000;
-  while(Date.now()<deadline&&!window.google?.accounts?.oauth2)await new Promise(r=>setTimeout(r,100));
-  if(!initClient()){showLogin("Google 登入元件載入失敗，請重新整理。");return}
-  setStatus("正在嘗試沿用既有 Google 授權…",true);
-  if(!requestQuiet())showLogin("請按一次 Google 登入。");
-  setTimeout(()=>{if(loginBtn.hidden&&document.body?.querySelector(".gate"))showLogin("若沒有自動開啟，請按一次 Google 登入。")},3500);
+function storeToken(resp){
+  currentToken=resp.access_token;
+  tokenExpiresAt=Date.now()+Number(resp.expires_in||3600)*1000;
+  try{sessionStorage.setItem(TOKEN_KEY,JSON.stringify({access_token:currentToken,expires_at:tokenExpiresAt}))}catch{}
+  return currentToken;
 }
-loginBtn.addEventListener("click",()=>{loginBtn.disabled=true;setStatus("正在確認 Google 帳號…",true);if(!requestQuiet())showLogin("無法啟動 Google 授權，請重新整理後再試。")});
-boot();
+function readToken(){
+  if(currentToken&&Date.now()<tokenExpiresAt-120000)return currentToken;
+  try{
+    const x=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||'null');
+    if(x?.access_token&&Date.now()<Number(x.expires_at)-120000){
+      currentToken=x.access_token;tokenExpiresAt=Number(x.expires_at);return currentToken;
+    }
+  }catch{}
+  currentToken=null;tokenExpiresAt=0;return null;
+}
+function invalidateToken(){
+  currentToken=null;tokenExpiresAt=0;
+  try{sessionStorage.removeItem(TOKEN_KEY)}catch{}
+}
+async function waitForGIS(){
+  const until=Date.now()+6500;
+  while(Date.now()<until){
+    if(window.google?.accounts?.oauth2?.initTokenClient)return;
+    await new Promise(resolve=>setTimeout(resolve,100));
+  }
+  throw new Error('GOOGLE_SCRIPT_UNAVAILABLE');
+}
+async function requestGoogleToken(interactive=false){
+  await waitForGIS();
+  return new Promise((resolve,reject)=>{
+    let settled=false;
+    const finish=(error,token)=>{if(settled)return;settled=true;error?reject(error):resolve(token)};
+    const client=google.accounts.oauth2.initTokenClient({
+      client_id:CLIENT_ID,scope:SCOPE,
+      callback:resp=>resp?.access_token?finish(null,storeToken(resp)):finish(new Error(resp?.error||'OAUTH_REQUIRED')),
+      error_callback:err=>finish(new Error(err?.type||'OAUTH_POPUP_FAILED'))
+    });
+    try{client.requestAccessToken({prompt:interactive?'select_account':''})}
+    catch(error){finish(error)}
+  });
+}
+async function ensureToken(interactive=false){
+  if(!interactive){const saved=readToken();if(saved)return saved}
+  if(tokenRequest)return tokenRequest;
+  tokenRequest=requestGoogleToken(interactive).finally(()=>{tokenRequest=null});
+  return tokenRequest;
+}
+function showAuthAlert(message){
+  const alert=document.getElementById('authAlert');
+  if(!alert)return;
+  document.getElementById('authMessage').textContent=message;
+  alert.hidden=false;
+}
+function hideAuthAlert(){const el=document.getElementById('authAlert');if(el)el.hidden=true}
+async function fetchDriveFile(id,kind='html'){
+  let token=await ensureToken(false);
+  for(let attempt=0;attempt<2;attempt++){
+    const res=await fetch(DRIVE_API+encodeURIComponent(id)+'?alt=media',{
+      headers:{Authorization:'Bearer '+token},cache:'no-store'
+    });
+    if(res.status===401&&attempt===0){
+      invalidateToken();
+      try{token=await ensureToken(false);continue}
+      catch(error){showAuthAlert('Google 授權已到期，請重新授權以繼續讀取私人圖片。');throw new Error('AUTH_REQUIRED')}
+    }
+    if(res.status===401){invalidateToken();showAuthAlert('Google 授權已到期，請重新授權。');throw new Error('AUTH_REQUIRED')}
+    if(res.status===403){showAuthAlert('Google Drive 拒絕讀取（403）。請確認登入帳號有此私人檔案的存取權。');throw new Error('DRIVE_403')}
+    if(!res.ok)throw new Error('DRIVE_'+res.status);
+    if(kind==='image'){
+      const blob=await res.blob();
+      if(!blob.type.startsWith('image/'))throw new Error('INVALID_IMAGE_RESPONSE');
+      return blob;
+    }
+    return await res.text();
+  }
+  throw new Error('AUTH_REQUIRED');
+}
+function node(tag,className,text){
+  const x=document.createElement(tag);if(className)x.className=className;
+  if(text!==undefined)x.textContent=text;return x;
+}
+function validateManifest(data){
+  if(data?.schemaVersion!==1||!Array.isArray(data.notes)||!data.notes.length)throw new Error('INVALID_MANIFEST');
+  for(const n of data.notes){
+    if(!/^[\w-]{10,}$/.test(n.fileId)||typeof n.section!=='string'||typeof n.title!=='string'||typeof n.zh!=='string')throw new Error('INVALID_NOTE');
+  }
+  return data.notes;
+}
+function renderPrivateHtml(html){
+  const parsed=new DOMParser().parseFromString(html,'text/html');
+  const manifest=parsed.querySelector('#notes-manifest');
+  let items;
+  if(manifest){
+    items=validateManifest(JSON.parse(manifest.textContent));
+  }else{
+    // Transitional compatibility: make the currently deployed 10-card HTML usable
+    // before the manifest version is written back to the same private Drive file.
+    const oldCards=[...parsed.querySelectorAll('article.note')];
+    if(!oldCards.length)throw new Error('MANIFEST_MISSING');
+    items=validateManifest({schemaVersion:1,notes:oldCards.map(card=>({
+      section:card.querySelector('.section')?.textContent?.replace(/^ISLP\s*/, '').trim()||'',
+      title:card.querySelector('h2')?.textContent?.trim()||'',
+      zh:card.querySelector('.note-head p')?.textContent?.trim()||'',
+      fileId:card.querySelector('img[data-drive-id]')?.dataset.driveId||'',
+      width:1055,height:1491
+    }))});
+    oldCards.forEach(card=>card.remove());
+    const main=parsed.querySelector('main');main.id='notesRoot';
+    main.querySelector('.hint')?.remove();
+    parsed.querySelector('#jump')?.replaceChildren();
+    const alert=parsed.createElement('div');alert.className='auth-alert';alert.id='authAlert';alert.hidden=true;
+    alert.innerHTML='<span id="authMessage">Google 授權已到期，請重新授權。</span><button type="button" id="reauthButton">重新授權</button>';
+    main.before(alert);
+    const style=parsed.createElement('style');
+    style.textContent='.note .image-button{aspect-ratio:1055/1491;min-height:0;position:relative;display:block}.image-button .lazy-note{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}.image-button.loaded .lazy-note{opacity:1}.image-button .placeholder{position:absolute;inset:0;display:grid;place-items:center;z-index:2;pointer-events:none;color:#627381;font-size:13px}.image-button.loaded .placeholder{display:none}.image-button.error .placeholder{color:#9d3942;background:#fff7f7}.image-button.error::after{display:none}.auth-alert{max-width:1120px;margin:12px auto;padding:12px;background:#fff8ec;border:1px solid #d9b985;border-radius:12px;display:flex;justify-content:space-between;gap:12px}.auth-alert[hidden]{display:none}.auth-alert button{background:#173e5b;color:white;border:0;border-radius:9px;padding:8px}';
+    parsed.head.append(style);
+  }
+  // The fetched private HTML never runs its own OAuth or image-fetch scripts.
+  parsed.querySelectorAll('script').forEach(script=>script.remove());
+  // Full-page visual takeover without document.write: the shell's OAuth closure stays alive.
+  document.querySelectorAll('style[data-shell]').forEach(x=>x.remove());
+  parsed.head.querySelectorAll('style').forEach(s=>document.head.appendChild(document.importNode(s,true)));
+  document.title=parsed.title||'ISLP 視覺筆記';
+  document.documentElement.lang='zh-Hant-TW';
+  document.body.replaceChildren(...[...parsed.body.childNodes].map(x=>document.importNode(x,true)));
+  notes=items;
+  const root=document.getElementById('notesRoot'),jump=document.getElementById('jump');
+  let chapter=null,group=null;
+  const fragment=document.createDocumentFragment();
+  for(let i=0;i<notes.length;i++){
+    const n=notes[i],num=String(i+1).padStart(2,'0');
+    const chapterName=n.section.split('.')[0];
+    if(chapterName!==chapter){chapter=chapterName;group=node('optgroup');group.label='Chapter '+chapter;jump.append(group)}
+    const option=node('option',null,num+' · '+n.section+' '+n.title);option.value='note-'+(i+1);group.append(option);
+    const article=node('article','note');article.id='note-'+(i+1);article.dataset.index=String(i+1);
+    const head=node('div','note-head'),line=node('div');
+    line.append(node('span','seq',num),node('span','section','ISLP '+n.section));
+    head.append(line,node('h2',null,n.title),node('p',null,n.zh));
+    const button=node('button','image-button');button.type='button';button.dataset.view=String(i);
+    button.setAttribute('aria-label','放大第 '+(i+1)+' 張視覺筆記');
+    const img=node('img','lazy-note');img.dataset.driveId=n.fileId;img.dataset.noteIndex=String(i);
+    img.alt='ISLP '+n.section+' '+n.title+' 視覺筆記';img.width=Number(n.width)||1055;img.height=Number(n.height)||1491;
+    img.decoding='async';img.setAttribute('aria-busy','true');
+    const placeholder=node('span','placeholder','正在載入視覺筆記…');
+    button.append(img,placeholder);article.append(head,button);fragment.append(article);
+  }
+  fragment.append(node('p','hint','共 '+notes.length+' 張 · Chapter 2 原圖來源：ISLP_視覺筆記.pdf；3.2.1：ChatGPT Images 2.5'));
+  root.append(fragment);
+  document.getElementById('progress').textContent='01 / '+String(notes.length).padStart(2,'0');
+  images=[...document.querySelectorAll('img.lazy-note')];
+  attachUI();hideAuthAlert();
+  if(images.length){void loadImage(images[0]);setupLazyObserver()}
+}
+function setImageError(img,message){
+  img.dataset.state='error';img.setAttribute('aria-busy','false');
+  const b=img.closest('.image-button');b.classList.remove('loaded');b.classList.add('error');
+  b.querySelector('.placeholder').textContent=message+' · 點一下重試';
+}
+function touchCache(id){
+  const x=objectUrls.get(id);if(!x)return null;
+  x.usedAt=Date.now();objectUrls.delete(id);objectUrls.set(id,x);return x.url;
+}
+function trimCache(){
+  if(objectUrls.size<=MAX_OBJECT_URLS)return;
+  for(const [id,x] of objectUrls){
+    if(objectUrls.size<=MAX_OBJECT_URLS)break;
+    const img=images.find(i=>i.dataset.driveId===id);
+    const rect=img?.getBoundingClientRect();
+    const near=rect&&rect.bottom>-(innerHeight*2)&&rect.top<innerHeight*3;
+    if(near||notes[viewerOpenIndex]?.fileId===id)continue;
+    if(img){img.removeAttribute('src');img.dataset.state='idle';img.closest('.image-button').classList.remove('loaded');imageObserver?.observe(img)}
+    URL.revokeObjectURL(x.url);objectUrls.delete(id);
+  }
+}
+async function loadImage(img){
+  if(!img)return false;
+  const id=img.dataset.driveId,button=img.closest('.image-button');
+  if(img.dataset.state==='loaded'&&img.src)return true;
+  const cached=touchCache(id);
+  if(cached){img.src=cached;img.dataset.state='loaded';img.setAttribute('aria-busy','false');button.classList.add('loaded');button.classList.remove('error');return true}
+  if(inFlight.has(id))return inFlight.get(id);
+  img.dataset.state='loading';button.classList.remove('error');
+  button.querySelector('.placeholder').textContent='正在載入視覺筆記…';
+  const task=(async()=>{
+    let url;
+    try{
+      const blob=await fetchDriveFile(id,'image');
+      url=URL.createObjectURL(blob);
+      await new Promise((resolve,reject)=>{
+        img.onload=()=>resolve();img.onerror=()=>reject(new Error('IMAGE_DECODE_FAILED'));img.src=url;
+      });
+      objectUrls.set(id,{url,usedAt:Date.now()});
+      img.dataset.state='loaded';img.setAttribute('aria-busy','false');
+      button.classList.add('loaded');button.classList.remove('error');trimCache();return true;
+    }catch(e){
+      if(url){URL.revokeObjectURL(url);img.removeAttribute('src')}
+      const m=e?.message==='AUTH_REQUIRED'?'登入已到期':e?.message==='DRIVE_403'?'私人圖片存取遭拒':'圖片載入失敗';
+      setImageError(img,m);return false;
+    }finally{img.onload=null;img.onerror=null;inFlight.delete(id)}
+  })();
+  inFlight.set(id,task);return task;
+}
+function setupLazyObserver(){
+  imageObserver=new IntersectionObserver(entries=>{
+    for(const e of entries){
+      if(!e.isIntersecting)continue;
+      imageObserver.unobserve(e.target);
+      void loadImage(e.target);
+    }
+  },{rootMargin:ROOT_MARGIN,threshold:0.01});
+  // The first image is requested immediately; all others require viewport proximity.
+  images.slice(1).forEach(img=>imageObserver.observe(img));
+}
+function updateProgress(index){
+  document.getElementById('jump').value='note-'+(index+1);
+  document.getElementById('progress').textContent=String(index+1).padStart(2,'0')+' / '+String(notes.length).padStart(2,'0');
+}
+function openViewer(i){
+  const n=notes[i],img=images[i],v=document.getElementById('viewer');
+  viewerOpenIndex=i;
+  document.getElementById('viewerImg').src=touchCache(n.fileId)||img.src;
+  document.getElementById('viewerTitle').textContent=String(i+1).padStart(2,'0')+' · ISLP '+n.section+' · '+n.title;
+  v.classList.add('open');v.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}
+function closeViewer(){
+  const v=document.getElementById('viewer');if(!v)return;
+  v.classList.remove('open');v.setAttribute('aria-hidden','true');
+  document.getElementById('viewerImg').removeAttribute('src');document.body.style.overflow='';viewerOpenIndex=-1;
+}
+function attachUI(){
+  document.getElementById('jump').addEventListener('change',event=>{
+    const index=Number(event.target.value.split('-')[1])-1;
+    if(index<0||index>=notes.length)return;
+    updateProgress(index);void loadImage(images[index]);
+    // Instant chapter jumps prevent IntersectionObserver from downloading every intermediate image.
+    const htmlEl=document.documentElement,prior=htmlEl.style.scrollBehavior;
+    htmlEl.style.scrollBehavior='auto';
+    document.getElementById(event.target.value).scrollIntoView({behavior:'auto',block:'start'});
+    requestAnimationFrame(()=>{htmlEl.style.scrollBehavior=prior});
+  });
+  document.getElementById('notesRoot').addEventListener('click',async event=>{
+    const b=event.target.closest('.image-button');if(!b)return;
+    const i=Number(b.dataset.view),ok=await loadImage(images[i]);if(ok)openViewer(i);
+  });
+  document.getElementById('close').addEventListener('click',closeViewer);
+  document.getElementById('viewer').addEventListener('click',event=>{if(event.target.id==='viewer')closeViewer()});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')closeViewer()});
+  const noteObserver=new IntersectionObserver(entries=>{
+    const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>Math.abs(a.boundingClientRect.top)-Math.abs(b.boundingClientRect.top));
+    if(vis.length)updateProgress(Number(vis[0].target.dataset.index)-1);
+  },{rootMargin:'-80px 0px -55% 0px',threshold:0});
+  document.querySelectorAll('article.note').forEach(x=>noteObserver.observe(x));
+  document.getElementById('reauthButton').addEventListener('click',async event=>{
+    event.target.disabled=true;
+    try{
+      invalidateToken();await ensureToken(true);hideAuthAlert();
+      await Promise.all(images.filter(i=>i.dataset.state==='error').map(i=>loadImage(i)));
+    }catch{showAuthAlert('授權未完成。請按「重新授權」並選擇有權限的 Google 帳號。')}
+    finally{event.target.disabled=false}
+  });
+}
+async function loadSite(interactive=false){
+  if(interactive){loginBtn.disabled=true;setStatus('正在確認 Google 帳號…',true)}
+  try{
+    await ensureToken(interactive);
+    setStatus('正在讀取私人視覺筆記目錄…',true);
+    const html=await fetchDriveFile(FILE_ID,'html');
+    renderPrivateHtml(html);
+  }catch(e){
+    showGateError(e?.message==='DRIVE_403'?'登入帳號沒有此私人筆記的讀取權（403）。請切換帳號。':
+      e?.message==='GOOGLE_SCRIPT_UNAVAILABLE'?'Google 登入元件載入失敗，請重新整理。':
+      '請按一次 Google 登入，繼續讀取私人筆記。');
+  }
+}
+loginBtn.addEventListener('click',()=>{void loadSite(true)});
+window.addEventListener('pagehide',()=>{for(const x of objectUrls.values())URL.revokeObjectURL(x.url);objectUrls.clear()});
+void loadSite(false);
 </script>
 </body>
 </html>
