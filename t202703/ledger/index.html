@@ -22,7 +22,6 @@ button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;
 button:disabled{opacity:.5}
 .status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}
 .spinner{width:18px;height:18px;border:2px solid #ded8d4;border-top-color:#756e69;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}
-.fallback{display:none;margin-top:14px;font-size:12px}.fallback.show{display:block}.fallback a{color:var(--accent)}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
@@ -34,7 +33,6 @@ button:disabled{opacity:.5}
     <p id="message">正在確認 Google 授權；如果已有有效登入，會直接開啟文件。</p>
     <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
     <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
-    <div id="fallback" class="fallback">需要立即使用時，可先開啟 <a href="https://kyoto-2027-private.cyc690310.workers.dev/" rel="noopener">Cloudflare 私人入口</a>。</div>
   </section>
 </main>
 
@@ -47,7 +45,6 @@ const TOKEN_KEY='hanami-kyoto-google-token-v3';
 const loginBtn=document.getElementById('loginBtn');
 const statusBox=document.getElementById('status');
 const messageBox=document.getElementById('message');
-const fallback=document.getElementById('fallback');
 
 let tokenClient=null;
 let autoTried=false;
@@ -60,7 +57,6 @@ function showLogin(reason){
   loginBtn.disabled=false;
   messageBox.textContent='Google 授權只負責門禁；登入成功後這個畫面會消失，直接顯示私人文件。';
   setStatus(reason||'需要 Google 帳號授權。');
-  fallback.classList.add('show');
 }
 function saveToken(resp){
   const expiresIn=Number(resp.expires_in||3600);
@@ -160,7 +156,6 @@ async function boot(){
 }
 loginBtn.addEventListener('click',()=>{
   loginBtn.disabled=true;
-  fallback.classList.remove('show');
   setStatus('正在確認 Google 帳號…',true);
   if(!requestQuiet()){
     loginBtn.disabled=false;
