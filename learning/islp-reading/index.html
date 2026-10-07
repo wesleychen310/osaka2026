@@ -6,51 +6,90 @@
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light">
-<title>ISLP課本雙語化｜私人學習</title>
+<title>ISLP 課本雙語化｜私人學習</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84}
-*{box-sizing:border-box}html,body{min-height:100%;margin:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif;background:radial-gradient(circle at top right,#e8f2f7 0,transparent 38%),var(--bg);color:var(--text)}
-.gate{min-height:100vh;display:grid;place-items:center;padding:24px}
-.panel{width:min(420px,100%);background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 16px 45px rgba(27,47,62,.08)}
-.eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--accent)}
-h1{font-size:27px;line-height:1.2;margin:7px 0 8px}
-p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
-button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;background:#173e5b;color:#fff;font:inherit;font-weight:800;cursor:pointer}
-button:disabled{opacity:.5}
-.status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}
-.spinner{width:18px;height:18px;border:2px solid #dce5ea;border-top-color:#58798e;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}
-.back{display:inline-block;margin-top:15px;color:var(--muted);font-size:12px;text-decoration:none}
-@keyframes spin{to{transform:rotate(360deg)}}
+:root{--bg:#f5f2ea;--paper:#fffdf8;--ink:#202a31;--muted:#69747b;--line:#dedbd1;--accent:#184d66;--accent2:#7b4f2b;--shadow:0 18px 50px rgba(35,45,52,.08)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC","Segoe UI",sans-serif;background:linear-gradient(180deg,#e9f0f2 0,#f5f2ea 430px);color:var(--ink)}
+.wrap{max-width:980px;margin:auto;padding:clamp(28px,7vw,72px) 16px 64px}
+.eyebrow{font-size:12px;font-weight:850;letter-spacing:.13em;color:var(--accent)}
+h1{font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:clamp(36px,7vw,60px);line-height:1.04;letter-spacing:-.045em;margin:10px 0;color:#173f52}
+.dek{margin:0;max-width:720px;color:var(--muted);font-size:15px;line-height:1.8}
+.rule{height:1px;background:var(--line);margin:28px 0 22px}
+.section-title{font-size:13px;font-weight:850;letter-spacing:.08em;color:#53636c;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:15px}
+.chapter{display:block;text-decoration:none;text-align:left;width:100%;border:1px solid var(--line);background:rgba(255,253,248,.96);border-radius:22px;padding:22px;box-shadow:var(--shadow);color:inherit;transition:transform .15s ease,box-shadow .15s ease}
+.chapter:hover{transform:translateY(-1px)}.chapter:active{transform:scale(.995)}
+.num{font-family:Georgia,serif;font-size:44px;line-height:1;color:#b9c4c9;display:block;margin-bottom:12px}
+.chapter h2{margin:0 0 4px;font-size:24px;color:#173f52;letter-spacing:-.02em}
+.en{font-family:Georgia,serif;font-size:16px;color:var(--accent2);margin-bottom:10px}
+.meta{font-size:13px;color:var(--muted);line-height:1.65}
+.topics{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}.pill{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:5px 8px;background:#fff;color:#667078}
+.open{display:block;margin-top:18px;color:var(--accent);font-weight:850;font-size:14px}
+.foot{margin-top:22px;font-size:12px;color:#7b858b;line-height:1.7}.back{color:var(--muted);text-decoration:none}
+.gate{min-height:100vh;display:grid;place-items:center;padding:24px}.panel{width:min(440px,100%);background:rgba(255,253,248,.98);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+.panel h1{font-family:inherit;font-size:27px;letter-spacing:-.02em;margin:7px 0 8px}.panel p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
+button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;background:#173e5b;color:#fff;font:inherit;font-weight:800;cursor:pointer}button:disabled{opacity:.5}
+.status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}.spinner{width:18px;height:18px;border:2px solid #dce5ea;border-top-color:#58798e;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}
+@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:620px){.wrap{padding:28px 12px 44px}.chapter{padding:18px;border-radius:18px}}
 </style>
 </head>
 <body>
-<main class="gate">
-  <section class="panel">
-    <div class="eyebrow">PRIVATE · ISLP</div>
-    <h1>ISLP課本雙語化</h1>
-    <p id="message">正在確認 Google 授權；如果已有有效登入，會直接開啟私人教材。</p>
-    <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
-    <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
-    <a class="back" href="../">← 回私人學習入口</a>
-  </section>
-</main>
+<div id="app"></div>
 <script>
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
-const FILE_ID="1IGk12W81c4U-R3j45qjBfTbUTqZA2x5X";
-const SCOPE='https://www.googleapis.com/auth/drive.readonly';
-const TOKEN_KEY='hanami-kyoto-google-token-v3';
-const loginBtn=document.getElementById('loginBtn');
-const statusBox=document.getElementById('status');
-const messageBox=document.getElementById('message');
+const SCOPE="https://www.googleapis.com/auth/drive.readonly";
+const TOKEN_KEY="hanami-kyoto-google-token-v3";
+const CHAPTERS={
+  "3":{fileId:"1dGsBY5l6XKuxkpriNDzx3tCmwIXQzS4Q",title:"Chapter 3｜線性迴歸",en:"Linear Regression"},
+  "4":{fileId:"1fUhbSm_tOL4jnF9zHTEP99y71gYASDJG",title:"Chapter 4｜分類",en:"Classification"}
+};
 let tokenClient=null;
+let pendingChapter=null;
+const app=document.getElementById("app");
 
-function setStatus(text,loading=false){statusBox.innerHTML=loading?'<span class="spinner"></span>'+text:text}
+function selector(){
+  document.title="ISLP 課本雙語化｜私人學習";
+  app.innerHTML=`
+  <main class="wrap">
+    <div class="eyebrow">AN INTRODUCTION TO STATISTICAL LEARNING · PYTHON EDITION</div>
+    <h1>ISLP 課本雙語化</h1>
+    <p class="dek">教材改為分章載入。選擇章節後才從私人 Google Drive 讀取該章，避免每次先下載整份教材。</p>
+    <div class="rule"></div>
+    <div class="section-title">章節目錄</div>
+    <section class="grid">
+      <a class="chapter" href="?chapter=3"><span class="num">03</span><h2>Chapter 3｜線性迴歸</h2><div class="en">Linear Regression</div><div class="meta">§3.1–§3.7 · 英文原文與繁中精讀 · 教材圖表 · Python Lab 與 Exercises</div><div class="topics"><span class="pill">Simple Linear Regression</span><span class="pill">Multiple Linear Regression</span><span class="pill">Diagnostics</span><span class="pill">Python Lab</span></div><span class="open">閱讀本章 →</span></a>
+      <a class="chapter" href="?chapter=4"><span class="num">04</span><h2>Chapter 4｜分類</h2><div class="en">Classification</div><div class="meta">§4.1–§4.8 · 英文原文與繁中翻譯 · Figure / Table · Python Lab 與完整 Exercises</div><div class="topics"><span class="pill">Logistic Regression</span><span class="pill">LDA / QDA</span><span class="pill">Naive Bayes</span><span class="pill">GLMs</span></div><span class="open">閱讀本章 →</span></a>
+    </section>
+    <p class="foot"><a class="back" href="../">← 回私人學習入口</a></p>
+  </main>`;
+}
+
+function gate(ch){
+  const c=CHAPTERS[ch];
+  document.title=c.title+"｜ISLP 雙語課本";
+  app.innerHTML=`
+  <main class="gate"><section class="panel">
+    <div class="eyebrow">PRIVATE · ISLP</div>
+    <h1>${c.title}</h1>
+    <p id="message">正在確認 Google 授權。授權完成後，本章教材會直接接管全頁。</p>
+    <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
+    <div id="status" class="status"><span class="spinner"></span>正在準備…</div>
+    <p style="margin-top:15px"><a class="back" href="./">← 回章節目錄</a></p>
+  </section></main>`;
+}
+
+function setStatus(text,loading=false){
+  const el=document.getElementById("status"); if(!el)return;
+  el.innerHTML=loading?'<span class="spinner"></span>'+text:text;
+}
 function showLogin(reason){
-  loginBtn.hidden=false;loginBtn.disabled=false;
-  messageBox.textContent='Google 授權只負責門禁；登入成功後這個畫面會消失，ISLP 雙語教材直接接管全頁。';
-  setStatus(reason||'需要 Google 帳號授權。');
+  const btn=document.getElementById("loginBtn");
+  const msg=document.getElementById("message");
+  if(btn){btn.hidden=false;btn.disabled=false}
+  if(msg)msg.textContent="Google 授權只負責門禁；登入成功後，本章教材直接接管全頁。";
+  setStatus(reason||"需要 Google 帳號授權。");
 }
 function saveToken(resp){
   const expiresIn=Number(resp.expires_in||3600);
@@ -60,20 +99,35 @@ function saveToken(resp){
 }
 function getSavedToken(){
   try{
-    const x=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||'null');
+    const x=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");
     if(!x?.access_token||!x?.expires_at)return null;
     if(Date.now()>x.expires_at-120000){sessionStorage.removeItem(TOKEN_KEY);return null}
     return x;
   }catch{sessionStorage.removeItem(TOKEN_KEY);return null}
 }
-async function renderDriveHtml(accessToken){
-  setStatus('正在載入私人 Google Drive ISLP 雙語教材…',true);
-  const res=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(FILE_ID)+'?alt=media',{
-    headers:{Authorization:'Bearer '+accessToken},cache:'no-store'
+async function fetchChapter(accessToken,ch){
+  const c=CHAPTERS[ch];
+  setStatus("正在下載 "+c.title+"…",true);
+  const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(c.fileId)+"?alt=media",{
+    headers:{Authorization:"Bearer "+accessToken}
   });
-  if(res.status===401){sessionStorage.removeItem(TOKEN_KEY);throw new Error('TOKEN_EXPIRED')}
-  if(!res.ok)throw new Error('DRIVE_'+res.status);
-  const html=await res.text();
+  if(res.status===401){sessionStorage.removeItem(TOKEN_KEY);throw new Error("TOKEN_EXPIRED")}
+  if(!res.ok)throw new Error("DRIVE_"+res.status);
+
+  const total=Number(res.headers.get("content-length")||0);
+  if(!res.body||!total){
+    const html=await res.text();
+    document.open();document.write(html);document.close();return;
+  }
+  const reader=res.body.getReader(),chunks=[];let received=0;
+  while(true){
+    const {done,value}=await reader.read();
+    if(done)break;
+    chunks.push(value);received+=value.length;
+    setStatus("正在下載 "+c.title+" · "+Math.min(99,Math.round(received/total*100))+"%",true);
+  }
+  const blob=new Blob(chunks,{type:"text/html;charset=utf-8"});
+  const html=await blob.text();
   document.open();document.write(html);document.close();
 }
 function initClient(){
@@ -81,37 +135,43 @@ function initClient(){
   tokenClient=google.accounts.oauth2.initTokenClient({
     client_id:CLIENT_ID,scope:SCOPE,
     callback:async resp=>{
-      if(resp.error){showLogin('Google 尚未完成授權。');return}
-      loginBtn.disabled=true;
-      try{const t=saveToken(resp);await renderDriveHtml(t.access_token)}
-      catch(e){sessionStorage.removeItem(TOKEN_KEY);showLogin(e?.message==='TOKEN_EXPIRED'?'登入狀態已過期，請再按一次。':'私人教材載入失敗，請再試一次。')}
+      if(resp.error){showLogin("Google 尚未完成授權。");return}
+      try{const t=saveToken(resp);await fetchChapter(t.access_token,pendingChapter)}
+      catch(e){sessionStorage.removeItem(TOKEN_KEY);showLogin(e?.message==="TOKEN_EXPIRED"?"登入狀態已過期，請再按一次。":"私人教材載入失敗，請再試一次。")}
     },
-    error_callback:()=>showLogin('瀏覽器需要你按一次登入按鈕。')
+    error_callback:()=>showLogin("瀏覽器需要你按一次登入按鈕。")
   });
   return true;
 }
 function requestQuiet(){
   if(!initClient())return false;
-  try{tokenClient.requestAccessToken({prompt:''});return true}catch{return false}
+  try{tokenClient.requestAccessToken({prompt:""});return true}catch{return false}
 }
-async function boot(){
+async function openChapter(ch){
+  pendingChapter=ch;gate(ch);
   const saved=getSavedToken();
   if(saved){
-    try{await renderDriveHtml(saved.access_token);return}
+    try{await fetchChapter(saved.access_token,ch);return}
     catch{sessionStorage.removeItem(TOKEN_KEY)}
   }
   const deadline=Date.now()+6000;
   while(Date.now()<deadline&&!window.google?.accounts?.oauth2)await new Promise(r=>setTimeout(r,100));
-  if(!initClient()){showLogin('Google 登入元件載入失敗，請重新整理。');return}
-  setStatus('正在嘗試沿用既有 Google 授權…',true);
-  if(!requestQuiet())showLogin('請按一次 Google 登入。');
-  setTimeout(()=>{if(!loginBtn.hidden)return;if(document.body?.querySelector('.gate'))showLogin('若沒有自動開啟，請按一次 Google 登入。')},3500);
+  if(!initClient()){showLogin("Google 登入元件載入失敗，請重新整理。");return}
+  setStatus("正在嘗試沿用既有 Google 授權…",true);
+  if(!requestQuiet())showLogin("請按一次 Google 登入。");
+  setTimeout(()=>{
+    const btn=document.getElementById("loginBtn");
+    if(btn&&btn.hidden)showLogin("若沒有自動開啟，請按一次 Google 登入。");
+  },3500);
 }
-loginBtn.addEventListener('click',()=>{
-  loginBtn.disabled=true;setStatus('正在確認 Google 帳號…',true);
-  if(!requestQuiet()){loginBtn.disabled=false;showLogin('無法啟動 Google 授權，請重新整理後再試。')}
+document.addEventListener("click",e=>{
+  if(e.target?.id==="loginBtn"){
+    e.target.disabled=true;setStatus("正在確認 Google 帳號…",true);
+    if(!requestQuiet())showLogin("無法啟動 Google 授權，請重新整理後再試。");
+  }
 });
-boot();
+const ch=new URLSearchParams(location.search).get("chapter");
+if(CHAPTERS[ch])openChapter(ch);else selector();
 </script>
 </body>
 </html>
