@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light">
+<title>超級筆記｜私人學習入口</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84;--accent2:#173e5b;--soft:#edf5f9;--ok:#1d6b46;--okbg:#e9f6ef;--err:#9a3340;--errbg:#faecee;--shadow:0 14px 36px rgba(27,47,62,.08)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC","Segoe UI",sans-serif}
+body{background:linear-gradient(180deg,#eaf2f7 0,#f5f7f9 340px)}
+button{font:inherit}
+.wrap{max-width:920px;margin:auto;padding:clamp(24px,6vw,64px) 16px 48px}
+.hero{padding:10px 2px 20px}
+.eyebrow{font-size:12px;font-weight:850;letter-spacing:.12em;color:var(--accent)}
+h1{font-size:clamp(32px,7vw,52px);line-height:1.08;letter-spacing:-.04em;margin:7px 0 10px;color:var(--accent2)}
+.lead{margin:0;color:var(--muted);font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.auth{display:flex;gap:10px;flex-wrap:wrap}
+.primary,.ghost{border:0;border-radius:14px;padding:12px 16px;font-weight:820;cursor:pointer}
+.primary{background:var(--accent2);color:#fff;flex:1;min-width:220px}
+.ghost{background:#eef1f3;color:#46535e}
+button:disabled{opacity:.55;cursor:default}
+.status{margin-top:13px;padding:12px 14px;border-radius:14px;background:#f2f4f5;color:#52606b;font-size:13px;white-space:pre-wrap;word-break:break-word}
+.status.loading{background:var(--soft);color:var(--accent)}
+.status.ok{background:var(--okbg);color:var(--ok)}
+.status.err{background:var(--errbg);color:var(--err)}
+.detail{margin:13px 2px 0;color:var(--muted);font-size:12px;line-height:1.6}
+.viewer-area{display:none;margin-top:16px}
+.viewer-area.show{display:block}
+.viewer-shell{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.viewer-bar{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 13px;border-bottom:1px solid var(--line)}
+.viewer-title{font-weight:820;color:var(--accent2)}
+.viewer-meta{font-size:11px;color:var(--muted);text-align:right}
+iframe{display:block;width:100%;height:78dvh;min-height:620px;border:0;background:#fff}
+@media(max-width:620px){
+  .wrap{padding:20px 10px 28px}
+  .card{border-radius:18px;padding:14px}
+  .viewer-bar{align-items:flex-start;flex-direction:column}
+  .viewer-meta{text-align:left}
+  iframe{height:82dvh;min-height:540px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">PRIVATE · PA / ATPA</div>
+    <h1>超級筆記</h1>
+    <p class="lead">GitHub 只提供入口。登入後才從你的私人 Google Drive 載入完整 HTML。</p>
+  </header>
+
+  <section class="card">
+    <div class="auth">
+      <button id="loginBtn" class="primary" type="button">使用 Google 帳號登入並開啟超級筆記</button>
+      <button id="logoutBtn" class="ghost" type="button" disabled>登出</button>
+    </div>
+    <div id="status" class="status">尚未登入。超級筆記內容不存放在 GitHub。</div>
+    <p class="detail">Drive 檔案維持私人狀態；此頁只在目前瀏覽器取得 Google 授權後讀取。重新整理或權杖失效時需重新授權。</p>
+  </section>
+
+  <section id="viewerArea" class="viewer-area">
+    <div class="viewer-shell">
+      <div class="viewer-bar">
+        <div class="viewer-title">PA / ATPA｜超級筆記</div>
+        <div id="viewerMeta" class="viewer-meta"></div>
+      </div>
+      <iframe id="viewer" title="超級筆記"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads"></iframe>
+    </div>
+  </section>
+</main>
+
+<script>
+const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
+const SCOPE='https://www.googleapis.com/auth/drive.readonly';
+const SUPER_NOTES_FILE_ID='1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa';
+
+const loginBtn=document.getElementById('loginBtn');
+const logoutBtn=document.getElementById('logoutBtn');
+const statusBox=document.getElementById('status');
+const viewerArea=document.getElementById('viewerArea');
+const viewer=document.getElementById('viewer');
+const viewerMeta=document.getElementById('viewerMeta');
+
+let tokenClient=null;
+let accessToken='';
+
+function setStatus(text,kind=''){
+  statusBox.textContent=text;
+  statusBox.className='status '+kind;
+}
+
+function initGoogle(){
+  if(!window.google?.accounts?.oauth2){
+    setStatus('Google 登入元件仍在載入，請稍後再按一次。','loading');
+    return false;
+  }
+  if(!tokenClient){
+    tokenClient=google.accounts.oauth2.initTokenClient({
+      client_id:CLIENT_ID,
+      scope:SCOPE,
+      callback:loadSuperNotes
+    });
+  }
+  return true;
+}
+
+async function driveFetch(url){
+  const res=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
+  if(!res.ok){
+    let detail='';
+    try{detail=await res.text();}catch{}
+    throw new Error('Google Drive HTTP '+res.status+(detail?' · '+detail.slice(0,180):''));
+  }
+  return res;
+}
+
+async function loadSuperNotes(resp){
+  if(resp.error){
+    setStatus('Google 授權失敗：'+resp.error,'err');
+    loginBtn.disabled=false;
+    return;
+  }
+  accessToken=resp.access_token||'';
+  try{
+    setStatus('已登入，正在從私人 Google Drive 載入超級筆記…','loading');
+
+    const metaRes=await driveFetch(
+      'https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(SUPER_NOTES_FILE_ID)+
+      '?fields=id,name,mimeType,size,modifiedTime'
+    );
+    const meta=await metaRes.json();
+
+    const bodyRes=await driveFetch(
+      'https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(SUPER_NOTES_FILE_ID)+'?alt=media'
+    );
+    const html=await bodyRes.text();
+
+    if(!/text\/html/i.test(meta.mimeType||'') && !/^\s*<!doctype html/i.test(html) && !/^\s*<html/i.test(html)){
+      throw new Error('Drive 檔案不是可載入的 HTML。');
+    }
+
+    const mod=meta.modifiedTime?new Date(meta.modifiedTime).toLocaleString('zh-TW'):'';
+    viewerMeta.textContent=(meta.size?Number(meta.size).toLocaleString()+' bytes':'')+(mod?' · Drive 更新 '+mod:'');
+    viewer.srcdoc=html;
+    viewerArea.classList.add('show');
+    logoutBtn.disabled=false;
+    loginBtn.textContent='重新選擇 Google 帳號';
+    setStatus('已成功載入「'+(meta.name||'超級筆記.html')+'」。','ok');
+    viewerArea.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){
+    viewerArea.classList.remove('show');
+    viewer.removeAttribute('srcdoc');
+    setStatus('已登入，但超級筆記載入失敗：\n'+(e?.message||String(e)),'err');
+  }finally{
+    loginBtn.disabled=false;
+  }
+}
+
+loginBtn.addEventListener('click',()=>{
+  loginBtn.disabled=true;
+  setStatus('正在要求 Google 授權…','loading');
+  if(!initGoogle()){
+    loginBtn.disabled=false;
+    return;
+  }
+  tokenClient.requestAccessToken({prompt:'consent'});
+});
+
+logoutBtn.addEventListener('click',()=>{
+  if(accessToken && window.google?.accounts?.oauth2){
+    try{google.accounts.oauth2.revoke(accessToken,()=>{});}catch{}
+  }
+  accessToken='';
+  viewer.removeAttribute('srcdoc');
+  viewerMeta.textContent='';
+  viewerArea.classList.remove('show');
+  logoutBtn.disabled=true;
+  loginBtn.textContent='使用 Google 帳號登入並開啟超級筆記';
+  setStatus('已登出。Drive 內容已從此頁清除。');
+});
+
+setStatus('請使用 Google 帳號登入後開啟超級筆記。');
+</script>
+</body>
+</html>
