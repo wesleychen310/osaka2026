@@ -1,7 +1,0 @@
-{
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "kyoto-2027-private",
-  "main": "src/index.js",
-  "compatibility_date": "2026-10-07",
-  "workers_dev": true
-}
