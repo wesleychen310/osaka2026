@@ -1,5 +1,6 @@
 (function(){
   const D=window.KYOTO2027_MODERN, app=document.getElementById('modernApp');
+  const I18N=window.KYOTO_NAME_I18N;
   const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const mapUrl=p=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.mapQuery||p.name);
   const routeUrl=p=>'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(D.origin)+'&destination='+encodeURIComponent(p.mapQuery||p.name)+'&travelmode=walking';
@@ -27,8 +28,9 @@
   const isOpen=p=>/營業|公開|現役|使用|校園參觀|活動使用|預約參觀/.test(p.status)&&!/私宅|通常非公開/.test(p.status);
   const showa=p=>p.showaCafe;
   function card(p){
+    const n=I18N.names(p);
     return `<article class="card modern-card ${p.priority==='top'?'modern-top':''}">
-      <div class="modern-card-head"><div><div class="type">${esc(p.kind)}</div><h3>${esc(p.name)}</h3></div>${p.showaCafe?'<span class="modern-badge showa">昭和咖啡線</span>':''}</div>
+      <div class="modern-card-head"><div><div class="type">${esc(p.kind)}</div><h3>${esc(n.zh)}</h3>${n.zh!==n.original?`<div class="place-original" lang="ja">${esc(n.original)}</div>`:''}</div>${p.showaCafe?'<span class="modern-badge showa">昭和咖啡線</span>':''}</div>
       <div class="modern-meta"><span>🗓️ ${esc(p.year)}</span><span>📍 ${esc(p.area)}</span><span>🏷️ ${esc(D.typeLabels[p.use]||p.use)}</span><span>🚪 ${esc(p.status)}</span></div>
       <p class="note">${esc(p.note)}</p>
       <div class="modern-actions">
@@ -40,14 +42,14 @@
     </article>`;
   }
   function filter(){
-    const needle=q.trim().toLowerCase();
+    const needle=I18N.normalize(q.trim());
     return D.places.filter(p=>{
       if(mode==='open'&&!isOpen(p))return false;
       if(mode==='showa'&&!showa(p))return false;
       if(mode==='strict'&&!/洋館|西洋|洋風|Gothic|Tudor|Spanish|Baroque|Colonial|Art Deco/.test(p.kind))return false;
       if(area!=='all'&&p.area!==area)return false;
       if(use!=='all'&&p.use!==use)return false;
-      if(needle&&!([p.name,p.year,p.area,p.kind,p.note,p.status,D.typeLabels[p.use]].join(' ').toLowerCase().includes(needle)))return false;
+      if(needle&&!(I18N.normalize([I18N.searchText(p),p.year,p.area,p.kind,p.note,p.status,D.typeLabels[p.use]].join(' ')).includes(needle)))return false;
       return true;
     });
   }
@@ -58,7 +60,7 @@
     const grouped=ordered.map(a=>[a,list.filter(p=>p.area===a)]).filter(([,x])=>x.length);
     app.innerHTML=`
       <header class="hero modern-hero">
-        <a class="back-link" href="index.html?v=20261006-modern1">← 花見京旅首頁</a>
+        <a class="back-link" href="index.html?v=20261008-names1">← 花見京旅首頁</a>
         <div class="eyebrow">KYOTO · WESTERN & MODERN ARCHITECTURE</div>
         <h1>京都洋館・近代建築大全</h1>
         <p>${esc(D.intro)}</p>
