@@ -53,11 +53,9 @@ GOOGLE_SERVICE_ACCOUNT_JSON
 ----------------
 1. ISLP Chapter 3 Reading 的完整 HTML
 2. ISLP Chapter 3 Extensions 的「整合首頁／完整站」HTML
-3. Super Notes / progress 的網站 HTML
+3. Super Notes / progress：已完成。超級筆記.html 已建立並接上 Worker route /pa-atpa/super-notes。
 
-原因：
-這三個目前是 ChatGPT Sites 網址，Drive 中沒有找到對應的完整原始 HTML。
-已先建立目的資料夾，之後只要把完整 HTML 放入即可。
+目前仍待移植的是前兩項 ChatGPT Sites HTML。
 
 設計原則
 --------
@@ -66,3 +64,15 @@ GOOGLE_SERVICE_ACCOUNT_JSON
 - Drive File ID 保持穩定；移動檔案不改 ID。
 - Worker code 與私人內容分離。
 - Learning Hub 未來可擴充 ISLP、PA、ATPA、ACTEX、R、Python。
+
+
+2026-10-07｜Super Notes 接線
+----------------------------
+Drive HTML:
+1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa
+
+Worker route:
+/pa-atpa/super-notes
+
+已將該 HTML 以 reader 權限分享給既有 Drive service account。
+Learning Hub 首頁已改成可直接開啟「PA / ATPA｜超級筆記」。
