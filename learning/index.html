@@ -60,7 +60,7 @@ iframe{display:block;width:100%;height:78dvh;min-height:620px;border:0;backgroun
       <button id="logoutBtn" class="ghost" type="button" disabled>登出</button>
     </div>
     <div id="status" class="status">尚未登入。超級筆記內容不存放在 GitHub。</div>
-    <p class="detail">Drive 檔案維持私人狀態；此頁只在目前瀏覽器取得 Google 授權後讀取。重新整理或權杖失效時需重新授權。</p>
+    <p class="detail">Drive 檔案維持私人狀態。第一次授權後不再強制重選帳號或重按同意；同一瀏覽分頁在 Google 權杖有效期間內，重新整理會直接恢復。</p>
   </section>
 
   <section id="viewerArea" class="viewer-area">
@@ -79,6 +79,7 @@ iframe{display:block;width:100%;height:78dvh;min-height:620px;border:0;backgroun
 const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
 const SCOPE='https://www.googleapis.com/auth/drive.readonly';
 const SUPER_NOTES_FILE_ID='1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa';
+const SESSION_KEY='super-notes-google-oauth-v2';
 
 const loginBtn=document.getElementById('loginBtn');
 const logoutBtn=document.getElementById('logoutBtn');
@@ -95,6 +96,37 @@ function setStatus(text,kind=''){
   statusBox.className='status '+kind;
 }
 
+function saveSession(resp){
+  const expiresIn=Math.max(0,Number(resp.expires_in||3600)-60);
+  const session={
+    access_token:resp.access_token||'',
+    expires_at:Date.now()+expiresIn*1000
+  };
+  sessionStorage.setItem(SESSION_KEY,JSON.stringify(session));
+}
+
+function clearSession(){
+  accessToken='';
+  sessionStorage.removeItem(SESSION_KEY);
+}
+
+function restoreSession(){
+  try{
+    const raw=sessionStorage.getItem(SESSION_KEY);
+    if(!raw)return false;
+    const s=JSON.parse(raw);
+    if(!s?.access_token || !s?.expires_at || Date.now()>=Number(s.expires_at)){
+      clearSession();
+      return false;
+    }
+    accessToken=s.access_token;
+    return true;
+  }catch{
+    clearSession();
+    return false;
+  }
+}
+
 function initGoogle(){
   if(!window.google?.accounts?.oauth2){
     setStatus('Google 登入元件仍在載入，請稍後再按一次。','loading');
@@ -104,7 +136,14 @@ function initGoogle(){
     tokenClient=google.accounts.oauth2.initTokenClient({
       client_id:CLIENT_ID,
       scope:SCOPE,
-      callback:loadSuperNotes
+      prompt:'',
+      callback:onTokenResponse,
+      error_callback:(err)=>{
+        loginBtn.disabled=false;
+        setStatus(err?.type==='popup_closed'
+          ?'登入視窗已關閉。'
+          :'Google 登入視窗無法完成，請再按一次。','err');
+      }
     });
   }
   return true;
@@ -112,6 +151,10 @@ function initGoogle(){
 
 async function driveFetch(url){
   const res=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
+  if(res.status===401){
+    clearSession();
+    throw new Error('Google 授權已到期，請按一次「重新登入／同步最新」。');
+  }
   if(!res.ok){
     let detail='';
     try{detail=await res.text();}catch{}
@@ -120,15 +163,11 @@ async function driveFetch(url){
   return res;
 }
 
-async function loadSuperNotes(resp){
-  if(resp.error){
-    setStatus('Google 授權失敗：'+resp.error,'err');
-    loginBtn.disabled=false;
-    return;
-  }
-  accessToken=resp.access_token||'';
+async function renderSuperNotes({restored=false}={}){
   try{
-    setStatus('已登入，正在從私人 Google Drive 載入超級筆記…','loading');
+    setStatus(restored
+      ?'正在沿用本次瀏覽的 Google 授權，直接載入超級筆記…'
+      :'已取得 Google 授權，正在載入超級筆記…','loading');
 
     const metaRes=await driveFetch(
       'https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(SUPER_NOTES_FILE_ID)+
@@ -150,42 +189,59 @@ async function loadSuperNotes(resp){
     viewer.srcdoc=html;
     viewerArea.classList.add('show');
     logoutBtn.disabled=false;
-    loginBtn.textContent='重新選擇 Google 帳號';
-    setStatus('已成功載入「'+(meta.name||'超級筆記.html')+'」。','ok');
-    viewerArea.scrollIntoView({behavior:'smooth',block:'start'});
+    loginBtn.textContent='重新登入／同步最新';
+    setStatus(restored
+      ?'已自動恢復本次瀏覽，並載入最新「'+(meta.name||'超級筆記.html')+'」。'
+      :'已成功載入「'+(meta.name||'超級筆記.html')+'」。','ok');
   }catch(e){
     viewerArea.classList.remove('show');
     viewer.removeAttribute('srcdoc');
-    setStatus('已登入，但超級筆記載入失敗：\n'+(e?.message||String(e)),'err');
+    setStatus('超級筆記載入失敗：\n'+(e?.message||String(e)),'err');
   }finally{
     loginBtn.disabled=false;
   }
 }
 
+async function onTokenResponse(resp){
+  if(resp.error){
+    setStatus('Google 授權失敗：'+resp.error,'err');
+    loginBtn.disabled=false;
+    return;
+  }
+  accessToken=resp.access_token||'';
+  if(accessToken)saveSession(resp);
+  await renderSuperNotes();
+}
+
 loginBtn.addEventListener('click',()=>{
   loginBtn.disabled=true;
-  setStatus('正在要求 Google 授權…','loading');
+  setStatus('正在取得 Google 授權…','loading');
   if(!initGoogle()){
     loginBtn.disabled=false;
     return;
   }
-  tokenClient.requestAccessToken({prompt:'consent'});
+  // 空 prompt：已授權過的帳號不再強制跳「同意」或「選擇帳號」。
+  tokenClient.requestAccessToken({prompt:''});
 });
 
 logoutBtn.addEventListener('click',()=>{
-  if(accessToken && window.google?.accounts?.oauth2){
-    try{google.accounts.oauth2.revoke(accessToken,()=>{});}catch{}
-  }
-  accessToken='';
+  // 只結束本站目前的瀏覽工作階段，不撤銷 Google 已授予的 Drive 權限。
+  // 因此下次登入不必再次跑完整 consent 流程。
+  clearSession();
   viewer.removeAttribute('srcdoc');
   viewerMeta.textContent='';
   viewerArea.classList.remove('show');
   logoutBtn.disabled=true;
   loginBtn.textContent='使用 Google 帳號登入並開啟超級筆記';
-  setStatus('已登出。Drive 內容已從此頁清除。');
+  setStatus('已結束本次瀏覽。下次不會強制重新同意 Drive 權限。');
 });
 
-setStatus('請使用 Google 帳號登入後開啟超級筆記。');
+if(restoreSession()){
+  loginBtn.disabled=true;
+  renderSuperNotes({restored:true});
+}else{
+  setStatus('第一次按一次 Google 登入即可；已授權過後不再強制重選帳號或重按同意。');
+}
 </script>
 </body>
 </html>
