@@ -7,9 +7,8 @@
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light">
 <title>私人學習入口</title>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84;--accent2:#173e5b;--soft:#edf5f9;--shadow:0 14px 36px rgba(27,47,62,.08)}
+:root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84;--accent2:#173e5b;--shadow:0 14px 36px rgba(27,47,62,.08)}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC","Segoe UI",sans-serif}
 body{background:linear-gradient(180deg,#eaf2f7 0,#f5f7f9 360px)}
@@ -18,13 +17,13 @@ body{background:linear-gradient(180deg,#eaf2f7 0,#f5f7f9 360px)}
 h1{font-size:clamp(34px,7vw,54px);line-height:1.08;letter-spacing:-.045em;margin:8px 0 10px;color:var(--accent2)}
 .lead{margin:0;color:var(--muted);font-size:15px;line-height:1.7}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:30px}
-.entry{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);cursor:pointer;font:inherit;color:inherit;transition:transform .15s ease,box-shadow .15s ease}
+.entry{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);color:inherit;transition:transform .15s ease,box-shadow .15s ease}
+.entry:hover{transform:translateY(-1px)}
 .entry:active{transform:scale(.99)}
 .entry .tag{font-size:11px;font-weight:850;letter-spacing:.1em;color:var(--accent)}
 .entry h2{font-size:24px;letter-spacing:-.025em;color:var(--accent2);margin:8px 0 7px}
 .entry p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
 .arrow{display:block;margin-top:20px;color:var(--accent);font-weight:850}
-.status{margin-top:14px;min-height:20px;color:var(--muted);font-size:12px}
 @media(max-width:620px){.wrap{padding:26px 12px 40px}.entry{border-radius:18px;padding:19px}}
 </style>
 </head>
@@ -33,80 +32,17 @@ h1{font-size:clamp(34px,7vw,54px);line-height:1.08;letter-spacing:-.045em;margin
   <header>
     <div class="eyebrow">PRIVATE LEARNING</div>
     <h1>私人學習入口</h1>
-    <p class="lead">選擇要開啟的內容。私人教材仍保留在 Google Drive。</p>
+    <p class="lead">選擇要開啟的內容。Google 授權由各私人文件頁自行處理；入口頁不重複登入。</p>
   </header>
 
   <section class="grid">
-    <button id="superNotes" class="entry" type="button">
+    <a class="entry" href="./super-notes/">
       <span class="tag">PA / ATPA</span>
       <h2>超級筆記</h2>
-      <p>開啟 PA / ATPA 超級筆記。進入後由私人 Drive HTML 直接接管整個頁面。</p>
+      <p>點入後自動沿用既有 Google 授權；成功後私人 Drive HTML 直接接管整個頁面。</p>
       <span class="arrow">開啟 →</span>
-    </button>
+    </a>
   </section>
-  <div id="status" class="status"></div>
 </main>
-
-<script>
-const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
-const SCOPE='https://www.googleapis.com/auth/drive.readonly';
-const SESSION_KEY='super-notes-google-oauth-v2';
-const TARGET='./super-notes/';
-const btn=document.getElementById('superNotes');
-const statusBox=document.getElementById('status');
-let tokenClient=null;
-
-function validSession(){
-  try{
-    const s=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null');
-    if(!s?.access_token||!s?.expires_at||Date.now()>=Number(s.expires_at)){
-      sessionStorage.removeItem(SESSION_KEY); return false;
-    }
-    return true;
-  }catch{sessionStorage.removeItem(SESSION_KEY);return false}
-}
-function saveSession(resp){
-  const expiresIn=Math.max(0,Number(resp.expires_in||3600)-60);
-  sessionStorage.setItem(SESSION_KEY,JSON.stringify({
-    access_token:resp.access_token||'',
-    expires_at:Date.now()+expiresIn*1000
-  }));
-}
-function openTarget(){location.href=TARGET}
-btn.addEventListener('click',()=>{
-  if(validSession()){openTarget();return}
-
-  statusBox.textContent='正在確認 Google 授權…';
-  btn.disabled=true;
-
-  if(!window.google?.accounts?.oauth2){
-    btn.disabled=false;
-    statusBox.textContent='Google 登入元件仍在載入，請再按一次。';
-    return;
-  }
-
-  if(!tokenClient){
-    tokenClient=google.accounts.oauth2.initTokenClient({
-      client_id:CLIENT_ID,
-      scope:SCOPE,
-      prompt:'',
-      callback:resp=>{
-        if(resp.error){
-          btn.disabled=false;
-          statusBox.textContent='Google 授權失敗：'+resp.error;
-          return;
-        }
-        if(resp.access_token)saveSession(resp);
-        openTarget();
-      },
-      error_callback:()=>{
-        btn.disabled=false;
-        statusBox.textContent='需要 Google 授權才能讀取私人超級筆記。';
-      }
-    });
-  }
-  tokenClient.requestAccessToken({prompt:''});
-});
-</script>
 </body>
 </html>
