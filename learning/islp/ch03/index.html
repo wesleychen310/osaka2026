@@ -47,7 +47,11 @@ async function renderDriveHtml(accessToken){
  const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(FILE_ID)+"?alt=media",{headers:{Authorization:"Bearer "+accessToken},cache:"no-store"});
  if(res.status===401){sessionStorage.removeItem(TOKEN_KEY);throw new Error("TOKEN_EXPIRED")}
  if(!res.ok)throw new Error("DRIVE_"+res.status);
- const html=await res.text();document.open();document.write(html);document.close();
+ const html=await res.text();
+ // The US English reader is loaded only for Chapter 3 English Bank (§3.2.2 and §3.3).
+ // The private Google Drive HTML remains unchanged.
+ const enhanced=html.replace("</body>", '<script src="/osaka2026/learning/islp/ch03/en-us-speech.js" defer></scr' + 'ipt></body>');
+ document.open();document.write(enhanced);document.close();
 }
 function initClient(){
  if(tokenClient||!window.google?.accounts?.oauth2)return !!tokenClient;
