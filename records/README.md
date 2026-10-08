@@ -10,7 +10,7 @@
 
 | 元件 | 永久網址／識別碼 | 職責 |
 |---|---|---|
-| 私人記事總入口 | <https://wesleychen310.github.io/osaka2026/records/> | `records/index.html`；公開導航，不含交易明細 |
+| **私人記事單一入口** | <https://wesleychen310.github.io/osaka2026/records/> | `records/index.html` + `records/app.js`；登入一次，切換支出／所得兩個分頁；GitHub 不含交易明細 |
 | 2026 財務記事網站 | <https://wesleychen310.github.io/osaka2026/records/finance/> | `records/finance/index.html`；OAuth 門禁與私人 HTML 載入 |
 | 私人資料主檔 | [2026記事_私人財務帳本.html](https://drive.google.com/file/d/1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4/view) | **固定 Drive File ID：`1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4`**；MIME `text/html`；網站唯一現行資料正本 |
 | 2026 原始文件 | [2026記事.docx](https://docs.google.com/document/d/14_-8w1bTsxsKoj-wDWanL_L0bxYBV-qu/edit) | File ID：`14_-8w1bTsxsKoj-wDWanL_L0bxYBV-qu`；資料匯入時的來源快照，原檔保留 |
@@ -21,13 +21,14 @@
 | 所得記事私人 HTML | [2026所得記事_私人薪資紀錄.html](https://drive.google.com/file/d/12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl/view) | Drive File ID：`12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl`；MIME `text/html`；同一「記事」資料夾，**長期更新正本** |
 | 薪資單原始存證 | [2026-10_薪資單_原始截圖.jpeg](https://drive.google.com/file/d/1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4/view) | Drive File ID：`1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；私人圖片，完整保留原始照片；目前只有螢幕截圖，尚未取得原 PDF |
 
-### 架構（財務與所得兩個私人站）
+### 架構（單一登入入口＋兩個私人資料來源）
 
 ```text
 使用者 Safari / Desktop
-  └─ GitHub Pages /records/
-       ├─ /records/finance/（支出財務，OAuth shell）
-       └─ /records/income/（所得薪資，OAuth shell）
+  └─ GitHub Pages /records/（主要入口：records/index.html + records/app.js）
+       ├─ Google OAuth 登入一次 → 私人 iframe 顯示支出／所得 tab
+       ├─ 財務私人 HTML（獨立 Drive File ID；切分頁才下載）
+       └─ 所得私人 HTML（獨立 Drive File ID；切分頁才下載）
            ├─ Google Identity Services / drive.readonly
            ├─ sessionStorage：短期 Access Token
            ├─ private-auth-hint.js：localStorage 上次帳號 login_hint
@@ -39,7 +40,15 @@
                      └─ 篩選匯出 CSV／複製「新增紀錄」格式
 ```
 
-**重要實作差異：** 財務記事 shell 取回私人 HTML 後以 `document.open();document.write(html);document.close();` 替換登入畫面，因此私人 HTML 中的原生前端 JS 可執行。ISLP 視覺筆記是另一路徑的 `DOMParser + manifest + shell-owned blob image loader`，兩者不可混成同一種渲染流程。
+**重要實作差異：** 首選的 `records/` 為**單一 Google OAuth 登入＋分頁**，由 `records/app.js` 取得私人 HTML 後放入同源 `iframe.srcdoc`、調整 iframe 高度，保留 CSS／JS 隔離；所得頁在此入口會隱藏只有少數月份時資訊量不高的圖表與重複導覽，完整原資料仍在 Drive。舊的 `records/finance/`、`records/income/` 直接網址仍保留，可從書籤打開，它們取回私人 HTML 後以 `document.open();document.write(html);document.close();` 替換登入畫面。ISLP 視覺筆記是另一路徑的 `DOMParser + manifest + shell-owned blob image loader`，兩者不可混成同一種渲染流程。
+
+
+### 2026-10-08 簡化入口版
+
+- 正式日常入口固定使用 `/records/`，**支出／所得兩個 tab，共用一次 OAuth**。前端檔案 `records/index.html` + `records/app.js` 均為公開且不含交易內容；Drive 私人 HTML 與來源照片沒有改動。
+- 使用 `GET /drive/v3/files/{FILE_ID}?alt=media` 依需求下載所選類別，`cache:no-store`，只在瀏覽器記憶體暫存同次分頁所需 HTML；`iframe.srcdoc` 顯示，靠 `ResizeObserver` 跟隨內容高度。Google 授權與帳號提示延續其他網站相同的 sessionStorage/localStorage 原則。
+- 在統一入口中只做**呈現層的簡化**：隱藏來源 HTML 重複的 header/長導言/所得月份圖（原圖表原始碼與每筆所得明細仍保留在私人 Drive），不更動資料結構或記帳計算。直達深層舊網址仍保持向下相容。
+- 未來新增所得或財務資料，只需更新各自既有 Drive HTML；首頁與 GitHub loader 無須動。若要永久調整私有 HTML 原版，**先備份同一 `_backup` 再原檔更新**，勿將交易資料寫入公開 GitHub。
 
 ## 2. 資料格式（private HTML 內）
 
@@ -152,7 +161,7 @@
 7. 使用 Google Drive 原位 raw bytes update 保留**同一 File ID、檔名、parent、私人權限**；重新抓取檔案、解析 JSON、逐月核對、檢查網頁與圖片顯示。沒有原位寫入能力就停止並回報，勿刪除重上傳或產生失效新路徑。
 8. 若只是新增薪資單，GitHub `records/income/index.html` 和 URL 均**無須變更**；只有新增年度入口／架構變更時才修改 GitHub。新增新年度時同步更新本 README 和根 README。
 
-網站提供年／月份選擇、已建檔所得累積與兩側給付／扣除明細、稅務／退休金資訊、原始憑證預覽；**目前為唯讀**。未來若設計跨年所得彙總，需明確標註「已建檔」統計，不把未記錄月份視為零。
+網站提供年／月份選擇、給付與扣除逐項明細、稅務／退休金資訊、原始憑證預覽；**目前為唯讀**。從 `records/` 單一入口進入時以簡潔分頁呈現，原有私人 HTML 與原始資料保持完整。未來若設計跨年所得彙總，需明確標註「已建檔」統計，不把未記錄月份視為零。
 
 ---
 
