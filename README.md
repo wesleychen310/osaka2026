@@ -27,8 +27,8 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 | [賞櫻景點](https://wesleychen310.github.io/osaka2026/t202703/sakura.html) `t202703/sakura.html` | `sakura.html`、`sakura.js` | `sakura-data.js`、`catalog-data.js`、跨年度共用地點資料 |
 | [ARU 飯店周邊](https://wesleychen310.github.io/osaka2026/t202703/nearby.html) `t202703/nearby.html` | `nearby.html`、`nearby.js` | `nearby-data.js`、`kiyamachi-data.js`、`catalog-data.js` 等 |
 | [京都洋館／近代建築](https://wesleychen310.github.io/osaka2026/t202703/modern.html) `t202703/modern.html` | `modern.html`、`modern.js` | `modern-data.js`、`name-i18n.js`、`gpt-actions.js` |
-| [旅行前事務本（私人）](https://wesleychen310.github.io/osaka2026/t202703/control/) `t202703/control/` | `control/index.html` | Google Drive `2027花見京旅行前事務本.html`；File ID：`1XVIMkPdvqccbW7i-y4_QrW8h8VcGj3lY` |
-| [旅帳本（私人）](https://wesleychen310.github.io/osaka2026/t202703/ledger/) `t202703/ledger/` | `ledger/index.html` | Google Drive `2027花見京旅帳本.html`；File ID：`19iny4GXWrzgZug-ag4z7_5DHamr0T-m1` |
+| [旅行前事務本（私人）](https://wesleychen310.github.io/osaka2026/t202703/control/) `t202703/control/` | `t202703/control/index.html` | Google Drive `2027花見京旅行前事務本.html`；File ID：`1XVIMkPdvqccbW7i-y4_QrW8h8VcGj3lY` |
+| [旅帳本（私人）](https://wesleychen310.github.io/osaka2026/t202703/ledger/) `t202703/ledger/` | `t202703/ledger/index.html` | Google Drive `2027花見京旅帳本.html`；File ID：`19iny4GXWrzgZug-ag4z7_5DHamr0T-m1` |
 
 **2027 資產入口：** `t202703/boot.js` 列出主站啟動依賴；`t202703/{sakura,nearby,modern}.html` 各自列出 JS 依賴。`t202703/name-i18n.js` 管理顯示名稱／翻譯；`t202703/style.css` 為主站樣式。更新主站時請辨識是否引用根目錄 `t202607-*.js`，勿把它們誤判為廢檔。
 
