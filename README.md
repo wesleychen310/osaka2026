@@ -117,3 +117,12 @@
 「請更新 `https://wesleychen310.github.io/osaka2026/t202703/ledger/`，依 repo 根目錄 `README.md` 找到 GitHub shell 和 Google Drive 原檔，先在原 folder 的 `_backup` 備份，再修改原檔並驗證。」
 
 > 本檔只記錄維護路徑、已公開 shell 中存在的 file ID 和操作守則；敏感資訊與私人內容必須留在受控 Google Drive。
+
+## 8. 私人網站登入便利性調整（2026-10-08）
+
+- 共用前端輔助程式：`private-auth-hint.js`，七個私人 OAuth shell 在 Google GIS 後載入它：`t202703/control/`、`t202703/ledger/`、`learning/super-notes/`、`learning/islp/ch03/`、`learning/islp/ch04/`、`learning/islp-reading/`、`learning/islp-visual/`。
+- Google Drive `about.get?fields=user(emailAddress)` 使用既有 `drive.readonly` scope，首次成功授權時取得當前帳號的 email 作為 `login_hint`。僅將帳號提示記在同 origin 的 `localStorage`（key `hanami-google-account-hint-v1`）；**絕不將 access token/refresh token 寫入 localStorage、公開 GitHub 或 URL**。短期 access token 仍沿用既有 `sessionStorage` key `hanami-kyoto-google-token-v3`。
+- 一般登入呼叫 `requestAccessToken({prompt:'',login_hint:上次帳號})`；沒有記錄時僅 `prompt:''`。每個登入 gate 都有「切換 Google 帳號」，由使用者點選時清掉舊 hint 與短期 token，明確以 `prompt:'select_account'` 選擇其他帳號。
+- 這個改善**減少重複選帳號**，不會延長 Google access token 原本的有效期限，也不能保證 iOS Safari 關閉分頁後仍免點擊重新授權。需真正跨週持續登入時，應另行設計安全後端 session 與 OAuth authorization-code / refresh-token 模式，不能把 bearer token 長期保存在前端。
+- `learning/index.html` 與 `t202703/index.html` 是公開導航／旅遊主頁，並不執行上述 Google 授權，因此未修改；七個私人登入 shell 的原 Drive FILE_ID、原檔內容與 Google Drive 權限未更動。
+- GitHub 版本歷史可回退此登入改版；若共用 helper 暫時不可用，七個 shell 仍會退回原本的 `prompt:''` 方式授權。真實 Google OAuth 授權與 iPhone Safari 實機流程需由有權帳號驗收。
