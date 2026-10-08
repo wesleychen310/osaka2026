@@ -1,128 +1,128 @@
-# Osaka2026 私人網站維護指南（GitHub Pages + Google Drive）
+# Osaka2026 全站總索引與維護交接（Single Source of Truth）
 
-> 供新對話中的 ChatGPT / Codex / 其他維護者使用。更新／核對日期：2026-10-08。  
-> **這個 GitHub repository 是公開的。** 網站的登入 shell 可公開存取；實際私人 HTML、學習內容和私人圖片位於 Google Drive，受 Google 檔案權限保護。
+> 更新日期：2026-10-08（Asia/Taipei）。Repository：[`wesleychen310/osaka2026`](https://github.com/wesleychen310/osaka2026)；網站根網址：<https://wesleychen310.github.io/osaka2026/>。
+>
+> **所有屬於這個 GitHub Repository 的網站，先從本 README 查路由、原始碼、私人資料與維護 SOP。** 本文是索引與操作規則；實際內容、檔案 ID、權限、部署狀態一律以當下 GitHub／Google Drive 現況核實，避免使用過期記錄。
 
-## 0. 新對話請先讀這裡
+## 0. 新對話／維護者必讀（工作順序）
 
-使用者只要交代「更新 https://wesleychen310.github.io/osaka2026/learning/ 」或其他下列私人網站，就應循以下順序主動調查，而非要求使用者重述檔案 ID、系統架構、網址或既有操作流程：
+1. **定位**：由使用者的正式網址或名稱，在下方站點索引找到 GitHub path，讀取入口 HTML、對應 JS 及本 README。
+2. **辨識來源**：先分清「GitHub Pages 公開靜態頁／資料檔」與「GitHub OAuth shell + Google Drive 私人 HTML」。只有後者需要依 shell 中 `FILE_ID` 或 `CHAPTERS` 找到 Drive 正本。
+3. **讀取最新資料**：需要 Drive 原檔時，查 metadata（ID、檔名、parents、權限）及實際內容；需要新增視覺筆記時先讀專用 Google Drive SOP。
+4. **先備份再寫入**：修改任何 Drive 原檔前，先在同層 `_backup` 建立附時間與簡短原因的備份；接著更新**相同 Drive File ID**，保留原檔名、路徑和權限。修改 GitHub 使用現行 blob SHA，留下 commit。
+5. **讀回驗證**：檔案內容、正式路徑、引用檔、私人權限、Pages 部署及所需 UI 測試分開檢查；實機／真實 Google OAuth 未測不能說已完成。
+6. **同步更新本 README**：新增網站、改名、變更路由、共用資產、登入架構、停用站點或改變 Drive 指向，都更新這份唯一總索引。
 
-1. 由網址推回此 repository `wesleychen310/osaka2026` 和對應的 GitHub shell 路徑（見下一節）。
-2. **即時讀取**此 README、對應的 `index.html`，從 `FILE_ID` 或 `CHAPTERS` 設定找出真正的 Google Drive 私人 HTML 原檔。
-3. 使用已連接且已授權的 Google Drive 工具讀取原檔 metadata（檔名、ID、parent IDs、權限）、內容及相關資料夾／SOP，核對最新版本。存取權以當下連線及原檔權限為準。
-4. 依使用者指示完成工作：修改 Google Drive 原檔前先備份；只有 shell／路由／入口需要改時才提交 GitHub；維持原網址及原有功能。
-5. 重新讀取更新結果，確認檔案／連結／數量／部署狀態，回報實際已通過的驗證與尚未驗證項目。
+已連接的 GitHub、Google Drive 工具可使用時直接執行，無須反覆要求使用者重新提供原檔 ID／網址。使用者偏好台灣繁體中文；不可擅自改公開網址、原檔 ID、私人檔案分享權限或刪減教材。
 
-**使用者已連接的 GitHub、Google Drive 可直接使用時，毋須每次再詢問是否有權限。** 若連接器缺失、權限遭拒或登入過期，應準確指出需要重新授權的部分。不可將「有 connector」誤認為無條件可寫入。
+## 1. 全站索引（以 GitHub 實際檔案為準）
 
-## 1. 私人網站索引與原始碼對照表
+URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後。所有 `index.html` 網站均可用相對資料夾網址開啟。
 
-下表記錄目前已核實的同一種架構：**公開 GitHub Pages shell → Google OAuth 登入 → 以使用者授權讀取 Google Drive 私人 HTML**。頁面內容以 Google Drive 現行原檔為準，不能只改 GitHub shell 就當作更新完成。
+### A. 京都 2027｜現行旅遊專案（`t202703/`）
 
-| 網站／用途 | 正式網址 | GitHub 入口檔案 | Google Drive 私人 HTML |
-|---|---|---|---|
-| 私人學習總入口（公開導航頁） | [`/learning/`](https://wesleychen310.github.io/osaka2026/learning/) | `learning/index.html` | 無單一 Drive HTML；下面各子站各自載入 |
-| 超級筆記 PA / ATPA | [`/learning/super-notes/`](https://wesleychen310.github.io/osaka2026/learning/super-notes/) | `learning/super-notes/index.html` | `超級筆記.html`；`FILE_ID = 1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa` |
-| ISLP 精讀 Chapter 3 | [`/learning/islp/ch03/`](https://wesleychen310.github.io/osaka2026/learning/islp/ch03/) | `learning/islp/ch03/index.html` | `ISLP_CH03_精讀.html`；`FILE_ID = 1Pvejd3h2Z2UzkJpmmBLrx0qqtas6rX2S` |
-| ISLP 精讀 Chapter 4 | [`/learning/islp/ch04/`](https://wesleychen310.github.io/osaka2026/learning/islp/ch04/) | `learning/islp/ch04/index.html` | `ISLP_CH04_精讀.html`；`FILE_ID = 1jd-CTkx0FNQdnOaHHsB0GljK3T0AIemh` |
-| ISLP 精讀章節選擇頁 | [`/learning/islp/`](https://wesleychen310.github.io/osaka2026/learning/islp/) | `learning/islp/index.html` | 本頁為公開章節選擇，依上面 ch03/ch04 讀取 |
-| ISLP 課本雙語化 | [`/learning/islp-reading/`](https://wesleychen310.github.io/osaka2026/learning/islp-reading/) | `learning/islp-reading/index.html` | `CHAPTERS` 映射：Chapter 3 `1dGsBY5l6XKuxkpriNDzx3tCmwIXQzS4Q`；Chapter 4 `1fUhbSm_tOL4jnF9zHTEP99y71gYASDJG` |
-| ISLP 視覺筆記 | [`/learning/islp-visual/`](https://wesleychen310.github.io/osaka2026/learning/islp-visual/) | `learning/islp-visual/index.html` | `ISLP_視覺筆記.html`；`FILE_ID = 18c6xkniZissK6cF0x3Xr0_D1h-FEUwFd` |
-| 京都 2027 旅行前事務本（control） | [`/t202703/control/`](https://wesleychen310.github.io/osaka2026/t202703/control/) | `t202703/control/index.html` | `2027花見京旅行前事務本.html`；`FILE_ID = 1XVIMkPdvqccbW7i-y4_QrW8h8VcGj3lY` |
-| 京都 2027 旅帳本（ledger） | [`/t202703/ledger/`](https://wesleychen310.github.io/osaka2026/t202703/ledger/) | `t202703/ledger/index.html` | `2027花見京旅帳本.html`；`FILE_ID = 19iny4GXWrzgZug-ag4z7_5DHamr0T-m1` |
-
-- `/learning/`、`/learning/islp/` 等目錄頁是導航／章節選擇頁，並非各有一份對應的私人 HTML。
-- `/t202703/` 京都旅遊主網站由其他檔案（如 `boot.js`）控制；不可將此表中的 control／ledger 專用登入機制，誤認為所有 `t202703` 頁面的實作。
-- 若後續擴充 Chapter 5、新的私人站點或改變 Drive 原檔，必須同步更新此索引。**單筆 ID 以當下 GitHub shell 與 Google Drive metadata 核對為準。**
-
-## 2. 技術架構與安全邊界
-
-`瀏覽器 → GitHub Pages（公開 HTML／OAuth shell） → Google Identity Services OAuth → Google Drive API GET /files/{FILE_ID}?alt=media → 私人 HTML / manifest / 圖片`
-
-- GitHub Pages 只能視為**公開程式入口**，其原始碼、頁面路徑及 OAuth client ID 均可被瀏覽；`noindex` 標籤不是存取控制。
-- GitHub shell 通常請求 `https://www.googleapis.com/auth/drive.readonly`，使用 Google OAuth access token 向 Drive API 讀取檔案，並用 `sessionStorage` 暫存登入狀態。**後端不存在一個通用管理員密碼**；使用者必須對 Drive 原檔有權限。
-- 實際的私人 HTML 不是 repo 裡的 `index.html`，而是 shell 所參照的 Drive 檔。更新內容時，應在 Drive 修改原有 HTML，不可僅在 GitHub 新增一份不會被載入的檔案。
-- Google Drive 的 `shared=true` 可能表示分享給**特定使用者**，不等於公開。應檢查實際 `permissions`；不得擅自改成 `anyone` 或公開共用。
-- **絕不**把 access token、refresh token、Cookie、機密訂單、私人 HTML 全文、教材圖片原始位元、Base64 圖片或其他非公開文件內容提交到**公開** repository。
-- Google Drive 檔案 ID 是定位識別碼，不是授權憑證；仍應只公開維護所必要的 ID，避免在 repo 額外列出私人帳戶或個資。
-
-### 不同子站的載入差異（重要）
-
-| 子站 | 目前實作 | 維護注意 |
+| 功能／正式 URL | GitHub 檔案 | 資料來源與維護位置 |
 |---|---|---|
-| `learning/islp-visual/` | GitHub shell 持有 Google OAuth closure；用 `DOMParser` 解析 Drive 私人 HTML 的 `#notes-manifest`，動態建立筆記卡片與私人圖片 loader | 使用 `IntersectionObserver` lazy loading、`Blob`／`URL.createObjectURL` 快取及放大檢視；**不要直接改成 `document.write()`**，以免破壞 shell-owned 圖片授權邏輯 |
-| `t202703/control/`、`t202703/ledger/` | 登入後下載整份 Drive HTML，再以 `document.open()`／`document.write()`／`document.close()` 接管頁面 | 修改私人內容主要在 Drive HTML；修改 OAuth／shell 才碰 GitHub。不能假設這兩頁也有 visual notes 的 manifest |
-| `learning/super-notes/`、`learning/islp/ch03/`、`learning/islp/ch04/`、`learning/islp-reading/` | 目前也是 GitHub OAuth shell + Drive HTML；各 loader／章節選擇邏輯以原始碼為準 | 改之前逐頁檢查實作，不要以為相同登入架構就有相同渲染機制 |
+| [旅遊主站](https://wesleychen310.github.io/osaka2026/t202703/) `t202703/` | `t202703/index.html` → `boot.js` → `app.js` | `t202703/data.js` 等資料模組及部分 `t202607-*.js` 共用資料；**屬公開靜態主站** |
+| [賞櫻景點](https://wesleychen310.github.io/osaka2026/t202703/sakura.html) `t202703/sakura.html` | `sakura.html`、`sakura.js` | `sakura-data.js`、`catalog-data.js`、跨年度共用地點資料 |
+| [ARU 飯店周邊](https://wesleychen310.github.io/osaka2026/t202703/nearby.html) `t202703/nearby.html` | `nearby.html`、`nearby.js` | `nearby-data.js`、`kiyamachi-data.js`、`catalog-data.js` 等 |
+| [京都洋館／近代建築](https://wesleychen310.github.io/osaka2026/t202703/modern.html) `t202703/modern.html` | `modern.html`、`modern.js` | `modern-data.js`、`name-i18n.js`、`gpt-actions.js` |
+| [旅行前事務本（私人）](https://wesleychen310.github.io/osaka2026/t202703/control/) `t202703/control/` | `control/index.html` | Google Drive `2027花見京旅行前事務本.html`；File ID：`1XVIMkPdvqccbW7i-y4_QrW8h8VcGj3lY` |
+| [旅帳本（私人）](https://wesleychen310.github.io/osaka2026/t202703/ledger/) `t202703/ledger/` | `ledger/index.html` | Google Drive `2027花見京旅帳本.html`；File ID：`19iny4GXWrzgZug-ag4z7_5DHamr0T-m1` |
 
-## 3. Google Drive 編輯與備份 SOP（強制）
+**2027 資產入口：** `t202703/boot.js` 列出主站啟動依賴；`t202703/{sakura,nearby,modern}.html` 各自列出 JS 依賴。`t202703/name-i18n.js` 管理顯示名稱／翻譯；`t202703/style.css` 為主站樣式。更新主站時請辨識是否引用根目錄 `t202607-*.js`，勿把它們誤判為廢檔。
 
-**每次修改任何 Google Drive 原檔之前**：
+**Drive 編輯：** control／ledger 原檔位於各自 Drive 資料夾，修改前以實際 metadata 找到其 parent 與同層 `_backup`；只修改公開 shell 登入或路由時，不必改 Drive 原 HTML。
 
-1. 讀取原檔的 `id`、`name`、`mimeType`、`parents`、當前內容、適用權限。
-2. 在**原檔所在資料夾**確認 `_backup` 子資料夾存在；若不存在先建立。
-3. **先複製原檔到 `_backup`**；例如 `2027花見京旅帳本_20261008-1145_before-add-expense.html`。備份檔名須包括備份時間與簡短原因。
-4. 在**原 Drive file ID 上更新內容**，保持**原檔名、File ID、父資料夾、原有私人權限**不變。對 HTML 原檔使用原位 bytes replacement；不得透過「刪除再上傳」替換正式檔。
-5. 重新抓取 Drive 原檔，核對新增／修改內容，對照備份確認舊內容保留。
-6. 回報備份位置、原檔 ID、變更內容及驗證結果。**GitHub shell 修改時採 Git 版本歷史／commit 追蹤；備份規則並不表示要在公開 repo 上儲存私人 HTML。**
+### B. 京都 2026｜既有地點與旅行資料專案（`t202607/`）
 
-若任務需要新增圖片、附件或 assets：先傳到**正確的私人 assets 資料夾**，核對每個新檔案的 ID、MIME、大小及權限，再修改私人 HTML 或 manifest 引用；禁止把私人 asset 改放 GitHub 公開目錄。
-
-### 已確認的 Drive 位置（可由原檔 metadata 再追查）
-
-- 京都 `control` 與 `ledger` 私人 HTML 位於同一個 Drive 資料夾；該資料夾已有 `_backup`。仍應在每次操作時核對。
-- ISLP 精讀、雙語課本與視覺筆記私人 HTML 位於同一個 ISLP 教材資料夾；視覺筆記的 PNG/WebP 有獨立 `ISLP_視覺筆記_assets` 資料夾。
-- 超級筆記的私人 HTML 位於其 PA / ATPA 資料夾；對該檔修改時也必須先確認／建立同層 `_backup`。
-- 視覺筆記另有 Google Drive 原生文件 **「ISLP 視覺筆記｜系統架構與跨對話交接 SOP（2026-10-08）」**，位於 ISLP 教材資料夾。**變更視覺筆記前務必讀該 SOP**，更新後同步維護圖片清單及現況。
-
-## 4. 各類任務的正確修改位置
-
-| 使用者需求 | 主要修改位置 | 必要檢查 |
+| 分類 | 正式頁面（均接 `t202607/`） | 維護入口 |
 |---|---|---|
-| 修改 `control` 旅行清單、事務、日期等內容 | 原 Drive `2027花見京旅行前事務本.html` | 備份原檔、內容保留、欄位/互動功能是否符合實際需求 |
-| 修改 `ledger` 支出、預算、帳本畫面等 | 原 Drive `2027花見京旅帳本.html` | 備份原檔、不能遺失原帳目、數值/欄位/計算邏輯 |
-| 新增 ISLP 視覺筆記 | Drive `ISLP_視覺筆記_assets` 新圖片 + 原 Drive `ISLP_視覺筆記.html` 的 `#notes-manifest` | 先讀專用 SOP；新圖 File ID 及私人權限、舊圖片完整、序號／總數／手機版 lazy loading |
-| 更新 ISLP 精讀、雙語教材、超級筆記 | 對應的 Drive 私人 HTML | 逐節保留重要內容、教材圖表、公式、原有資料與瀏覽功能 |
-| 調整登入、跳頁、loading、版型 shell 等 | 相應的 GitHub `index.html` | 實作差異、GitHub commit、Pages 部署及真實登入後行為 |
-| 私人學習入口新增導航卡 | `learning/index.html` | 指向已存在的路徑；名稱及描述與網站一致 |
-| 新增私人網站 | GitHub 新 shell + 獨立 Google Drive 原檔 + README 索引 | Google 權限、OAuth、備份、原始碼路由、可重複維護 SOP |
+| 主頁／行程／交通 | `index.html`、`itinerary.html`、`transport.html` | `boot-clean5.js`／`site-clean6.js`；`boot-itinerary.js`／`itinerary.js`；`boot-transport.js`／`transport.js` |
+| 地區頁 | `gion.html`、`karasuma.html`、`kawaramachi.html`、`nara.html`、`nara_far.html`、`okazaki.html`、`pontocho.html`、`rakuhoku.html`、`rakunan.html`、`rakusai.html`、`sanjo.html`、`uji.html` | 地區共用 `t202607/site*.js`、boot loader 與根目錄資料模組；修改前逐頁確認實際 bootstrap |
+| 主題頁 | `theme-beef-tongue.html`、`theme-hotel-nearby.html`、`theme-must-go.html`、`theme-old-cafe-tea.html`、`theme-old-coffee-tea.html` | `site-mustgo.js`、`site-clean6.js`、相關主題 JS 與資料 |
+| 類型頁 | `type-books.html`、`type-drinks.html`、`type-food.html`、`type-heritage.html`、`type-shinise.html`、`type-shops.html`、`type-sights.html` | 書店採 `boot-books.js`／`site-books9.js`；其餘以各頁實際 loader 為準 |
 
-### 視覺筆記資料規格
+- 正式首頁：<https://wesleychen310.github.io/osaka2026/t202607/>。上述 27 個 HTML 入口均由 Repository 路徑盤點；歷史頁仍保留，勿誤刪。
+- 根目錄 `t202607-data.js`、`t202607-places-data.js`、`t202607-books-data.js`、`t202607-themes-data.js`、`t202607-itinerary-*.js`、`t202607-*-theme-data.js` 等皆可能由 2026/2027 多站引用；只可依引用關係判定是否廢棄。
 
-`ISLP_視覺筆記.html` 含 `<script type="application/json" id="notes-manifest">`，格式為 `{"schemaVersion":1,"notes":[{"section":"3.2.2","title":"...","zh":"...","fileId":"...","width":1055,"height":1491,"source":"..."}]}`。這裡是**格式示例**，不可拿單張示例覆蓋原陣列；實際要將新筆記追加或依教材順序插入，保留全部既有項目。網站自動按 manifest 建立章節導覽與圖片卡片。
+### C. 私人學習｜ISLP／PA／ATPA（`learning/`）
 
-## 5. 更新完成後的驗收
+| 網站／正式 URL | GitHub 入口 | 私人內容位置 |
+|---|---|---|
+| [私人學習總入口](https://wesleychen310.github.io/osaka2026/learning/) `learning/` | `learning/index.html` | 公開導航頁，本頁不執行 Google OAuth |
+| [超級筆記 PA／ATPA](https://wesleychen310.github.io/osaka2026/learning/super-notes/) `learning/super-notes/` | `learning/super-notes/index.html` | Drive `超級筆記.html`；ID `1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa` |
+| [ISLP 精讀目錄](https://wesleychen310.github.io/osaka2026/learning/islp/) `learning/islp/` | `learning/islp/index.html` | 公開章節選擇 |
+| [ISLP 精讀 Chapter 3](https://wesleychen310.github.io/osaka2026/learning/islp/ch03/) `learning/islp/ch03/` | `learning/islp/ch03/index.html` | Drive `ISLP_CH03_精讀.html`；ID `1Pvejd3h2Z2UzkJpmmBLrx0qqtas6rX2S` |
+| [ISLP 精讀 Chapter 4](https://wesleychen310.github.io/osaka2026/learning/islp/ch04/) `learning/islp/ch04/` | `learning/islp/ch04/index.html` | Drive `ISLP_CH04_精讀.html`；ID `1jd-CTkx0FNQdnOaHHsB0GljK3T0AIemh` |
+| [ISLP 課本雙語化](https://wesleychen310.github.io/osaka2026/learning/islp-reading/) `learning/islp-reading/` | `learning/islp-reading/index.html` | 程式中的 `CHAPTERS`：Ch3 `1dGsBY5l6XKuxkpriNDzx3tCmwIXQzS4Q`；Ch4 `1fUhbSm_tOL4jnF9zHTEP99y71gYASDJG` |
+| [ISLP 視覺筆記](https://wesleychen310.github.io/osaka2026/learning/islp-visual/) `learning/islp-visual/` | `learning/islp-visual/index.html` | Drive `ISLP_視覺筆記.html`；ID `18c6xkniZissK6cF0x3Xr0_D1h-FEUwFd`，內含 JSON manifest + 私人圖片 ID |
 
-- **內容正確**：讀回 Google Drive 原 HTML；新增內容存在、原內容未遺失、資料結構及 JSON 可解析。
-- **位置正確**：原 `fileId`、檔名、parent folder 保持一致；備份已位於原 folder 的 `_backup`。
-- **權限正確**：確認 Drive permissions 未變成 `anyone`；圖片、附件及私人文件仍僅限有權帳號。
-- **GitHub 正確**：若變更 GitHub，確認 commit 在預期的 branch／路徑、GitHub Pages 部署狀態與正式網址可讀取新 shell。
-- **互動正確**：授權登入、手機顯示、章節跳轉、圖像載入／放大、control/ledger 互動及既有功能。
-- **分清證據**：GitHub 已 commit ≠ Pages 已部署；Drive 已更新 ≠ 使用者已成功登入；模擬測試 ≠ iPhone Safari 實機驗收。未實測的項目如實寫「尚未驗證」。
+**視覺筆記專用交接 SOP（應於動手前閱讀）：** [ISLP 視覺筆記｜系統架構與跨對話交接 SOP](https://docs.google.com/document/d/1TGkOWdtOA9_Ag9YEMTk337-Y_QUPZ0a9K_aG2qzRAdA/edit)。截至 2026-10-08，私人 manifest 為 **16 張**、schema v1；後續數量以當下 Drive 文件為準。
 
-驗證失敗先分辨 GitHub shell、Drive 原檔、權限、OAuth token、資源路徑、渲染程式哪一層出問題。必要時用原檔同 folder 的 `_backup` 復原 Drive 內容，並用 GitHub 歷史 commit 復原 shell。
+- 視覺筆記原 HTML 位於 Drive folder ID `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`；私人圖片 assets folder ID `1K89DmVQv3KM38WI7kOpY50n2nLwnYU2e`；_backup folder ID `1PN-En3MOI-GUtJpW7zxn4Gj7HxCAuPA3`。
+- 修改視覺筆記：將新 PNG／WebP 存入私人 assets → 核對新 fileId／權限 → 先備份原 HTML → 編輯**同一原檔** `#notes-manifest` 保留所有舊 notes[] → 讀回驗證。只新增圖片通常無須改 GitHub shell。
+- 特別注意：視覺筆記 shell 使用 `DOMParser`、`IntersectionObserver` 與私人圖片 Blob/Object URL；其 OAuth closure 必須留在 shell。其他私人站多使用 `document.open/write/close` 接管畫面。不得隨意互換。
 
-## 6. 未來維護者／新對話工作約定
+### D. Repository 根目錄的其他獨立／歷史頁（保留待確認）
 
-- 全程使用**台灣繁體中文**，英文專有名詞、實際檔名及程式碼依原文保留。
-- 連接器可用就直接調用 GitHub／Google Drive；不要要求使用者自行搜尋或重複貼權限資料。
-- 對使用者提供的網址，先做**網址 → repository/path → shell FILE_ID → Drive 原檔 → parent/_backup** 的解析，再開始修改。
-- **以當下實際來源為準**。遇到文件、README 與網站現況不一致，先核對，再更新過期的文件；不要把舊 SOP 當成當下真相。
-- 不刪既有資料、不改永久網址、不更改私人權限、不擅自整站重寫；工作範圍內必要的修改務求最小且可回復。
-- 若真的需要改動資料模型、登入機制或原始碼架構，先評估對其他私人站點／共用 OAuth 登入的影響。
-- 每次新增站點或變更 shell 到 Drive 的指向，**同步維護本 README**，避免下次對話無從追查。
-- 最終報告務必分別指出 **Drive 已改、GitHub 已改、已備份、已驗證、尚未驗證**，附實際原檔／commit／正式網址；不可宣稱未執行的部署或驗收成功。
+| 路徑 | 已識別用途 |
+|---|---|
+| `index.html` | 網站根首頁，舊京都旅程的獨立靜態頁 |
+| `pp.html` | Prompt 資料庫 |
+| `vv.html` | My Vocabulary Journal |
+| `tt.html`、`tt2.html` | 京都 2026 早期頁面／候選入口 |
+| `24-1.html`、`翻譯` | 根目錄既存檔案，尚未確認用途 |
 
-## 7. 一句話交接範例
+這些檔案不在目前主要導航中，仍可能被外部書籤或使用者直接開啟。**未核實用途前保留**；不因檔名簡短就直接判定可以刪除。相依檔 `kyoto-app.js` 亦保留。
 
-「請更新 `https://wesleychen310.github.io/osaka2026/t202703/ledger/`，依 repo 根目錄 `README.md` 找到 GitHub shell 和 Google Drive 原檔，先在原 folder 的 `_backup` 備份，再修改原檔並驗證。」
+## 2. 技術架構與私人資料安全
 
-> 本檔只記錄維護路徑、已公開 shell 中存在的 file ID 和操作守則；敏感資訊與私人內容必須留在受控 Google Drive。
+### 公開靜態站
 
-## 8. 私人網站登入便利性調整（2026-10-08）
+`瀏覽器 → GitHub Pages → HTML/CSS/JS → Repo 內公開資料 JS`
 
-- 共用前端輔助程式：`private-auth-hint.js`，七個私人 OAuth shell 在 Google GIS 後載入它：`t202703/control/`、`t202703/ledger/`、`learning/super-notes/`、`learning/islp/ch03/`、`learning/islp/ch04/`、`learning/islp-reading/`、`learning/islp-visual/`。
-- Google Drive `about.get?fields=user(emailAddress)` 使用既有 `drive.readonly` scope，首次成功授權時取得當前帳號的 email 作為 `login_hint`。僅將帳號提示記在同 origin 的 `localStorage`（key `hanami-google-account-hint-v1`）；**絕不將 access token/refresh token 寫入 localStorage、公開 GitHub 或 URL**。短期 access token 仍沿用既有 `sessionStorage` key `hanami-kyoto-google-token-v3`。
-- 一般登入呼叫 `requestAccessToken({prompt:'',login_hint:上次帳號})`；沒有記錄時僅 `prompt:''`。每個登入 gate 都有「切換 Google 帳號」，由使用者點選時清掉舊 hint 與短期 token，明確以 `prompt:'select_account'` 選擇其他帳號。
-- 這個改善**減少重複選帳號**，不會延長 Google access token 原本的有效期限，也不能保證 iOS Safari 關閉分頁後仍免點擊重新授權。需真正跨週持續登入時，應另行設計安全後端 session 與 OAuth authorization-code / refresh-token 模式，不能把 bearer token 長期保存在前端。
-- `learning/index.html` 與 `t202703/index.html` 是公開導航／旅遊主頁，並不執行上述 Google 授權，因此未修改；七個私人登入 shell 的原 Drive FILE_ID、原檔內容與 Google Drive 權限未更動。
-- GitHub 版本歷史可回退此登入改版；若共用 helper 暫時不可用，七個 shell 仍會退回原本的 `prompt:''` 方式授權。真實 Google OAuth 授權與 iPhone Safari 實機流程需由有權帳號驗收。
+2027 主站、2026 地點網站及公開目錄屬此類。Repository **公開**，不應把私人訂單、敏感資料、Google token、完整私人教材或私人圖片放在 Repo。GitHub Pages 部署程序：`.github/workflows/pages.yml`，推送 `main` 後執行。
+
+### Google Drive 私人站
+
+`瀏覽器 → GitHub Pages OAuth shell → Google Identity Services → Google Drive API (drive.readonly) → 有權存取的私人 HTML／圖片`
+
+- Google OAuth Client ID 屬可公開的前端設定；Access Token、Refresh Token、Cookie 屬敏感憑證，不能提交至公開 Repo 或放進 URL。
+- 七個私人 shell 共用 `private-auth-hint.js`；短期 token 記於 `sessionStorage`（`hanami-kyoto-google-token-v3`）；上次成功授權的帳號 email **僅作為** `login_hint`，存於 `localStorage`（`hanami-google-account-hint-v1`）。兩者用途與生命週期不同，不能把 Bearer Token 移到長期儲存。
+- 一般登入採 `prompt:''`，有 hint 時加入 `login_hint`，減少反覆選帳號；使用者主動按「切換 Google 帳號」才採 `prompt:'select_account'`。iPhone Safari 仍可能限制自動 OAuth；無法保證長期免登入。
+- Google Drive 的 `shared=true` 可能只代表特定人的共享，**不要只看 shared**；應核對 permission type，私人資料不可改成 `anyone`。
+- `noindex` 不是權限控管；Drive 檔案 ID 是定位用而非授權憑證。
+
+## 3. 寫入、備份、驗收（不可跳過）
+
+| 變更類型 | 應編輯的位置 | 驗收重點 |
+|---|---|---|
+| 2027 主站行程、商店、地名、菜單導覽 | `t202703/` 的對應 data/JS 或所引用 `t202607-*.js` | 查引用與來源、公開頁既有功能、手機視圖 |
+| 2026 地區／類型／主題／每日行程 | `t202607/` boot + site + 根目錄對應資料 JS | 不破壞其他共用模組及 2027 引用 |
+| 私人 control／ledger 資料 | Drive 對應原 HTML | 先備份；相同 File ID、檔名、parent；內容完整、權限私人 |
+| ISLP 精讀／雙語／超級筆記 | Drive 對應原 HTML | 先備份；教材段落、圖表、公式、互動完整 |
+| 新增 ISLP 視覺筆記 | Drive assets + 原 HTML manifest；依專用 SOP | 新圖片、既有圖片、章節順序、lazy loading、Viewer、手機版 |
+| OAuth、載入、導覽 shell 改版 | GitHub 對應 `index.html` 與 `private-auth-hint.js` | 舊站共用登入、token 安全、GitHub Pages 部署及實機 |
+| 新增／刪除站點 | 相關程式檔 + **本 README** | URL 索引、引用、停用記錄與連結 |
+
+**Drive 原檔寫入前：**
+
+1. 查原檔 `id/name/mimeType/parents/permissions`，完整讀取現行內容。
+2. 在原檔同層尋找 `_backup`；不存在才建立。
+3. 複製原檔進 `_backup`，命名加 `YYYYMMDD-HHMM_before-簡短原因`。備份成功才修改。
+4. 原位更新 Drive 檔案（相同 File ID），不可「刪除再上傳」。
+5. 重新讀取、核對內容與 ID／parent／私人權限，必要時和備份比較。
+
+**GitHub 寫入：** 先讀現行檔與 SHA；作最小修改、使用 Git commit 留下可追蹤歷史；依 GitHub Actions 確認 Pages `success`，再核對正式頁面。對舊頁面做涉及刪除的清理，必須先檢查所有相依檔及外部入口，不明用途先保留。
+
+**驗收紀律：** 程式碼語法檢查、資料讀回、部署成功、瀏覽器真實 Google OAuth、iPhone Safari 實機操作是**不同層級**，報告必須逐項區分。新對話不得將以往模擬測試冒稱實機驗證。
+
+## 4. 交接時快速定位
+
+- **修改旅行 2027** → `t202703/index.html`、`boot.js`、實際使用的 JS/data；私人帳本另依 `t202703/control/` 與 `ledger/` 的 File ID 找 Drive。
+- **修改旅行 2026** → `t202607/` 實際頁面及對應 loader；根目錄 `t202607-*.js` 可能跨年度共用。
+- **修改私人學習** → `learning/index.html` 索引 → 各私人 shell → Drive 原檔；ISLP 視覺筆記必讀專用 SOP。
+- **新增站點或系統性變更** → 同步更新本 README 的 URL 表、程式路徑、資料來源與跨站相依關係。
+
+本 README 是 GitHub 管轄網站的**唯一中央總索引**；專用 Google Drive SOP 僅負責需要詳細操作程序的個別專案。**已停用的方案不得從舊文件推測為現役服務。**
