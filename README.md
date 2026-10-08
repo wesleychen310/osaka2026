@@ -68,15 +68,15 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 
 | 網站／正式 URL | GitHub 路徑 | 私人資料來源 |
 |---|---|---|
-| [私人記事總入口](https://wesleychen310.github.io/osaka2026/records/) `records/` | `records/index.html` | 公開導航頁，不放私人交易資料 |
+| [私人記事總入口](https://wesleychen310.github.io/osaka2026/records/) `records/` | `records/index.html` + `records/app.js` | **單一 Google 登入／支出與所得雙分頁**，依需讀取兩個私人 Drive HTML；入口不含交易資料 |
 | [2026 財務記事](https://wesleychen310.github.io/osaka2026/records/finance/) `records/finance/` | `records/finance/index.html` | 私人 Drive `2026記事_私人財務帳本.html`；ID `1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4` |
 | [所得記事](https://wesleychen310.github.io/osaka2026/records/income/) `records/income/` | `records/income/index.html` | 私人 Drive `2026所得記事_私人薪資紀錄.html`；ID `12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl` |
 
-**私人財務記事專用 README：[records/README.md](records/README.md)**。該文件詳細記載：
+**私人記事（支出＋所得）專用 README：[records/README.md](records/README.md)**。該文件詳細記載：
 
 - 來源 Word 文件 `2026記事.docx`（ID `14_-8w1bTsxsKoj-wDWanL_L0bxYBV-qu`），匯入後保留原件；網站**現行正本**是獨立私人 HTML。
 - Drive 儲存位置與來源相同：[文件／記事](https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU)（Folder ID `1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU`）；備份：[記事／_backup](https://drive.google.com/drive/folders/1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB)（ID `1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`）。
-- OAuth shell 採 GitHub `document.open/write/close` 方式載入私人 HTML，並沿用 `private-auth-hint.js`；交易明細、總額與個人憑證資訊均存**私人 Drive 檔**，不存公開 Repo。
+- 日常入口 `records/` 使用共用 Google OAuth（登入一次），可直接切換「支出紀錄」和「所得紀錄」；`records/app.js` 依需求載入既有私人 Drive HTML 並以 `iframe.srcdoc` 呈現、移除重複視覺雜訊。舊的 `records/finance/`、`records/income/` 直接登入 shell 保留向下相容。公開 GitHub 不含交易明細、總額及個人憑證。
 - Private HTML 的 `#ledger-data` JSON schema v1；`transactions[]`、已確認／待確認金額、房貸月表、分類核對表及週期備註的相依關係。
 - **未來新增任何財務交易，先讀原檔 → 在同層 `_backup` 先備份 → 修改相同 Drive File ID 的私人 HTML → 金額重算與明細驗證 → 維持原檔名、位置、私人權限。** 直接在網站篩選、複製輸入範本、匯出 CSV 均屬唯讀操作，新增要由 ChatGPT／Work 依 SOP 寫回 Drive。
 - **所得記事**：薪資明細表與每月薪酬單據另用 `records/income/` 登入讀取；私人 HTML 及來源截圖均位於同一「文件／記事」資料夾，原始圖檔 File ID `1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；薪資單上發薪日與銀行實際入帳分開標記，雇主勞退公提與薪資扣除亦分開。詳見 `records/README.md`「所得記事」章節。
@@ -107,7 +107,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 `瀏覽器 → GitHub Pages OAuth shell → Google Identity Services → Google Drive API (drive.readonly) → 有權存取的私人 HTML／圖片`
 
 - Google OAuth Client ID 屬可公開的前端設定；Access Token、Refresh Token、Cookie 屬敏感憑證，不能提交至公開 Repo 或放進 URL。
-- 九個私人 shell（含財務記事、所得記事）共用 `private-auth-hint.js`；短期 token 記於 `sessionStorage`（`hanami-kyoto-google-token-v3`）；上次成功授權的帳號 email **僅作為** `login_hint`，存於 `localStorage`（`hanami-google-account-hint-v1`）。兩者用途與生命週期不同，不能把 Bearer Token 移到長期儲存。
+- 私人入口（含 `records/` 單一登入站、直達 finance/income 舊頁）共用 `private-auth-hint.js`；短期 token 記於 `sessionStorage`（`hanami-kyoto-google-token-v3`）；上次成功授權的帳號 email **僅作為** `login_hint`，存於 `localStorage`（`hanami-google-account-hint-v1`）。兩者用途與生命週期不同，不能把 Bearer Token 移到長期儲存。
 - 一般登入採 `prompt:''`，有 hint 時加入 `login_hint`，減少反覆選帳號；使用者主動按「切換 Google 帳號」才採 `prompt:'select_account'`。iPhone Safari 仍可能限制自動 OAuth；無法保證長期免登入。
 - Google Drive 的 `shared=true` 可能只代表特定人的共享，**不要只看 shared**；應核對 permission type，私人資料不可改成 `anyone`。
 - `noindex` 不是權限控管；Drive 檔案 ID 是定位用而非授權憑證。
@@ -143,7 +143,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - **修改旅行 2027** → `t202703/index.html`、`boot.js`、實際使用的 JS/data；私人帳本另依 `t202703/control/` 與 `ledger/` 的 File ID 找 Drive。
 - **修改旅行 2026** → `t202607/` 實際頁面及對應 loader；根目錄 `t202607-*.js` 可能跨年度共用。
 - **修改私人學習** → `learning/index.html` 索引 → 各私人 shell → Drive 原檔；ISLP 視覺筆記必讀專用 SOP。
-- **維護私人財務／所得記事** → `records/` 導覽、`records/finance/index.html`、`records/income/index.html` shell、各自的私人 Drive HTML；先讀 [records/README.md](records/README.md)，新增交易或薪資單一律先備份後原位更新。
+- **維護私人財務／所得記事** → 先讀 `records/index.html`＋`records/app.js`（**日常入口單一 OAuth／雙分頁**）、`records/finance/index.html`、`records/income/index.html`（舊直達入口），再讀各自私人 Drive HTML；依 [records/README.md](records/README.md) 先備份後原位更新。
 - **新增站點或系統性變更** → 同步更新本 README 的 URL 表、程式路徑、資料來源與跨站相依關係。
 
 本 README 是 GitHub 管轄網站的**唯一中央總索引**；專用 Google Drive SOP 僅負責需要詳細操作程序的個別專案。**已停用的方案不得從舊文件推測為現役服務。**
