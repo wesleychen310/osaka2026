@@ -8,6 +8,7 @@
 <meta name="color-scheme" content="light">
 <title>ISLP 線性迴歸｜Linear Regression｜精讀</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/osaka2026/private-auth-hint.js"></script>
 <style>
 :root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84}
 *{box-sizing:border-box}html,body{min-height:100%;margin:0}
@@ -17,6 +18,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","N
 button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;background:#173e5b;color:#fff;font:inherit;font-weight:800;cursor:pointer}button:disabled{opacity:.5}
 .status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}.spinner{width:18px;height:18px;border:2px solid #dce5ea;border-top-color:#58798e;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}
 .back{display:inline-block;margin-top:15px;color:var(--muted);font-size:12px;text-decoration:none}@keyframes spin{to{transform:rotate(360deg)}}
+#switchBtn{width:100%;margin-top:8px;background:transparent;color:var(--accent);border:1px solid var(--line);padding:10px;font-weight:700}#switchBtn[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -25,6 +27,7 @@ button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;
 <h1>線性迴歸｜Linear Regression</h1>
 <p id="message">正在確認 Google 授權；已有有效登入時會直接載入本章精讀。</p>
 <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
+<button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
 <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
 <a class="back" href="../">← 回 ISLP 精讀目錄</a>
 </section></main>
@@ -36,7 +39,7 @@ const TOKEN_KEY="hanami-kyoto-google-token-v3";
 const loginBtn=document.getElementById("loginBtn"),statusBox=document.getElementById("status"),messageBox=document.getElementById("message");
 let tokenClient=null;
 function setStatus(t,l=false){statusBox.innerHTML=l?'<span class="spinner"></span>'+t:t}
-function showLogin(reason){loginBtn.hidden=false;loginBtn.disabled=false;messageBox.textContent="Google 授權只負責門禁；登入後本章精讀直接接管全頁。";setStatus(reason||"需要 Google 帳號授權。")}
+function showLogin(reason){loginBtn.hidden=false;document.getElementById("switchBtn").hidden=false;loginBtn.disabled=false;messageBox.textContent="Google 授權只負責門禁；登入後本章精讀直接接管全頁。";setStatus(reason||"需要 Google 帳號授權。")}
 function saveToken(resp){const e=Number(resp.expires_in||3600),p={access_token:resp.access_token,expires_at:Date.now()+e*1000};sessionStorage.setItem(TOKEN_KEY,JSON.stringify(p));return p}
 function getSavedToken(){try{const x=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");if(!x?.access_token||!x?.expires_at)return null;if(Date.now()>x.expires_at-120000){sessionStorage.removeItem(TOKEN_KEY);return null}return x}catch{sessionStorage.removeItem(TOKEN_KEY);return null}}
 async function renderDriveHtml(accessToken){
@@ -49,19 +52,20 @@ async function renderDriveHtml(accessToken){
 function initClient(){
  if(tokenClient||!window.google?.accounts?.oauth2)return !!tokenClient;
  tokenClient=google.accounts.oauth2.initTokenClient({client_id:CLIENT_ID,scope:SCOPE,
-  callback:async resp=>{if(resp.error){showLogin("Google 尚未完成授權。");return}loginBtn.disabled=true;try{const t=saveToken(resp);await renderDriveHtml(t.access_token)}catch(e){sessionStorage.removeItem(TOKEN_KEY);showLogin(e?.message==="TOKEN_EXPIRED"?"登入狀態已過期，請再按一次。":"本章精讀載入失敗，請再試一次。")}},
+  callback:async resp=>{if(resp.error){showLogin("Google 尚未完成授權。");return}loginBtn.disabled=true;try{const t=saveToken(resp);await window.HanamiAuth?.remember(t.access_token);await renderDriveHtml(t.access_token)}catch(e){sessionStorage.removeItem(TOKEN_KEY);showLogin(e?.message==="TOKEN_EXPIRED"?"登入狀態已過期，請再按一次。":"本章精讀載入失敗，請再試一次。")}},
   error_callback:()=>showLogin("瀏覽器需要你按一次登入按鈕。")
  });return true;
 }
-function requestQuiet(){if(!initClient())return false;try{tokenClient.requestAccessToken({prompt:""});return true}catch{return false}}
+function requestQuiet(switchAccount=false){if(!initClient())return false;try{(window.HanamiAuth?window.HanamiAuth.request(tokenClient,switchAccount):tokenClient.requestAccessToken({prompt:switchAccount?'select_account':''}));return true}catch{return false}}
 async function boot(){
- const saved=getSavedToken();if(saved){try{await renderDriveHtml(saved.access_token);return}catch{sessionStorage.removeItem(TOKEN_KEY)}}
+ const saved=getSavedToken();if(saved){try{await window.HanamiAuth?.remember(saved.access_token);await renderDriveHtml(saved.access_token);return}catch{sessionStorage.removeItem(TOKEN_KEY)}}
  const deadline=Date.now()+6000;while(Date.now()<deadline&&!window.google?.accounts?.oauth2)await new Promise(r=>setTimeout(r,100));
  if(!initClient()){showLogin("Google 登入元件載入失敗，請重新整理。");return}
  setStatus("正在嘗試沿用既有 Google 授權…",true);if(!requestQuiet())showLogin("請按一次 Google 登入。");
  setTimeout(()=>{if(!loginBtn.hidden)return;if(document.body?.querySelector(".gate"))showLogin("若沒有自動開啟，請按一次 Google 登入。")},3500);
 }
 loginBtn.addEventListener("click",()=>{loginBtn.disabled=true;setStatus("正在確認 Google 帳號…",true);if(!requestQuiet()){loginBtn.disabled=false;showLogin("無法啟動 Google 授權，請重新整理後再試。")}});
+document.getElementById("switchBtn").addEventListener("click",()=>{sessionStorage.removeItem(TOKEN_KEY);window.HanamiAuth?.forget();loginBtn.disabled=true;setStatus("正在切換 Google 帳號…",true);if(!requestQuiet(true))showLogin("請按一次 Google 登入。")});
 boot();
 </script>
 </body></html>
