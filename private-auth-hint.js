@@ -14,7 +14,8 @@
   }
   function forget() { try { localStorage.removeItem(KEY); } catch {} }
   async function remember(accessToken) {
-    if (!accessToken) return;
+    // Avoid another Drive API request when this browser already remembers an account.
+    if (!accessToken || getHint()) return;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 2500);
     try {
