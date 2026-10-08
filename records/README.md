@@ -1,4 +1,4 @@
-# 私人記事／財務帳本 — 網站維護與跨對話 SOP
+# 私人記事｜財務與所得 — 網站維護與跨對話 SOP
 
 > 此文件為 `records/` 專用維護手冊；入口總表請先參考 Repository 根目錄 [README.md](../README.md)。更新日期：2026-10-08（台灣時間）。
 >
@@ -6,7 +6,7 @@
 
 ## 1. 計畫定位與固定入口
 
-**這是一個可長期擴充的私人財務／生活記事系統。** 資料本體是私人 Google Drive HTML，GitHub Pages 只放公開的導覽與 Google OAuth loader。未來可依年份新增 `records/finance/2027/` 等路由或獨立新帳本，維持 `records/` 作為統一目錄。
+**這是一個可長期擴充的私人財務、所得／生活記事系統。** 資料本體是私人 Google Drive HTML，GitHub Pages 只放公開的導覽與 Google OAuth loader。未來可依年份新增 `records/finance/2027/` 等路由或獨立新帳本，維持 `records/` 作為統一目錄。
 
 | 元件 | 永久網址／識別碼 | 職責 |
 |---|---|---|
@@ -17,13 +17,17 @@
 | 主資料夾 | [Google Drive／文件／記事](https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU) | Folder ID：`1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU`；**HTML 與 Word 在同一資料夾** |
 | 備份資料夾 | [記事／_backup](https://drive.google.com/drive/folders/1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB) | Folder ID：`1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`；任何更新原 HTML 前先備份 |
 | 共用登入輔助 | `private-auth-hint.js` | 記住上次 Google 帳號提示，不延長 token；各私人站共用 |
+| 所得記事網站 | <https://wesleychen310.github.io/osaka2026/records/income/> | `records/income/index.html`；同一組 OAuth Client／共用帳號提示 |
+| 所得記事私人 HTML | [2026所得記事_私人薪資紀錄.html](https://drive.google.com/file/d/12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl/view) | Drive File ID：`12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl`；MIME `text/html`；同一「記事」資料夾，**長期更新正本** |
+| 薪資單原始存證 | [2026-10_薪資單_原始截圖.jpeg](https://drive.google.com/file/d/1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4/view) | Drive File ID：`1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；私人圖片，完整保留原始照片；目前只有螢幕截圖，尚未取得原 PDF |
 
-### 架構
+### 架構（財務與所得兩個私人站）
 
 ```text
 使用者 Safari / Desktop
   └─ GitHub Pages /records/
-       └─ /records/finance/（OAuth shell）
+       ├─ /records/finance/（支出財務，OAuth shell）
+       └─ /records/income/（所得薪資，OAuth shell）
            ├─ Google Identity Services / drive.readonly
            ├─ sessionStorage：短期 Access Token
            ├─ private-auth-hint.js：localStorage 上次帳號 login_hint
@@ -98,7 +102,61 @@
 
 **網站本身目前是唯讀查詢。** 「複製新增紀錄格式」只將輸入模板放到剪貼簿；CSV 匯出也只下載當下資料，兩者都**不會自動寫回 Google Drive**。使用者提供新紀錄後，由 ChatGPT／Work 依 SOP 寫入正式檔。不要把編輯結果只存放在 browser localStorage。
 
-## 4. 新年度／更多財務領域的擴充
+## 4. 所得記事（Income Ledger）— 薪資單與月度所得交接 SOP
+
+### 正式入口與資料邊界
+
+- 入口網址：<https://wesleychen310.github.io/osaka2026/records/income/>；公開 GitHub shell：`records/income/index.html`。
+- 私人 HTML 正本：`2026所得記事_私人薪資紀錄.html`，**固定 Drive File ID `12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl`**。與現有支出財務 HTML 和原 Word 同放 `文件／記事`（folder ID `1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU`）。
+- 原始薪資單影像：`2026-10_薪資單_原始截圖.jpeg`，File ID `1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；來源是**螢幕照片**，目前無原生薪資 PDF。私人 HTML 內另嵌入 WebP 預覽，登入後即能展開查看；保留原圖可直接打開 Drive 比對。
+- HTML 裡私人資料區塊：`<script type="application/json" id="income-data">...</script>`。CSS、JS 和完整私人薪資資料均只存放在 Drive HTML。**公開 GitHub 僅儲存登入程式、Drive File ID、無個資的入口文案和本交接 SOP。**
+- 目前建檔月份：**2026 年 10 月**，共 1 張薪資單；薪資單上標記 10 月 10 日發薪。文件上的發薪日期只表示雇主的列示日期，`depositStatus='unconfirmed'`，待核對真實銀行入帳才可更改為 `confirmed`。其餘月份均為「未建檔」，不可自動當成零薪資。
+
+### JSON schemaVersion 1
+
+頂層：
+
+| 欄位 | 用途 |
+|---|---|
+| `schemaVersion`、`year`、`currency`、`lastUpdated` | 版本、年份、TWD 與最近資料變更日期 |
+| `entries[]` | 唯一所得資料集合；每筆薪資單依月份、類型與來源編號，UI 由此自動顯示 |
+
+每筆 `entries[]`：
+
+| 欄位 | 用途 |
+|---|---|
+| `id` | 唯一鍵（例：`2026-10-salary`）；不得重複上傳同月同類型 |
+| `type`、`period`、`salaryMonth`、`payDate` | 所得類別、`YYYY-MM`、月份顯示及**薪資單列示發薪日期** |
+| `depositStatus` | `unconfirmed` 或 `confirmed`；必須根據銀行入帳證明或使用者明確指示更新 |
+| `employer`、`department`、`jobTitle` | 工作資訊；屬私人資料，禁止公開 GitHub |
+| `payItems[]` | 給付項目的 `name/amount/category`，包含本薪、津貼、公司獎勵 |
+| `deductionItems[]` | 員工薪資扣除項目的 `name/amount/category`，包含保費、預扣稅、信託、自提等 |
+| `gross`、`deductions`、`net` | 給付、扣除與薪資單實領的控制數 |
+| `taxableIncome`、`taxExemptIncome`、`withheldIncomeTax` | 薪資單列示的應稅／免稅／預扣稅；預扣不等於年度實際所得稅 |
+| `employeeRetirementContribution` | 員工勞退自提金額：**已包含在 deductions 中** |
+| `employerRetirementContribution`、`employerRetirementLabel` | 雇主公提：**另行揭露，不計入給付或扣除，也不重複影響 net** |
+| `bankName`、`bankAccountMasked` | 銀行與遮蔽後入帳帳號；不把身分證字號或帳號全文複製進結構欄位 |
+| `originalScreenshotFileId`、`sourceType`、`sourceDate` | 私人來源影像 Google Drive file ID、來源類型、存證日期，保留來源可查性 |
+| `memo` | 付款確認狀態、勞退、例外及補充說明 |
+
+**核算規則（必驗）：** `sum(payItems.amount) === gross`；`sum(deductionItems.amount) === deductions`；`gross - deductions === net`。另需核對 `withheldIncomeTax` 與薪資所得稅扣款、員工自提與其扣款明細一致。當前 HTML 會在頁面渲染時檢查三項總額關係。
+
+### 以後每月新增薪資單：固定操作流程
+
+1. 讀根目錄 README、本 `records/README.md`、現行 GitHub `records/income/index.html` 和私人 Drive HTML 現行版本（`income-data`），確認月分、現有 `entries[]` 和 Drive metadata。
+2. 讀使用者的新薪資單原件／照片，逐項核對給付、扣除、應稅、免稅、預扣稅、雇主公提／個人自提。**依記載日期與付款證據區分「薪資單已開立」與「銀行已入帳」**。
+3. 查重 `period + type + source`，必要時核對雇主和同月第二張薪資單。已存在的記錄若屬更正，更新該筆並保留原來資訊備份，不重複追加。
+4. 將新原圖以私人圖片格式存入同一 `文件／記事` 資料夾；核對 image file ID、MIME、parent、permissions。若是圖片預覽，留在**私人 HTML 裡**的 base64 WebP，勿放在公開 GitHub。
+5. **對現行所得 HTML 先備份**：Drive `_backup`（folder ID `1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`），例如 `2026所得記事_YYYYMMDD-HHMM_before-add-salary.html`；備份成功後才修改原檔。
+6. 解析並更新 **相同原檔 ID** 的 `#income-data.entries[]`，維持現有資料、CSS、JS、證明資料與預覽；增補年份／月份資料並重核算所有總額。
+7. 使用 Google Drive 原位 raw bytes update 保留**同一 File ID、檔名、parent、私人權限**；重新抓取檔案、解析 JSON、逐月核對、檢查網頁與圖片顯示。沒有原位寫入能力就停止並回報，勿刪除重上傳或產生失效新路徑。
+8. 若只是新增薪資單，GitHub `records/income/index.html` 和 URL 均**無須變更**；只有新增年度入口／架構變更時才修改 GitHub。新增新年度時同步更新本 README 和根 README。
+
+網站提供年／月份選擇、已建檔所得累積與兩側給付／扣除明細、稅務／退休金資訊、原始憑證預覽；**目前為唯讀**。未來若設計跨年所得彙總，需明確標註「已建檔」統計，不把未記錄月份視為零。
+
+---
+
+## 5. 新年度／更多財務領域的擴充
 
 - `records/index.html` 是總導航；2026 的資料只在私人 Drive HTML；不要將交易明細複製到新站的公開 JS。
 - 若是**同年度新增交易**，只更新既有原 HTML 的 JSON 及摘要；網址與原 File ID 不變。
@@ -106,10 +164,11 @@
 - 若是**其他財務主題**（資產、負債、保單、稅務、支出、定期繳費），可在 `records/` 新增卡片與對應私人 HTML／shell，與現有 2026 財務記事相同的 OAuth 架構，但各自保留清晰的資料模型與備份。
 - 原 Word 檔為匯入來源快照。**現行網站以私人 HTML 為主要維護正本**；除非使用者要求，不必每次同步修改原 Word，避免多重版本互相衝突。
 
-## 5. 現況與驗收邊界（2026-10-08）
+## 6. 現況與驗收邊界（2026-10-08）
 
 - 原始 Word 的 5 個表格完整解構，其中交易明細、月度房貸和分類總表均保留於私人 HTML；來源是原始檔案，未把交易明細放進 GitHub。
 - 私人 HTML：`2026記事_私人財務帳本.html`，現存 Drive ID 由第 1 節固定。
+- 所得 HTML：`2026所得記事_私人薪資紀錄.html`，原始薪資單截圖另存同資料夾，兩者均 owner-only；有 Google 登入的私人 shell 路徑為 `records/income/`。
 - 2026 主頁包括摘要、支出圖、交易搜尋／月度與狀態篩選、原始金額與備註、房貸月表、週期事項、CSV 匯出。
 - 已以程式核對來源筆數、已確認／待確認合計、房貸累計，並做 Desktop / Mobile 模擬畫面與過濾條件測試；真實 Google OAuth 登入、iPhone Safari 實機體驗須在使用者已授權環境再驗證。
 - GitHub 公開程式只包含 OAuth shell、入口導覽、README。勿將私人資料或測試截圖（含個人帳務內容）提交公開 GitHub。
