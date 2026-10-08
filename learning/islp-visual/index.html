@@ -8,6 +8,7 @@
 <meta name="color-scheme" content="light">
 <title>ISLP 視覺筆記｜私人學習</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/osaka2026/private-auth-hint.js"></script>
 <style data-shell>
 :root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84}
 *{box-sizing:border-box}html,body{min-height:100%;margin:0}
@@ -16,6 +17,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","N
 .eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--accent)}h1{font-size:27px;line-height:1.2;margin:7px 0 8px}p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
 button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;background:#173e5b;color:#fff;font:inherit;font-weight:800;cursor:pointer}button:disabled{opacity:.5}
 .status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}.spinner{width:18px;height:18px;border:2px solid #dce5ea;border-top-color:#58798e;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}.back{display:inline-block;margin-top:15px;color:var(--muted);font-size:12px;text-decoration:none}@keyframes spin{to{transform:rotate(360deg)}}
+#switchBtn{width:100%;margin-top:8px;background:transparent;color:var(--accent);border:1px solid var(--line);padding:10px;font-weight:700}#switchBtn[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -24,6 +26,7 @@ button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;
 <h1>ISLP 視覺筆記</h1>
 <p id="message">正在確認 Google 授權；已有有效登入時會直接開啟私人視覺筆記。</p>
 <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
+<button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
 <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
 <a class="back" href="../">← 回私人學習入口</a>
 </section></main>
@@ -53,7 +56,7 @@ function setStatus(message,loading=false){
   statusBox.append(document.createTextNode(message));
 }
 function showGateError(message){
-  loginBtn.hidden=false;loginBtn.disabled=false;
+  loginBtn.hidden=false;document.getElementById("switchBtn").hidden=false;loginBtn.disabled=false;
   messageBox.textContent='授權完成後，私人視覺筆記直接接管全頁。';
   setStatus(message);
 }
@@ -85,7 +88,7 @@ async function waitForGIS(){
   }
   throw new Error('GOOGLE_SCRIPT_UNAVAILABLE');
 }
-async function requestGoogleToken(interactive=false){
+async function requestGoogleToken(interactive=false,switchAccount=false){
   await waitForGIS();
   return new Promise((resolve,reject)=>{
     let settled=false;
@@ -95,14 +98,14 @@ async function requestGoogleToken(interactive=false){
       callback:resp=>resp?.access_token?finish(null,storeToken(resp)):finish(new Error(resp?.error||'OAUTH_REQUIRED')),
       error_callback:err=>finish(new Error(err?.type||'OAUTH_POPUP_FAILED'))
     });
-    try{client.requestAccessToken({prompt:interactive?'select_account':''})}
+    try{window.HanamiAuth?window.HanamiAuth.request(client,switchAccount):client.requestAccessToken({prompt:switchAccount?'select_account':''})}
     catch(error){finish(error)}
   });
 }
-async function ensureToken(interactive=false){
+async function ensureToken(interactive=false,switchAccount=false){
   if(!interactive){const saved=readToken();if(saved)return saved}
-  if(tokenRequest)return tokenRequest;
-  tokenRequest=requestGoogleToken(interactive).finally(()=>{tokenRequest=null});
+  if(tokenRequest&&!interactive&&!switchAccount)return tokenRequest;
+  tokenRequest=requestGoogleToken(interactive,switchAccount).finally(()=>{tokenRequest=null});
   return tokenRequest;
 }
 function showAuthAlert(message){
@@ -320,10 +323,11 @@ function attachUI(){
     finally{event.target.disabled=false}
   });
 }
-async function loadSite(interactive=false){
+async function loadSite(interactive=false,switchAccount=false){
   if(interactive){loginBtn.disabled=true;setStatus('正在確認 Google 帳號…',true)}
   try{
-    await ensureToken(interactive);
+    const accessToken=await ensureToken(interactive,switchAccount);
+    await window.HanamiAuth?.remember(accessToken);
     setStatus('正在讀取私人視覺筆記目錄…',true);
     const html=await fetchDriveFile(FILE_ID,'html');
     renderPrivateHtml(html);
@@ -334,6 +338,7 @@ async function loadSite(interactive=false){
   }
 }
 loginBtn.addEventListener('click',()=>{void loadSite(true)});
+document.getElementById('switchBtn').addEventListener('click',()=>{invalidateToken();window.HanamiAuth?.forget();void loadSite(true,true)});
 window.addEventListener('pagehide',()=>{for(const x of objectUrls.values())URL.revokeObjectURL(x.url);objectUrls.clear()});
 void loadSite(false);
 </script>
