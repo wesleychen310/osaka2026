@@ -70,6 +70,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 |---|---|---|
 | [私人記事總入口](https://wesleychen310.github.io/osaka2026/records/) `records/` | `records/index.html` | 公開導航頁，不放私人交易資料 |
 | [2026 財務記事](https://wesleychen310.github.io/osaka2026/records/finance/) `records/finance/` | `records/finance/index.html` | 私人 Drive `2026記事_私人財務帳本.html`；ID `1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4` |
+| [所得記事](https://wesleychen310.github.io/osaka2026/records/income/) `records/income/` | `records/income/index.html` | 私人 Drive `2026所得記事_私人薪資紀錄.html`；ID `12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl` |
 
 **私人財務記事專用 README：[records/README.md](records/README.md)**。該文件詳細記載：
 
@@ -78,6 +79,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - OAuth shell 採 GitHub `document.open/write/close` 方式載入私人 HTML，並沿用 `private-auth-hint.js`；交易明細、總額與個人憑證資訊均存**私人 Drive 檔**，不存公開 Repo。
 - Private HTML 的 `#ledger-data` JSON schema v1；`transactions[]`、已確認／待確認金額、房貸月表、分類核對表及週期備註的相依關係。
 - **未來新增任何財務交易，先讀原檔 → 在同層 `_backup` 先備份 → 修改相同 Drive File ID 的私人 HTML → 金額重算與明細驗證 → 維持原檔名、位置、私人權限。** 直接在網站篩選、複製輸入範本、匯出 CSV 均屬唯讀操作，新增要由 ChatGPT／Work 依 SOP 寫回 Drive。
+- **所得記事**：薪資明細表與每月薪酬單據另用 `records/income/` 登入讀取；私人 HTML 及來源截圖均位於同一「文件／記事」資料夾，原始圖檔 File ID `1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；薪資單上發薪日與銀行實際入帳分開標記，雇主勞退公提與薪資扣除亦分開。詳見 `records/README.md`「所得記事」章節。
 - 日後新增年度或其他財務主題，由 `records/index.html` 統一導覽；必要時建立獨立私人 HTML 與新 OAuth shell，更新雙層 README。
 
 ### E. Repository 根目錄的其他獨立／歷史頁（保留待確認）
@@ -105,7 +107,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 `瀏覽器 → GitHub Pages OAuth shell → Google Identity Services → Google Drive API (drive.readonly) → 有權存取的私人 HTML／圖片`
 
 - Google OAuth Client ID 屬可公開的前端設定；Access Token、Refresh Token、Cookie 屬敏感憑證，不能提交至公開 Repo 或放進 URL。
-- 八個私人 shell（含財務記事）共用 `private-auth-hint.js`；短期 token 記於 `sessionStorage`（`hanami-kyoto-google-token-v3`）；上次成功授權的帳號 email **僅作為** `login_hint`，存於 `localStorage`（`hanami-google-account-hint-v1`）。兩者用途與生命週期不同，不能把 Bearer Token 移到長期儲存。
+- 九個私人 shell（含財務記事、所得記事）共用 `private-auth-hint.js`；短期 token 記於 `sessionStorage`（`hanami-kyoto-google-token-v3`）；上次成功授權的帳號 email **僅作為** `login_hint`，存於 `localStorage`（`hanami-google-account-hint-v1`）。兩者用途與生命週期不同，不能把 Bearer Token 移到長期儲存。
 - 一般登入採 `prompt:''`，有 hint 時加入 `login_hint`，減少反覆選帳號；使用者主動按「切換 Google 帳號」才採 `prompt:'select_account'`。iPhone Safari 仍可能限制自動 OAuth；無法保證長期免登入。
 - Google Drive 的 `shared=true` 可能只代表特定人的共享，**不要只看 shared**；應核對 permission type，私人資料不可改成 `anyone`。
 - `noindex` 不是權限控管；Drive 檔案 ID 是定位用而非授權憑證。
@@ -122,6 +124,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 | OAuth、載入、導覽 shell 改版 | GitHub 對應 `index.html` 與 `private-auth-hint.js` | 舊站共用登入、token 安全、GitHub Pages 部署及實機 |
 | 新增／刪除站點 | 相關程式檔 + **本 README** | URL 索引、引用、停用記錄與連結 |
 | 新增／修正私人財務交易 | Google Drive `2026記事_私人財務帳本.html`，詳 `records/README.md` | 同一 File ID、先備份、交易去重、已確認／待確認分開、摘要與分類總額核對 |
+| 新增／核對每月薪資單 | Google Drive `2026所得記事_私人薪資紀錄.html`，詳 `records/README.md` | 同一 File ID、先備份、給付／扣除／實領核對、來源影像與銀行入帳狀態 |
 
 **Drive 原檔寫入前：**
 
@@ -140,7 +143,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - **修改旅行 2027** → `t202703/index.html`、`boot.js`、實際使用的 JS/data；私人帳本另依 `t202703/control/` 與 `ledger/` 的 File ID 找 Drive。
 - **修改旅行 2026** → `t202607/` 實際頁面及對應 loader；根目錄 `t202607-*.js` 可能跨年度共用。
 - **修改私人學習** → `learning/index.html` 索引 → 各私人 shell → Drive 原檔；ISLP 視覺筆記必讀專用 SOP。
-- **維護私人財務記事** → `records/` 導覽、`records/finance/index.html` shell、私人 Drive HTML；先讀 [records/README.md](records/README.md)，所有新增交易均先備份後原位更新。
+- **維護私人財務／所得記事** → `records/` 導覽、`records/finance/index.html`、`records/income/index.html` shell、各自的私人 Drive HTML；先讀 [records/README.md](records/README.md)，新增交易或薪資單一律先備份後原位更新。
 - **新增站點或系統性變更** → 同步更新本 README 的 URL 表、程式路徑、資料來源與跨站相依關係。
 
 本 README 是 GitHub 管轄網站的**唯一中央總索引**；專用 Google Drive SOP 僅負責需要詳細操作程序的個別專案。**已停用的方案不得從舊文件推測為現役服務。**
