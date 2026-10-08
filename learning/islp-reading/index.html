@@ -108,6 +108,15 @@ function getSavedToken(){
     return x;
   }catch{sessionStorage.removeItem(TOKEN_KEY);return null}
 }
+
+function addUSAudio(html,ch){
+  // Only the Chapter 3 English Bank in 3.2.2 and 3.3 receives US speech buttons.
+  if(ch!=='3')return html;
+  const script='<scr'+'ipt src="/osaka2026/learning/english-us-tts.js?v=20261008-us1"></scr'+'ipt>';
+  return /<\/body\s*>/i.test(html)
+    ? html.replace(/<\/body\s*>/i,match=>script+match)
+    : html+script;
+}
 async function fetchChapter(accessToken,ch){
   const c=CHAPTERS[ch];
   setStatus("正在下載 "+c.title+"…",true);
@@ -120,7 +129,7 @@ async function fetchChapter(accessToken,ch){
   const total=Number(res.headers.get("content-length")||0);
   if(!res.body||!total){
     const html=await res.text();
-    document.open();document.write(html);document.close();return;
+    document.open();document.write(addUSAudio(html,ch));document.close();return;
   }
   const reader=res.body.getReader(),chunks=[];let received=0;
   while(true){
@@ -131,7 +140,7 @@ async function fetchChapter(accessToken,ch){
   }
   const blob=new Blob(chunks,{type:"text/html;charset=utf-8"});
   const html=await blob.text();
-  document.open();document.write(html);document.close();
+  document.open();document.write(addUSAudio(html,ch));document.close();
 }
 function initClient(){
   if(tokenClient||!window.google?.accounts?.oauth2)return !!tokenClient;
