@@ -8,6 +8,7 @@
 <meta name="color-scheme" content="light">
 <title>花見京旅帳本｜花見京旅</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/osaka2026/private-auth-hint.js"></script>
 <style>
 :root{--bg:#f6f3f0;--card:#fff;--text:#252321;--muted:#756e69;--line:#e6dfda;--accent:#a53f5e}
 *{box-sizing:border-box}
@@ -23,6 +24,7 @@ button:disabled{opacity:.5}
 .status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}
 .spinner{width:18px;height:18px;border:2px solid #ded8d4;border-top-color:#756e69;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}
 @keyframes spin{to{transform:rotate(360deg)}}
+#switchBtn{width:100%;margin-top:8px;background:transparent;color:var(--accent);border:1px solid var(--line);padding:10px;font-weight:700}#switchBtn[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -32,6 +34,7 @@ button:disabled{opacity:.5}
     <h1>花見京旅帳本</h1>
     <p id="message">正在確認 Google 授權；如果已有有效登入，會直接開啟文件。</p>
     <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
+    <button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
     <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
   </section>
 </main>
@@ -53,7 +56,7 @@ function setStatus(text,loading=false){
   statusBox.innerHTML=loading?'<span class="spinner"></span>'+text:text;
 }
 function showLogin(reason){
-  loginBtn.hidden=false;
+  loginBtn.hidden=false;document.getElementById("switchBtn").hidden=false;
   loginBtn.disabled=false;
   messageBox.textContent='Google 授權只負責門禁；登入成功後這個畫面會消失，直接顯示私人文件。';
   setStatus(reason||'需要 Google 帳號授權。');
@@ -106,7 +109,7 @@ function initClient(){
       }
       loginBtn.disabled=true;
       try{
-        const t=saveToken(resp);
+        const t=saveToken(resp);await window.HanamiAuth?.remember(t.access_token);
         await renderDriveHtml(t.access_token);
       }catch(e){
         sessionStorage.removeItem(TOKEN_KEY);
@@ -119,10 +122,10 @@ function initClient(){
   });
   return true;
 }
-function requestQuiet(){
+function requestQuiet(switchAccount=false){
   if(!initClient())return false;
   try{
-    tokenClient.requestAccessToken({prompt:''});
+    (window.HanamiAuth?window.HanamiAuth.request(tokenClient,switchAccount):tokenClient.requestAccessToken({prompt:switchAccount?'select_account':''}));
     return true;
   }catch{
     return false;
@@ -132,7 +135,7 @@ async function boot(){
   const saved=getSavedToken();
   if(saved){
     try{
-      await renderDriveHtml(saved.access_token);
+      await window.HanamiAuth?.remember(saved.access_token);await renderDriveHtml(saved.access_token);
       return;
     }catch{
       sessionStorage.removeItem(TOKEN_KEY);
@@ -162,6 +165,7 @@ loginBtn.addEventListener('click',()=>{
     showLogin('無法啟動 Google 授權，請重新整理後再試。');
   }
 });
+document.getElementById("switchBtn").addEventListener("click",()=>{sessionStorage.removeItem(TOKEN_KEY);window.HanamiAuth?.forget();loginBtn.disabled=true;setStatus("正在切換 Google 帳號…",true);if(!requestQuiet(true))showLogin("請按一次 Google 登入。")});
 boot();
 </script>
 </body>
