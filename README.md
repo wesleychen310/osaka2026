@@ -65,6 +65,8 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 修改視覺筆記：將新 PNG／WebP 存入私人 assets → 核對新 fileId／權限 → 先備份原 HTML → 編輯**同一原檔** `#notes-manifest` 保留所有舊 notes[] → 讀回驗證。只新增圖片通常無須改 GitHub shell。
 - 特別注意：視覺筆記 shell 使用 `DOMParser`、`IntersectionObserver` 與私人圖片 Blob/Object URL；其 OAuth closure 必須留在 shell。其他私人站多使用 `document.open/write/close` 接管畫面。不得隨意互換。
 
+**2026-10-08 美式英文朗讀試行：** `ISLP 精讀 Chapter 3`（`learning/islp/ch03/index.html`）載入 `learning/islp/ch03/en-us-speech.js`；`ISLP 課本雙語化 Chapter 3`（`learning/islp-reading/index.html?chapter=3`）載入 `learning/english-us-tts.js`。兩站僅對 §3.2.2 至 §3.3.3 的 `details.phrases .phrase > p[lang="en"]` 加入單鍵美式英文朗讀（瀏覽器 Web Speech API、`en-US`）。無 IPA、速度或腔調切換。語音元件由 GitHub shell 在下載私人 HTML 後注入，**Drive 教材原檔完全不改**。實際發音由裝置可用的 en-US TTS voice 決定；Safari / iOS 需點擊才可朗讀，尚須實機驗證。
+
 ### D. 私人記事／財務記錄（`records/`）
 
 | 網站／正式 URL | GitHub 路徑 | 私人資料來源 |
