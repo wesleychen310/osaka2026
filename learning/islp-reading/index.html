@@ -8,6 +8,7 @@
 <meta name="color-scheme" content="light">
 <title>ISLP 課本雙語化｜私人學習</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/osaka2026/private-auth-hint.js"></script>
 <style>
 :root{--bg:#f5f2ea;--paper:#fffdf8;--ink:#202a31;--muted:#69747b;--line:#dedbd1;--accent:#184d66;--accent2:#7b4f2b;--shadow:0 18px 50px rgba(35,45,52,.08)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
@@ -33,6 +34,7 @@ h1{font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:clamp(3
 button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;background:#173e5b;color:#fff;font:inherit;font-weight:800;cursor:pointer}button:disabled{opacity:.5}
 .status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}.spinner{width:18px;height:18px;border:2px solid #dce5ea;border-top-color:#58798e;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}
 @keyframes spin{to{transform:rotate(360deg)}}@media(max-width:620px){.wrap{padding:28px 12px 44px}.chapter{padding:18px;border-radius:18px}}
+#switchBtn{width:100%;margin-top:8px;background:transparent;color:var(--accent);border:1px solid var(--line);padding:10px;font-weight:700}#switchBtn[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -75,6 +77,7 @@ function gate(ch){
     <h1>${c.title}</h1>
     <p id="message">正在確認 Google 授權。授權完成後，本章教材會直接接管全頁。</p>
     <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
+    <button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
     <div id="status" class="status"><span class="spinner"></span>正在準備…</div>
     <p style="margin-top:15px"><a class="back" href="./">← 回章節目錄</a></p>
   </section></main>`;
@@ -87,7 +90,7 @@ function setStatus(text,loading=false){
 function showLogin(reason){
   const btn=document.getElementById("loginBtn");
   const msg=document.getElementById("message");
-  if(btn){btn.hidden=false;btn.disabled=false}
+  if(btn){btn.hidden=false;btn.disabled=false}const switchBtn=document.getElementById("switchBtn");if(switchBtn)switchBtn.hidden=false;
   if(msg)msg.textContent="Google 授權只負責門禁；登入成功後，本章教材直接接管全頁。";
   setStatus(reason||"需要 Google 帳號授權。");
 }
@@ -136,22 +139,22 @@ function initClient(){
     client_id:CLIENT_ID,scope:SCOPE,
     callback:async resp=>{
       if(resp.error){showLogin("Google 尚未完成授權。");return}
-      try{const t=saveToken(resp);await fetchChapter(t.access_token,pendingChapter)}
+      try{const t=saveToken(resp);await window.HanamiAuth?.remember(t.access_token);await fetchChapter(t.access_token,pendingChapter)}
       catch(e){sessionStorage.removeItem(TOKEN_KEY);showLogin(e?.message==="TOKEN_EXPIRED"?"登入狀態已過期，請再按一次。":"私人教材載入失敗，請再試一次。")}
     },
     error_callback:()=>showLogin("瀏覽器需要你按一次登入按鈕。")
   });
   return true;
 }
-function requestQuiet(){
+function requestQuiet(switchAccount=false){
   if(!initClient())return false;
-  try{tokenClient.requestAccessToken({prompt:""});return true}catch{return false}
+  try{(window.HanamiAuth?window.HanamiAuth.request(tokenClient,switchAccount):tokenClient.requestAccessToken({prompt:switchAccount?'select_account':''}));return true}catch{return false}
 }
 async function openChapter(ch){
   pendingChapter=ch;gate(ch);
   const saved=getSavedToken();
   if(saved){
-    try{await fetchChapter(saved.access_token,ch);return}
+    try{await window.HanamiAuth?.remember(saved.access_token);await fetchChapter(saved.access_token,ch);return}
     catch{sessionStorage.removeItem(TOKEN_KEY)}
   }
   const deadline=Date.now()+6000;
@@ -170,6 +173,7 @@ document.addEventListener("click",e=>{
     if(!requestQuiet())showLogin("無法啟動 Google 授權，請重新整理後再試。");
   }
 });
+document.addEventListener("click",e=>{if(e.target?.id==="switchBtn"){sessionStorage.removeItem(TOKEN_KEY);window.HanamiAuth?.forget();const btn=document.getElementById("loginBtn");if(btn)btn.disabled=true;setStatus("正在切換 Google 帳號…",true);if(!requestQuiet(true))showLogin("請按一次 Google 登入。")}});
 const ch=new URLSearchParams(location.search).get("chapter");
 if(CHAPTERS[ch])openChapter(ch);else selector();
 </script>
