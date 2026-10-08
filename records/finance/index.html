@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light">
+<title>財務記事｜2026｜花見京旅</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/osaka2026/private-auth-hint.js"></script>
+<style>
+:root{--bg:#f6f3f0;--card:#fff;--text:#252321;--muted:#756e69;--line:#e6dfda;--accent:#a53f5e}
+*{box-sizing:border-box}
+html,body{min-height:100%;margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif;background:radial-gradient(circle at top right,#f7e7ed 0,transparent 36%),var(--bg);color:var(--text)}
+.gate{min-height:100vh;display:grid;place-items:center;padding:24px}
+.panel{width:min(420px,100%);background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 16px 45px rgba(70,48,55,.08)}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--accent)}
+h1{font-size:27px;line-height:1.2;margin:7px 0 8px}
+p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
+button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;background:#252321;color:#fff;font:inherit;font-weight:800;cursor:pointer}
+button:disabled{opacity:.5}
+.status{margin-top:13px;font-size:12px;color:var(--muted);min-height:20px}
+.spinner{width:18px;height:18px;border:2px solid #ded8d4;border-top-color:#756e69;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:7px}
+@keyframes spin{to{transform:rotate(360deg)}}
+#switchBtn{width:100%;margin-top:8px;background:transparent;color:var(--accent);border:1px solid var(--line);padding:10px;font-weight:700}#switchBtn[hidden]{display:none}
+.back{display:inline-block;margin-top:16px;color:var(--muted);font-size:12px;text-decoration:none}
+</style>
+</head>
+<body>
+<main class="gate">
+  <section class="panel">
+    <div class="eyebrow">PRIVATE · FINANCE RECORDS</div>
+    <h1>財務記事｜2026</h1>
+    <p id="message">正在確認 Google 授權；如果已有有效登入，會直接開啟文件。</p>
+    <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
+    <button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
+    <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
+    <a href="../" class="back">← 返回私人記事入口</a>
+  </section>
+</main>
+
+<script>
+const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
+const FILE_ID="1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4";
+const SCOPE='https://www.googleapis.com/auth/drive.readonly';
+const TOKEN_KEY='hanami-kyoto-google-token-v3';
+
+const loginBtn=document.getElementById('loginBtn');
+const statusBox=document.getElementById('status');
+const messageBox=document.getElementById('message');
+
+let tokenClient=null;
+let autoTried=false;
+
+function setStatus(text,loading=false){
+  statusBox.innerHTML=loading?'<span class="spinner"></span>'+text:text;
+}
+function showLogin(reason){
+  loginBtn.hidden=false;document.getElementById("switchBtn").hidden=false;
+  loginBtn.disabled=false;
+  messageBox.textContent='登入成功後直接顯示 Google Drive 私人財務帳本；此網站為唯讀查詢。';
+  setStatus(reason||'需要 Google 帳號授權。');
+}
+function saveToken(resp){
+  const expiresIn=Number(resp.expires_in||3600);
+  const payload={access_token:resp.access_token,expires_at:Date.now()+expiresIn*1000};
+  sessionStorage.setItem(TOKEN_KEY,JSON.stringify(payload));
+  return payload;
+}
+function getSavedToken(){
+  try{
+    const x=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||'null');
+    if(!x?.access_token||!x?.expires_at)return null;
+    if(Date.now()>x.expires_at-120000){
+      sessionStorage.removeItem(TOKEN_KEY);
+      return null;
+    }
+    return x;
+  }catch{
+    sessionStorage.removeItem(TOKEN_KEY);
+    return null;
+  }
+}
+async function renderDriveHtml(accessToken){
+  setStatus('正在載入私人 Google Drive 文件…',true);
+  const res=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(FILE_ID)+'?alt=media',{
+    headers:{Authorization:'Bearer '+accessToken},
+    cache:'no-store'
+  });
+  if(res.status===401){
+    sessionStorage.removeItem(TOKEN_KEY);
+    throw new Error('TOKEN_EXPIRED');
+  }
+  if(!res.ok)throw new Error('DRIVE_'+res.status);
+  const html=await res.text();
+  document.open();
+  document.write(html);
+  document.close();
+}
+function initClient(){
+  if(tokenClient||!window.google?.accounts?.oauth2)return !!tokenClient;
+  tokenClient=google.accounts.oauth2.initTokenClient({
+    client_id:CLIENT_ID,
+    scope:SCOPE,
+    callback:async resp=>{
+      if(resp.error){
+        showLogin('Google 尚未完成授權。');
+        return;
+      }
+      loginBtn.disabled=true;
+      try{
+        const t=saveToken(resp);await window.HanamiAuth?.remember(t.access_token);
+        await renderDriveHtml(t.access_token);
+      }catch(e){
+        sessionStorage.removeItem(TOKEN_KEY);
+        showLogin(e?.message==='TOKEN_EXPIRED'?'登入狀態已過期，請再按一次。':'私人文件載入失敗，請再試一次。');
+      }
+    },
+    error_callback:()=>{
+      showLogin('瀏覽器需要你按一次登入按鈕。');
+    }
+  });
+  return true;
+}
+function requestQuiet(switchAccount=false){
+  if(!initClient())return false;
+  try{
+    (window.HanamiAuth?window.HanamiAuth.request(tokenClient,switchAccount):tokenClient.requestAccessToken({prompt:switchAccount?'select_account':''}));
+    return true;
+  }catch{
+    return false;
+  }
+}
+async function boot(){
+  const saved=getSavedToken();
+  if(saved){
+    try{
+      await window.HanamiAuth?.remember(saved.access_token);await renderDriveHtml(saved.access_token);
+      return;
+    }catch{
+      sessionStorage.removeItem(TOKEN_KEY);
+    }
+  }
+  const deadline=Date.now()+6000;
+  while(Date.now()<deadline&&!window.google?.accounts?.oauth2){
+    await new Promise(r=>setTimeout(r,100));
+  }
+  if(!initClient()){
+    showLogin('Google 登入元件載入失敗，請重新整理。');
+    return;
+  }
+  autoTried=true;
+  setStatus('正在嘗試沿用既有 Google 授權…',true);
+  if(!requestQuiet())showLogin('請按一次 Google 登入。');
+  setTimeout(()=>{
+    if(!loginBtn.hidden)return;
+    if(document.body?.querySelector('.gate'))showLogin('若沒有自動開啟，請按一次 Google 登入。');
+  },3500);
+}
+loginBtn.addEventListener('click',()=>{
+  loginBtn.disabled=true;
+  setStatus('正在確認 Google 帳號…',true);
+  if(!requestQuiet()){
+    loginBtn.disabled=false;
+    showLogin('無法啟動 Google 授權，請重新整理後再試。');
+  }
+});
+document.getElementById("switchBtn").addEventListener("click",()=>{sessionStorage.removeItem(TOKEN_KEY);window.HanamiAuth?.forget();loginBtn.disabled=true;setStatus("正在切換 Google 帳號…",true);if(!requestQuiet(true))showLogin("請按一次 Google 登入。")});
+boot();
+</script>
+</body>
+</html>
