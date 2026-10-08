@@ -60,6 +60,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 
 **視覺筆記專用交接 SOP（應於動手前閱讀）：** [ISLP 視覺筆記｜系統架構與跨對話交接 SOP](https://docs.google.com/document/d/1TGkOWdtOA9_Ag9YEMTk337-Y_QUPZ0a9K_aG2qzRAdA/edit)。截至 2026-10-08，私人 manifest 為 **16 張**、schema v1；後續數量以當下 Drive 文件為準。
 
+- **ISLP Chapter 3 美式朗讀試行（2026-10-08）：** `learning/islp/ch03/index.html` 在讀取私人 Drive HTML 時載入 `learning/islp/ch03/en-us-speech.js`，只對 §3.2.2、§3.3（含 §3.3.1–3.3.3）的 English Bank 加入「🔊 美式朗讀」按鈕，共 22 句。採瀏覽器 Web Speech API、`en-US`，不顯示 IPA 或其他控制項。私人 HTML、Google Drive File ID、OAuth 流程均不變。若要擴大範圍，修改此 UI JS 的 `init()` 篩選邏輯；新增章節時先檢查頁面 DOM 結構。實際 iOS Safari 語音音色取決於裝置可用的 en-US voice，需實機驗收。\n
 - 視覺筆記原 HTML 位於 Drive folder ID `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`；私人圖片 assets folder ID `1K89DmVQv3KM38WI7kOpY50n2nLwnYU2e`；_backup folder ID `1PN-En3MOI-GUtJpW7zxn4Gj7HxCAuPA3`。
 - 修改視覺筆記：將新 PNG／WebP 存入私人 assets → 核對新 fileId／權限 → 先備份原 HTML → 編輯**同一原檔** `#notes-manifest` 保留所有舊 notes[] → 讀回驗證。只新增圖片通常無須改 GitHub shell。
 - 特別注意：視覺筆記 shell 使用 `DOMParser`、`IntersectionObserver` 與私人圖片 Blob/Object URL；其 OAuth closure 必須留在 shell。其他私人站多使用 `document.open/write/close` 接管畫面。不得隨意互換。
