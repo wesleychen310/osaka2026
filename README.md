@@ -77,7 +77,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 來源 Word 文件 `2026記事.docx`（ID `14_-8w1bTsxsKoj-wDWanL_L0bxYBV-qu`），匯入後保留原件；網站**現行正本**是獨立私人 HTML。
 - Drive 儲存位置與來源相同：[文件／記事](https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU)（Folder ID `1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU`）；備份：[記事／_backup](https://drive.google.com/drive/folders/1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB)（ID `1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`）。
 - 日常入口 `records/` 使用共用 Google OAuth（登入一次），可直接切換「支出紀錄」和「所得紀錄」；`records/app.js` 依需求載入既有私人 Drive HTML 並以 `iframe.srcdoc` 呈現、移除重複視覺雜訊。舊的 `records/finance/`、`records/income/` 直接登入 shell 保留向下相容。公開 GitHub 不含交易明細、總額及個人憑證。
-- Private HTML 的 `#ledger-data` JSON schema v1；`transactions[]`、已確認／待確認金額、房貸月表、分類核對表及週期備註的相依關係。
+- Private HTML 的 `#ledger-data` JSON schema v1；`transactions[]`、已付／明確未付款的狀態、房貸月表、分類核對表及週期備註的相依關係。**交易明細一律預設已付款；只有使用者明確說尚未付，才設為待付款。** 2026-10-08 已依本人確認修正 3 筆公路養管費，詳 `records/README.md`。
 - **未來新增任何財務交易，先讀原檔 → 在同層 `_backup` 先備份 → 修改相同 Drive File ID 的私人 HTML → 金額重算與明細驗證 → 維持原檔名、位置、私人權限。** 直接在網站篩選、複製輸入範本、匯出 CSV 均屬唯讀操作，新增要由 ChatGPT／Work 依 SOP 寫回 Drive。
 - **所得記事**：薪資明細表與每月薪酬單據另用 `records/income/` 登入讀取；私人 HTML 及來源截圖均位於同一「文件／記事」資料夾，原始圖檔 File ID `1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；薪資單上發薪日與銀行實際入帳分開標記，雇主勞退公提與薪資扣除亦分開。詳見 `records/README.md`「所得記事」章節。
 - 日後新增年度或其他財務主題，由 `records/index.html` 統一導覽；必要時建立獨立私人 HTML 與新 OAuth shell，更新雙層 README。
@@ -123,7 +123,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 | 新增 ISLP 視覺筆記 | Drive assets + 原 HTML manifest；依專用 SOP | 新圖片、既有圖片、章節順序、lazy loading、Viewer、手機版 |
 | OAuth、載入、導覽 shell 改版 | GitHub 對應 `index.html` 與 `private-auth-hint.js` | 舊站共用登入、token 安全、GitHub Pages 部署及實機 |
 | 新增／刪除站點 | 相關程式檔 + **本 README** | URL 索引、引用、停用記錄與連結 |
-| 新增／修正私人財務交易 | Google Drive `2026記事_私人財務帳本.html`，詳 `records/README.md` | 同一 File ID、先備份、交易去重、已確認／待確認分開、摘要與分類總額核對 |
+| 新增／修正私人財務交易 | Google Drive `2026記事_私人財務帳本.html`，詳 `records/README.md` | 同一 File ID、先備份、交易去重；**使用者提交＝已付款**，明確未付才例外；摘要與分類總額核對 |
 | 新增／核對每月薪資單 | Google Drive `2026所得記事_私人薪資紀錄.html`，詳 `records/README.md` | 同一 File ID、先備份、給付／扣除／實領核對、來源影像與銀行入帳狀態 |
 
 **Drive 原檔寫入前：**
