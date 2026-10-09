@@ -1,4 +1,4 @@
-/* ISLP 3.2.2 & 3.3: one-click US English pronunciation for English Bank only. */
+/* ISLP 3.2.2 & 3.3: US pronunciation for English Bank and Reusable English. */
 (() => {
   'use strict';
   if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return;
@@ -26,6 +26,7 @@
     return voices.find(v => String(v.lang).toLowerCase() === 'en-us') || null;
   }
   let inTargetSection = false;
+  const phraseLines = new Set(document.querySelectorAll('.reader-s333 .reusable-english .phrase > p[lang="en"]'));
   for (const page of document.querySelectorAll('section.page')) {
     for (const marker of page.querySelectorAll(':scope > .section-marker')) {
       if (['section-s322', 'section-s33', 'section-s331', 'section-s332', 'section-s333'].includes(marker.id)) {
@@ -36,6 +37,10 @@
     }
     if (!inTargetSection) continue;
     for (const line of page.querySelectorAll('details.phrases .phrase > p[lang="en"]')) {
+      phraseLines.add(line);
+    }
+  }
+  for (const line of phraseLines) {
       if (line.querySelector('.us-audio-btn')) continue;
       const spokenText = line.textContent.replace(/\s+/g, ' ').trim();
       if (!spokenText) continue;
@@ -65,7 +70,6 @@
         synth.speak(utterance);
       });
       line.append(' ', button);
-    }
   }
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
 })();

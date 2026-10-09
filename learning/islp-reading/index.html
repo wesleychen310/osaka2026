@@ -112,7 +112,7 @@ function getSavedToken(){
 function addUSAudio(html,ch){
   // Only the Chapter 3 English Bank in 3.2.2 and 3.3 receives US speech buttons.
   if(ch!=='3')return html;
-  const script='<scr'+'ipt src="/osaka2026/learning/english-us-tts.js?v=20261008-us1"></scr'+'ipt>';
+  const script='<scr'+'ipt src="/osaka2026/learning/english-us-tts.js?v=20261009-read333"></scr'+'ipt>';
   return /<\/body\s*>/i.test(html)
     ? html.replace(/<\/body\s*>/i,match=>script+match)
     : html+script;
