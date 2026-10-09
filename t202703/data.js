@@ -52,6 +52,16 @@ window.KYOTO2027_DATA = {
   ],
   catalogExtras: [
     {
+      name:"六傳屋（先斗町）",
+      jp:"六傳屋 先斗町店（ろくでんや）",
+      mapQuery:"六傳屋 先斗町 京都",
+      category:"food",
+      area:"pontocho",
+      typeLabel:"京都町家料理／味噌土手燒／擔擔麵／鱉鍋",
+      description:"先斗町京町家改裝的料理店，2006年開業。特色為五種味噌燉煮的土手燒、京都白味噌擔擔麵及鱉鍋，展現花街轉型為多元飲食街區的樣貌。擔擔麵供應與價格依當日菜單；2026年9月公開菜單有味噌燉串五串¥1,500、小鱉鍋¥3,900。",
+      referenceUrl:"https://www.google.com/maps/search/?api=1&query=%E5%85%AD%E5%82%B3%E5%B1%8B+%E5%85%88%E6%96%97%E7%94%BA"
+    },
+    {
       name:"岸松園老舗",
       mapQuery:"岸松園老舗 京都",
       category:"shops",
