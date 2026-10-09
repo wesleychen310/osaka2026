@@ -1,4 +1,4 @@
-/* ISLP 3.2.2 & 3.3: US pronunciation for English Bank and Reusable English. */
+/* ISLP reading: US pronunciation for Reusable English in both chapters. */
 (() => {
   'use strict';
   if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return;
@@ -26,7 +26,7 @@
     return voices.find(v => String(v.lang).toLowerCase() === 'en-us') || null;
   }
   let inTargetSection = false;
-  const phraseLines = new Set(document.querySelectorAll('.reader-s333 .reusable-english .phrase > p[lang="en"]'));
+  const phraseLines = new Set(document.querySelectorAll('.reusable-english .phrase > p[lang="en"]'));
   for (const page of document.querySelectorAll('section.page')) {
     for (const marker of page.querySelectorAll(':scope > .section-marker')) {
       if (['section-s322', 'section-s33', 'section-s331', 'section-s332', 'section-s333'].includes(marker.id)) {
