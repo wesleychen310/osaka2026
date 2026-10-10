@@ -68,6 +68,8 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 
 **2026-10-08 美式英文朗讀試行：** `ISLP 精讀 Chapter 3`（`learning/islp/ch03/index.html`）載入 `learning/islp/ch03/en-us-speech.js`；`ISLP 課本雙語化 Chapter 3`（`learning/islp-reading/index.html?chapter=3`）載入 `learning/english-us-tts.js`。兩站僅對 §3.2.2 至 §3.3.3 的 `details.phrases .phrase > p[lang="en"]` 加入單鍵美式英文朗讀（瀏覽器 Web Speech API、`en-US`）。無 IPA、速度或腔調切換。語音元件由 GitHub shell 在下載私人 HTML 後注入，**Drive 教材原檔完全不改**。實際發音由裝置可用的 en-US TTS voice 決定；Safari / iOS 需點擊才可朗讀，尚須實機驗證。
 
+**ISLP 課本雙語化｜Chapter 4 FAM-S 同屏雙欄試行（2026-10-10）：** 僅 `?chapter=4` 新增載入 `learning/islp-reading-fam-layout.css`，其餘章節的 `islp-reading-mode.js`、私有 Google Drive HTML、Google OAuth／TTS 保持原狀。新版在 iPhone 左右對照採真實 50%／50% 欄寬，English 左、台灣繁中右；數學公式、圖表、Python code 保留原結構。已用 Chapter 4 原 HTML 在 320/375/390/430/710/768/1024/1280px × 四顯示模式完成 32 組本地排版 QA，保留 233 段、25 figures、29 tables、48 equations；未進行真人 iOS Safari OAuth 實機驗證。套用其他章節**先閱讀 [ISLP FAM 版型專用 README](learning/islp-reading/README.md)**（啟用、DOM 相容性、測試、回復 SOP）。網站直達 [Chapter 4 §4.3](https://wesleychen310.github.io/osaka2026/learning/islp-reading/?chapter=4#s43)。
+
 #### ASM FAM-S 私人雙語教材｜建置中（2026-10-10）
 
 - 指定私人資料夾：[fam_HTML／ASM_FAM-S](https://drive.google.com/drive/folders/1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe)。[Phase 1 manifest](https://drive.google.com/file/d/1OnupOrFPSj99OURS7beFS6Z3xrm50mro/view)、[盤點報告](https://drive.google.com/file/d/1R_gWz8pv2RdvAcXrM2dk_Z7CMJRemB0F/view)及最新 `progress.json` 存在該私人資料夾；索引與原頁影像備存於子資料夾 `inventory`。
