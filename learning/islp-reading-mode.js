@@ -3,7 +3,7 @@
   'use strict';
   if (document.getElementById('islp-reading-mode')) return;
   const KEY = 'islp-reading-language-v1';
-  const valid = value => ['zh', 'en', 'bi'].includes(value);
+  const valid = value => ['zh', 'en', 'bi', 'parallel'].includes(value);
   let mode = 'bi';
   try { const saved = localStorage.getItem(KEY); if (valid(saved)) mode = saved; } catch (_) {}
   const root = document.documentElement;
@@ -124,6 +124,30 @@
       const zh = document.createElement('span'); zh.className = 'islp-mode-zh islp-heading-only-zh'; zh.textContent = translated.textContent;
       link.append(en, zh);
     }
+
+    // Keep every source node in place. Only layout changes in parallel mode;
+    // explicit rows also preserve equations and code between paragraph pairs.
+    const parallelContainers = new Set(document.querySelectorAll('.phrase'));
+    document.querySelectorAll('.original,.en-text,.caption-en').forEach(el => parallelContainers.add(el.parentElement));
+    const isEnglish = el => el.matches('.original,.en-text,.caption-en') || el.matches('.phrase > p[lang^="en"]');
+    const isChinese = el => el.matches('.translation,.zh-text,.caption-zh') || el.matches('.phrase > p[lang^="zh"]');
+    for (const container of parallelContainers) {
+      const children = [...container.children];
+      if (!children.some(isEnglish) || !children.some(isChinese)) continue;
+      container.classList.add('islp-parallel-pair');
+      let row = 0, pending = false;
+      for (const child of children) {
+        if (child.classList.contains('islp-mode-label')) continue;
+        if (isEnglish(child)) {
+          row++; pending = true; child.classList.add('islp-parallel-en');
+        } else if (isChinese(child) && pending) {
+          pending = false; child.classList.add('islp-parallel-zh');
+        } else {
+          row++; pending = false; child.classList.add('islp-parallel-wide');
+        }
+        child.style.setProperty('--islp-parallel-row', row);
+      }
+    }
   }
 
   const style = document.createElement('style');
@@ -134,9 +158,9 @@
     html:not([data-islp-reading-mode="zh"]) .islp-heading-only-zh,
     html[data-islp-reading-mode="zh"] .islp-paired-heading-sub,
     html:not([data-islp-reading-mode="bi"]) .islp-mode-label {display:none!important}
-    html:not([data-islp-reading-mode="bi"]) .hero > .lead,
-    html:not([data-islp-reading-mode="bi"]) .hero > .meta,
-    html:not([data-islp-reading-mode="bi"]) .hero > .hero-meta {display:none!important}
+    html:is([data-islp-reading-mode="zh"],[data-islp-reading-mode="en"]) .hero > .lead,
+    html:is([data-islp-reading-mode="zh"],[data-islp-reading-mode="en"]) .hero > .meta,
+    html:is([data-islp-reading-mode="zh"],[data-islp-reading-mode="en"]) .hero > .hero-meta {display:none!important}
     html[data-islp-reading-mode="zh"] .heading-translation,
     html[data-islp-reading-mode="en"] .islp-heading-en {margin-top:0!important}
     html[data-islp-reading-mode="zh"] .islp-readable-heading {
@@ -155,27 +179,38 @@
     html:not([data-islp-reading-mode="bi"]) .pair > .translation,
     html:not([data-islp-reading-mode="bi"]) .pair > .zh-text,
     html:not([data-islp-reading-mode="bi"]) .caption-zh {margin-top:0!important;padding-top:0!important;border-top:0!important}
-    html:not([data-islp-reading-mode="bi"]) .islp-chapter-label {font-size:0}
-    html:not([data-islp-reading-mode="bi"]) .islp-chapter-label > span {font-size:16px}
+    html:is([data-islp-reading-mode="zh"],[data-islp-reading-mode="en"]) .islp-chapter-label {font-size:0}
+    html:is([data-islp-reading-mode="zh"],[data-islp-reading-mode="en"]) .islp-chapter-label > span {font-size:16px}
+    html[data-islp-reading-mode="parallel"] .islp-parallel-pair {
+      display:grid!important;grid-template-columns:repeat(2,minmax(280px,1fr));column-gap:24px;row-gap:16px;align-items:start;min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch
+    }
+    html[data-islp-reading-mode="parallel"] .islp-parallel-pair > :is(.islp-parallel-en,.islp-parallel-zh,.islp-parallel-wide) {
+      grid-row:var(--islp-parallel-row);min-width:0;margin-top:0!important;margin-bottom:0!important;overflow-wrap:anywhere
+    }
+    html[data-islp-reading-mode="parallel"] .islp-parallel-en {grid-column:1}
+    html[data-islp-reading-mode="parallel"] .islp-parallel-zh {grid-column:2;padding-top:0!important;border-top:0!important}
+    html[data-islp-reading-mode="parallel"] .islp-parallel-wide {grid-column:1/-1}
     #islp-reading-mode {position:sticky;top:var(--islp-mode-top,0px);z-index:35;background:rgba(255,253,248,.97);border-bottom:1px solid #dedbd1;box-shadow:none;color:#53636c;font:13px/1.4 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif}
     #islp-reading-mode .islp-mode-inner {max-width:980px;margin:auto;padding:8px 18px;display:flex;align-items:center;gap:12px}
     #islp-reading-mode .islp-mode-caption {font-size:12px;white-space:nowrap}
     #islp-reading-mode .islp-mode-options {display:inline-flex;gap:3px;padding:3px;border:1px solid #dedbd1;border-radius:9px;background:#f6f5f1}
-    #islp-reading-mode button {display:block;width:auto;min-height:34px;min-width:64px;margin:0;padding:6px 12px;border:0;border-radius:6px;box-shadow:none;background:transparent;color:#617078;font:inherit;font-weight:600;line-height:1.4;cursor:pointer;touch-action:manipulation}
+    #islp-reading-mode button {display:block;width:auto;min-height:34px;min-width:64px;margin:0;padding:6px 12px;border:0;border-radius:6px;box-shadow:none;background:transparent;color:#617078;font:inherit;font-weight:600;line-height:1.4;white-space:nowrap;cursor:pointer;touch-action:manipulation}
     #islp-reading-mode button[aria-pressed="true"] {background:#fff;color:#184d66;box-shadow:0 1px 3px rgba(30,45,55,.1)}
     #islp-reading-mode button:focus-visible {outline:2px solid #326a9b;outline-offset:2px}
-    html.islp-has-reading-mode {scroll-padding-top:calc(var(--islp-mode-top,0px) + 64px)}
-    html.islp-has-reading-mode .sidebar {min-width:0;top:calc(var(--islp-mode-top,0px) + 70px)}
+    html.islp-has-reading-mode {scroll-padding-top:calc(var(--islp-mode-top,0px) + var(--islp-mode-height,54px) + 10px)}
+    html.islp-has-reading-mode .sidebar {min-width:0;top:calc(var(--islp-mode-top,0px) + var(--islp-mode-height,54px) + 16px)}
     html.islp-has-reading-mode .side-card .side-link {flex-shrink:0}
     #islp-reading-mode.islp-directory-mode {position:static;border:0;background:transparent;margin:14px 0 24px}
     #islp-reading-mode.islp-directory-mode .islp-mode-inner {padding:0}
     @media(max-width:420px) {#islp-reading-mode .islp-mode-inner {gap:9px;padding:7px 14px}#islp-reading-mode button {min-width:60px;padding:7px 10px}}
+    @media(max-width:480px) {#islp-reading-mode .islp-mode-caption {display:none}#islp-reading-mode .islp-mode-options {max-width:100%;box-sizing:border-box}#islp-reading-mode button {min-width:0;padding-left:10px;padding-right:10px}}
+    @media(max-width:360px) {html[data-islp-reading-mode="parallel"] table.phrases {overflow-wrap:anywhere}}
     @media print {#islp-reading-mode {display:none!important}}
   `;
   document.head.appendChild(style);
   const bar = document.createElement('div');
   bar.id = 'islp-reading-mode';
-  bar.innerHTML = '<div class="islp-mode-inner"><span class="islp-mode-caption">閱讀模式</span><div class="islp-mode-options" role="group" aria-label="閱讀語言"><button type="button" data-mode="zh" aria-pressed="false">中文</button><button type="button" data-mode="en" aria-pressed="false">English</button><button type="button" data-mode="bi" aria-pressed="false">雙語</button></div></div>';
+  bar.innerHTML = '<div class="islp-mode-inner"><span class="islp-mode-caption">閱讀模式</span><div class="islp-mode-options" role="group" aria-label="閱讀方式"><button type="button" data-mode="zh" aria-pressed="false">中文</button><button type="button" data-mode="en" aria-pressed="false">English</button><button type="button" data-mode="bi" aria-pressed="false">雙語</button><button type="button" data-mode="parallel" aria-pressed="false" title="英文在左、中文在右；窄螢幕可橫向滑動">左右對照</button></div></div>';
   const topbar = document.querySelector('body > .topbar');
   if (isChapter) {
     if (topbar) topbar.after(bar); else document.body.prepend(bar);
@@ -189,9 +224,11 @@
     const css = topbar && getComputedStyle(topbar);
     const height = css && ['sticky','fixed'].includes(css.position) && css.display !== 'none' ? topbar.getBoundingClientRect().height : 0;
     root.style.setProperty('--islp-mode-top', height + 'px');
+    root.style.setProperty('--islp-mode-height', bar.getBoundingClientRect().height + 'px');
   }
   updateTop();
   if (topbar && 'ResizeObserver' in window) new ResizeObserver(updateTop).observe(topbar);
+  if ('ResizeObserver' in window) new ResizeObserver(updateTop).observe(bar);
   window.addEventListener('resize', updateTop, {passive:true});
   function readingAnchor() {
     const y = bar.getBoundingClientRect().bottom + 16;
@@ -219,4 +256,5 @@
   window.addEventListener('storage', event => { if (event.key === KEY && valid(event.newValue)) apply(event.newValue, false, true); });
   apply(mode, false, false);
 })();
+
 
