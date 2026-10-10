@@ -75,6 +75,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - **第二批盤點（2026-10-10）：** 已實際查看 PDF 第 1–44 頁完整影像，記錄前附資料與 Lesson 1 的題解來源範圍及原圖裁切。逐段英文修訂、數學轉錄與翻譯尚未驗收；44 頁不計為雙語教材完成。詳 [第二批報告](https://drive.google.com/file/d/1CnEKYFS4OVM51Sm8RVOfLu2AFyg0HHcf/view)。第二批證據保留；接續位置以以下最新批次與私人進度檔為準。
 - **第三批盤點（2026-10-10）：** 完整原頁影像查看累計 PDF 第 1–64 頁，新增 Lesson 2 題解來源範圍與圖表裁切；英文、數學與雙語驗收仍待完成，驗收通過章節數維持 **0**。詳 [第三批報告](https://drive.google.com/file/d/1BclKcnDqX4ZJJsX03dQ_sR8VB6A8AXFF/view)。完整影像盤點由 PDF 65／Lesson 3 接續。
 - **第四批盤點（2026-10-10）：** 完整原頁影像查看累計 PDF 第 1–105 頁，新增 Lessons 3–6 與 Part II 開場的來源紀錄、題解標籤對應及原始裁切。正式段落、英文、數學與雙語驗收仍待完成，驗收通過章節數維持 **0**。詳 [第四批報告](https://drive.google.com/file/d/12gpkX1mpvWuI-31A_Qo1McVYazmalEVL/view)。完整影像盤點由 PDF 106／Lesson 7 接續；先讀最新私人進度與第四批儲存驗證紀錄。
+- **第五批盤點（2026-10-10）：** 完整原頁影像查看累計 PDF 第 1–163 頁，新增 Lessons 7–10、Part III 開場、61 道 Exercise 標籤對應、8 個 Examples、7 題 Quiz 及跨頁／共用條件紀錄。原頁辨識不等於正式段落或數學、翻譯驗收；驗收通過章節數仍為 **0**。詳 [第五批報告](https://drive.google.com/file/d/1vkJ_8xbpCa47tyucyq5nSAghc--ArNWE/view)。下一批由 PDF 164／Lesson 11 接續 Phase 1 全書盤點；先讀最新私人進度及第五批儲存驗證紀錄，沿用基礎索引與全部批次證據。
 - 預定路徑 `learning/fam-s-reading/` 已檢查無衝突，**尚未建立閱讀入口或加入 learning 導航**。完成 Phase 1 驗收後，以 Lesson 11 驗證樣板及互動，再分章推進。
 - 後續閱讀器沿用既有 Google OAuth／短期 session token 與私人 Drive File ID 存取方式；教材、翻譯、題目、題解及原頁影像只存私人 Drive。不得將候選題解映射直接投入答案按鈕。
 - 新對話先讀私人 `progress.json`、manifest、問題清單與報告，保留已核對證據並接續未驗收工作。更新任何既存 Drive 檔案必須依本 README 備份 SOP；不得以目前程式檢查通過宣稱全書完成。
