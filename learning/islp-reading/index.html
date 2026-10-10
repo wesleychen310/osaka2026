@@ -9,6 +9,7 @@
 <title>ISLP 課本雙語化｜私人學習</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/osaka2026/private-auth-hint.js"></script>
+<script src="/osaka2026/learning/islp-reading-mode.js?v=20261010-modes" defer></script>
 <style>
 :root{--bg:#f5f2ea;--paper:#fffdf8;--ink:#202a31;--muted:#69747b;--line:#dedbd1;--accent:#184d66;--accent2:#7b4f2b;--shadow:0 18px 50px rgba(35,45,52,.08)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
@@ -65,6 +66,7 @@ function selector(){
     <div class="eyebrow">AN INTRODUCTION TO STATISTICAL LEARNING · PYTHON EDITION</div>
     <h1>ISLP 課本雙語化</h1>
     <p class="dek">依課本順序閱讀英文原文與繁中逐段對照。選擇章節後載入該章教材。</p>
+    <div id="islp-reading-mode-slot"></div>
     <div class="rule"></div>
     <div class="section-title">章節目錄</div>
     <section class="grid">
@@ -123,10 +125,11 @@ function getSavedToken(){
   }catch{sessionStorage.removeItem(TOKEN_KEY);return null}
 }
 
-function addUSAudio(html,ch){
-  // Both bilingual chapters include pronunciation for Reusable English.
+function addReadingTools(html,ch){
+  // Shared language modes and pronunciation apply to every registered chapter.
   if(!CHAPTERS[ch])return html;
-  const script='<scr'+'ipt src="/osaka2026/learning/english-us-tts.js?v=20261009-all-reading"></scr'+'ipt>';
+  const script='<scr'+'ipt src="/osaka2026/learning/english-us-tts.js?v=20261009-all-reading"></scr'+'ipt>'
+    + '<scr'+'ipt src="/osaka2026/learning/islp-reading-mode.js?v=20261010-modes"></scr'+'ipt>';
   return /<\/body\s*>/i.test(html)
     ? html.replace(/<\/body\s*>/i,match=>script+match)
     : html+script;
@@ -139,7 +142,7 @@ function writeChapter(html,ch){
     pair.querySelector('.original,.en-text')&&pair.querySelector('.translation,.zh-text')
   );
   if(!bilingual)throw new Error('NOT_BILINGUAL');
-  document.open();document.write(addUSAudio(html,ch));document.close();
+  document.open();document.write(addReadingTools(html,ch));document.close();
 }
 function showContentError(error){
   if(error?.message!=='NOT_BILINGUAL')return false;
