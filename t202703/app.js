@@ -192,6 +192,16 @@ Google Maps 搜尋名稱：${p.mapQuery||p.jp||p.name}。`;
   app.innerHTML=`
     <header class="hero"><div class="eyebrow">KYOTO · SAKURA 2027</div><h1>${esc(d.trip.title)}</h1><p>${esc(d.trip.dates)} · ${esc(d.trip.people)} 人 · 基地 ${esc(d.trip.base)}</p><div class="pills"><span>🌸 賞櫻主線</span><span>🏨 ${esc(d.trip.hotelStatus)}：${esc(I18N.translate(d.accommodation.name))}</span><span>🌸 寺院・庭園・河岸都收錄</span></div><div class="sakura-entry-actions"><a class="sakura-main-link" href="sakura.html?v=20261008-names1">🌸 櫻花景點大集合 · ${window.KYOTO2027_SAKURA.places.length} 個地點</a></div></header>
     <section class="sakura-home-section"><div class="section-title"><h2>櫻花景點大集合</h2><small>清水寺、建仁寺，連小寺院與街邊櫻花也算</small></div><p class="filter-hint">依地區、類型、花期交叉篩選。ARU 步行 30 分內走路，超過自動切大眾運輸。</p><div class="sakura-entry-actions"><a href="sakura.html?v=20261008-names1">🌸 全部櫻花景點</a><a href="sakura.html?v=20261008-names1&route=walking">🚶 飯店步行圈</a><a href="sakura.html?v=20261008-names1&type=temple">🏯 寺院賞櫻</a><a href="sakura.html?v=20261008-names1&type=river">🌊 河岸・疏水</a><a href="sakura.html?v=20261008-names1&area=gion">📍 祇園・清水・東山</a><a href="sakura.html?v=20261008-names1&area=east">📍 岡崎・哲學之道</a></div></section>
+    <section class="ueji-home-section" style="margin:22px 0;padding:16px;border:1px solid #e8d5df;border-radius:18px;background:linear-gradient(110deg,#fff6f9,#f5f7ef)">
+      <div class="section-title"><h2>🌿 小川治兵衛・京都庭園散策</h2><small>明治庭園・琵琶湖疏水・近代史・花見</small></div>
+      <p class="filter-hint">第七代小川治兵衛（1860–1933）專區：「植治」是家族造園屋號。走訪無鄰菴、對龍山莊、平安神宮、圓山公園等名園；精選可入內參觀、庭園餐廳與飯店，並清楚區分七代作品、修景紀錄、八代作品及歸屬待考。</p>
+      <div class="sakura-entry-actions">
+        <a class="ueji-main-link" href="ueji.html?v=20261010-ueji1" style="background:#75465c;color:#fff;border-color:#75465c">🌿 第七代小川治兵衛・完整專區</a>
+        <a href="ueji.html?v=20261010-ueji1&filter=ticket#ueji-list">🎫 可以進去參觀</a>
+        <a href="ueji.html?v=20261010-ueji1&filter=eat#ueji-list">🍵 庭園料理・住宿</a>
+        <a href="ueji.html?v=20261010-ueji1&filter=sakura#ueji-list">🌸 賞櫻串遊</a>
+      </div>
+    </section>
     <section class="modern-home-section"><div class="section-title"><h2>京都洋館・近代建築大全</h2><small>明治洋館・昭和 Modernism・現役咖啡／餐廳／銀行／商店</small></div><p class="filter-hint">完整收錄洋館與近代西洋建築；每筆都有 Google Maps、ARU 路線、GPT 圖文介紹。</p><div class="sakura-entry-actions"><a class="modern-main-link" href="modern.html?v=20261008-names1">🏛️ 全部洋館・近代建築</a><a href="modern.html?v=20261008-names1&mode=showa">☕ 昭和洋館／老喫茶</a><a href="modern.html?v=20261008-names1&mode=open">🚪 可入內／使用中</a><a href="modern.html?v=20261008-names1&use=cafe">☕ 咖啡／喫茶建築</a></div></section>
     <section class="booking-section"><div class="section-title"><h2>航班與住宿</h2><small>公開版只保留基本行程；訂單、金額、座位與行李資訊在私人區</small></div><div class="sakura-entry-actions"><a href="control/">🔐 花見京旅私人區</a></div><div class="trip-summary-grid">${flightCard(d.outboundFlight)}${flightCard(d.returnFlight)}${hotelCard(d.accommodation)}</div></section>
     <section><div class="section-title"><h2>每日骨架</h2><small>依花況逐日填入</small></div><div class="days">${d.days.map((x,i)=>`<div class="day"><b>${x}</b><small>Day ${i+1} · 待排</small></div>`).join('')}</div></section>
