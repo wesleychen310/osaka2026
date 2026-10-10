@@ -56,7 +56,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 | [ISLP 精讀目錄](https://wesleychen310.github.io/osaka2026/learning/islp/) `learning/islp/` | `learning/islp/index.html` | 公開章節選擇 |
 | [ISLP 精讀 Chapter 3](https://wesleychen310.github.io/osaka2026/learning/islp/ch03/) `learning/islp/ch03/` | `learning/islp/ch03/index.html` | Drive `ISLP_CH03_精讀.html`；ID `1Pvejd3h2Z2UzkJpmmBLrx0qqtas6rX2S` |
 | [ISLP 精讀 Chapter 4](https://wesleychen310.github.io/osaka2026/learning/islp/ch04/) `learning/islp/ch04/` | `learning/islp/ch04/index.html` | Drive `ISLP_CH04_精讀.html`；ID `1jd-CTkx0FNQdnOaHHsB0GljK3T0AIemh` |
-| [ISLP 課本雙語化](https://wesleychen310.github.io/osaka2026/learning/islp-reading/) `learning/islp-reading/` | `learning/islp-reading/index.html` | 程式中的 `CHAPTERS`：Ch3 `1dGsBY5l6XKuxkpriNDzx3tCmwIXQzS4Q`；Ch4 `1fUhbSm_tOL4jnF9zHTEP99y71gYASDJG` |
+| [ISLP 課本雙語化](https://wesleychen310.github.io/osaka2026/learning/islp-reading/) `learning/islp-reading/` | `learning/islp-reading/index.html` | 程式中的 `CHAPTERS`：Ch3 `1dGsBY5l6XKuxkpriNDzx3tCmwIXQzS4Q`；Ch4 `1fUhbSm_tOL4jnF9zHTEP99y71gYASDJG`；Ch5 `1JfsQ4Kfdr7TS8v5iTEGTEiZVxmw8a9zT` |
 | [ISLP 視覺筆記](https://wesleychen310.github.io/osaka2026/learning/islp-visual/) `learning/islp-visual/` | `learning/islp-visual/index.html` | Drive `ISLP_視覺筆記.html`；ID `18c6xkniZissK6cF0x3Xr0_D1h-FEUwFd`，內含 JSON manifest + 私人圖片 ID |
 
 **視覺筆記專用交接 SOP（應於動手前閱讀）：** [ISLP 視覺筆記｜系統架構與跨對話交接 SOP](https://docs.google.com/document/d/1TGkOWdtOA9_Ag9YEMTk337-Y_QUPZ0a9K_aG2qzRAdA/edit)。截至 2026-10-08，私人 manifest 為 **16 張**、schema v1；後續數量以當下 Drive 文件為準。
@@ -69,6 +69,8 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 **2026-10-08 美式英文朗讀試行：** `ISLP 精讀 Chapter 3`（`learning/islp/ch03/index.html`）載入 `learning/islp/ch03/en-us-speech.js`；`ISLP 課本雙語化 Chapter 3`（`learning/islp-reading/index.html?chapter=3`）載入 `learning/english-us-tts.js`。兩站僅對 §3.2.2 至 §3.3.3 的 `details.phrases .phrase > p[lang="en"]` 加入單鍵美式英文朗讀（瀏覽器 Web Speech API、`en-US`）。無 IPA、速度或腔調切換。語音元件由 GitHub shell 在下載私人 HTML 後注入，**Drive 教材原檔完全不改**。實際發音由裝置可用的 en-US TTS voice 決定；Safari / iOS 需點擊才可朗讀，尚須實機驗證。
 
 **ISLP 課本雙語化｜Chapter 4 FAM-S 同屏雙欄試行（2026-10-10）：** 僅 `?chapter=4` 新增載入 `learning/islp-reading-fam-layout.css`，其餘章節的 `islp-reading-mode.js`、私有 Google Drive HTML、Google OAuth／TTS 保持原狀。新版在 iPhone 左右對照採真實 50%／50% 欄寬，English 左、台灣繁中右；數學公式、圖表、Python code 保留原結構。已用 Chapter 4 原 HTML 在 320/375/390/430/710/768/1024/1280px × 四顯示模式完成 32 組本地排版 QA，保留 233 段、25 figures、29 tables、48 equations；未進行真人 iOS Safari OAuth 實機驗證。套用其他章節**先閱讀 [ISLP FAM 版型專用 README](learning/islp-reading/README.md)**（啟用、DOM 相容性、測試、回復 SOP）。網站直達 [Chapter 4 §4.3](https://wesleychen310.github.io/osaka2026/learning/islp-reading/?chapter=4#s43)。
+
+**ISLP 課本雙語化｜Chapter 5 FAM-S 同屏雙欄擴充（2026-10-11）：** [Chapter 5 — Resampling Methods](https://wesleychen310.github.io/osaka2026/learning/islp-reading/?chapter=5) 已加入 `learning/islp-reading/index.html` 的共用版型套用清單 `['4','5']`，沿用 `learning/islp-reading-fam-layout.css` 與既有四模式核心 `islp-reading-mode.js`。Chapter 5 另載入 `learning/islp-reading-ch05-fixes.css`，只對本章的行內 SVG 數學圖片提供區塊內橫向捲動，避免 320px iPhone 上整頁超寬，保留原解析度。Google Drive 正本 `ISLP_CH05_雙語課本.html` ID `1JfsQ4Kfdr7TS8v5iTEGTEiZVxmw8a9zT`（owner-only、原 parent）**沒有修改**；172 雙語段、306 inline-math、11 figures、10 equations、28 code blocks、17 output blocks 及全部原始錨點保持。用本地原始 HTML 套用主要 mode/row/grid 邏輯之 Chromium 排版 QA：320/375/390/430/710/768/1024/1280px × 四模式 **32/32 通過**。真實 OAuth 與 iPhone Safari 實機尚待驗收，勿將本地 QA 視為 E2E；[完整 SOP、驗證差異與回復方式](learning/islp-reading/README.md)。
 
 #### ASM FAM-S 私人雙語教材｜建置中（2026-10-10）
 
