@@ -28,22 +28,42 @@
       el.classList.add('islp-mode-label');
     });
 
+    const sectionNumber = heading => {
+      const english = heading.querySelector('.islp-heading-en,.source-en');
+      return (english || heading).textContent.trim().match(/^\d+(?:\.\d+)*(?:[–—-]\d+(?:\.\d+)*)?/)?.[0] || '';
+    };
     function splitHeading(heading, translation, separate) {
       const nodes = [...heading.childNodes].filter(n => n !== translation);
       if (!nodes.length || heading.querySelector(':scope > .islp-heading-en')) return;
       const english = document.createElement('span');
       english.className = 'islp-heading-en islp-mode-en';
+      english.lang = 'en';
       nodes.forEach(n => english.appendChild(n));
+      // Some Chapter 3 headings mark the whole bilingual container as English.
+      // Put that language on the original span so Chinese headings remain visible.
+      heading.classList.remove('islp-mode-en', 'islp-mode-zh');
+      heading.removeAttribute('lang');
       heading.prepend(english);
+      heading.classList.add('islp-readable-heading');
+      const number = sectionNumber(heading);
+      if (number.includes('.')) heading.classList.add('islp-heading-depth-' + (number.split(/[–—-]/)[0].split('.').length - 1));
       if (separate) {
         const chinese = document.createElement('span');
         chinese.className = 'islp-mode-zh islp-heading-only-zh';
-        const number = english.textContent.trim().match(/^\d+(?:\.\d+)*/)?.[0];
+        chinese.lang = 'zh-Hant-TW';
         const text = translation.textContent.trim();
         chinese.textContent = (number && !text.startsWith(number) ? number + ' ' : '') + text;
         heading.appendChild(chinese);
         translation.classList.add('islp-paired-heading-sub');
         mark(translation, 'zh');
+      } else {
+        const prefix = heading.tagName === 'H1' && /^\d+$/.test(chapter || '') ? '第' + chapter + '章 · ' : number && !translation.textContent.trim().startsWith(number) ? number + ' ' : '';
+        if (prefix) {
+          const label = document.createElement('span');
+          label.className = 'islp-heading-number islp-heading-only-zh';
+          label.textContent = prefix;
+          translation.prepend(label);
+        }
       }
     }
     for (const heading of document.querySelectorAll('h1,h2,h3,h4')) {
@@ -92,11 +112,12 @@
         label.classList.add('islp-chapter-label');
       }
     }
-    // Sidebar navigation retains all anchors, with Chinese labels in Chinese mode.
-    for (const link of document.querySelectorAll('.side-link[href^="#"]')) {
+    // Both the horizontal contents and sidebar show section numbers and names.
+    // Keep the original labels for the English and bilingual reading modes.
+    for (const link of document.querySelectorAll('.side-link[href^="#"],.topbar .inner > a[href^="#"]')) {
       const target = document.getElementById(link.getAttribute('href').slice(1));
       const heading = target?.matches('h1,h2,h3,h4') ? target : target?.querySelector('h1,h2,h3,h4');
-      const translated = heading?.querySelector('.heading-translation,.islp-heading-only-zh');
+      const translated = heading?.querySelector('.heading-translation,.islp-heading-only-zh') || (heading?.classList.contains('islp-mode-zh') ? heading : null);
       if (!translated) continue;
       const en = document.createElement('span'); en.className = 'islp-mode-en';
       while (link.firstChild) en.appendChild(link.firstChild);
@@ -118,6 +139,19 @@
     html:not([data-islp-reading-mode="bi"]) .hero > .hero-meta {display:none!important}
     html[data-islp-reading-mode="zh"] .heading-translation,
     html[data-islp-reading-mode="en"] .islp-heading-en {margin-top:0!important}
+    html[data-islp-reading-mode="zh"] .islp-readable-heading {
+      color:#173f52!important;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif!important;font-weight:750!important;line-height:1.4!important;letter-spacing:0!important
+    }
+    html[data-islp-reading-mode="zh"] .islp-readable-heading > .heading-translation,
+    html[data-islp-reading-mode="zh"] .islp-readable-heading > .islp-heading-only-zh {
+      display:block;font:inherit!important;color:inherit!important;line-height:inherit!important;margin:0!important
+    }
+    html[data-islp-reading-mode="zh"] h2.islp-readable-heading {font-size:clamp(25px,4.6vw,32px)!important}
+    html[data-islp-reading-mode="zh"] h3.islp-readable-heading {font-size:clamp(21px,3.8vw,25px)!important}
+    html[data-islp-reading-mode="zh"] h4.islp-readable-heading {font-size:20px!important}
+    html[data-islp-reading-mode="zh"] .islp-readable-heading.islp-heading-depth-2,
+    html[data-islp-reading-mode="zh"] .islp-readable-heading.islp-heading-depth-3 {font-size:clamp(21px,3.8vw,25px)!important}
+    .islp-heading-number {font-variant-numeric:tabular-nums}
     html:not([data-islp-reading-mode="bi"]) .pair > .translation,
     html:not([data-islp-reading-mode="bi"]) .pair > .zh-text,
     html:not([data-islp-reading-mode="bi"]) .caption-zh {margin-top:0!important;padding-top:0!important;border-top:0!important}
@@ -185,3 +219,4 @@
   window.addEventListener('storage', event => { if (event.key === KEY && valid(event.newValue)) apply(event.newValue, false, true); });
   apply(mode, false, false);
 })();
+
