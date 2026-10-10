@@ -1,11 +1,11 @@
 # ISLP 雙語閱讀器｜FAM-S 樣式試行與擴充指南
 
-> 2026-10-11（Asia/Taipei） · Pilot v2 · 已套用：**Chapter 4 — Classification、Chapter 5 — Resampling Methods**  
+> 2026-10-11（Asia/Taipei） · Pilot v2 · 已套用：**Chapter 4 — Classification、Chapter 5 — Resampling Methods、Chapter 6 — Linear Model Selection and Regularization**  
 > 目標網址：<https://wesleychen310.github.io/osaka2026/learning/islp-reading/?chapter=4#s43>
 
 ## 1. 這份 README 的用途
 
-本文件是將 FAM-S 私人雙語電子教科書的 **mobile-first 四模式版型** 套用到 ISLP 閱讀器的可重用 SOP。目前完成 Chapter 4 與 Chapter 5 的分章試行，其他章節仍須逐章驗收。**不要為套版重寫英文、中文、公式、表格或圖片，也不要公開私人教材。**
+本文件是將 FAM-S 私人雙語電子教科書的 **mobile-first 四模式版型** 套用到 ISLP 閱讀器的可重用 SOP。目前完成 Chapter 4、5、6 的分章試行，其他章節仍須逐章驗收。**不要為套版重寫英文、中文、公式、表格或圖片，也不要公開私人教材。**
 
 本次閱讀模式對照：
 
@@ -28,22 +28,26 @@
 - Chapter 4 正本：Google Drive `ISLP_CH04_雙語課本.html`，File ID `1fUhbSm_tOL4jnF9zHTEP99y71gYASDJG`；原本的 Folder、名稱及 owner-only 權限均保留。
 - Chapter 5 正本：Google Drive `ISLP_CH05_雙語課本.html`，File ID `1JfsQ4Kfdr7TS8v5iTEGTEiZVxmw8a9zT`；原 Folder ID `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`、名稱及 owner-only 權限均保留。
 - Chapter 5 獨立修正：`learning/islp-reading-ch05-fixes.css`，專門處理 Chapter 5 的超寬行內 SVG 數學圖片。
+- Chapter 6 正本：Google Drive `ISLP_CH06_雙語課本.html`，File ID `1ORIpJ-VNw8NGpNc_jAg79akwgkttw1FR`，owner-only、原 parent ID `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，此次保持原檔不動。
+- Chapter 6 專屬修正：`learning/islp-reading-ch06-fixes.css`，保護本章的數學 SVG，支援獨立水平滑動。
 - `#s43`、`#s431` 等 deep links 是原書 DOM ID，必須保留，不能重新編號。
 
 內容安全界線：**公開 GitHub 可以存 shell、CSS、閱讀控制器、SOP；完整英中教材與內嵌原書圖片仍只存 Google Drive 私人 HTML。** 不得把 Google access token、session、私人教材或使用者資料寫進 GitHub。
 
-## 3. 如何啟用（Chapter 4、5）
+## 3. 如何啟用（Chapter 4、5、6）
 
 `learning/islp-reading/index.html` 的 `addReadingTools(html,ch)` 在原本兩個 JS 後面追加：
 
 ```js
-const famLayoutChapters = new Set(['4', '5']);
+const famLayoutChapters = new Set(['4', '5', '6']);
 const layout = famLayoutChapters.has(ch)
   ? '<link rel="stylesheet" href="/osaka2026/learning/islp-reading-fam-layout.css?v=20261010-ch4-pilot-v1">'
   : '';
 const chapterFix = ch === '5'
   ? '<link rel="stylesheet" href="/osaka2026/learning/islp-reading-ch05-fixes.css?v=20261011-ch5-v1">'
-  : '';
+  : ch === '6'
+    ? '<link rel="stylesheet" href="/osaka2026/learning/islp-reading-ch06-fixes.css?v=20261011-ch6-v1">'
+    : '';
 ```
 
 然後以 `script+layout+chapterFix` 插入私人 HTML 的 `</body>` 前。順序非常重要：
@@ -51,9 +55,9 @@ const chapterFix = ch === '5'
 1. `english-us-tts.js`
 2. `islp-reading-mode.js`（建立 .islp-parallel-pair / rows / toolbar）
 3. **`islp-reading-fam-layout.css`**（調整既有 class 的視覺，不動原始內容）
-4. 僅 Chapter 5 載入 **`islp-reading-ch05-fixes.css`**，避免超寬 SVG 造成整頁橫向捲動，公式維持原始解析度，可在各語言區塊內滑動。
+4. Chapter 5、6 分別載入 **`islp-reading-ch05-fixes.css`** 與 **`islp-reading-ch06-fixes.css`**，避免超寬 SVG 造成整頁橫向捲動，公式維持原始解析度，可在各語言區塊內滑動。
 
-共用 CSS 已在 Chapter 4、5 啟用，其他章節不受此 Pilot 影響。Chapter 4 可用 `?chapter=4#s43`，Chapter 5 可用 `?chapter=5#s51` 直達章節內容並切換四種模式。原本 mode 設定跨章節存於 localStorage，所以使用者先前選的模式會沿用。
+共用 CSS 已在 Chapter 4、5、6 啟用，其他章節不受此 Pilot 影響。Chapter 4 可用 `?chapter=4#s43`，Chapter 5 可用 `?chapter=5#s51` 直達章節內容並切換四種模式。原本 mode 設定跨章節存於 localStorage，所以使用者先前選的模式會沿用。
 
 ## 4. 套用到其他章節（先 QA、再放行）
 
@@ -94,6 +98,16 @@ const layout = famLayoutChapters.has(ch)
 - **驗證範圍**：32/32 是在本地真實 Chapter 5 HTML 上用與共用 JS 相同的主要 mode/row/grid 規則模擬測試；它不是在正式私人網站登入後跑的完整 GitHub JS／OAuth E2E 測試。仍須以 iPhone Safari 登入、實際點選四模式、滑動長公式、圖片放大和檢查 `#s51` 錨點。部署是否完成也應獨立確認。
 - GitHub 變更：共用 CSS **未改**，`islp-reading-mode.js` **未改**，Chapter 4 組態保留；僅增加 Chapter 5 opt-in 和本章獨立修正 CSS。恢復舊版時僅移除 Chapter 5 的 opt-in 即可。
 
+## 5B. Chapter 6 版型與公式相容性 QA（2026-10-11）
+
+- 私人正本：Google Drive `ISLP_CH06_雙語課本.html`（6,246,570 bytes；ID `1ORIpJ-VNw8NGpNc_jAg79akwgkttw1FR`）。此次僅修改公開 GitHub UI，原教材無任何寫入；Google 回傳檔案只對 owner 分享。
+- 原始 DOM：**368 .pair、368 .original、368 .translation、731 .inline-math、25 Figure、32 equation、57 codeblock、26 outputblock、10 .phrase、110 ID**，ID 無重複，`#s61`–`#s66` 及下層節號錨點維持。
+- 資料結構：`.pair > .original + .translation`，沿用 Chapter 4/5 的四種模式與 FAM-S 真實雙欄 CSS。Chapter 6 的許多內嵌 SVG 數學式會超出窄欄；新增 `learning/islp-reading-ch06-fixes.css`，保留圖片原解析度並允許英文／中文區塊局部左右滑動。獨立 Figure、公式與 Python 程式仍用全頁寬度。
+- **本地 Chromium 排版 QA 32/32 通過：**320、375、390、430、710、768、1024、1280 px，各測 parallel、bi、zh、en 四模式；核對英左中右、單語隱藏狀態、整頁無橫向超寬及內容 DOM 不變。本地 QA 採原始 Chapter 6 HTML 與 Chapter 5 已驗證過的 mode/row/grid **模擬邏輯**，並非現場 Google OAuth E2E。
+- 待實機驗收：iPhone Safari 私人登入、模式按鈕、Figure 放大、章節錨點 `#s61`、長公式左右滑動、TTS 與正式 GitHub Pages 快取／部署狀態。
+- 對 GitHub 的變更：新增 `learning/islp-reading-ch06-fixes.css`，並在 `learning/islp-reading/index.html` 中將共用版型 opt-in 清單擴成 `['4','5','6']`；Chapter 6 另單獨載入 ch06-fixes CSS。**Chapter 4、5、其他章節與共用 mode JS、共用 CSS 均不改。**
+- 回復 Chapter 6 版型：從 `famLayoutChapters` 移除 `'6'`，並移除 `chapterFix` 的 `ch === '6'` 分支。Chapter 4、5 保持新版，不必動私人 Drive 檔。
+
 ## 6. 維護、備份、回復
 
 Chapter 4 試行時新建 `learning/islp-reading-fam-layout.css` 並更新入口；Chapter 5 擴充時沿用該 CSS、新建 `learning/islp-reading-ch05-fixes.css`，並更新同一 GitHub 入口的 opt-in 集合。**Drive 正本沒有修改，故沒有 Drive 寫入／備份需要。** 修改 GitHub 會有 commit history。
@@ -109,4 +123,5 @@ Chapter 4 試行時新建 `learning/islp-reading-fam-layout.css` 並更新入口
 - [ISLP 雙語閱讀目錄](https://wesleychen310.github.io/osaka2026/learning/islp-reading/)
 - [Chapter 4 · §4.3（FAM-S 同屏雙欄試行）](https://wesleychen310.github.io/osaka2026/learning/islp-reading/?chapter=4#s43)
 - [Chapter 5 · Resampling Methods（同屏雙欄與公式滾動）](https://wesleychen310.github.io/osaka2026/learning/islp-reading/?chapter=5#s51)
+- [Chapter 6 · Linear Model Selection and Regularization（新版同屏雙欄）](https://wesleychen310.github.io/osaka2026/learning/islp-reading/?chapter=6#s61)
 - [主站中央 README](https://github.com/wesleychen310/osaka2026/blob/main/README.md)
