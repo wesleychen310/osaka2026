@@ -1,0 +1,27 @@
+/* ISLP Chapter 6 · Linear Model Selection and Regularization
+ * 2026-10-11 · FAM-S bilingual responsive layout compatibility.
+ * Scope: ?chapter=6 only. Source HTML and original math/figures untouched.
+ * 731 original inline SVG math elements can exceed a 320px two-column
+ * language panel. Preserve native image resolution and local touch scrolling.
+ */
+html body.bilingual-clean .pair > .original,
+html body.bilingual-clean .pair > .translation {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+html body.bilingual-clean .pair > .original img.inline-math,
+html body.bilingual-clean .pair > .translation img.inline-math {
+  vertical-align: middle;
+}
+/* Keep original source equations and Python inputs/outputs on full page width
+ * with independent horizontal scrolling where necessary. */
+html body.bilingual-clean .equation,
+html body.bilingual-clean .codeblock,
+html body.bilingual-clean .outputblock {
+  max-width: 100%;
+  overflow-x: auto;
+}
