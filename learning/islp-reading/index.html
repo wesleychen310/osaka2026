@@ -130,15 +130,19 @@ function addReadingTools(html,ch){
   if(!CHAPTERS[ch])return html;
   const script='<scr'+'ipt src="/osaka2026/learning/english-us-tts.js?v=20261009-all-reading"></scr'+'ipt>'
     + '<scr'+'ipt src="/osaka2026/learning/islp-reading-mode.js?v=20261010-parallel"></scr'+'ipt>';
-  // Chapter 4 alone opts in to the FAM-S mobile-first layout.
-  // CSS loads AFTER the shared four-mode controller so it can override
-  // the old 280px column minimum. Other chapters remain untouched.
-  const layout = ch === '4'
+  // FAM-S mobile-first four-mode layout: opt in only after per-chapter QA.
+  // Chapter 5 uses the same shared stylesheet as Chapter 4, plus one
+  // chapter-specific fix for wide inline SVG maths on 320px phones.
+  const famLayoutChapters = new Set(['4','5']);
+  const layout = famLayoutChapters.has(ch)
     ? '<link rel="stylesheet" href="/osaka2026/learning/islp-reading-fam-layout.css?v=20261010-ch4-pilot-v1">'
     : '';
+  const chapterFix = ch === '5'
+    ? '<link rel="stylesheet" href="/osaka2026/learning/islp-reading-ch05-fixes.css?v=20261011-ch5-v1">'
+    : '';
   return /<\/body\s*>/i.test(html)
-    ? html.replace(/<\/body\s*>/i,match=>script+layout+match)
-    : html+script+layout;
+    ? html.replace(/<\/body\s*>/i,match=>script+layout+chapterFix+match)
+    : html+script+layout+chapterFix;
 }
 
 function writeChapter(html,ch){
