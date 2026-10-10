@@ -1,6 +1,6 @@
 # Osaka2026 全站總索引與維護交接（Single Source of Truth）
 
-> 更新日期：2026-10-08（Asia/Taipei）。Repository：[`wesleychen310/osaka2026`](https://github.com/wesleychen310/osaka2026)；網站根網址：<https://wesleychen310.github.io/osaka2026/>。
+> 更新日期：2026-10-10（Asia/Taipei）。Repository：[`wesleychen310/osaka2026`](https://github.com/wesleychen310/osaka2026)；網站根網址：<https://wesleychen310.github.io/osaka2026/>。
 >
 > **所有屬於這個 GitHub Repository 的網站，先從本 README 查路由、原始碼、私人資料與維護 SOP。** 本文是索引與操作規則；實際內容、檔案 ID、權限、部署狀態一律以當下 GitHub／Google Drive 現況核實，避免使用過期記錄。
 
@@ -27,6 +27,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 | [賞櫻景點](https://wesleychen310.github.io/osaka2026/t202703/sakura.html) `t202703/sakura.html` | `sakura.html`、`sakura.js` | `sakura-data.js`、`catalog-data.js`、跨年度共用地點資料 |
 | [ARU 飯店周邊](https://wesleychen310.github.io/osaka2026/t202703/nearby.html) `t202703/nearby.html` | `nearby.html`、`nearby.js` | `nearby-data.js`、`kiyamachi-data.js`、`catalog-data.js` 等 |
 | [京都洋館／近代建築](https://wesleychen310.github.io/osaka2026/t202703/modern.html) `t202703/modern.html` | `modern.html`、`modern.js` | `modern-data.js`、`name-i18n.js`、`gpt-actions.js` |
+| [第七代小川治兵衛・京都庭園散策](https://wesleychen310.github.io/osaka2026/t202703/ueji.html) `t202703/ueji.html` | `ueji.html`、`ueji-data.js`、`ueji.js`、`ueji.css` | 公開歷史庭園導覽，22處現存與待考地點；按參觀／餐飲／限制公開／賞櫻篩選；Google Maps、ARU交通、官方來源及 GPT 圖文介紹 |
 | [旅行前事務本（私人）](https://wesleychen310.github.io/osaka2026/t202703/control/) `t202703/control/` | `t202703/control/index.html` | Google Drive `2027花見京旅行前事務本.html`；File ID：`1XVIMkPdvqccbW7i-y4_QrW8h8VcGj3lY` |
 | [旅帳本（私人）](https://wesleychen310.github.io/osaka2026/t202703/ledger/) `t202703/ledger/` | `t202703/ledger/index.html` | Google Drive `2027花見京旅帳本.html`；File ID：`19iny4GXWrzgZug-ag4z7_5DHamr0T-m1` |
 
