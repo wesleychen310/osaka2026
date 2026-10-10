@@ -47,7 +47,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 正式首頁：<https://wesleychen310.github.io/osaka2026/t202607/>。上述 27 個 HTML 入口均由 Repository 路徑盤點；歷史頁仍保留，勿誤刪。
 - 根目錄 `t202607-data.js`、`t202607-places-data.js`、`t202607-books-data.js`、`t202607-themes-data.js`、`t202607-itinerary-*.js`、`t202607-*-theme-data.js` 等皆可能由 2026/2027 多站引用；只可依引用關係判定是否廢棄。
 
-### C. 私人學習｜ISLP／PA／ATPA（`learning/`）
+### C. 私人學習｜ISLP／PA／ATPA／FAM-S（`learning/`）
 
 | 網站／正式 URL | GitHub 入口 | 私人內容位置 |
 |---|---|---|
@@ -72,6 +72,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 
 - 指定私人資料夾：[fam_HTML／ASM_FAM-S](https://drive.google.com/drive/folders/1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe)。[Phase 1 manifest](https://drive.google.com/file/d/1OnupOrFPSj99OURS7beFS6Z3xrm50mro/view)、[盤點報告](https://drive.google.com/file/d/1R_gWz8pv2RdvAcXrM2dk_Z7CMJRemB0F/view)及最新 `progress.json` 存在該私人資料夾；索引與原頁影像備存於子資料夾 `inventory`。
 - 本批次已完成全 PDF 738 頁文字／座標擷取及原頁影像保存。Phase 1 狀態為 **NEEDS_REVIEW**；全頁正文、數學、圖表及題解邊界尚未完成視覺驗收，雙語教材驗收通過數為 **0**。
+- **第二批盤點（2026-10-10）：** 已實際查看 PDF 第 1–44 頁完整影像，記錄前附資料與 Lesson 1 的題解來源範圍及原圖裁切。逐段英文修訂、數學轉錄與翻譯尚未驗收；44 頁不計為雙語教材完成。詳 [第二批報告](https://drive.google.com/file/d/1CnEKYFS4OVM51Sm8RVOfLu2AFyg0HHcf/view)。完整影像盤點接續 PDF 45；已查看頁面的細部校對另依私人進度檔處理。
 - 預定路徑 `learning/fam-s-reading/` 已檢查無衝突，**尚未建立閱讀入口或加入 learning 導航**。完成 Phase 1 驗收後，以 Lesson 11 驗證樣板及互動，再分章推進。
 - 後續閱讀器沿用既有 Google OAuth／短期 session token 與私人 Drive File ID 存取方式；教材、翻譯、題目、題解及原頁影像只存私人 Drive。不得將候選題解映射直接投入答案按鈕。
 - 新對話先讀私人 `progress.json`、manifest、問題清單與報告，保留已核對證據並接續未驗收工作。更新任何既存 Drive 檔案必須依本 README 備份 SOP；不得以目前程式檢查通過宣稱全書完成。
