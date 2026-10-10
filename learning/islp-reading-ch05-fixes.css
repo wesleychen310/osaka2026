@@ -1,0 +1,26 @@
+/* ISLP Chapter 5 Resampling Methods · local overflow fix · 2026-10-11.
+ * Loaded only with ?chapter=5, after the shared FAM-style CSS.
+ * Keep native SVG maths at readable resolution: allow horizontal touch-scroll
+ * inside the bilingual language panel instead of expanding the whole document.
+ * Figures, numbered equations, Python code/output, and source wording stay unchanged.
+ */
+html body.bilingual-clean .pair > .original,
+html body.bilingual-clean .pair > .translation {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+html body.bilingual-clean .pair > .original img.inline-math,
+html body.bilingual-clean .pair > .translation img.inline-math {
+  vertical-align: middle;
+}
+/* Keep code and displayed math inside their original dedicated scroll containers. */
+html body.bilingual-clean .equation,
+html body.bilingual-clean .codeblock,
+html body.bilingual-clean .outputblock {
+  max-width: 100%;
+  overflow-x: auto;
+}
