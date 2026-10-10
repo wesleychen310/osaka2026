@@ -68,6 +68,14 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 
 **2026-10-08 美式英文朗讀試行：** `ISLP 精讀 Chapter 3`（`learning/islp/ch03/index.html`）載入 `learning/islp/ch03/en-us-speech.js`；`ISLP 課本雙語化 Chapter 3`（`learning/islp-reading/index.html?chapter=3`）載入 `learning/english-us-tts.js`。兩站僅對 §3.2.2 至 §3.3.3 的 `details.phrases .phrase > p[lang="en"]` 加入單鍵美式英文朗讀（瀏覽器 Web Speech API、`en-US`）。無 IPA、速度或腔調切換。語音元件由 GitHub shell 在下載私人 HTML 後注入，**Drive 教材原檔完全不改**。實際發音由裝置可用的 en-US TTS voice 決定；Safari / iOS 需點擊才可朗讀，尚須實機驗證。
 
+#### ASM FAM-S 私人雙語教材｜建置中（2026-10-10）
+
+- 指定私人資料夾：[fam_HTML／ASM_FAM-S](https://drive.google.com/drive/folders/1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe)。[Phase 1 manifest](https://drive.google.com/file/d/1OnupOrFPSj99OURS7beFS6Z3xrm50mro/view)、[盤點報告](https://drive.google.com/file/d/1R_gWz8pv2RdvAcXrM2dk_Z7CMJRemB0F/view)及最新 `progress.json` 存在該私人資料夾；索引與原頁影像備存於子資料夾 `inventory`。
+- 本批次已完成全 PDF 738 頁文字／座標擷取及原頁影像保存。Phase 1 狀態為 **NEEDS_REVIEW**；全頁正文、數學、圖表及題解邊界尚未完成視覺驗收，雙語教材驗收通過數為 **0**。
+- 預定路徑 `learning/fam-s-reading/` 已檢查無衝突，**尚未建立閱讀入口或加入 learning 導航**。完成 Phase 1 驗收後，以 Lesson 11 驗證樣板及互動，再分章推進。
+- 後續閱讀器沿用既有 Google OAuth／短期 session token 與私人 Drive File ID 存取方式；教材、翻譯、題目、題解及原頁影像只存私人 Drive。不得將候選題解映射直接投入答案按鈕。
+- 新對話先讀私人 `progress.json`、manifest、問題清單與報告，保留已核對證據並接續未驗收工作。更新任何既存 Drive 檔案必須依本 README 備份 SOP；不得以目前程式檢查通過宣稱全書完成。
+
 ### D. 私人記事／財務記錄（`records/`）
 
 | 網站／正式 URL | GitHub 路徑 | 私人資料來源 |
