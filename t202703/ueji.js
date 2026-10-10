@@ -9,7 +9,7 @@ const gpt=(p)=>'https://chatgpt.com/?q='+encodeURIComponent('以台灣繁體中�
 app.innerHTML=`
 <header class="ueji-hero">
 <a class="ueji-back" href="index.html">← 花見京旅首頁</a>
-<div class="eyebrow">KYOTO · OG AWA JIHEI VII · GARDEN WALK</div>
+<div class="eyebrow">KYOTO · OGAWA JIHEI VII · GARDEN WALK</div>
 <h1>第七代小川治兵衛<br>京都庭園專區</h1>
 <div class="ueji-jp" lang="ja">七代目 小川治兵衞（おがわ じへえ） · 1860–1933</div>
 <p>循著京都明治造園家的足跡，從琵琶湖疏水、東山借景與水聲，走進近代政要的別墅、今日開放的名勝庭園，以及能預約用餐的歷史宅邸。特別為 2027/3/27–4/5 四人賞櫻旅行整理。</p>
