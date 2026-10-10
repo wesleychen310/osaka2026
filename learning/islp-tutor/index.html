@@ -37,8 +37,8 @@ h1{font-size:clamp(33px,6vw,52px);line-height:1.23;color:#153e57;margin:8px 0 12
 
 </section>
 <section class="chapter" aria-labelledby="ch4" style="margin-top:18px">
-  <div class="chapterTop"><div><span class="num">04</span><h2 id="ch4">Chapter 4｜分類</h2><div class="eng">Classification</div></div><div class="meta">6 個已建置 Section</div></div>
-  <p class="desc">依原書從分類問題的 response 定義、實務案例與模擬 Default 資料進入 Chapter 4。目前已建置 4.1 分類概論、4.2 為什麼不用普通線性迴歸，以及 4.3.1 Logistic Model 的公式與圖形教學；4.3.2 已加入最大概似估計與 Table 4.1；4.3.3 教授 Default 與 student 的機率預測；4.3.4 加入多元 logistic、Table 4.3、Figure 4.3、confounding 與同條件風險比較。</p>
+  <div class="chapterTop"><div><span class="num">04</span><h2 id="ch4">Chapter 4｜分類</h2><div class="eng">Classification</div></div><div class="meta">7 個已建置 Section</div></div>
+  <p class="desc">依原書從分類問題的 response 定義、實務案例與模擬 Default 資料進入 Chapter 4。目前已建置 4.1 分類概論、4.2 為什麼不用普通線性迴歸，以及 4.3.1 Logistic Model 的公式與圖形教學；4.3.2 已加入最大概似估計與 Table 4.1；4.3.3 教授 Default 與 student 的機率預測；4.3.4 加入多元 logistic、Table 4.3、Figure 4.3 與 confounding；最新 4.5.1 依原書比較 LDA、QDA、naive Bayes、logistic regression、KNN 的決策邊界及 bias–variance。各節可獨立選讀，尚未建置的小節將按後續指定補齊。</p>
   <div class="sectionTitle">選擇要學習的 Section</div>
   <a class="course" href="./chapters/4-1.html"><div><h3>★ 4.1｜An Overview of Classification</h3><p>Qualitative response、五種分類器、急診／網銀／基因案例、training vs test、10,000 筆 Default 模擬資料、Figure 4.1 三 panel 原書講解，及 PA／ATPA 作答。<br><span class="meta">印刷頁 135–136 · Figure 4.1 見 p.137 · 7 個教學單元</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
 <a class="course" href="./chapters/4-2.html"><div><h3>4.2｜Why Not Linear Regression?</h3><p>急診三類診斷的任意數值編碼、ordinal 與 nominal 的差異、二元 0/1 OLS 和 0.5 cutoff、翻轉編碼證明、Figure 4.2 原圖及非法機率的直覺，附精算案例與 PA／ATPA 完整英文作答。<br><span class="meta">印刷頁 136–138 · Figure 4.2 見 p.139 · 6 個教學單元</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
@@ -46,6 +46,7 @@ h1{font-size:clamp(33px,6vw,52px);line-height:1.23;color:#153e57;margin:8px 0 12
 <a class="course" href="./chapters/4-3-2.html"><div><h3>★ 4.3.2｜Estimating the Regression Coefficients</h3><p>Maximum Likelihood Estimation、原書式 (4.5)、Bernoulli likelihood 逐筆貢獻、可互動的概似函數、原書 Table 4.1 完整數值、z／p-value 解讀、官方 Default 資料重新估計、精算應用與 PA／ATPA 完整英文答案。<br><span class="meta">印刷頁 140–141 · Table 4.1 見 p.142 · 8 個教學單元</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
 <a class="course" href="./chapters/4-3-3.html"><div><h3>★ 4.3.3｜Making Predictions</h3><p>原書 balance=$1,000/$2,000 預測 0.00576/0.586、學生 4.31% 與非學生 2.92%、dummy coding、Table 4.2 原始表格裁圖、官方 Default.csv 重算；互動計算機率與完整 PA／ATPA 英文答案。<br><span class="meta">印刷頁 141–142 · 7 教學單元 · 原圖與互動計算</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
 <a class="course" href="./chapters/4-3-4.html"><div><h3>★ 4.3.4｜Multiple Logistic Regression</h3><p>式 (4.6)–(4.9)、Table 4.3 全部係數與 p-value、原書 Figure 4.3 雙 panel、student 係數由正轉負的 confounding 論證、同 balance／income 的預測比較；9 個理解單元、互動計算、精算應用及 PA／ATPA 完整英文答案。<br><span class="meta">印刷頁 142–144 · 9 個教學單元 · Figure 4.3 完整原圖</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
+<a class="course" href="./chapters/4-5-1.html"><div><h3>★ 4.5.1｜An Analytical Comparison</h3><p>共用的 posterior-log-odds (4.31)、LDA Gaussian 完整推導 (4.32)、QDA 二次交互作用 (4.33)、Naive Bayes 可加形式 (4.34)；四項模型間的數學關係、Logistic vs LDA、KNN 的 n／p／bias–variance，以及互動式二維分類邊界。<br><span class="meta">原書印刷頁 161–164 · 12 個單元 · 12 道驗收題 · 無原書獨立圖表</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
 </section>
 <p class="info">後續新增 Chapter 4 的其他小節或 Chapter 5 等教材時，會直接擴充本章節選擇頁，不再讓私人學校首頁堆滿各個小節。課程存取使用 GitHub Pages 網址，並非真正的登入限制頁。</p>
 </main></body></html>
