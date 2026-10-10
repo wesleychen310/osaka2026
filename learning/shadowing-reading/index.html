@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light">
+<title>Shadowing｜私人互動閱讀</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/osaka2026/private-auth-hint.js"></script>
+<style>
+:root{--bg:#f5f7f9;--paper:#fff;--ink:#193243;--accent:#1d516c;--muted:#677987;--line:#dce5eb}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:linear-gradient(165deg,#e4eff5,#f5f7f9 390px);font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:var(--ink)}
+.wrap{max-width:780px;margin:auto;padding:clamp(30px,8vw,70px) 15px 70px}.back{display:inline-block;color:#426781;text-decoration:none;font-size:13px;margin-bottom:22px}.kicker{font-size:11px;font-weight:850;letter-spacing:.14em;color:#3a6f89}
+h1{font-size:clamp(30px,6vw,46px);line-height:1.2;letter-spacing:-.035em;color:var(--accent);margin:9px 0 13px}
+.lead{color:var(--muted);line-height:1.75;margin:0 0 30px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,5vw,30px);box-shadow:0 12px 32px #12384911}
+.card h2{font-size:21px;color:#184963;line-height:1.3;margin:8px 0}
+.card p{color:var(--muted);margin:8px 0;font-size:14px}
+.tag{font-size:11px;color:#537891;font-weight:850;letter-spacing:.1em}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin:19px 0}.pills span{font-size:11px;border:1px solid #dbe5eb;background:#f8fbfc;border-radius:99px;padding:4px 10px;color:#4d6878}
+button{border:0;border-radius:11px;padding:12px 16px;background:#1b4e6b;color:white;font:inherit;font-weight:800;cursor:pointer;margin-top:12px}
+button:disabled{opacity:.5}#switchBtn{color:#184963;background:transparent;border:1px solid var(--line);margin-left:8px}
+#status{font-size:13px;color:var(--muted);min-height:22px;margin-top:15px}
+.spinner{display:inline-block;width:15px;height:15px;border:2px solid #d9e4ea;border-top-color:#426d87;border-radius:50%;vertical-align:-2px;animation:spin .8s linear infinite;margin-right:6px}@keyframes spin{to{transform:rotate(360deg)}}
+aside{font-size:12px;margin-top:22px;color:#7c8b95;line-height:1.7}
+@media(max-width:480px){.wrap{padding:28px 13px 55px}.card{border-radius:16px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="back" href="../">← 返回私人學習入口</a>
+<div class="kicker">PRIVATE LEARNING · SHADOWING</div>
+<h1>3 個月打造英語耳<br>Shadowing 互動閱讀</h1>
+<p class="lead">依原書順序閱讀日文與繁中解說，完整保留 English Script。支援全中文、日文原文、雙語上下、同屏左右對照；原書頁面可展開核對。</p>
+<section class="card">
+<div class="tag">CHAPTER 02 · PART 1</div>
+<h2>STEP 01–07｜七個核心訓練步驟</h2>
+<p>Listening、Dictation、默讀理解、音讀、Repeating、Overlapping、Shadowing。</p>
+<div class="pills"><span>四種閱讀模式</span><span>iPhone 同屏雙欄</span><span>原書頁面</span><span>英語朗讀</span><span>Google Drive 私人教材</span></div>
+<button id="openBtn" type="button">使用 Google 帳號閱讀</button>
+<button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
+<div id="status" role="status"><span class="spinner"></span>正在確認私人教材的存取狀態…</div>
+</section>
+<aside>目前完成範圍為第 2 章 STEP 01–07。其餘章節將以相同方式分批製作。原書日文 OCR 文字可能包含辨識誤差；可直接對照內嵌的原頁影像。</aside>
+</main>
+<script>
+"use strict";
+const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
+const SCOPE="https://www.googleapis.com/auth/drive.readonly";
+const TOKEN_KEY="hanami-kyoto-google-token-v3";
+const FILE_ID="10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk";
+const openBtn=document.getElementById("openBtn");
+const switchBtn=document.getElementById("switchBtn");
+const statusBox=document.getElementById("status");
+let tokenClient=null;
+function status(msg,loading=false){statusBox.textContent=msg;if(loading)statusBox.innerHTML='<span class="spinner"></span>'+msg}
+function saveToken(r){const item={access_token:r.access_token,expires_at:Date.now()+Number(r.expires_in||3600)*1000};sessionStorage.setItem(TOKEN_KEY,JSON.stringify(item));return item}
+function savedToken(){try{const item=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");if(item?.access_token&&Date.now()<item.expires_at-120000)return item}catch(e){}sessionStorage.removeItem(TOKEN_KEY);return null}
+function login(msg){openBtn.hidden=false;openBtn.disabled=false;switchBtn.hidden=false;status(msg||"請使用有權限的 Google 帳號授權。")}
+async function openBook(token){
+ status("正在從 Google Drive 下載私人教材…",true);
+ const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(FILE_ID)+"?alt=media",{headers:{Authorization:"Bearer "+token},cache:"no-store"});
+ if(res.status===401)throw Error("TOKEN_EXPIRED");
+ if(res.status===403)throw Error("NO_ACCESS");
+ if(!res.ok)throw Error("DRIVE_"+res.status);
+ const book=await res.text();
+ if(!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
+ document.open();document.write(book);document.close();
+ if(location.hash){const id=location.hash.slice(1);setTimeout(()=>document.getElementById(id)?.scrollIntoView({block:"start"}),160);}
+}
+function init(){
+ if(tokenClient)return true;if(!window.google?.accounts?.oauth2)return false;
+ tokenClient=google.accounts.oauth2.initTokenClient({
+  client_id:CLIENT_ID,scope:SCOPE,
+  callback:async r=>{
+   if(r.error){login("Google 授權未完成。");return}
+   try{const token=saveToken(r);await window.HanamiAuth?.remember(token.access_token);await openBook(token.access_token)}
+   catch(e){sessionStorage.removeItem(TOKEN_KEY);login(e.message==="NO_ACCESS"?"這個 Google 帳號沒有私人教材存取權限。":e.message==="TOKEN_EXPIRED"?"授權已過期，請重新登入。":"私人教材載入失敗，請再試一次。")}
+  },
+  error_callback:()=>login("瀏覽器需要你點選登入按鈕。")
+ });return true;
+}
+function request(change=false){if(!init())return false;try{if(window.HanamiAuth)window.HanamiAuth.request(tokenClient,change);else tokenClient.requestAccessToken({prompt:change?"select_account":""});return true}catch(e){return false}}
+openBtn.addEventListener("click",()=>{openBtn.disabled=true;status("正在開啟 Google 授權…",true);if(!request())login("Google 授權元件尚未就緒，請稍後再試。")});
+switchBtn.addEventListener("click",()=>{sessionStorage.removeItem(TOKEN_KEY);window.HanamiAuth?.forget();openBtn.disabled=true;status("正在切換 Google 帳號…",true);if(!request(true))login("請再按一次登入。")});
+async function boot(){
+ const t=savedToken();if(t){try{await window.HanamiAuth?.remember(t.access_token);await openBook(t.access_token);return}catch(e){sessionStorage.removeItem(TOKEN_KEY);if(e.message==="NO_ACCESS"){login("這個 Google 帳號沒有私人教材權限。");return}}}
+ const until=Date.now()+6000;while(Date.now()<until&&!window.google?.accounts?.oauth2)await new Promise(r=>setTimeout(r,100));
+ if(!init()){login("Google 登入元件載入失敗，請重新整理。");return}
+ status("正在嘗試沿用既有 Google 授權…",true);
+ if(!request())login("請按一次 Google 登入。");
+ setTimeout(()=>{if(document.getElementById("openBtn"))login("若尚未出現 Google 授權視窗，請按一下登入按鈕。")},4000);
+}
+boot();
+</script>
+</body>
+</html>
