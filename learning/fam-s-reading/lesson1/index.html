@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<title>ASM FAM-S｜Lesson 1 雙語草稿</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="/osaka2026/private-auth-hint.js"></script>
+<style>
+:root{--bg:#f3f6f8;--ink:#1a2d3d;--accent:#174961;--line:#dbe3e9;--muted:#5a6d7a}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC",Arial,sans-serif;background:linear-gradient(160deg,#e5f0f5,var(--bg) 50%);color:var(--ink)}.wrap{max-width:760px;margin:0 auto;padding:clamp(25px,6vw,65px) 16px 60px}.eyebrow{font-weight:850;color:var(--accent);font-size:12px;letter-spacing:.15em}.head h1{font-size:clamp(29px,6vw,46px);font-family:Georgia,"Noto Serif TC",serif;margin:14px 0 12px;line-height:1.18;color:#163f56}.head p{font-size:15px;line-height:1.75;color:var(--muted);margin:0 0 23px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 14px 40px rgba(26,51,69,.07);padding:clamp(17px,4vw,25px);margin:12px 0}.card h2{font-size:19px;margin:2px 0 6px}.card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0}.tag{font-size:11px;font-weight:800;color:#8b5b3a;letter-spacing:.1em}.btn{border:0;border-radius:12px;padding:13px 18px;background:var(--accent);color:#fff;font:inherit;font-size:14px;font-weight:750;cursor:pointer;display:inline-block;text-decoration:none;margin-top:18px}.btn:disabled{opacity:.55;cursor:wait}.ghost{background:#fff;border:1px solid var(--line);color:var(--accent);margin-left:8px}.status{font-size:13px;color:var(--muted);margin-top:15px;min-height:22px}.link{color:var(--accent);font-size:13px;text-decoration:none}.meta{display:flex;gap:9px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:12px}.meta span{border:1px solid var(--line);padding:3px 9px;border-radius:99px}.back{display:inline-block;margin-bottom:24px}.spinner{display:inline-block;width:15px;height:15px;border:2px solid #dce5ea;border-top-color:#46758f;border-radius:99px;animation:sp .85s linear infinite;vertical-align:-2px;margin-right:7px}@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="link back" href="../">← 返回 FAM-S 教科書入口</a>
+<header class="head"><div class="eyebrow">PRIVATE LEARNING · ASM FAM-S</div><h1>Lesson 1 · Basic Probability</h1><p>本頁提供 PDF 19–20（印刷第 3–4 頁）的雙語草稿、Figure 1.1 及來源公式，後續逐頁追加並驗收。</p></header>
+<section class="card">
+<div class="tag">LESSON 1 · DRAFT／NEEDS_REVIEW</div>
+<h2>基本機率｜PDF 19–20</h2>
+<p>逐段英中對照、原始公式與 Figure 1.1、原頁影像。整課尚未完成，本版僅供前兩頁檢查。</p>
+<div class="meta"><span>雙語左右對照</span><span>全中文／全英文</span><span>私人 Google Drive</span></div>
+<button class="btn" id="openBtn" type="button">使用 Google 帳號閱讀</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換 Google 帳號</button>
+<div id="status" class="status" role="status">正在確認私人教材存取狀態…</div>
+</section>
+<section class="card">
+<div class="tag">NEXT · CONTINUATION</div><h2>本課剩餘部分</h2>
+<p>將逐頁接續 PDF 21–44；本課原書 Examples、Exercises、Solutions 及題解按鈕尚在製作。</p>
+</section>
+</main>
+<script>
+"use strict";
+const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
+const SCOPE="https://www.googleapis.com/auth/drive.readonly";
+const TOKEN_KEY="hanami-kyoto-google-token-v3";
+const CONTENT_FILE_ID="1MgPm7w_Bj5zwoiQlJlv_q0W8aM1Ug8Y4";
+const openBtn=document.getElementById("openBtn");
+const switchBtn=document.getElementById("switchBtn");
+const statusBox=document.getElementById("status");
+let tokenClient=null;
+function status(t,loading=false){statusBox.textContent=t;if(loading){statusBox.innerHTML='<span class="spinner"></span>'+t}}
+function store(resp){const obj={access_token:resp.access_token,expires_at:Date.now()+Number(resp.expires_in||3600)*1000};sessionStorage.setItem(TOKEN_KEY,JSON.stringify(obj));return obj}
+function saved(){try{const t=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");if(t?.access_token&&Date.now()<t.expires_at-120000)return t}catch{}sessionStorage.removeItem(TOKEN_KEY);return null}
+async function openPrivate(token){
+ status("正在從 Google Drive 讀取 Lesson 1 私人草稿…",true);
+ const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(CONTENT_FILE_ID)+"?alt=media",{headers:{Authorization:"Bearer "+token},cache:"no-store"});
+ if(res.status===401)throw new Error("TOKEN_EXPIRED");
+ if(res.status===403)throw new Error("NO_ACCESS");
+ if(!res.ok)throw new Error("DRIVE_"+res.status);
+ const html=await res.text();
+ if(!html.includes("ASM FAM-S")||!html.includes("Lesson 1"))throw new Error("INVALID_CONTENT");
+ document.open();document.write(html);document.close();
+}
+function loginView(message){openBtn.disabled=false;openBtn.hidden=false;switchBtn.hidden=false;status(message||"請使用具有私人教材權限的 Google 帳號登入。")}
+function client(){
+ if(tokenClient)return true;
+ if(!window.google?.accounts?.oauth2)return false;
+ tokenClient=google.accounts.oauth2.initTokenClient({
+  client_id:CLIENT_ID,scope:SCOPE,
+  callback:async r=>{if(r.error){loginView("Google 授權未完成，請再試一次。");return}try{const t=store(r);await window.HanamiAuth?.remember(t.access_token);await openPrivate(t.access_token)}catch(e){sessionStorage.removeItem(TOKEN_KEY);loginView(e.message==="NO_ACCESS"?"此 Google 帳號沒有私人教材存取權限。":e.message==="TOKEN_EXPIRED"?"授權已過期，請重新登入。":"私人教材載入失敗，請重新登入。")}},
+  error_callback:()=>loginView("瀏覽器需要你點選登入按鈕。")
+ });
+ return true;
+}
+function request(switchAcct=false){if(!client())return false;try{if(window.HanamiAuth)window.HanamiAuth.request(tokenClient,switchAcct);else tokenClient.requestAccessToken({prompt:switchAcct?"select_account":""});return true}catch{return false}}
+openBtn.addEventListener("click",()=>{openBtn.disabled=true;status("正在開啟 Google 授權…",true);if(!request())loginView("Google 授權元件尚未就緒，請稍後再試。")});
+switchBtn.addEventListener("click",()=>{sessionStorage.removeItem(TOKEN_KEY);window.HanamiAuth?.forget();openBtn.disabled=true;status("正在切換 Google 帳號…",true);if(!request(true))loginView("請重新點選登入按鈕。")});
+async function boot(){
+ const s=saved();if(s){try{await window.HanamiAuth?.remember(s.access_token);await openPrivate(s.access_token);return}catch(e){sessionStorage.removeItem(TOKEN_KEY)}}
+ const until=Date.now()+6000;while(Date.now()<until&&!window.google?.accounts?.oauth2)await new Promise(r=>setTimeout(r,100));
+ if(!client()){loginView("Google 登入元件載入失敗，請重新整理頁面。");return}
+ status("正在嘗試沿用既有 Google 授權…",true);
+ if(!request())loginView("請點選登入按鈕。");
+ setTimeout(()=>{if(document.getElementById("openBtn"))loginView("若尚未開啟授權，請點選 Google 登入按鈕。")},4000);
+}
+boot();
+</script>
+</body>
+</html>
