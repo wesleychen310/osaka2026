@@ -84,7 +84,7 @@ function selector(){
  ).join('');
  app.innerHTML='<main class="wrap bridge-home"><div class="eyebrow">ATPA · ESSENTIAL READING</div><h1>ATPA 先備精華版</h1>'+
  '<p class="dek">從原本的 ISLP 私人雙語教材抽取 23 個先備小節。保留原文、繁中、公式、Figure、Table 與專業英文語塊；刪去本輪不必閱讀的內容。</p>'+
- '<div class="bridge-meta"><span>4 個 Chapter</span><span>23 個 Subsection</span><span>Google 私人授權</span><span>中文／英文／雙語／左右對照</span></div>'+
+ '<div class="bridge-meta"><span>4 個 Chapter</span><span>23 個 Subsection</span><span>Google 私人授權</span><span>全中文／全英文／左右對照</span></div>'+
  '<div class="bridge-rule"></div><div class="bridge-guide">依序讀 Chapter 4 → 5 → 6 → 8；各小節可直接點入。GLMM、GAM、Neural Networks、Bayesian、Stacking 接著在 ATPA 官方 Module 3 學習。</div>'+
  '<div class="bridge-grid">'+cards+'</div><footer class="bridge-foot"><a href="../">← 學習首頁</a><a href="../islp-reading/">ISLP 完整版 →</a></footer></main>';
 }
@@ -147,9 +147,12 @@ function addReadingTools(html,ch){
     : ch === '6'
       ? '<link rel="stylesheet" href="/osaka2026/learning/islp-reading-ch06-fixes.css?v=20261011-ch6-v1">'
       : '';
+  // Isolated ATPA layout. All original private figures, tables, equations and text remain in Drive.
+  const bridgeAssets='<link rel="stylesheet" href="/osaka2026/learning/atpa-prereq/reader.css?v=20261011-3mode1">'
+    + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/reader.js?v=20261011-3mode1"></scr'+'ipt>';
   return /<\/body\s*>/i.test(html)
-    ? html.replace(/<\/body\s*>/i,match=>script+layout+chapterFix+match)
-    : html+script+layout+chapterFix;
+    ? html.replace(/<\/body\s*>/i,match=>script+layout+chapterFix+bridgeAssets+match)
+    : html+script+layout+chapterFix+bridgeAssets;
 }
 
 function filterBridge(doc,ch){
