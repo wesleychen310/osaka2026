@@ -34,6 +34,11 @@ const all={
  "4.2":row(px,o("="),logistic(lin)),
  "4.3":row(od,o("="),exp(lin)),
  "4.4":row(logr(od),o("="),lin),
+ "4.5":row(i("ℓ"),par(row(b(0),o(","),b(1))),o("="),
+   t("munder",o("∏"),row(i("i"),o(":"),sub(i("y"),i("i")),o("="),n("1"))),
+   row(i("p"),par(sub(i("x"),i("i")))),dot,
+   t("munder",o("∏"),row(sup(i("i"),o("′")),o(":"),sub(i("y"),sup(i("i"),o("′"))),o("="),n("0"))),
+   br(row(n("1"),o("−"),i("p"),par(sub(i("x"),sup(i("i"),o("′"))))))),
  "4.6":row(logr(multiLogit),o("="),multi),
  "4.7":row(px,o("="),logistic(multi)),
  "4.8":row(t("mover",px,o("^")),o("="),logistic(row(n("−10.869"),o("+"),n("0.00574"),o("×"),n("1500"),o("+"),n("0.003"),o("×"),n("40"),o("−"),n("0.6468"),o("×"),n("1"))),o("="),n("0.058")),
@@ -47,7 +52,7 @@ function typesetSelected(){
   if(!document.createElementNS)return 0;
   let count=0;
   document.querySelectorAll(".equation").forEach(eq=>{
-    const match=(eq.querySelector(".page-ref")?.textContent||eq.textContent||"").match(/\(4\.(1|2|3|4|6|7|8|9|35|36|37)\)/);
+    const match=(eq.querySelector(".page-ref")?.textContent||eq.textContent||"").match(/\(4\.(1|2|3|4|5|6|7|8|9|35|36|37)\)/);
     if(!match)return;
     const key="4."+match[1], markup=all[key];
     if(!markup)return;
@@ -60,6 +65,13 @@ function typesetSelected(){
     number.className="atpa-math-number";
     number.textContent="("+key+")";
     polished.append(mathNode,number);
+    // Preserve explanatory notes outside the collapsible original formula too.
+    const context=eq.querySelector(".math-note");
+    if(context){
+      const visible=context.cloneNode(true);
+      visible.classList.add("atpa-math-context");
+      polished.append(visible);
+    }
     // Original source stays intact (including its text and numbering).
     const wrapper=document.createElement("details");
     wrapper.className="atpa-original-equation";
