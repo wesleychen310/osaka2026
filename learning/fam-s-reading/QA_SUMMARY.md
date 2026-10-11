@@ -74,3 +74,14 @@
 Source: ASM FAM-S PDF pages 72–90, printed 59–77. Content: 6 Examples, 24 Exercises, Quiz 4-1, 11 editorial explainer cards, 53 bilingual study-text pairs, 31 expanded solutions and all 19 source-page images. Private Drive file ID: `1a6zN3YPzOwdfwWPjaefral__M6hB1Twk` (owner-only); SHA256: `e58007e14962945ca03fbda6f2428e2892495b299dc63bedbe25fccdb08e2229`; size 1,487,752 bytes. Chromium local QA 12/12 at 320/390/768/1130px and EN/ZH/side modes. Actual OAuth/Safari testing and full verbatim mathematical/source QA pending. Original ZIP for Lessons 3–10 preserved. Website OAuth shell updated to load private dedicated HTML, no textbook on public GitHub.
 
 2026-10-12 QA revision: Corrected nested section containers to preserve the mobile reading column; re-ran all 12 Chromium checks (pass). Backup before overwriting private HTML: Drive `1RgJ8a3r-1bxa5cLpHdt5SV_A9dUYeLEL` under `_backup`. Current same Drive ID as above.
+
+
+## 2026-10-12 · Lesson 5 — Property/Casualty Insurance Coverages (DRAFT)
+
+- Original source: ASM FAM-S searchable PDF physical pages 92–99 / printed 79–86 (8 pages); Lesson 6 starts PDF p100. Chapters 5.1 Auto, 5.2 Homeowners, 5.3 Workers Compensation, 5.4 Business, 5.5 Deductibles and Policy Limits.
+- Preserved original source pages 8/8, original disappearing-deductible graph from PDF p94 in context, searchable OCR, source-aligned 74 English/Traditional Chinese teaching pairs, 8 collapsible worked answers (Example 5A and Exercises 5.1–5.7), 8 editorial explainer notes, 2 MathML blocks.
+- Independently recalculated numeric exercise answers: 5.1=600 D, 5.2=850, 5.3=239000 E, 5.4: insurer A to Driver A=2250 and to B=30000, insurer B net zero, 5.5=15000 A, 5.6=200000, 5.7=17325 D; Example 5A=150000.
+- Build file `ASM_FAM-S_Lesson_05_BILINGUAL_3MODES_TUTOR_DRAFT.html` uploaded owner-only to Google Drive ID `1fc613qbtuorgZugG2DWqFtDDn2WrDt_W`, folder `1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe`. SHA256: `aad28a684a14d39cb323bea8b15c7868317c4b1f10b2e42219c1b8141a212884`; size 1,095,982 bytes.
+- Public GitHub Pages shell `lesson5/index.html` now authenticates to Google Drive and fetches dedicated owner-only HTML by file ID (instead of original private ZIP). Public repository contains no copyrighted source page images or source prose from textbook.
+- Chromium local QA: 320/390/768/1130 px, 3 modes => 12/12 layout checks pass, no whole-page horizontal scroll; solutions expand/collapse; source image data URLs embedded, source figure displayed. Real authenticated Google OAuth, Safari device QA, and live GitHub Pages deployment are not independently verified. In this draft, study English and traditional Chinese are source-aligned educational paragraphs, **not complete verbatim line-by-line translation**, and full original solution verbatim QA is pending. Status DRAFT.
+- Original Drive ZIP `1k82qHR0hd-YhAL9hIq7uDVy80Zs7JkkI` left unchanged.
