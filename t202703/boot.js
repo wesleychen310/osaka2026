@@ -1,4 +1,4 @@
-const KYOTO2027_CACHE_VERSION='20261010-ueji1';
+const KYOTO2027_CACHE_VERSION='20261011-otsu1';
 const KYOTO2027_FILES=[
   '../t202607-data.js',
   '../t202607-books-data.js',
@@ -15,6 +15,8 @@ const KYOTO2027_FILES=[
   'sakura-data.js',
   'catalog-data.js',
   'gpt-actions.js',
+  'itinerary-data.js',
+  'itinerary-ui.js',
   'app.js'
 ];
 function loadKyoto2027(i){
