@@ -29,3 +29,11 @@
 - 原位發布至私人原 ID `14nCKA8VCu2nwzWw7qVqPZcBzrkDs-hW1`，更新後 888,877 bytes；重新下載與本機逐位相符。新 SHA-256 `ebe15b82081b71b43389ad60cba24fdb96313243e690c0f3813d029b48a1ba21`；原 name/parent/owner-only 保持。
 - 全量 829 個 MathML 均可 XML 解析，24 處對齊符號不再是 `<mi>&amp;</mi>`；重跑既有 1,847 項靜態 QA PASS，45 Exercises／45 Solutions、839 雙語配對、57 收合解答保持。
 - 現有 HTML 的內部 `data-version` 仍為 `20261011-source-repair-v3`，但實際發版位元組已變更；以以上 SHA 辨識此修補版。正式網頁 Safari 及 12 組視覺驗收仍為 PENDING；正式狀態 DRAFT。
+
+## 2026-10-11 22:02（台灣時間）Lesson 11 新增 ISLP 式「再解說一次」
+
+- 參考既有 ISLP ATPA-prereq `explainers.js`/`.css` 的 native `<details>` 展開互動，直接在**私人 HTML**插入 26 張獨立編者補充卡；內容為核心概念、精算例子、FAM 英文 wording／常見陷阱，並在 Example 11A 及公式積分處提供 TI-30XB MultiView 計算提示。
+- 覆寫前建立私人備份 ID `1Fr64xPic2csR3068ZWOScDb9TajQXZXa`（888,877 bytes、owner-only、位於原 `_backup`）。原位更新原私人檔案 ID `14nCKA8VCu2nwzWw7qVqPZcBzrkDs-hW1`，更新後 922,097 bytes，SHA-256 `b8f606ab933f462b774804b866d95dd70338d7bd349089891c97512667cbe273`；重新下載逐位相符；name／parent／owner-only 不變。
+- Python DOM 修訂前後比對：原 839 對雙語 `.pair` HTML 完全相等、原 829 筆 `data-tex` 與 MathML 完全相等、所有原解答文字及 45 題題幹／選項文字保持；26 張卡皆預設收合；重跑既有 1,847 項靜態 QA 全通過。
+- 使用 Chromium `page.set_content`（about:blank）、注入現有 shared CSS/JS，在 390×844、768×1024、1440×900 三種尺寸各自操作 en／zh／side，總計 **9 組本機按鈕展開與收合 PASS**，均無頁面水平溢出；這是**本機渲染驗收**，不代表正式 OAuth、Safari 實機或正式網站 12 組完整驗收。正式狀態仍 DRAFT。
+- 新增補充全部存於原 owner-only HTML；公開 GitHub 僅保留功能製作規格、QA 摘要，不提交受著作權保護的 ASM 內容。
