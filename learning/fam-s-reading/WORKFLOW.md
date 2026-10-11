@@ -8,6 +8,16 @@
 - [私人工作資料夾](https://drive.google.com/drive/folders/1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe)（需使用者存取授權）
 - GitHub 本資料夾的 `lessonN/index.html` 是登入 Google Drive 的**公開網站殼**，教材正文與截圖僅放私人 Google Drive HTML；不得公開上傳到 GitHub。
 
+## 共用閱讀器架構（Lesson 11 已導入）
+- 公開網站殼：`learning/fam-s-reading/lesson11/index.html`，負責 Google Drive 授權與載入私人教材；保留 Lesson 11 固定網址及原 Drive file ID。
+- 共用 UI CSS：`learning/fam-s-reading/reader.css`。共用互動 JS：`learning/fam-s-reading/reader.js`；後續 Lesson 共用，不要再將大量 CSS／JS 複製到每個教材 HTML。
+- 私人 Drive HTML：`ASM_FAM-S_Lesson_11_BILINGUAL_3MODES_DRAFT.html`，仍包含完整英文、繁中、45 題、原書 Figure／Table 及可展開解答，透過 `link`、`script` 引用共用 UI。
+- 已對具有 `data-tex` 的 145 組公式，改由 HTML MathML 原生呈現；保留 **原 LaTeX 字串** 供逐式修改。17 個尚未轉換的 SVG 保留來源內容供後續驗證。
+- 效率基準：私人 HTML 原約 2,489,295 bytes，改版後約 770,690 bytes，**約減少 69%**。轉換成 MathML 是排版架構調整，並不代表數學或 OCR 已全部驗證。
+- 共用閱讀模式使用 `localStorage` key `fams-reading-mode-v1`；支援 `en / zh / side`，登入後由私人內容的 script 初始化；`#solution-11-38` 等 deep link 自動展開對應解答。
+- 已做本機 Chromium 12 組（320／390／768／1130px × 三模式）與 45 題錨點結構測試；**跨網際網路的實際 Google 登入流程須另外驗證**。
+- 實作後先備份到私人 `_backup`，原位覆寫 Drive 檔案，保持 owner-only 權限。
+
 ## 固定規格
 1. **一課一網址，一課一份私人 HTML**。Lesson 1–31 在目錄逐課展示；全部例題、習題、解答同屬於原課網頁。不要合併數課為一頁，也不要改變既有網址。
 2. **只有三種顯示模式**：`English`（全英文）、`全中文`（繁體中文）、`左右對照`（同一段英文在左、繁中在右）。即使 iPhone 直式仍採雙欄。可讓長公式水平滑動。介面不要標註「無上下對照」等無效敘述。
