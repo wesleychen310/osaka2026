@@ -113,3 +113,9 @@
 - 發布前從 DOM 比對補充前後所有原 `.pair` 外語段落、`data-tex`+MathML、原題幹選項、原書解答文字，均須 byte-normalized/DOM 相等；原本完整靜態 QA 再跑。現有 v1 26 張卡是 Lesson 11 示例，不應機械地每段加按鈕。
 - 瀏覽器局部操作驗收可用 Chromium `page.set_content`，再注入**現行正式的** `reader.css`/`reader.js`，檢查開關與各模式；必須與正式 Google OAuth／GitHub Pages 載入及 Safari 實機驗收分開報告。新增卡片不表示整課變 COMPLETE。
 - 原位修改 Drive 前，一律先對**當時最新版**建新的 owner-only `_backup`，確認大小／parent／權限，再使用 file_uri 覆寫原 fileId；重讀比對 SHA。不要將私人 HTML、受著作權保護的段落或原始書本提交到公開 GitHub。
+
+## Lesson 12: Source-facsimile fallback for degraded math OCR
+
+For scanned mathematical textbooks, verify the original PDF page range and printed page numbers. When math OCR is corrupt, keep source-page images within the **owner-only Drive HTML**, behind native expandable details and an image zoom affordance. Keep the imperfect OCR in a distinctly labeled supplementary search panel. Transcribe source formulas and translated paragraphs separately, without silently presenting OCR or editorial summaries as verified original quotes.
+
+For problem work, distinguish readable English problem summaries, Traditional Chinese actuarial interpretation, and independent worked solutions from a complete original textbook transcription. Each problem needs a direct link to the authoritative scan. Prefer 1.5x raster WebP to control iPhone payload size; never upload the copyrighted page images to public GitHub. ISLP-style tutoring cards must remain separate, collapsible, and work in all three language modes. Re-run source checks, 320/390/768/1130 Chromium×three modes, Google private OAuth, Safari real-device and calculator physical keys as separate gates. The initial Lesson 12 remains DRAFT until all content and device gates pass. Back up the current Drive file before any new overwrite.
