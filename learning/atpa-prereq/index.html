@@ -149,7 +149,9 @@ function addReadingTools(html,ch){
       : '';
   // Isolated ATPA layout. All original private figures, tables, equations and text remain in Drive.
   const bridgeAssets='<link rel="stylesheet" href="/osaka2026/learning/atpa-prereq/reader.css?v=20261011-3mode1">'
-    + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/reader.js?v=20261011-3mode1"></scr'+'ipt>';
+    + '<link rel="stylesheet" href="/osaka2026/learning/atpa-prereq/explainers.css?v=20261011-basic1">'
+    + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/reader.js?v=20261011-3mode1"></scr'+'ipt>'
+    + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/explainers.js?v=20261011-basic1"></scr'+'ipt>';
   return /<\/body\s*>/i.test(html)
     ? html.replace(/<\/body\s*>/i,match=>script+layout+chapterFix+bridgeAssets+match)
     : html+script+layout+chapterFix+bridgeAssets;
