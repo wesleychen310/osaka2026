@@ -30,6 +30,7 @@ html body .equation .piece .brace{font-family:"STIX Two Math","Cambria Math",ser
 html body .equation.atpa-math-enhanced{padding:18px 10px 9px}
 html body .atpa-math-polished{
   display:flex;
+  flex-wrap:wrap;
   align-items:center;
   justify-content:center;
   width:max-content;
@@ -46,6 +47,15 @@ html body .atpa-math-polished math{
   min-width:0;
   font-size:clamp(19px,2.1vw,24px);
   line-height:1.5;
+}
+html body .atpa-math-context{
+  flex-basis:100%;
+  text-align:left;
+  font:500 13px/1.75 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;
+  color:#516670;
+  padding:8px 12px 2px;
+  max-width:800px;
+  margin-inline:auto;
 }
 html body .atpa-math-number{
   flex:none;font:500 12px/1.4 Georgia,"Times New Roman",serif;
