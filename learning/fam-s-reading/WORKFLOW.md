@@ -145,3 +145,8 @@ Implementation SOP delta: search existing Drive assets and landing pointers (may
 ### Lesson 4 implementation notes (2026-10-12)
 
 Check original lesson span via page headings and full exercise count; page 83 includes Exercise 4.24. Preserve existing multi-lesson ZIP and its file ID. Create a new owner-only HTML in the same private folder, retain original page scans and searchable OCR, and maintain English/Traditional Chinese study text and separate editorial answers. Update only the public OAuth shell to direct `response.text()` loading of the private HTML (remove `JSZip` dependency). Verify file privacy, byte size, source hash, 3 reading modes at mobile and desktop widths. Full verbatim and real Safari login tests stay pending until executed.
+
+
+### Lesson 5 — source fidelity and process notes (2026-10-12)
+
+Lesson 5 physical PDF p92–99 ends before Lesson 6 at p100. Identify examples and exercises first (5A, 5.1–5.7), including solutions on p98–99. Reconstruct original disappearing deductible figure from source page p94 rather than substitute an invented plot. Recalculate indemnity examples and watch `coinsurance clause` (insurance-to-value) versus `coinsurance` (percentage retained by insurer); `policy limit` is applied last, versus `maximum covered loss` applies before the deductible. Preserve scanned pages/OCR behind owner-only Drive OAuth HTML, update public GitHub shell only, run three reading modes in four viewports. Do not treat source-aligned study sentences as a complete verbatim translation. Do not claim actual Google login or Safari testing without execution.
