@@ -93,3 +93,10 @@ Source: ASM FAM-S PDF pages 72–90, printed 59–77. Content: 6 Examples, 24 Ex
 - Privately stored Drive HTML ID `16Uw-1mZOdMYFNY2uMvFk58URA_YoYFPL` in owner-only folder `1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe`; local SHA256 `7167d01e822fa959ac5595cf5045af2102f76d183f2f3ac5f2430ec21e8f1958`, size 474701 bytes.
 - Public GitHub Pages shell `lesson6/index.html` loads private Drive HTML directly after OAuth, not the old ZIP. Source textbook content remains private.
 - Local Chromium responsive tests passed 12/12 (320/390/768/1130 px x zh/en/side) and expandable teaching calculation. Google OAuth real login, live Pages, Safari device QA and full verbatim bilingual proofreading pending. Statements about ACA follow the 2022 source historical context and must not be treated as 2026 legal verification.
+
+
+## 2026-10-12 — Lesson 7 Loss Reserving: Basic Methods (DRAFT)
+- Original ASM source PDF 106–124 (printed 93–111), 19 scanned pages (including tables, exercises and solutions) plus corresponding page OCR. 33 editorial English/Traditional Chinese study pairs; lesson covers paid/case/IBNR, earned premiums, expected loss ratio, chain ladder, BF and factor-variance logic.
+- Original 22 exercises (7.1–7.22) and two Quiz 7 items each have expandable links to original page/solution pages. **This is an index to complete original solutions, not a claim of full independently authored step-by-step Chinese solutions.** The exact PDF scans are authoritative over noisy OCR tables.
+- Private HTML Drive ID `1G6bN5RogNMgzJ7XsZarrsAjsPrUMoNEG`, size 1521075 bytes, SHA256 `644132a472df755a9b9fd56819203e637274255eb796bf06f80091c9b23f99b8`. GitHub shell loads private direct HTML after OAuth; no source published in repository.
+- Local Chromium 320/390/768/1130 × 3 language modes: 12/12 width QA passed. Safari login / live OAuth, complete original paragraph-by-paragraph translation and all exercise full editorial solutions remain unverified/incomplete.
