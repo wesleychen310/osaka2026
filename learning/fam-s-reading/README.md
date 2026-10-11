@@ -176,3 +176,14 @@ Pre-update owner-only backup: 19OGWTpYu5mNIQPQZMrGc5tIjRPO66f5y. Live Drive read
 - [Private Lesson 2: Parametric Distributions](lesson2/) maintains Drive ID `1DK53kU1MouC3pSiI3wmVEyA6YE_xwZUM` and three reading modes. The updated 19-page source-grounded bilingual teaching **DRAFT** includes 16 tappable conceptual cards, Examples 2A–D, 15 separately expandable editorial exercise analyses, searchable OCR labeled UNVERIFIED, and all 19 original source-page facsimiles. Owner-only backup `1MUX7UlRX5UNiRH0lYrTVyoQePZY9xu0k`. Drive SHA256 `da7279d4fe60357478c0f0d3aed9f0601ddab3495d17c5136b47c40344252270` / 1,745,311 bytes.
 - Chromium 320/390/768/1130 × all 3 Lesson2 and all 4 Front reading modes = 28/28 local button tests PASS; Safari/OAuth live account unverified.
 - **Fidelity limit**: The original 19 pages of Lesson 2 were **not yet completely retyped and translated word-for-word**; English exercise titles are question summaries, original choices/original solutions are readable from the private source pages. All material remains DRAFT until full source alignment and device verification. See [QA_SUMMARY.md](QA_SUMMARY.md).
+
+
+## 2026-10-11 Lesson 3 — Variance (private DRAFT)
+
+- Original ASM FAM-S PDF physical pages 65–71 (printed pages 49–55); Lesson 4 starts physical page 72.
+- Owner-only HTML: `ASM_FAM-S_Lesson_03_BILINGUAL_3MODES_TUTOR_DRAFT.html` (Google Drive file ID `1sUjTnqxvRxGDq_NsZozgf1awHQ0CDCOo`), 607,686 bytes; SHA256 `f01727b83f43483e2c27458c51760b2d8e060a8d01e4cdbd8b22c39c101f5b41`. Remains inside private folder `1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe`.
+- 37 English/Traditional Chinese pairs, 4 original Examples (3A–3D), 7 Exercises (3.1–3.7), 11 collapsible solution panels, 10 optional editorial tutoring cards, 7 full-source private PDF page facsimiles, 3 native MathML formula blocks.
+- Local Chromium QA: 320/390/768/1130 px × en/zh/side = 12/12 PASSED; lesson exercise solution and three-part tutoring cards expand/collapse; no viewport horizontal overflow. Google OAuth end-to-end and actual Safari devices not yet tested.
+- Important source fidelity note: Example 3C on PDF page 67 appears to conflate the z-score 0.77567 with Φ(z): normal CDF ≈ 0.78103; original preserved, discrepancy labeled as editorial note.
+- Historic Lesson 3–10 ZIP (`1k82qHR0hd-YhAL9hIq7uDVy80Zs7JkkI`) preserved unchanged; public `lesson3/index.html` now fetches owner-only HTML directly, and never stores copyrighted textbook contents on GitHub.
+- DRAFT scope: core concepts, English question meanings, solution derivations and key steps reconstructed; exhaustive verbatim bilingual source/solutions transcription and TI/Safari hardware validation pending. Do not label COMPLETE.
