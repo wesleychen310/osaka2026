@@ -7,6 +7,7 @@
 <meta name="referrer" content="no-referrer">
 <title>ASM FAM-S｜Lesson 11 · English 中文 左右對照</title>
 <link rel="help" type="text/markdown" title="ASM FAM-S Workflow SOP" href="https://raw.githubusercontent.com/wesleychen310/osaka2026/main/learning/fam-s-reading/WORKFLOW.md">
+<link rel="help" type="text/markdown" title="ASM FAM-S Project README" href="https://raw.githubusercontent.com/wesleychen310/osaka2026/main/learning/fam-s-reading/README.md">
 <meta name="description" content="ASM FAM-S Lesson 11, one-lesson private bilingual reader. Workflow SOP linked in the page and GitHub repository.">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/osaka2026/private-auth-hint.js"></script>
@@ -29,11 +30,11 @@
 <section class="card">
 <div class="tag">PROJECT WORKFLOW / 交接手冊</div>
 <h2>教材網頁化 SOP</h2>
-<p>其他 ChatGPT 對話與 Work 請先閱讀 <a href="https://github.com/wesleychen310/osaka2026/blob/main/learning/fam-s-reading/WORKFLOW.md" rel="noopener noreferrer" target="_blank">FAM-S 製作、校對與翻譯 SOP</a>，再處理本課。規範包含一課一頁、三模式、公式、圖表、題解與原位更新。</p>
+<p>其他 ChatGPT 對話與 Work 請先閱讀 <a href="https://github.com/wesleychen310/osaka2026/blob/main/learning/fam-s-reading/README.md" rel="noopener noreferrer" target="_blank">README 專案現況與技術手冊</a>及 <a href="https://github.com/wesleychen310/osaka2026/blob/main/learning/fam-s-reading/WORKFLOW.md" rel="noopener noreferrer" target="_blank">製作與驗收 SOP</a>，再處理指定課程。</p>
 </section>
 <section class="card">
 <div class="tag">SOURCE QA · DRAFT</div><h2>內容校對進度</h2>
-<p>主文及 45 題均已有雙語初稿；原文逐字、圖表、數學、數值及完整題解仍依原書持續校對。</p>
+<p>2026-10-11 修復版：已重建原書題目及解答、繁中、可編輯 LaTeX、表格與密度圖，並保存獨立數學驗算。仍為 DRAFT；逐頁最終簽核、12 組瀏覽器測試及私人登入驗收尚待完成。詳見 README 與私人 QA 報告。</p>
 </section>
 </main>
 <script>
@@ -46,6 +47,8 @@ const openBtn=document.getElementById("openBtn");
 const switchBtn=document.getElementById("switchBtn");
 const statusBox=document.getElementById("status");
 let tokenClient=null;
+let requestedHash=location.hash;
+window.addEventListener('hashchange',()=>{requestedHash=location.hash});
 function status(t,loading=false){statusBox.textContent=t;if(loading){statusBox.innerHTML='<span class="spinner"></span>'+t}}
 function store(resp){const obj={access_token:resp.access_token,expires_at:Date.now()+Number(resp.expires_in||3600)*1000};sessionStorage.setItem(TOKEN_KEY,JSON.stringify(obj));return obj}
 function saved(){try{const t=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");if(t?.access_token&&Date.now()<t.expires_at-120000)return t}catch{}sessionStorage.removeItem(TOKEN_KEY);return null}
@@ -57,7 +60,10 @@ async function openPrivate(token){
  if(!res.ok)throw new Error("DRIVE_"+res.status);
  const html=await res.text();
  if(!html.includes("ASM FAM-S")||!html.includes("Lesson 11"))throw new Error("INVALID_CONTENT");
+ // document.write replaces the shell, so preserve the exact requested fragment first.
+ const fragment=location.hash||requestedHash;
  document.open();document.write(html);document.close();
+ if(fragment&&location.hash!==fragment)history.replaceState(null,'',location.pathname+location.search+fragment);
 }
 function loginView(message){openBtn.disabled=false;openBtn.hidden=false;switchBtn.hidden=false;status(message||"請使用具有私人教材權限的 Google 帳號登入。")}
 function client(){

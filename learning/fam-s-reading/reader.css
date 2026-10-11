@@ -38,14 +38,14 @@ body[data-mode=zh] .sourcepage .ocr,body[data-mode=zh] .sourcepage .mathocr{disp
 .verified-solution>summary{background:#edf7fb}.sol-body{padding:5px 13px 13px}
 @media(max-width:620px){.typed-exercise{padding:10px 8px;margin:9px 0}.answer-options{grid-template-columns:repeat(2,minmax(0,1fr))}.answer-options>div{font-size:12px}.typed-exercise .pair>div{font-size:13px}.typed-exercise .pair .zh{font-size:12.8px}.exercise-math{padding:7px;gap:4px}}
 
-body[data-mode=zh] .answer-options .en{display:none}body[data-mode=en] .answer-options .zh{display:none}body[data-mode=side] .answer-options .en{display:none}
+body[data-mode=zh] .answer-options .en{display:none}body[data-mode=en] .answer-options .zh{display:none}
 
 /* Shared FAM-S reader: modern native MathML, mobile, three language modes. */
 .mathvector math,.formula-render math,.mvalue math,.mathcell math{display:inline-block;max-width:none;vertical-align:middle;font-size:1.13rem;font-family:serif;line-height:1.4}
 .mathvector,.formula-render,.mathcell,.mvalue{min-width:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
 .mathvector math[display="block"],.formula-render math[display="block"],.mvalue math[display="block"]{display:inline-block}
 .exercise-math .formula-render math{font-size:1.12rem}
-html,body{max-width:100%;overflow-x:clip}
+html,body{max-width:100%}
 html{scroll-padding-top:100px}
 .typed-exercise,.exhead,.sourcepage{scroll-margin-top:92px}
 body[data-mode="zh"] .pair .zh{font-size:1rem;max-width:100%}
@@ -70,3 +70,26 @@ body[data-mode="side"] .mathvector math,body[data-mode="side"] .formula-render m
 .answer-options .option-math{display:inline-block;max-width:100%;overflow-x:auto;vertical-align:middle;-webkit-overflow-scrolling:touch}
 .answer-options .option-math math{display:inline-block;white-space:nowrap;font-size:13px;vertical-align:middle}
 .answer-options>div:has(.option-math){overflow-x:auto}
+
+/* Keep overflow inside each formula/table, including narrow side-by-side reading. */
+main,main section,main article,details,.sol-body,.pair,.pair>div{min-width:0;max-width:100%}
+.inline-math{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;-webkit-overflow-scrolling:touch;cursor:copy}
+.inline-math math{display:inline-block;white-space:nowrap;max-width:none}
+.inline-math:focus-visible,.copy-formula:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.mvalue,.tblscroll,.jumplinks{max-width:100%;overscroll-behavior-x:contain}
+.mvalue math{padding-block:5px}
+.tblscroll table{min-width:420px}
+#deductible-formulas{min-width:680px}
+#deductible-formulas .mbox{margin:0;min-width:260px}
+.answer-options{grid-template-columns:minmax(0,1fr)}
+.answer-options .pair{margin:0}
+.source-label{margin-top:12px;border-bottom:1px solid var(--line);color:var(--accent);font:700 13px/1.6 -apple-system,'PingFang TC',sans-serif}
+.teaching-supplement{margin-top:20px;border-top:2px solid var(--line)}
+.copy-status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;padding:7px 14px;background:var(--navy);color:#fff;border-radius:8px;font:13px/1.5 -apple-system,'PingFang TC',sans-serif;max-width:90vw}
+.figure-zoom{display:block;cursor:zoom-in}
+.figure-dialog{width:95vw;max-width:1500px;max-height:90vh;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.figure-dialog::backdrop{background:rgba(15,35,50,.6)}
+.figure-full{overflow:auto;max-width:100%;max-height:75vh;margin-top:10px;-webkit-overflow-scrolling:touch}
+.figure-full img{display:block;width:auto;max-width:none;height:auto}
+:is(h2,h3,h4,.example,details){scroll-margin-top:var(--reader-nav-height,110px)}
+@media(max-width:620px){nav.top{gap:5px;padding:8px 10px}.btn{padding:7px 8px}.sol-body{padding:4px 7px 10px}.mbox{padding:8px}.pair .en,.pair .zh{overflow-x:visible}body[data-mode=side] .pair .en,body[data-mode=side] .pair .zh{overflow-x:visible}.answer-options{grid-template-columns:minmax(0,1fr)}}
