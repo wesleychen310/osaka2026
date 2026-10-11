@@ -80,26 +80,26 @@ Drive `alt=media` 以 Bearer token、`cache:no-store` 讀取原 HTML。內容基
 | Quiz solution | 178 | 191 |
 | 非本課教學內容 | 179 Study Break、後續空頁 | 192–193 |
 
-主要來源 `ASM_FAM-S_searchable.pdf`；拆分 PDF 同步檢查。Quiz 放回題目旁的收合解答，仍標示原解答 p178。Example A/I/K 的題目與答案跨頁，需分别記錄；不能把題目頁當成解答頁。
+主要來源 `ASM_FAM-S_searchable.pdf`；拆分 PDF 同步檢查。Quiz 放回題目旁的收合解答，仍標示原解答 p178。Example A/I/K 的題目與答案跨頁，需分別記錄；不能把題目頁當成解答頁。
 
 ### 最終檔案實際清點
 
 | 項目 | 數量 | 這個數字代表什麼 |
 |---|---:|---|
-| Example | 11 | 11A–11K，有對应收合解答 |
+| Example | 11 | 11A–11K，有對應收合解答 |
 | Quiz | 1 | 11-1，有原書解答 |
 | Exercise／Solution | 45／45 | 11.1–11.45，連續且一一對應 |
 | 選擇題／選項 | 37／185 | 每題五個；八題原書非選擇題不另造選項 |
 | 收合解答 | 57 | 45 習題 +11 例題 +1 Quiz |
 | HTML 表格 | 13 | 含 27/28 重複共用表、39 解答表；原書位置12個 |
 | 原書視覺圖 | 1 | Exercise11.38 p168，原裁圖1500×711 |
-| LaTeX／MathML實例 | 587／587 | 含英中重複、公式表與補充內容 |
-| 不同 LaTeX 字串 | 285 | 不等同於原書公式數量 |
-| 區塊複製按鈕 | 136 | 其他行內公式由共用 JS 提供點擊／鍵盤複製 |
-| 雙語配對 | 834 | 包括表頭、介面與補充；不等同原書段落數 |
-| 私人 HTML | 816,539 bytes | SHA256 `0fbd1936b4fb0947b948eaf9634822d2f1f639161f86760d6331e142903d95e5` |
+| LaTeX／MathML實例 | 829／829 | 含英中重複、公式表與補充內容 |
+| 不同 LaTeX 字串 | 351 | 不等同於原書公式數量 |
+| 區塊複製按鈕 | 138 | 其他行內公式由共用 JS 提供點擊／鍵盤複製 |
+| 雙語配對 | 839 | 包括表頭、介面與補充；不等同原書段落數 |
+| 私人 HTML | 883,433 bytes | SHA256 `a68fc4eaacb839a058eb55901febfd05962682144b1fcf979118bf8bbbf9e26c` |
 
-靜態驗收1,357項通過：題解對位、唯一 ID、內部錨點、三模式控制、原頁標示、五選項、預設收合、LaTeX/MathML 存在且 XML 可解析、無未解析指令／控制字元、無 SVG 公式／OCR 正文、表11.1十四列三欄、裁圖可解碼。這些是結構驗證，不是瀏覽器測試或英文逐字簽核。
+靜態驗收1,847項通過：題解對位、唯一 ID、內部錨點、三模式控制、原頁標示、五選項、預設收合、LaTeX/MathML 存在且 XML 可解析、無未解析指令／控制字元、無 SVG 公式／OCR 正文、表11.1十四列三欄、裁圖可解碼。這些是結構驗證，不是瀏覽器測試或英文逐字簽核。
 
 全部45題建立獨立數學檢查（含符號／值域題，不稱為45個數值題），11個Example與Quiz另外計算。使用從原 PDF 重新讀取的參數，以 SciPy 積分、離散期望、根求解、常態反函數等，若可行用第二方法交叉比對。逐題結果與方法在私人 `math-verification.json`；不抄舊 HTML 數字。TI-30XB 路徑參照 TI 官方指南，採 CLASSIC/FLOAT；尚未實體逐鍵驗證。
 
@@ -114,6 +114,15 @@ Drive `alt=media` 以 Bearer token、`cache:no-store` 讀取原 HTML。內容基
 
 英文與繁中已逐段重建並做一次對頁檢查；**未建立可簽核的全部逐字／逐式差異表，完整翻譯與原書忠實度門檻仍待最終驗收**。不要把上述重建或結構計數改稱全面校對完成。
 
+
+### 2026-10-11 第二次原書複核
+
+本輪再次視覺讀取完整PDF164–191的28頁，重新檢查45題原題及解答、全部高風險條件、表格／選項與保留的舊補充。修復遺漏配分、引用、貨幣單位、解答缺式、prime上標、英文欄中文殘留、繁中摘要及計算機括號。詳細差異及頁碼台帳保存在私人QA／交接包的 `SECOND_REVIEW_20261011.md`；這次對頁複核仍不等於完整逐字／逐式簽核。
+
+新增33組實際顯示按法的運算解析驗證，全部與獨立目標一致；驗證算式及括號，不冒充TI實體逐鍵測試。私人生成流程增加 `review_corrections.py` 與 `verify_calculator.py`。發版前必須把題目模型驗算、按法算式驗證、實體按鍵驗證三者分別記錄。
+
+第二次修改前備份：[原位HTML備份](https://drive.google.com/file/d/1qtALOyBqvtJTr8wysbnOMlW4ISDrKHkx/view)，同一 `_backup`，816539bytes，owner-only。實際建立時間2026-10-11T12:33:10.133Z，名稱含 `20261011_203310+0800_第二次內容複核前備份`。新私人HTML modifiedTime為2026-10-11T12:48:18.963Z，回讀bytes完全一致。版本 `20261011-source-repair-v3`。
+
 ## D. 可重複製作流程
 
 詳細步驟、使用元件、常見錯誤、驗收及結果位置請看 [WORKFLOW.md](WORKFLOW.md)。固定順序是來源／頁碼 → 備份 → 英文 → LaTeX → 圖表 → 繁中 → 題解與獨立驗算 → 共用閱讀器 → 12組與登入測試 → 完整性簽核 → 原位發布及回讀 → 交接。Lesson11 的結構可沿用，其驗收未通過部分必須補驗，不得當成已驗證範本。
@@ -124,6 +133,7 @@ Drive `alt=media` 以 Bearer token、`cache:no-store` 讀取原 HTML。內容基
 |---|---|---|---|---|---|
 | 2026-10-11 07:57 前後 | 11 | 修改前 Drive 複製備份；核實頁碼 | 原始 `513e5d0e8acdedd14d6f66737320fa6bcbb38e6a` | `_backup` / 備份 ID `1DalWncPQtEzMGB5ZvKPyXxkVso8H4XAM`；owner-only | DRAFT |
 | 2026-10-11 08:34:26 | 11 | 原位更新私人內容、原圖、題解、翻譯、LaTeX | [reader修復 `720be00`](https://github.com/wesleychen310/osaka2026/commit/720be00f073cab034461a128f7838c8de57777b2) | 原 ID／父資料夾／權限保持；回讀SHA256一致 | DRAFT |
+| 2026-10-11 12:48:18 | 11 | 第二次對頁複核、補式／單位／翻譯／按法；原位更新v3 | [本輪文件歷史](https://github.com/wesleychen310/osaka2026/commits/main/learning/fam-s-reading/README.md) | 第二備份ID `1qtALOyBqvtJTr8wysbnOMlW4ISDrKHkx`；回讀一致、33算式PASS | DRAFT |
 | 2026-10-11 | 11 | 建立 README、取代衝突的舊 SOP、保存 QA與交接包 | [文件變更記錄](https://github.com/wesleychen310/osaka2026/commits/main/learning/fam-s-reading/README.md) | 同一私人資料夾 QA／修復交接 ZIP | DRAFT；未標 COMPLETE |
 
 備份檔名：`ASM_FAM-S_Lesson_11_BILINGUAL_3MODES_DRAFT.html_20261011_1557+0800_完整修復前備份`，原內容620,795bytes；[備份檔](https://drive.google.com/file/d/1DalWncPQtEzMGB5ZvKPyXxkVso8H4XAM/view)。還原需要把該檔的 bytes 覆回原 ID；不能把登入殼改指向備份。
