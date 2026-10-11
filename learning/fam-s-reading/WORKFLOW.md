@@ -104,3 +104,12 @@
 ## 接續入口
 
 其他Work先依[README末尾啟動指令](README.md#g-新-work-啟動指令)，讀私人QA的未決列表，再開始指定Lesson。禁止複製舊的「完成數量／12組通過」；每課／每版本自行清點及實測。
+
+## ISLP 式按需解說卡（Lesson 11 既有實作，供後續指定 Lesson 複用）
+
+- 原書正文、雙語 `.pair`、`data-tex`/MathML、圖表、Example/Exercise/Quiz 及原書解答屬**不可變的來源層**；補充教學獨立放在私人 HTML，使用 `<details class="fam-tutor-note" data-editorial="supplement-not-textbook">` 和原生 `<summary>`，預設收合。不要將補充文字混進英文原文、來源翻譯或題目答案。
+- 仿照 ISLP ATPA-prereq 的『再解說一次』互動卡：只針對真的有教學價值的段落插入，包含「① 核心概念／② 精算例子／③ FAM 題意判讀／考場提醒」；數值題若適用，明列 TI-30XB MultiView 按鍵、負號與括號陷阱。補充以中文為主，保留關鍵 English wording。
+- 將卡片放在關聯 `.pair.prose` 之後、或 Example 結束／Exercise 題幹結束後；**不要**嵌入 bilingual `.pair` 或覆蓋原書解答 `<details>`。樣式 mobile-first、至少 44px 可觸控、三模式均可用、未展開不占閱讀高度。應明確顯示「編者補充教學」，避免混淆原書與推論。
+- 發布前從 DOM 比對補充前後所有原 `.pair` 外語段落、`data-tex`+MathML、原題幹選項、原書解答文字，均須 byte-normalized/DOM 相等；原本完整靜態 QA 再跑。現有 v1 26 張卡是 Lesson 11 示例，不應機械地每段加按鈕。
+- 瀏覽器局部操作驗收可用 Chromium `page.set_content`，再注入**現行正式的** `reader.css`/`reader.js`，檢查開關與各模式；必須與正式 Google OAuth／GitHub Pages 載入及 Safari 實機驗收分開報告。新增卡片不表示整課變 COMPLETE。
+- 原位修改 Drive 前，一律先對**當時最新版**建新的 owner-only `_backup`，確認大小／parent／權限，再使用 file_uri 覆寫原 fileId；重讀比對 SHA。不要將私人 HTML、受著作權保護的段落或原始書本提交到公開 GitHub。
