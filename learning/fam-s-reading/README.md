@@ -152,3 +152,12 @@ COMPLETE要求 WORKFLOW 所列全部門檻均有本版本證據。任一未通�
 ## G. 新 Work 啟動指令
 
 > 請先讀 `learning/fam-s-reading/README.md`、`WORKFLOW.md` 及私人 Lesson11 QA／交接包，再處理我指定的 ASM FAM-S Lesson。只處理指定課，不擴張到其他課。沿用既有登入殼、reader.css、reader.js、雙語pair、LaTeX主來源及收合解答結構。先核對完整PDF與拆分PDF頁碼、清點所有內容，修改前先在原私人資料夾的_backup備份。逐頁復原英文與繁中、逐式LaTeX、逐圖表、逐題原書解答及獨立驗算；另列原書錯誤和教學補充。執行本版本12組瀏覽器矩陣、私人登入／深層連結及實機測試；未通過的Lesson11門檻不得沿用成已驗證。原位更新Drive原ID且維持私人權限，GitHub只提交程式與不含原書內容的紀錄。回讀bytes驗證並更新README、SOP、私人QA。全部正式門檻通過才標COMPLETE。
+
+## H. Lesson 11：可收合「再解說一次」補充教學（2026-10-11）
+
+參考現有 [ISLP ATPA 先備教材](../atpa-prereq/?chapter=4#s432) 的按需補充方式；Lesson 11 私人原 HTML 在適合段落加入 **26 張** native `<details>` 教學卡，包含公式推導、英文考題判讀、分母辨識、圖表題、混合分配與 TI-30XB 計算提醒。卡片全部預設收合，編者文字與 ASM 原書來源分層，三種語言模式都可查看。
+
+- 此次私人備份 ID `1Fr64xPic2csR3068ZWOScDb9TajQXZXa`；原位更新後 922,097 bytes、SHA-256 `b8f606ab933f462b774804b866d95dd70338d7bd349089891c97512667cbe273`；原 ID `14nCKA8VCu2nwzWw7qVqPZcBzrkDs-hW1` 與 owner-only 權限、parent、名稱維持。
+- 原有 839 雙語對、829 MathML、原 57 解答區塊及 45 習題完整保留；既有 1,847 項靜態 QA PASS。
+- 局部瀏覽器驗收：Chromium about:blank 注入 HTML 與正式 reader CSS/JS，在 390／768／1440 寬三種模式（9 組）逐一點擊、展開及收合、檢查水平捲動，PASS。**這不是正式站點 OAuth／Safari／全部長公式視覺驗收**，正式狀態繼續 DRAFT。
+- 重用製作與驗收規格見 [WORKFLOW 的 ISLP 式解說卡](WORKFLOW.md#islp-式按需解說卡lesson-11-既有實作供後續指定-lesson-複用)，公開 GitHub 沒有私人 ASM 教材文字。
