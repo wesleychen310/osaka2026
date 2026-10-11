@@ -192,3 +192,8 @@ Pre-update owner-only backup: 19OGWTpYu5mNIQPQZMrGc5tIjRPO66f5y. Live Drive read
 ### Lesson 4 (2026-10-12)
 
 Lesson 4 (`lesson4/`) now reads a dedicated owner-only Drive HTML, `1a6zN3YPzOwdfwWPjaefral__M6hB1Twk` (instead of the archived multi-lesson ZIP). Original PDF pages 72–90; includes bilingual study text, 6 Examples, 24 Exercises, Quiz 4-1, full 19-page source scans and 11 tutoring notes. **DRAFT:** verbatim whole-book English/Chinese transcription, external Google OAuth and actual Safari device QA are pending. See `QA_SUMMARY.md`.
+
+
+### Lesson 5 (2026-10-12)
+
+`lesson5/` now loads a dedicated owner-only bilingual DRAFT on Google Drive (`1fc613qbtuorgZugG2DWqFtDDn2WrDt_W`). Original source PDF pp92–99 (printed pp79–86); 74 English–Traditional Chinese study pairs, Example 5A, all Exercises 5.1–5.7, source original disappearing deductible graph, eight original source page scans and eight coaching cards. Full verbatim bilingual transcription and real Google OAuth/Safari QA remain pending; see `QA_SUMMARY.md`.
