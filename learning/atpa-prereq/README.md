@@ -80,3 +80,12 @@
 ## 7. 新對話 / Work 接續指令
 
 > 請先閱讀 `learning/atpa-prereq/README.md` 及 FAM-S `WORKFLOW.md`。沿用原版 Google Drive 私人教材，精華版僅顯示指定 23 個 subsection。保持全中文／全英文／左右對照三模式，手機直式仍雙欄；逐一查驗所有 Figure、Table、Equation、caption、source anchors，並執行 48 組 viewport/mode QA 與私人 Google OAuth E2E。改 GitHub UI 不需動 Drive；如需修改任何 Drive 正本，先同層 `_backup` 備份，再原位更新，保留名稱、權限與 file ID。
+
+
+## 8. 2026-10-11 補充教學程式碼稽核
+
+- GitHub `explainers.js` 已加入 25 組可收合解說，覆蓋選讀的 23 個 subsection；4.3.1 與 4.3.2 各設兩張解說卡。每卡依序包含「核心概念／簡單例子／類比記憶」。
+- 已透過 Google Drive connector 讀取 Chapter 4、5、6、8 四份原始 HTML，逐一核對 23 個 subsection 的標題、其後原始 `.pair` 段落與對應錨定關鍵詞，靜態檢查 23/23 通過。Chapter 4 的 4.6.1–4.6.3 標題 ID 由 `filterBridge()` 補上。
+- 追加的 `details.atpa-tutor-note` 元件不覆寫英文原文、繁體中文、Figure、Table、Equation 或 source HTML；仍保留 Drive 原始 File ID 與 Google 私人 OAuth。
+- `index.html` 中解說 JS/CSS 的版本字串更新為 `20261011-audit3`，防止 Safari 讀取較舊的快取。
+- **驗收邊界**：已核對 source-to-anchor 與 GitHub 程式碼，不代表 GitHub Pages CDN 已同步，也不代表已實際登入 Google OAuth、開啟每張卡、完成 iPhone Safari/48 組 viewport 視覺 QA。實機互動、Google 授權與全部原文逐字比對仍待執行。
