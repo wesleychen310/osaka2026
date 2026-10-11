@@ -1,0 +1,59 @@
+/* ATPA prereq: discreet native details cards.
+   Additive; leaves source paragraphs, figures, tables and math untouched. */
+html body details.atpa-tutor-note {
+  display:block;
+  grid-column:1/-1;
+  width:100%;
+  min-width:0;
+  max-width:100%;
+  margin:12px 0 23px;
+  padding:0;
+  border:1px solid #d8e1e7;
+  border-radius:12px;
+  background:#fbfcfd;
+  color:#233d4b;
+  box-shadow:none;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;
+  font-size:14px;
+  line-height:1.75;
+}
+html body details.atpa-tutor-note > summary {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  list-style:none;
+  cursor:pointer;
+  padding:11px 14px;
+  min-height:48px;
+  font-size:13px;
+  font-weight:700;
+  line-height:1.45;
+  color:#20506a;
+  -webkit-tap-highlight-color:transparent;
+}
+html body details.atpa-tutor-note > summary::-webkit-details-marker{display:none}
+html body details.atpa-tutor-note > summary:focus-visible{outline:2px solid #236986;outline-offset:3px;border-radius:10px}
+html body .atpa-help-mark{display:inline-flex;flex:none;align-items:center;justify-content:center;width:21px;height:21px;border:1px solid #a4bdcb;border-radius:50%;font-weight:750;font-size:12px}
+html body .atpa-help-label{min-width:0;flex:1}
+html body .atpa-help-title{font-weight:550;color:#516571}
+html body .atpa-help-chevron{font-size:18px;font-weight:400;transition:transform .2s}
+html body details.atpa-tutor-note[open] .atpa-help-chevron{transform:rotate(180deg)}
+html body .atpa-help-body{padding:0 16px 15px;border-top:1px solid #e4e9ec;overflow-wrap:anywhere}
+html body .atpa-help-intro{margin:11px 0 12px;color:#70818a;font-size:11.5px}
+html body .atpa-help-part{margin:0;padding:8px 0 10px}
+html body .atpa-help-part+.atpa-help-part{border-top:1px solid #e8ebed}
+html body .atpa-help-part h4{margin:0 0 4px;font-size:13px;line-height:1.45;color:#244a60;letter-spacing:0}
+html body .atpa-help-part p{margin:0;font-size:14px;line-height:1.85;color:#243743;white-space:normal;overflow-wrap:anywhere}
+html[data-islp-reading-mode="en"] body details.atpa-tutor-note,
+html[data-islp-reading-mode="zh"] body details.atpa-tutor-note,
+html[data-islp-reading-mode="parallel"] body details.atpa-tutor-note{display:block}
+@media(max-width:540px){
+  html body details.atpa-tutor-note{margin:10px 0 20px;border-radius:11px}
+  html body details.atpa-tutor-note > summary{padding:11px 12px}
+  html body .atpa-help-body{padding:0 13px 12px}
+  html body .atpa-help-title{display:block;margin-top:2px}
+}
+@media print{
+  html body details.atpa-tutor-note:not([open]){display:none!important}
+  html body details.atpa-tutor-note[open]{break-inside:avoid}
+}
