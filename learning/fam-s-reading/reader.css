@@ -58,3 +58,10 @@ body[data-mode="side"] .pair>div,body[data-mode="side"] .pair .zh{font-size:12.8
 body[data-mode="side"] .mathvector math,body[data-mode="side"] .formula-render math{font-size:1.03rem}
 }
 @media print{nav.top{position:relative} .copy-formula{display:none}}
+
+/* Private Lesson source references + QA explanation, reusable by all Lessons. */
+.source-proof{font:12px/1.5 -apple-system,'PingFang TC',sans-serif;margin-top:14px;padding-top:9px;border-top:1px solid #dbe3e9}
+.source-reference{color:#276787;text-decoration:none;font-size:11px;white-space:nowrap}
+.quiz-solution{background:#fff;margin:14px 0}.quiz-solution .sol-body{padding:12px}
+.calc-check{margin:13px 0;padding:12px 14px;border:1px solid #d8e4ed;border-left:3px solid #668a9e;border-radius:8px;font:13px/1.65 -apple-system,'PingFang TC',sans-serif}
+.calc-check strong{font-weight:750}.calc-check p{margin:8px 0 0}
