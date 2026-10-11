@@ -1,0 +1,60 @@
+/* FAM-S private reader shared CSS v1. Public styles only. */
+
+:root{--navy:#193e56;--accent:#12618c;--bg:#f1f5f8;--paper:#fff;--ink:#243746;--line:#d7e1e8;--muted:#617687}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 Georgia,'Times New Roman','Noto Serif TC',serif}
+main{max-width:1150px;margin:0 auto;padding:15px 16px 90px}header{background:#fff;border-bottom:1px solid var(--line);padding:22px max(15px,calc((100vw - 1140px)/2));font-family:-apple-system,BlinkMacSystemFont,'PingFang TC',sans-serif}
+header h1{margin:4px 0;color:var(--navy);font-size:clamp(27px,4vw,42px);line-height:1.22}header p{font-size:13px;line-height:1.6;color:var(--muted)}
+nav.top{position:sticky;top:0;background:rgba(248,251,253,.96);backdrop-filter:blur(12px);z-index:3;border-bottom:1px solid #e1e8ed;display:flex;flex-wrap:wrap;gap:9px;align-items:center;padding:9px max(15px,calc((100vw - 1140px)/2));font-family:-apple-system,BlinkMacSystemFont,'PingFang TC',sans-serif}
+.btn{border:1px solid #b9ccd5;background:#fff;color:var(--navy);padding:7px 11px;border-radius:9px;font:700 13px/1.4 -apple-system,'PingFang TC',sans-serif;cursor:pointer}.btn[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}.back{margin-right:8px;color:var(--navy);font-weight:750;text-decoration:none;font-size:13px}.small{font:12px/1.6 -apple-system,'PingFang TC',sans-serif;color:var(--muted)}
+.notice{padding:12px 14px;background:#fff8e8;border-left:3px solid #c58a36;border-radius:5px;font:13px/1.7 -apple-system,'PingFang TC',sans-serif}
+.chap{background:var(--paper);border:1px solid var(--line);border-radius:13px;margin:17px 0;padding:clamp(15px,3vw,30px)}
+h2{color:var(--navy);font:750 clamp(20px,3vw,29px)/1.4 -apple-system,'PingFang TC',sans-serif;margin:0 0 16px}
+h3{color:var(--navy);font:750 19px/1.45 -apple-system,'PingFang TC',sans-serif;margin:18px 0 8px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:15px;margin:12px 0}.pair>div{min-width:0;overflow-wrap:anywhere}.pair .en{padding-right:12px;border-right:1px solid var(--line)}.pair .zh{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC',sans-serif;line-height:1.85;letter-spacing:.01em}.pair.heading .en,.pair.heading .zh{font:bold clamp(17px,2.5vw,23px)/1.42 -apple-system,'PingFang TC',sans-serif;color:var(--navy)}
+body[data-mode=en] .pair,body[data-mode=zh] .pair{grid-template-columns:minmax(0,1fr)}body[data-mode=en] .pair .zh{display:none}body[data-mode=zh] .pair .en{display:none}body[data-mode=en] .pair .en{border-right:0;padding-right:0}
+.mbox{margin:13px 0;background:#f5f9fc;border:1px solid #deebf2;border-radius:11px;padding:10px 14px;min-width:0}.mhead{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#597282;font:11px/1.5 -apple-system,'PingFang TC',sans-serif}.mvalue{margin:8px 0;max-width:100%;overflow-x:auto;text-align:center}.mvalue svg{max-width:100%;height:auto;overflow:visible}.mvalue mjx-container{max-width:100%}.mvalue>svg{max-height:150px}.copy-formula{font:10px -apple-system,sans-serif;padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
+.exhead{border-left:4px solid #24769a;background:#eff7fb;padding:11px 13px;margin:19px 0 9px;font:750 14px/1.6 -apple-system,'PingFang TC',sans-serif;color:#174e70}.label{margin:19px 0 9px;font:750 14px -apple-system,'PingFang TC',sans-serif;color:var(--accent)}
+.tblscroll{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font:14px/1.65 -apple-system,'PingFang TC',sans-serif}td,th{padding:10px 12px;border:1px solid #dce4ea;text-align:left;vertical-align:middle}th{background:#eaf3f7;color:var(--navy)}.mathcell svg{height:auto;max-width:100%;vertical-align:middle}.mathcell{overflow-x:auto;text-align:center;min-width:150px}
+.figure{margin:12px auto 20px;background:#fff;border:1px solid var(--line);padding:12px;border-radius:12px;max-width:100%}.figure img{display:block;max-width:100%;height:auto;margin:auto}.figure figcaption{font:12px/1.6 -apple-system,'PingFang TC',sans-serif;margin-top:8px;color:var(--muted)}
+.sourcepage{margin:15px 0;padding:16px 15px;border:1px solid #d7e2e8;border-radius:13px;background:white;scroll-margin-top:90px}.sourcepage .ocr{white-space:pre-wrap;overflow-wrap:anywhere;margin:9px 0 12px;font-size:15px;line-height:1.65}.sourcepage .mathocr{white-space:pre-wrap;overflow-wrap:anywhere;background:#fbf6e9;border-left:3px solid #b89563;padding:9px 12px;margin:13px 0;font:14px/1.65 Georgia,'Times New Roman',serif}.flag{font:11px/1.6 -apple-system,sans-serif;color:#8b603b;background:#fff8ed;padding:5px 8px;border-radius:6px}.pending{font:13px/1.75 -apple-system,'PingFang TC',sans-serif;color:#7a4b28;background:#fff8ed;padding:10px;border-radius:7px}.sourcepage .pair{margin:7px 0}.sourcepage h4{font:750 14px -apple-system,sans-serif;color:#1d596f}details{border:1px solid var(--line);border-radius:10px;margin:12px 0;background:#fff}details>summary{cursor:pointer;padding:12px 16px;font:750 14px/1.55 -apple-system,'PingFang TC',sans-serif;color:var(--navy)}.jumplinks{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;margin:13px 0}.jumplinks a{border:1px solid var(--line);border-radius:30px;padding:6px 12px;background:white;text-decoration:none;color:var(--navy);font:750 12px -apple-system,sans-serif}
+@media(max-width:620px){main{padding:10px 6px 80px}.chap{padding:13px 11px;margin:8px 0}.pair{gap:8px}.pair .en{padding-right:6px}.pair>div{font-size:14px}.pair .zh{font-size:13.6px}.mvalue svg{min-width:max-content;max-height:130px}.sourcepage{padding:12px 9px}.sourcepage .ocr{font-size:13px}.tblscroll table{font-size:12.5px}header{padding:15px 12px}.notice{font-size:12px}}
+
+body[data-mode=zh] .sourcepage .ocr,body[data-mode=zh] .sourcepage .mathocr{display:none}body[data-mode=en] .source-zh-pending{display:none}body[data-mode=side] .source-zh-pending{display:block}body[data-mode=side] .sourcepage .ocr,body[data-mode=side] .sourcepage .mathocr{max-width:calc(50% - 8px)}body[data-mode=side] .sourcepage .source-zh-pending{float:right;width:calc(50% - 8px);margin-top:1px}body[data-mode=side] .sourcepage::after{content:"";display:block;clear:both}@media(max-width:620px){body[data-mode=side] .sourcepage .ocr,body[data-mode=side] .sourcepage .mathocr{font-size:11px}}
+
+#typed-exercises>.pair.heading{margin-top:26px}.data-table{min-width:270px}.data-table th,.data-table td{text-align:center;padding:6px 10px}.typed-exercise .figure{max-width:680px}.typed-exercise .figure img{width:100%;max-width:100%;height:auto}.typed-exercise .sol-body .pair{margin-top:10px}.typed-exercise .formula-render>svg{height:auto;max-height:165px}.typed-exercise .answer-options>div{overflow-wrap:anywhere}.verified-solution{scroll-margin-top:80px}
+
+
+.typed-exercise{border:1px solid #dce7ec;border-radius:12px;margin:15px 0;background:#fff;padding:16px 18px;scroll-margin-top:80px}
+.typed-exercise .exercise-title{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid #e7edf2;margin-bottom:10px}
+.typed-exercise .exercise-title h3{margin:3px 0 8px;font-size:18px}
+.typed-exercise .exercise-title a{font:12px -apple-system,'PingFang TC',sans-serif;color:#115f89;white-space:nowrap}
+.typed-exercise .ref{font:11px/1.6 -apple-system,'PingFang TC',sans-serif;color:#6b7983}
+.typed-exercise .pair{margin:8px 0 12px}
+.answer-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin:12px 0;font:13px/1.5 -apple-system,'PingFang TC',sans-serif}
+.answer-options>div{background:#f3f7f9;padding:7px 8px;border-radius:7px;min-width:0;overflow-wrap:anywhere}
+.exercise-math{display:flex;align-items:center;gap:8px;margin:8px 0;padding:9px 11px;border-radius:9px;background:#f0f7fb;min-width:0}
+.exercise-math .formula-render{flex:1;min-width:0;overflow-x:auto;text-align:center}
+.exercise-math .formula-render svg{max-height:180px;height:auto;vertical-align:middle}
+.verified-solution>summary{background:#edf7fb}.sol-body{padding:5px 13px 13px}
+@media(max-width:620px){.typed-exercise{padding:10px 8px;margin:9px 0}.answer-options{grid-template-columns:repeat(2,minmax(0,1fr))}.answer-options>div{font-size:12px}.typed-exercise .pair>div{font-size:13px}.typed-exercise .pair .zh{font-size:12.8px}.exercise-math{padding:7px;gap:4px}}
+
+body[data-mode=zh] .answer-options .en{display:none}body[data-mode=en] .answer-options .zh{display:none}body[data-mode=side] .answer-options .en{display:none}
+
+/* Shared FAM-S reader: modern native MathML, mobile, three language modes. */
+.mathvector math,.formula-render math,.mvalue math,.mathcell math{display:inline-block;max-width:none;vertical-align:middle;font-size:1.13rem;font-family:serif;line-height:1.4}
+.mathvector,.formula-render,.mathcell,.mvalue{min-width:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+.mathvector math[display="block"],.formula-render math[display="block"],.mvalue math[display="block"]{display:inline-block}
+.exercise-math .formula-render math{font-size:1.12rem}
+html,body{max-width:100%;overflow-x:clip}
+html{scroll-padding-top:100px}
+.typed-exercise,.exhead,.sourcepage{scroll-margin-top:92px}
+body[data-mode="zh"] .pair .zh{font-size:1rem;max-width:100%}
+body[data-mode="en"] .pair .en{font-size:1rem;max-width:100%}
+body[data-mode="side"] .pair{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+body[data-mode="side"] .pair>div{min-width:0;overflow-wrap:anywhere}
+body[data-mode="side"] .pair .en,body[data-mode="side"] .pair .zh{overflow-x:auto}
+@media(max-width:620px){
+body[data-mode="side"] .pair>div,body[data-mode="side"] .pair .zh{font-size:12.8px;line-height:1.7}
+body[data-mode="side"] .mathvector math,body[data-mode="side"] .formula-render math{font-size:1.03rem}
+}
+@media print{nav.top{position:relative} .copy-formula{display:none}}
