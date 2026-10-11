@@ -21,3 +21,11 @@
 - 新建立工作用英文／繁中 `bilingual_fidelity_ledger.csv`（839 筆）和 `latex_fidelity_ledger.csv`（829 筆）；現階段全部人工來源簽核標記 `PENDING`，有四筆雙語標題缺直接頁碼標記。尚未把此工作台帳當成簽核或發布新版私人 HTML。
 - 新環境雖偵測到 Chromium 與 Playwright，但瀏覽器對本機 HTTP 及 `file://` 導覽回傳 `ERR_BLOCKED_BY_ADMINISTRATOR`；未產生有效的 320／390／768／1130 × 三模式畫面證據。正式 OAuth／Safari／TI 實機仍待驗證。
 - 本輪未修改私人 HTML、私人 QA 或交接 ZIP，因此沒有觸發對這些原檔的覆寫／新備份；下一次覆寫之前仍需重新備份當時最新版本。不得把本文視為 COMPLETE。
+
+## 2026-10-11 21:39（台灣時間）MathML 多行公式實際修復
+
+- 在私人 HTML 發現 24 個 `aligned` 算式的 MathML 將對齊符號 `&` 顯示為文字；已轉換成原生 MathML `<mtable>`，總計 80 個公式 row。原 `data-tex` 未修改，未改動原書／繁中正文。
+- 覆寫前的新備份：`15uWk9F-5AJ7BxEU00yltnS4cCx8iQ8el`（883,433 bytes，位於既有 `_backup`，owner-only）。
+- 原位發布至私人原 ID `14nCKA8VCu2nwzWw7qVqPZcBzrkDs-hW1`，更新後 888,877 bytes；重新下載與本機逐位相符。新 SHA-256 `ebe15b82081b71b43389ad60cba24fdb96313243e690c0f3813d029b48a1ba21`；原 name/parent/owner-only 保持。
+- 全量 829 個 MathML 均可 XML 解析，24 處對齊符號不再是 `<mi>&amp;</mi>`；重跑既有 1,847 項靜態 QA PASS，45 Exercises／45 Solutions、839 雙語配對、57 收合解答保持。
+- 現有 HTML 的內部 `data-version` 仍為 `20261011-source-repair-v3`，但實際發版位元組已變更；以以上 SHA 辨識此修補版。正式網頁 Safari 及 12 組視覺驗收仍為 PENDING；正式狀態 DRAFT。
