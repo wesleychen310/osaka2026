@@ -1,0 +1,153 @@
+/* ATPA native-math upgrade without deleting any ISLP equations. */
+html body .equation{
+  position:relative;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  margin-block:18px 22px;
+  border:1px solid #e0e5e9;
+  border-radius:12px;
+  background:#fcfdfd;
+  padding:16px 12px;
+  box-shadow:none;
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  -webkit-overflow-scrolling:touch;
+  scroll-padding-inline:16px;
+  text-align:center;
+}
+html body .equation .frac{
+  vertical-align:middle;
+  font-family:"STIX Two Math","Cambria Math","Times New Roman",serif;
+  font-size:1.09em;
+  line-height:1.34;
+}
+html body .equation .frac .top{padding:.12em .28em .17em;border-bottom:1.45px solid currentColor}
+html body .equation .frac .bottom{padding:.17em .28em .09em}
+html body .equation sup{font-size:.7em;vertical-align:super}
+html body .equation sub{font-size:.7em;vertical-align:sub}
+html body .equation .piece .brace{font-family:"STIX Two Math","Cambria Math",serif;font-weight:400}
+html body .equation.atpa-math-enhanced{padding:18px 10px 9px}
+html body .atpa-math-polished{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:max-content;
+  min-width:100%;
+  max-width:none;
+  gap:14px;
+  color:#1f2e3a;
+  font-family:"STIX Two Math","Cambria Math","Times New Roman",serif;
+  padding:2px 8px 9px;
+}
+html body .atpa-math-polished math{
+  display:block;
+  width:max-content;
+  min-width:0;
+  font-size:clamp(19px,2.1vw,24px);
+  line-height:1.5;
+}
+html body .atpa-math-number{
+  flex:none;font:500 12px/1.4 Georgia,"Times New Roman",serif;
+  color:#667781;
+}
+html body .atpa-original-equation{
+  width:max-content;
+  min-width:min(100%,220px);
+  margin:3px auto 0;
+  border-top:1px solid #edf0f2;
+  text-align:left;
+}
+html body .atpa-original-equation summary{
+  display:block;width:max-content;min-height:30px;
+  padding:6px 10px;
+  margin:0 auto;
+  cursor:pointer;
+  color:#486b81;
+  font:500 11.5px/1.4 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+}
+html body .atpa-original-equation summary:focus-visible{outline:2px solid #276d8e;border-radius:5px}
+html body .atpa-original-equation-content{
+  max-width:min(900px,calc(100vw - 30px));padding:12px 8px 16px;
+  overflow-x:auto;
+  font-size:15px;line-height:1.6;color:#405361;text-align:center;
+}
+html body .equation.atpa-math-scrollable img{
+  display:block;
+  object-fit:contain;
+  image-rendering:auto;
+  margin-inline:auto;
+  cursor:zoom-in;
+}
+html body .atpa-math-zoom-hint{
+  display:block;
+  position:sticky;
+  left:0;
+  width:max-content;
+  max-width:100%;
+  text-align:left;
+  font:500 11px/1.45 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+  color:#607784;
+  margin:10px auto 0;
+  padding-inline:4px;
+}
+html body .atpa-math-lightbox{
+  position:fixed;inset:0;
+  z-index:100000;
+  background:rgba(18,28,35,.92);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:env(safe-area-inset-top,12px) 10px env(safe-area-inset-bottom,12px);
+}
+html body .atpa-math-lightbox[hidden]{display:none!important}
+html body .atpa-math-lightbox-pane{
+  display:flex;flex-direction:column;gap:9px;
+  width:100%;height:100%;max-height:100%;
+}
+html body .atpa-math-close{
+  align-self:flex-end;
+  flex:none;
+  width:auto!important;
+  margin:0!important;
+  min-height:42px;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#1c384a!important;
+  padding:8px 16px!important;
+  font:700 14px/1.4 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif!important;
+  cursor:pointer;
+}
+html body .atpa-math-lightbox-stage{
+  display:flex;align-items:center;
+  flex:1;min-height:0;
+  width:100%;
+  max-width:100%;
+  overflow:auto;
+  background:#fff;
+  border-radius:12px;
+  padding:22px;
+  -webkit-overflow-scrolling:touch;
+}
+html body .atpa-math-lightbox-stage img.atpa-math-zoomed{
+  display:block;
+  width:auto!important;
+  min-width:min-content;
+  max-width:none!important;
+  max-height:none!important;
+  height:auto!important;
+  margin:auto;
+  object-fit:contain;
+  cursor:auto;
+}
+@media(max-width:530px){
+  html body .equation{padding:13px 8px;margin-block:14px 19px}
+  html body .atpa-math-polished{gap:9px;padding-inline:5px}
+  html body .atpa-math-polished math{font-size:19px}
+  html body .atpa-original-equation-content{font-size:14px}
+  html body .atpa-math-lightbox-stage{padding:16px}
+}
+@media print{
+  html body .atpa-math-lightbox,html body .atpa-math-zoom-hint{display:none!important}
+  html body .atpa-math-polished{width:100%}
+}
