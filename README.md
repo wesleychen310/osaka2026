@@ -59,6 +59,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 | 網站／正式 URL | GitHub 入口 | 私人內容位置 |
 |---|---|---|
 | [私人學習總入口](https://wesleychen310.github.io/osaka2026/learning/) `learning/` | `learning/index.html` | 公開導航頁，本頁不執行 Google OAuth |
+| [英文學習書目](https://wesleychen310.github.io/osaka2026/learning/english/) `learning/english/` | `learning/english/index.html` | 新增英文學習第二層目錄，目前收錄 Shadowing 私人互動教材；公開導航頁，無教材內容 |
 | [超級筆記 PA／ATPA](https://wesleychen310.github.io/osaka2026/learning/super-notes/) `learning/super-notes/` | `learning/super-notes/index.html` | Drive `超級筆記.html`；ID `1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa` |
 | [ISLP 精讀目錄](https://wesleychen310.github.io/osaka2026/learning/islp/) `learning/islp/` | `learning/islp/index.html` | 公開章節選擇 |
 | [ISLP 精讀 Chapter 3](https://wesleychen310.github.io/osaka2026/learning/islp/ch03/) `learning/islp/ch03/` | `learning/islp/ch03/index.html` | Drive `ISLP_CH03_精讀.html`；ID `1Pvejd3h2Z2UzkJpmmBLrx0qqtas6rX2S` |
@@ -192,13 +193,14 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 
 ### Shadowing 私人教材（2026-10-11）
 
-- 正式 URL：<https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/>。
+- 正式 URL：<https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/>；上層英文學習書目：<https://wesleychen310.github.io/osaka2026/learning/english/>。
 - 公開 GitHub 僅存 Google OAuth shell、入口、README；不得放任何原書文字、翻譯、掃描影像、Drive token。
 - 正本：Google Drive `Shadowing_STEP01-07_私人互動閱讀.html`，file ID `10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk`，folder `英文學`（ID `1BD27TNmiMPGiQlWEDxSE_lYrDBYLbzPj`），owner-only。
 - 來源原書：`谷口惠子_原書含OCR文字層.pdf` ID `1Zi-K01V8ZKP1DzjmrpszZmP9KGNdii53`；現有譯本 PDF ID `1F6Cs6B5yv_T6rJapE6wHuBltIQ0CeW4r`。
 - 當前範圍：第 2 章 STEP 01–07；每 STEP 中文翻譯、日文 OCR 原文、原有英文 script、對應原書頁影像。四種模式 zh/jp/bi/parallel、單元深連結 `#step-1`～`#step-7`、瀏覽器 en-US TTS（不當作原書音檔）。
 - **校對狀態**：目前日文來源為 PDF OCR，部分語句可能有辨識錯誤；已嵌入 PDF 原頁影像供人工校對，不得宣稱逐字日文校訂完成。日中對照以**小節層級**為先，後續逐段配對校訂。
 - 每次修改私人 HTML：先確認 owner-only 權限與父資料夾→同層 `_backup` 備份→用 `update_file` 原位更新、保持既有 file ID→逐 STEP 對照完整原書與譯本→驗證 Google OAuth、手機四模式和原頁影像。
-- 詳細維護 SOP：`learning/shadowing-reading/README.md`。
+- 詳細維護 SOP：`learning/shadowing-reading/README.md`；完整分批製作計畫：`learning/shadowing-reading/PLAN.md`。
+- 2026-10-11 UI 改為全中文、日文原文、左右對照三模式（原上下雙語模式已移除）。本地 Chromium 8 種寬度 × 三模式 = 24/24 版面檢查通過；真人 iPhone Safari／Google OAuth 尚未 E2E 驗證。
 
 - **FAM-S Lessons 11–23 英文整批草稿（2026-10-11）：** 已由私有 ASM_FAM-S_searchable.pdf OCR 轉為 **13 課、236 個有文字頁面**，原書 PDF164–409（排除原書空白頁），保留英文字元與章節／頁碼；7 張原書 Figure 局部圖像，沒有整頁掃描；**1,600 個公式候選 OCR 區塊、表格及題解仍待 Work 數學/來源 QA**，所以狀態一律 `DRAFT/NEEDS_REVIEW`，完成 Lessons=0。合併 HTML 原始私有 Google Drive ID `1F9cXPD_5GnFthGJ54rW0-fRpR7n1M-p6`（owner only, 750216 bytes），單一登入入口 `learning/fam-s-reading/lessons11-23/`；私人 Drive 壓縮檔 ID `1CCY53JMn9uEpL9JZWQDOTV23VufBQ8rr`（273926 bytes）；Chromium 13 課×4 版寬=52/52 以及合併版 4/4 測試無整頁溢出。**GitHub 只有 OAuth loader，不含原文。** 
