@@ -12,3 +12,12 @@
 - 現有正式OAuth到Google登入畫面，沒有私人閱讀器登入成功證據；Drive回讀成功不能當網站登入通過。
 
 項目標準及接續方法見[README](README.md)與[WORKFLOW](WORKFLOW.md)。未通過的驗收不得刪除、不得把舊版本測試結果套入本版。
+
+## 2026-10-11 接手複核（新增紀錄；仍為 DRAFT）
+
+- 已重新取得並核對目前 Drive 原位 HTML，883,433 bytes、SHA-256 `a68fc4eaacb839a058eb55901febfd05962682144b1fcf979118bf8bbbf9e26c`；原檔 ID、parent 及 owner-only 權限未改。
+- 已讀取私人交接 ZIP、CONTINUE、SECOND_REVIEW、私人 QA，以及完整 ASM PDF；本輪重新確認完整 PDF 164–191 為 Lesson 11 來源範圍，194 開始 Lesson 12。
+- 在獨立工作目錄重新執行既有 `static_qa.py`：1,847 PASS；`verify_calculator.py`：33 算式數值一致；`verify_math.py`：45 題及 11 Examples／Quiz 的原有計算流程可重跑。沒有因此提高原書逐字、瀏覽器或 TI 實機驗收狀態。
+- 新建立工作用英文／繁中 `bilingual_fidelity_ledger.csv`（839 筆）和 `latex_fidelity_ledger.csv`（829 筆）；現階段全部人工來源簽核標記 `PENDING`，有四筆雙語標題缺直接頁碼標記。尚未把此工作台帳當成簽核或發布新版私人 HTML。
+- 新環境雖偵測到 Chromium 與 Playwright，但瀏覽器對本機 HTTP 及 `file://` 導覽回傳 `ERR_BLOCKED_BY_ADMINISTRATOR`；未產生有效的 320／390／768／1130 × 三模式畫面證據。正式 OAuth／Safari／TI 實機仍待驗證。
+- 本輪未修改私人 HTML、私人 QA 或交接 ZIP，因此沒有觸發對這些原檔的覆寫／新備份；下一次覆寫之前仍需重新備份當時最新版本。不得把本文視為 COMPLETE。
