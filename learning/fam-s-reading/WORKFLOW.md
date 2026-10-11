@@ -127,3 +127,16 @@ For problem work, distinguish readable English problem summaries, Traditional Ch
 3. **Content layering.** Model formula/terminology bilingual summaries in `.pair`, editorial explanations in `.fam-tutor-note[data-editorial]`, independently derived solutions in their own `details`. Preserve source PDFs as optional collapsible original-page images inside owner-only HTML. Label OCR as UNVERIFIED, and avoid claiming the manually written English exercise summaries are full original quotes.
 4. **Front matter.** Keep the original native four reading modes, original paired content, original contents index and 18 source-page illustrations. Insert new tutor cards near contextual headings without rewiring the existing JS or altering the original blocks. Add a public OAuth shell route `preface/` and 31-lesson index entry; no source text in GitHub.
 5. **Test.** Use page.set_content + real shared reader assets, test 320/390/768/1130 for each supported language mode, plus details toggles and page-level overflow; perform live Google OAuth and Safari hardware tests separately. Formal acceptance cannot pass until English original paragraphs, all source questions/choices/answers, formulas and figures have been aligned page-by-page. Record what is editorial vs exact source.
+
+
+## 2026-10-11 Lesson 3 — Variance (private DRAFT)
+
+- Original ASM FAM-S PDF physical pages 65–71 (printed pages 49–55); Lesson 4 starts physical page 72.
+- Owner-only HTML: `ASM_FAM-S_Lesson_03_BILINGUAL_3MODES_TUTOR_DRAFT.html` (Google Drive file ID `1sUjTnqxvRxGDq_NsZozgf1awHQ0CDCOo`), 607,686 bytes; SHA256 `f01727b83f43483e2c27458c51760b2d8e060a8d01e4cdbd8b22c39c101f5b41`. Remains inside private folder `1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe`.
+- 37 English/Traditional Chinese pairs, 4 original Examples (3A–3D), 7 Exercises (3.1–3.7), 11 collapsible solution panels, 10 optional editorial tutoring cards, 7 full-source private PDF page facsimiles, 3 native MathML formula blocks.
+- Local Chromium QA: 320/390/768/1130 px × en/zh/side = 12/12 PASSED; lesson exercise solution and three-part tutoring cards expand/collapse; no viewport horizontal overflow. Google OAuth end-to-end and actual Safari devices not yet tested.
+- Important source fidelity note: Example 3C on PDF page 67 appears to conflate the z-score 0.77567 with Φ(z): normal CDF ≈ 0.78103; original preserved, discrepancy labeled as editorial note.
+- Historic Lesson 3–10 ZIP (`1k82qHR0hd-YhAL9hIq7uDVy80Zs7JkkI`) preserved unchanged; public `lesson3/index.html` now fetches owner-only HTML directly, and never stores copyrighted textbook contents on GitHub.
+- DRAFT scope: core concepts, English question meanings, solution derivations and key steps reconstructed; exhaustive verbatim bilingual source/solutions transcription and TI/Safari hardware validation pending. Do not label COMPLETE.
+
+Implementation SOP delta: search existing Drive assets and landing pointers (may point to a ZIP instead of a dedicated HTML); preserve multi-lesson archives; upload dedicated owner-only HTML; update login shell from JSZip to direct `response.text()`; check returned file's privacy and re-fetch checksum before publication.
