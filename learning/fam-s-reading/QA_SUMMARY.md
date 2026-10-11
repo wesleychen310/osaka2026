@@ -37,3 +37,13 @@
 - Python DOM 修訂前後比對：原 839 對雙語 `.pair` HTML 完全相等、原 829 筆 `data-tex` 與 MathML 完全相等、所有原解答文字及 45 題題幹／選項文字保持；26 張卡皆預設收合；重跑既有 1,847 項靜態 QA 全通過。
 - 使用 Chromium `page.set_content`（about:blank）、注入現有 shared CSS/JS，在 390×844、768×1024、1440×900 三種尺寸各自操作 en／zh／side，總計 **9 組本機按鈕展開與收合 PASS**，均無頁面水平溢出；這是**本機渲染驗收**，不代表正式 OAuth、Safari 實機或正式網站 12 組完整驗收。正式狀態仍 DRAFT。
 - 新增補充全部存於原 owner-only HTML；公開 GitHub 僅保留功能製作規格、QA 摘要，不提交受著作權保護的 ASM 內容。
+
+## 2026-10-11 22:22 (+08) Lesson 12 bilingual draft deployment
+
+- Source: ASM FAM-S PDF pp. 194–209 / printed pp. 181–196. Two textbook examples 12A–B; 28 exercises 12.1–12.28 and the original solutions.
+- Existing private Drive OCR draft (47,580 bytes) was upgraded in place to a 1,415,175-byte interactive bilingual **DRAFT**. Includes bilingual core lesson and worked examples, 28 bilingual problem summaries with editorial explanations/keystrokes, 14 on-demand tutoring cards, all 16 source-page facsimiles, and a cropped original Exercise 12.21 graph.
+- Original 28 English statements/options and original solution paragraphs are **not yet fully transcribed and bilingual-line-verified**. Source images are the authoritative originals, OCR text flagged; editorial explanations are separated. DRAFT must not be marked COMPLETE.
+- Pre-update owner-only backup 19OGWTpYu5mNIQPQZMrGc5tIjRPO66f5y stored in existing _backup folder. Original private file ID 19t-c5kwapBUsLD78QesoIuVrl_g1Q7bF, original filename/location and owner-only permissions preserved.
+- Drive readback SHA256: 6cd6c423b15d162831881e4d7df43bc0ec6011dd4e98ee8ec40eccc38aa1d594, 1,415,175 bytes; matches local authoring file.
+- Local Chromium page.set_content + exact shared reader CSS/JS: 320/390/768/1130 px × en/zh/side = 12/12 interactions PASS. 14 tutor cards and 28 solution details open/close; no page-level horizontal overflow. Actual owner Google OAuth, iPhone/iPad/Mac Safari and calculator physical keys remain unverified.
+- Public landing lesson12/index.html updated; no copyrighted book contents published to GitHub.
