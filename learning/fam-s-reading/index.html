@@ -1,111 +1,39 @@
 <!doctype html>
-<html lang="zh-Hant-TW">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow,noarchive">
-<meta name="referrer" content="no-referrer">
-<title>ASM FAM-S｜31 課私人英文電子教科書</title>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<script src="/osaka2026/private-auth-hint.js"></script>
+<html lang="zh-Hant-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer"><title>ASM FAM-S｜31 課目錄</title>
 <style>
-:root{--bg:#f3f6f8;--ink:#1a2d3d;--accent:#174961;--line:#dbe3e9;--muted:#5a6d7a}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC",Arial,sans-serif;background:linear-gradient(160deg,#e5f0f5,var(--bg) 50%);color:var(--ink)}.wrap{max-width:760px;margin:0 auto;padding:clamp(25px,6vw,65px) 16px 60px}.eyebrow{font-weight:850;color:var(--accent);font-size:12px;letter-spacing:.15em}.head h1{font-size:clamp(29px,6vw,46px);font-family:Georgia,"Noto Serif TC",serif;margin:14px 0 12px;line-height:1.18;color:#163f56}.head p{font-size:15px;line-height:1.75;color:var(--muted);margin:0 0 23px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 14px 40px rgba(26,51,69,.07);padding:clamp(17px,4vw,25px);margin:12px 0}.card h2{font-size:19px;margin:2px 0 6px}.card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0}.tag{font-size:11px;font-weight:800;color:#8b5b3a;letter-spacing:.1em}.btn{border:0;border-radius:12px;padding:13px 18px;background:var(--accent);color:#fff;font:inherit;font-size:14px;font-weight:750;cursor:pointer;display:inline-block;text-decoration:none;margin-top:18px}.btn:disabled{opacity:.55;cursor:wait}.ghost{background:#fff;border:1px solid var(--line);color:var(--accent);margin-left:8px}.status{font-size:13px;color:var(--muted);margin-top:15px;min-height:22px}.link{color:var(--accent);font-size:13px;text-decoration:none}.meta{display:flex;gap:9px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:12px}.meta span{border:1px solid var(--line);padding:3px 9px;border-radius:99px}.back{display:inline-block;margin-bottom:24px}.spinner{display:inline-block;width:15px;height:15px;border:2px solid #dce5ea;border-top-color:#46758f;border-radius:99px;animation:sp .85s linear infinite;vertical-align:-2px;margin-right:7px}@keyframes sp{to{transform:rotate(360deg)}}
-.lesson-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:17px}.lesson-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #dbe3e9;border-radius:10px;background:#f8fbfc;color:#174961;text-decoration:none;font:600 13px/1.45 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-width:0}.lesson-link:hover{border-color:#7f9cad}.lesson-num{display:inline-flex;justify-content:center;align-items:center;flex:none;width:28px;height:28px;background:#e6f0f4;border-radius:7px;font-weight:800;font-variant-numeric:tabular-nums}.draftmark{margin-left:auto;color:#7c8790;font-size:10px;font-weight:750;letter-spacing:.02em}@media(max-width:690px){.lesson-grid{grid-template-columns:1fr}.lesson-link{padding:9px 10px}}</style>
-</head>
-<body>
-<main class="wrap">
-<a class="link back" href="../">← 返回私人學習入口</a>
-<header class="head"><div class="eyebrow">PRIVATE LEARNING · ASM FAM-S</div><h1>ASM FAM-S｜31 課獨立閱讀</h1><p>每課獨立網址與私人英文 HTML，全部維持 DRAFT。先校訂原書與公式，再逐課加入繁體中文。</p></header>
-<section class="card">
-<div class="tag">FRONT MATTER · 草稿版</div>
-<h2>前附資料｜PDF 1–18</h2>
-<p>包含封面、原始目錄、Preface、SOA 資料、九週讀書計畫與致謝；英文／中文可切換，原頁影像可展開核對。PDF 4–13 尚有細部翻譯待驗收。</p>
-<div class="meta"><span>雙語左右對照</span><span>全中文／全英文</span><span>私人 Google Drive</span></div>
-<button class="btn" id="openBtn" type="button">使用 Google 帳號閱讀</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換 Google 帳號</button>
-<div id="status" class="status" role="status">正在確認私人教材存取狀態…</div>
-</section>
-<section class="card" id="lesson-directory">
-<div class="tag">31 INDEPENDENT LESSON LINKS · ENGLISH HTML DRAFT</div><h2>ASM FAM-S · 31 課獨立目錄</h2><p>每一課都有獨立網址及私人 HTML。Lesson 11 已開始三模式雙語試作，各課公式、題目與解答依序校對。</p><p><a href="https://github.com/wesleychen310/osaka2026/blob/main/learning/fam-s-reading/WORKFLOW.md" target="_blank" rel="noopener noreferrer">製作與校對 SOP（供 Work／其他對話參考） ↗</a></p><div class="lesson-grid"><a class="lesson-link" href="./lesson1/"><span class="lesson-num">01</span><span>Basic Probability</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson2/"><span class="lesson-num">02</span><span>Parametric Distributions</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson3/"><span class="lesson-num">03</span><span>Variance</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson4/"><span class="lesson-num">04</span><span>Mixtures and the Conditional Variance Formula</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson5/"><span class="lesson-num">05</span><span>Property/Casualty Insurance Coverages</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson6/"><span class="lesson-num">06</span><span>Health Insurance</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson7/"><span class="lesson-num">07</span><span>Loss Reserving: Basic Methods</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson8/"><span class="lesson-num">08</span><span>Ratemaking: Preliminary Calculations</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson9/"><span class="lesson-num">09</span><span>Ratemaking: Rate Changes</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson10/"><span class="lesson-num">10</span><span>Policy Limits</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson11/"><span class="lesson-num">11</span><span>Deductibles</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson12/"><span class="lesson-num">12</span><span>Loss Elimination Ratio</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson13/"><span class="lesson-num">13</span><span>Reinsurance</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson14/"><span class="lesson-num">14</span><span>Risk Measures and Tail Weight</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson15/"><span class="lesson-num">15</span><span>Other Severity Coverage Modifications</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson16/"><span class="lesson-num">16</span><span>Bonuses</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson17/"><span class="lesson-num">17</span><span>Discrete Distributions</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson18/"><span class="lesson-num">18</span><span>Poisson-Gamma</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson19/"><span class="lesson-num">19</span><span>Aggregate Loss Models: Compound Variance</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson20/"><span class="lesson-num">20</span><span>Aggregate Loss Approximations</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson21/"><span class="lesson-num">21</span><span>Aggregate Loss Probabilities</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson22/"><span class="lesson-num">22</span><span>Aggregate Losses with Aggregate Deductible</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson23/"><span class="lesson-num">23</span><span>Maximum Likelihood Estimators</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson24/"><span class="lesson-num">24</span><span>Maximum Likelihood Estimators—Special Techniques</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson25/"><span class="lesson-num">25</span><span>Fitting Discrete Distributions</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson26/"><span class="lesson-num">26</span><span>Limited Fluctuation Credibility: Poisson</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson27/"><span class="lesson-num">27</span><span>Limited Fluctuation Credibility: Non-Poisson</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson28/"><span class="lesson-num">28</span><span>Limited Fluctuation Credibility: Partial</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson29/"><span class="lesson-num">29</span><span>Binomial Trees: One Period</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson30/"><span class="lesson-num">30</span><span>Multiperiod Binomial Trees</span><span class="draftmark">DRAFT</span></a>
-<a class="lesson-link" href="./lesson31/"><span class="lesson-num">31</span><span>The Black-Scholes-Merton Formula</span><span class="draftmark">DRAFT</span></a></div>
-</section>
-<section class="card"><div class="tag">PRACTICE EXAMS 1–12 · OCR DRAFT</div><h2>12 回 Practice Exams</h2><p>75 頁原書模擬考初稿，英文可選取與搜尋；題目公式、選項及答案須經後續 Work 驗收。</p><a class="btn" href="./practice-exams/">閱讀 Practice Exams 1–12 →</a></section>
-<section class="card"><div class="tag">APPENDICES A &amp; B · OCR DRAFT</div><h2>Practice Solutions · Cross-References</h2><p>附錄 A 的 12 回模擬考詳解、附錄 B 交叉索引及模擬考說明，合計 101 頁；等待 Work 集中校訂。</p><a class="btn" href="./appendices/">閱讀解答及附錄 →</a></section>
-</main>
-<script>
-"use strict";
-const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
-const SCOPE="https://www.googleapis.com/auth/drive.readonly";
-const TOKEN_KEY="hanami-kyoto-google-token-v3";
-const CONTENT_FILE_ID="1BtnQBME26WxS7cx3CJKo50viwfiRDKqR";
-const openBtn=document.getElementById("openBtn");
-const switchBtn=document.getElementById("switchBtn");
-const statusBox=document.getElementById("status");
-let tokenClient=null;
-function status(t,loading=false){statusBox.textContent=t;if(loading){statusBox.innerHTML='<span class="spinner"></span>'+t}}
-function store(resp){const obj={access_token:resp.access_token,expires_at:Date.now()+Number(resp.expires_in||3600)*1000};sessionStorage.setItem(TOKEN_KEY,JSON.stringify(obj));return obj}
-function saved(){try{const t=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");if(t?.access_token&&Date.now()<t.expires_at-120000)return t}catch{}sessionStorage.removeItem(TOKEN_KEY);return null}
-async function openPrivate(token){
- status("正在從 Google Drive 讀取私人前附資料…",true);
- const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(CONTENT_FILE_ID)+"?alt=media",{headers:{Authorization:"Bearer "+token},cache:"no-store"});
- if(res.status===401)throw new Error("TOKEN_EXPIRED");
- if(res.status===403)throw new Error("NO_ACCESS");
- if(!res.ok)throw new Error("DRIVE_"+res.status);
- const html=await res.text();
- if(!html.includes("ASM FAM-S")||!html.includes("Front Matter"))throw new Error("INVALID_CONTENT");
- document.open();document.write(html);document.close();
-}
-function loginView(message){openBtn.disabled=false;openBtn.hidden=false;switchBtn.hidden=false;status(message||"請使用具有私人教材權限的 Google 帳號登入。")}
-function client(){
- if(tokenClient)return true;
- if(!window.google?.accounts?.oauth2)return false;
- tokenClient=google.accounts.oauth2.initTokenClient({
-  client_id:CLIENT_ID,scope:SCOPE,
-  callback:async r=>{if(r.error){loginView("Google 授權未完成，請再試一次。");return}try{const t=store(r);await window.HanamiAuth?.remember(t.access_token);await openPrivate(t.access_token)}catch(e){sessionStorage.removeItem(TOKEN_KEY);loginView(e.message==="NO_ACCESS"?"此 Google 帳號沒有私人教材存取權限。":e.message==="TOKEN_EXPIRED"?"授權已過期，請重新登入。":"私人教材載入失敗，請重新登入。")}},
-  error_callback:()=>loginView("瀏覽器需要你點選登入按鈕。")
- });
- return true;
-}
-function request(switchAcct=false){if(!client())return false;try{if(window.HanamiAuth)window.HanamiAuth.request(tokenClient,switchAcct);else tokenClient.requestAccessToken({prompt:switchAcct?"select_account":""});return true}catch{return false}}
-openBtn.addEventListener("click",()=>{openBtn.disabled=true;status("正在開啟 Google 授權…",true);if(!request())loginView("Google 授權元件尚未就緒，請稍後再試。")});
-switchBtn.addEventListener("click",()=>{sessionStorage.removeItem(TOKEN_KEY);window.HanamiAuth?.forget();openBtn.disabled=true;status("正在切換 Google 帳號…",true);if(!request(true))loginView("請重新點選登入按鈕。")});
-async function boot(){
- const s=saved();if(s){try{await window.HanamiAuth?.remember(s.access_token);await openPrivate(s.access_token);return}catch(e){sessionStorage.removeItem(TOKEN_KEY)}}
- const until=Date.now()+6000;while(Date.now()<until&&!window.google?.accounts?.oauth2)await new Promise(r=>setTimeout(r,100));
- if(!client()){loginView("Google 登入元件載入失敗，請重新整理頁面。");return}
- status("正在嘗試沿用既有 Google 授權…",true);
- if(!request())loginView("請點選登入按鈕。");
- setTimeout(()=>{if(document.getElementById("openBtn"))loginView("若尚未開啟授權，請點選 Google 登入按鈕。")},4000);
-}
-boot();
-</script>
-</body>
-</html>
+:root{color-scheme:light;--ink:#203b50;--blue:#155578;--line:#dce6ec;--bg:#f4f7f9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC",sans-serif}main{max-width:850px;margin:auto;padding:22px 15px 65px}header{padding:14px 3px 24px}header a{font-size:13px;color:var(--blue)}h1{font-size:clamp(28px,5vw,39px);margin:13px 0 7px;letter-spacing:-.035em}header p{font-size:14px;line-height:1.7;color:#567083;margin:0}.group{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0 18px}h2{font-size:16px;letter-spacing:.01em;margin:2px 4px 14px} .entries{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.entry{display:flex;gap:11px;align-items:center;min-height:52px;padding:9px 11px;border:1px solid #e2eaf0;border-radius:11px;text-decoration:none;color:#193e56;background:#fafcfd;font-size:14px;font-weight:650;line-height:1.45;min-width:0}.entry:hover,.entry:focus-visible{background:#eaf4fa;border-color:#81b5d4}.num{display:flex;flex:0 0 34px;width:34px;height:34px;align-items:center;justify-content:center;border-radius:8px;background:#e5eff5;font-weight:800;font-size:13px}.txt{flex:1;min-width:0}.arr{font-size:22px;font-weight:300;color:#64879a}.extra{display:flex;flex-wrap:wrap;gap:10px}.extra a{font-size:14px;color:var(--blue);padding:9px 11px;border-radius:9px;background:#eff6fa;text-decoration:none}.foot{font-size:12px;color:#6e808b;padding:4px 6px;line-height:1.6}
+@media(max-width:660px){main{padding:10px 9px 65px}.group{padding:12px 9px;margin:10px 0}.entries{grid-template-columns:1fr;gap:6px}.entry{min-height:51px}.extra{flex-direction:column}.extra a{display:block}}
+</style></head><body><main><header><a href="../">← 私人學習入口</a><h1>ASM FAM-S</h1><p>直接選擇 Lesson 1–31 進入該課。原書正文保存在私人 Google Drive，開課時依需要登入。各課網頁仍持續校對。</p></header>
+<section class="group"><h2>Lessons 01–10</h2><div class="entries"><a class="entry" href="./lesson1/" aria-label="開啟 Lesson 1 Basic Probability"><span class="num">01</span><span class="txt">Basic Probability</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson2/" aria-label="開啟 Lesson 2 Parametric Distributions"><span class="num">02</span><span class="txt">Parametric Distributions</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson3/" aria-label="開啟 Lesson 3 Variance"><span class="num">03</span><span class="txt">Variance</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson4/" aria-label="開啟 Lesson 4 Mixtures and the Conditional Variance Formula"><span class="num">04</span><span class="txt">Mixtures and the Conditional Variance Formula</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson5/" aria-label="開啟 Lesson 5 Property/Casualty Insurance Coverages"><span class="num">05</span><span class="txt">Property/Casualty Insurance Coverages</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson6/" aria-label="開啟 Lesson 6 Health Insurance"><span class="num">06</span><span class="txt">Health Insurance</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson7/" aria-label="開啟 Lesson 7 Loss Reserving: Basic Methods"><span class="num">07</span><span class="txt">Loss Reserving: Basic Methods</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson8/" aria-label="開啟 Lesson 8 Ratemaking: Preliminary Calculations"><span class="num">08</span><span class="txt">Ratemaking: Preliminary Calculations</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson9/" aria-label="開啟 Lesson 9 Ratemaking: Rate Changes"><span class="num">09</span><span class="txt">Ratemaking: Rate Changes</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson10/" aria-label="開啟 Lesson 10 Policy Limits"><span class="num">10</span><span class="txt">Policy Limits</span><span class="arr" aria-hidden="true">›</span></a></div></section>
+<section class="group"><h2>Lessons 11–20</h2><div class="entries"><a class="entry" href="./lesson11/" aria-label="開啟 Lesson 11 Deductibles"><span class="num">11</span><span class="txt">Deductibles</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson12/" aria-label="開啟 Lesson 12 Loss Elimination Ratio"><span class="num">12</span><span class="txt">Loss Elimination Ratio</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson13/" aria-label="開啟 Lesson 13 Reinsurance"><span class="num">13</span><span class="txt">Reinsurance</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson14/" aria-label="開啟 Lesson 14 Risk Measures and Tail Weight"><span class="num">14</span><span class="txt">Risk Measures and Tail Weight</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson15/" aria-label="開啟 Lesson 15 Other Severity Coverage Modifications"><span class="num">15</span><span class="txt">Other Severity Coverage Modifications</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson16/" aria-label="開啟 Lesson 16 Bonuses"><span class="num">16</span><span class="txt">Bonuses</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson17/" aria-label="開啟 Lesson 17 Discrete Distributions"><span class="num">17</span><span class="txt">Discrete Distributions</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson18/" aria-label="開啟 Lesson 18 Poisson-Gamma"><span class="num">18</span><span class="txt">Poisson-Gamma</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson19/" aria-label="開啟 Lesson 19 Aggregate Loss Models: Compound Variance"><span class="num">19</span><span class="txt">Aggregate Loss Models: Compound Variance</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson20/" aria-label="開啟 Lesson 20 Aggregate Loss Approximations"><span class="num">20</span><span class="txt">Aggregate Loss Approximations</span><span class="arr" aria-hidden="true">›</span></a></div></section>
+<section class="group"><h2>Lessons 21–31</h2><div class="entries"><a class="entry" href="./lesson21/" aria-label="開啟 Lesson 21 Aggregate Loss Probabilities"><span class="num">21</span><span class="txt">Aggregate Loss Probabilities</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson22/" aria-label="開啟 Lesson 22 Aggregate Losses with Aggregate Deductible"><span class="num">22</span><span class="txt">Aggregate Losses with Aggregate Deductible</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson23/" aria-label="開啟 Lesson 23 Maximum Likelihood Estimators"><span class="num">23</span><span class="txt">Maximum Likelihood Estimators</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson24/" aria-label="開啟 Lesson 24 Maximum Likelihood Estimators—Special Techniques"><span class="num">24</span><span class="txt">Maximum Likelihood Estimators—Special Techniques</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson25/" aria-label="開啟 Lesson 25 Fitting Discrete Distributions"><span class="num">25</span><span class="txt">Fitting Discrete Distributions</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson26/" aria-label="開啟 Lesson 26 Limited Fluctuation Credibility: Poisson"><span class="num">26</span><span class="txt">Limited Fluctuation Credibility: Poisson</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson27/" aria-label="開啟 Lesson 27 Limited Fluctuation Credibility: Non-Poisson"><span class="num">27</span><span class="txt">Limited Fluctuation Credibility: Non-Poisson</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson28/" aria-label="開啟 Lesson 28 Limited Fluctuation Credibility: Partial"><span class="num">28</span><span class="txt">Limited Fluctuation Credibility: Partial</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson29/" aria-label="開啟 Lesson 29 Binomial Trees: One Period"><span class="num">29</span><span class="txt">Binomial Trees: One Period</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson30/" aria-label="開啟 Lesson 30 Multiperiod Binomial Trees"><span class="num">30</span><span class="txt">Multiperiod Binomial Trees</span><span class="arr" aria-hidden="true">›</span></a>
+<a class="entry" href="./lesson31/" aria-label="開啟 Lesson 31 The Black-Scholes-Merton Formula"><span class="num">31</span><span class="txt">The Black-Scholes-Merton Formula</span><span class="arr" aria-hidden="true">›</span></a></div></section>
+<section class="group"><h2>其他內容</h2><div class="extra"><a href="./practice-exams/">Practice Exams 1–12 ↗</a><a href="./appendices/">Solutions / Appendices ↗</a><a href="https://github.com/wesleychen310/osaka2026/blob/main/learning/fam-s-reading/WORKFLOW.md">網頁製作 SOP ↗</a></div></section><p class="foot">每課各有獨立網址。章節目錄只提供導覽，不載入或公開私人教材文字。</p></main></body></html>
