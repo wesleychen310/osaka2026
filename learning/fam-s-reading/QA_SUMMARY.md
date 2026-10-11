@@ -85,3 +85,11 @@ Source: ASM FAM-S PDF pages 72–90, printed 59–77. Content: 6 Examples, 24 Ex
 - Public GitHub Pages shell `lesson5/index.html` now authenticates to Google Drive and fetches dedicated owner-only HTML by file ID (instead of original private ZIP). Public repository contains no copyrighted source page images or source prose from textbook.
 - Chromium local QA: 320/390/768/1130 px, 3 modes => 12/12 layout checks pass, no whole-page horizontal scroll; solutions expand/collapse; source image data URLs embedded, source figure displayed. Real authenticated Google OAuth, Safari device QA, and live GitHub Pages deployment are not independently verified. In this draft, study English and traditional Chinese are source-aligned educational paragraphs, **not complete verbatim line-by-line translation**, and full original solution verbatim QA is pending. Status DRAFT.
 - Original Drive ZIP `1k82qHR0hd-YhAL9hIq7uDVy80Zs7JkkI` left unchanged.
+
+
+## 2026-10-12 — Lesson 6 Health Insurance (DRAFT)
+- Source ASM FAM-S physical PDF pages 100–103 (printed 87–90), four pages, sections 6.1, 6.1.1–6.1.3, 6.2. Source contains **no numbered Examples, Exercises or Quiz**.
+- 50 English–Traditional Chinese source-aligned educational pairs, 2 clearly marked editorial teaching calculations (allowed charges and coinsurance), 4 complete original page scans with OCR, explainer cards, 3 reading modes.
+- Privately stored Drive HTML ID `16Uw-1mZOdMYFNY2uMvFk58URA_YoYFPL` in owner-only folder `1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe`; local SHA256 `7167d01e822fa959ac5595cf5045af2102f76d183f2f3ac5f2430ec21e8f1958`, size 474701 bytes.
+- Public GitHub Pages shell `lesson6/index.html` loads private Drive HTML directly after OAuth, not the old ZIP. Source textbook content remains private.
+- Local Chromium responsive tests passed 12/12 (320/390/768/1130 px x zh/en/side) and expandable teaching calculation. Google OAuth real login, live Pages, Safari device QA and full verbatim bilingual proofreading pending. Statements about ACA follow the 2022 source historical context and must not be treated as 2026 legal verification.
