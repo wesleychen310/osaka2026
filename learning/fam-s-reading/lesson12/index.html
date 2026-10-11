@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
-<title>ASM FAM-S｜Lesson 12 英文文字數學版</title>
+<title>ASM FAM-S｜Lesson 12 雙語互動教材</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/osaka2026/private-auth-hint.js"></script>
 <style>
@@ -15,18 +15,18 @@
 <body>
 <main class="wrap">
 <a class="link back" href="../">← 返回 FAM-S 教科書入口</a>
-<header class="head"><div class="eyebrow">PRIVATE LEARNING · ASM FAM-S</div><h1>Lesson 12 · Loss Elimination Ratio</h1><p>一課一個獨立網址與私人 HTML 檔案。英文文字可選取、搜尋；數學式、圖表和題解尚待逐頁校對。</p></header>
+<header class="head"><div class="eyebrow">PRIVATE LEARNING · ASM FAM-S</div><h1>Lesson 12 · Loss Elimination Ratio</h1><p>單課雙語互動閱讀｜普通自負額 LER、通膨與再保／28 題解答／14 張按需補充解說／16 頁原書影像核對。完整版逐字校對仍為 DRAFT。</p></header>
 <section class="card">
-<div class="tag">LESSON 12 · ENGLISH TEXT · DRAFT</div>
-<h2>Loss Elimination Ratio｜Single-lesson source text</h2>
-<p>One lesson per private page. Source English OCR text; mathematical formulas and exercises remain DRAFT pending Work QA.</p>
+<div class="tag">LESSON 12 · BILINGUAL INTERACTIVE · DRAFT</div>
+<h2>Loss Elimination Ratio｜英中雙語互動精讀</h2>
+<p>已提供核心章節雙語、Example 12A–B、Exercises 12.1–12.28 雙語題意與獨立解題、14 個「再解說一次」按鈕，以及 16 頁原書影像。原書逐字／逐式與全解翻譯仍待校對。</p>
 <div class="meta"><span>雙語左右對照</span><span>全中文／全英文</span><span>私人 Google Drive</span></div>
 <button class="btn" id="openBtn" type="button">使用 Google 帳號閱讀</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換 Google 帳號</button>
 <div id="status" class="status" role="status">正在確認私人教材存取狀態…</div>
 </section>
 <section class="card">
-<div class="tag">NEXT · CONTINUATION</div><h2>英文文字校對</h2>
-<p>正在核對英文原文、表格與數學符號。全文完成驗收後才會進入繁中翻譯。</p>
+<div class="tag">QUALITY STATUS · DRAFT</div><h2>校對與使用提醒</h2>
+<p>解答中的中文推導標示為編者補充；完整原書16頁均可點開核對。12組本機 Chromium 寬度／閱讀模式互動測試通過。正式 Google 登入及 Safari 實機仍待驗收。</p>
 </section>
 </main>
 <script>
@@ -43,7 +43,7 @@ function status(t,loading=false){statusBox.textContent=t;if(loading){statusBox.i
 function store(resp){const obj={access_token:resp.access_token,expires_at:Date.now()+Number(resp.expires_in||3600)*1000};sessionStorage.setItem(TOKEN_KEY,JSON.stringify(obj));return obj}
 function saved(){try{const t=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");if(t?.access_token&&Date.now()<t.expires_at-120000)return t}catch{}sessionStorage.removeItem(TOKEN_KEY);return null}
 async function openPrivate(token){
- status("正在從 Google Drive 讀取 Lesson 12 私人草稿…",true);
+ status("正在從 Google Drive 讀取 Lesson 12 雙語互動教材…",true);
  const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(CONTENT_FILE_ID)+"?alt=media",{headers:{Authorization:"Bearer "+token},cache:"no-store"});
  if(res.status===401)throw new Error("TOKEN_EXPIRED");
  if(res.status===403)throw new Error("NO_ACCESS");
