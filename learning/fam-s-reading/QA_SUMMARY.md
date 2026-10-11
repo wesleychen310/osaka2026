@@ -67,3 +67,8 @@
 - Important source fidelity note: Example 3C on PDF page 67 appears to conflate the z-score 0.77567 with Φ(z): normal CDF ≈ 0.78103; original preserved, discrepancy labeled as editorial note.
 - Historic Lesson 3–10 ZIP (`1k82qHR0hd-YhAL9hIq7uDVy80Zs7JkkI`) preserved unchanged; public `lesson3/index.html` now fetches owner-only HTML directly, and never stores copyrighted textbook contents on GitHub.
 - DRAFT scope: core concepts, English question meanings, solution derivations and key steps reconstructed; exhaustive verbatim bilingual source/solutions transcription and TI/Safari hardware validation pending. Do not label COMPLETE.
+
+
+## 2026-10-12 · Lesson 4 — DRAFT
+
+Source: ASM FAM-S PDF pages 72–90, printed 59–77. Content: 6 Examples, 24 Exercises, Quiz 4-1, 11 editorial explainer cards, 53 bilingual study-text pairs, 31 expanded solutions and all 19 source-page images. Private Drive file ID: `1a6zN3YPzOwdfwWPjaefral__M6hB1Twk` (owner-only); SHA256: `160438c34889b0f1fdd95e0772bc64c169312cf77f2eff7abca83ee271d4d619`; size 1,487,732 bytes. Chromium local QA 12/12 at 320/390/768/1130px and EN/ZH/side modes. Actual OAuth/Safari testing and full verbatim mathematical/source QA pending. Original ZIP for Lessons 3–10 preserved. Website OAuth shell updated to load private dedicated HTML, no textbook on public GitHub.
