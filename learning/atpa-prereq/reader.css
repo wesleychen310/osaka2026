@@ -1,0 +1,46 @@
+/* ATPA prereq reader — three-mode mobile-first styles. Public UI only. */
+:root{--bridge-ink:#1a2d3d;--bridge-blue:#174961;--bridge-line:#dbe3e9}
+html,body{max-width:100%;overflow-x:clip}
+html body{background:#f3f6f8;color:var(--bridge-ink)}
+html body .layout,html body main,html body .section,html body .pair,html body .islp-parallel-pair{min-width:0;max-width:100%}
+html body .section,html body .side-card{border-color:var(--bridge-line);box-shadow:none}
+html body .pair{border-top:1px solid var(--bridge-line);padding-block:15px}
+html body .pair > :is(.original,.en-text,.translation,.zh-text){overflow-wrap:anywhere;min-width:0}
+html body .pair > :is(.original,.en-text){font-family:Georgia,"Times New Roman",serif}
+html body .pair > :is(.translation,.zh-text){font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif}
+html body .source-heading,html body h2,html body h3{scroll-margin-top:115px}
+html body .equation,html body .codeblock,html body .outputblock,html body pre,html body .table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+html body img,html body figure,html body svg,html body canvas{max-width:100%;height:auto}
+html body figure,html body .figure{margin-inline:0;max-width:100%}
+html body table{max-width:100%;border-collapse:collapse}
+html body .pair :is(.inline-math, .math, .katex, .MathJax){max-width:100%;overflow-x:auto}
+html[data-islp-reading-mode="parallel"] body .islp-parallel-pair{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:0!important;overflow:visible!important;max-width:100%;row-gap:12px}
+html[data-islp-reading-mode="parallel"] body .islp-parallel-pair > .islp-parallel-en{grid-column:1;min-width:0;padding:3px 10px 3px 0!important;margin:0!important;border-right:1px solid var(--bridge-line)}
+html[data-islp-reading-mode="parallel"] body .islp-parallel-pair > .islp-parallel-zh{grid-column:2;min-width:0;padding:3px 0 3px 10px!important;margin:0!important;border-top:0!important}
+html[data-islp-reading-mode="parallel"] body .islp-parallel-pair > .islp-parallel-wide{grid-column:1/-1;min-width:0;max-width:100%;overflow-x:auto}
+html[data-islp-reading-mode="parallel"] body :is(.original,.en-text) .inline-gloss{display:none!important}
+html[data-islp-reading-mode="parallel"] body .pair > :is(.original,.en-text,.translation,.zh-text){font-size:14px;line-height:1.7}
+html[data-islp-reading-mode="zh"] body .pair > :is(.translation,.zh-text),html[data-islp-reading-mode="en"] body .pair > :is(.original,.en-text){font-size:16px;line-height:1.82}
+html body #islp-reading-mode{position:sticky;z-index:3010;background:rgba(255,255,255,.98);border-bottom:1px solid var(--bridge-line);top:var(--islp-mode-top,0px)}
+html body #islp-reading-mode .islp-mode-inner{max-width:1080px;margin:auto}
+html body #islp-reading-mode .islp-mode-options{display:flex;width:100%;max-width:440px;gap:4px;background:#f4f6f8;border:1px solid var(--bridge-line);border-radius:12px;padding:3px}
+html body #islp-reading-mode button{flex:1;min-width:0;white-space:nowrap;background:transparent;color:#345265;font-size:13px;min-height:42px;border-radius:9px;padding:8px}
+html body #islp-reading-mode button[aria-pressed="true"]{background:var(--bridge-blue);color:#fff;box-shadow:none}
+html body #islp-reading-mode button:focus-visible{outline:2px solid #226f96;outline-offset:2px}
+html body #atpa-prereq-bar{position:relative;z-index:20;top:auto}
+html[data-islp-reading-mode="parallel"] body :is(.equation,.codeblock,.outputblock,pre,figure,table){grid-column:1/-1}
+@media(max-width:710px){
+html body .layout{max-width:100%;padding-inline:8px}
+html body .section{padding:14px 12px;border-radius:13px}
+html body #islp-reading-mode .islp-mode-inner{padding:6px 8px}
+html body #islp-reading-mode .islp-mode-caption{display:none}
+html body #islp-reading-mode .islp-mode-options{max-width:none}
+html[data-islp-reading-mode="parallel"] body .pair > :is(.original,.en-text,.translation,.zh-text){font-size:12.8px;line-height:1.65}
+html[data-islp-reading-mode="parallel"] body .islp-parallel-pair > .islp-parallel-en{padding-right:7px!important}
+html[data-islp-reading-mode="parallel"] body .islp-parallel-pair > .islp-parallel-zh{padding-left:7px!important}
+}
+@media(max-width:360px){
+html[data-islp-reading-mode="parallel"] body .pair > :is(.original,.en-text,.translation,.zh-text){font-size:12.2px}
+html body #islp-reading-mode button{font-size:12px;padding:6px 4px}
+}
+@media print{html body #islp-reading-mode,html body #atpa-prereq-bar{display:none!important}}
