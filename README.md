@@ -199,3 +199,5 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - **校對狀態**：目前日文來源為 PDF OCR，部分語句可能有辨識錯誤；已嵌入 PDF 原頁影像供人工校對，不得宣稱逐字日文校訂完成。日中對照以**小節層級**為先，後續逐段配對校訂。
 - 每次修改私人 HTML：先確認 owner-only 權限與父資料夾→同層 `_backup` 備份→用 `update_file` 原位更新、保持既有 file ID→逐 STEP 對照完整原書與譯本→驗證 Google OAuth、手機四模式和原頁影像。
 - 詳細維護 SOP：`learning/shadowing-reading/README.md`。
+
+- **FAM-S Lessons 11–23 英文整批草稿（2026-10-11）：** 已由私有 ASM_FAM-S_searchable.pdf OCR 轉為 **13 課、236 個有文字頁面**，原書 PDF164–409（排除原書空白頁），保留英文字元與章節／頁碼；7 張原書 Figure 局部圖像，沒有整頁掃描；**1,600 個公式候選 OCR 區塊、表格及題解仍待 Work 數學/來源 QA**，所以狀態一律 `DRAFT/NEEDS_REVIEW`，完成 Lessons=0。合併 HTML 原始私有 Google Drive ID `1F9cXPD_5GnFthGJ54rW0-fRpR7n1M-p6`（owner only, 750216 bytes），單一登入入口 `learning/fam-s-reading/lessons11-23/`；私人 Drive 壓縮檔 ID `1CCY53JMn9uEpL9JZWQDOTV23VufBQ8rr`（273926 bytes）；Chromium 13 課×4 版寬=52/52 以及合併版 4/4 測試無整頁溢出。**GitHub 只有 OAuth loader，不含原文。** 
