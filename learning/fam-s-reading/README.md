@@ -161,3 +161,11 @@ COMPLETE要求 WORKFLOW 所列全部門檻均有本版本證據。任一未通�
 - 原有 839 雙語對、829 MathML、原 57 解答區塊及 45 習題完整保留；既有 1,847 項靜態 QA PASS。
 - 局部瀏覽器驗收：Chromium about:blank 注入 HTML 與正式 reader CSS/JS，在 390／768／1440 寬三種模式（9 組）逐一點擊、展開及收合、檢查水平捲動，PASS。**這不是正式站點 OAuth／Safari／全部長公式視覺驗收**，正式狀態繼續 DRAFT。
 - 重用製作與驗收規格見 [WORKFLOW 的 ISLP 式解說卡](WORKFLOW.md#islp-式按需解說卡lesson-11-既有實作供後續指定-lesson-複用)，公開 GitHub 沒有私人 ASM 教材文字。
+
+## I. Lesson 12 private bilingual draft (2026-10-11)
+
+[Lesson 12 owner-authenticated reader](lesson12/) uses the pre-existing Google OAuth private file ID 19t-c5kwapBUsLD78QesoIuVrl_g1Q7bF. Source ASM PDF 194–209 / printed 181–196. It contains two bilingual core Examples 12A and 12B, 28 bilingual **question summaries** and original editorial solution derivations, 14 native expandable ISLP-style explanatory notes, 16 private source-page facsimiles and original graph for 12.21.
+
+Pre-update owner-only backup: 19OGWTpYu5mNIQPQZMrGc5tIjRPO66f5y. Live Drive readback 1,415,175 bytes, SHA256 6cd6c423b15d162831881e4d7df43bc0ec6011dd4e98ee8ec40eccc38aa1d594. Chromium local 4 widths × 3 reading modes = 12/12 button interaction PASS.
+
+**DRAFT:** all original English problem statements/choices and source solution paragraphs still require full exact transcription, bilingual line-by-line verification, and source math fidelity QA; use the original page facsimiles for authoritative content. Private OAuth/Safari real-device/TI physical keys not verified. See QA_SUMMARY.md.
