@@ -113,7 +113,7 @@
     const found = [];
     let n = heading.nextElementSibling;
     while(n) {
-      if (/^H[23]$/.test(n.tagName) && n.classList.contains("source-heading")) break;
+      if (/^H[23]$/.test(n.tagName)) break;
       if (/^H[23]$/.test(n.tagName) && /^\s*\d+\.\d+/.test(n.textContent)) break;
       if (n.matches?.(".pair")) found.push(n);
       else if(n.querySelectorAll) found.push(...n.querySelectorAll(".pair"));
