@@ -1,5 +1,5 @@
 ## FAM-S 英文網頁批次進度（2026-10-11）
-- 教材頁面：Lesson 3–10（PDF 65–71、72–90、92–99、100–103、106–125、126–139、140–147、148–163）共 **96 個原文內容頁**，跳過的 PDF 64、91、125、139 為來源空白頁；PDF 104–105 為 Part II 扉頁與導言，尚需另納入。Lesson 1–2 保留原有網頁。
+- 教材頁面：Lesson 3–10（PDF 65–71、72–90、92–99、100–103、106–125、126–139、140–147、148–163）共 **96 個來源頁面索引**（含 3 個空白頁），PDF 64、91 為課間空白頁未收錄；PDF 125、139、145 為來源空白頁，已在所屬課次保留空白錨點；PDF 104–105（Part II）及 146–147（Part III）為跨課扉頁與導言，尚需抽出成獨立章間頁。Lesson 1–2 保留原有網頁。
 - 產物：8 個分課的 OCR 英文 HTML 檔；每課完整來源 OCR 文字區塊、原頁順序與頁碼導航，數學候選 OCR 以醒目區塊提示；不嵌全頁 PDF 掃描，原圖 Figure/Table 自動結構化、題解互動和 OCR 數學準確度均尚待 Work 校訂。
 - Google Drive owner-only 原資料夾 `fam_HTML/ASM_FAM-S` 新增 ZIP `ASM_FAM-S_Lessons_03-10_English_OCR_DRAFTS.zip`，File ID `1k82qHR0hd-YhAL9hIq7uDVy80Zs7JkkI`，zip SHA256 `596345e751d750588893f1eb28e990111a165c2ef2b9bce09113046b7f3baee8`。私人 GitHub OAuth shells 分別在 `learning/fam-s-reading/lesson3/` 至 `lesson10/`，使用 JSZip 在使用者裝置本地從私人 ZIP 解壓；**公開 GitHub 無教材文字**。
 - Browser QA：8 Lessons × 320／390／768／1130px = **32 / 32**，頁數、頁碼連結、無水平溢出通過。**此為 OCR DRAFT，驗收 Lessons 數量維持 0**；不可將數學 OCR 當作正式精算答案。
