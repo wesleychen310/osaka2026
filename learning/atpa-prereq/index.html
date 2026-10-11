@@ -149,10 +149,10 @@ function addReadingTools(html,ch){
       : '';
   // Isolated ATPA layout. All original private figures, tables, equations and text remain in Drive.
   const bridgeAssets='<link rel="stylesheet" href="/osaka2026/learning/atpa-prereq/reader.css?v=20261011-3mode1">'
-    + '<link rel="stylesheet" href="/osaka2026/learning/atpa-prereq/explainers.css?v=20261011-basic2">'
+    + '<link rel="stylesheet" href="/osaka2026/learning/atpa-prereq/explainers.css?v=20261011-audit3">'
     + '<link rel="stylesheet" href="/osaka2026/learning/atpa-prereq/math-fix.css?v=20261011-math2">'
     + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/reader.js?v=20261011-3mode1"></scr'+'ipt>'
-    + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/explainers.js?v=20261011-basic2"></scr'+'ipt>'
+    + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/explainers.js?v=20261011-audit3"></scr'+'ipt>'
     + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/math-fix.js?v=20261011-math2"></scr'+'ipt>';
   return /<\/body\s*>/i.test(html)
     ? html.replace(/<\/body\s*>/i,match=>script+layout+chapterFix+bridgeAssets+match)
