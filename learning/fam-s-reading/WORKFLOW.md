@@ -1,66 +1,98 @@
-# ASM FAM-S｜私人雙語電子教科書製作與校對 SOP
-版本：2026-10-11｜維護對象：ChatGPT 對話與 Work
+# ASM FAM-S 製作與驗收 SOP
 
-## 專案入口
-- [31 課獨立目錄](https://wesleychen310.github.io/osaka2026/learning/fam-s-reading/)
-- [Lesson 11 試作網頁](https://wesleychen310.github.io/osaka2026/learning/fam-s-reading/lesson11/)
-- [原書拆分資料夾](https://drive.google.com/drive/folders/1oO8TXoMNP5Ef3JiWNEDNmrT1mI_WE-D0)（需使用者存取授權）
-- [私人工作資料夾](https://drive.google.com/drive/folders/1uiYt_Ce2UNFSr9C9YISh6f1BBnhnDUwe)（需使用者存取授權）
-- GitHub 本資料夾的 `lessonN/index.html` 是登入 Google Drive 的**公開網站殼**，教材正文與截圖僅放私人 Google Drive HTML；不得公開上傳到 GitHub。
+版本：2026-10-11。專案入口、技術結構、當前實際數量與版本唯一來源：[README.md](README.md)。本文件不維護另一套數量。Lesson11目前DRAFT，後續課僅可沿用結構，不能沿用未通過的驗收結論。
 
-## 共用閱讀器架構（Lesson 11 已導入）
-- 公開網站殼：`learning/fam-s-reading/lesson11/index.html`，負責 Google Drive 授權與載入私人教材；保留 Lesson 11 固定網址及原 Drive file ID。
-- 共用 UI CSS：`learning/fam-s-reading/reader.css`。共用互動 JS：`learning/fam-s-reading/reader.js`；後續 Lesson 共用，不要再將大量 CSS／JS 複製到每個教材 HTML。
-- 私人 Drive HTML：`ASM_FAM-S_Lesson_11_BILINGUAL_3MODES_DRAFT.html`，仍包含完整英文、繁中、45 題、原書 Figure／Table 及可展開解答，透過 `link`、`script` 引用共用 UI。
-- 已對具有 `data-tex` 的 145 組公式，改由 HTML MathML 原生呈現；保留 **原 LaTeX 字串** 供逐式修改。17 個尚未轉換的 SVG 保留來源內容供後續驗證。
-- 效率基準：私人 HTML 原約 2,489,295 bytes，改版後約 770,690 bytes，**約減少 69%**。轉換成 MathML 是排版架構調整，並不代表數學或 OCR 已全部驗證。
-- 共用閱讀模式使用 `localStorage` key `fams-reading-mode-v1`；支援 `en / zh / side`，登入後由私人內容的 script 初始化；`#solution-11-38` 等 deep link 自動展開對應解答。
-- 已做本機 Chromium 12 組（320／390／768／1130px × 三模式）與 45 題錨點結構測試；**跨網際網路的實際 Google 登入流程須另外驗證**。
-- 實作後先備份到私人 `_backup`，原位覆寫 Drive 檔案，保持 owner-only 權限。
+## 每課固定產物
 
-## 固定規格
-1. **一課一網址，一課一份私人 HTML**。Lesson 1–31 在目錄逐課展示；全部例題、習題、解答同屬於原課網頁。不要合併數課為一頁，也不要改變既有網址。
-2. **只有三種顯示模式**：`English`（全英文）、`全中文`（繁體中文）、`左右對照`（同一段英文在左、繁中在右）。即使 iPhone 直式仍採雙欄。可讓長公式水平滑動。介面不要標註「無上下對照」等無效敘述。
-3. **原文忠實保留且可選取／搜尋**：逐頁完整保留 headings、sections、Examples、Exercises、Solutions、Figures、Tables、notes、頁碼、公式編號、選項及原文句型；不得以摘要代替。
-4. **數學全部人工重打**為有來源的 LaTeX，轉成清楚的排版，保留 `data-tex` 等可編輯內容與複製按鈕。檢查分數、根號、指數、積分上下限、符號、括號、參數化及數字，不得直接把錯誤 OCR 當數學式。
-5. **所有 Figure / Chart / Table** 要放回原位置：表格優先 HTML `<table>`；複雜原圖裁切嵌入，保留編號、圖說與頁碼。數學符號不可用整頁截圖代替。
-6. **雙語逐段配對**：以 `<div class="pair"><div class="en">英文</div><div class="zh">中文</div></div>` 一組一組產生。翻譯使用台灣繁中，特別保留 `payment per loss`、`payment per payment`、`conditional on a payment being made` 等會改變公式選擇的英文。
-7. **題目與解答對位**：每題原英文、中文、數學式、選項／圖表、原題號及完整推導；解答設 `details/summary` 預設收合。不要讓答案在展開之前洩漏。
-8. **來源優先級**：ASM 原書 PDF 和原解答為該教材直接依據。OCR 僅做初步擷取，必須對照原頁。SOA FAM Tables 只作交叉檢查；不得未聲明就更換原書分配參數化或自行篡改答案。
-9. **章節完成標記要證據**：`DRAFT`＝網頁初稿；`EN-QA`＝原文與全部數學／圖表／解答逐式核對；`ZH-QA`＝完整譯文與英文對照；`UI-QA`＝排版／互動驗收；`COMPLETE`＝全課全部完成。數字「45 題已網頁化」不等於「45 題校對完成」。
-10. **只有修改指明的一課**；其他課次不受影響。
+公開：`lessonN/index.html`登入殼、共用`reader.css`／`reader.js`、README/SOP與不含教材的QA摘要。
 
-## 每次工作流程
-**1. 取得來源並建立頁碼對照**：先讀本 SOP、原書該 Lesson PDF、完整來源 PDF 對應頁、對應 Solutions，以及私人現有 HTML；核對課號、印刷頁、章節、題號、圖表和 Equation 編號。
+私人：原位HTML、來源頁碼清單、逐頁／逐式差異表、LaTeX清單、Figure裁圖、表格清單、逐題驗算程式與JSON、完整QA、發版回讀SHA256、備份記錄。所有原題、翻譯與完整解答均不得放公開repo。
 
-**2. 逐頁校對英文**：將 OCR 與原頁核對。逐題檢查每一條件、數字、小數點、根號、積分、選項、題源。英文必須是原文，不要擅自意譯；有疑問註明來源位置。
+## 12步執行流程
 
-**3. 重新編輯數學／表格／Figure**：以 LaTeX 寫分式、根號、積分等；先符號再代入。檢查數值、rounding 與原書答案是否一致。Tables 轉 HTML，Figure 裁局部原圖，與所屬題目並排放置。
+| 步驟 | 操作檔案／共用元件 | 常見錯誤 | 驗收方法 | 結果位置 |
+|---|---|---|---|---|
+| 1 找到原書Lesson | 完整ASM PDF、原書拆分PDF、既有私人HTML；先讀README | 只取正文，漏末尾解答／Quiz | 視覺檢查課首、末題、末解答、下一課起點 | 私人source-map及QA |
+| 2 確認頁碼與備份 | PDF頁腳；原Drive檔與_backup；Git起始commit | 以舊範圍當真、混0/1起算；改完才備份 | 每頁印刷／PDF頁對照；備份bytes、parent、owner-only核實 | 私人頁碼表、備份ID／時間／原因；README摘要 |
+| 3 擷取校對英文 | 私人HTML的pair/en；OCR只當助手 | 摘要取代原句、跨頁漏句、漏條件／選項、誤把原答案洩露在題目 | 逐頁比原PDF視覺；逐行差異表，涵蓋heading、note、question、solution | 私人fidelity-ledger；HTML來源頁標記 |
+| 4 數學轉LaTeX | data-tex；latex2mathml生成math；data-copy | Python/JS反斜線跳脫、貨幣$與公式混淆、漏根號／負號／範圍、只改MathML | 每式LaTeX↔原圖↔MathML三方校對；XML／指令檢查；保留字串清單 | 私人formula-manifest及逐式QA |
+| 5 圖表 | HTML table、tblscroll、figure、原PDF局部裁圖；reader.css/dialog | 裁掉軸、用OCR數字、整頁截圖代正文、重複表計成不同原圖 | 原欄列／表頭／數值／註記逐格比；看裁圖四邊；解碼及放大測試 | 私人assets與table/figure-ledger；私人HTML嵌圖 |
+| 6 繁中 | 每pair/zh，lang=zh-Hant-TW | 簡體、漏段、perloss/perpayment互換、把大於譯為至少 | 逐段回譯含義；專門檢查conditional、ordinary、franchise、meanexcess、截斷／設限 | 私人translation-ledger；原位HTML |
+| 7 逐題Solution | details/summary、原書solution、teaching-supplement、calc-check | 複製舊數字、混合分配直接平均條件均值、提前顯答案、靜默改原書 | 每題先符號後代入、獨立積分／離散／根求解；有第二方法時交叉比；原結果／驗算／差異分列 | 私人verify_math.py、math-verification.json及QA |
+| 8 套共用閱讀器 | lessonN登入殼；../reader.css/js?v=版本；pair、data-mode、唯一ID | 每課複製CSS、相對路徑以Drive預覽當基準、ID碰撞、舊bookmark失效 | 靜態查ID／hash／模式控制／預設details；Node語法；本機HTML載入共用檔案 | 私人static-qa；公開程式commit |
+| 9 三模式與操作 | reader.js，localStorage；CSS grid及局部overflow | 手機改上下欄、side隱藏英文、用overflowclip遮掉問題 | 下方12組全跑；模式保存、長式、Table、圖、題解、clipboard、放大、搜尋、重新整理 | 私人browser-local及browser-production分開 |
+| 10 原書完整性 | 來源清單與全頁PDF、數學／翻譯／題解ledger | 元素數量當完整證明、轉換成功當正確、漏原題選項 | 每頁每項簽核；所有未通過項寫頁碼／原因／修正；對照正式門檻 | 私人完整QA；公開僅摘要 |
+| 11 備份後原位發布 | 確認已有舊版backup；files.update原ID；Git commit/ref及Pages | 新建HTML換ID、放開權限、只有repo提交沒部署；readback未確認 | 發布前清點；原parent/name/permissions保持；重新fetch bytes相等及SHA；正式網址HTTP與UI | 私人publication-qa；README changelog |
+| 12 更新交接 | README現況／WORKFLOW步驟／私人QA／公開摘要 | 數量不同、舊通過結果留著、用漂亮版面標COMPLETE | 同一manifest產生數量；所有links可用；備份／commit／版本／未決問題明列 | GitHub文件commit、私人交接ZIP及QA |
 
-**4. 編寫繁中並校對三模式**：每英文段落必須有精準繁中對位。多義英文 wording 需解釋對公式選擇的意義。三模式切換不能遺失內容；不用上下排列。
+此順序不授權製作其他課。任務已授權原位發布時直接執行；不額外創造核准流程。若缺授權，只中斷依賴該授權的測試，先保存全部已完成工作。
 
-**5. 題解互動驗收**：每題確認編號唯一且連續、對應可展開解答、答案隱藏、表格／Figure 沒有錯位。核對 Quiz 和原書附解。教學附註與原書正文須分開。
+## 私人HTML與公式規約
 
-**6. 排版測試**：至少 `320 / 390 / 768 / 1130px` × `English / 中文 / 左右對照` 共 12 組；確認主文、複雜公式、含 Figure 的 Exercise、Solution 展開、連結、導覽、搜尋。
+1. en/zh直接子欄，段落一對一，英文原書與中文均可選字／搜尋。
+2. 公式以LaTeX字串為唯一編輯來源，重新生成MathML；上下標、分數、根號、分段、條件機率、積分、括號逐項核對。程式成功不等於原書正確。
+3. 公式／表格有自己捲動容器；整頁不可溢出或剪裁。320px仍左右雙欄。
+4. Figure只使用局部原裁圖；原圖與完整教材維持私人。保留original caption；補充中文圖說另標明。
+5. 每題有`exercise-N-i`，每解答`solution-N-i`。原書解答與教學補充分區；預設closed。不讀答案也能讀完題幹與選項。
+6. 逐鍵操作寫明計算機模式、負號鍵、指數／根號範圍、查表方式。TI-30XB不能直接假設有normalCDF/invNorm。數值重算與實體按鍵驗收分開。
 
-**7. 先備份再原位更新**：在私人 Drive 原資料夾內的 `_backup` 新增帶時間及原因的舊版備份，核實檔案內容與權限後，用 Google Drive **files.update** 覆寫原 HTML，**保留相同 file ID／檔名／父資料夾與 owner-only 權限**。不要另建新檔造成網站斷鏈。更新後再讀回 bytes、驗證權限及原網址開啟情況。
+## 瀏覽器矩陣：每一版本重新跑
 
-**8. 紀錄與交接**：註明課號、完成的印刷頁／題號、改動／驗證的數學式／圖表、待修項目、備份、Drive 檔案 ID 是否維持、12 組測試證據。更新此 SOP 時必須保持同步。
+| 寬度 | 全英文 | 全中文 | 左右對照 |
+|---:|---|---|---|
+| 320px | 記錄結果／證據 | 記錄結果／證據 | 記錄結果／證據 |
+| 390px | 同上 | 同上 | 同上 |
+| 768px | 同上 | 同上 | 同上 |
+| 1130px | 同上 | 同上 | 同上 |
 
-## Lesson 11 當前交接
-- **Deductibles**：原書印刷頁 **151–179**，完整 PDF 頁 **164–193** 左右（末頁空白），以原書頁腳再核。
-- **主文** 11.1 Ordinary and franchise deductibles；11.2 Payment per loss with deductible；11.3 Payment per payment with deductible。
-- **目前已有** Example 11A–11K、Table 11.1、Exercise 11.1–11.45 的三模式 HTML 與展開解答，以及圖表／部分重新編輯的數學式。
-- **仍是 DRAFT**：全部英文精確性、逐題公式、圖表與翻譯尚待完整核對。留意可能殘存的 OCR 備查區或過期進度文字。重點檢查 11.2 的 Burr 參數根號與 11.20 的條件 `e_X(100) = (5/3)e_X(50)`，且核對 Quiz 11-1。
-- **Lesson 11 私人工作檔**：在上述私人資料夾內搜尋 `ASM_FAM-S_Lesson_11_BILINGUAL_3MODES_DRAFT.html`；不要重新建一個 Drive 檔取代它。
-- **當前優先任務**：Lesson 11 英文逐頁／公式數字／題解 QA、補全繁中與刪除重複 OCR，完成後再依此樣板推進其他課。
+每格記錄時間、瀏覽器與版本、viewport、content-version及SHA、主頁scrollWidth/clientWidth、雙欄computed grid、最長公式、Table11.1、原圖、長題幹、五選項與解答展開的實際畫面。CSS有grid不等於實測PASS。
 
-## Lesson 11 最新校對結果｜2026-10-11
-- **架構與互動 QA 完成，內容仍為 DRAFT**。Google Drive 原檔已原位更新，仍保留 45 題、45 份收合解答與 Quiz 11-1 收合解答。
-- 171 個 MathML 公式、SVG 公式零殘留；包含 Table 11.1 與第 11.3／11.12／11.26 題選項。12 組手機至桌機的顯示測試通過；完成 45 個獨立數值驗算項目。
-- 各題補上原書題目與解答印刷頁連結，點選可打開收合的 OCR 備查頁。
-- **11.31 作者報告 d=1949**；依未四捨五入的 lognormal 公式驗算約 d=1970.43。頁面已明確區分原書與高精度驗算。
-- **尚須完成**：45 題全部原始英文逐字復原、完整原書題解逐行重建、繁中逐段忠實檢驗、所有圖表逐頁核查、iPhone/Safari 與私人登入線上實測，才能標示 COMPLETE。
+另外逐項測：
 
-## 新對話／Work 直接使用
-> 請先讀這份 SOP，再處理我指定的 ASM FAM-S Lesson。從私人 Google Drive 取得該課原稿和原書 PDF，對照正文、數學、圖表、題目、解答，維持一課一網址、三種閱讀模式、可展開解答。嚴格區分 DRAFT 與 COMPLETE。更新前先到 _backup 備份，然後原位更新原 Drive file ID，交付逐頁 QA 紀錄。
+- 點三模式，再重新整理與改尺寸；按鈕aria-pressed、正文語言、localStorage一致。
+- `#exercises`未登入直接開 → Google登入 → 原錨點；重整、既有權杖、重新授權及切帳號分開記。
+- 題目／例題／Quiz／solution直接hash可達，所有祖先details展開，導覽不遮住目標；搜尋後深層連結能解除篩選。
+- 未展開解答不顯答案；展開、再收合；37題各五選項，非選擇題不造選項。
+- LaTeX按鈕與行內鍵盤複製，實際讀剪貼簿核對原字串；失敗有通知。
+- 圖無破圖、原圖比例／標籤完整、dialog可放大／捲動／關閉；表格局部滑動。
+- iPhone Safari、iPad Safari、Mac Safari設備／OS／版本另記。桌面Chromium縮成390px不能稱iPhone實機。
+
+本機與正式網站結果分兩份。本機瀏覽器不存在或工具無resize能力時寫BLOCKED，不能承接舊紀錄或假造12組結果。恢復有可用瀏覽器後接續同版本，不重新製作教材。
+
+## COMPLETE 正式清單
+
+所有勾選都需指向本版本私人QA證據；未勾選需列印刷頁／PDF頁、原因與修正建議。
+
+- [ ] 原書全部正文完整
+- [ ] 英文逐字核對原書
+- [ ] 繁中完整且逐段忠實
+- [ ] 所有數學公式有正確LaTeX原始碼
+- [ ] 所有公式已核對原書
+- [ ] 全部Figure完整
+- [ ] 全部Table完整
+- [ ] Example11A–11K完整
+- [ ] Quiz11-1完整
+- [ ] Exercises11.1–11.45完整
+- [ ] 每題原書選項完整
+- [ ] 每題Solution與教學推導完整
+- [ ] 數值結果重新驗算
+- [ ] 三種閱讀模式正常
+- [ ] iPhone直式左右雙欄正常
+- [ ] 所有章節與解答連結正常
+- [ ] 私人存取及原網址正常
+- [ ] 正式發布成功
+- [ ] README已建立並更新
+- [ ] WORKFLOW已更新
+- [ ] 完整QA紀錄已保存
+
+這是每課空白門檻；Lesson11實際狀態在私人QA與[公開摘要](QA_SUMMARY.md)，不能把本清單當成已通過。
+
+## 原位更新與還原
+
+原Drive HTML在相同parent下的_backup複製舊bytes；名稱含原檔名、UTC或明確時區時間、原因。核對owner-only後才更新原fileId。Git先保存起始commit，變更只列必要paths；更新ref用expected_sha、force=false保護他人變更。更新後重新fetch原Drive文件、比較bytes／SHA及parent/name/permissions；正式Pages再查新版CSS/JS/登入殼。私人檔bytes與公開程式有獨立版本，兩者都要記。
+
+還原：把backup内容覆回原Drive ID；Git使用可追溯revert commit。不要換ID、改網址或公開教材。
+
+## 接續入口
+
+其他Work先依[README末尾啟動指令](README.md#g-新-work-啟動指令)，讀私人QA的未決列表，再開始指定Lesson。禁止複製舊的「完成數量／12組通過」；每課／每版本自行清點及實測。
