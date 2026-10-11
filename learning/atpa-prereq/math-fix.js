@@ -47,7 +47,7 @@ function typesetSelected(){
   if(!document.createElementNS)return 0;
   let count=0;
   document.querySelectorAll(".equation").forEach(eq=>{
-    const match=eq.querySelector(".page-ref")?.textContent.match(/\(4\.(1|2|3|4|6|7|8|9|35|36|37)\)/);
+    const match=(eq.querySelector(".page-ref")?.textContent||eq.textContent||"").match(/\(4\.(1|2|3|4|6|7|8|9|35|36|37)\)/);
     if(!match)return;
     const key="4."+match[1], markup=all[key];
     if(!markup)return;
