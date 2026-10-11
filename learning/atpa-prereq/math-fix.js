@@ -107,6 +107,9 @@ function getModal(){
   modal._show=image=>{
     const clone=image.cloneNode(true);clone.removeAttribute("width");clone.removeAttribute("height");
     clone.removeAttribute("style");clone.classList.add("atpa-math-zoomed");
+    const displayed=Number.parseFloat(image.style.width)||image.naturalWidth||400;
+    const zoomWidth=Math.min(2400,Math.round(Math.max(displayed,image.naturalWidth||0)*1.35));
+    clone.style.setProperty("width",zoomWidth+"px","important");
     stage.replaceChildren(clone);
     modal.hidden=false;document.body.style.overflow="hidden";close.focus();
   };
