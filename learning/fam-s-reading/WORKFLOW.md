@@ -140,3 +140,8 @@ For problem work, distinguish readable English problem summaries, Traditional Ch
 - DRAFT scope: core concepts, English question meanings, solution derivations and key steps reconstructed; exhaustive verbatim bilingual source/solutions transcription and TI/Safari hardware validation pending. Do not label COMPLETE.
 
 Implementation SOP delta: search existing Drive assets and landing pointers (may point to a ZIP instead of a dedicated HTML); preserve multi-lesson archives; upload dedicated owner-only HTML; update login shell from JSZip to direct `response.text()`; check returned file's privacy and re-fetch checksum before publication.
+
+
+### Lesson 4 implementation notes (2026-10-12)
+
+Check original lesson span via page headings and full exercise count; page 83 includes Exercise 4.24. Preserve existing multi-lesson ZIP and its file ID. Create a new owner-only HTML in the same private folder, retain original page scans and searchable OCR, and maintain English/Traditional Chinese study text and separate editorial answers. Update only the public OAuth shell to direct `response.text()` loading of the private HTML (remove `JSZip` dependency). Verify file privacy, byte size, source hash, 3 reading modes at mobile and desktop widths. Full verbatim and real Safari login tests stay pending until executed.
