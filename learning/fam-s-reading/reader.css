@@ -65,3 +65,8 @@ body[data-mode="side"] .mathvector math,body[data-mode="side"] .formula-render m
 .quiz-solution{background:#fff;margin:14px 0}.quiz-solution .sol-body{padding:12px}
 .calc-check{margin:13px 0;padding:12px 14px;border:1px solid #d8e4ed;border-left:3px solid #668a9e;border-radius:8px;font:13px/1.65 -apple-system,'PingFang TC',sans-serif}
 .calc-check strong{font-weight:750}.calc-check p{margin:8px 0 0}
+
+/* Original source choice formulas, text in private lesson HTML. */
+.answer-options .option-math{display:inline-block;max-width:100%;overflow-x:auto;vertical-align:middle;-webkit-overflow-scrolling:touch}
+.answer-options .option-math math{display:inline-block;white-space:nowrap;font-size:13px;vertical-align:middle}
+.answer-options>div:has(.option-math){overflow-x:auto}
