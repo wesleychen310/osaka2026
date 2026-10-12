@@ -1,7 +1,7 @@
 # SOA ATPA 官方 Modules｜私人雙語電子教科書
 
-版本：2026-10-12 · batch 4（1.2.19–1.2.28）
-狀態：**四批共 52/60 個小節已有私人 Drive 教材及 GitHub 閱讀器路由；來源文字與結構已靜態核對。GitHub Pages live、真實 OAuth／iPhone Safari E2E 待驗收。**
+版本：2026-10-12 · batch 5（1.3.1–1.3.8）
+狀態：**五批共 60/60 個小節已有私人 Drive 教材及 GitHub 閱讀器路由；來源文字與結構已靜態核對。GitHub Pages live、真實 OAuth／iPhone Safari E2E 待驗收。**
 
 ## 1. 網站與路徑
 
@@ -82,7 +82,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 ### 新增下一批工作範圍
 - Part 03：1.2.1–1.2.18 ✅ 原文雙語來源及 GitHub 路由已完成；E2E 待驗收
 - Part 04：1.2.19–1.2.28 ✅ Summary + 8 Knowledge Checks，教師推導解答、互動作答（實機待驗收）
-- Part 05：1.3.1–1.3.8（Life Insurance Underwriting Case Study + Sample Answers + Bibliography）
+- Part 05：1.3.1–1.3.8 ✅（Life Insurance Underwriting Case Study + SOA 原書 Sample Answers + Bibliography）
 - Part 06：全 Module 73 頁內容核對與實機完整驗收
 
 ## 7. 待續建清單
@@ -90,7 +90,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 - Part 02：1.1.13–1.1.24 ✅ Google Drive 原稿、GitHub 路由已建立（私有實機 QA 待驗收）
 - Part 03：1.2.1–1.2.18 ✅ 原稿與路由已部署程式碼（E2E 待驗收）
 - Part 04：1.2.19–1.2.28 ✅ Drive 內容及 GitHub 路由完成（實機待驗收）
-- Part 05：1.3.1–1.3.8
+- Part 05：1.3.1–1.3.8 ✅ Drive 私人 HTML、GitHub 網站與相鄰批次導航已建置；OAuth／實機 QA 待驗收
 - Part 06：完整 73 頁來源、8 Knowledge Checks、3 Case Study Questions、跨裝置/模式、法規補充與最終驗收。
 
 ## 分享權限核驗狀態
@@ -136,3 +136,19 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 ### 下一批（Part 05）
 
 §1.3.1–1.3.8，原書 p.63–73（含跨頁 bibliography）：保留壽險核保案例全部背景、3 題 Question 的原題、變數選項、教材原有 Sample Answers 以及 Bibliography，並將「SOA 原有 Sample Answers」與新增教師講解清楚區分。
+
+## 2026-10-12 第五批交付｜Case Study + Original Sample Answers + Bibliography
+
+- **範圍**：SOA ATPA Module 1 §1.3.1–1.3.8；原始教材第 63–73 頁，合計 8 個編號小節。
+- **原始資料**：`ATPA_Official_Modules_1-4_Combined(1).pdf`（Module 1 Created 2023-04-06），來源 PDF p.63–73，逐頁以 PyMuPDF 擷取文字區塊並搭配頁面渲染核對。
+- **Google Drive 授權檔**：`ATPA_Module_1_Part_05_1.3.1-1.3.8_雙語私人教材.html`，raw `text/html`，File ID `1EqGTGWeCtvEQHiuJKXhjUdecdSjNol2Z`，**45,631 bytes**，SHA256 `1951b28ae1fecce3bbc8e3090ac5001fd728d3156234cd485c1eb5ad9bb79a4c`；父資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`。
+- **讀取權限核對**：Google Drive `get_file_metadata` 返回 `permission_metadata_available`；2 個明確指定 `user` grant（owner 及指定 reader），沒有 `anyone` 或 `domain`，沒有為此次發佈改動分享設定。
+- **網站入口**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=5#s131
+- **內容精確性**：8/8 原書小節；65 個英文原文／繁體中文 paired blocks；20/20 個原書建議候選變數（Component Table27）；3/3 個原書 Sample Answer panels（Table28–30）；24/24 個原書 Bibliography entries（Table31）。65/65 個英文字區塊按所在原書 PDF 頁面正規化後均可查得；分頁 67–68 的跨頁 Table28 已合併回同一題解答。
+- **原書來源與個人分析分層**：`soa-sample-answer` 放原書英文 Sample Answers + 忠實繁中翻譯，使用原生 `details` 預設收合（先自行解題再展開）；`tutor` 和 `phrases` 是私人教師額外補充，8 節各 1 組教學卡，合計 33 個 English Reusable Phrases。不可把額外評論誤標為 SOA 官方解答。
+- **書目**：保留 24 筆原文引文與原書次序，中文補譯標題／引用主旨。保留原書提供的 `atpa_m1_bibliography.pdf` 外部連結；2023 年所引用的法規與檔案網址不保證 2026 年仍有效。
+- **忠實性與編輯註記**：保留 1.3.1 來源 Panel Header 誤寫「Module 4 Learning Objectives」；保留 1.3.4 原文 `If your model can predicting…` 文法錯誤；Q2 之「數千棵決策樹平均」未自行升格為原書明言「Random Forest」；其餘技術延伸已明標「教師補充」。
+- **GitHub**：`reader.js` SOURCE 新增 `1:5` raw `?alt=media` 私人載入，前後導覽新增 `5 → #s131`；`index.html` 五批導覽，標明 **60/60 個編號小節均有教材**；`reader.css` 為原書 Panel、Sample Answers 展開、手機長文獻列表增加樣式。公開 GitHub 程式不包含私有教材正文。
+- **仍需處理的品質邊界**：Google OAuth 的登入用戶操作、GitHub Pages CDN 可用性、iPhone/iPad/Mac 上四種模式之實際互動及視覺品質，尚未完成實機端對端驗收；不能將程式碼提交等同實機通過。另外，原始 PDF 第 1–3 頁封面／目錄在本五批章節內容之外，後續正式整課驗收可另行補足。
+- **後續**：第六批只做整合品質驗收：全部五批段落完整性、原書 Figure／Tables、四模式、Google Auth、導航、知識檢核互動、Sample Answers 展開、Safari 顯示及版型回歸，並修正任何已確認問題。
+
