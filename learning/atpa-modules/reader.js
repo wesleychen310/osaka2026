@@ -6,7 +6,8 @@ const SESSION_KEY="hanami-kyoto-google-token-v3";
 const MODE_KEY="atpa-official-module-language-v1";
 const SOURCE={
  "1:1":{fileId:"1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA",module:"1",part:"1",label:"1.1.1–1.1.12",sourcePages:"4–18",kind:"native"},
- "1:2":{fileId:"1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2",module:"1",part:"2",label:"1.1.13–1.1.24",sourcePages:"19–30",kind:"raw"}
+ "1:2":{fileId:"1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2",module:"1",part:"2",label:"1.1.13–1.1.24",sourcePages:"19–30",kind:"raw"},
+ "1:3":{fileId:"1degysT_iLCSdWHtoj9HuZsgQVOOQ4lqc",module:"1",part:"3",label:"1.2.1–1.2.18",sourcePages:"32–52",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -97,10 +98,16 @@ function mount(text){
  const footer=document.querySelector("#reader-wrap .reader-footer");
  if(footer){
    footer.querySelectorAll(".part-switch").forEach(n=>n.remove());
-   const next=selected.part==="1"?{part:"2",text:"下一批：§1.1.13–1.1.24 →"}:{part:"1",text:"← 上一批：§1.1.1–1.1.12"};
-   const a=document.createElement("a");a.className="part-switch";
-   a.href="?module=1&part="+next.part+"#"+(next.part==="1"?"s111":"s1113");
-   a.textContent=next.text;footer.prepend(a);
+   const ordered=Object.values(SOURCE).filter(x=>x.module===selected.module).sort((a,b)=>Number(a.part)-Number(b.part));
+   const at=ordered.findIndex(x=>x.part===selected.part);
+   for(const [candidate,prefix] of [[ordered[at-1],"← 上一批"],[ordered[at+1],"下一批"]]){
+     if(!candidate)continue;
+     const a=document.createElement("a");a.className="part-switch";
+     const firstId=candidate.part==="1"?"s111":candidate.part==="2"?"s1113":"s121";
+     a.href="?module=1&part="+encodeURIComponent(candidate.part)+"#"+firstId;
+     a.textContent=prefix+"：§"+candidate.label+(prefix==="下一批"?" →":"");
+     footer.prepend(a);
+   }
  }
  show("gate",false);show("reader-wrap",true);
  loaded=true;applyMode(preferredMode());
