@@ -1,0 +1,13 @@
+/* Source-only Module 2 additions; Module 1 UI remains unchanged. */
+.study-content .source-figure{margin:20px 0 26px;padding:13px;border:1px solid #e0e8ed;border-radius:10px;background:#fafcfd}
+.study-content .source-figure img{width:100%;height:auto;display:block;max-width:740px;margin:auto}
+.study-content .source-figure figcaption{font-size:12px;line-height:1.7;color:#617a8c;margin:11px 4px 0}
+.source-table-wrap{overflow:auto;max-width:100%;margin:16px 0;-webkit-overflow-scrolling:touch}
+.source-data-table{width:100%;min-width:600px;border-collapse:collapse;font:13px/1.65 Georgia,"PingFang TC",serif}
+.source-data-table th,.source-data-table td{border:1px solid #dfe6eb;padding:9px 8px;text-align:left;vertical-align:top}
+.source-data-table thead{background:#eff4f7;color:#28546b}
+.source-data-table tbody th{background:#f8fafb;font-weight:700}
+.source-data-table caption{caption-side:top;text-align:left;color:#567387;font:600 12px/1.7 -apple-system,"PingFang TC",sans-serif;margin:0 0 7px}
+.source-bullet{padding-left:8px}
+html[data-reading-mode=en] .source-figure figcaption{display:none}
+@media(max-width:480px){.source-table-wrap{margin:15px -5px}.source-data-table{font-size:12px}.source-table-wrap th,.source-table-wrap td{padding:7px 6px}}
