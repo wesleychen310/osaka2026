@@ -87,3 +87,15 @@ details.tutor p,details.phrases p{margin:7px 4px 12px;font-size:14px;line-height
 @media(max-width:790px){.shell{padding:0 12px}.study-layout{display:block}.toc{position:static;max-height:none;margin-bottom:12px;display:flex;overflow-x:auto;align-items:center;gap:5px;padding:7px;white-space:nowrap;-webkit-overflow-scrolling:touch}.toc-head{margin:0 8px;white-space:nowrap}.toc a{display:inline-flex;align-items:center;white-space:nowrap;border:1px solid var(--line);padding:6px 9px}.toc-label{display:none}.reader-status{display:none}.lesson{scroll-margin-top:82px}}
 @media(max-width:480px){.shell{padding:0 10px}.site-head{padding-top:20px}.topline{font-size:10px}.mode-bar{padding:4px;gap:2px}.mode-bar button{font-size:12px;padding:8px 2px}.lesson{padding:13px 11px;border-radius:11px}.lesson .pair>.original,.lesson .pair>.translation{font-size:15.5px}html[data-reading-mode=parallel] .pair>.original,html[data-reading-mode=parallel] .pair>.translation{font-size:12.7px;line-height:1.72}html[data-reading-mode=parallel] .pair>.original{padding-right:7px}html[data-reading-mode=parallel] .pair>.translation{padding-left:7px}html[data-reading-mode=swipe] .pair>.original,html[data-reading-mode=swipe] .pair>.translation{font-size:19px}.reader-footer{display:block}}
 @media print{body{background:white}.site-head,.site-foot,.mode-bar,.toc,.reader-footer{display:none!important}.study-layout{display:block}.lesson{break-inside:avoid;border:0}.pair{break-inside:avoid}}
+
+
+/* Module 1: stable links to completed private content batches. */
+.module-card.available:hover{border-color:var(--line)}
+.part-links{width:100%;display:grid;gap:8px;margin-top:14px}
+.part-links>a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:9px;min-height:53px;padding:10px 12px;border:1px solid #cddfe8;border-radius:12px;background:#f2f7fa;text-decoration:none;color:var(--blue)}
+.part-links>a:hover,.part-links>a:focus-visible{background:#e4f0f6;border-color:#8cb2c5}
+.part-links>a>span{font-size:13px;font-weight:800}
+.part-links>a>small{min-width:0;white-space:normal;color:#5a7788;font-size:11px}
+.part-links>a>b{font-weight:800}
+.reader-footer>a.part-switch{font-size:13px;font-weight:750;padding:5px 10px;border:1px solid var(--line);border-radius:9px;background:#edf3f7;white-space:nowrap}
+@media(max-width:480px){.part-links>a{grid-template-columns:auto minmax(0,1fr) auto}.reader-footer>a.part-switch{display:inline-flex;margin:8px 0}}
