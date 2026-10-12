@@ -154,9 +154,10 @@ function addReadingTools(html,ch){
     + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/reader.js?v=20261012-4mode-swipe1"></scr'+'ipt>'
     + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/explainers.js?v=20261011-audit3"></scr'+'ipt>'
     + '<scr'+'ipt defer src="/osaka2026/learning/atpa-prereq/math-fix.js?v=20261011-math2"></scr'+'ipt>';
+  const chapter5Swipe=ch==='5' ? '<link rel="stylesheet" href="/osaka2026/learning/atpa-prereq/ch05-swipe.css?v=20261012-ch05-swipe1">' : '';
   return /<\/body\s*>/i.test(html)
-    ? html.replace(/<\/body\s*>/i,match=>script+layout+chapterFix+bridgeAssets+match)
-    : html+script+layout+chapterFix+bridgeAssets;
+    ? html.replace(/<\/body\s*>/i,match=>script+layout+chapterFix+bridgeAssets+chapter5Swipe+match)
+    : html+script+layout+chapterFix+bridgeAssets+chapter5Swipe;
 }
 
 function filterBridge(doc,ch){
