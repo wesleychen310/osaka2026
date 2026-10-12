@@ -1,4 +1,4 @@
-/* SOA ATPA private bilingual reader. Public UI only; all source text remains in owner-only Google Drive. */
+/* SOA ATPA private bilingual reader. Public UI only; all source text remains in restricted Google Drive. */
 (()=>{"use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
 const SCOPE="https://www.googleapis.com/auth/drive.readonly";
@@ -13,11 +13,20 @@ const SOURCE={
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
-const mod=params.get("module"),part=params.get("part")||"1";
-const selected=SOURCE[mod+":"+part]||null;
-let tokenClient=null,loaded=false;
-const show=(id,yes)=>{const x=$(id);if(x)x.hidden=!yes};
-function status(text){const node=$("gate-status");if(node)node.textContent=text}
+const requestedModule=params.get("module");
+const selected=!requestedModule||requestedModule==="1";
+const SOURCES=Object.values(SOURCE).sort((a,b)=>Number(a.part)-Number(b.part));
+const CHAPTERS={
+ "1.1":{title:"Ethical Framework",zh:"倫理架構"},
+ "1.2":{title:"Regulations and Standards of Practice",zh:"法規與精算實務準則"},
+ "1.3":{title:"Case Study",zh:"壽險核保案例"}
+};
+const EXPECTED_COUNTS=[12,12,18,10,8];
+const FIRST_IDS=["s111","s1113","s121","s1219","s131"];
+const SESSION_PREFIX="hanami-kyoto-google-token-v3";
+let tokenClient=null,loaded=false,allLessons=[],scrollScheduled=false;
+const show=(id,visible)=>{const n=$(id);if(n)n.hidden=!visible};
+function status(message){const n=$("gate-status");if(n)n.textContent=message}
 function loadSaved(){
  try{const o=JSON.parse(sessionStorage.getItem(SESSION_KEY)||"null");
  if(o?.access_token&&Number(o.expires_at)>Date.now()+90000)return o.access_token;
@@ -32,55 +41,71 @@ function remember(t){
 function clearToken(){sessionStorage.removeItem(SESSION_KEY);try{window.HanamiAuth?.forget?.()}catch(_){}}
 function cleanSource(doc){
  const main=doc.querySelector("#atpa-source");
- if(!main)throw new Error("找不到教材內容，請檢查私人 Google 文件格式。");
+ if(!main)throw new Error("找不到私人教材內容，請檢查原始檔。");
  main.querySelectorAll("script,style,iframe,object,embed,form,input,button").forEach(n=>n.remove());
  main.querySelectorAll("*").forEach(n=>{
-   [...n.attributes].forEach(a=>{if(a.name.toLowerCase().startsWith("on"))n.removeAttribute(a.name)});
+   [...n.attributes].forEach(a=>{if(a.name.toLowerCase().startsWith("on")||a.name.toLowerCase()==="style")n.removeAttribute(a.name)});
    if(n.tagName==="A"){
-     const href=n.getAttribute("href")||"";
-     if(!/^https:\/\/|^http:\/\//i.test(href))n.removeAttribute("href");
-     else {n.setAttribute("target","_blank");n.setAttribute("rel","noopener noreferrer")}
+     const url=n.getAttribute("href")||"";
+     if(!/^https:\/\//i.test(url))n.removeAttribute("href");
+     else{n.setAttribute("target","_blank");n.setAttribute("rel","noopener noreferrer")}
    }
  });
  const lessons=[...main.querySelectorAll("section.lesson")];
- if(!lessons.length)throw new Error("這份來源目前沒有可閱讀的小節。");
- for(const s of lessons){
-   if(s.querySelectorAll(".pair").length===0)throw new Error("小節 "+s.dataset.num+" 未找到原文與翻譯段落。");
-   s.querySelectorAll(".pair").forEach(pair=>{
-     if(!pair.querySelector(":scope>.original")||!pair.querySelector(":scope>.translation"))throw new Error("發現缺少雙語配對的段落。");
+ if(!lessons.length)throw new Error("來源沒有可閱讀的小節。");
+ for(const sec of lessons){
+   if(!sec.dataset.num||!sec.id)throw new Error("來源缺少原書編號或小節識別碼。");
+   const pairs=sec.querySelectorAll(".pair");
+   if(!pairs.length)throw new Error("§"+sec.dataset.num+" 缺少雙語配對。");
+   pairs.forEach(p=>{
+     if(!p.querySelector(":scope>.original")||!p.querySelector(":scope>.translation"))
+       throw new Error("§"+sec.dataset.num+" 有未配對的英文或中文段落。");
    });
  }
- return {main,lessons};
+ return{main,lessons};
 }
 function localizeLabels(mode){
- const nodes=document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3");
- nodes.forEach(node=>{
-   if(!node.dataset.origFull)node.dataset.origFull=node.textContent;
-   const raw=node.dataset.origFull;
-   const split=raw.includes("／")?"／":null;
-   if(!split)return;
-   const [a,b]=raw.split(split);
-   node.textContent=mode==="en"?a.trim():mode==="zh"?(b||a).trim():raw;
+ document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(n=>{
+   if(!n.dataset.origFull)n.dataset.origFull=n.textContent;
+   const full=n.dataset.origFull;
+   if(!full.includes("／"))return;
+   const [en,zh]=full.split("／");
+   n.textContent=mode==="en"?en.trim():mode==="zh"?zh.trim():full;
+ });
+ document.querySelectorAll(".toc-link").forEach(a=>{
+   const en=a.dataset.en||"",zh=a.dataset.zh||"";
+   const node=a.querySelector(".toc-label");
+   if(node)node.textContent=mode==="en"?en:zh||en;
  });
 }
 function applyMode(next){
- const allowed=["zh","en","parallel","swipe"];
- const mode=allowed.includes(next)?next:"zh";
+ const mode=["zh","en","parallel","swipe"].includes(next)?next:"zh";
  document.documentElement.dataset.readingMode=mode;
- $("mode-bar")?.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode)));
+ $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode)));
  show("mode-hint",mode==="swipe");
  document.querySelectorAll("#study-content .pair").forEach(p=>{
-   if(mode==="swipe"){p.tabIndex=0;p.scrollLeft=0;p.setAttribute("aria-label","雙語內容：左右滑動切換英文與中文")}
+   if(mode==="swipe"){p.tabIndex=0;p.scrollLeft=0;p.setAttribute("aria-label","雙語對照：左右滑動切換英文和中文")}
    else{p.removeAttribute("tabindex");p.removeAttribute("aria-label")}
  });
  localizeLabels(mode);
  try{localStorage.setItem(MODE_KEY,mode)}catch(_){}
 }
 function preferredMode(){try{return localStorage.getItem(MODE_KEY)||"zh"}catch(_){return "zh"}}
-$("mode-bar")?.addEventListener("click",e=>{
- const btn=e.target.closest("button[data-mode]");
+$("mode-bar")?.addEventListener("click",event=>{
+ const btn=event.target.closest("button[data-mode]");
  if(btn)applyMode(btn.dataset.mode);
 });
+function toggleMenu(open){
+ document.body.classList.toggle("toc-open",open);
+ $("toc-trigger")?.setAttribute("aria-expanded",String(open));
+ show("toc-backdrop",open);
+ if(!open)$("toc-trigger")?.blur();
+}
+$("toc-trigger")?.addEventListener("click",()=>toggleMenu(!document.body.classList.contains("toc-open")));
+$("toc-close")?.addEventListener("click",()=>toggleMenu(false));
+$("toc-backdrop")?.addEventListener("click",()=>toggleMenu(false));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.body.classList.contains("toc-open")){toggleMenu(false);$("toc-trigger")?.focus()}});
+window.addEventListener("resize",()=>{if(window.innerWidth>800&&document.body.classList.contains("toc-open"))toggleMenu(false)});
 
 /* Knowledge Check UI is created after sanitization; no questions/answers live in the public repository. */
 function activateQuizzes(){
@@ -140,54 +165,130 @@ function activateQuizzes(){
  });
 }
 
-function mount(text){
- const doc=new DOMParser().parseFromString(text.replace(/^\uFEFF/,""),"text/html");
- const parsed=cleanSource(doc);
- $("study-content").replaceChildren(...[...parsed.main.children].map(c=>document.importNode(c,true)));
- const nav=$("toc");nav.replaceChildren();
- const head=document.createElement("div");head.className="toc-head";head.textContent="Module 1｜"+parsed.lessons.length+" 個小節";nav.append(head);
- for(const section of parsed.lessons){
-   const a=document.createElement("a");a.href="#"+section.id;
-   const num=document.createElement("span");num.className="toc-num";num.textContent=section.dataset.num;
-   const title=document.createElement("span");title.className="toc-label";title.textContent=section.querySelector(".zh-heading")?.textContent||section.querySelector("h2")?.textContent||"";
-   a.append(num,title);nav.append(a);
+function makeChapter(id,key){
+ const chapter=CHAPTERS[key],block=document.createElement("div");
+ block.id=id;block.className="chapter-heading";
+ const tag=document.createElement("span");tag.className="chapter-code";tag.textContent="SECTION "+key;
+ const zh=document.createElement("h2");zh.className="chapter-heading-zh";zh.textContent=chapter.zh;
+ const en=document.createElement("div");en.className="chapter-heading-en";en.textContent=chapter.title;
+ block.append(tag,zh,en);return block;
+}
+function makeNavigation(lessons){
+ const toc=$("toc");toc.replaceChildren();
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 60 小節";toc.append(count);
+ for(const [chapter,meta] of Object.entries(CHAPTERS)){
+   const details=document.createElement("details");details.className="toc-group";details.open=true;
+   const summary=document.createElement("summary");
+   const num=document.createElement("span");num.className="group-num";num.textContent=chapter;
+   const label=document.createElement("span");label.className="group-label";label.textContent=meta.zh;
+   summary.append(num,label);
+   const links=document.createElement("div");links.className="toc-links";
+   const sectionHead=document.createElement("a");sectionHead.className="toc-chapter-link";
+   sectionHead.href="#chapter"+chapter.replace(".","");
+   sectionHead.textContent="↳ "+(chapter==="1.1"?"章節開頭":chapter==="1.2"?"法規與實務準則":"案例研究");
+   links.append(sectionHead);
+   lessons.filter(s=>s.dataset.num.startsWith(chapter+".")).forEach(sec=>{
+     const a=document.createElement("a");a.href="#"+sec.id;a.className="toc-link";a.dataset.id=sec.id;
+     a.dataset.en=sec.querySelector("header h2")?.textContent||"";
+     a.dataset.zh=sec.querySelector(".zh-heading")?.textContent||a.dataset.en;
+     const n=document.createElement("span");n.className="toc-num";n.textContent=sec.dataset.num;
+     const title=document.createElement("span");title.className="toc-label";title.textContent=a.dataset.zh;
+     a.append(n,title);links.append(a);
+   });
+   details.append(summary,links);toc.append(details);
  }
- const title=document.querySelector("#reader-wrap .reader-title>p:last-child");
- if(title)title.textContent="§"+selected.label+" · SOA 2023 原教材 p."+selected.sourcePages;
- const eyebrow=document.querySelector("#reader-wrap .reader-title .eyebrow");
- if(eyebrow)eyebrow.textContent="MODULE 1 · PART "+String(selected.part).padStart(2,"0");
- const footer=document.querySelector("#reader-wrap .reader-footer");
- if(footer){
-   footer.querySelectorAll(".part-switch").forEach(n=>n.remove());
-   const ordered=Object.values(SOURCE).filter(x=>x.module===selected.module).sort((a,b)=>Number(a.part)-Number(b.part));
-   const at=ordered.findIndex(x=>x.part===selected.part);
-   for(const [candidate,prefix] of [[ordered[at-1],"← 上一批"],[ordered[at+1],"下一批"]]){
-     if(!candidate)continue;
-     const a=document.createElement("a");a.className="part-switch";
-     const firstId=({"1":"s111","2":"s1113","3":"s121","4":"s1219","5":"s131"})[candidate.part]||"s111";
-     a.href="?module=1&part="+encodeURIComponent(candidate.part)+"#"+firstId;
-     a.textContent=prefix+"：§"+candidate.label+(prefix==="下一批"?" →":"");
-     footer.prepend(a);
+ toc.addEventListener("click",e=>{
+   const a=e.target.closest("a[href^='#']");
+   if(!a)return;
+   toggleMenu(false);
+   if(a.dataset.id)activateSection(a.dataset.id);
+ });
+}
+function activateSection(id){
+ const section=allLessons.find(x=>x.id===id);
+ if(!section)return;
+ $("toc")?.querySelectorAll(".toc-link").forEach(a=>{
+   const active=a.dataset.id===id;
+   a.classList.toggle("active",active);
+   if(active)a.setAttribute("aria-current","location");
+   else a.removeAttribute("aria-current");
+ });
+ const current=$("current-section");
+ if(current)current.textContent="§"+section.dataset.num+" / 60";
+ const sidebar=$("chapter-sidebar"),link=$("toc")?.querySelector('.toc-link[data-id="'+id+'"]');
+ if(link&&sidebar&&window.innerWidth>800){
+   const b=link.getBoundingClientRect(),p=sidebar.getBoundingClientRect();
+   if(b.top<p.top+65||b.bottom>p.bottom-25)sidebar.scrollTop+=b.top-p.top-sidebar.clientHeight/2;
+ }
+}
+function syncCurrentSection(){
+ scrollScheduled=false;
+ if(!loaded||document.body.classList.contains("toc-open"))return;
+ let target=allLessons[0];
+ for(const sec of allLessons){
+   if(sec.getBoundingClientRect().top<=185)target=sec;
+   else break;
+ }
+ if(target&&target.id!==document.querySelector("#toc .toc-link.active")?.dataset.id)activateSection(target.id);
+}
+window.addEventListener("scroll",()=>{
+ if(loaded&&!scrollScheduled){scrollScheduled=true;requestAnimationFrame(syncCurrentSection)}
+},{passive:true});
+function mountAll(texts){
+ const sections=[];
+ for(let i=0;i<texts.length;i++){
+   const doc=new DOMParser().parseFromString(texts[i].replace(/^\uFEFF/,""),"text/html");
+   const parsed=cleanSource(doc);
+   if(parsed.lessons.length!==EXPECTED_COUNTS[i]||parsed.lessons[0].id!==FIRST_IDS[i])
+     throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
+   sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
+ }
+ if(sections.length!==60||new Set(sections.map(s=>s.id)).size!==60)
+   throw new Error("60 個小節未完整載入，請重新整理後再試。");
+ const article=$("study-content"),frag=document.createDocumentFragment();let lastChapter="";
+ for(const sec of sections){
+   const group=sec.dataset.num.split(".").slice(0,2).join(".");
+   if(group!==lastChapter){
+     frag.appendChild(makeChapter("chapter"+group.replace(".",""),group));
+     lastChapter=group;
    }
+   frag.appendChild(sec);
  }
+ article.replaceChildren(frag);
+ allLessons=[...article.querySelectorAll("section.lesson")];
+ makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
- loaded=true;applyMode(preferredMode());
+ loaded=true;
+ applyMode(preferredMode());
  activateQuizzes();
- if(location.hash){const node=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(node)requestAnimationFrame(()=>node.scrollIntoView({block:"start"}))}
+ // Old bookmarked ?part= links remain valid. A hash always wins.
+ const legacyPart=params.get("part");
+ const targetId=location.hash?decodeURIComponent(location.hash.slice(1)):(FIRST_IDS[Number(legacyPart)-1]||"s111");
+ if(targetId&&document.getElementById(targetId))
+   requestAnimationFrame(()=>requestAnimationFrame(()=>{
+     document.getElementById(targetId)?.scrollIntoView({block:"start",behavior:"instant"});
+     activateSection(targetId);
+   }));
+ else activateSection(allLessons[0].id);
+}
+async function fetchOneSource(source,token){
+ const endpoint="https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(source.fileId)+
+   (source.kind==="raw"?"?alt=media":"/export?mimeType="+encodeURIComponent("text/plain"));
+ let res;
+ try{res=await fetch(endpoint,{headers:{"Authorization":"Bearer "+token},cache:"no-store"})}
+ catch(e){throw new Error("下載 §"+source.label+" 時網路連線失敗。")}
+ if(res.status===401){clearToken();throw new Error("Google 授權已過期，請重新登入。")}
+ if(res.status===403)throw new Error("目前帳號無法讀取 §"+source.label+"，請切換 Google 帳號。");
+ if(!res.ok)throw new Error("讀取 §"+source.label+" 時 Google Drive 回應 HTTP "+res.status);
+ return res.text();
 }
 async function fetchPrivate(token){
  if(loaded||!selected)return;
- status("正在從私人 Google Drive 載入雙語教材…");
- const url="https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(selected.fileId)+(selected.kind==="raw"?"?alt=media":"/export?mimeType="+encodeURIComponent("text/plain"));
- let res;
- try{res=await fetch(url,{headers:{"Authorization":"Bearer "+token},cache:"no-store"})}
- catch(e){throw new Error("無法連線至 Google Drive："+(e.message||"網路錯誤"))}
- if(res.status===401){clearToken();throw new Error("Google 授權已過期，請重新登入。")}
- if(res.status===403)throw new Error("目前 Google 帳號沒有這份私人教材的讀取權限，請切換帳號。");
- if(!res.ok)throw new Error("Google Drive 回應 HTTP "+res.status);
- const html=await res.text();
- mount(html);
+ status("正在載入 Module 1 全部 60 個小節，請稍候…");
+ const texts=await Promise.all(SOURCES.map(source=>fetchOneSource(source,token)));
+ mountAll(texts);
 }
+
 function initClient(){
  if(tokenClient||!window.google?.accounts?.oauth2)return !!tokenClient;
  tokenClient=google.accounts.oauth2.initTokenClient({
@@ -214,13 +315,15 @@ function requestLogin(switchAccount=false){
 $("sign-in")?.addEventListener("click",()=>requestLogin(false));
 $("switch-account")?.addEventListener("click",()=>{clearToken();requestLogin(true)});
 async function main(){
- if(!selected){show("catalog",true);show("gate",false);show("reader-wrap",false);return}
- show("catalog",false);show("reader-wrap",false);show("gate",true);
+ show("reader-wrap",false);show("gate",true);
+ if(!selected){status("目前已製作 Module 1，請返回私人學習入口。");return}
  const saved=loadSaved();
  if(saved){
-  try{await fetchPrivate(saved);return}catch(e){status(e?.message||"現有授權無法讀取私人教材，請再按 Google 登入。")}
+  try{await fetchPrivate(saved);return}
+  catch(e){status(e?.message||"已有 Google 授權，但教材無法載入；請重新登入。");return}
  }
- status("請使用擁有教材權限的 Google 帳號登入。");
+ status("請使用擁有私人教材存取權的 Google 帳號登入。");
 }
+
 main();
 })();
