@@ -201,3 +201,13 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 直接延用 Module 1 的單一頁面、左側目錄、手機抽屜和「英文 → 上中文下英文 → 英文」點按翻譯模式；公開 GitHub 只放空白殼及 CSS/JS，不放私人教材正文。
 - QA：Drive metadata + 原始文字/圖片已讀回、部分文字逐段對 PDF 驗證（第一個來源 59/59、第二個 71/71）；HTML / JavaScript 靜態檢查通過。尚待持有者 Google OAuth、CDN Live、裝置實際操作及 7 個原書選項的跨欄逐字版面複核。
 - 詳細製作 SOP：`learning/atpa-modules/module2/README.md`。
+
+
+## 2026-10-12 最終定版｜固定「上中文、下英文」，取消閱讀模式按鈕
+
+- 使用者要求：**Module 1 與 Module 2 一律使用繁體中文在上、英文原文在下的逐段垂直對照**。取消「全中文／全英文／左右對照／點按翻譯」四個切換按鈕，取消點按翻譯切換機制；不再記憶舊 localStorage 閱讀模式。
+- Module 1 程式：`learning/atpa-modules/index.html`、`reader.js`、`reader.css`。使用 `document.documentElement.dataset.readingMode="vertical"`，固定 `.pair>.translation` 排在第一行、`.pair>.original` 排在其下；章節與小節標題也中文優先。資訊卡標題若同時有中英，以兩行顯示。
+- Google OAuth 授權按鈕、手機章節目錄按鈕、Knowledge Check 檢查答案／重新作答按鈕及原書 Sample Answers 展開功能均保留；「不要按鈕」只針對切換閱讀語言的按鈕。
+- 資產版本：`20261012-vertical1`；私人 Google Drive 原始五份教材的檔案、內容及權限完全不變。
+- 使用者正式指定規格以**本節為準**，先前 `swipe`、`tap` 與四模式 SOP 視為舊版歷史，不可在後續教材重新套用。Module 2 使用相同固定版面。
+- GitHub 程式靜態語法、資料來源設定及介面結構已檢查；正式使用者 OAuth/跨裝置實機操作仍需檢查。
