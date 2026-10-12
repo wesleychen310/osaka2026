@@ -1,5 +1,7 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+**最新版本：2026-10-13，SCENE 001–009 純電子版；正式網站採用 Drive 檔案 `1FYnzqrTmPi8SWd_qVxz_dRariDS03eAy`。**
+
 ## 讀者與架構
 - 網站（GitHub Pages）：`https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/`
 - GitHub UI：`learning/english/yamada-speaking/{index.html,reader.css,reader.js,README.md}`。本 repo 為公開 shell，嚴禁放入受版權保護的原書文字、翻譯正文、原頁掃描、Google OAuth access token。
@@ -38,6 +40,18 @@
 - **安全**：Google Drive 新檔 metadata 讀回 `mime_type=text/html`、`size=64182`、owner-only、無 anyone/domain、父資料夾保持；僅公開 shell/CSS/JS，無教材全文。
 - **本批程式化核對**：15 個 chapters、10 個標記 verified、5 個明確 pending、104 組日中 pair、6 個 scene 全有 STEP 1/2/3、0 圖片。私有內容讀回可包含 SCENE 001–006。實際 Google OAuth／Safari iPhone E2E 與 CDN 生效仍待真人授權及裝置實測，不能宣稱通過。
 - **回退**：上一版本 Google Drive source File ID `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz` 未覆寫；GitHub commit 歷史可回復 UI。再次修改現有 Google Drive 正本仍須先備份到同資料夾 `_backup`，保留 ID、父資料夾、分享權限。
+
+## 2026-10-13 第二次延伸｜SCENE 007–009 純電子教材
+- **目前網站使用的私人 Google Drive HTML**：`Yamada_Speaking_FrontMatter_Scenes001-009_TEXT_ONLY.html`，File ID `1FYnzqrTmPi8SWd_qVxz_dRariDS03eAy`；parent folder `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`，MIME `text/html`，大小 **86,160 bytes**。
+- **來源**：原書印刷 pp.036–041（PDF 雙頁掃描第 20–22 張），逐頁直接對照頁面影像，與既有 SCENE 001–006 合併。
+- **SCENE 007** 交通系ICカードを入手する：完整情境、重點、3 個英文關鍵句型、9 句雙角色英文模型對話、STEP 1/2/3、5 項購卡任務清單；包含原書 $20 卡價、$5 可退押金、實戰儲值 $35，區分模型示範 $10。
+- **SCENE 008** 乗るべき電車を尋ねる：3 句關鍵句型、7 句模型對話、原書 Platform 1–6、Ticket Gates、Elevator、Information、You Are Here **純 HTML/CSS 車站配置示意**；保留 Platform No. 5 與 express／local。
+- **SCENE 009** 電車の遅延状況を尋ねる：3 句關鍵句型、9 句模型對話、純 HTML 電光看板，原始表格 **Central 10:10 Delayed／Bay Area 10:15 Delayed**；保留轉車地點 Parkside Station、20 分鐘、10:25 a.m. 及信號問題。
+- **資料完整性抽核**：前置資料與 SCENE 001–009 合計 **18 個 chapter／9 個 scene／150 個日中 pair／0 個圖片**，新 3 場景皆有 3 個練習步驟及原英文；6 個已完成場景擴至 9 個，目錄及 4 組前置圖解仍標示 pending，未冒稱完成。部分 QR Code 連結未轉錄，原 PDF 保留供後續核對。
+- **權限／版本**：Drive metadata 顯示 owner-only、無 `anyone`／`domain`、位置不變。舊版 `1_HAX_tNh-8eI7A3ufDBGS7ZSFnm0MaEn` 與最早的 `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz` 均保留，未覆寫；GitHub 閱讀器 `reader.js` 已切換到新 File ID，驗證 18 chapters、前言及 SCENE 009。網頁 `index.html` cache bust 已更新到 `20261013-yamada3`。
+- **網站**：`https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/`，從 `learning/english/` 進入。四模式：`ja`、`zh`、`vertical`、`parallel`；英文原文在所有模式固定可見，狹窄 iPhone 仍有等寬左右配對欄。
+- **QA 分級**：已核對 Drive 新檔 bytes、章節/成對數與 GitHub 程式碼提交及讀回；真實 Safari Google OAuth、GitHub Pages CDN live 及 iPhone/iPad/Mac 點擊互動仍待端到端驗收，不能宣稱 E2E PASS。
+- **下一步**：先補全目錄及前置說明 `intro-page10`–`intro-page13`，並從原書印刷 p.042 起繼續 SCENE 010；任何既存 HTML 修改前先照既有 SOP 建立 `_backup`。
 
 ## 本地首批 UI 測試
 - 無外網 Playwright Chromium 模擬授權後，320/390/768/1130px × ja/zh/vertical/parallel：16/16 通過；英文固定可見，搜尋及 CSS 無全頁橫向溢出。這是**本地模擬測試**，正式 Google OAuth、GitHub Pages live 與 iPhone Safari E2E 尚待驗證。
