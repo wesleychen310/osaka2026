@@ -225,3 +225,10 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ ，已完成 **50／223 小節**（§1.1.1–§1.1.36、§1.2.1–§1.2.14）。
 - 本次新增 §1.2.1–§1.2.14 私人 Google Drive HTML：`1-jBApP08QPdJ6DVdbI0RExnUSm6wre83`；公開程式 `learning/atpa-modules/module2/module2.js`。**下一小節 §1.2.15**；四個閱讀按鈕須保留。
 - 執行進度、完整來源鏈結、資料夾、驗收限制與下一步 SOP 詳 `learning/atpa-modules/module2/README.md`。
+
+
+## 2026-10-12 ATPA Module 2 §1.2 Reading and Writing Data 完成
+- 本輪從 §1.1 的 36 小節推進至 **§1.1 + §1.2 共 74／223 小節（33.2%）**；新完成 §1.2.1–§1.2.38，原書 p.49–93，含 5 題 Exercise、XML/JSON、XPath、R/Python、Excel/SPSS/SAS、Tall/Wide、Text File Read/Write。
+- 三份新增私人 Google Drive HTML ID：`1-jBApP08QPdJ6DVdbI0RExnUSm6wre83`、`1L-yLFwsMii4TmnWVtGi4HQ5R8xNr0Xsn`、`1LdOL-zzs8NuK6XNx2vUtXbuO0GanOUNA`。教材仍是授權存取；GitHub 僅程式與導航。
+- 正式入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/；四模式保持全英文、全中文、上中文下英文、左英文右中文。
+- 靜態文本與程式檢查已完成；後 24 節為原頁英文加中文分段解說、待進一步逐段對位校稿，外部 Rmd CHUNK 解答未執行；Google OAuth 與跨裝置 E2E 待驗收。詳細紀錄：`learning/atpa-modules/module2/README.md`。
