@@ -257,3 +257,67 @@ html[data-reading-mode=vertical] .bibliography-pair{padding-left:30px}
  html[data-reading-mode=vertical] .lesson header>.zh-heading{font-size:22px}
  html[data-reading-mode=vertical] .lesson header>h2{font-size:15px}
 }
+
+
+/* 2026-10-12: authoritative four-option reading layout for both ATPA modules.
+   English only | Chinese only | Chinese above English | English left, Chinese right. */
+.mode-bar{gap:10px;min-height:60px}
+.mode-options{display:flex;flex-wrap:nowrap;gap:4px;padding:4px;background:#e9eef0;border-radius:10px;min-width:0}
+.mode-options button{padding:8px 12px;min-height:39px;white-space:nowrap;font-size:12.5px;font-weight:750}
+.mode-options button[aria-pressed=true]{background:#fff;color:var(--accent-dark);box-shadow:0 1px 5px #3852671c}
+
+/* Labels sourced as English／中文 stay semantically intact and switch with the mode. */
+html[data-reading-mode=en] .stacked-bilingual-label>.bilingual-label-zh,
+html[data-reading-mode=zh] .stacked-bilingual-label>.bilingual-label-en{display:none!important}
+html[data-reading-mode=en] .stacked-bilingual-label>.bilingual-label-en,
+html[data-reading-mode=zh] .stacked-bilingual-label>.bilingual-label-zh{display:inline;color:inherit}
+html[data-reading-mode=en] .lesson header>h2{display:block}
+html[data-reading-mode=en] .lesson header>.zh-heading{display:none}
+html[data-reading-mode=zh] .lesson header>h2{display:none}
+html[data-reading-mode=zh] .lesson header>.zh-heading{display:block}
+html[data-reading-mode=en] .chapter-heading-zh{display:none}
+html[data-reading-mode=zh] .chapter-heading-en{display:none}
+
+/* Chinese-first vertical — exactly one matched paragraph above its English original. */
+html[data-reading-mode=vertical] .pair{display:flex;flex-direction:column;min-width:0;gap:0}
+html[data-reading-mode=vertical] .pair>.translation{display:block!important;order:1}
+html[data-reading-mode=vertical] .pair>.original{display:block!important;order:2}
+
+/* English-left, Chinese-right comparison — including bilingual headings. */
+html[data-reading-mode=parallel] .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:0;min-width:0}
+html[data-reading-mode=parallel] .pair>.original{display:block!important;grid-column:1;grid-row:1;padding:0 14px 0 0;border-right:1px solid #e5e9ed}
+html[data-reading-mode=parallel] .pair>.translation{display:block!important;grid-column:2;grid-row:1;padding:0 0 0 14px;margin:0}
+html[data-reading-mode=parallel] .lesson header{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px;align-items:start}
+html[data-reading-mode=parallel] .lesson header>.sec-num{grid-column:1/-1;grid-row:1}
+html[data-reading-mode=parallel] .lesson header>h2{display:block;grid-column:1;grid-row:2;margin:0;color:#354f60}
+html[data-reading-mode=parallel] .lesson header>.zh-heading{display:block;grid-column:2;grid-row:2;margin:0;color:#263f4d;font-size:19px;font-weight:720}
+html[data-reading-mode=parallel] .lesson header>small{grid-column:1/-1;grid-row:3}
+html[data-reading-mode=parallel] .chapter-heading{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
+html[data-reading-mode=parallel] .chapter-heading>.chapter-code{grid-column:1/-1;grid-row:1}
+html[data-reading-mode=parallel] .chapter-heading>.chapter-heading-en{display:block;grid-column:1;grid-row:2;font-size:clamp(18px,2.4vw,24px);font-weight:600;color:var(--accent-dark);margin:0}
+html[data-reading-mode=parallel] .chapter-heading>.chapter-heading-zh{display:block;grid-column:2;grid-row:2;font-size:clamp(20px,2.5vw,28px)}
+html[data-reading-mode=parallel] .stacked-bilingual-label{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px;align-items:start}
+html[data-reading-mode=parallel] .stacked-bilingual-label>.bilingual-label-en{display:block;grid-column:1;grid-row:1;color:#536e7d}
+html[data-reading-mode=parallel] .stacked-bilingual-label>.bilingual-label-zh{display:block;grid-column:2;grid-row:1;color:#2f566c}
+html[data-reading-mode=parallel] .source-tabs summary.stacked-bilingual-label{display:grid}
+html[data-reading-mode=en] .source-anomaly,html[data-reading-mode=en] .source-note,html[data-reading-mode=en] details.tutor,html[data-reading-mode=en] details.phrases{display:none!important}
+
+@media(max-width:800px){
+ .mode-bar{gap:7px}
+ .mode-options{flex:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:3px}
+ .mode-options button{white-space:normal;font-size:11.5px;padding:7px 2px;min-height:41px;line-height:1.25}
+ .toc-trigger{white-space:nowrap;flex:none}
+ html[data-reading-mode=parallel] .lesson header>.zh-heading{font-size:16px}
+ html[data-reading-mode=parallel] .lesson header>h2{font-size:18px}
+}
+@media(max-width:490px){
+ .mode-options button{font-size:10.5px;padding:8px 1px}
+ .mode-bar{gap:4px}
+ html[data-reading-mode=parallel] .pair>.original,html[data-reading-mode=parallel] .pair>.translation{font-size:12.7px;line-height:1.72}
+ html[data-reading-mode=parallel] .pair>.original{padding-right:8px}
+ html[data-reading-mode=parallel] .pair>.translation{padding-left:8px}
+ html[data-reading-mode=parallel] .chapter-heading{column-gap:10px}
+ html[data-reading-mode=parallel] .lesson header{column-gap:10px}
+ html[data-reading-mode=parallel] .lesson header>.zh-heading{font-size:15px;line-height:1.5}
+ html[data-reading-mode=parallel] .lesson header>h2{font-size:16px;line-height:1.5}
+}
