@@ -72,7 +72,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 
 - 閱讀網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=2#s1113
 - **SOA 原教材 p.19–30，12 個 section、53 組英中逐段配對、12 組「核心概念／精算例子／類比」教師卡、49 個 Reusable English。**
-- Google Drive source：`ATPA_Module_1_Part_02_1.1.13-1.1.24_雙語私人教材.html`；File ID `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2`；MIME `text/html`；原始長度 **55,181 bytes**，SHA256 `d30cdedcb20b82930190c4cbed8b9740d38da2af524597fa03b5ffbf1a99a1c8`。
+- Google Drive source：`ATPA_Module_1_Part_02_1.1.13-1.1.24_雙語私人教材.html`；File ID `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2`；MIME `text/html`；原始長度 **55,181 bytes**，SHA256 `d3997ceeb1e24496956e04c33678f24613e60b5e1084f17bb1a39f4d0f988320`。
 - Google Drive folder：`1uLenu319fQEQwltPasYv1HH_EL6Swk4q`。metadata 已驗證其 permission entries 為明確的 user（無 `anyone` 和 `domain`），保留既有明確指定使用者的私人讀取權限；絕不改成公開連結。
 - `reader.js` 現區分 `kind:native`（Part 01 Google Doc，`files.export?mimeType=text/plain`）與 `kind:raw`（Part 02 私人 HTML，`files.get?alt=media`）；二者皆使用 OAuth drive.readonly，並共享四模式、動態小節目錄與相鄰批次導航。
 - 源 PDF 所有 12 頁各含同一個 xref=31 的重複版面圖像（為共用裝飾資產）；源章節沒有獨立的統計 Figure 需重建。
@@ -96,3 +96,8 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 ## 分享權限核驗狀態
 
 連接器能確認原稿位於指定的 Google Drive 資料夾，且要透過 OAuth 才能由網頁請求。其 metadata 回報 `shared=true`、`source_visibility_status=access_not_verified`，未返回可檢視的 permission entries，因此**目前無法確認「一般存取權」是否為「受限」**；請在 Google Drive 分享對話框確認。本專案不得以 `noindex` 代替實際私人權限。
+
+### 2026-10-12 Component Table 欄位精確性修訂
+- 發現第二批 HTML 的 `data-component` metadata 把 1.1.19、1.1.23、1.1.24 誤標為 Table15、Table19、Table20；已按原 PDF 更正為 **Component Table11、Table12、Table13**。正文無更動。
+- 更新前先在雙語教材原父資料夾建立 `_backup`（ID `1IGm40lPbbVwADj4ffg82gfVdx281YXvv`）並備份舊版（ID `11oncHhj9YtpuCYTBs_st-HMsmiBmESA3`，55,181 bytes，具名權限）；備份讀回驗證通過。
+- 已採原 **File ID** `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2` 直接覆寫 bytes，不改名稱、父資料夾或分享權限；重新讀回確認 Table11/12/13 均正確。
