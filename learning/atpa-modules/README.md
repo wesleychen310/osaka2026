@@ -1,7 +1,7 @@
 # SOA ATPA 官方 Modules｜私人雙語電子教科書
 
-版本：2026-10-12 · batch 3（1.2.1–1.2.18）
-狀態：**三批共 42/60 個小節已有私人 Drive 教材及 GitHub 閱讀器路由；來源文字與結構已靜態核對。GitHub Pages live、真實 OAuth／iPhone Safari E2E 待驗收。**
+版本：2026-10-12 · batch 4（1.2.19–1.2.28）
+狀態：**四批共 52/60 個小節已有私人 Drive 教材及 GitHub 閱讀器路由；來源文字與結構已靜態核對。GitHub Pages live、真實 OAuth／iPhone Safari E2E 待驗收。**
 
 ## 1. 網站與路徑
 
@@ -81,7 +81,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 
 ### 新增下一批工作範圍
 - Part 03：1.2.1–1.2.18 ✅ 原文雙語來源及 GitHub 路由已完成；E2E 待驗收
-- Part 04：1.2.19–1.2.28（Summary + 8 Knowledge Checks）
+- Part 04：1.2.19–1.2.28 ✅ Summary + 8 Knowledge Checks，教師推導解答、互動作答（實機待驗收）
 - Part 05：1.3.1–1.3.8（Life Insurance Underwriting Case Study + Sample Answers + Bibliography）
 - Part 06：全 Module 73 頁內容核對與實機完整驗收
 
@@ -89,7 +89,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 
 - Part 02：1.1.13–1.1.24 ✅ Google Drive 原稿、GitHub 路由已建立（私有實機 QA 待驗收）
 - Part 03：1.2.1–1.2.18 ✅ 原稿與路由已部署程式碼（E2E 待驗收）
-- Part 04：1.2.19–1.2.28
+- Part 04：1.2.19–1.2.28 ✅ Drive 內容及 GitHub 路由完成（實機待驗收）
 - Part 05：1.3.1–1.3.8
 - Part 06：完整 73 頁來源、8 Knowledge Checks、3 Case Study Questions、跨裝置/模式、法規補充與最終驗收。
 
@@ -119,3 +119,20 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 ### 下一批
 
 Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Principles and Framework 與 8 題 Knowledge Checks，須保留題目所有選項並區分原題與教師解答。
+
+## 2026-10-12 第四批交付｜Module Summary 與 8 題 Knowledge Checks
+
+- **原始教材範圍**：SOA ATPA Module 1 §1.2.19–1.2.28，原書 p.53–62；10 個小節，前 2 節為總結，後 8 節為各一題 `Component Table18–25` Multiple Choice Question。
+- **私人來源**：`ATPA_Module_1_Part_04_1.2.19-1.2.28_雙語私人教材.html`；File ID `14305e_nGudobtCni8F0Q80vh6nK4uXQx`；MIME `text/html`；53,352 bytes；SHA256 `ba17dfb5f9dc18c91c5b8e10f1ee52f55eb3e3704bd9e2b10ea5062681917298`。
+- **目錄與閱讀深連結**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=4#s1219
+- **數量核對**：10／10 個完整編號小節；原書 8／8 題幹，選項共 34／34 項（每題選項數依原書 4、5、5、4、4、4、4、4）；全 HTML 有 90 個雙語 pair（含原文正文、題幹選項、教師答案與逐選項講解），10 個 tutor 卡、38 個 Reusable English 語塊。
+- **原文忠實性**：原書題幹／選項共 42／42 筆已與 PDF p.55–62 正規化逐字比對一致；保留 1.2.23 原稿標點 `dignity ,`、`against,.`，並標為原稿來源。
+- **原書與教師補充界線**：Source 欄位全屬原始題目；`data-correct` 與 `teacher-answer` 為**私人教授從教材推導的答案**，屬編輯補充，並非 SOA 官方提供的標準解答。選項 1.2.27 的受保護群體問題依題目條件「one or more federal laws in certain situations」解讀，不能誤用為跨所有保險險種／司法管轄區的普遍判定。
+- **教師推導答案**：1.2.21 → 2；1.2.22 → 1,2,3,4；1.2.23 → 1；1.2.24 → 1,2；1.2.25 → 2,3；1.2.26 → 1,2；1.2.27 → 1,2,4；1.2.28 → 1,3,4。
+- **互動性**：Google OAuth 讀入 HTML 後執行 `activateQuizzes()`，各題自動生成 radio（單選）／checkbox（複選），可檢查答案、標記正確選項、展開逐選項解析、重新作答。讀原始 HTML 時不需要外掛；動態作答由公開 JS 提供，但**題目、答案內容只留在私人 Drive**。全中文／全英文／左右對照／大字橫滑四模式沿用。
+- **靜態驗收**：Drive 已成功上傳、metadata 檢查檔案位於 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，權限只有 2 個 user（owner＋具名 reader），無 `anyone`／`domain`；Github `reader.js` 使用 V8 `new Function` 完成 JavaScript 語法檢查，`reader.css` 與 `index.html` 已提交。
+- **尚未驗收**：GitHub Pages CDN 部署後的實際網頁顯示、私人使用者 OAuth、iPhone/iPad/Mac 顯示測試、作答表單在真實 Google 授權環境的 end-to-end 操作，需依序完成，驗收前不得標示為已通過。
+
+### 下一批（Part 05）
+
+§1.3.1–1.3.8，原書 p.63–73（含跨頁 bibliography）：保留壽險核保案例全部背景、3 題 Question 的原題、變數選項、教材原有 Sample Answers 以及 Bibliography，並將「SOA 原有 Sample Answers」與新增教師講解清楚區分。
