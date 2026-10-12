@@ -99,3 +99,7 @@ details.tutor p,details.phrases p{margin:7px 4px 12px;font-size:14px;line-height
 .part-links>a>b{font-weight:800}
 .reader-footer>a.part-switch{font-size:13px;font-weight:750;padding:5px 10px;border:1px solid var(--line);border-radius:9px;background:#edf3f7;white-space:nowrap}
 @media(max-width:480px){.part-links>a{grid-template-columns:auto minmax(0,1fr) auto}.reader-footer>a.part-switch{display:inline-flex;margin:8px 0}}
+
+/* SOA source bullet lists preserved as individual bilingual paired list items. */
+html body .bullet-pair>.original::before,html body .bullet-pair>.translation::before{content:"•";font-weight:850;color:#66889c;margin-right:7px}
+html body .bullet-pair{border-bottom:0;padding:6px 0}
