@@ -58,23 +58,14 @@ function cleanSource(doc){
  return{main,lessons};
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
-/* A single fixed layout: Traditional Chinese above the matching original English. */
-function applyBilingualLayout(){
- document.documentElement.dataset.readingMode="vertical";
- document.querySelectorAll("#study-content .pair").forEach(pair=>{
-   pair.removeAttribute("role");pair.removeAttribute("tabindex");pair.removeAttribute("aria-label");
-   delete pair.dataset.tapLang;
- });
- document.querySelectorAll("#study-content .lesson header, #study-content .chapter-heading").forEach(node=>{
-   node.removeAttribute("role");node.removeAttribute("tabindex");node.removeAttribute("aria-label");
-   delete node.dataset.tapLang;
- });
- // Source tabs and bilingual subheadings retain the original content while
- // presenting the Chinese label first, followed by its English counterpart.
+/* One-time private-source enhancement: bilingual source labels remain intact in all views. */
+const DISPLAY_MODES=["en","zh","vertical","parallel"];
+const DISPLAY_KEY="atpa-modules-reading-mode-v3";
+function prepareBilingualLabels(){
  document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(node=>{
    const original=node.dataset.origFull||node.textContent;
    if(!node.dataset.origFull)node.dataset.origFull=original;
-   if(!original.includes("／"))return;
+   if(node.classList.contains("stacked-bilingual-label")||!original.includes("／"))return;
    const parts=original.split("／");
    if(parts.length<2)return;
    const en=parts.shift().trim(),zh=parts.join("／").trim();
@@ -85,14 +76,28 @@ function applyBilingualLayout(){
    english.lang="en";english.className="bilingual-label-en";english.textContent=en;
    node.replaceChildren(chinese,english);
    node.classList.add("stacked-bilingual-label");
-   node.removeAttribute("role");node.removeAttribute("tabindex");node.removeAttribute("aria-label");
-   delete node.dataset.tapLang;
- });
- document.querySelectorAll(".toc-link").forEach(a=>{
-   const title=a.querySelector(".toc-label");
-   if(title)title.textContent=a.dataset.zh||a.dataset.en||"";
  });
 }
+function preferredReadingMode(){
+ try{const saved=localStorage.getItem(DISPLAY_KEY);return DISPLAY_MODES.includes(saved)?saved:"vertical"}
+ catch(_){return "vertical"}
+}
+function applyReadingMode(mode){
+ const selected=DISPLAY_MODES.includes(mode)?mode:"vertical";
+ document.documentElement.dataset.readingMode=selected;
+ $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
+   button.setAttribute("aria-pressed",String(button.dataset.mode===selected));
+ });
+ document.querySelectorAll("#toc .toc-link").forEach(link=>{
+   const title=link.querySelector(".toc-label");
+   if(title)title.textContent=selected==="en"?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
+ });
+ try{localStorage.setItem(DISPLAY_KEY,selected)}catch(_){}
+}
+$("mode-bar")?.addEventListener("click",event=>{
+ const button=event.target.closest("button[data-mode]");
+ if(button)applyReadingMode(button.dataset.mode);
+});
 
 function toggleMenu(open){
  document.body.classList.toggle("toc-open",open);
@@ -258,7 +263,8 @@ function mountAll(texts){
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
- applyBilingualLayout();
+ prepareBilingualLabels();
+ applyReadingMode(preferredReadingMode());
  activateQuizzes();
  // Old bookmarked ?part= links remain valid. A hash always wins.
  const legacyPart=params.get("part");
