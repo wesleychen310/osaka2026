@@ -35,7 +35,7 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 | 範圍 | GitHub 路徑／私人來源 | 作用 |
 |---|---|---|
 | 學習首頁 | `learning/index.html` | ATPA 精華版連結排第一 |
-| SOA ATPA 官方 Modules | `learning/atpa-modules/index.html`、`reader.js`、`reader.css` | Module 1 已建四批：1.1.1–1.2.28；Part 01 Google Doc `1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA` 由 OAuth `files.export?mimeType=text/plain` 載入；Part 02 HTML `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2` 由 OAuth `files.get?alt=media` 載入；四模式，後續可分批擴充；專用 `README.md` 記錄驗收 |
+| SOA ATPA 官方 Modules | `learning/atpa-modules/index.html`、`reader.js`、`reader.css` | Module 1 已建五批：1.1.1–1.3.8；Part 01 Google Doc `1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA` 由 OAuth `files.export?mimeType=text/plain` 載入；Part 02 HTML `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2` 由 OAuth `files.get?alt=media` 載入；四模式，後續可分批擴充；專用 `README.md` 記錄驗收 |
 | ATPA 精華版讀取及過濾 | `learning/atpa-prereq/index.html` | OAuth、下載 Drive 原稿、23 小節章節清單、DOM 篩選 |
 | ATPA 三模式控制 | `learning/atpa-prereq/reader.js` | 全中文、全英文、左右對照；使用獨立 localStorage key |
 | ATPA 手機版 | `learning/atpa-prereq/reader.css` | CSS Grid 英文左／中文右，iPhone 窄螢幕不改上下欄 |
@@ -139,3 +139,9 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - §1.2.19–1.2.28，原書 p.53–62；10 小節，8 題 Knowledge Checks（共 34 原書選項）；8 組教師推導解答（並非 SOA 官方答案）、逐選項解析、動態單選／複選。
 - 私人 HTML ID `14305e_nGudobtCni8F0Q80vh6nK4uXQx`；網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=4#s1219
 - 原始題目／選項 42／42 逐字核對，Drive 僅具名使用者權限；已完成 GitHub 靜態程式碼檢查；Google OAuth 和跨裝置 E2E 待驗收。參照子專案 README。
+
+### 2026-10-12 ATPA 官方 Module 1 第五批及章節進度
+- §1.3.1–1.3.8（原書 p.63–73），8 個小節，20 個風險分類候選變數，3 個原書 SOA Sample Answers，24 筆原書 bibliography，65 組雙語正文與書目，33 個 English Bank 語塊。
+- 私人原始 HTML ID `1EqGTGWeCtvEQHiuJKXhjUdecdSjNol2Z`，text/html，OAuth alt=media，45,631 bytes。
+- 網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=5#s131
+- **Module 1 全部 60 個編號小節已建（Part 01–05）**；這僅代表教材內容完整到章節層級。請於最後一批完成實際私有 OAuth、GitHub Pages、iPhone/iPad/Mac 四模式、8 題 MCQ 與 3 組 Sample Answers 的端到端驗收，並補檢 PDF 封面／目錄 p.1–3。詳細紀錄見 `learning/atpa-modules/README.md`。
