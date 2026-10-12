@@ -145,3 +145,11 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - 私人原始 HTML ID `1EqGTGWeCtvEQHiuJKXhjUdecdSjNol2Z`，text/html，OAuth alt=media，45,631 bytes。
 - 網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=5#s131
 - **Module 1 全部 60 個編號小節已建（Part 01–05）**；這僅代表教材內容完整到章節層級。請於最後一批完成實際私有 OAuth、GitHub Pages、iPhone/iPad/Mac 四模式、8 題 MCQ 與 3 組 Sample Answers 的端到端驗收，並補檢 PDF 封面／目錄 p.1–3。詳細紀錄見 `learning/atpa-modules/README.md`。
+
+
+### 2026-10-12 ATPA Module 1 單頁目錄重構
+
+- 網址統一：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/ 。
+- 模組 1 已改為 60 個編號小節連續載入；左側按 1.1／1.2／1.3 分組導航、手機抽屜目錄；取消使用者可見的「第幾批」分頁及卡片。
+- 5 個原 Google Drive 私人檔案保持原 ID 與 OAuth 權限；四種閱讀模式、8 題知識檢核及 3 個原書 Sample Answers 完整保留。
+- 原有 `?module=1&part=N#sXXXX` 可繼續使用，但新首頁不再顯示分檔結構。GitHub Pages / OAuth / 實機 Safari 最終驗收仍未完成。
