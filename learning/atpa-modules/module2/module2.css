@@ -11,3 +11,11 @@
 .source-bullet{padding-left:8px}
 html[data-reading-mode=en] .source-figure figcaption{display:none}
 @media(max-width:480px){.source-table-wrap{margin:15px -5px}.source-data-table{font-size:12px}.source-table-wrap th,.source-table-wrap td{padding:7px 6px}}
+
+/* Full source feedback from SOA Knowledge Checks: preserve verbatim repeated popups without crowding the main lesson. */
+.source-popup-full{margin-top:18px}
+.source-popup-full>summary{font-size:12px;color:#687c8a}
+.source-popup-full>pre{font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:420px;overflow:auto;padding:12px;margin:0 0 15px;background:#f6f8fa;border:1px solid #e5ebed;border-radius:7px}
+html[data-reading-mode=zh] .source-popup-full{display:none}
+html[data-reading-mode=tap] .source-popup-full{display:none}
+.source-data-table{table-layout:auto}
