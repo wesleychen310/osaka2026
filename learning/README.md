@@ -186,3 +186,11 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - 網頁維持單一長頁、固定左側目錄／手機抽屜、SOA Knowledge Checks、SOA 原書 Sample Answers；私人授權與原稿不變。Module 1 顯示 60 小節，Module 2 目前 1.1 顯示 36 小節。
 - 程式碼位置：Module 1 `learning/atpa-modules/{index.html,reader.js,reader.css}`；Module 2 `learning/atpa-modules/module2/{index.html,module2.js,module2.css}`，兩者共用 `reader.css` 之四模式排版。
 - 更新版次 `20261012-four-modes1`；GitHub 檔案已讀回及 JavaScript 靜態語法驗證，四模式 CSS 選擇器與兩模組按鈕順序已逐項核對。**使用者 Google OAuth、網站即時部署、iPhone／iPad／Mac 真實排版仍待實機驗收。**
+
+## 最新進度｜2026-10-12 ATPA Module 2
+
+- **已完成：50／223 小節**（完整 §1.1.1–§1.1.36，以及 §1.2.1–§1.2.14），目前 §1.2 Reading and Writing Data 已完成 14／38 小節。
+- **最新私人 HTML**：Google Drive `1-jBApP08QPdJ6DVdbI0RExnUSm6wre83`，涵蓋原書 p.49–64，14 小節、90 組英中對照。指定父資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`。公開 GitHub 只存閱讀程式。
+- **網站**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s121 ，`module2.js` 有第 4 份來源的讀取映射，整頁連續閱讀。
+- **下一步**：從 **§1.2.15** 接續製作至 §1.2.38，再進入 §1.3；保留四模式依序「全英文、全中文、上中文下英文、左英文右中文」。
+- **詳細交接與 QA**：`learning/atpa-modules/module2/README.md`。內容結構和 Drive 權限已核對，尚待全部原文逐字驗證及實機 OAuth/手機版測試。
