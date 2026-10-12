@@ -5,7 +5,8 @@ const SCOPE="https://www.googleapis.com/auth/drive.readonly";
 const SESSION_KEY="hanami-kyoto-google-token-v3";
 const MODE_KEY="atpa-official-module-language-v1";
 const SOURCE={
- "1:1":{fileId:"1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA",module:"1",part:"1",label:"1.1.1–1.1.12"}
+ "1:1":{fileId:"1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA",module:"1",part:"1",label:"1.1.1–1.1.12",sourcePages:"4–18",kind:"native"},
+ "1:2":{fileId:"1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2",module:"1",part:"2",label:"1.1.13–1.1.24",sourcePages:"19–30",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -82,12 +83,24 @@ function mount(text){
  const parsed=cleanSource(doc);
  $("study-content").replaceChildren(...[...parsed.main.children].map(c=>document.importNode(c,true)));
  const nav=$("toc");nav.replaceChildren();
- const head=document.createElement("div");head.className="toc-head";head.textContent="Module 1｜12 個小節";nav.append(head);
+ const head=document.createElement("div");head.className="toc-head";head.textContent="Module 1｜"+parsed.lessons.length+" 個小節";nav.append(head);
  for(const section of parsed.lessons){
    const a=document.createElement("a");a.href="#"+section.id;
    const num=document.createElement("span");num.className="toc-num";num.textContent=section.dataset.num;
    const title=document.createElement("span");title.className="toc-label";title.textContent=section.querySelector(".zh-heading")?.textContent||section.querySelector("h2")?.textContent||"";
    a.append(num,title);nav.append(a);
+ }
+ const title=document.querySelector("#reader-wrap .reader-title>p:last-child");
+ if(title)title.textContent="§"+selected.label+" · SOA 2023 原教材 p."+selected.sourcePages;
+ const eyebrow=document.querySelector("#reader-wrap .reader-title .eyebrow");
+ if(eyebrow)eyebrow.textContent="MODULE 1 · PART "+String(selected.part).padStart(2,"0");
+ const footer=document.querySelector("#reader-wrap .reader-footer");
+ if(footer){
+   footer.querySelectorAll(".part-switch").forEach(n=>n.remove());
+   const next=selected.part==="1"?{part:"2",text:"下一批：§1.1.13–1.1.24 →"}:{part:"1",text:"← 上一批：§1.1.1–1.1.12"};
+   const a=document.createElement("a");a.className="part-switch";
+   a.href="?module=1&part="+next.part+"#"+(next.part==="1"?"s111":"s1113");
+   a.textContent=next.text;footer.prepend(a);
  }
  show("gate",false);show("reader-wrap",true);
  loaded=true;applyMode(preferredMode());
@@ -96,7 +109,7 @@ function mount(text){
 async function fetchPrivate(token){
  if(loaded||!selected)return;
  status("正在從私人 Google Drive 載入雙語教材…");
- const url="https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(selected.fileId)+"/export?mimeType="+encodeURIComponent("text/plain");
+ const url="https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(selected.fileId)+(selected.kind==="raw"?"?alt=media":"/export?mimeType="+encodeURIComponent("text/plain"));
  let res;
  try{res=await fetch(url,{headers:{"Authorization":"Bearer "+token},cache:"no-store"})}
  catch(e){throw new Error("無法連線至 Google Drive："+(e.message||"網路錯誤"))}
