@@ -64,37 +64,108 @@ function cleanSource(doc){
  }
  return{main,lessons};
 }
+/* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
+function isTapMode(){return document.documentElement.dataset.readingMode==="tap"}
+function accessibleTapState(node,kind){
+ const chinese=node.dataset.tapLang==="zh";
+ node.setAttribute("aria-label",kind+"：目前"+(chinese?"中文，點按顯示英文":"英文，點按顯示中文"));
+ if(!node.closest(".quiz-option")){
+   node.tabIndex=0;
+   node.setAttribute("role","button");
+ }
+}
+function setTapLanguage(node,language){
+ node.dataset.tapLang=language;
+ if(node.classList.contains("pair"))accessibleTapState(node,"雙語段落");
+ else if(node.classList.contains("chapter-heading"))accessibleTapState(node,"章節標題");
+ else if(node.matches(".lesson header"))accessibleTapState(node,"小節標題");
+ else if(node.matches(".lesson h3[data-orig-full]")){
+   const [en,zh]=node.dataset.origFull.split("／");
+   if(zh)node.textContent=language==="zh"?zh.trim():en.trim();
+   accessibleTapState(node,"小標題");
+ }
+}
 function localizeLabels(mode){
- document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(n=>{
-   if(!n.dataset.origFull)n.dataset.origFull=n.textContent;
-   const full=n.dataset.origFull;
-   if(!full.includes("／"))return;
-   const [en,zh]=full.split("／");
-   n.textContent=mode==="en"?en.trim():mode==="zh"?zh.trim():full;
+ const tap=mode==="tap";
+ document.querySelectorAll("#study-content .source-tabs summary").forEach(node=>{
+   if(!node.dataset.origFull)node.dataset.origFull=node.textContent;
+   const raw=node.dataset.origFull;
+   if(!raw.includes("／"))return;
+   const [en,zh]=raw.split("／");
+   // Preserve bilingual panel labels when tapping is already used to expand a panel.
+   node.textContent=mode==="en"?en.trim():mode==="zh"?zh.trim():raw;
+ });
+ document.querySelectorAll("#study-content .lesson h3").forEach(node=>{
+   if(!node.dataset.origFull)node.dataset.origFull=node.textContent;
+   const raw=node.dataset.origFull;
+   if(!raw.includes("／"))return;
+   const [en,zh]=raw.split("／");
+   node.textContent=tap?(node.dataset.tapLang==="zh"?zh.trim():en.trim()):
+     mode==="en"?en.trim():mode==="zh"?zh.trim():raw;
+   if(tap)accessibleTapState(node,"小標題");
+   else{node.removeAttribute("role");node.removeAttribute("tabindex");node.removeAttribute("aria-label")}
  });
  document.querySelectorAll(".toc-link").forEach(a=>{
    const en=a.dataset.en||"",zh=a.dataset.zh||"";
    const node=a.querySelector(".toc-label");
-   if(node)node.textContent=mode==="en"?en:zh||en;
+   if(node)node.textContent=mode==="en"||tap?en:zh||en;
  });
 }
 function applyMode(next){
- const mode=["zh","en","parallel","swipe"].includes(next)?next:"zh";
+ const mode=["zh","en","parallel","tap"].includes(next)?next:"zh";
  document.documentElement.dataset.readingMode=mode;
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode)));
- show("mode-hint",mode==="swipe");
+ show("mode-hint",mode==="tap");
  document.querySelectorAll("#study-content .pair").forEach(p=>{
-   if(mode==="swipe"){p.tabIndex=0;p.scrollLeft=0;p.setAttribute("aria-label","雙語對照：左右滑動切換英文和中文")}
-   else{p.removeAttribute("tabindex");p.removeAttribute("aria-label")}
+   p.removeAttribute("aria-label");p.removeAttribute("role");p.removeAttribute("tabindex");
+   if(mode==="tap"){
+     setTapLanguage(p,"en");
+   }else{
+     delete p.dataset.tapLang;
+     p.scrollLeft=0;
+   }
+ });
+ document.querySelectorAll("#study-content .lesson header, #study-content .chapter-heading").forEach(node=>{
+   node.removeAttribute("aria-label");node.removeAttribute("role");node.removeAttribute("tabindex");
+   if(mode==="tap")setTapLanguage(node,"en");
+   else delete node.dataset.tapLang;
+ });
+ document.querySelectorAll("#study-content .lesson h3").forEach(node=>{
+   if(mode==="tap")node.dataset.tapLang="en";
+   else delete node.dataset.tapLang;
  });
  localizeLabels(mode);
  try{localStorage.setItem(MODE_KEY,mode)}catch(_){}
 }
-function preferredMode(){try{return localStorage.getItem(MODE_KEY)||"zh"}catch(_){return "zh"}}
+function preferredMode(){
+ try{
+   const saved=localStorage.getItem(MODE_KEY)||"zh";
+   return saved==="swipe"?"tap":saved;
+ }catch(_){return "zh"}
+}
 $("mode-bar")?.addEventListener("click",event=>{
  const btn=event.target.closest("button[data-mode]");
  if(btn)applyMode(btn.dataset.mode);
 });
+function tapTarget(e){
+ if(!isTapMode()||!$("study-content")?.contains(e.target))return null;
+ // Links or form controls must continue doing their own jobs.
+ if(e.target.closest("a,button,input,select,textarea,summary"))return null;
+ return e.target.closest(".pair,.lesson h3[data-orig-full],.lesson header,.chapter-heading");
+}
+$("study-content")?.addEventListener("click",event=>{
+ const node=tapTarget(event);
+ if(!node)return;
+ setTapLanguage(node,node.dataset.tapLang==="zh"?"en":"zh");
+});
+$("study-content")?.addEventListener("keydown",event=>{
+ if(event.key!=="Enter"&&event.key!==" ")return;
+ const node=tapTarget(event);
+ if(!node||node!==event.target||node.getAttribute("role")!=="button")return;
+ event.preventDefault();
+ setTapLanguage(node,node.dataset.tapLang==="zh"?"en":"zh");
+});
+
 function toggleMenu(open){
  document.body.classList.toggle("toc-open",open);
  $("toc-trigger")?.setAttribute("aria-expanded",String(open));
