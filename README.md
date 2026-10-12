@@ -219,3 +219,9 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - https://wesleychen310.github.io/osaka2026/learning/atpa-modules/ ：Module 1 所有 60 個小節同一長頁展示，左側 1.1 / 1.2 / 1.3 目錄，手機章節抽屜；不顯示製作批次。
 - GitHub `learning/atpa-modules/{index.html,reader.js,reader.css}`。Google Drive 原 5 個具名權限檔案維持不變；一次 OAuth 並行抓取後依原書順序合併。舊網址 ?module=1&part=N 仍相容。
 - 驗收邊界：靜態 GitHub 原始碼與 Google Drive metadata 可確認；尚待 owner OAuth / iPhone / iPad / Mac 真實網頁 E2E。詳見 `learning/atpa-modules/README.md`。
+
+## 2026-10-12｜ATPA Module 2 交接最新進度
+
+- 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ ，已完成 **50／223 小節**（§1.1.1–§1.1.36、§1.2.1–§1.2.14）。
+- 本次新增 §1.2.1–§1.2.14 私人 Google Drive HTML：`1-jBApP08QPdJ6DVdbI0RExnUSm6wre83`；公開程式 `learning/atpa-modules/module2/module2.js`。**下一小節 §1.2.15**；四個閱讀按鈕須保留。
+- 執行進度、完整來源鏈結、資料夾、驗收限制與下一步 SOP 詳 `learning/atpa-modules/module2/README.md`。
