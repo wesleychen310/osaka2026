@@ -111,19 +111,21 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 
 | 網站／正式 URL | GitHub 路徑 | 私人資料來源 |
 |---|---|---|
-| [私人記事總入口](https://wesleychen310.github.io/osaka2026/records/) `records/` | `records/index.html` + `records/app.js` | **單一 Google 登入／支出與所得雙分頁**，依需讀取兩個私人 Drive HTML；入口不含交易資料 |
+| [私人記事總入口](https://wesleychen310.github.io/osaka2026/records/) `records/` | `records/index.html` + `records/app.js` | **單一 Google 登入／支出、所得、信託股票三分頁**，依需讀取兩個私人 Drive HTML；入口不含交易資料 |
 | [2026 財務記事](https://wesleychen310.github.io/osaka2026/records/finance/) `records/finance/` | `records/finance/index.html` | 私人 Drive `2026記事_私人財務帳本.html`；ID `1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4` |
 | [所得記事](https://wesleychen310.github.io/osaka2026/records/income/) `records/income/` | `records/income/index.html` | 私人 Drive `2026所得記事_私人薪資紀錄.html`；ID `12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl` |
+| [信託股票](https://wesleychen310.github.io/osaka2026/records/?tab=trust) `records/?tab=trust` | `records/index.html`、`records/app.js`、`records/trust.js`、`records/trust.css` | 私人 Drive Google Docs `2026信託股票_私人資料`；ID `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms`；原始持股資料僅在私人 JSON |
 
-**私人記事（支出＋所得）專用 README：[records/README.md](records/README.md)**。該文件詳細記載：
+**私人記事（支出＋所得＋信託股票）專用 README：[records/README.md](records/README.md)**。該文件詳細記載：
 
 - 來源 Word 文件 `2026記事.docx`（ID `14_-8w1bTsxsKoj-wDWanL_L0bxYBV-qu`），匯入後保留原件；網站**現行正本**是獨立私人 HTML。
 - Drive 儲存位置與來源相同：[文件／記事](https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU)（Folder ID `1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU`）；備份：[記事／_backup](https://drive.google.com/drive/folders/1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB)（ID `1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`）。
-- 日常入口 `records/` 使用共用 Google OAuth（登入一次），可直接切換「支出紀錄」和「所得紀錄」；`records/app.js` 依需求載入既有私人 Drive HTML 並以 `iframe.srcdoc` 呈現、移除重複視覺雜訊。舊的 `records/finance/`、`records/income/` 直接登入 shell 保留向下相容。公開 GitHub 不含交易明細、總額及個人憑證。
+- 日常入口 `records/` 使用共用 Google OAuth（登入一次），可直接切換「支出紀錄」、「所得紀錄」和「信託股票」；`records/app.js` 依需求載入既有私人 Drive HTML 並以 `iframe.srcdoc` 呈現、移除重複視覺雜訊。舊的 `records/finance/`、`records/income/` 直接登入 shell 保留向下相容。公開 GitHub 不含交易明細、總額及個人憑證。
 - Private HTML 的 `#ledger-data` JSON schema v1；`transactions[]`、已付／明確未付款的狀態、房貸月表、分類核對表及週期備註的相依關係。**交易明細一律預設已付款；只有使用者明確說尚未付，才設為待付款。** 2026-10-08 已依本人確認修正 3 筆公路養管費，詳 `records/README.md`。
 - **未來新增任何財務交易，先讀原檔 → 在同層 `_backup` 先備份 → 修改相同 Drive File ID 的私人 HTML → 金額重算與明細驗證 → 維持原檔名、位置、私人權限。** 直接在網站篩選、複製輸入範本、匯出 CSV 均屬唯讀操作，新增要由 ChatGPT／Work 依 SOP 寫回 Drive。
 - **所得記事**：薪資明細表與每月薪酬單據另用 `records/income/` 登入讀取；私人 HTML 及來源截圖均位於同一「文件／記事」資料夾，原始圖檔 File ID `1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；薪資單上發薪日與銀行實際入帳分開標記，雇主勞退公提與薪資扣除亦分開。詳見 `records/README.md`「所得記事」章節。
-- 日後新增年度或其他財務主題，由 `records/index.html` 統一導覽；必要時建立獨立私人 HTML 與新 OAuth shell，更新雙層 README。
+- 信託股票：GitHub `trust.js`／`trust.css` 管理呈現；Google Drive 私人 Google Docs 保存 JSON。由同一 OAuth 登入、Drive export text/plain 載入。後續信託對帳單僅修改既有私人資料檔；先備份至記事 `_backup`，再原位更新。詳 `records/README.md` 第 7 節。
+- 日後新增年度或其他財務主題，由 `records/index.html` 統一導覽；必要時建立獨立私人資料，更新雙層 README。
 
 ### E. Repository 根目錄的其他獨立／歷史頁（保留待確認）
 
