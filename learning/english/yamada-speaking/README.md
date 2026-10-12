@@ -3,7 +3,7 @@
 ## 讀者與架構
 - 網站（GitHub Pages）：`https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/`
 - GitHub UI：`learning/english/yamada-speaking/{index.html,reader.css,reader.js,README.md}`。本 repo 為公開 shell，嚴禁放入受版權保護的原書文字、翻譯正文、原頁掃描、Google OAuth access token。
-- Google Drive 私人資料：`Yamada_Speaking_FrontMatter_Scenes001-003_PRIVATE.html`，File ID `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz`，folder ID `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`，父資料夾是原 PDF 所在的 `AI` folder。
+- Google Drive 私人資料：`Yamada_Speaking_FrontMatter_Scenes001-006_TEXT_ONLY.html`，File ID `1_HAX_tNh-8eI7A3ufDBGS7ZSFnm0MaEn`，folder ID `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`，父資料夾是原 PDF 所在的 `AI` folder。
 - 原 PDF：`ChatGPT英會話_山田優.pdf`，ID `1sGQoKXyXvAWflI6iucbOl0x1qliTW6St`，128 個雙頁影像；此 PDF 是排印權威來源。
 - Web 透過原有 OAuth client 與 `drive.readonly` 以 Google Drive API `files.get?alt=media` 載入。**Google Drive 檔案權限 owner-only，絕不設為 anyone**。
 
@@ -27,6 +27,17 @@
 - 目前 SCENE **3／100** 完成編輯初稿。原書 004–100、其他前置頁面與附錄仍需批次建置，絕不因 OCR 有文字層就標記完成。
 - 原書頁面圖片以私有 HTML 中嵌入 base64 JPEG 的方式保存，公開 GitHub 不會洩漏原圖；所有可見章節含原頁核對。
 - Google Drive 讀回確認：`1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz` owner-only，無 any/domain grant，約 4.20 MB；每批新增或覆寫需再次核對。
+
+
+## 2026-10-13 電子版更新（目前正式使用來源）
+- **新的私人教材**：`Yamada_Speaking_FrontMatter_Scenes001-006_TEXT_ONLY.html`，Google Drive File ID `1_HAX_tNh-8eI7A3ufDBGS7ZSFnm0MaEn`，父資料夾 `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`。原先含掃描圖的 `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz` 保留為舊版本，閱讀器不再引用。
+- **純文字排版**：來源 HTML 64,182 bytes，15 個 chapter、6 個 SCENE、104 個日中 pair、**0 個 img／0 個 scan**。保留源書 PDF 在 Drive 僅供編修者核對；閱讀網站不再出現整頁影像。
+- **新增**：SCENE 004 両替をする（30–31，原始匯率板依原數據重建為 HTML table）；SCENE 005 市内への行き方を尋ねる（32–33，原書 memo 欄位）；SCENE 006 目的地への道順を尋ねる（34–35，原書 A–E 地標路線概念以純 HTML/CSS 重建）。三課各保留 STEP 1–3、全英文句型、模型對話、日中文段對應。
+- **原始前置資料範圍**：完整前言及既有三組前置章節的文字保留；`toc` 和 `intro-page10` 至 `intro-page13` 仍為 `pending`、無掃描圖／無以 OCR 草稿替代的內容。標示待校訂，下一階段須補全。
+- **修復重大載入問題**：舊 `reader.js` 將實際 12 個 chapter 誤驗證成 13 個，本次改為預期 15 個，含 `preface` 至 `scene-006`，並移除「每章必須有 .scan」舊條件，禁止含掃描圖的新版來源載入。
+- **安全**：Google Drive 新檔 metadata 讀回 `mime_type=text/html`、`size=64182`、owner-only、無 anyone/domain、父資料夾保持；僅公開 shell/CSS/JS，無教材全文。
+- **本批程式化核對**：15 個 chapters、10 個標記 verified、5 個明確 pending、104 組日中 pair、6 個 scene 全有 STEP 1/2/3、0 圖片。私有內容讀回可包含 SCENE 001–006。實際 Google OAuth／Safari iPhone E2E 與 CDN 生效仍待真人授權及裝置實測，不能宣稱通過。
+- **回退**：上一版本 Google Drive source File ID `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz` 未覆寫；GitHub commit 歷史可回復 UI。再次修改現有 Google Drive 正本仍須先備份到同資料夾 `_backup`，保留 ID、父資料夾、分享權限。
 
 ## 本地首批 UI 測試
 - 無外網 Playwright Chromium 模擬授權後，320/390/768/1130px × ja/zh/vertical/parallel：16/16 通過；英文固定可見，搜尋及 CSS 無全頁橫向溢出。這是**本地模擬測試**，正式 Google OAuth、GitHub Pages live 與 iPhone Safari E2E 尚待驗證。
