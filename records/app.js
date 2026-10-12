@@ -1,11 +1,12 @@
-/* Private records: one Google sign-in, two lazy-loaded private Drive documents.
+/* Private records: one Google sign-in, three lazy-loaded private Drive documents.
  * Never place documents, screenshots, or tokens in this public repository.
  */
 (function(){
 'use strict';
 const FILES=Object.freeze({
   finance:'1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4',
-  income:'12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl'
+  income:'12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl',
+  trust:'1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms'
 });
 const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
 const TOKEN_KEY='hanami-kyoto-google-token-v3';
@@ -13,6 +14,7 @@ const SCOPE='https://www.googleapis.com/auth/drive.readonly';
 const tabButtons=[...document.querySelectorAll('[data-tab]')];
 const frame=document.getElementById('privateFrame');
 const viewer=document.getElementById('viewer');
+const trustPanel=document.getElementById('trustPanel');
 const gate=document.getElementById('gate');
 const status=document.getElementById('status');
 const loginBtn=document.getElementById('loginBtn');
@@ -41,7 +43,7 @@ function clearToken(){
 function valid(){return !!token && Date.now()<expiry-120000}
 function setStatus(s){status.textContent=s||''}
 function showGate(message){
-  gate.hidden=false;viewer.hidden=true;
+  gate.hidden=false;viewer.hidden=true;trustPanel.hidden=true;
   loginBtn.hidden=false;loginBtn.disabled=false;
   setStatus(message||'請使用 Google 帳號登入。');
 }
@@ -86,29 +88,40 @@ function attachFrame(){
 async function fetchPrivate(tab){
   if(cache.has(tab))return cache.get(tab);
   if(!valid())throw Error('EXPIRED');
-  const res=await fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(FILES[tab])+'?alt=media',{
-    headers:{Authorization:'Bearer '+token},cache:'no-store'
-  });
+  const trust=tab==='trust';
+  const url='https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(FILES[tab])+(trust?'/export?mimeType='+encodeURIComponent('text/plain'):'?alt=media');
+  const res=await fetch(url,{headers:{Authorization:'Bearer '+token},cache:'no-store'});
   if(res.status===401)throw Error('EXPIRED');
   if(res.status===403)throw Error('NO_PERMISSION');
   if(!res.ok)throw Error('HTTP_'+res.status);
-  const html=await res.text();
-  if(!html.toLowerCase().includes('</head>')||!html.includes('<html'))throw Error('INVALID_HTML');
-  cache.set(tab,html);
-  return html;
+  const raw=await res.text();
+  if(trust){
+    let data;
+    try{data=JSON.parse(raw.replace(/^\uFEFF/,'').trim())}catch(_){throw Error('INVALID_JSON')}
+    cache.set(tab,data);
+    return data;
+  }
+  if(!raw.toLowerCase().includes('</head>')||!raw.includes('<html'))throw Error('INVALID_HTML');
+  cache.set(tab,raw);
+  return raw;
 }
 async function openTab(tab){
   if(!isTab(tab))return;
   current=tab;displayTab();const version=++loadVersion;
   if(!valid()){showGate('請登入以閱讀私人紀錄。');return}
-  gate.hidden=true;viewer.hidden=false;
-  frame.hidden=true;setStatus('正在載入'+(tab==='finance'?'財務記事':'所得記事')+'…');
+  gate.hidden=true;viewer.hidden=tab==='trust';trustPanel.hidden=tab!=='trust';
+  frame.hidden=true;setStatus('正在載入'+(tab==='finance'?'財務記事':tab==='income'?'所得記事':'信託股票')+'…');
   try{
-    const html=await fetchPrivate(tab);
+    const content=await fetchPrivate(tab);
     if(version!==loadVersion)return;
-    const withCss=html.replace(/<\/head>/i,cssForPrivate(tab)+'</head>');
-    frame.srcdoc=withCss;
-    frame.hidden=false;
+    if(tab==='trust'){
+      if(!window.TrustStocks)throw Error('RENDERER_MISSING');
+      window.TrustStocks.render(trustPanel,content);
+    }else{
+      const withCss=content.replace(/<\/head>/i,cssForPrivate(tab)+'</head>');
+      frame.srcdoc=withCss;
+      frame.hidden=false;
+    }
     setStatus('');
   }catch(e){
     if(version!==loadVersion)return;
@@ -117,7 +130,7 @@ async function openTab(tab){
     }else if(e.message==='NO_PERMISSION'){
       showGate('這個 Google 帳號沒有私人檔案存取權限，請切換帳號。');
     }else{
-      frame.hidden=true;showGate('私人紀錄載入失敗，請重新登入後再試。');
+      frame.hidden=true;trustPanel.hidden=true;showGate('私人紀錄載入失敗，請重新登入後再試。');
     }
   }
 }
@@ -150,7 +163,7 @@ async function start(){
   frame.addEventListener('load',attachFrame);
   loginBtn.addEventListener('click',()=>requestAuth(false));
   switchBtn.addEventListener('click',()=>{
-    clearToken();frame.srcdoc='';window.HanamiAuth?.forget();
+    clearToken();frame.srcdoc='';trustPanel.innerHTML='';trustPanel.hidden=true;window.HanamiAuth?.forget();
     gate.hidden=false;viewer.hidden=true;requestAuth(true);
   });
   const saved=getSaved();
