@@ -103,3 +103,42 @@ details.tutor p,details.phrases p{margin:7px 4px 12px;font-size:14px;line-height
 /* SOA source bullet lists preserved as individual bilingual paired list items. */
 html body .bullet-pair>.original::before,html body .bullet-pair>.translation::before{content:"•";font-weight:850;color:#66889c;margin-right:7px}
 html body .bullet-pair{border-bottom:0;padding:6px 0}
+
+
+/* Module 1 Part 04: SOA source MCQ table with private, client-generated answer controls. */
+.knowledge-check{border:1px solid #d4e2e9;border-radius:14px;padding:clamp(10px,2vw,18px);margin:18px 0 22px;background:#f8fbfd}
+.quiz-heading{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap;border-bottom:1px solid #dce5ea;padding:0 0 11px;margin-bottom:9px}
+.quiz-type{font-size:13px;font-weight:800;color:#254f66}
+.quiz-source{font-size:11px;color:#6b818e}
+.quiz-option{position:relative;padding:3px;border-radius:10px;border:1px solid transparent;margin:8px 0;background:#fff}
+.quiz-option-number{font-weight:770;font-size:11px;color:#54778b;padding-left:11px}
+.choice-row{display:flex;align-items:flex-start;gap:8px;min-width:0;padding:5px 9px 10px;cursor:pointer}
+.choice-row>input{flex:0 0 auto;accent-color:#174961;width:19px;height:19px;margin:9px 0 0;cursor:pointer}
+.choice-indicator{display:none}
+.choice-body{flex:1;min-width:0}
+.choice-body .pair{padding:4px 0;border:0}
+.quiz-option:hover{border-color:#b7d0dd}
+.quiz-option:focus-within{outline:2px solid #347da2;outline-offset:1px}
+.quiz-option.answer-key{border-color:#709d88;background:#f2f8f3}
+.quiz-option.answer-wrong{border-color:#c78c75;background:#fdf5f1}
+.source-tag{font-size:11px;color:#698393;margin:11px 0}
+.quiz-controls{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 8px}
+.quiz-controls button{border:1px solid #bdced9;border-radius:10px;min-height:41px;padding:9px 14px;font:inherit;font-size:13px;font-weight:770;cursor:pointer;color:#164962;background:#e8f1f5}
+.quiz-controls button.quiz-check{color:white;background:#164962;border-color:#164962}
+.quiz-controls button:focus-visible{outline:3px solid #3b87ab;outline-offset:2px}
+.quiz-feedback{font-size:13px;font-weight:700;min-height:0;margin-top:12px}
+.quiz-feedback[data-status=correct]{color:#295d47}
+.quiz-feedback[data-status=review]{color:#885433}
+.quiz-feedback[data-status=hint]{color:#5d6871}
+.teacher-answer{margin:15px 0;background:#fffef9;border-color:#e0d5ba}
+.teacher-answer>summary{font-size:14px;color:#5d4c2d}
+.teacher-answer h4{font-size:12px;margin:14px 2px 4px;color:#5c7180}
+.teacher-answer .pair{padding:7px 0}
+.teacher-label{font-size:12px;color:#80582e;background:#fcf6e7;border-radius:8px;padding:9px 10px}
+.lesson .source-heading{font-size:16px}
+@media(max-width:480px){
+ .knowledge-check{padding:10px 7px}
+ .choice-row{padding:6px 5px 9px;gap:7px}
+ .quiz-heading{align-items:flex-start}
+ .quiz-controls button{font-size:12px;padding:9px 10px}
+}
