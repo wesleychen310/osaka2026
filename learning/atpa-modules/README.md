@@ -227,3 +227,11 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 網頁維持單一長頁、固定左側目錄／手機抽屜、SOA Knowledge Checks、SOA 原書 Sample Answers；私人授權與原稿不變。Module 1 顯示 60 小節，Module 2 目前 1.1 顯示 36 小節。
 - 程式碼位置：Module 1 `learning/atpa-modules/{index.html,reader.js,reader.css}`；Module 2 `learning/atpa-modules/module2/{index.html,module2.js,module2.css}`，兩者共用 `reader.css` 之四模式排版。
 - 更新版次 `20261012-four-modes1`；GitHub 檔案已讀回及 JavaScript 靜態語法驗證，四模式 CSS 選擇器與兩模組按鈕順序已逐項核對。**使用者 Google OAuth、網站即時部署、iPhone／iPad／Mac 真實排版仍待實機驗收。**
+
+## 最新 Module 2 交接指標（2026-10-12）
+
+- §1.1 全 36 小節及 §1.2.1–§1.2.14 已製作，累計 **50／223 小節**。§1.2 後續接 **§1.2.15**，最終接到 §1.2.38。
+- 新增私人 HTML Google Drive ID：`1-jBApP08QPdJ6DVdbI0RExnUSm6wre83`（原書 p.49–64，14 小節、90 英中配對）。受限具名使用者權限已驗證。
+- 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ ，程式 `module2/module2.js` 新增 `SOURCE["2:4"]` 及 50 小節驗證。
+- 最新四種閱讀模式：全英文、全中文、上中文下英文、左英文右中文。舊「沒有按鈕」與點按模式的紀錄已失效。
+- **完整且優先的製作規範及驗收紀錄**：`learning/atpa-modules/module2/README.md`。
