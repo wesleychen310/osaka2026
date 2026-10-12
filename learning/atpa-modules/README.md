@@ -1,7 +1,7 @@
 # SOA ATPA 官方 Modules｜私人雙語電子教科書
 
 版本：2026-10-12 · batch 1（1.1.1–1.1.12）
-狀態：**原始私人內容已存 Google Drive、GitHub 閱讀器程式已建立；真實 OAuth／iPhone Safari E2E 待驗收。**
+狀態：**Google Drive 教材已建立、GitHub 閱讀器程式已建立；Drive 分享權限尚待確認，真實 OAuth／iPhone Safari E2E 待驗收。**
 
 ## 1. 網站與路徑
 
@@ -11,14 +11,14 @@
 - GitHub shell：`learning/atpa-modules/index.html`
 - UI：`learning/atpa-modules/reader.css`
 - OAuth／內容載入及模式切換：`learning/atpa-modules/reader.js`
-- **Google Drive owner-only 原始內容**：`ATPA_Module_1_Part_01_1.1.1-1.1.12_雙語私人教材_DATA`（Google Docs；內文儲存為 HTML 純文字），File ID：`1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA`。
+- **Google Drive 授權儲存的原始內容**：`ATPA_Module_1_Part_01_1.1.1-1.1.12_雙語私人教材_DATA`（Google Docs；內文儲存為 HTML 純文字），File ID：`1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA`。
 - Drive 原稿資料夾：https://drive.google.com/drive/folders/1uLenu319fQEQwltPasYv1HH_EL6Swk4q
 - PDF 權威來源：SOA ATPA Module 1 — Data and Model Ethics，created 2023-04-06，source pages 1–73，Google Drive `ATPA_Official_Modules_1-4_Combined.pdf`；已對照 Project 上傳 PDF。
 
 ## 2. 固定架構與安全邊界
 
 ```text
-Google Drive owner-only Google Doc（HTML 純文字）
+Google Drive Google Drive 授權 Google Doc（HTML 純文字）
           ↓ OAuth drive.readonly
 Drive REST files.export?mimeType=text/plain
           ↓ JavaScript DOMParser
@@ -56,7 +56,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 
 1. 以原 PDF p.19–30 順序擷取全部標題、段落、Tab、List、Figure、Footnote；按原稿頁碼標記。
 2. 逐段英中翻譯，為每節補一張「核心概念／精算例子／類比記憶」教師卡，3–5 個 Reusable English。
-3. 只將私人教材正文寫入 Drive；可新建 Part 02 owner-only Google Doc，並在 `reader.js` 的 `SOURCE` 新增 `1:2` 對應資料（擴充 Module 1 Part URL）。
+3. 只將私人教材正文寫入 Drive；可新建 Part 02 Google Drive 授權 Google Doc，並在 `reader.js` 的 `SOURCE` 新增 `1:2` 對應資料（擴充 Module 1 Part URL）。
 4. GitHub 資源變更前先抓 blob SHA；完畢更新 `?v=`，避免 Safari cache。
 5. 測試來源段落數、雙語配對、Tab 卡片、深連結、320/390/768/1130px × 4 模式。
 6. 完成 Google 帳號私人 OAuth／實機 Safari 檢查後，才從 `CONTENT` 升級 `PRIVATE-E2E`，並記錄於此。
@@ -75,3 +75,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 - Part 04：1.2.19–1.2.28
 - Part 05：1.3.1–1.3.8
 - Part 06：完整 73 頁來源、8 Knowledge Checks、3 Case Study Questions、跨裝置/模式、法規補充與最終驗收。
+
+## 分享權限核驗狀態
+
+連接器能確認原稿位於指定的 Google Drive 資料夾，且要透過 OAuth 才能由網頁請求。其 metadata 回報 `shared=true`、`source_visibility_status=access_not_verified`，未返回可檢視的 permission entries，因此**目前無法確認「一般存取權」是否為「受限」**；請在 Google Drive 分享對話框確認。本專案不得以 `noindex` 代替實際私人權限。
