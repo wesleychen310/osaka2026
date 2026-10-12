@@ -35,6 +35,7 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 | 範圍 | GitHub 路徑／私人來源 | 作用 |
 |---|---|---|
 | 學習首頁 | `learning/index.html` | ATPA 精華版連結排第一 |
+| SOA ATPA 官方 Modules | `learning/atpa-modules/index.html`、`reader.js`、`reader.css` | Module 1 第 1 批：1.1.1–1.1.12，私有 Google Doc `1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA` 透過 OAuth `files.export?mimeType=text/plain` 載入；四模式，後續可分批擴充；專用 `README.md` 記錄驗收 |
 | ATPA 精華版讀取及過濾 | `learning/atpa-prereq/index.html` | OAuth、下載 Drive 原稿、23 小節章節清單、DOM 篩選 |
 | ATPA 三模式控制 | `learning/atpa-prereq/reader.js` | 全中文、全英文、左右對照；使用獨立 localStorage key |
 | ATPA 手機版 | `learning/atpa-prereq/reader.css` | CSS Grid 英文左／中文右，iPhone 窄螢幕不改上下欄 |
@@ -113,3 +114,12 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 ## 8. 未來 ChatGPT 對話可貼的指令
 
 > 先讀 https://github.com/wesleychen310/osaka2026/blob/main/learning/README.md ，以及與本次教材相應的子專案 README。沿用「Google Drive 私人 HTML 儲存教材 + GitHub Pages shell + JS 控制閱讀模式/小節篩選 + CSS 控制手機排版」的架構。ATPA／精華版僅使用「全中文、全英文、英文左中文右」三模式；保留所有原圖、公式、表格及原錨點。不要把私人教材推到公開 GitHub。任何 Drive 覆寫前先在同層 _backup 備份；修改後核對功能、頁面與權限，把結果回寫 README。請區分程式已部署和實機真正驗收。
+
+
+## 2026-10-12 新增｜SOA ATPA 官方 Module 1
+
+- 新入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/
+- 第 1 批：Module 1 — Data and Model Ethics §1.1.1–1.1.12，共 12 小節；私人 Google Docs 儲存 HTML 源碼（正文不在 GitHub）。
+- 私人 Google Docs File ID：`1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA`，位於原雙語教材 Drive folder。
+- 四模式：全中文／全英文／左右對照／大字橫滑；使用獨立 localStorage key。
+- GitHub shell 與私人內容已寫入並靜態核對；**GitHub Pages CDN、真實 Google OAuth 與 iPhone Safari E2E 尚未確認**。完整的分批作業及退回 SOP 見 [ATPA Modules README](./atpa-modules/README.md)。
