@@ -35,7 +35,7 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 | 範圍 | GitHub 路徑／私人來源 | 作用 |
 |---|---|---|
 | 學習首頁 | `learning/index.html` | ATPA 精華版連結排第一 |
-| SOA ATPA 官方 Modules | `learning/atpa-modules/index.html`、`reader.js`、`reader.css` | Module 1 已建三批：1.1.1–1.2.18；Part 01 Google Doc `1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA` 由 OAuth `files.export?mimeType=text/plain` 載入；Part 02 HTML `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2` 由 OAuth `files.get?alt=media` 載入；四模式，後續可分批擴充；專用 `README.md` 記錄驗收 |
+| SOA ATPA 官方 Modules | `learning/atpa-modules/index.html`、`reader.js`、`reader.css` | Module 1 已建四批：1.1.1–1.2.28；Part 01 Google Doc `1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA` 由 OAuth `files.export?mimeType=text/plain` 載入；Part 02 HTML `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2` 由 OAuth `files.get?alt=media` 載入；四模式，後續可分批擴充；專用 `README.md` 記錄驗收 |
 | ATPA 精華版讀取及過濾 | `learning/atpa-prereq/index.html` | OAuth、下載 Drive 原稿、23 小節章節清單、DOM 篩選 |
 | ATPA 三模式控制 | `learning/atpa-prereq/reader.js` | 全中文、全英文、左右對照；使用獨立 localStorage key |
 | ATPA 手機版 | `learning/atpa-prereq/reader.css` | CSS Grid 英文左／中文右，iPhone 窄螢幕不改上下欄 |
@@ -134,3 +134,8 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - §1.2.1–1.2.18，原書 p.32–52；18 小節、91 英中對照、11 原生 Tab、67 English Bank；File ID `1degysT_iLCSdWHtoj9HuZsgQVOOQ4lqc`。
 - 網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=3#s121
 - Part 01 為 Google Doc export/text；Part 02/03 為 raw .html alt=media，均透過 Google OAuth 讀取，維持原受限權限。第三批與原 PDF 逐段 91/91 核對；現行法規未重新查證，保留 2023 年教材歷史時點。實機 OAuth/E2E 待驗收；見子專案 README。
+
+### 2026-10-12 ATPA 官方 Module 1 第四批
+- §1.2.19–1.2.28，原書 p.53–62；10 小節，8 題 Knowledge Checks（共 34 原書選項）；8 組教師推導解答（並非 SOA 官方答案）、逐選項解析、動態單選／複選。
+- 私人 HTML ID `14305e_nGudobtCni8F0Q80vh6nK4uXQx`；網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=4#s1219
+- 原始題目／選項 42／42 逐字核對，Drive 僅具名使用者權限；已完成 GitHub 靜態程式碼檢查；Google OAuth 和跨裝置 E2E 待驗收。參照子專案 README。
