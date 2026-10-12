@@ -206,3 +206,8 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 2026-10-11 UI 改為全中文、日文原文、左右對照三模式（原上下雙語模式已移除）。本地 Chromium 8 種寬度 × 三模式 = 24/24 版面檢查通過；真人 iPhone Safari／Google OAuth 尚未 E2E 驗證。
 
 - **FAM-S Lessons 11–23 英文整批草稿（2026-10-11）：** 已由私有 ASM_FAM-S_searchable.pdf OCR 轉為 **13 課、236 個有文字頁面**，原書 PDF164–409（排除原書空白頁），保留英文字元與章節／頁碼；7 張原書 Figure 局部圖像，沒有整頁掃描；**1,600 個公式候選 OCR 區塊、表格及題解仍待 Work 數學/來源 QA**，所以狀態一律 `DRAFT/NEEDS_REVIEW`，完成 Lessons=0。合併 HTML 原始私有 Google Drive ID `1F9cXPD_5GnFthGJ54rW0-fRpR7n1M-p6`（owner only, 750216 bytes），單一登入入口 `learning/fam-s-reading/lessons11-23/`；私人 Drive 壓縮檔 ID `1CCY53JMn9uEpL9JZWQDOTV23VufBQ8rr`（273926 bytes）；Chromium 13 課×4 版寬=52/52 以及合併版 4/4 測試無整頁溢出。**GitHub 只有 OAuth loader，不含原文。** 
+
+
+### 私人記事信託股票：2026-10-12 帳戶優先與月度歷史
+
+`records/?tab=trust` 改成兩帳戶股數、市值為主的版面；公開程式為 `records/trust.js`、`records/trust.css`。私人 Docs `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms` 的 `snapshots[]` 保留每月月底兩帳戶完整持股快照（首期 2026-09-30）。新月份須追加快照、原檔更新前先在 `_backup` 備份；詳 `records/README.md`。
