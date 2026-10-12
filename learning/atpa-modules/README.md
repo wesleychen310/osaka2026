@@ -1,7 +1,7 @@
 # SOA ATPA 官方 Modules｜私人雙語電子教科書
 
-版本：2026-10-12 · batch 1（1.1.1–1.1.12）
-狀態：**Google Drive 教材已建立、GitHub 閱讀器程式已建立；Drive 分享權限尚待確認，真實 OAuth／iPhone Safari E2E 待驗收。**
+版本：2026-10-12 · batch 3（1.2.1–1.2.18）
+狀態：**三批共 42/60 個小節已有私人 Drive 教材及 GitHub 閱讀器路由；來源文字與結構已靜態核對。GitHub Pages live、真實 OAuth／iPhone Safari E2E 待驗收。**
 
 ## 1. 網站與路徑
 
@@ -18,16 +18,16 @@
 ## 2. 固定架構與安全邊界
 
 ```text
-Google Drive Google Drive 授權 Google Doc（HTML 純文字）
+Google Drive 授權 Google Doc（Part 01）／原始 HTML（Part 02–03）
           ↓ OAuth drive.readonly
-Drive REST files.export?mimeType=text/plain
+Drive REST files.export?mimeType=text/plain（Part 01）／files.get?alt=media（Part 02–03）
           ↓ JavaScript DOMParser
 GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
           ↓ CSS / JS 四模式
 使用者私人瀏覽器閱讀
 ```
 
-**注意：此版本使用原生 Google Docs 作為私人 HTML 純文字儲存體，而非 .html 檔案。** 瀏覽器以 Google Drive export text/plain 取得 HTML，方便 connector 直接更新內容，避免將受限教材推到公開 GitHub。之後可以將不同批次改成 Drive HTML raw 檔，但須維持原始 File ID／授權策略的可追溯性。
+**注意：Part 01 使用原生 Google Docs 儲存 HTML 純文字；Part 02、03 使用私人原生 .html 檔案。** 瀏覽器以 Google Drive export text/plain 取得 HTML，方便 connector 直接更新內容，避免將受限教材推到公開 GitHub。後續新增批次建議直接採 Drive HTML raw 檔，但須維持原始 File ID／授權策略的可追溯性。
 
 只有 GitHub 公開：HTML shell、CSS、JS、README。不得將來源全文、已翻譯的完整正文、Token 或私人圖片推到 GitHub。
 
@@ -80,7 +80,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 - **QA 邊界**：Github 內容已提交並讀回，Google Drive 元資料與 bytes 已讀回；尚需真實 owner Google OAuth E2E／iPhone Safari、iPad、Mac 實機視覺驗收；部署連線視使用者 Google 授權結果為準。
 
 ### 新增下一批工作範圍
-- Part 03：1.2.1–1.2.18（ASOP、法規、隱私、公平分類、反歧視）
+- Part 03：1.2.1–1.2.18 ✅ 原文雙語來源及 GitHub 路由已完成；E2E 待驗收
 - Part 04：1.2.19–1.2.28（Summary + 8 Knowledge Checks）
 - Part 05：1.3.1–1.3.8（Life Insurance Underwriting Case Study + Sample Answers + Bibliography）
 - Part 06：全 Module 73 頁內容核對與實機完整驗收
@@ -88,7 +88,7 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 ## 7. 待續建清單
 
 - Part 02：1.1.13–1.1.24 ✅ Google Drive 原稿、GitHub 路由已建立（私有實機 QA 待驗收）
-- Part 03：1.2.1–1.2.18
+- Part 03：1.2.1–1.2.18 ✅ 原稿與路由已部署程式碼（E2E 待驗收）
 - Part 04：1.2.19–1.2.28
 - Part 05：1.3.1–1.3.8
 - Part 06：完整 73 頁來源、8 Knowledge Checks、3 Case Study Questions、跨裝置/模式、法規補充與最終驗收。
@@ -101,3 +101,21 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 - 發現第二批 HTML 的 `data-component` metadata 把 1.1.19、1.1.23、1.1.24 誤標為 Table15、Table19、Table20；已按原 PDF 更正為 **Component Table11、Table12、Table13**。正文無更動。
 - 更新前先在雙語教材原父資料夾建立 `_backup`（ID `1IGm40lPbbVwADj4ffg82gfVdx281YXvv`）並備份舊版（ID `11oncHhj9YtpuCYTBs_st-HMsmiBmESA3`，55,181 bytes，具名權限）；備份讀回驗證通過。
 - 已採原 **File ID** `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2` 直接覆寫 bytes，不改名稱、父資料夾或分享權限；重新讀回確認 Table11/12/13 均正確。
+
+## 2026-10-12 第三批交付｜Regulations and Standards of Practice
+
+- **範圍**：§1.2.1–1.2.18，原書 Module 1 PDF p.32–52。18 個小節、91 組英中配對、11 組原書 Tab（Component Table15:4、Table16:5、Table17:2）、18 組再解說一次、67 個 Reusable English。
+- **Drive 私人 HTML**：`ATPA_Module_1_Part_03_1.2.1-1.2.18_雙語私人教材.html`；File ID `1degysT_iLCSdWHtoj9HuZsgQVOOQ4lqc`，MIME `text/html`，大小 86,476 bytes；SHA256 `e121c87682d50d1c7978e845085b0bb33dc1aa56161a64547e7216eb35bd2f5f`。
+- **深連結**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=3#s121
+- **原始資料**：`ATPA_Official_Modules_1-4_Combined(1).pdf` Module 1 p.32–52，作者來源 Created 2023-04-06。讀者介面保留原文，繁中譯文由私人教學製作；原文與教師補充層分開。
+- **文本核對**：91／91 英文內容均可對回 PDF（其中 1 組跨 p.51–52，先除去跨頁頁眉及 Component Table 續頁 `Content` 欄名後核對）。ASOP 12／23／41／56、GDPR、HIPAA、PIPEDA、NAIC、FACTS、歷史州法比較與原始法規引用保留。
+- **小節 1.2.13 與 1.2.14 的法規條列及 1.2.18 FACTS**：新增加上原始 bullet markup，並在 GitHub `reader.css` 加入 bullet 顯示；保持英中雙語同列。已保留原稿可能有問題的標題序號與法規敘述，並以獨立編輯註解標示來源時間性。
+- **嚴格區分法律狀態**：原稿的各州數字出自 Avraham et al. (2013)，教材作成日為 2023；不應視為 2026 年有效法律；其他法規摘錄亦需以主管機關現行規範重新核對。本批未進行獨立現行法規法律研究，維持原文忠實轉錄。
+- **權限**：Drive `get_file_metadata` 返回 `source_visibility_status=permission_metadata_available`，僅 2 組 `user` permission（owner / named reader），無 `anyone` 或 `domain`；父資料夾仍 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`。
+- **備份／修訂**：第一次上傳 85,720 bytes。調整 bullet markup 前先在原父資料夾的 `_backup` (`1IGm40lPbbVwADj4ffg82gfVdx281YXvv`) 備份為 `1iPt_DSi4XL6z2t7z6WCn4RDr83ym59bL`，原父資料夾、檔案權限與 Part 03 File ID 未變。更新後現有 86,476 bytes。
+- **網站**：`reader.js` 新增 `1:3` raw HTML 載入，前／後批次導航依 SOURCE 動態產生；`index.html` 新增第三批，進度 42/60；`reader.css` 增列 bullet styling。獨立閱讀模式 `zh/en/parallel/swipe` 延用。
+- **QA 邊界**：Drive 已成功上傳與讀回 metadata；GitHub 原始碼已提交與讀回。尚未完成登入者 Google OAuth、Chrome／Safari 真實視窗布局測試及 iPhone Safari E2E；GitHub Pages URL 工具無法直接存取，不能把 Github commit 等同 CDN live 驗收。
+
+### 下一批
+
+Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Principles and Framework 與 8 題 Knowledge Checks，須保留題目所有選項並區分原題與教師解答。
