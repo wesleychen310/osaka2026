@@ -163,3 +163,10 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - 直接延用 Module 1 的單一頁面、左側目錄、手機抽屜和「英文 → 上中文下英文 → 英文」點按翻譯模式；公開 GitHub 只放空白殼及 CSS/JS，不放私人教材正文。
 - QA：Drive metadata + 原始文字/圖片已讀回、部分文字逐段對 PDF 驗證（第一個來源 59/59、第二個 71/71）；HTML / JavaScript 靜態檢查通過。尚待持有者 Google OAuth、CDN Live、裝置實際操作及 7 個原書選項的跨欄逐字版面複核。
 - 詳細製作 SOP：`learning/atpa-modules/module2/README.md`。
+
+
+## 2026-10-12 ATPA Module 1／2 最新固定閱讀版型
+
+- 使用者已將兩個 ATPA 官方 Modules 的閱讀模式**統一為全篇上中文、下英文逐段對照**，不顯示閱讀模式切換按鈕。原本四模式已廢止。
+- 章節目錄、Google 授權、Knowledge Checks 與 SOA Sample Answers 保留互動；Google Drive 教材原稿不搬動。
+- 入口：Module 1 `learning/atpa-modules/`、Module 2 `learning/atpa-modules/module2/`。未來任何新增單元請遵循此規格。
