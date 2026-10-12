@@ -153,3 +153,13 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - 模組 1 已改為 60 個編號小節連續載入；左側按 1.1／1.2／1.3 分組導航、手機抽屜目錄；取消使用者可見的「第幾批」分頁及卡片。
 - 5 個原 Google Drive 私人檔案保持原 ID 與 OAuth 權限；四種閱讀模式、8 題知識檢核及 3 個原書 Sample Answers 完整保留。
 - 原有 `?module=1&part=N#sXXXX` 可繼續使用，但新首頁不再顯示分檔結構。GitHub Pages / OAuth / 實機 Safari 最終驗收仍未完成。
+
+
+## 2026-10-12 SOA ATPA Module 2 啟動及 §1.1 完成
+
+- 正式入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/
+- **Section 1.1 Data Pipeline §1.1.1–§1.1.36 全部完成（PDF p.8–48）**；Module 2 全部仍有 223 小節，後續從 §1.2 Reading and Writing Data 接續製作。
+- 已建立 3 個具名授權的 Google Drive HTML：`1D-HUEZGGTor5P5HFZb4vmNm9C9sXS89B`、`1DnflW10dpSj9mys_sHR_3ybcQv_soHKw`、`141OqP4-RikeZXWQO4V3VFzxGtkZ7dWCE`，合計 173 組雙語、36 張教學卡、110 個英文實務語塊、5 題原書 MCQ、原書 p.15 圖及 p.17 表。
+- 直接延用 Module 1 的單一頁面、左側目錄、手機抽屜和「英文 → 上中文下英文 → 英文」點按翻譯模式；公開 GitHub 只放空白殼及 CSS/JS，不放私人教材正文。
+- QA：Drive metadata + 原始文字/圖片已讀回、部分文字逐段對 PDF 驗證（第一個來源 59/59、第二個 71/71）；HTML / JavaScript 靜態檢查通過。尚待持有者 Google OAuth、CDN Live、裝置實際操作及 7 個原書選項的跨欄逐字版面複核。
+- 詳細製作 SOP：`learning/atpa-modules/module2/README.md`。
