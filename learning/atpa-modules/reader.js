@@ -8,7 +8,8 @@ const SOURCE={
  "1:1":{fileId:"1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA",module:"1",part:"1",label:"1.1.1–1.1.12",sourcePages:"4–18",kind:"native"},
  "1:2":{fileId:"1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2",module:"1",part:"2",label:"1.1.13–1.1.24",sourcePages:"19–30",kind:"raw"},
  "1:3":{fileId:"1degysT_iLCSdWHtoj9HuZsgQVOOQ4lqc",module:"1",part:"3",label:"1.2.1–1.2.18",sourcePages:"32–52",kind:"raw"},
- "1:4":{fileId:"14305e_nGudobtCni8F0Q80vh6nK4uXQx",module:"1",part:"4",label:"1.2.19–1.2.28",sourcePages:"53–62",kind:"raw"}
+ "1:4":{fileId:"14305e_nGudobtCni8F0Q80vh6nK4uXQx",module:"1",part:"4",label:"1.2.19–1.2.28",sourcePages:"53–62",kind:"raw"},
+ "1:5":{fileId:"1EqGTGWeCtvEQHiuJKXhjUdecdSjNol2Z",module:"1",part:"5",label:"1.3.1–1.3.8",sourcePages:"63–73",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -163,7 +164,7 @@ function mount(text){
    for(const [candidate,prefix] of [[ordered[at-1],"← 上一批"],[ordered[at+1],"下一批"]]){
      if(!candidate)continue;
      const a=document.createElement("a");a.className="part-switch";
-     const firstId=({"1":"s111","2":"s1113","3":"s121","4":"s1219"})[candidate.part]||"s111";
+     const firstId=({"1":"s111","2":"s1113","3":"s121","4":"s1219","5":"s131"})[candidate.part]||"s111";
      a.href="?module=1&part="+encodeURIComponent(candidate.part)+"#"+firstId;
      a.textContent=prefix+"：§"+candidate.label+(prefix==="下一批"?" →":"");
      footer.prepend(a);
