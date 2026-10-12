@@ -1,57 +1,48 @@
-/* GitHub-hosted presentation only. Individual account data comes from
- * a private Google Drive document exported by the signed-in browser. */
+/* Public renderer; sensitive holdings and snapshots only arrive from private Drive. */
 (function(){
 'use strict';
-function esc(value){return String(value??'').replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]})}
-const n=new Intl.NumberFormat('zh-TW',{maximumFractionDigits:0});
-const d=new Intl.NumberFormat('zh-TW',{minimumFractionDigits:2,maximumFractionDigits:2});
-function money(v){return 'NT$'+n.format(Math.round(v))}
-function pct(v){return (v*100).toFixed(2)+'%'}
-function sum(items,key){return items.reduce(function(t,x){return t+Number(x[key]||0)},0)}
-function one(v){return n.format(v)}
-function date(s){return String(s||'').replace(/-/g,'/')}
+const fmt=new Intl.NumberFormat('zh-TW',{maximumFractionDigits:0});
+const nf=x=>fmt.format(Math.round(Number(x)||0));
+const tw=x=>'NT$'+nf(x);
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sum=(xs,k)=>xs.reduce((n,x)=>n+(Number(x[k])||0),0);
+const date=x=>String(x||'').replace(/-/g,'/');
+function series(data){
+ const src=Array.isArray(data.snapshots)&&data.snapshots.length?data.snapshots:[{asOf:data.asOf,referencePrice:data.referencePrice,accounts:data.accounts,statementDate:data.statementDate}];
+ const seen=new Set();
+ return src.filter(s=>s&&/^\d{4}-\d{2}-\d{2}$/.test(s.asOf)&&Array.isArray(s.accounts)&&!seen.has(s.asOf)&&seen.add(s.asOf)).sort((a,b)=>a.asOf.localeCompare(b.asOf));
+}
+function accounts(s){return s.accounts.map(a=>{const hs=a.holdings||[];return {...a,shares:sum(hs,'shares'),value:sum(hs,'statementValue'),principal:sum(hs,'principal')+sum(hs,'subscription'),cash:sum(hs,'cash')}})}
+function totals(s){const a=accounts(s);return {shares:sum(a,'shares'),value:sum(a,'value'),principal:sum(a,'principal')}}
 function render(target,data){
-if(!data||data.schemaVersion!==1||!Array.isArray(data.accounts)||!Number.isFinite(data.referencePrice)||data.referencePrice<=0){throw Error('SCHEMA_INVALID')}
-const rows=data.accounts.flatMap(function(a){return a.holdings.map(function(h){return Object.assign({accountName:a.name},h)})});
-if(!rows.length||rows.some(function(h){return !Number.isFinite(h.shares)||!Number.isFinite(h.principal)||!Number.isFinite(h.cash)||!Number.isFinite(h.statementValue)||Math.abs(Math.round(h.shares*data.referencePrice+h.cash)-h.statementValue)>1})){throw Error('AMOUNT_MISMATCH')}
-const principal=sum(rows,'principal')+sum(rows,'subscription'),shares=sum(rows,'shares'),cash=sum(rows,'cash'),value=sum(rows,'statementValue'),profit=value-principal;
-const relative=principal?profit/principal:0;
-let pieces=[];
-pieces.push('<div class="trust-page">');
-pieces.push('<div class="trust-hero"><div><div class="trust-kicker">EMPLOYEE SHARE TRUST</div><h2>'+esc(data.title||'信託股票')+'</h2><p class="caption">'+esc(data.institution)+'・'+esc(data.stock)+'・結算日 '+esc(date(data.asOf))+'</p></div><span class="trust-pill">報表參考股價 NT$'+d.format(data.referencePrice)+'</span></div>');
-const metrics=[
-['參考總市值',money(value),'含股票及剩餘現金','feature'],
-['帳面增值',money(profit),'參考報酬率 '+pct(relative),''],
-['持有股數',one(shares)+' 股','兩份信託對帳單合計',''],
-['累計本金',money(principal),'含不同提存來源',''],
-['剩餘現金',money(cash),'已計入參考市值','']
-];
-pieces.push('<div class="trust-stats">'+metrics.map(function(m){return '<article class="trust-stat '+m[3]+'"><p class="label">'+m[0]+'</p><div class="value">'+m[1]+'</div><p class="context">'+m[2]+'</p></article>'}).join('')+'</div>');
-pieces.push('<section class="section"><div class="section-head"><h3>各信託帳戶</h3><span class="mini">截至 '+esc(date(data.asOf))+'｜按報表分類</span></div><div class="account-stack">');
-pieces.push(data.accounts.map(function(a){
-const aPrincipal=sum(a.holdings,'principal')+sum(a.holdings,'subscription'),aValue=sum(a.holdings,'statementValue'),aShares=sum(a.holdings,'shares');
-return '<article class="trust-account"><div class="head"><h4>'+esc(a.name)+'</h4><span class="mini">'+esc(a.statement||'')+'</span></div>'+
-'<div class="amount">'+money(aValue)+'</div><div class="mini">占總市值 '+pct(aValue/value)+'</div><div class="bar"><div class="fill" style="width:'+Math.min(100,aValue/value*100).toFixed(2)+'%"></div></div>'+
-'<div class="pair"><span>本金</span><strong>'+money(aPrincipal)+'</strong></div><div class="pair"><span>股數</span><strong>'+one(aShares)+' 股</strong></div><div class="pair"><span>參考報酬率</span><strong class="positive">'+pct(aPrincipal?(aValue-aPrincipal)/aPrincipal:0)+'</strong></div></article>'}).join(''));
-pieces.push('</div></section>');
-pieces.push('<section class="section"><div class="section-head"><h3>信託持股明細</h3><span class="mini">表格可左右滑動</span></div><div class="table-scroll"><table><thead><tr><th>提存類型</th><th>累計本金</th><th>股數</th><th>剩餘現金</th><th>參考市值</th><th>參考報酬率</th></tr></thead><tbody>');
-pieces.push(rows.map(function(h){const p=h.principal+Number(h.subscription||0);return '<tr><td>'+esc(h.category)+'</td><td>'+money(p)+'</td><td>'+one(h.shares)+'</td><td>'+money(h.cash)+'</td><td><strong>'+money(h.statementValue)+'</strong></td><td>'+pct(p?(h.statementValue-p)/p:0)+'</td></tr>'}).join(''));
-pieces.push('</tbody><tfoot><tr><td>合計</td><td>'+money(principal)+'</td><td>'+one(shares)+'</td><td>'+money(cash)+'</td><td>'+money(value)+'</td><td>'+pct(relative)+'</td></tr></tfoot></table></div></section>');
-pieces.push('<section class="section"><div class="section-head"><h3>股價情境試算</h3><span class="mini">只在本頁試算，不會改動私人資料</span></div><div class="trust-scenario"><div><label for="trustPrice">假設每股價格（元）</label><input id="trustPrice" inputmode="decimal" type="number" min="0.01" step="0.05" value="'+esc(data.referencePrice)+'"></div><button type="button" id="trustReset">還原報表股價</button></div><div class="trust-scenario-out" aria-live="polite"><div class="mini">假設總市值</div><div id="trustScenarioValue" class="answer">'+money(value)+'</div><div id="trustScenarioDelta" class="delta">相較報表：NT$0</div></div><p class="mini">公式：總股數 × 假設股價 ＋ 剩餘現金；未考慮費用、稅負及其他公司行動。</p></section>');
-if(Array.isArray(data.activity)&&data.activity.length){
-pieces.push('<section class="section"><div class="section-head"><h3>當期提存與買入</h3><span class="mini">資料以對帳單為準</span></div><div class="table-scroll"><table><thead><tr><th>日期／類別</th><th>提存</th><th>認購金額</th><th>股數</th><th>買入單價</th></tr></thead><tbody>');
-pieces.push(data.activity.map(function(x){return '<tr><td>'+esc(date(x.date))+'　'+esc(x.category)+'</td><td>'+money(x.contribution)+'</td><td>'+money(x.subscriptionCost)+'</td><td>'+one(x.shares)+' 股</td><td>'+d.format(x.purchasePrice)+'</td></tr>'}).join(''));
-pieces.push('</tbody></table></div>');
-if(Array.isArray(data.fees)&&data.fees.length){pieces.push('<div class="fee">信託管理費：'+data.fees.map(function(f){return esc(f.category)+' '+money(f.amount)}).join('；')+'；合計 '+money(sum(data.fees,'amount'))+'。</div>')}
-pieces.push('</section>');
+ if(!data||data.schemaVersion!==1)throw Error('SCHEMA_INVALID');
+ const history=series(data);if(!history.length)throw Error('NO_STATEMENTS');
+ const latest=history.at(-1);
+ function view(selectedDate,metric){
+ const now=history.find(x=>x.asOf===selectedDate)||latest,acc=accounts(now),tt=totals(now);
+ const last=history[history.indexOf(now)-1];
+ const before=last?totals(last):null;
+ const heads='<div class="trust-header"><h2>信託股票</h2><label>對帳月份 <select id="trustMonth">'+history.map(s=>'<option value="'+esc(s.asOf)+'" '+(s.asOf===now.asOf?'selected':'')+'>'+esc(s.asOf.slice(0,7).replace('-',' / '))+'</option>').join('')+'</select></label></div>';
+ const subtitle='<p class="trust-date">截至 '+esc(date(now.asOf))+'　·　'+esc(data.stock||'股票')+'　·　參考股價 NT$'+Number(now.referencePrice||data.referencePrice).toFixed(2)+'</p>';
+ const cards='<div class="trust-account-grid">'+acc.map((a,i)=>{
+ const old=last?accounts(last).find(x=>x.id===a.id):null;
+ const change=old?'<span class="trust-diff">較上月：市值 '+(a.value-old.value>=0?'+':'')+tw(a.value-old.value)+'；股數 '+(a.shares-old.shares>=0?'+':'')+nf(a.shares-old.shares)+' 股</span>':'<span class="trust-diff">首筆建檔月份</span>';
+ return '<section class="trust-account-card"><h3>'+esc(a.name)+'</h3><div class="trust-card-grid"><div><small>持有股數</small><strong>'+nf(a.shares)+' <i>股</i></strong></div><div><small>參考市值</small><strong>'+tw(a.value)+'</strong></div></div><div class="trust-support"><span>累計本金 <b>'+tw(a.principal)+'</b></span><span>剩餘現金 <b>'+tw(a.cash)+'</b></span></div>'+change+(a.holdings.length>1?'<details><summary>提存分類明細</summary><div class="trust-detail">'+a.holdings.map(h=>'<div><span>'+esc(h.category)+'</span><b>'+nf(h.shares)+' 股</b><b>'+tw(h.statementValue)+'</b></div>').join('')+'</div></details>':'')+'</section>'
+ }).join('')+'</div>';
+ const columns=history.map(s=>({s,total:totals(s),a:accounts(s)}));
+ const options=[['value','市值'],['shares','股數'],['principal','本金']];
+ const max=Math.max(1,...columns.flatMap(x=>x.a.map(a=>a[metric])));
+ const colors=['#08796c','#587da0','#a47c50','#8e75a6'];
+ const chart='<section class="trust-history"><div class="trust-section-head"><h3>歷月變化</h3><div class="trust-switch" role="group" aria-label="趨勢指標">'+options.map(([id,label])=>'<button type="button" data-metric="'+id+'" class="'+(metric===id?'active':'')+'">'+label+'</button>').join('')+'</div></div><div class="trust-legend">'+acc.map((a,i)=>'<span><i style="background:'+colors[i%4]+'"></i>'+esc(a.name)+'</span>').join('')+'</div>'+
+ (history.length===1?'<div class="trust-empty">目前僅有 '+esc(date(now.asOf))+' 一期資料。收到下一份月底對帳單後，即可比較兩期變化。</div>':
+ '<div class="trust-chart" role="img" aria-label="各信託帳戶依月份之'+(metric==='value'?'市值':metric==='shares'?'股數':'本金')+'比較">'+columns.map(c=>'<div class="trust-chart-col">'+c.a.map((a,i)=>'<div class="trust-chart-bar" title="'+esc(a.name)+': '+nf(a[metric])+'" style="height:'+Math.max(a[metric]?2:0,a[metric]/max*100)+'%;background:'+colors[i%4]+'"></div>').join('')+'<span>'+esc(c.s.asOf.slice(2,7).replace('-','/'))+'</span></div>').join('')+'</div>')+
+ '<div class="trust-table-wrap"><table><thead><tr><th>月份</th>'+acc.map(a=>'<th>'+esc(a.name)+'</th>').join('')+'<th>合計</th></tr></thead><tbody>'+columns.map(c=>'<tr class="'+(c.s.asOf===now.asOf?'selected':'')+'"><td>'+esc(c.s.asOf.slice(0,7))+'</td>'+acc.map(a=>{const match=c.a.find(x=>x.id===a.id);return '<td>'+ (metric==='shares'?nf(match?.shares||0)+' 股':tw(match?.[metric]||0))+'</td>'}).join('')+'<td>'+(metric==='shares'?nf(c.total.shares)+' 股':tw(c.total[metric]))+'</td></tr>').join('')+'</tbody></table></div></section>';
+ const tail='<details class="trust-foot"><summary>本期對帳與計算說明</summary><p>市值採對帳單所列參考市值，包含剩餘現金。累計本金包含不同提存來源；市值增減可能同時來自股價變動、當月投入與股數變化，不能直接視為投資績效。</p><p>資料來源：'+esc(data.source||'每月信託對帳單')+'</p></details>';
+ target.innerHTML='<div class="trust-page">'+heads+subtitle+cards+chart+tail+'</div>';
+ target.querySelector('#trustMonth').addEventListener('change',e=>view(e.target.value,metric));
+ target.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>view(now.asOf,b.dataset.metric)));
+ }
+ view(latest.asOf,'value');
 }
-pieces.push('<section class="section"><div class="section-head"><h3>計算基礎與來源</h3><span class="mini">報表製作日 '+esc(date(data.statementDate))+'</span></div><p class="mini">'+esc(data.source||'')+'</p><ul class="trust-notes">'+(data.notes||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul><p class="mini">私人資料更新日期：'+esc(date(data.lastUpdated))+'</p></section>');
-pieces.push('</div>');
-target.innerHTML=pieces.join('');
-const input=target.querySelector('#trustPrice'),output=target.querySelector('#trustScenarioValue'),delta=target.querySelector('#trustScenarioDelta');
-function update(){const p=Number(input.value);if(!Number.isFinite(p)||p<=0){output.textContent='請輸入有效股價';delta.textContent='';return}const estimate=Math.round(shares*p+cash);output.textContent=money(estimate);const diff=estimate-value;delta.textContent='相較報表：'+(diff>0?'+':'')+money(diff)+'；假設帳面增值 '+money(estimate-principal)}
-input.addEventListener('input',update);
-target.querySelector('#trustReset').addEventListener('click',function(){input.value=String(data.referencePrice);update()});
-}
-window.TrustStocks=Object.freeze({render:render});
+window.TrustStocks=Object.freeze({render});
 })();
