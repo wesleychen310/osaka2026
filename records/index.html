@@ -6,7 +6,8 @@
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light">
-<title>私人記事｜財務・所得</title>
+<title>私人記事｜財務・所得・信託股票</title>
+<link rel="stylesheet" href="/osaka2026/records/trust.css?v=20261012">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/osaka2026/private-auth-hint.js"></script>
 <style>
@@ -20,7 +21,8 @@ header{background:var(--paper);border-bottom:1px solid var(--line)}
 h1{font-size:28px;font-weight:760;letter-spacing:-.035em;margin:0}
 .sub{color:var(--sub);font-size:13px;margin:5px 0 0}
 .settings{border:1px solid var(--line);background:white;border-radius:8px;padding:9px 12px;color:var(--sub);font-size:12px;cursor:pointer}
-.tabs{display:flex;gap:28px;border-top:1px solid var(--line)}
+.tabs{display:flex;gap:28px;border-top:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+.tab{flex-shrink:0}
 .tab{appearance:none;border:none;border-bottom:3px solid transparent;background:none;color:var(--sub);font:inherit;padding:17px 2px 13px;font-size:15px;cursor:pointer;font-weight:600}
 .tab.active{color:var(--teal);border-bottom-color:var(--teal)}
 main{padding-top:22px;padding-bottom:48px}
@@ -37,23 +39,26 @@ button:disabled{opacity:.5}
 <body>
 <header>
  <div class="wrap top">
-   <div><h1>私人記事</h1><p class="sub">2026 年｜財務與所得</p></div>
+   <div><h1>私人記事</h1><p class="sub">2026 年｜財務、所得與信託股票</p></div>
    <button id="switchBtn" class="settings" type="button">切換 Google 帳號</button>
  </div>
  <nav class="wrap tabs" role="tablist" aria-label="私人紀錄分類">
    <button class="tab active" data-tab="finance" role="tab" aria-selected="true" type="button">支出紀錄</button>
    <button class="tab" data-tab="income" role="tab" aria-selected="false" type="button">所得紀錄</button>
+   <button class="tab" data-tab="trust" role="tab" aria-selected="false" type="button">信託股票</button>
  </nav>
 </header>
 <main class="wrap">
  <div id="gate" class="gate">
    <h2>登入私人記事</h2>
-   <p>使用有權限的 Google 帳號查看財務與所得紀錄。</p>
+   <p>使用有權限的 Google 帳號查看財務、所得與信託股票紀錄。</p>
    <button id="loginBtn" class="primary" type="button">使用 Google 登入</button>
  </div>
  <div id="viewer" hidden><iframe id="privateFrame" title="私人記事內容" scrolling="no" referrerpolicy="no-referrer"></iframe></div>
+ <section id="trustPanel" hidden aria-label="信託股票私人記錄"></section>
  <p id="status" class="status" role="status" aria-live="polite">正在檢查登入狀態…</p>
 </main>
-<script src="/osaka2026/records/app.js" defer></script>
+<script src="/osaka2026/records/trust.js?v=20261012" defer></script>
+<script src="/osaka2026/records/app.js?v=20261012" defer></script>
 </body>
 </html>
