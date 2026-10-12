@@ -1,6 +1,6 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
-**最新版本：2026-10-13，SCENE 001–009 純電子版；正式網站採用 Drive 檔案 `1FYnzqrTmPi8SWd_qVxz_dRariDS03eAy`。**
+**最新版本：2026-10-13，SCENE 001–012 純電子版；正式網站採用 Drive 檔案 `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`。**
 
 ## 讀者與架構
 - 網站（GitHub Pages）：`https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/`
@@ -40,6 +40,17 @@
 - **安全**：Google Drive 新檔 metadata 讀回 `mime_type=text/html`、`size=64182`、owner-only、無 anyone/domain、父資料夾保持；僅公開 shell/CSS/JS，無教材全文。
 - **本批程式化核對**：15 個 chapters、10 個標記 verified、5 個明確 pending、104 組日中 pair、6 個 scene 全有 STEP 1/2/3、0 圖片。私有內容讀回可包含 SCENE 001–006。實際 Google OAuth／Safari iPhone E2E 與 CDN 生效仍待真人授權及裝置實測，不能宣稱通過。
 - **回退**：上一版本 Google Drive source File ID `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz` 未覆寫；GitHub commit 歷史可回復 UI。再次修改現有 Google Drive 正本仍須先備份到同資料夾 `_backup`，保留 ID、父資料夾、分享權限。
+
+## 2026-10-13 第三次延伸｜SCENE 010–012（已提交）
+- 正式 Drive 教材：`Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY.html`；**File ID `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`**、父資料夾 `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`、MIME `text/html`、**108,733 bytes**；Drive metadata 讀回確認僅 owner grant、無公開分享。
+- 原書來源：印刷 **pp.042–047**／PDF 雙頁第 23–25 張（0-based indices 22–24），已依兩頁影像核對。
+- SCENE 010「SIMカードを入手する」：兩句英文 Key Phrase、8 句原書英語角色對話、STEP 1–3 完整日中指示與回饋；原書 **ALC Mobile** 方案改用純 HTML：Basic 3GB/7 days、Advanced 10GB/14 days、Unlimited Unlimited/30 days。原書未列這三方案的價錢，未添加虛構價格。
+- SCENE 011「チェックインをする」：3 句關鍵句、10 句模型對話、Wi-Fi、早餐 **7 to 10 a.m.**、退房 **before 11 a.m.**、原書 5 項入住檢查清單與 AI 回顧。
+- SCENE 012「設備が故障したことを伝える」：3 句 Key Phrase（第 3 句為原書 +α）、7 句模型對話、完整故障備忘選項 **1127／1003／928 號房**與熱水、空調、隔壁房噪音。
+- HTML 機械驗收：**21 個 chapter、12 個 scene、202 組日中 pair、0 個 img**；3 個新 Scene 的英文模型對話句數分別 8、10、7。JavaScript 已更新為要求 21 chapter 並檢查首節 `preface` 和末節 `scene-012`；四模式仍只改日中顯示，英文永遠保留。
+- 舊版正式 Drive 檔案 `1FYnzqrTmPi8SWd_qVxz_dRariDS03eAy` 仍原樣保存供回退；沒有覆寫既存檔。公開 GitHub 只存 HTML shell、CSS、JS、README，版權正文／翻譯仍只放私人 Drive。
+- 靜態驗收已完成：Drive 資料、metadata、GitHub 程式碼提交可驗證；**GitHub Pages live OAuth 與真實 iPhone/iPad/Mac Safari E2E 尚待驗收**，不得混同靜態檢查。
+- **待辦**：原書目錄尚未逐項電子化，`intro-page10`–`intro-page13` 四個前置版面待補；模型會話的原書日文譯文附錄 pp.236–251 仍待製作。下一批從 SCENE 013／印刷 p.048 接續。原書整頁影像不用上網站；僅在 Drive 保留原始 PDF 作為核對依據。
 
 ## 2026-10-13 第二次延伸｜SCENE 007–009 純電子教材
 - **目前網站使用的私人 Google Drive HTML**：`Yamada_Speaking_FrontMatter_Scenes001-009_TEXT_ONLY.html`，File ID `1FYnzqrTmPi8SWd_qVxz_dRariDS03eAy`；parent folder `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`，MIME `text/html`，大小 **86,160 bytes**。
