@@ -1,55 +1,47 @@
-/* Public-only visual system; all holdings stay in private Google Drive. */
-#trustPanel{min-width:0;width:100%;padding:0 0 40px}
-.trust-page{--tink:#263843;--tmuted:#647682;--tborder:#dce5e8;--tblue:#245d65;--tgreen:#087c70;color:var(--tink);font-variant-numeric:tabular-nums}
-.trust-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:3px 0 17px}
-.trust-hero h2{font-size:23px;letter-spacing:-.03em;margin:4px 0 5px;line-height:1.3}
-.trust-hero .caption,.trust-page .mini{font-size:12px;color:var(--tmuted);line-height:1.55;margin:0}
-.trust-kicker{font-size:11px;color:var(--tgreen);font-weight:800;letter-spacing:.04em}
-.trust-pill{display:inline-block;white-space:nowrap;color:#1e635f;border:1px solid #c4ddda;background:#f0faf7;border-radius:999px;padding:7px 10px;font-size:12px}
-.trust-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:16px}
-.trust-stat{min-width:0;background:#fff;border:1px solid var(--tborder);border-radius:15px;padding:16px 15px}
-.trust-stat.feature{background:#e9f5f2;border-color:#c5dfd8}
-.trust-stat .label{font-size:12px;color:var(--tmuted);margin:0 0 8px}
-.trust-stat .value{font-size:clamp(18px,2.8vw,27px);font-weight:780;line-height:1.15;overflow-wrap:anywhere}
-.trust-stat .context{margin:8px 0 0;color:var(--tmuted);font-size:11px;line-height:1.45}
-.trust-page .section{background:#fff;border:1px solid var(--tborder);border-radius:15px;padding:18px;margin-bottom:14px;min-width:0}
-.trust-page .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:15px}
-.trust-page h3{font-size:17px;margin:0;letter-spacing:-.02em}
-.trust-page h4{font-size:14px;margin:0}
-.trust-page .table-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.trust-page table{width:100%;border-collapse:collapse;font-size:12px;min-width:620px;white-space:nowrap}
-.trust-page th,.trust-page td{padding:12px 9px;text-align:right;border-bottom:1px solid #edf1f2}
-.trust-page th{font-size:11px;color:var(--tmuted);font-weight:700;background:#f8fbfb}
-.trust-page td:first-child,.trust-page th:first-child{text-align:left}
-.trust-page tr:last-child td{border-bottom:0}
-.trust-page tfoot{font-weight:800;background:#f8fbfb}
-.trust-page .account-stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.trust-account{border:1px solid var(--tborder);border-radius:12px;padding:14px;min-width:0}
-.trust-account header{border:0;background:none}
-.trust-account .head{display:flex;justify-content:space-between;gap:6px;align-items:flex-start}
-.trust-account .amount{font-size:23px;font-weight:800;margin:12px 0 4px}
-.trust-account .pair{display:flex;gap:12px;justify-content:space-between;font-size:12px;margin-top:8px}
-.trust-account .pair span:first-child{color:var(--tmuted)}
-.trust-account .bar{height:6px;background:#e9eeee;border-radius:4px;overflow:hidden;margin:14px 0 6px}
-.trust-account .fill{height:100%;background:var(--tgreen);border-radius:4px}
-.trust-scenario{display:flex;align-items:end;gap:13px;flex-wrap:wrap}
-.trust-scenario label{font-size:12px;font-weight:700;display:block;margin:0 0 7px}
-.trust-scenario input{font:inherit;font-size:18px;font-weight:650;width:155px;padding:10px;border:1px solid #b9cfd0;border-radius:9px;background:#fff;color:inherit}
-.trust-scenario button{background:#edf5f3;border:1px solid #bdd6d1;color:#14655d;padding:11px 14px;border-radius:9px;font-size:12px;cursor:pointer}
-.trust-scenario-out{margin-top:18px;padding:14px;background:#f2f8f7;border-radius:12px}
-.trust-scenario-out .answer{font-size:25px;font-weight:800;margin:5px 0}
-.trust-scenario-out .delta{font-size:12px;color:var(--tmuted)}
-.trust-page .trust-notes{padding-left:18px;margin:9px 0 0;color:var(--tmuted);font-size:12px;line-height:1.65}
-.trust-page .trust-notes li{margin:6px 0}
-.trust-page .source-link{color:#196c66;font-weight:650;text-decoration:underline;text-underline-offset:3px;font-size:12px}
-.trust-page .fee{font-size:12px;line-height:1.8;color:var(--tmuted);margin-top:12px}
-.trust-page .positive{color:#077969}
-@media(max-width:680px){
-.trust-hero{display:block}.trust-pill{margin-top:9px}
-.trust-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.trust-stat{padding:13px 11px}.trust-stat.feature{grid-column:span 2}
-.trust-stat .value{font-size:clamp(19px,5vw,26px)}
-.trust-page .section{padding:14px 12px}
-.trust-page .account-stack{grid-template-columns:1fr}
-.trust-page .section-head{align-items:flex-start;flex-direction:column;gap:4px}
-}
+/* GitHub-hosted visual layer: no private balances or personal data. */
+#trustPanel{width:100%;min-width:0;padding-bottom:48px}
+.trust-page{font-variant-numeric:tabular-nums;color:#223643}
+.trust-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.trust-header h2{margin:0;font-size:22px;letter-spacing:-.025em}
+.trust-header label{font-size:12px;color:#697983;display:flex;align-items:center;gap:8px}
+.trust-header select{border:1px solid #d3e0e0;border-radius:8px;padding:8px;background:#fff;color:#263843;font:inherit}
+.trust-date{font-size:12px;color:#697983;margin:7px 0 18px;line-height:1.6}
+.trust-account-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.trust-account-card{min-width:0;background:#fff;border:1px solid #dce5e8;border-radius:12px;padding:19px 18px}
+.trust-account-card h3{font-size:17px;margin:0 0 20px}
+.trust-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.trust-card-grid>div{min-width:0}
+.trust-card-grid small{display:block;color:#657783;font-size:12px;margin-bottom:6px}
+.trust-card-grid strong{display:block;font-size:clamp(17px,2.6vw,26px);letter-spacing:-.03em;overflow-wrap:anywhere}
+.trust-card-grid i{font-size:12px;font-style:normal;font-weight:500;color:#657783}
+.trust-support{display:flex;gap:8px 18px;flex-wrap:wrap;border-top:1px solid #e8eded;margin-top:20px;padding-top:13px;font-size:12px;color:#687c84}
+.trust-support b{font-weight:700;color:#344954;white-space:nowrap}
+.trust-diff{display:block;font-size:11px;margin-top:12px;color:#687c84}
+.trust-account-card details{border-top:1px solid #edf0f1;margin-top:13px;padding-top:10px}
+.trust-account-card summary,.trust-foot summary{cursor:pointer;color:#226e68;font-size:12px;font-weight:650}
+.trust-detail{margin-top:9px;font-size:12px}
+.trust-detail>div{display:grid;grid-template-columns:1.1fr .9fr 1fr;gap:4px;padding:9px 0;border-bottom:1px solid #edf0f1}
+.trust-detail b{text-align:right;font-weight:650}
+.trust-history{margin-top:20px;background:#fff;border:1px solid #dce5e8;border-radius:12px;padding:18px}
+.trust-section-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.trust-section-head h3{font-size:17px;margin:0}
+.trust-switch{display:flex;gap:2px;background:#f1f5f5;padding:3px;border-radius:8px}
+.trust-switch button{font:inherit;border:0;background:transparent;color:#647580;padding:7px 11px;font-size:12px;cursor:pointer;border-radius:6px}
+.trust-switch button.active{background:white;color:#155f5b;box-shadow:0 1px 3px #0001;font-weight:700}
+.trust-legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin:16px 0;font-size:12px;color:#5e707b}
+.trust-legend span{display:flex;gap:7px;align-items:center}
+.trust-legend i{display:inline-block;width:9px;height:9px;border-radius:2px}
+.trust-empty{font-size:13px;color:#687a81;padding:32px 5px;line-height:1.8}
+.trust-chart{display:flex;align-items:flex-end;gap:12px;height:220px;border-bottom:1px solid #dde7e7;padding:12px 4px 20px;overflow-x:auto}
+.trust-chart-col{height:100%;display:flex;align-items:flex-end;justify-content:center;flex:1;min-width:44px;gap:3px;position:relative}
+.trust-chart-bar{width:16px;min-height:1px;border-radius:3px 3px 0 0}
+.trust-chart-col>span{position:absolute;bottom:-19px;font-size:11px;color:#677983;white-space:nowrap}
+.trust-table-wrap{overflow-x:auto;margin-top:22px}
+.trust-table-wrap table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}
+.trust-table-wrap th,.trust-table-wrap td{padding:10px;text-align:right;border-bottom:1px solid #e8eded}
+.trust-table-wrap th:first-child,.trust-table-wrap td:first-child{text-align:left}
+.trust-table-wrap th{color:#697983;font-weight:600}
+.trust-table-wrap tr.selected{background:#f1f8f6}
+.trust-foot{border-top:1px solid #dbe4e5;margin-top:20px;padding-top:14px}
+.trust-foot p{font-size:12px;color:#687983;line-height:1.7}
+@media(max-width:720px){.trust-account-grid{grid-template-columns:1fr}.trust-account-card{padding:15px}.trust-card-grid strong{font-size:clamp(20px,5.5vw,27px)}.trust-history{padding:14px}.trust-header h2{font-size:20px}}
