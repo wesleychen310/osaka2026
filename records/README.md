@@ -198,3 +198,12 @@
 - **未來新增每月對帳單**：從 Google Docs 取回完整私人 JSON、比對基準日與分類 id，避免重複或把累計餘額當當月流量；新增或更正 `accounts`、`activity`、`fees`。在同層 `_backup`（ID `1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`）先建立含時間＋理由的**完整 Drive 文件副本**，再以 Docs `batchUpdate` 原位更新同一 File ID、原檔名、父資料夾、owner-only 權限。讀回、檢驗 JSON 與數字後才算完成；只有介面改動才需要修改 GitHub。
 - **核算與解讀**：參考市值包含剩餘現金；參考報酬率使用報表定義、以累計本金及認購金額為成本基礎，含公司獎勵等來源，不能直接當作個人現金投入的 XIRR；股利另依對帳單註記處理。若持股轉出或來源有異動，必須核對對帳單本身。
 - **驗收邊界**：已由 Docs Connector 完成 JSON 寫入、純文字匯出、私人權限與 parent 驗證；公開程式已寫入 GitHub，仍需檢查 GitHub Pages 實際部署及真實 iPhone Safari Google 登入，未測不得宣稱通過。
+
+
+### 2026-10-12 版面簡化與逐月快照（v2）
+
+- 首屏以兩個信託帳戶獨立顯示股數、市值、本金及剩餘現金；員工提存與公司獎勵可展開，不再使用五項冗餘摘要、占比長條、股價情境試算與大量說明卡片。
+- 私人 Google Docs 原檔 ID 不變，已新增 `snapshots[]`，第一期 `2026-09-30`；每期物件存 `asOf`、`statementDate`、`referencePrice`、`accounts[]`，完整保留兩帳戶及 holdings 明細。`accounts` 頂層舊欄位保留相容；渲染以 `snapshots[]` 優先。
+- 新月份：先查基準日是否存在；同日期更新該快照，不同日期新增後排序，**禁止覆寫過往快照**。逐期保留原始股數、市值、本金、現金；月度趨勢提供市值／股數／本金切換及明細表；單月不畫虛構趨勢。
+- 每次編輯私人 Google Docs 必須先備份到同層 `_backup`，使用 Docs API 原檔更新、讀回確認 JSON、權限與資料完整性。比較市值差額不直接等同報酬率，因為期間有提存與買賣。
+- 本次備份 ID `1SyWCLs20CAwMzpG4YRfuf5SahrnoV4lfSaigqwwg6kU`，於 2026-10-12 建立；同一私人正本 File ID `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms`。GitHub `trust.js`/`trust.css` 更新；iPhone 實機 OAuth 仍待驗收。
