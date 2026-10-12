@@ -55,3 +55,12 @@
 6. §1.7 Case Studies（13 小節）。
 
 總量 36+38+70+16+21+29+13=223；每節在 Drive 準備內容，GitHub 增加資料來源映射，使用者始終在相同網址連續閱讀。
+
+
+## 2026-10-12 閱讀格式定版（與 Module 1 共用）
+
+- Module 2 使用者介面 **固定繁中在上、英文在下**，移除四個閱讀模式選擇按鈕與每段點按翻譯。小節內文章和標題按上下雙語對照閱讀。
+- `module2/index.html` 不再出現 `data-mode` 工具列；`module2.js` 使用 `applyBilingualLayout()`；共享 `../reader.css?v=20261012-vertical1`。既有 `module2.css` 保留原書圖、表額外排版。
+- 不影響左側／手機章節目錄、5 題 Knowledge Checks、Google Drive 私人載入；三份來源維持原 ID 和具名授權。
+- 後續 §1.2–§1.7 新增時直接依此上中下英規格，不再復原語言切換按鈕。
+- 已做 GitHub 靜態讀回及 JS 語法檢查；Google OAuth 與跨裝置實際渲染待確認。
