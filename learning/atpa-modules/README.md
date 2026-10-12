@@ -68,9 +68,26 @@ GitHub Pages 公開 shell（不含教材正文／英文原文／繁體翻譯）
 - 來源原文屬 2023 年教材；補充的 2026 法規資訊應另列來源，**勿默默改寫原書文字**。
 - GitHub 各檔透過 git commit 回復。Google Drive 更動任何已存在的 Part 原稿前，應在原父資料夾 `_backup` 建立帶日期的備份並驗證，再於原 File ID 更新。
 
+## 2026-10-12 第二批交付｜1.1.13–1.1.24
+
+- 閱讀網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/?module=1&part=2#s1113
+- **SOA 原教材 p.19–30，12 個 section、53 組英中逐段配對、12 組「核心概念／精算例子／類比」教師卡、49 個 Reusable English。**
+- Google Drive source：`ATPA_Module_1_Part_02_1.1.13-1.1.24_雙語私人教材.html`；File ID `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2`；MIME `text/html`；原始長度 **55,181 bytes**，SHA256 `d30cdedcb20b82930190c4cbed8b9740d38da2af524597fa03b5ffbf1a99a1c8`。
+- Google Drive folder：`1uLenu319fQEQwltPasYv1HH_EL6Swk4q`。metadata 已驗證其 permission entries 為明確的 user（無 `anyone` 和 `domain`），保留既有明確指定使用者的私人讀取權限；絕不改成公開連結。
+- `reader.js` 現區分 `kind:native`（Part 01 Google Doc，`files.export?mimeType=text/plain`）與 `kind:raw`（Part 02 私人 HTML，`files.get?alt=media`）；二者皆使用 OAuth drive.readonly，並共享四模式、動態小節目錄與相鄰批次導航。
+- 源 PDF 所有 12 頁各含同一個 xref=31 的重複版面圖像（為共用裝飾資產）；源章節沒有獨立的統計 Figure 需重建。
+- **核對紀錄**：53/53 組英文原文正規化後均可在對應原書 PDF 頁面找到；保留 1.1.13、1.1.14、1.1.19、1.1.23、1.1.24 五組原有 Tabset；1.1.13 Sampling Bias 與 Implicit Bias 各以獨立段落對譯。原書 Component Table 的 Tab Title/Tab Text 錯置已列註記。無省略正文的摘要替代行為。
+- **QA 邊界**：Github 內容已提交並讀回，Google Drive 元資料與 bytes 已讀回；尚需真實 owner Google OAuth E2E／iPhone Safari、iPad、Mac 實機視覺驗收；部署連線視使用者 Google 授權結果為準。
+
+### 新增下一批工作範圍
+- Part 03：1.2.1–1.2.18（ASOP、法規、隱私、公平分類、反歧視）
+- Part 04：1.2.19–1.2.28（Summary + 8 Knowledge Checks）
+- Part 05：1.3.1–1.3.8（Life Insurance Underwriting Case Study + Sample Answers + Bibliography）
+- Part 06：全 Module 73 頁內容核對與實機完整驗收
+
 ## 7. 待續建清單
 
-- Part 02：1.1.13–1.1.24
+- Part 02：1.1.13–1.1.24 ✅ Google Drive 原稿、GitHub 路由已建立（私有實機 QA 待驗收）
 - Part 03：1.2.1–1.2.18
 - Part 04：1.2.19–1.2.28
 - Part 05：1.3.1–1.3.8
