@@ -89,10 +89,31 @@ html[data-reading-mode=en] .tutor,html[data-reading-mode=en] .phrases,html[data-
 html[data-reading-mode=parallel] .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
 html[data-reading-mode=parallel] .pair>.original{padding:0 14px 0 0;border-right:1px solid #e5e9ed}
 html[data-reading-mode=parallel] .pair>.translation{padding:0 0 0 14px;margin:0}
-html[data-reading-mode=swipe] .pair{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;border:1px solid #e2e8eb;border-radius:9px;padding:12px 0;margin:14px 0;overscroll-behavior-x:contain}
-html[data-reading-mode=swipe] .pair>p{flex:0 0 min(75vw,700px);max-width:none;font-size:19px;line-height:1.9;margin:0;padding:0 18px;scroll-snap-align:start}
-html[data-reading-mode=swipe] .pair>.original{border-right:1px solid #e2e8eb;font-size:19px}
-html[data-reading-mode=swipe] .pair>.translation{font-size:19px}
+/* English-first tap-to-translate mode: each paragraph flips in place, no horizontal scrolling. */
+html[data-reading-mode=tap] .pair{display:block;overflow:visible;cursor:pointer;padding:15px 11px;margin:3px -11px;border-radius:8px;border-bottom:1px solid #edf0f1;transition:background-color .12s ease}
+html[data-reading-mode=tap] .pair:hover{background:#f3f7f9}
+html[data-reading-mode=tap] .pair:active{background:#eaf2f6}
+html[data-reading-mode=tap] .pair:focus-visible{outline:2px solid #477e9c;outline-offset:2px}
+html[data-reading-mode=tap] .pair>.original{display:block;font-size:19px;line-height:1.9}
+html[data-reading-mode=tap] .pair>.translation{display:none!important}
+html[data-reading-mode=tap] .pair[data-tap-lang=zh]>.original{display:none!important}
+html[data-reading-mode=tap] .pair[data-tap-lang=zh]>.translation{display:block!important;font-size:19px;line-height:1.9;color:#1d4a61}
+html[data-reading-mode=tap] .lesson header h2{cursor:pointer}
+html[data-reading-mode=tap] .lesson header .zh-heading{display:none}
+html[data-reading-mode=tap] .lesson header[data-tap-lang=zh] h2{display:none}
+html[data-reading-mode=tap] .lesson header[data-tap-lang=zh] .zh-heading{display:block;font-size:clamp(21px,2.7vw,27px);color:#263f4d;font-weight:750;cursor:pointer}
+html[data-reading-mode=tap] .chapter-heading{cursor:pointer}
+html[data-reading-mode=tap] .chapter-heading-zh{display:none}
+html[data-reading-mode=tap] .chapter-heading-en{font:600 clamp(26px,3vw,34px)/1.4 Georgia,serif;color:var(--accent-dark)}
+html[data-reading-mode=tap] .chapter-heading[data-tap-lang=zh] .chapter-heading-zh{display:block}
+html[data-reading-mode=tap] .chapter-heading[data-tap-lang=zh] .chapter-heading-en{display:none}
+html[data-reading-mode=tap] .lesson h3[data-orig-full]{cursor:pointer}
+html[data-reading-mode=tap] .lesson h3[data-orig-full]:hover{text-decoration:underline;text-decoration-color:#9dbac8;text-underline-offset:4px}
+/* Check-answer options remain selectable even while their text toggles language. */
+html[data-reading-mode=tap] .choice-body>.pair{margin:0;padding:6px 2px}
+html[data-reading-mode=tap] .quiz-option .pair>.original,
+html[data-reading-mode=tap] .quiz-option .pair[data-tap-lang=zh]>.translation{font-size:17px}
+
 details{margin:12px 0;border:1px solid #e0e8ec;border-radius:10px;padding:0 14px;min-width:0;background:#fff}
 details>summary{padding:11px 3px;font-size:13px;font-weight:780;color:#2e6077;cursor:pointer}
 details>.pair{padding:12px 0}
@@ -187,7 +208,8 @@ details.tutor p,details.phrases p{font-size:13.5px;line-height:1.85;margin:8px 4
  html[data-reading-mode=parallel] .pair>.original,html[data-reading-mode=parallel] .pair>.translation{font-size:12.6px;line-height:1.72}
  html[data-reading-mode=parallel] .pair>.original{padding-right:8px}
  html[data-reading-mode=parallel] .pair>.translation{padding-left:8px}
- html[data-reading-mode=swipe] .pair>p,html[data-reading-mode=swipe] .pair>.original,html[data-reading-mode=swipe] .pair>.translation{flex-basis:78vw;font-size:19px}
+ html[data-reading-mode=tap] .pair{margin:2px -6px;padding:13px 7px}
+ html[data-reading-mode=tap] .pair>.original,html[data-reading-mode=tap] .pair[data-tap-lang=zh]>.translation{font-size:18px;line-height:1.9}
  .knowledge-check{padding:10px 7px}
  .choice-row{padding:4px 4px 9px}
  .bibliography-pair{padding-left:26px}
