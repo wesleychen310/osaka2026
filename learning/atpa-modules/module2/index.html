@@ -7,11 +7,11 @@
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light">
 <title>SOA ATPA Module 2｜Working with Data｜私人雙語教科書</title>
-<link rel="stylesheet" href="../reader.css?v=20261012-vertical1">
+<link rel="stylesheet" href="../reader.css?v=20261012-four-modes1">
 <link rel="stylesheet" href="./module2.css?v=20261012-m2-section11-complete">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/osaka2026/private-auth-hint.js"></script>
-<script src="./module2.js?v=20261012-vertical1" defer></script>
+<script src="./module2.js?v=20261012-four-modes1" defer></script>
 </head>
 <body>
 <div class="shell">
@@ -35,7 +35,12 @@
  <section id="reader-wrap" hidden aria-label="Module 2 連續雙語內容">
   <div class="mode-bar" id="mode-bar" aria-label="閱讀工具列">
    <button id="toc-trigger" class="toc-trigger" type="button" aria-controls="chapter-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span> 章節目錄</button>
-   <span class="bilingual-static-label">中文在上 · English below</span>
+   <div class="mode-options" role="group" aria-label="閱讀模式">
+        <button type="button" data-mode="en" aria-pressed="false">全英文</button>
+        <button type="button" data-mode="zh" aria-pressed="false">全中文</button>
+        <button type="button" data-mode="vertical" aria-pressed="true">上中文下英文</button>
+        <button type="button" data-mode="parallel" aria-pressed="false">左英文右中文</button>
+      </div>
    <span class="current-section" id="current-section">1.1 · Data Pipeline</span>
   </div>
   <div id="toc-backdrop" class="toc-backdrop" hidden></div>
