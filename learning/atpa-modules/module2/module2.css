@@ -19,3 +19,22 @@ html[data-reading-mode=en] .source-figure figcaption{display:none}
 html[data-reading-mode=zh] .source-popup-full{display:none}
 html[data-reading-mode=tap] .source-popup-full{display:none}
 .source-data-table{table-layout:auto}
+
+/* Module 2 §1.2: source-exact code, JSON, XML and cross-page reference tables. */
+.pdf-source-pair{align-items:stretch;min-width:0}
+.pdf-source-original{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;tab-size:4;font:14px/1.8 ui-monospace,SFMono-Regular,Menlo,Consolas,"Noto Sans Mono CJK TC",monospace;color:#344e60}
+.pdf-source-translation{min-width:0;overflow-wrap:anywhere}
+.pdf-source-translation>p{margin:0 0 13px;line-height:1.9}
+.pdf-source-translation>p:last-child{margin-bottom:0}
+html[data-reading-mode=vertical] .pdf-source-pair>.pdf-source-original{font:13.5px/1.75 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;background:#f7fafb;padding:11px 12px;border-radius:7px}
+html[data-reading-mode=parallel] .pdf-source-pair>.pdf-source-original{white-space:pre-wrap;font:12.6px/1.72 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+html[data-reading-mode=en] .pdf-source-pair>.pdf-source-original{white-space:pre-wrap}
+html[data-reading-mode=parallel] .source-figure{grid-column:1/-1}
+.source-figure img{object-fit:contain}
+@media(max-width:490px){
+ .pdf-source-original{font-size:12.3px}
+ html[data-reading-mode=vertical] .pdf-source-pair>.pdf-source-original{font-size:12px;padding:9px 7px}
+ html[data-reading-mode=parallel] .pdf-source-pair>.pdf-source-original{font-size:11.4px;line-height:1.63;padding-right:7px}
+ html[data-reading-mode=parallel] .pdf-source-pair>.pdf-source-translation{padding-left:7px}
+ .pdf-source-translation>p{line-height:1.75;margin-bottom:10px}
+}
