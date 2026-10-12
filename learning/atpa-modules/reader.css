@@ -225,3 +225,35 @@ details.tutor p,details.phrases p{font-size:13.5px;line-height:1.85;margin:8px 4
  .study-layout{display:block}.study-content{padding:0;border:0;box-shadow:none}
  .lesson{break-inside:avoid}.chapter-heading{break-after:avoid}
 }
+
+
+/* 2026-10-12: fixed vertical bilingual layout — Chinese ABOVE English, no mode buttons. */
+html[data-reading-mode=vertical] .pair{display:flex;flex-direction:column;gap:0;overflow:visible;scroll-snap-type:none;cursor:default;padding:15px 0;margin:0;border-radius:0;border-bottom:1px solid #edf0f2}
+html[data-reading-mode=vertical] .pair>.translation{display:block!important;order:1;margin:0 0 7px;padding:0;color:#213e50;font-size:16px;line-height:1.9}
+html[data-reading-mode=vertical] .pair>.original{display:block!important;order:2;margin:0;padding:0;color:#60717c;font:15px/1.9 Georgia,"Times New Roman",serif}
+html[data-reading-mode=vertical] .lesson header{display:flex;flex-direction:column;gap:0;cursor:default}
+html[data-reading-mode=vertical] .lesson header>.sec-num{order:0}
+html[data-reading-mode=vertical] .lesson header>.zh-heading{display:block;order:1;color:#263e4c;font-size:clamp(22px,2.8vw,27px);font-weight:750;line-height:1.55;margin:0}
+html[data-reading-mode=vertical] .lesson header>h2{display:block;order:2;color:#70838e;font:400 17px/1.5 Georgia,"Noto Serif TC",serif;margin:5px 0 0}
+html[data-reading-mode=vertical] .lesson header>small{order:3}
+html[data-reading-mode=vertical] .chapter-heading>.chapter-heading-zh{display:block}
+html[data-reading-mode=vertical] .chapter-heading>.chapter-heading-en{display:block;font-size:16px;font-weight:400;color:#748791;margin-top:5px}
+html[data-reading-mode=vertical] .stacked-bilingual-label .bilingual-label-zh{display:block;font-size:15px;font-weight:750;line-height:1.65;color:#274d63}
+html[data-reading-mode=vertical] .stacked-bilingual-label .bilingual-label-en{display:block;font:13px/1.65 Georgia,"Times New Roman",serif;color:#788a94;margin-top:3px}
+html[data-reading-mode=vertical] .source-tabs summary .bilingual-label-zh{font-size:14px}
+html[data-reading-mode=vertical] .choice-body>.pair{margin:0;padding:8px 0}
+html[data-reading-mode=vertical] .quiz-option .pair>.translation{font-size:15px}
+html[data-reading-mode=vertical] .quiz-option .pair>.original{font-size:14px}
+html[data-reading-mode=vertical] .bibliography-pair{padding-left:30px}
+.bilingual-static-label{font-size:12px;font-weight:700;color:#617b8b;letter-spacing:.015em}
+.mode-bar{min-height:48px}
+@media(max-width:800px){
+ .mode-bar{min-height:48px;justify-content:space-between}
+ .bilingual-static-label{font-size:12px}
+}
+@media(max-width:490px){
+ html[data-reading-mode=vertical] .pair>.translation{font-size:15.5px}
+ html[data-reading-mode=vertical] .pair>.original{font-size:14px}
+ html[data-reading-mode=vertical] .lesson header>.zh-heading{font-size:22px}
+ html[data-reading-mode=vertical] .lesson header>h2{font-size:15px}
+}
