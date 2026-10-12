@@ -1,0 +1,40 @@
+/* ATPA Chapter 5 · Resampling Methods · large-print swipe interaction.
+   Loaded after the shared reader styles ONLY for ?chapter=5.
+   Keeps the three existing modes untouched and preserves all source mathematics. */
+html[data-islp-reading-mode="swipe"] body .islp-parallel-pair.pair > :is(.original,.translation,.en-text,.zh-text){
+  /* Chapter 5's legacy SVG overflow wrapper must not consume the horizontal
+     gesture: the paired bilingual container owns swiping in this mode. */
+  overflow-x:visible!important;
+  overscroll-behavior-x:auto!important;
+  -webkit-overflow-scrolling:auto;
+  min-width:0!important;
+}
+html[data-islp-reading-mode="swipe"] body .islp-parallel-pair.pair > :is(.original,.translation,.en-text,.zh-text) img.inline-math {
+  max-width:100%!important;
+  height:auto!important;
+  vertical-align:middle;
+}
+html[data-islp-reading-mode="swipe"] body .islp-parallel-pair.pair {
+  touch-action:pan-x pan-y;
+  scroll-padding-inline:0 12px;
+}
+html[data-islp-reading-mode="swipe"] body .islp-parallel-pair.pair > .islp-parallel-en,
+html[data-islp-reading-mode="swipe"] body .islp-parallel-pair.pair > .islp-parallel-zh {
+  scroll-snap-align:start;
+  scroll-snap-stop:normal;
+}
+/* Unpaired numbered equations, charts, tables, and code keep their own
+   horizontal overflow instead of enlarging the viewport. */
+html[data-islp-reading-mode="swipe"] body :is(.equation,.codeblock,.outputblock,.table-wrap){
+  max-width:100%;
+  overflow-x:auto!important;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+}
+/* On a phone, each side has enough width to actually use the larger type. */
+@media(max-width:710px){
+  html[data-islp-reading-mode="swipe"] body .islp-parallel-pair.pair > :is(.original,.translation,.en-text,.zh-text){
+    font-size:18.5px!important;
+    line-height:1.82!important;
+  }
+}
