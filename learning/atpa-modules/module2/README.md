@@ -64,3 +64,19 @@
 - 不影響左側／手機章節目錄、5 題 Knowledge Checks、Google Drive 私人載入；三份來源維持原 ID 和具名授權。
 - 後續 §1.2–§1.7 新增時直接依此上中下英規格，不再復原語言切換按鈕。
 - 已做 GitHub 靜態讀回及 JS 語法檢查；Google OAuth 與跨裝置實際渲染待確認。
+
+
+## 2026-10-12 最新有效規格｜四個全章閱讀模式（取代所有先前語言模式規定）
+
+使用者最新明確指定 Module 1 和 Module 2 的**四個切換按鈕**，按鈕必須依以下順序呈現：
+
+1. **全英文** (`en`)：英文原文、英文標題及原始練習題；對應繁中翻譯隱藏。
+2. **全中文** (`zh`)：繁體中文翻譯與中文標題；對應英文原文隱藏。
+3. **上中文下英文** (`vertical`)：每個段落的繁體中文在上，對應英文原文在下；預設模式。
+4. **左英文右中文** (`parallel`)：每個段落英文左欄，繁中右欄，行文、章節標題及雙語小標題對應；手機維持兩欄。
+
+- 四個模式透過 CSS 和 `document.documentElement.dataset.readingMode` 切換；全部資料仍在同一 DOM，不會重複向 Google Drive 下載，並以 `localStorage` 的 `atpa-modules-reading-mode-v3` 保存使用者目前模式，Module 1／2 共用偏好。首次進入預設上中文下英文。
+- **先前「完全取消語言按鈕，固定上中文下英文」的紀錄已作廢**；先前的逐段「點按翻譯」也不是這一版的四種模式。所有後續章節必須遵循以上四按鈕規格。
+- 網頁維持單一長頁、固定左側目錄／手機抽屜、SOA Knowledge Checks、SOA 原書 Sample Answers；私人授權與原稿不變。Module 1 顯示 60 小節，Module 2 目前 1.1 顯示 36 小節。
+- 程式碼位置：Module 1 `learning/atpa-modules/{index.html,reader.js,reader.css}`；Module 2 `learning/atpa-modules/module2/{index.html,module2.js,module2.css}`，兩者共用 `reader.css` 之四模式排版。
+- 更新版次 `20261012-four-modes1`；GitHub 檔案已讀回及 JavaScript 靜態語法驗證，四模式 CSS 選擇器與兩模組按鈕順序已逐項核對。**使用者 Google OAuth、網站即時部署、iPhone／iPad／Mac 真實排版仍待實機驗收。**
