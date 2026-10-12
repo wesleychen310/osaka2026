@@ -5,7 +5,9 @@ const SCOPE="https://www.googleapis.com/auth/drive.readonly";
 const SESSION_KEY="hanami-kyoto-google-token-v3";
 const MODE_KEY="atpa-official-module-language-v1";
 const SOURCE={
- "2:1":{fileId:"1D-HUEZGGTor5P5HFZb4vmNm9C9sXS89B",module:"2",part:"1",label:"1.1.1–1.1.12",sourcePages:"8–20",kind:"raw"}
+ "2:1":{fileId:"1D-HUEZGGTor5P5HFZb4vmNm9C9sXS89B",module:"2",part:"1",label:"1.1.1–1.1.12",sourcePages:"8–20",kind:"raw"},
+ "2:2":{fileId:"1DnflW10dpSj9mys_sHR_3ybcQv_soHKw",module:"2",part:"2",label:"1.1.13–1.1.31",sourcePages:"21–39",kind:"raw"},
+ "2:3":{fileId:"141OqP4-RikeZXWQO4V3VFzxGtkZ7dWCE",module:"2",part:"3",label:"1.1.32–1.1.36",sourcePages:"40–48",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -13,8 +15,8 @@ const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="2";
 const SOURCES=Object.values(SOURCE).sort((a,b)=>Number(a.part)-Number(b.part));
 const CHAPTERS={"1.1":{title:"Data Pipeline",zh:"資料管線"}};
-const EXPECTED_COUNTS=[12];
-const FIRST_IDS=["s111"];
+const EXPECTED_COUNTS=[12,19,5];
+const FIRST_IDS=["s111","s1113","s1132"];
 const SESSION_PREFIX="hanami-kyoto-google-token-v3";
 let tokenClient=null,loaded=false,allLessons=[],scrollScheduled=false;
 const show=(id,visible)=>{const n=$(id);if(n)n.hidden=!visible};
@@ -240,7 +242,7 @@ function makeChapter(id,key){
 }
 function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
- const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 12 小節";toc.append(count);
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 1.1 全部 36 小節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const details=document.createElement("details");details.className="toc-group";details.open=true;
    const summary=document.createElement("summary");
@@ -308,8 +310,8 @@ function mountAll(texts){
      throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
    sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
  }
- if(sections.length!==12||new Set(sections.map(s=>s.id)).size!==12)
-   throw new Error("12 個已製作小節未完整載入，請重新整理後再試。");
+ if(sections.length!==36||new Set(sections.map(s=>s.id)).size!==36)
+   throw new Error("36 個小節未完整載入，請重新整理後再試。");
  const article=$("study-content"),frag=document.createDocumentFragment();let lastChapter="";
  for(const sec of sections){
    const group=sec.dataset.num.split(".").slice(0,2).join(".");
@@ -349,7 +351,7 @@ async function fetchOneSource(source,token){
 }
 async function fetchPrivate(token){
  if(loaded||!selected)return;
- status("正在載入 Module 2 已製作的 12 個小節…");
+ status("正在載入 Module 2 的 Data Pipeline 全部 36 小節…");
  const texts=await Promise.all(SOURCES.map(source=>fetchOneSource(source,token)));
  mountAll(texts);
 }
