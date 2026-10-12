@@ -7,7 +7,8 @@ const MODE_KEY="atpa-official-module-language-v1";
 const SOURCE={
  "1:1":{fileId:"1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA",module:"1",part:"1",label:"1.1.1–1.1.12",sourcePages:"4–18",kind:"native"},
  "1:2":{fileId:"1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2",module:"1",part:"2",label:"1.1.13–1.1.24",sourcePages:"19–30",kind:"raw"},
- "1:3":{fileId:"1degysT_iLCSdWHtoj9HuZsgQVOOQ4lqc",module:"1",part:"3",label:"1.2.1–1.2.18",sourcePages:"32–52",kind:"raw"}
+ "1:3":{fileId:"1degysT_iLCSdWHtoj9HuZsgQVOOQ4lqc",module:"1",part:"3",label:"1.2.1–1.2.18",sourcePages:"32–52",kind:"raw"},
+ "1:4":{fileId:"14305e_nGudobtCni8F0Q80vh6nK4uXQx",module:"1",part:"4",label:"1.2.19–1.2.28",sourcePages:"53–62",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -79,6 +80,65 @@ $("mode-bar")?.addEventListener("click",e=>{
  const btn=e.target.closest("button[data-mode]");
  if(btn)applyMode(btn.dataset.mode);
 });
+
+/* Knowledge Check UI is created after sanitization; no questions/answers live in the public repository. */
+function activateQuizzes(){
+ const isEnglish=()=>document.documentElement.dataset.readingMode==="en";
+ document.querySelectorAll("#study-content .knowledge-check").forEach((quiz,qIndex)=>{
+   if(quiz.dataset.enhanced==="true")return;
+   quiz.dataset.enhanced="true";
+   const multi=quiz.dataset.multiple==="true";
+   const key=(quiz.dataset.correct||"").split(",").map(Number).filter(Number.isInteger).sort((a,b)=>a-b);
+   const options=[...quiz.querySelectorAll(".quiz-option")];
+   const controls=quiz.querySelector(".quiz-controls");
+   const feedback=quiz.querySelector(".quiz-feedback");
+   const solution=quiz.querySelector(".teacher-answer");
+   if(!controls||!feedback||!solution||!options.length||!key.length)return;
+   const inputs=[];
+   options.forEach((opt,index)=>{
+     const id="atpa-q"+qIndex+"-o"+index;
+     const label=document.createElement("label");
+     label.className="choice-row";
+     const input=document.createElement("input");
+     input.type=multi?"checkbox":"radio";
+     input.name="atpa-quiz-"+qIndex;
+     input.value=String(index+1);
+     input.id=id;
+     input.setAttribute("aria-label",(multi?"複選選項 ":"單選選項 ")+(index+1));
+     const mark=document.createElement("span");mark.className="choice-indicator";mark.textContent=multi?"□":"○";
+     const body=document.createElement("div");body.className="choice-body";
+     while(opt.firstChild)body.appendChild(opt.firstChild);
+     label.append(input,mark,body);opt.append(label);
+     inputs.push(input);
+   });
+   const check=document.createElement("button");check.type="button";check.className="quiz-check";check.textContent="檢查答案／Check answers";
+   const clear=document.createElement("button");clear.type="button";clear.className="quiz-reset";clear.textContent="重新作答／Reset";
+   controls.append(check,clear);
+   check.addEventListener("click",()=>{
+     const selected=inputs.filter(i=>i.checked).map(i=>Number(i.value)).sort((a,b)=>a-b);
+     if(!selected.length){
+       feedback.textContent=isEnglish()?"Select at least one option.":"請先選擇至少一個選項。";
+       feedback.dataset.status="hint";return;
+     }
+     const correct=selected.length===key.length&&selected.every((x,i)=>x===key[i]);
+     feedback.textContent=correct?(isEnglish()?"Correct. The teacher's explanations are displayed below.":"答對了。下方已展開逐選項解析。"):
+       (isEnglish()?"Review your selection and the teacher's explanations below.":"本次選答與教師推導答案不同，請參考下方逐選項解析。");
+     feedback.dataset.status=correct?"correct":"review";
+     options.forEach((opt,i)=>{
+       opt.classList.toggle("answer-key",key.includes(i+1));
+       opt.classList.toggle("answer-wrong",selected.includes(i+1)&&!key.includes(i+1));
+     });
+     solution.hidden=false;solution.open=true;
+   });
+   clear.addEventListener("click",()=>{
+     inputs.forEach(i=>i.checked=false);
+     feedback.textContent="";delete feedback.dataset.status;
+     options.forEach(opt=>opt.classList.remove("answer-key","answer-wrong"));
+     solution.hidden=true;solution.open=false;
+   });
+ });
+}
+
 function mount(text){
  const doc=new DOMParser().parseFromString(text.replace(/^\uFEFF/,""),"text/html");
  const parsed=cleanSource(doc);
@@ -103,7 +163,7 @@ function mount(text){
    for(const [candidate,prefix] of [[ordered[at-1],"← 上一批"],[ordered[at+1],"下一批"]]){
      if(!candidate)continue;
      const a=document.createElement("a");a.className="part-switch";
-     const firstId=candidate.part==="1"?"s111":candidate.part==="2"?"s1113":"s121";
+     const firstId=({"1":"s111","2":"s1113","3":"s121","4":"s1219"})[candidate.part]||"s111";
      a.href="?module=1&part="+encodeURIComponent(candidate.part)+"#"+firstId;
      a.textContent=prefix+"：§"+candidate.label+(prefix==="下一批"?" →":"");
      footer.prepend(a);
@@ -111,6 +171,7 @@ function mount(text){
  }
  show("gate",false);show("reader-wrap",true);
  loaded=true;applyMode(preferredMode());
+ activateQuizzes();
  if(location.hash){const node=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(node)requestAnimationFrame(()=>node.scrollIntoView({block:"start"}))}
 }
 async function fetchPrivate(token){
