@@ -142,3 +142,28 @@ html body .bullet-pair{border-bottom:0;padding:6px 0}
  .quiz-heading{align-items:flex-start}
  .quiz-controls button{font-size:12px;padding:9px 10px}
 }
+
+
+/* Part 05: SOA Case Study source panels, official sample answers and bibliography. */
+.case-question{background:#f8fafb;border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:12px 0}
+.case-question>.pair:last-of-type{border-bottom:0}
+.variables-panel{background:#fff;border:1px solid #dee5ea;border-radius:11px;margin:14px 0 4px;padding:10px 13px}
+.variables-panel h4{margin:2px 0 12px;color:#345a72;font-size:14px}
+.variables-panel>.pair{padding:7px 0}
+.variables-panel .source-bullet>.original::before,.variables-panel .source-bullet>.translation::before{content:"•";margin-right:8px;color:#557d94}
+.case-study-instruction{font-size:13px;color:#58717f;background:#eef4f7;border-radius:9px;padding:10px 13px;margin:12px 0;line-height:1.65}
+.soa-sample-answer{border:1px solid #cddce5;background:#fbfcfd;margin:14px 0 18px}
+.soa-sample-answer>summary{font-weight:850;font-size:15px;color:#164962}
+.official-answer-label{font-size:12px;line-height:1.65;color:#61717e;margin:5px 4px 10px}
+.soa-sample-answer .sample-answer-pair{padding:14px 3px}
+.bibliography-list{counter-reset:bibItem;margin:14px 0}
+.bibliography-pair{position:relative;padding:10px 2px 10px 33px;counter-increment:bibItem}
+.bibliography-pair::before{content:counter(bibItem);position:absolute;top:14px;left:0;font-size:12px;font-weight:850;color:#52788e;background:#eaf1f5;border-radius:6px;min-width:23px;text-align:center;padding:2px}
+.bibliography-pair>.original{overflow-wrap:anywhere;word-break:break-word}
+.bibliography-pair>.translation{overflow-wrap:anywhere}
+@media(max-width:480px){
+ .case-question{padding:9px 8px}
+ .variables-panel{padding:9px 8px}
+ .bibliography-pair{padding-left:25px}
+ .bibliography-pair::before{min-width:19px;left:0;top:12px}
+}
