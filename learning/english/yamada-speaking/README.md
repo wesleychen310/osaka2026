@@ -1,6 +1,6 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
-**最新版本：2026-10-13，SCENE 001–012 純電子版；正式網站採用 Drive 檔案 `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`。**
+**最新版本：2026-10-13，SCENE 001–012 純電子教材＋36 份台灣版 AI Prompt；正式 Drive 正本 ID 1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_（原地更新）。**
 
 ## 讀者與架構
 - 網站（GitHub Pages）：`https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/`
@@ -40,6 +40,28 @@
 - **安全**：Google Drive 新檔 metadata 讀回 `mime_type=text/html`、`size=64182`、owner-only、無 anyone/domain、父資料夾保持；僅公開 shell/CSS/JS，無教材全文。
 - **本批程式化核對**：15 個 chapters、10 個標記 verified、5 個明確 pending、104 組日中 pair、6 個 scene 全有 STEP 1/2/3、0 圖片。私有內容讀回可包含 SCENE 001–006。實際 Google OAuth／Safari iPhone E2E 與 CDN 生效仍待真人授權及裝置實測，不能宣稱通過。
 - **回退**：上一版本 Google Drive source File ID `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz` 未覆寫；GitHub commit 歷史可回復 UI。再次修改現有 Google Drive 正本仍須先備份到同資料夾 `_backup`，保留 ID、父資料夾、分享權限。
+
+## 2026-10-13｜官方 AI Prompt × Taiwan Edition 工程交付
+
+### 實際產出與來源真實性
+- 正式私人教材仍是 Google Drive 的 Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY.html，原 File ID：1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_；父資料夾 ID：1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3；278,227 bytes。原地替換 bytes，無新建另一份正式版，保留原名稱與存取控制。
+- 正本含 21 個 chapter、12 個 SCENE、202 組日中 pair，0 張掃描圖片，所有原書英文關鍵句型與模型對話繼續保留。
+- Taiwan Edition 已完成 12 SCENE × STEP 1/2/3＝36 份完整 Prompt，單份包含角色分工、原書任務、自然美式英文、每次一問等待英文回答、情境在地化、原書英語關鍵字與模型對話（STEP 2）、對應振り返り與繁體中文 Feedback；無可用音訊時不可假稱可評估真實發音。
+- PDF 原書 SCENE 001–012 的 12 個 QR Code 目標已辨識，URL 共同格式：https://chatgpt-eikaiwa.alc.co.jp/contents/scene/index.html?id=001 至 id=012。各課的私人 HTML 官方分頁保留對應網址與來源註記。官方網站內部 36 筆 Prompt 的文字目前無法由可用網站工具讀取，官方全文已核實數：0/36；全部標記「官方原文待取得」，官方複製/開啟 ChatGPT 按鈕停用。切勿把台灣自編版當成原版。
+- GitHub /learning/english/yamada-speaking/ 公開程式只負責載入私人 HTML、渲染 Prompt 卡及互動，完整教材與 Prompt 全文皆在私人 Google Drive。
+
+### 介面與操作
+- 每個已整合的 SCENE 在 STEP 1、2、3 內容下方分別顯示 Prompt 區，獨立切換「日本官方原版」與「台灣在地化版」。全原文／全中文／上中文下原文／左右對照仍控制日中教材，不影響 Prompt 模式；英文始終保留。
+- 功能：每個 STEP 複製完整 Prompt、複製並開啟 ChatGPT 網站（需用戶自行貼上開始練習），以及每課一次複製台灣版全部 3 個 STEP。缺少官方原文時不可複製空白或佯稱已取得。
+- 模式偏好分別使用 localStorage：yamada-speaking-language-mode-v1 與 yamada-speaking-prompt-mode-v1。
+
+### 備份、版本與驗收
+- 更新前私人備份資料夾：1msKZUfeUDD2AviiIlogXWg1eXbzBUbPw。
+- 原始 108,733 bytes 完整備份：20261013_0741_before-Prompt-Integration，File ID 1BBPlHNbFlDtvOlxIhgZrCAXlF36zXVhd。
+- 中間 192,749 bytes 的版本在再次更改前備份：20261013_0750_before-expand-Prompts-007-012，File ID 1oRfBWIFGysNezIE7_CoagDApXFENU7m8。
+- 靜態 QA：Drive 元資料、更新後原檔 ID／parents／size／permissions，以及原始章節數、Prompt 配對與 GitHub 檔案 SHA；本地 JS syntax parsing 已執行。
+- 未完成：Google OAuth 在真人瀏覽器的讀取、正式 CDN 更新確認、iPhone/iPad/Mac Safari 四模式與 Clipboard E2E。未通過時不可註記 PRIVATE-E2E PASS。
+- 長期待辦：SCENE 013–100、官方全文 001–100、完整目錄、前置使用說明四頁與附錄；回填真正官方 Prompt 時仍應先備份，保留原 File ID、父資料夾與權限。
 
 ## 2026-10-13 第三次延伸｜SCENE 010–012（已提交）
 - 正式 Drive 教材：`Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY.html`；**File ID `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`**、父資料夾 `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`、MIME `text/html`、**108,733 bytes**；Drive metadata 讀回確認僅 owner grant、無公開分享。
