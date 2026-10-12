@@ -59,7 +59,8 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 | 網站／正式 URL | GitHub 入口 | 私人內容位置 |
 |---|---|---|
 | [私人學習總入口](https://wesleychen310.github.io/osaka2026/learning/) `learning/` | `learning/index.html` | 公開導航頁，本頁不執行 Google OAuth |
-| [英文學習書目](https://wesleychen310.github.io/osaka2026/learning/english/) `learning/english/` | `learning/english/index.html` | 新增英文學習第二層目錄，目前收錄 Shadowing 私人互動教材；公開導航頁，無教材內容 |
+| [英文學習書目](https://wesleychen310.github.io/osaka2026/learning/english/) `learning/english/` | `learning/english/index.html` | 新增英文學習第二層目錄，目前收錄 Shadowing 與山田優四模式英會話教材；公開導航頁，無教材內容 |
+| [山田優四模式日中英會話教材](https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/) `learning/english/yamada-speaking/` | `index.html`、`reader.css`、`reader.js`、`README.md` | 私人 Google Drive HTML ID `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz`，folder `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`；含封面、前言、SCENE 001–003，另存未校訂圖解頁原圖；四模式（原日文、繁中、上下、左右），英文固定保留，原書 100 SCENE 後續完成 |
 | [SOA ATPA 官方雙語教材](https://wesleychen310.github.io/osaka2026/learning/atpa-modules/) `learning/atpa-modules/` | `learning/atpa-modules/index.html`、`reader.js`、`reader.css` | Google Drive 授權存取 Module 1 Part 01／02／03／04／05（§1.1.1–1.3.8）原始雙語 HTML 純文字 Google Doc，IDs `1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA`（Google Doc，export text/plain）、`1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2`（HTML，alt=media）、`1degysT_iLCSdWHtoj9HuZsgQVOOQ4lqc`（HTML，alt=media）、`14305e_nGudobtCni8F0Q80vh6nK4uXQx`（HTML，alt=media）、`1EqGTGWeCtvEQHiuJKXhjUdecdSjNol2Z`（HTML，alt=media）；四模式；驗收進度見 `learning/atpa-modules/README.md` |
 | [超級筆記 PA／ATPA](https://wesleychen310.github.io/osaka2026/learning/super-notes/) `learning/super-notes/` | `learning/super-notes/index.html` | Drive `超級筆記.html`；ID `1Gmf5EKGCxqR0iE-MwLfNrZM6DWNVdxTa` |
 | [ISLP 精讀目錄](https://wesleychen310.github.io/osaka2026/learning/islp/) `learning/islp/` | `learning/islp/index.html` | 公開章節選擇 |
