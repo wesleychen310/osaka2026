@@ -177,9 +177,17 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 ## 2026-10-12 使用者指定第四種閱讀模式改版：點按翻譯
 
 - **使用者可見閱讀模式**（保持順序）：全中文（`zh`）、全英文（`en`）、左右對照（`parallel`）、**點按翻譯（`tap`）**。
-- `tap` 取代原來的 `swipe` 大字橫滑。每個 bilingual `.pair` 預設顯示較大的英文，點按該段改顯示繁體中文，再點一次切回英文；每段互相獨立，切換模式時重置為英文。原稿完整英中內容仍在 Drive，無資料異動。
-- 小節標題與 1.1／1.2／1.3 章標題亦支援點按英中切換；原書的展開式 Panel summary 保留雙語標籤及原本的展開功能，避免觸發互動衝突。
+- `tap` 取代原來的 `swipe` 大字橫滑。每個 bilingual `.pair` 預設顯示較大的英文，點按一次顯示「**上中文、下英文**」的垂直雙語對照，再點一次只顯示英文。每段互相獨立，切換模式時重置為英文。原稿完整英中內容仍在 Drive，無資料異動。
+- 小節標題與 1.1／1.2／1.3 章標題同樣是英文 → 中文在上／英文在下 → 英文的切換；原書的展開式 Panel summary 保留雙語標籤及原本的展開功能，避免觸發互動衝突。
 - `tap` 支援鍵盤 Enter／Space 切換、tab focus 和 `aria-label`；Knowledge Checks 的 radio／checkbox 仍正常選取，點其內文可同步翻譯，不影響按鈕。
 - 舊 `localStorage` 記錄為 `swipe` 時，載入將自動對映 `tap`。其餘三種模式操作不變，`reader.css` 已移除水平滑動專用樣式。
-- GitHub `reader.js`、`reader.css`、`index.html` 已更新並以 `20261012-tap1` cache-busting；Google Drive 私人來源檔及授權設定未變。
+- GitHub `reader.js`、`reader.css`、`index.html` 已更新並以 `20261012-tap2` cache-busting；Google Drive 私人來源檔及授權設定未變。
 - 本次已做原始碼靜態檢查；Google OAuth 私人實際瀏覽器與 iPhone Safari 端對端測試仍待使用者實機確認。
+
+### 2026-10-12 點按翻譯第二次修訂
+
+- 使用者明確指定循環：**英文原文 → 中文在上、英文在下（垂直對照）→ 英文原文**。此規格取代初版的「英文 ↔ 純中文」。
+- JS 的 `data-tap-lang` 狀態採 `en` 和 `bi`；雙語配對 HTML 結構順序不變，CSS 使用 flex `order:1` 繁中、`order:2` 英文實現中文在上。
+- 本模式小節、章節及可翻譯的小標題同步遵循中上英下；Knowledge Check 題目文字點按翻譯時避免意外選取 checkbox/radio；仍可直接點表單進行作答。
+- 其他 `zh`、`en`、`parallel` 模式、原始 Drive 私人教材、60 節完整閱讀與 8 題考題保留。
+- CSS/JS 版本 `20261012-tap2`；正式 OAuth 與 Safari 端到端測試仍需以使用者實際裝置確認。
