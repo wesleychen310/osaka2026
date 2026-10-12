@@ -96,3 +96,23 @@
 - **尚未核對**：本段所有英文字句逐字對照原 PDF、網站正式 OAuth 動態載入、手機/平板/桌面的真實顯示及附圖效果。實機和逐段來源 QA 不得誤報已通過。
 - **下一個交接任務**：依同一 PDF 從 **§1.2.15** 接著逐節製作到 **§1.2.38**（原節共 38 小節，尚餘 24）；先查準每節 PDF 頁碼，再保留 **XML、JSON、CSV、R/Python、表格、練習題和解答** 的原書結構、原碼與翻譯。每節 3–5 組精算英文語塊，增加獨立的 tutor 區塊。新教材一律上傳同一受限 Google Drive 目錄，**新增 `SOURCE` 映射、依原書順序增加 `EXPECTED_COUNTS/FIRST_IDS`，維持單一長頁與四模式**。
 - **每次工作結束的交接 SOP**：更新此 README 的累計節數、原書頁碼、新增私人 File ID、精確區塊數、驗收／待驗收清單及下次起始節號；同時在 `learning/README.md` 寫一行最新進度供其他對話搜尋；保持 Source File ID 和 GitHub commit 可追查。若改動既有受限 Drive 原稿，先備份到同層 `_backup`，保留原 ID、檔名、位置與權限。
+
+
+## 2026-10-12 第二章節交付｜§1.2 Reading and Writing Data 全 38 小節
+
+**完成範圍**：§1.2.1–§1.2.38，Module 2 原書第 49–93 頁；含 5 個 Exercise 題目（2.2.1–2.2.5）、Tidy Data、CSV、R/Python、XML/XPath、JSON nested arrays、Excel/SPSS/SAS、Tall/Wide、寫檔及 Appending。
+
+- **來源 A**：`1-jBApP08QPdJ6DVdbI0RExnUSm6wre83`，§1.2.1–§1.2.14，p.49–64，14 小節、90 組英中對照、14 個 tutor、42 英文語塊、2 張原 PDF 頁面擷取（Data Frame 續表）、139,495 bytes；SHA256 `655e6ae09106d33db7c4d621a75107f6e8a5cb492d0c1682777a9c2a6406acd0`。
+- **來源 B**：`1L-yLFwsMii4TmnWVtGi4HQ5R8xNr0Xsn`，§1.2.15–§1.2.28，p.65–83，14 小節、14 個**整頁來源文字／對應繁中解說**配對、14 個 tutor、42 英文語塊，XML／JSON 等13張原 PDF 頁面擷取以保留結構與程式行列，1,399,741 bytes；SHA256 `75705c5f2acd735d0bd3d09a53f678a5ff3544e3222aa424ec5e424c48b3a8d9`。
+- **來源 C**：`1LdOL-zzs8NuK6XNx2vUtXbuO0GanOUNA`，§1.2.29–§1.2.38，p.84–93，10 小節、10 個**整頁來源文字／對應繁中解說**配對、10 個 tutor、30 英文語塊、4 張含表格與範例的原 PDF 頁面擷取，420,963 bytes；SHA256 `a3984ed44b87e130a57645c24ca6dc4dc718989184f00f0523ab99380c76ba33`。
+- **Module 2 累計**：§1.1 的36節 + §1.2 的38節 = **74／223 小節（33.2%）**；在同一網址 https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ 左欄依 1.1／1.2 導覽；未顯示公開批次介面。
+- **資料完整性檢查**：本節三份 HTML 的章節編號逐一核對為1.2.1–1.2.38連續，14+14+10=38個獨立錨點；各組皆有來源英文與繁中內容。1.2.1–1.2.14 採來源文字區塊對譯，1.2.15–1.2.38 採原頁英文全文與中文分段說明配對，重要技術原稿版面加上原 PDF 擷取。後 24 節仍可再做更細的段落對位校稿，不宣稱已達逐句翻譯驗收。
+- **原書忠實性**：保留 R/Python/JSON/XML 的原始語法、練習資料列、選項及參照的檔案名稱。原教材當中 `Df[0,:]`、`food[0]`、`books_nested.json/Topics`、`pd.json_normalize(books,...)` 等有疑慮的範例，沒有覆寫原文；於教師卡標出並用獨立說明提出檢核方法。
+- **Exercise 負責任的界線**：官方 PDF 所指 CHUNK 9–33、外部 Rmd 中的解答並未在本次直接執行；原書題幹、所要求檔案及解答 CHUNK 位置均列於教材。部分題目提供依原書數據可推導的說明，但不得聲稱有執行完全部官方 Rmd 或通過程式結果比對。
+- **原稿保護**：三個來源檔案 `text/html` 位於 Google Drive 資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，metadata 已確認每份僅 2 組 `user`（owner、具名 reader）權限，沒有 `anyone`／`domain`。GitHub 只新增檔案 ID、程式與公開 SOP。
+- **網站變更**：`module2.js` SOURCE 增加3個 raw HTML 檔，`EXPECTED_COUNTS=[12,19,5,14,14,10]`，合計74個唯一小節，左側新增 1.2「讀取與寫入資料」，前後衔接既有1.1，四按鈕保持 **全英文／全中文／上中文下英文／左英文右中文**。新增 `.pdf-source-original` 保留原書 XML／JSON 程式碼換行，局部 `module2.css` 確保手機橫幅表格可讀。
+- **尚待正式端對端測試**：GitHub Pages CDN即時發布、Google OAuth 授權後載入 1.4MB 私人檔案、手機／桌面四模式、原圖放大顯示、Exercise 外部文件連結與程式碼執行；不得把 GitHub 靜態提交當成真實瀏覽器測試。
+
+### 下個製作範圍
+
+§1.3 Data Transformation and Cleaning（原書70個編號小節），逐節依 PDF 內容繼續製作，保持同一模組長頁和四個閱讀模式。
