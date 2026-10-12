@@ -212,3 +212,10 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 ### 私人記事信託股票：2026-10-12 帳戶優先與月度歷史
 
 `records/?tab=trust` 改成兩帳戶股數、市值為主的版面；公開程式為 `records/trust.js`、`records/trust.css`。私人 Docs `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms` 的 `snapshots[]` 保留每月月底兩帳戶完整持股快照（首期 2026-09-30）。新月份須追加快照、原檔更新前先在 `_backup` 備份；詳 `records/README.md`。
+
+
+## 2026-10-12｜ATPA Module 1 閱讀介面統一
+
+- https://wesleychen310.github.io/osaka2026/learning/atpa-modules/ ：Module 1 所有 60 個小節同一長頁展示，左側 1.1 / 1.2 / 1.3 目錄，手機章節抽屜；不顯示製作批次。
+- GitHub `learning/atpa-modules/{index.html,reader.js,reader.css}`。Google Drive 原 5 個具名權限檔案維持不變；一次 OAuth 並行抓取後依原書順序合併。舊網址 ?module=1&part=N 仍相容。
+- 驗收邊界：靜態 GitHub 原始碼與 Google Drive metadata 可確認；尚待 owner OAuth / iPhone / iPad / Mac 真實網頁 E2E。詳見 `learning/atpa-modules/README.md`。
