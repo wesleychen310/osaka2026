@@ -1,6 +1,6 @@
-# 私人記事｜財務與所得 — 網站維護與跨對話 SOP
+# 私人記事｜財務、所得與信託股票 — 網站維護與跨對話 SOP
 
-> 此文件為 `records/` 專用維護手冊；入口總表請先參考 Repository 根目錄 [README.md](../README.md)。更新日期：2026-10-08（台灣時間）。
+> 此文件為 `records/` 專用維護手冊；入口總表請先參考 Repository 根目錄 [README.md](../README.md)。更新日期：2026-10-12（台灣時間）。
 >
 > **安全規則：本 GitHub Repository 是公開的。所有個人交易明細、實際收支、姓名、車牌、帳號、付款截圖、憑證及私人 HTML 全文只能存放在具有權限控管的 Google Drive。不得貼進 GitHub 原始碼、README、公開 JSON、commit message 或其他公開資產。**
 
@@ -10,13 +10,15 @@
 
 | 元件 | 永久網址／識別碼 | 職責 |
 |---|---|---|
-| **私人記事單一入口** | <https://wesleychen310.github.io/osaka2026/records/> | `records/index.html` + `records/app.js`；登入一次，切換支出／所得兩個分頁；GitHub 不含交易明細 |
+| **私人記事單一入口** | <https://wesleychen310.github.io/osaka2026/records/> | `records/index.html` + `records/app.js`；登入一次，切換支出／所得／信託股票三個分頁；GitHub 不含交易明細 |
 | 2026 財務記事網站 | <https://wesleychen310.github.io/osaka2026/records/finance/> | `records/finance/index.html`；OAuth 門禁與私人 HTML 載入 |
 | 私人資料主檔 | [2026記事_私人財務帳本.html](https://drive.google.com/file/d/1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4/view) | **固定 Drive File ID：`1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4`**；MIME `text/html`；網站唯一現行資料正本 |
 | 2026 原始文件 | [2026記事.docx](https://docs.google.com/document/d/14_-8w1bTsxsKoj-wDWanL_L0bxYBV-qu/edit) | File ID：`14_-8w1bTsxsKoj-wDWanL_L0bxYBV-qu`；資料匯入時的來源快照，原檔保留 |
 | 主資料夾 | [Google Drive／文件／記事](https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU) | Folder ID：`1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU`；**HTML 與 Word 在同一資料夾** |
 | 備份資料夾 | [記事／_backup](https://drive.google.com/drive/folders/1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB) | Folder ID：`1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`；任何更新原 HTML 前先備份 |
 | 共用登入輔助 | `private-auth-hint.js` | 記住上次 Google 帳號提示，不延長 token；各私人站共用 |
+| 信託股票第三分頁 | <https://wesleychen310.github.io/osaka2026/records/?tab=trust> | `records/trust.js` 與 `records/trust.css` 均位於 GitHub，僅負責呈現／計算；持股明細留在私人 Drive。 |
+| 信託股票私人資料 | [2026信託股票_私人資料](https://docs.google.com/document/d/1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms/edit) | Google Docs，File ID `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms`，私人 JSON 純文字，置於「記事」資料夾，owner-only。 |
 | 所得記事網站 | <https://wesleychen310.github.io/osaka2026/records/income/> | `records/income/index.html`；同一組 OAuth Client／共用帳號提示 |
 | 所得記事私人 HTML | [2026所得記事_私人薪資紀錄.html](https://drive.google.com/file/d/12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl/view) | Drive File ID：`12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl`；MIME `text/html`；同一「記事」資料夾，**長期更新正本** |
 | 薪資單原始存證 | [2026-10_薪資單_原始截圖.jpeg](https://drive.google.com/file/d/1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4/view) | Drive File ID：`1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；私人圖片，完整保留原始照片；目前只有螢幕截圖，尚未取得原 PDF |
@@ -185,3 +187,14 @@
 - GitHub 公開程式只包含 OAuth shell、入口導覽、README。勿將私人資料或測試截圖（含個人帳務內容）提交公開 GitHub。
 
 最後更新：2026-10-08。若更新筆數、帳本 schema、年度網址或實際驗收狀態，應同步維護本文件。
+
+## 7. 信託股票（2026-10-12 新增）
+
+- 正式分頁：<https://wesleychen310.github.io/osaka2026/records/?tab=trust>。與支出及所得共用 Google OAuth、sessionStorage token，切換時才取資料；支出、所得的私人 HTML 不變。
+- GitHub 公開檔案：`records/index.html` 導覽與 DOM、`records/app.js` Google OAuth／路由、`records/trust.css` 響應式樣式、`records/trust.js` 純呈現及計算程式。**嚴禁把任何持股數量、金額、原始對帳單、姓名、私人資料 JSON 或憑證放到公開 GitHub。**
+- 私人正本：Google Docs `2026信託股票_私人資料`；File ID `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms`。置於 `記事` 資料夾 `1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU`，繼承本人權限且已核對為 owner-only。此檔**完整正文就是 JSON**；`schemaVersion=1`、`referencePrice`、`asOf`、`statementDate`、`accounts[].holdings[]`、`activity[]`、`fees[]`、`notes[]`、`lastUpdated`。每筆 holdings 包含 id/category/principal/subscription/shares/cash/statementValue。
+- 裝置端由 `records/app.js` 使用 Drive v3 `files.export`、`mimeType=text/plain` 讀取私人 Google Docs；UTF-8 BOM 會先移除，再 `JSON.parse`；驗證資料格式與 `round(shares × referencePrice + cash) ≈ statementValue`，由 `trust.js` 計算總市值、本金、股數、現金、帳面增值、參考報酬率，並顯示提存／買入與管理費；輸入的試算股價不儲存或寫回資料。
+- 來源是使用者 2026-10-12 提供之 **2026 年 9 月**兩份台新銀行員工福利信託對帳單截圖，基準日 `2026-09-30`，報表製作日 `2026-10-02`。原始截圖仍在使用者對話，尚無已核實的 Drive 原始 PDF ID；不可虛構來源檔案。
+- **未來新增每月對帳單**：從 Google Docs 取回完整私人 JSON、比對基準日與分類 id，避免重複或把累計餘額當當月流量；新增或更正 `accounts`、`activity`、`fees`。在同層 `_backup`（ID `1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`）先建立含時間＋理由的**完整 Drive 文件副本**，再以 Docs `batchUpdate` 原位更新同一 File ID、原檔名、父資料夾、owner-only 權限。讀回、檢驗 JSON 與數字後才算完成；只有介面改動才需要修改 GitHub。
+- **核算與解讀**：參考市值包含剩餘現金；參考報酬率使用報表定義、以累計本金及認購金額為成本基礎，含公司獎勵等來源，不能直接當作個人現金投入的 XIRR；股利另依對帳單註記處理。若持股轉出或來源有異動，必須核對對帳單本身。
+- **驗收邊界**：已由 Docs Connector 完成 JSON 寫入、純文字匯出、私人權限與 parent 驗證；公開程式已寫入 GitHub，仍需檢查 GitHub Pages 實際部署及真實 iPhone Safari Google 登入，未測不得宣稱通過。
