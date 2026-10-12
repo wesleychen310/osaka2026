@@ -67,8 +67,8 @@ function cleanSource(doc){
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 function isTapMode(){return document.documentElement.dataset.readingMode==="tap"}
 function accessibleTapState(node,kind){
- const chinese=node.dataset.tapLang==="zh";
- node.setAttribute("aria-label",kind+"：目前"+(chinese?"中文，點按顯示英文":"英文，點按顯示中文"));
+ const bilingual=node.dataset.tapLang==="bi";
+ node.setAttribute("aria-label",kind+"：目前"+(bilingual?"中文在上、英文在下；點按只顯示英文":"僅顯示英文；點按顯示上中文、下英文"));
  if(!node.closest(".quiz-option")){
    node.tabIndex=0;
    node.setAttribute("role","button");
@@ -81,7 +81,7 @@ function setTapLanguage(node,language){
  else if(node.matches(".lesson header"))accessibleTapState(node,"小節標題");
  else if(node.matches(".lesson h3[data-orig-full]")){
    const [en,zh]=node.dataset.origFull.split("／");
-   if(zh)node.textContent=language==="zh"?zh.trim():en.trim();
+   if(zh)node.textContent=language==="bi"?zh.trim()+"\n"+en.trim():en.trim();
    accessibleTapState(node,"小標題");
  }
 }
@@ -100,7 +100,7 @@ function localizeLabels(mode){
    const raw=node.dataset.origFull;
    if(!raw.includes("／"))return;
    const [en,zh]=raw.split("／");
-   node.textContent=tap?(node.dataset.tapLang==="zh"?zh.trim():en.trim()):
+   node.textContent=tap?(node.dataset.tapLang==="bi"?zh.trim()+"\n"+en.trim():en.trim()):
      mode==="en"?en.trim():mode==="zh"?zh.trim():raw;
    if(tap)accessibleTapState(node,"小標題");
    else{node.removeAttribute("role");node.removeAttribute("tabindex");node.removeAttribute("aria-label")}
@@ -156,14 +156,16 @@ function tapTarget(e){
 $("study-content")?.addEventListener("click",event=>{
  const node=tapTarget(event);
  if(!node)return;
- setTapLanguage(node,node.dataset.tapLang==="zh"?"en":"zh");
+ // A tap on a quiz passage reveals translation without accidentally checking its answer.
+ if(node.classList.contains("pair")&&node.closest(".quiz-option"))event.preventDefault();
+ setTapLanguage(node,node.dataset.tapLang==="bi"?"en":"bi");
 });
 $("study-content")?.addEventListener("keydown",event=>{
  if(event.key!=="Enter"&&event.key!==" ")return;
  const node=tapTarget(event);
  if(!node||node!==event.target||node.getAttribute("role")!=="button")return;
  event.preventDefault();
- setTapLanguage(node,node.dataset.tapLang==="zh"?"en":"zh");
+ setTapLanguage(node,node.dataset.tapLang==="bi"?"en":"bi");
 });
 
 function toggleMenu(open){
