@@ -12,16 +12,17 @@ const SOURCE={
  "2:6":{fileId:"1LdOL-zzs8NuK6XNx2vUtXbuO0GanOUNA",module:"2",part:"6",label:"1.2.29–1.2.38",sourcePages:"84–93",kind:"raw"},
  "2:7":{fileId:"1M-Wdr-NI3X2NejPBDPCY6PAMquOQzLtI",module:"2",part:"7",label:"1.3.1–1.3.20",sourcePages:"94–115",kind:"raw"},
  "2:8":{fileId:"1enbe4mpIPmADyXbHggazv57ug8Yz04A9",module:"2",part:"8",label:"1.3.21–1.3.40",sourcePages:"116–137",kind:"raw"},
- "2:9":{fileId:"1ZzB8zn5r57n1ShmTUivd-23XOfiF3igV",module:"2",part:"9",label:"1.3.41–1.3.70",sourcePages:"138–172",kind:"raw"}
+ "2:9":{fileId:"1ZzB8zn5r57n1ShmTUivd-23XOfiF3igV",module:"2",part:"9",label:"1.3.41–1.3.70",sourcePages:"138–172",kind:"raw"},
+ "2:10":{fileId:"1tnMUnufssHsrZoen0nio5M3NeitXAgM_",module:"2",part:"10",label:"1.4.1–1.4.16",sourcePages:"173–192",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
 const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="2";
 const SOURCES=Object.values(SOURCE).sort((a,b)=>Number(a.part)-Number(b.part));
-const CHAPTERS={"1.1":{title:"Data Pipeline",zh:"資料管線"},"1.2":{title:"Reading and Writing Data",zh:"讀取與寫入資料"},"1.3":{title:"Data Transformation and Cleaning",zh:"資料轉換與清理"}};
-const EXPECTED_COUNTS=[12,19,5,14,14,10,20,20,30];
-const FIRST_IDS=["s111","s1113","s1132","s121","s1215","s1229","s131","s1321","s1341"];
+const CHAPTERS={"1.1":{title:"Data Pipeline",zh:"資料管線"},"1.2":{title:"Reading and Writing Data",zh:"讀取與寫入資料"},"1.3":{title:"Data Transformation and Cleaning",zh:"資料轉換與清理"},"1.4":{title:"Relational Databases",zh:"關聯式資料庫"}};
+const EXPECTED_COUNTS=[12,19,5,14,14,10,20,20,30,16];
+const FIRST_IDS=["s111","s1113","s1132","s121","s1215","s1229","s131","s1321","s1341","s141"];
 const SESSION_PREFIX="hanami-kyoto-google-token-v3";
 let tokenClient=null,loaded=false,allLessons=[],scrollScheduled=false;
 const show=(id,visible)=>{const n=$(id);if(n)n.hidden=!visible};
@@ -185,7 +186,7 @@ function makeChapter(id,key){
 }
 function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
- const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 144 小節";toc.append(count);
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 160 小節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const details=document.createElement("details");details.className="toc-group";details.open=true;
    const summary=document.createElement("summary");
@@ -195,7 +196,7 @@ function makeNavigation(lessons){
    const links=document.createElement("div");links.className="toc-links";
    const sectionHead=document.createElement("a");sectionHead.className="toc-chapter-link";
    sectionHead.href="#chapter"+chapter.replace(".","");
-   sectionHead.textContent="↳ "+(chapter==="1.1"?"資料管線":chapter==="1.2"?"資料讀寫":"資料轉換");
+   sectionHead.textContent="↳ "+meta.zh;
    links.append(sectionHead);
    lessons.filter(s=>s.dataset.num.startsWith(chapter+".")).forEach(sec=>{
      const a=document.createElement("a");a.href="#"+sec.id;a.className="toc-link";a.dataset.id=sec.id;
@@ -253,8 +254,8 @@ function mountAll(texts){
      throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
    sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
  }
- if(sections.length!==144||new Set(sections.map(s=>s.id)).size!==144)
-   throw new Error("144 個已製作小節未完整載入，請重新整理後再試。");
+ if(sections.length!==160||new Set(sections.map(s=>s.id)).size!==160)
+   throw new Error("160 個已製作小節未完整載入，請重新整理後再試。");
  const article=$("study-content"),frag=document.createDocumentFragment();let lastChapter="";
  for(const sec of sections){
    const group=sec.dataset.num.split(".").slice(0,2).join(".");
@@ -295,7 +296,7 @@ async function fetchOneSource(source,token){
 }
 async function fetchPrivate(token){
  if(loaded||!selected)return;
- status("正在載入 Module 2 已製作的 144 個小節…");
+ status("正在載入 Module 2 已製作的 160 個小節…");
  const texts=await Promise.all(SOURCES.map(source=>fetchOneSource(source,token)));
  mountAll(texts);
 }
