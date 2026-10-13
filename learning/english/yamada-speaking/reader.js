@@ -98,21 +98,23 @@ function enhancePromptLabs(){
 }
 
 function scene001ReviewLayout(){
-  const scene=$('scene-001');if(!scene)return;
-  const steps=[...scene.children].filter(x=>x.tagName==='H3'&&/^STEP\s*[123]/.test(x.textContent.trim()));
-  steps.forEach((h,i)=>h.id='scene-001-step-'+(i+1));
-  const focused=new URLSearchParams(location.search).get('view')!=='all';
-  document.documentElement.dataset.sceneFocus=focused?'001':'all';
-  const focusJumps=$('scene-one-jumps'),allLink=$('view-all-link'),focusLink=$('view-scene-link');
-  if(focusJumps)focusJumps.hidden=!focused;
-  if(allLink)allLink.hidden=!focused;
-  if(focusLink)focusLink.hidden=focused;
-  if(focused){
-    const label=$('reader-mode-label');if(label)label.textContent='SCENE 001｜完整原書電子版';
-    const info=$('reader-mode-info');if(info)info.textContent='原書 p.024–025 ＋ 會話日譯 p.236 · 3 個 STEP · 台灣語音練習版 · 官方原文待取得';
-    const coverage=$('coverage');if(coverage)coverage.textContent='';
-    const placeholder=$('toc-items');if(placeholder){[...placeholder.children].forEach(a=>a.hidden=a.getAttribute('href')!=='#scene-001')}
-  }
+ const params=new URLSearchParams(location.search),queryScene=params.get('scene')||'001';
+ const scene=/^0(?:0[1-9]|1[0-2])$/.test(queryScene)?queryScene:'001';
+ const chapter=$('scene-'+scene);if(!chapter)return;
+ const steps=[...chapter.children].filter(x=>x.tagName==='H3'&&/^STEP\s*[123]/.test(x.textContent.trim()));
+ steps.forEach((h,i)=>h.id='scene-'+scene+'-step-'+(i+1));
+ const focused=params.get('view')!=='all';
+ document.documentElement.dataset.sceneFocus=focused?scene:'all';
+ const focusJumps=$('scene-one-jumps'),allLink=$('view-all-link'),focusLink=$('view-scene-link');
+ if(focusJumps)focusJumps.hidden=!focused||scene!=='001';
+ if(allLink)allLink.hidden=!focused;
+ if(focusLink){focusLink.hidden=focused;focusLink.href='?scene='+scene;focusLink.textContent='專注 SCENE '+scene;}
+ if(focused){
+  const label=$('reader-mode-label');if(label)label.textContent='SCENE '+scene+'｜原書雙語電子版';
+  const info=$('reader-mode-info');if(info)info.textContent='原書 p.'+String(24+(Number(scene)-1)*2).padStart(3,'0')+'–'+String(25+(Number(scene)-1)*2).padStart(3,'0')+'｜原書日中對照｜Prompt 完成度依課別顯示';
+  const coverage=$('coverage');if(coverage)coverage.textContent='';
+  const placeholder=$('toc-items');if(placeholder){[...placeholder.children].forEach(a=>a.hidden=a.getAttribute('href')!=='#scene-'+scene);}
+ }
 }
 
 function mount(raw){const doc=new DOMParser().parseFromString(raw,'text/html');const source=sanitize(doc);const all=[...source.querySelectorAll(':scope>section.chapter')];if(all.length!==21||!all.some(x=>x.id==='preface')||!all.some(x=>x.id==='scene-012'))throw Error('教材內容或章節數不符，為避免漏頁已停止顯示。');for(const c of all){if(c.querySelector('img,details.scan'))throw Error(c.id+' 含有掃描影像，已停止顯示以維持純電子文字版。');if(c.dataset.status==='verified'){if(!c.querySelector('.pair'))throw Error(c.id+' 缺少翻譯');for(const p of c.querySelectorAll('.pair'))if(!p.querySelector('.original')||!p.querySelector('.translation'))throw Error(c.id+' 的原文與翻譯未配對')}}const frag=document.createDocumentFragment();all.forEach(c=>frag.appendChild(document.importNode(c,true)));$('book-content').replaceChildren(frag);chapters=[...$('book-content').querySelectorAll('section.chapter')];buildToc();enhanceEnglish();enhancePromptLabs();scene001ReviewLayout();chapterSearchIndex=chapters.map(c=>{const clean=c.cloneNode(true);clean.querySelectorAll('.prompt-lab,.prompt-step').forEach(n=>n.remove());return clean.textContent.toLowerCase()});const count=chapters.filter(x=>x.dataset.kind==='scene').length;$('coverage').textContent=' · 已收錄 '+count+'／100 個 SCENE';$('gate').hidden=true;$('reader').hidden=false;ready=true;let saved='zh';try{saved=localStorage.getItem(MODE_KEY)||'zh'}catch(_){}mode(saved);if(location.hash){const id=decodeURIComponent(location.hash.slice(1));requestAnimationFrame(()=>$(id)?.scrollIntoView({block:'start'}))}}
