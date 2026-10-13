@@ -5,8 +5,8 @@
 ### 版本與實際修改
 - GitHub 只修改 `learning/english/yamada-speaking/` 公開 UI 程式（`index.html`、`reader.js`、`reader.css`，新增 `scene001.js`）。**原書、私人教材 HTML、三份日文 Prompt 全文均未放入 GitHub**。Google Drive 私人 HTML 正本已原地覆寫並由 SHA-256 讀回驗證。
 - 介面新增 3 主分頁：**課文閱讀**（原有 4 閱讀模式，手機保留左右對照）、**AI 口說練習**（STEP 1–3、全文預設收合、複製與 ChatGPT 入口）、**日文原文／台灣版 Prompt 對照**（左側 Google Drive TXT 全文；右側私人 HTML 台灣版全文，含差異與理由）。
-- 保留原有 `reader.js` 的 Google OAuth `drive.readonly` 與 `files.get?alt=media`、sessionStorage token；新增 `scene001.js` 在教材掛載後優先讀取同一份登入後的私人 HTML 所內嵌的三份日文 TXT，舊版 HTML 則使用 OAuth 從三個 Drive File ID 讀取；**不另存 access token，不將 TXT 寫入公開 repo**。
-- GitHub 檔案 `reader.js` 的每份 Prompt 複製／開啟 ChatGPT 按鈕，改成點擊時讀取最新 `.prompt-body`，因此會讀取 SCENE 001 私人 HTML 已原地校訂的正式台灣版 Prompt；在仍使用舊版 HTML 時，仍可透過客戶端相容邏輯修正 STEP 2/3。
+- 保留原有 `reader.js` 的 Google OAuth `drive.readonly` 與 `files.get?alt=media`、sessionStorage token；新增 `scene001.js` 在教材掛載後優先讀取同一份登入後的私人 HTML 所內嵌的三份日文 TXT；舊版 HTML 也可使用 OAuth 從三個 Drive File ID 讀取原始 TXT，但舊版台灣 Prompt 已停用客戶端全文修補；**不另存 access token，不將 TXT 寫入公開 repo**。
+- GitHub 檔案 `reader.js` 的每份 Prompt 複製／開啟 ChatGPT 按鈕，改成點擊時讀取最新 `.prompt-body`，因此會讀取 SCENE 001 私人 HTML 已原地校訂的完整台灣版 Prompt。完整教學規則與修正內容不存放在公開 JS，網站只負責顯示、導覽和複製。
 - **STEP 2** 將「對話中逐句 Retry」調整為原日文底稿規則：八句對話嚴守 CA／Passenger 輪次，結束後再一次提供四個乘客台詞的回饋／合格判定。
 - **STEP 3** 移除自由會話進行中重試與評分，補明確及自然結束、最多額外兩回合、至少三項具體回饋與三種合格判定。依使用者指定的美式表達以 `Would you like rice or pasta?` 作為台灣版開場；原書印刷的 `Rice or pasta?` 留在課文閱讀。
 - **Google Drive 原地更新已完成**：原始 HTML File ID `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_` 保留原檔名、父資料夾及 owner-only 權限；更新前 296,282 bytes，更新後 311,546 bytes。已獨立重新從 Drive materialize 讀回，與送出版本以 SHA-256 完全吻合：`32e0e1aade6b87522531d2d5afde585e4751cc20833c2a0c4afa67b409ded235`。
