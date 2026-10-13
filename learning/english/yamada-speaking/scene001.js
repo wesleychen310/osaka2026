@@ -1,56 +1,66 @@
-/* SCENE 001 public controller. Private textbook and Japanese prompts remain on Google Drive. */
+/* SCENE 001: interface only. Original and strictly translated prompts stay private on Drive. */
 (()=>{'use strict';
-const IDS=['1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1','1a9josI4bwp6wjDzmjSAtrZ1usQRRax96','1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL'];
+const ORIGINAL_IDS=['1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1','1a9josI4bwp6wjDzmjSAtrZ1usQRRax96','1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL'];
+const TRANSLATION_IDS=['17FbLFtPGIof7br3tGkThSCqHth76h0-z','1C-96VaGUXcFryvr-lw5mkTq0IX1c4Ojg','1qEyhxq-n1dRN0vU1FWcSGOkfxaavTy5m'];
 const $=id=>document.getElementById(id);
-const node=(tag,cls,str)=>{let x=document.createElement(tag);if(cls)x.className=cls;if(str!==undefined)x.textContent=str;return x};
-/* Full training rules, translations and all Japanese sources live exclusively in private Google Drive HTML. */
-let loaded=false,active='1',sourceText={};
-function correctedPrompt(step,raw){return raw;}
+const node=(tag,cls,str)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(str!==undefined)e.textContent=str;return e;};
+let initialized=false,active='1',originals={},translations={};
 function setTab(tab){
  document.documentElement.dataset.yamadaTab=tab;
- document.querySelectorAll('[data-main-tab]').forEach(b=>{let v=b.dataset.mainTab===tab;b.setAttribute('aria-selected',String(v));b.tabIndex=v?0:-1});
- ['read','speak','audit'].forEach(k=>{const x=$('scene-panel-'+k);if(x)x.hidden=tab!==k});
+ document.querySelectorAll('[data-main-tab]').forEach(b=>{const on=b.dataset.mainTab===tab;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;});
+ ['read','speak','audit'].forEach(k=>{const x=$('scene-panel-'+k);if(x)x.hidden=k!==tab;});
  document.querySelectorAll('.scene-read-toolbar').forEach(x=>x.hidden=tab!=='read');
- if(tab==='audit')renderAudit();
+ if(tab==='audit')renderComparison();
 }
-function setStep(s){
- active=s;
- document.querySelectorAll('[data-scene-step]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.sceneStep===s)));
- document.querySelectorAll('[data-training-step]').forEach(x=>x.hidden=x.dataset.trainingStep!==s);
- renderAudit();
+function setStep(step){
+ active=step;
+ document.querySelectorAll('[data-scene-step]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sceneStep===step)));
+ document.querySelectorAll('[data-training-step]').forEach(x=>x.hidden=x.dataset.trainingStep!==step);
+ renderComparison();
 }
-function renderAudit(){
- const left=$('audit-source'),right=$('audit-taiwan');if(!left||!right)return;
- const card=$('scene-practice-step-'+active);
- left.textContent=sourceText[active]||'原稿尚未從私人 Google Drive 載入。';
- right.textContent=card?.querySelector('.prompt-pane[data-variant="tw"] .prompt-body')?.textContent.trim()||'等待載入台灣版 Prompt。';
- $('audit-link').href='https://drive.google.com/file/d/'+IDS[Number(active)-1]+'/view';
- const list=$('audit-differences');list.replaceChildren();
- const items=[['忠實翻譯','英文句型及原書模型對話保留；角色維持 CA／Passenger。'],['台灣在地化','從台灣國際航班出發；原日文操作說明改為台灣繁體中文；不設定日本為目的地。'],['指令調整','Let’s start／開始練習、Slow、課後自動繁中回顧。'],['教學改善','尊重學習者思考時間；ASR 失敗不當作發音錯誤；缺乏音訊不可假稱精確評定連音。']];
- if(active==='2')items.push(['STEP 2 流程修正','八句模型對話完成後才統一糾錯並作合格判定；原日文底稿禁止中途糾錯。']);
- if(active==='3')items.push(['STEP 3 結束條件','保留明確結束、自然結束、最多額外兩回合、課後至少三項具體回饋與三種合格判定。']);
- for(const [tag,desc] of items){let x=node('div','audit-difference');x.append(node('strong','',tag),node('span','',desc));list.append(x)}
- $('audit-status').textContent=sourceText[active]?'已載入私人日文 TXT 全文；兩欄顯示完整內容。':'來源尚未載入，請確認 Google Drive 權限。';
-}
-async function fetchOriginal(i){
- const saved=JSON.parse(sessionStorage.getItem('hanami-kyoto-google-token-v3')||'null');
- if(!saved?.access_token||saved.expires_at<Date.now()+30000)throw Error('OAuth token 不可用');
- const response=await fetch('https://www.googleapis.com/drive/v3/files/'+IDS[i]+'?alt=media',{headers:{Authorization:'Bearer '+saved.access_token},cache:'no-store'});
- if(!response.ok)throw Error('HTTP '+response.status);
- return response.text();
-}
-async function loadOriginals(){
- // Prefer the complete user-saved TXT archive embedded in the owner-only Drive HTML.
- // Fallback to the same private Drive TXT files only for older HTML versions.
- for(const i of [1,2,3]){
-  const pre=document.querySelector('#scene-001 .saved-japanese-prompt[data-step="'+i+'"]');
-  if(pre)sourceText[String(i)]=pre.textContent;
+function renderComparison(){
+ const pane=$('audit-comparison'),status=$('audit-status');
+ if(!pane||!status)return;
+ pane.replaceChildren();
+ $('audit-link').href='https://drive.google.com/file/d/'+ORIGINAL_IDS[Number(active)-1]+'/view';
+ const ja=originals[active],zh=translations[active];
+ if(!ja||!zh){status.textContent='STEP '+active+'：等待從私人 Google Drive 讀取原文與譯文。';return;}
+ const a=ja.replace(/\r\n/g,'\n').trimEnd().split('\n'),b=zh.replace(/\r\n/g,'\n').trimEnd().split('\n');
+ status.textContent='STEP '+active+'｜日文 '+a.length+' 行｜中文 '+b.length+' 行';
+ if(a.length!==b.length){status.textContent+='｜行數不同，暫停逐行對照。';const x=node('pre','audit-raw',ja+'\n\n──────────\n\n'+zh);pane.append(x);return;}
+ for(let i=0;i<a.length;i++){
+  const row=node('div','audit-line');
+  const jp=node('div','audit-ja',a[i]||'\u00a0');
+  const cn=node('div','audit-zh',b[i]||'\u00a0');
+  jp.lang='ja';cn.lang='zh-Hant-TW';
+  row.append(jp,cn);pane.append(row);
  }
- if([1,2,3].every(i=>sourceText[String(i)]?.trim())){renderAudit();return}
- const results=await Promise.allSettled([0,1,2].map(fetchOriginal));
- results.forEach((r,i)=>{if(r.status==='fulfilled'&&!sourceText[String(i+1)])sourceText[String(i+1)]=r.value});
- const errors=results.flatMap((r,i)=>r.status==='rejected'?['STEP '+(i+1)+'：'+r.reason.message]:[]);
- renderAudit();if(errors.length)$('audit-status').textContent='部分 TXT 無法讀取：'+errors.join('；');
+}
+async function fetchPrivate(id,token){
+ const r=await fetch('https://www.googleapis.com/drive/v3/files/'+id+'?alt=media',{headers:{Authorization:'Bearer '+token},cache:'no-store'});
+ if(!r.ok)throw Error('HTTP '+r.status);
+ return r.text();
+}
+async function loadAll(){
+ let session;try{session=JSON.parse(sessionStorage.getItem('hanami-kyoto-google-token-v3')||'null');}catch(_){}
+ const status=$('practice-load-status');
+ if(!session?.access_token||Number(session.expires_at)<Date.now()+30000){status.textContent='登入權杖已過期，請重新使用 Google 帳號閱讀。';renderComparison();return;}
+ const req=[];
+ for(let i=0;i<3;i++){req.push(fetchPrivate(ORIGINAL_IDS[i],session.access_token));req.push(fetchPrivate(TRANSLATION_IDS[i],session.access_token));}
+ const results=await Promise.allSettled(req);const failures=[];
+ for(let i=0;i<3;i++){
+  const step=String(i+1),orig=results[i*2],trans=results[i*2+1];
+  if(orig.status==='fulfilled')originals[step]=orig.value;else failures.push('STEP '+step+' 日文：'+orig.reason.message);
+  if(trans.status==='fulfilled'){
+   translations[step]=trans.value;
+   const card=$('scene-practice-step-'+step),body=card?.querySelector('.prompt-pane[data-variant="tw"] .prompt-body');
+   if(body)body.textContent=trans.value;
+   const lbl=card?.querySelector('.prompt-tw-label');if(lbl)lbl.textContent='STEP '+step+'｜繁體中文直譯';
+   if(card)card.hidden=false;
+  }else failures.push('STEP '+step+' 中文：'+trans.reason.message);
+ }
+ status.textContent=failures.length?'Google Drive 檔案未全部載入：'+failures.join('；'):'三份完整 Prompt 已載入，可展開、複製。';
+ renderComparison();
 }
 function rebuildSceneMenu(chapter){
  const menu=chapter.querySelector('.english-block[data-kind="menu"]');
@@ -89,58 +99,49 @@ function addPronunciationToReading(chapter){
  const outdated=pairs.find(p=>p.querySelector('.translation')?.textContent.includes('該附錄將在後續批次納入連結'));
  if(outdated)outdated.querySelector('.translation').textContent='原書第 236 頁的模型對話日文譯文已收錄於本課末段，可直接向下閱讀。';
 }
+
 function init(){
- if(loaded||!$('scene-001')||$('reader')?.hidden)return;
- const chapter=$('scene-001'),cards=[...chapter.querySelectorAll('details.prompt-step[data-step]')];
+ if(initialized||!$('scene-001')||$('reader')?.hidden)return;
+ const scene=$('scene-001'),cards=[...scene.querySelectorAll('details.prompt-step[data-step]')];
  if(cards.length!==3)return;
- loaded=true;
- addPronunciationToReading(chapter);
- rebuildSceneMenu(chapter);
- markModelDialogue(chapter);
+ initialized=true;
+ addPronunciationToReading(scene);rebuildSceneMenu(scene);markModelDialogue(scene);
  const main=document.querySelector('.content-pane'),book=$('book-content');
- const nav=node('nav','scene-main-tabs');nav.setAttribute('role','tablist');nav.setAttribute('aria-label','SCENE 001 主分頁');
- for(const [id,label] of [['read','課文閱讀'],['speak','AI 口說練習'],['audit','日文原文／台灣版 Prompt 對照']]){
- const b=node('button','scene-main-tab',label);b.type='button';b.dataset.mainTab=id;b.setAttribute('role','tab');b.addEventListener('click',()=>setTab(id));nav.appendChild(b)
+ const nav=node('nav','scene-main-tabs');nav.setAttribute('role','tablist');
+ for(const [tab,title] of [['read','課文閱讀'],['speak','AI 口說練習'],['audit','日文／繁體中文對照']]){
+  const btn=node('button','scene-main-tab',title);btn.type='button';btn.dataset.mainTab=tab;btn.setAttribute('role','tab');btn.addEventListener('click',()=>setTab(tab));nav.append(btn);
  }
- $('toolbar').before(nav);
- $('toolbar').classList.add('scene-read-toolbar');
+ $('toolbar').before(nav);$('toolbar').classList.add('scene-read-toolbar');
  const reading=node('section','scene-read-panel');reading.id='scene-panel-read';book.before(reading);reading.append(book);
- const speaking=node('section','scene-workspace');speaking.id='scene-panel-speak';main.appendChild(speaking);
- const audit=node('section','scene-workspace');audit.id='scene-panel-audit';main.appendChild(audit);
+ const practice=node('section','scene-workspace');practice.id='scene-panel-speak';main.append(practice);
+ const audit=node('section','scene-workspace');audit.id='scene-panel-audit';main.append(audit);
  document.querySelectorAll('.reader-status,.scene-review-nav,.reader-jumps,.lookup,.results').forEach(x=>x.classList.add('scene-read-toolbar'));
- chapter.querySelector('.prompt-lab')?.setAttribute('hidden','');
- chapter.querySelector('.prompt-translation-audit')?.setAttribute('hidden','');
- speaking.append(node('h2','workspace-title','AI 口說練習'),node('p','workspace-lead','每個 STEP 都有完整獨立的台灣版 Prompt。展開後複製並開啟 ChatGPT，再切換語音模式，說 Let’s start 或「開始練習」。'));
- const navSteps=node('div','scene-step-tabs');speaking.append(navSteps);
- const aSteps=node('div','scene-step-tabs');
- for(const [step,label] of [['1','STEP 1 · 關鍵句型'],['2','STEP 2 · 模型對話'],['3','STEP 3 · 自由角色扮演']]){
-  for(const dest of [navSteps,aSteps]){const b=node('button','scene-step-tab',label);b.type='button';b.dataset.sceneStep=step;b.addEventListener('click',()=>setStep(step));dest.append(b);}
+ scene.querySelector('.prompt-lab')?.setAttribute('hidden','');
+ scene.querySelector('.prompt-translation-audit')?.setAttribute('hidden','');
+ const info=$('reader-mode-info');if(info)info.textContent='原書 p.024–025 ＋ p.236 · STEP 1–3 · 日文 Prompt 繁體中文直譯';
+ practice.append(node('h2','workspace-title','AI 口說練習'),node('p','workspace-lead','各 STEP 完整保留原稿的規則與英文，只把日文翻成繁體中文。'));
+ const steps=node('div','scene-step-tabs'),auditSteps=node('div','scene-step-tabs');practice.append(steps);
+ for(let i=1;i<=3;i++){
+  const step=String(i);
+  for(const dest of [steps,auditSteps]){const b=node('button','scene-step-tab','STEP '+step);b.type='button';b.dataset.sceneStep=step;b.addEventListener('click',()=>setStep(step));dest.append(b);}
  }
  cards.forEach((card,i)=>{
-  let step=String(i+1),wrapper=node('section','scene-training-card');wrapper.dataset.trainingStep=step;wrapper.id='scene-practice-step-'+step;
-  wrapper.append(node('p','step-goal',['關鍵句型、發音與 Exact／Almost／Retry，最多三次有效嘗試。','八句依序角色扮演，對話全程不糾錯；完成後回饋。','按照原書菜單自由點餐，結束後至少三項具體回饋。'][i]));
+  const step=String(i+1),wrapper=node('section','scene-training-card');wrapper.dataset.trainingStep=step;wrapper.id='scene-practice-step-'+step;wrapper.hidden=true;
   const body=card.querySelector('.prompt-pane[data-variant="tw"] .prompt-body');
-  if(body)body.textContent=correctedPrompt(i+1,body.textContent);
-  let subt=card.querySelector('.prompt-summary-sub');if(subt)subt.textContent='完整台灣版 · 點擊展開';
-  const versionButtons=card.querySelectorAll('.prompt-variant-tab');if(versionButtons[0])versionButtons[0].click();
-  wrapper.append(card);speaking.append(wrapper);
+  if(body)body.textContent='正在載入原稿直譯…';
+  const sub=card.querySelector('.prompt-summary-sub');if(sub)sub.textContent='完整直譯 · 點擊展開';
+  const btn=card.querySelector('.prompt-variant-tab');if(btn)btn.click();
+  wrapper.append(card);practice.append(wrapper);
  });
- speaking.append(node('p','practice-qualifier','SCENE 001 STEP 1–3 的完整台灣版 Prompt 由登入後的私人 Google Drive HTML 供應；STEP 2/3 已直接校訂並保存在正本。出版社官方 Prompt 來源同一性尚待確認。'));
- audit.append(node('h2','workspace-title','日文底稿 × 台灣版 Prompt 全文'),node('p','workspace-lead','左側為私人教材保存的日文 Prompt 原始 TXT 全文；右側為完整繁體中文 Taiwan Edition Prompt。英文句型保留。兩欄皆須 Google 授權後方可讀取；日文 TXT 尚未與出版社官方 ZIP 逐位元比對。'));
- audit.append(aSteps);
- const status=node('p','source-status');status.id='audit-status';status.setAttribute('role','status');audit.append(status);
- const grid=node('div','audit-grid');
- const col1=node('section','audit-col'),col2=node('section','audit-col');
- col1.append(node('h3','','日文底稿原文'));col2.append(node('h3','','繁體中文 Taiwan Edition'));
- const pre1=node('pre','audit-raw');pre1.id='audit-source';
- const pre2=node('pre','audit-raw');pre2.id='audit-taiwan';
- col1.append(pre1);col2.append(pre2);grid.append(col1,col2);audit.append(grid);
- const link=node('a','audit-origin','開啟原始 TXT（Google Drive） ↗');link.id='audit-link';link.rel='noopener noreferrer';link.target='_blank';audit.append(link);
- audit.append(node('h3','audit-title','差異與修改理由'));
- const differences=node('div','audit-differences');differences.id='audit-differences';audit.append(differences);
- audit.append(node('p','audit-caveat','驗收註記：三份使用者保存的日文底稿與完整 Taiwan Edition Prompt 已儲存於私人 HTML，可全文並列閱讀；正式逐條句對句的忠實譯文配對及出版社 ZIP 同一性尚未完成，不能標記全數驗收通過。'));
- setStep('1');setTab('read');loadOriginals();
+ const practiceStatus=node('p','source-status','正在從私人 Google Drive 載入全文…');practiceStatus.id='practice-load-status';practiceStatus.setAttribute('role','status');practice.append(practiceStatus);
+ audit.append(node('h2','workspace-title','日文原稿／繁體中文逐行對照'),node('p','workspace-lead','保留相同的段落、編號、英語、發音符號與規則。'));
+ audit.append(auditSteps);
+ const auditStatus=node('p','source-status');auditStatus.id='audit-status';auditStatus.setAttribute('role','status');audit.append(auditStatus);
+ const header=node('div','audit-line audit-line-header');header.append(node('strong','audit-ja','日文原稿'),node('strong','audit-zh','繁體中文直譯'));audit.append(header);
+ const comparison=node('div','audit-comparison');comparison.id='audit-comparison';audit.append(comparison);
+ const link=node('a','audit-origin','日文原稿 TXT（Google Drive） ↗');link.id='audit-link';link.rel='noopener noreferrer';link.target='_blank';audit.append(link);
+ setStep('1');setTab('read');loadAll();
 }
-const watch=new MutationObserver(init);watch.observe(document.documentElement,{childList:true,subtree:true});
+const observer=new MutationObserver(init);observer.observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
