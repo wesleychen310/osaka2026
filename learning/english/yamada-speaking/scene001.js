@@ -78,6 +78,25 @@ async function loadOriginals(){
  const errors=results.flatMap((r,i)=>r.status==='rejected'?['STEP '+(i+1)+'：'+r.reason.message]:[]);
  renderAudit();if(errors.length)$('audit-status').textContent='部分 TXT 無法讀取：'+errors.join('；');
 }
+function rebuildSceneMenu(chapter){
+ const menu=chapter.querySelector('.english-block[data-kind="menu"]');
+ if(!menu||menu.dataset.structured)return;
+ const ps=[...menu.querySelectorAll(':scope>p[lang="en"]')];
+ const mainIndex=ps.findIndex(p=>p.textContent.trim().toUpperCase()==='MAIN');
+ const drinkIndex=ps.findIndex(p=>p.textContent.trim().toUpperCase()==='DRINK');
+ if(mainIndex<0||drinkIndex<=mainIndex)return;
+ const grid=node('div','scene-menu-grid');
+ const main=node('div','scene-menu-column'),drinks=node('div','scene-menu-column');
+ ps.slice(mainIndex,drinkIndex).forEach(p=>{if(p===ps[mainIndex])p.classList.add('scene-menu-heading');main.appendChild(p)});
+ ps.slice(drinkIndex).forEach(p=>{if(p===ps[drinkIndex])p.classList.add('scene-menu-heading');drinks.appendChild(p)});
+ grid.append(main,drinks);menu.append(grid);menu.dataset.structured='true';
+}
+function markModelDialogue(chapter){
+ chapter.querySelectorAll('.english-block[data-kind="dialogue"]>p[lang="en"]').forEach(p=>{
+  if(p.textContent.trim().startsWith('CA:'))p.classList.add('scene-dialogue-ca');
+  if(p.textContent.trim().startsWith('Passenger:'))p.classList.add('scene-dialogue-passenger');
+ });
+}
 function addPronunciationToReading(chapter){
  const list=chapter.querySelector('.keyphrase-list');if(!list||chapter.querySelector('.scene-pronunciation'))return;
  const wrap=node('section','scene-pronunciation');
@@ -102,6 +121,8 @@ function init(){
  if(cards.length!==3)return;
  loaded=true;
  addPronunciationToReading(chapter);
+ rebuildSceneMenu(chapter);
+ markModelDialogue(chapter);
  const main=document.querySelector('.content-pane'),book=$('book-content');
  const nav=node('nav','scene-main-tabs');nav.setAttribute('role','tablist');nav.setAttribute('aria-label','SCENE 001 主分頁');
  for(const [id,label] of [['read','課文閱讀'],['speak','AI 口說練習'],['audit','日文原文／台灣版 Prompt 對照']]){
