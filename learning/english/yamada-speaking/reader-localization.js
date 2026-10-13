@@ -137,7 +137,10 @@
     localizeHeadings(scene);
     keyphrases(scene);
     scene.querySelectorAll('.english-block').forEach(block=>twinPanels(block,(panel,lang)=>setPanelLabel(panel,lang)));
-    scene.querySelectorAll('.sim-plans').forEach(block=>twinPanels(block));
+    scene.querySelectorAll('.sim-plans').forEach(block=>{
+      // SIM plan grids already copied with their enclosing English block must not be cloned again.
+      if(!block.closest('.reading-twins'))twinPanels(block);
+    });
     scene.querySelectorAll('.appendix-line').forEach(block=>twinPanels(block));
     scene.dataset.readingTwins='ready';
   }
