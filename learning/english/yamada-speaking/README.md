@@ -1,5 +1,24 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-13｜SCENE 001 Prompt 嚴格日文直譯回復（目前優先生效）
+
+使用者要求取消前一版「Taiwan Edition」重新設計。SCENE 001 STEP 1–3 的 **網站顯示與複製內容** 改為直接讀取私人 Google Drive 新存的三份繁體中文直譯文字檔。只翻譯使用者保存的日文文字，不增刪任何流程或改寫英語句型。原稿中的 Gemini-specific 英文、3 秒沉默要求、ASR 視為 Retry、回顧需依課本提示、STEP 2 對話結束後回饋、STEP 3 明確／自然結束條件全部保留。日文原稿不做更動。
+
+| STEP | 私人日文原稿 ID | 私人繁體中文直譯 ID | 行數（原稿＝譯稿） |
+|---|---|---|---|
+| 1 | `1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1` | `17FbLFtPGIof7br3tGkThSCqHth76h0-z` | 142＝142 |
+| 2 | `1a9josI4bwp6wjDzmjSAtrZ1usQRRax96` | `1C-96VaGUXcFryvr-lw5mkTq0IX1c4Ojg` | 124＝124 |
+| 3 | `1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL` | `1qEyhxq-n1dRN0vU1FWcSGOkfxaavTy5m` | 130＝130 |
+
+- 所有六份 TXT 均置於私人專案根資料夾「山田優」：`1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB`，Google Drive metadata 讀回確認中文三份未公開（owner-only）。
+- 讀者在 Google OAuth 登入後，`scene001.js` 讀取相對應的原文／直譯 TXT；口說練習使用中文完整原稿，展開／複製按鈕取用當下最新文本。直譯讀取失敗時隱藏舊的改寫 Prompt，避免使用者複製錯誤版本。
+- 「日文／繁體中文對照」分頁以每一來源行對應一個譯文行，保留所有英語、IPA、編號與空白段落。iPhone 直式保留左右雙欄。
+- 自動校驗：STEP 1/2/3 分別 142／124／130 行一致；純英文行逐一完整保存 20/20、21/21、23/23；所有 IPA 斜線片段數量不變；STEP 2 原書八句對話英語維持完全相同；繁體中文稿沒有日文假名殘留。
+- **重要**：舊 Google Drive 教材 HTML 正本 `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_` 尚包含舊版改編 Prompt 內容，本次不覆寫，以免破壞其他 SCENE；SCENE 001 網頁已改由上述新的私有中文 TXT 作為唯一執行與複製來源。原備份 `1QJ6LdLR2EVAigYYKiKKzeUR6KDW-F6FN` 保留。
+- GitHub Pages 網站、真實 Google OAuth/Clipboard、iPhone/iPad/Mac Safari 端到端測試尚未完成；GitHub 寫入與靜態測試不得誤稱為實機驗收。
+
+---
+
 ## 2026-10-13｜SCENE 001 三分頁及私人教材原地更新（靜態驗收完成；實機驗收待完成）
 
 ### 版本與實際修改
