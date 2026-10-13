@@ -84,7 +84,7 @@ function init(){
  const practice=el('section','scene-workspace');practice.id='scene-panel-speak';main.append(practice);
  const audit=el('section','scene-workspace');audit.id='scene-panel-audit';main.append(audit);
  document.querySelectorAll('.reader-status,.scene-review-nav,.reader-jumps,.lookup,.results').forEach(e=>e.classList.add('scene-read-toolbar'));
- const info=$('reader-mode-info');if(info)info.textContent='原書 p.'+String(24+(Number(SCENE)-1)*2).padStart(3,'0')+'–'+String(25+(Number(SCENE)-1)*2).padStart(3,'0')+' · 完整英日／英中教材 · STEP 1–3 原稿直譯';
+ const info=$('reader-mode-info');if(info){const printed=scene.querySelector('.chapter-title small')?.textContent.trim();const page=24+(Number(SCENE)-1)*2+(Number(SCENE)>=31?2:0);info.textContent=(printed||('原書 p.'+page+'–'+(page+1)))+' · 完整英日／英中教材 · STEP 1–3 原稿直譯';}
  practice.append(el('h2','workspace-title','AI 口說練習'),el('p','workspace-lead','完整保留日文原始 Prompt 的英文及操作規則；僅翻譯日文。'));
  makePractice(practice);const practiceStatus=el('p','source-status','正在載入私人 Google Drive Prompt…');practiceStatus.id='practice-load-status';practiceStatus.setAttribute('role','status');practice.append(practiceStatus);
  audit.append(el('h2','workspace-title','日文原稿／繁體中文逐行對照'),el('p','workspace-lead','每一原稿行對應一譯文行；所有英文、IPA 和規則保留。'));
