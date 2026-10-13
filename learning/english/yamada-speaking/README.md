@@ -4,7 +4,7 @@
 
 - 統一專案根資料夾「山田優」：https://drive.google.com/drive/folders/1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB，owner-only。父資料夾為「英文學」。
 - 根資料夾包含 SCENE001-STEP1.txt 等日文 Prompt 原始文字檔，並保留 PART1_SCENE001-030_PROMPT.zip、PART2_SCENE031-050_PROMPT.zip、PART3_SCENE051-082_PROMPT.zip、PART4_SCENE083-100_PROMPT.zip。
-- 本次根目錄實際列得 176 個獨立 STEP 文字檔，涵蓋 SCENE001–059；SCENE058 的 STEP2 沒出現在獨立 txt 清單，待查 ZIP 或補檔。PART 1–4 ZIP 的內部完整性尚待逐項檢查，勿僅憑 ZIP 名稱斷言 100 課逐字齊全。
+- 初次 Google Drive 根目錄清單為部分擷取，先前 176 個 txt／SCENE058 STEP2 缺漏的結論不具備全量證據，已撤回。**四個 PART ZIP 已在本地做壓縮檔 CRC 完整性與檔名交叉檢查**：PART1 90、PART2 60、PART3 96、PART4 45，合計 **291 份不同 SCENE/STEP**；對預期 100 課 × 3 STEP＝300，ZIP 確認缺 **SCENE092–100 的 STEP1 共 9 份**。ZIP 之外的單獨 TXT 可再清點，不能擅自推定遺漏是官方缺檔，須確認原書該課 STEP1 設計及另存版本。
 - 子資料夾「山田優_新AI時代英會話_私人教材」原 ID 1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3 從 AI 資料夾原地移入統一根資料夾，未複製，保持檔案樹與 _backup。
 - 正本 HTML Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY.html，原 ID 1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_，當下大小 296,282 bytes，仍在上述子資料夾；GitHub reader.js 仍使用原 ID，無須變更 OAuth 路徑。
 - 課本 PDF ChatGPT英會話_山田優.pdf，原 ID 1sGQoKXyXvAWflI6iucbOl0x1qliTW6St，40,838,035 bytes，從 AI 資料夾搬入教材子資料夾。
