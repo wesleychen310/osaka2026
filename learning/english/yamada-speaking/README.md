@@ -1,5 +1,27 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-13｜10 課批次 SCENE 013–022 全部完成（最新）
+
+**交付結論：SCENE 013–022 共 10 課，完整雙語電子教材 + STEP 1–3 三份繁中 Prompt 直譯全部完成並整合到網站。全書目前 22/100 課。** 本段為最新狀態；下方早期「013–022 翻譯尚待完成」之描述是過往中途紀錄，現已由本節取代。
+
+### 私有來源與網站
+
+- 舊的私人 HTML 正本 `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`（SCENE 001–012）**完全不覆寫**，原有檔名/ID/位置/權限保留，故本批無需對該檔建立取代前備份。
+- 新私人雙語教材增量 HTML `Yamada_Speaking_SCENE013-022_TEXT_ONLY.html`，Google Drive ID `18FEtT4P16OxKNj5-raxkFFsxvW8Vf2O9`，私人教材子資料夾 `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`。大小 75,121 bytes，SHA256 `d1ade9dd4fae0e7af05b84e2512f5de017c35eeef678d41703f385512ff1f933`。建立後從 Drive 下載回讀確認位元組完全一致，owner-only 未公開。內容 10 個正式 SCENE `013–022`，**183 組日中翻譯 pair、26 個英文關鍵句型、86 行英文模型對話**。
+- 原書 PDF `1sGQoKXyXvAWflI6iucbOl0x1qliTW6St`，本批核對 013–022 對應原書印刷 pp.048–067；SCENE017–022 為新製教材。原書有不尋常的時間記號時保留來源而不擅改。
+- 私人根資料夾 `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB` 保存 **10 課 × 3 STEP＝30 份日文原稿與 30 份繁體中文直譯**。共 **5,095 行**日文原稿與譯稿一一對應，原文純英文 1,348 行逐行保持完全相同，日文假名不殘留；逐一校對 IPA 發音 token 需原樣保留，包括 015 STEP1 `/ruːm/` 與 018 STEP1 `/mɪst/`，兩處已補正。
+- 13–16 共 12 份中文 TXT 已存私人 Drive；15 STEP1 IPA 勘誤另存新私人 TXT `SCENE015-STEP1_ZH_v2.txt`，ID `1gab7AWp4gn_I5fea9xOjUt2npZakN5mQ`，網站使用此修正版，舊版保留備查。17–22 新增 **18 份中文 TXT**，存放於同一私人資料夾。19 份本輪新建/修正版已由 Drive 再下載，**19/19 和本地成品完全一致**，metadata 驗證 **19/19 owner-only 且父資料夾正確**。先前上傳的其他 11 份 13–16 中文 TXT 已於同輪先前重新下載核對。
+- GitHub 公開倉庫只存放界面：`reader.js` 驗證並載入「原 21 個 chapter + 新 10 個 chapter」，修復上一版把增量數錯當 4 課的致命條件；`reader-localization.js` 支援 SCENE001–022 英文在日文/繁中兩種版本各自完整保留；`reader.css` 依單課顯示；`index.html` 新增 017–022 選擇入口與 cache bust；`scene-following.js`（新）提供 SCENE013–022 的完整三個分頁及 STEP1–3 Prompt，私有 Drive OAuth `drive.readonly`，複製/開啟 ChatGPT/日中逐行稽核。任何版權教材/Prompt 文字**沒有**存入公開 GitHub。
+- 網址 `https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/?scene=022`，可用 `?scene=013` ～ `?scene=022`。
+- **驗收層級**：私人 Drive bytes、原/譯文行數、保留純英文/IPA、檔案 owner-only、HTML 結構/成對資料、GitHub 內容/JS 語法可做靜態驗證；**真實 Google OAuth、iPhone Safari/ iPad/ Mac 與 GitHub Pages CDN 即時部署仍待人工 E2E 驗收**，不得標為實機 PASS。
+
+### 全書進度與下一步
+- **完成課程：SCENE 001–022＝22/100，尚有 78 課。** 「完成」指原書雙語教材與三 STEP 繁體中文 Prompt 均已建立並與 GitHub UI 整合；實機 E2E 屬另一驗收層級。
+- **下一批：SCENE 023–032，共 10 課／30 份 Prompt**。依相同來源核對、保留兩份英文、逐行忠實翻譯、保護私人 Drive、上線 GitHub 與完成進度回報的標準處理。
+
+---
+
+
 ## 2026-10-13｜已上線 SCENE 001–011 四模式雙語閱讀修復（最新）
 - **需求定版**：英文是原書教材的一部分，與日文原文及日文的繁中翻譯各自組成一個完整閱讀版本。日文版＝原書英文＋日文；中文版＝同一份英文＋繁體中文；上下對照＝上英文＋中文、下英文＋日文；左右對照＝左英文＋日文、右相同英文＋中文。不可抽出英文共用，也不可改寫英語。
 - **修正位置**：只更新 GitHub 公開 UI：`reader-localization.js`（新）、`reader.js`、`scene001.js`、`reader.css`、`index.html`。私人 Google Drive HTML `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`、11 課日文 Prompt 和繁中直譯原稿均維持原 ID／檔名／權限／內容，**這批未覆寫私人原檔，故未執行備份動作**。
