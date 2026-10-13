@@ -301,3 +301,51 @@ html[data-scene-focus="011"] #book-content > .chapter:not(#scene-011){display:no
 html[data-scene-focus="011"] #toc-items > a:not([href="#scene-011"]){display:none!important}
 html[data-scene-focus="011"] .upcoming,html[data-scene-focus="011"] .reader-jumps{display:none!important}
 #scene-011 .prompt-lab,#scene-011 > details.prompt-step,#scene-011 .prompt-translation-audit{display:none!important}
+
+/* Verbatim English inside BOTH Japanese-source and Traditional-Chinese reading versions.
+   The two complete versions are composed client-side from the same private textbook data. */
+.reading-twins{display:block;min-width:0}
+.reading-version{min-width:0;overflow-wrap:anywhere}
+.reading-bilingual-title .reading-title-ja,.reading-bilingual-title .reading-title-zh{display:block;min-width:0;overflow-wrap:anywhere}
+html[data-reading-mode="ja"] .reading-version[data-reading-lang="zh"],
+html[data-reading-mode="zh"] .reading-version[data-reading-lang="ja"],
+html[data-reading-mode="ja"] .reading-title-zh,
+html[data-reading-mode="zh"] .reading-title-ja{display:none!important}
+html[data-reading-mode="vertical"] .reading-twins{display:flex;flex-direction:column;gap:10px}
+html[data-reading-mode="vertical"] .reading-twins>.reading-version[data-reading-lang="zh"]{order:-1}
+html[data-reading-mode="parallel"] .reading-twins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
+html[data-reading-mode="parallel"] .reading-twins>.reading-version{min-width:0}
+html[data-reading-mode="vertical"] .reading-bilingual-title{display:flex;flex-direction:column;gap:3px}
+html[data-reading-mode="vertical"] .reading-bilingual-title>.reading-title-zh{order:-1}
+html[data-reading-mode="parallel"] .reading-bilingual-title{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
+html[data-reading-mode="parallel"] .reading-bilingual-title>.reading-title-ja,
+html[data-reading-mode="parallel"] .reading-bilingual-title>.reading-title-zh{min-width:0}
+.reading-version[data-reading-lang="ja"] .pair .translation,
+.reading-version[data-reading-lang="zh"] .pair .original{display:none!important}
+.reading-keyphrase-twins .reading-keyphrase{padding:0;min-width:0}
+.reading-keyphrase-twins .reading-keyphrase>p[lang="en"]{font-weight:750;font-size:17px;line-height:1.55;margin:0 0 7px;color:#143e56}
+.reading-keyphrase-twins .reading-gloss{font-size:13px;line-height:1.85;white-space:pre-line;overflow-wrap:anywhere}
+html[data-reading-mode="vertical"] .reading-keyphrase-twins>.reading-keyphrase[data-reading-lang="zh"],
+html[data-reading-mode="parallel"] .reading-keyphrase-twins>.reading-keyphrase[data-reading-lang="zh"]{background:#f0f8fb;border-radius:8px;padding:10px}
+html[data-reading-mode="vertical"] .reading-keyphrase-twins>.reading-keyphrase[data-reading-lang="ja"],
+html[data-reading-mode="parallel"] .reading-keyphrase-twins>.reading-keyphrase[data-reading-lang="ja"]{background:#fff;border:1px solid #e1e9ee;border-radius:8px;padding:10px}
+html[data-reading-mode="vertical"] .reading-twins>.english-block,
+html[data-reading-mode="parallel"] .reading-twins>.english-block{margin:0;padding:12px}
+html[data-reading-mode="vertical"] .reading-twins:has(>.english-block),
+html[data-reading-mode="parallel"] .reading-twins:has(>.english-block){margin:16px 0}
+.reading-twins .english-block p[lang="en"]{overflow-wrap:anywhere}
+.reading-twins .appendix-line{min-width:0}
+html[data-reading-mode="parallel"] .reading-twins .source-checklist,
+html[data-reading-mode="parallel"] .reading-twins .sim-plans{min-width:0}
+@media(max-width:600px){
+ html[data-reading-mode="parallel"] .reading-twins{gap:6px}
+ html[data-reading-mode="parallel"] .reading-keyphrase-twins>.reading-keyphrase{padding:7px 5px}
+ html[data-reading-mode="parallel"] .reading-keyphrase-twins .reading-keyphrase>p[lang="en"]{font-size:13px;line-height:1.45}
+ html[data-reading-mode="parallel"] .reading-keyphrase-twins .reading-gloss{font-size:11px;line-height:1.55}
+ html[data-reading-mode="parallel"] .reading-twins>.english-block{padding:7px 5px}
+ html[data-reading-mode="parallel"] .reading-twins>.english-block p[lang="en"]{font-size:12px;line-height:1.55}
+ html[data-reading-mode="parallel"] .reading-twins .speak{float:none;display:block;margin:4px 0 1px;font-size:10px}
+ html[data-reading-mode="parallel"] .reading-bilingual-title{gap:5px}
+ html[data-reading-mode="parallel"] .reading-bilingual-title .reading-title-ja,
+ html[data-reading-mode="parallel"] .reading-bilingual-title .reading-title-zh{font-size:.82em}
+}
