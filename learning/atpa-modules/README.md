@@ -242,3 +242,10 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 已修復：上中文下英文的**繁中與英文正文均為 16px（桌面與手機）**，Knowledge Check 題目中英文同為 16px；英文小節標題桌面 `clamp(20px,2.2vw,23px)`、手機 20px。保留繁中在上、英文在下。
 - GitHub 共用 CSS `learning/atpa-modules/reader.css` 更新，Module 1 `index.html` 以 `20261013-normal-font1` 刷新快取；Module 2 也引用同一份更新版 CSS，因此上下雙語正文在兩個 Module 的標準一致。
 - 四模式按鈕（全英文、全中文、上中文下英文、左英文右中文）、目錄、私人 Google OAuth 載入和 Knowledge Checks 均保留。已完成 GitHub 原始碼核對；私人授權後的手機實機顯示仍待使用者確認。
+
+## 2026-10-14｜Module 2 完成 §1.4 全 16 小節
+
+- Module 2 累計 **160／223**；從原書第 173–192 頁 `§1.4 Relational Databases` 完成 16 小節後，下一批 **§1.5 Data Validation（21 小節）**。
+- 新私人 Drive ID `1tnMUnufssHsrZoen0nio5M3NeitXAgM_`（受限 owner/reader），20 對來源英中區塊、16 教師卡、48 語塊、15 原書 PDF 頁面圖。GitHub 公開網頁只存 CSS/JS/file ID。
+- 正式入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s141 ，四個模式仍依序為全英文、全中文、上中文下英文、左英文右中文。
+- 詳細校稿與下一步 SOP：`learning/atpa-modules/module2/README.md`。
