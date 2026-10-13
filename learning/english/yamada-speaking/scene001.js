@@ -25,6 +25,7 @@ let loaded=false,active='1',sourceText={};
 function correctedPrompt(step,raw){
  if(!stepRules[step])return raw;
  let txt=raw;
+ txt=txt.replace('15. 本 STEP 所有任務完成、第三次重試上限用盡，或學生說「結束練習」時，直接進入「與 AI 一起回顧」；無須請學生翻書朗讀日文回顧問題。','15. 本 STEP 完成全部對話或學習者明確結束時，立即進入繁體中文課後回顧；不用請學習者翻書朗讀原書回顧問題。');
  const a=txt.indexOf('【聽取輸入、分級與重試演算法】');
  const b=txt.indexOf('【結束練習與繁中 Feedback】',a);
  if(a>=0&&b>a)txt=txt.slice(0,a)+stepRules[step]+'\n\n'+txt.slice(b);
@@ -73,7 +74,7 @@ async function fetchOriginal(i){
 }
 async function loadOriginals(){
  const results=await Promise.allSettled([0,1,2].map(fetchOriginal));
- results.forEach((r,i)=>{if(r.status==='fulfilled')sourceText[i+1+'']=r.value});
+ results.forEach((r,i)=>{if(r.status==='fulfilled')sourceText[String(i+1)]=r.value});
  const errors=results.flatMap((r,i)=>r.status==='rejected'?['STEP '+(i+1)+'：'+r.reason.message]:[]);
  renderAudit();if(errors.length)$('audit-status').textContent='部分 TXT 無法讀取：'+errors.join('；');
 }
