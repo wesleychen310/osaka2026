@@ -1,5 +1,40 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-13｜SCENE 001 三分頁前端改善（進行中；請勿標記正式驗收完成）
+
+### 版本與實際修改
+- 只修改 `learning/english/yamada-speaking/` 公開 UI 程式（`index.html`、`reader.js`、`reader.css`，新增 `scene001.js`）。**完整原書、私人教材 HTML、三份日文 Prompt 正本皆未放入 GitHub**。
+- 介面新增 3 主分頁：**課文閱讀**（原有 4 閱讀模式，手機保留左右對照）、**AI 口說練習**（STEP 1–3、全文預設收合、複製與 ChatGPT 入口）、**日文原文／台灣版 Prompt 對照**（左側 Google Drive TXT 全文；右側私人 HTML 台灣版全文，含差異與理由）。
+- 保留原有 `reader.js` 的 Google OAuth `drive.readonly` 與 `files.get?alt=media`、sessionStorage token；新增 `scene001.js` 在教材 DOM 掛載完成後讀取同一帳號可存取的三份私人 TXT，**不另存 access token，不將 TXT 寫入公開 repo**。
+- GitHub 檔案 `reader.js` 的每份 Prompt 複製／開啟 ChatGPT 按鈕，改成點擊時讀取最新 `.prompt-body`，因此會帶上 SCENE 001 在前端執行的教學流程修正。
+- **STEP 2** 將「對話中逐句 Retry」調整為原日文底稿規則：八句對話嚴守 CA／Passenger 輪次，結束後再一次提供四個乘客台詞的回饋／合格判定。
+- **STEP 3** 移除自由會話進行中重試與評分，補明確及自然結束、最多額外兩回合、至少三項具體回饋與三種合格判定。依使用者指定的美式表達以 `Would you like rice or pasta?` 作為台灣版開場；原書印刷的 `Rice or pasta?` 留在課文閱讀。
+- **重要技術狀態**：以上 SCENE 001 教學規則修正目前是在**使用者登入後的瀏覽器記憶體中**套用，複製得到修正版全文；Google Drive 私人 HTML 正本尚未被覆寫。不可把網站上的變更誤認為已修改 Drive 來源。
+- **日中校訂狀態**：雙欄目前可並列日文與台灣版的各自**完整 Prompt**，並顯示忠實翻譯、在地化、操作指令、教學改善之差異原因；**尚未建成每句一一對應的逐條翻譯表**。使用者保存日文 TXT 有 Gemini-specific 條文，尚未與出版社官方 ZIP 逐位元驗證，標記為「使用者保存的日文底稿」。
+
+### Drive 檔案與備份
+- 私人 HTML 正本：`1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`，`Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY.html`；父資料夾：`1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`，僅 owner 授權。
+- 校對 PDF：`1sGQoKXyXvAWflI6iucbOl0x1qliTW6St`；PDF 文字層含辨識錯字，正式原文須以頁面影像核對。
+- SCENE 001 日文：STEP 1 `1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1`；STEP 2 `1a9josI4bwp6wjDzmjSAtrZ1usQRRax96`；STEP 3 `1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL`。
+- 更新前備份已建立：`_backup/Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY_20261013_1016_before-SCENE001-tabs-translation.html`，File ID `1QJ6LdLR2EVAigYYKiKKzeUR6KDW-F6FN`；`_backup` ID `1msKZUfeUDD2AviiIlogXWg1eXbzBUbPw`。**備份已完成，正本仍未修改**。
+
+### 維護 SOP 與驗收門檻
+1. 任何編修先以 Drive metadata 確認原檔 ID、檔名、父資料夾及權限；在同 folder 的 `_backup` 以時間戳＋原因建立備份，驗證 copy 成功再更新原檔。
+2. 依 PDF 原頁 → 日文 TXT 底稿 → 出版社原始 ZIP（核實時）建立來源紀錄；逐條翻譯、標記差異類型，英文原句／IPA／菜單不改動。
+3. 私人 HTML 保留 `#yamada-source`、21 個 `section.chapter` 的既有載入約束；正本經安全 raw-file 更新通道原地覆寫，保持 File ID、名稱、位置與 owner-only；讀回核對位元組、hash、section／pair 數量、STEP 1–3 的全部文字與下載後剪貼簿一致性。
+4. GitHub CSS／JS 更新後提交 commit，確認 GitHub Pages 靜態回傳新檔、無 404；用 Google OAuth 登入驗證私人 HTML 與三個 TXT 均可取得，不記錄任何 access token。
+5. 實測 iPhone 直式左右 50% 格、四閱讀模式；iPad/Mac；三主分頁與三 STEP；全文展開／複製／開啟 ChatGPT；音標、菜單、長文字、返回導覽、語音啟動與回顧流程。不可將靜態檢查視為 Safari 實機 E2E。
+6. SCENE 001 取得使用者正式確認後，才將資料模型及檢查腳本套用於 SCENE 002–100；批次仍須逐課 PDF 對頁＋三 STEP 完整性審核。
+
+### 尚未完成的正式驗收項目
+- Google Drive 私人 HTML **原地覆寫**（目前連接器需要檔案 `file_uri`，尚無已驗證的私有更新輸入）；目前網站用戶端有修正但來源正本保留舊內容。
+- 原稿日文與繁體中文**逐句、逐條逐字一一對應翻譯**；目前只有完整左右全文與變更類別標註。
+- PDF 原頁圖片與印刷目錄的完整重建（目前菜單為 HTML 文字復刻；原書圖像保留私人 PDF）。
+- 出版社 ZIP 的逐位元比對，以及四個 PART ZIP／ZIP 外所有 Prompt 全量完整性重新檢查（已保留前次 291 份 ZIP 盤點紀錄）。
+- 部署 CDN 即時生效、Google OAuth 真正登入、Safari iPhone/iPad/Mac E2E、Clipboard 語音模式與實機視覺驗收。未執行者不可標記通過。
+
+---
+
 ## 2026-10-13｜Google Drive 專案集中管理（已搬移與驗證）
 
 - 統一專案根資料夾「山田優」：https://drive.google.com/drive/folders/1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB，owner-only。父資料夾為「英文學」。
