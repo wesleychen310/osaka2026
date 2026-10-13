@@ -1,5 +1,19 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-14｜第 6 批 SCENE 033–042 雙語課文已完成（Prompt 尚待驗收）
+
+- **原始依據**：私人原書 PDF `1sGQoKXyXvAWflI6iucbOl0x1qliTW6St`，SCENE 033–042 印刷 pp.090–109；原始日文 Prompt 皆自私人 Google Drive `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB` 讀取，共 **30 份、5,322 行（本地 splitlines 計數）**。
+- **新增私人教材**：`Yamada_Speaking_SCENE033-042_TEXT_ONLY.html`，Google Drive file ID `1bqd7gB0XJFS_9OIhaq970GFX3IW-Pfps`，parent `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`。建立 10 個依序編號場景、30 個英文關鍵句型、96 句英文模型對話及 141 組日文／繁中配對段落，含 STEP3 參照資料。英文模型對話以各課原始 STEP2 TXT 的編號對話為來源。
+- **正本不變**：未覆寫原有私人教材 HTML，另以增量檔加入第三個私有教材來源；原日文 Prompt 完全不變，私人檔案仍 owner-only。
+- **完整性 QA**：上傳後重新下載增量 HTML，逐位元 SHA-256 完全相同 `c197e1284f38b8a065f91fbaf7ffde5228efa1226ec87d8068758944263bb02c`；10 個 chapter ID、關鍵句型、模型對話及日中 pair 結構均通過本地解析。
+- **網站更新**：`reader.js` 加入第三個私有補充檔並驗證 SCENE 033–042；`reader-localization.js` 套用已定版四模式（英日、英中、上下、左右，對照模式英文兩側皆完整）；`reader.css` 新增 033–042 專注閱讀；`index.html` 加入十課入口及 cache-bust。
+- **未完成**：SCENE 033–042 的 30 份 Prompt 仍需翻譯新場景專屬規則、角色台詞、IPA 註解及逐行驗收。原始日文與既有譯稿比對有約 65% 原稿非空白行可以精確重用既有翻譯，剩餘不可自行當成已翻譯。**本批不新增 10 課至完整完成數**，也不在網站呈現尚未驗收的 Prompt。
+- **進度**：雙語教材 SCENE 001–042＝**42/100**；包含 STEP1–3 已驗收 Prompt 的完整課程＝**32/100**。瀏覽器端 Google OAuth／實機 iPhone Safari E2E 尚未完成。
+- **下一步**：翻譯及驗收 SCENE 033–042 的 30 份 Prompt，儲存在私人 Drive，下載讀回後再更新網站練習控制器；待這 10 課完整結案才開始 SCENE 043–052。
+
+---
+
+
 ## 2026-10-14｜第 5 批 SCENE 023–032 完成（最新狀態）
 
 **完整完成進度：32／100 課**。本批 10 課均有英日／英中雙語課文、STEP 1–3 日文原始 Prompt 和其繁體中文逐行直譯，以及對照與複製練習功能。先前「023–030 的 24 份譯稿已完成」中途宣告缺少實際檔案；本輪已重新製作、逐行校對，並完成正式交付。下方較舊段落反映歷史進度，應以本段為準。
