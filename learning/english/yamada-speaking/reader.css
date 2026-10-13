@@ -358,3 +358,25 @@ html[data-reading-mode="parallel"] .reading-version .pair>.original,
 html[data-reading-mode="parallel"] .reading-version .pair>.translation,
 html[data-reading-mode="vertical"] .reading-version .pair>.original,
 html[data-reading-mode="vertical"] .reading-version .pair>.translation{padding:0;border:0;background:transparent;min-width:0;font-size:inherit}
+
+/* Batch 03: focusable SCENE 012–016; no legacy or unverified practice cards. */
+html[data-scene-focus="012"] #book-content > .chapter:not(#scene-012){display:none!important}
+html[data-scene-focus="012"] #toc-items > a:not([href="#scene-012"]){display:none!important}
+html[data-scene-focus="012"] .upcoming,html[data-scene-focus="012"] .reader-jumps{display:none!important}
+#scene-012 .prompt-lab,#scene-012 > details.prompt-step,#scene-012 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="013"] #book-content > .chapter:not(#scene-013){display:none!important}
+html[data-scene-focus="013"] #toc-items > a:not([href="#scene-013"]){display:none!important}
+html[data-scene-focus="013"] .upcoming,html[data-scene-focus="013"] .reader-jumps{display:none!important}
+#scene-013 .prompt-lab,#scene-013 > details.prompt-step,#scene-013 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="014"] #book-content > .chapter:not(#scene-014){display:none!important}
+html[data-scene-focus="014"] #toc-items > a:not([href="#scene-014"]){display:none!important}
+html[data-scene-focus="014"] .upcoming,html[data-scene-focus="014"] .reader-jumps{display:none!important}
+#scene-014 .prompt-lab,#scene-014 > details.prompt-step,#scene-014 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="015"] #book-content > .chapter:not(#scene-015){display:none!important}
+html[data-scene-focus="015"] #toc-items > a:not([href="#scene-015"]){display:none!important}
+html[data-scene-focus="015"] .upcoming,html[data-scene-focus="015"] .reader-jumps{display:none!important}
+#scene-015 .prompt-lab,#scene-015 > details.prompt-step,#scene-015 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="016"] #book-content > .chapter:not(#scene-016){display:none!important}
+html[data-scene-focus="016"] #toc-items > a:not([href="#scene-016"]){display:none!important}
+html[data-scene-focus="016"] .upcoming,html[data-scene-focus="016"] .reader-jumps{display:none!important}
+#scene-016 .prompt-lab,#scene-016 > details.prompt-step,#scene-016 .prompt-translation-audit{display:none!important}
