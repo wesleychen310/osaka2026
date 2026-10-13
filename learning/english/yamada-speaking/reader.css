@@ -349,3 +349,12 @@ html[data-reading-mode="parallel"] .reading-twins .sim-plans{min-width:0}
  html[data-reading-mode="parallel"] .reading-bilingual-title .reading-title-ja,
  html[data-reading-mode="parallel"] .reading-bilingual-title .reading-title-zh{font-size:.82em}
 }
+
+/* A language-specific copy owns the full width of its own card.
+   Do not apply the old nested 50/50 .pair grid inside another 50/50 bilingual column. */
+html[data-reading-mode="parallel"] .reading-version .pair,
+html[data-reading-mode="vertical"] .reading-version .pair{display:block;min-width:0}
+html[data-reading-mode="parallel"] .reading-version .pair>.original,
+html[data-reading-mode="parallel"] .reading-version .pair>.translation,
+html[data-reading-mode="vertical"] .reading-version .pair>.original,
+html[data-reading-mode="vertical"] .reading-version .pair>.translation{padding:0;border:0;background:transparent;min-width:0;font-size:inherit}
