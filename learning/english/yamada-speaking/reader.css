@@ -225,3 +225,13 @@ html[data-yamada-tab=speak] .content-pane,html[data-yamada-tab=audit] .content-p
 #scene-001 .english-block[data-kind="dialogue"] .scene-dialogue-ca{padding:8px 11px;margin:0;background:#f0f7fa;border-left:3px solid #86b9d0}
 #scene-001 .english-block[data-kind="dialogue"] .scene-dialogue-passenger{padding:8px 11px;margin:0 0 7px;border-left:3px solid #d5e2e9}
 @media(max-width:480px){#scene-001 .english-block[data-kind="menu"] .scene-menu-grid{gap:6px}#scene-001 .scene-menu-column{padding:7px}#scene-001 .scene-menu-column p{font-size:12px}#scene-001 .english-block[data-kind="dialogue"] .scene-dialogue-ca,#scene-001 .english-block[data-kind="dialogue"] .scene-dialogue-passenger{padding:7px 8px}}
+
+/* Exact line-paired Japanese / Traditional-Chinese prompt comparison. */
+.audit-comparison{border:1px solid #d5e3ea;border-radius:0 0 10px 10px;overflow:hidden}
+.audit-line{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-width:0}
+.audit-line:nth-child(even){background:#f6f9fb}
+.audit-line-header{position:sticky;top:70px;z-index:4;background:#dfeef5;border:1px solid #c3dae5;border-radius:9px 9px 0 0}
+.audit-ja,.audit-zh{min-width:0;padding:7px 11px;border-right:1px solid #e2e9ef;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:12px/1.65 ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK TC",monospace}
+.audit-zh{border-right:0}
+.audit-line-header .audit-ja,.audit-line-header .audit-zh{font-family:inherit;font-weight:800;font-size:14px}
+@media(max-width:600px){.audit-ja,.audit-zh{padding:5px 6px;font-size:10px;line-height:1.6}.audit-line-header .audit-ja,.audit-line-header .audit-zh{font-size:12px}}
