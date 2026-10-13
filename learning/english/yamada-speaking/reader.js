@@ -51,7 +51,7 @@ function enhancePromptLabs(){
     steps.forEach((step,index)=>{
       const paneTw=step.querySelector('.prompt-pane[data-variant=tw]');
       const paneOfficial=step.querySelector('.prompt-pane[data-variant=official]');
-      const textTw=paneTw.querySelector('.prompt-body').textContent.trim();
+      const textTw=()=>paneTw.querySelector('.prompt-body').textContent.trim();
       const officialReady=paneOfficial.dataset.officialStatus==='verified'&&!!paneOfficial.querySelector('.prompt-body')?.textContent.trim();
       const card=document.createElement('details');card.className='prompt-step';card.dataset.step=step.dataset.step;
       const summary=document.createElement('summary');summary.className='prompt-summary';
@@ -71,12 +71,12 @@ function enhancePromptLabs(){
       const officialBtn=makePromptButton('日本官方原版','prompt-variant-tab',()=>select('official'));
       const taiwanBtn=makePromptButton('台灣在地化版','prompt-variant-tab',()=>select('tw'));
       const copy=makePromptButton('複製完整 Prompt','prompt-copy',async()=>{
-        const txt=active==='official'&&officialReady?paneOfficial.querySelector('.prompt-body').textContent.trim():active==='tw'?textTw:'';
+        const txt=active==='official'&&officialReady?paneOfficial.querySelector('.prompt-body').textContent.trim():active==='tw'?textTw():'';
         if(!txt)return;
         stat.textContent=(await copyPromptText(txt))?'已複製完整 STEP '+step.dataset.step+' Prompt':'複製失敗，請直接選取文字';
       });
       const launch=makePromptButton('複製並開啟 ChatGPT ↗','prompt-launch',()=>{
-        const txt=active==='official'&&officialReady?paneOfficial.querySelector('.prompt-body').textContent.trim():active==='tw'?textTw:'';
+        const txt=active==='official'&&officialReady?paneOfficial.querySelector('.prompt-body').textContent.trim():active==='tw'?textTw():'';
         if(!txt)return;
         const copying=copyPromptText(txt);
         const opened=window.open('https://chatgpt.com/','_blank','noopener,noreferrer');
