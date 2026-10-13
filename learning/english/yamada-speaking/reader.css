@@ -90,3 +90,29 @@
 .prompt-body{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font:13px/1.88 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Hiragino Sans",sans-serif;color:#2c4350;background:#f1f7fa;border:1px solid #dbe9ef;border-radius:10px;margin:10px 0;padding:15px;max-height:580px;overflow-y:auto;user-select:text;-webkit-user-select:text}
 html[data-reading-mode=ja] .prompt-pane,html[data-reading-mode=zh] .prompt-pane,html[data-reading-mode=vertical] .prompt-pane,html[data-reading-mode=parallel] .prompt-pane{display:block}
 @media(max-width:560px){.prompt-step{padding:11px 9px}.prompt-lab{padding:12px 10px}.prompt-body{padding:10px;font-size:12px;line-height:1.82}.prompt-variant-tabs{display:grid;grid-template-columns:1fr 1fr}.prompt-variant-tab{min-width:0;padding:9px 5px}.prompt-step-actions{display:grid;grid-template-columns:1fr 1fr}.prompt-step-actions button{font-size:11px;padding:9px 5px}.prompt-step-actions .prompt-action-status{grid-column:1/-1}}
+
+/* 2026-10-13 reading-first layout: concise step cards, no open long prompt by default. */
+.prompt-lab{margin:14px 0 18px;padding:12px 14px;border:1px solid #cbdfe8;background:#f4f9fc;box-shadow:none}
+.prompt-lab h3{font-size:14px;margin:0 0 3px;border:0;padding:0}
+.prompt-lab .prompt-explain{font-size:12px;margin:2px 0 9px;line-height:1.6}
+.prompt-lab .prompt-all-actions{margin-top:0;gap:9px}
+.prompt-lab .prompt-copy-all{font-size:12px;padding:7px 11px}
+.prompt-step{background:#fbfcfd;border:1px solid #d5e1e7;padding:0;margin:12px 0 24px;border-radius:10px;box-shadow:none;overflow:hidden}
+.prompt-step>summary{cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:11px 13px;list-style:none;color:#1c526a;user-select:none;-webkit-user-select:none}
+.prompt-step>summary::-webkit-details-marker{display:none}
+.prompt-step>summary strong{font-size:13px;letter-spacing:.01em}
+.prompt-summary-sub{font-size:11px;color:#647d88}
+.prompt-step>summary:after{content:"展開";font-size:11px;color:#1d6481;margin-left:auto;font-weight:750}
+.prompt-step[open]>summary:after{content:"收合"}
+.prompt-step>summary:focus-visible{outline:2px solid #48a2cb;outline-offset:-3px}
+.prompt-step[open]>summary{background:#eaf5fa;border-bottom:1px solid #d5e7ed}
+.prompt-expanded{padding:12px 13px}
+.prompt-expanded>h4{display:none}
+.prompt-expanded .prompt-controls{margin-bottom:10px}
+.prompt-expanded .prompt-body{max-height:440px;overflow-y:auto;margin-bottom:0}
+.chapter[data-status=pending]{margin-bottom:9px;padding:11px 16px;box-shadow:none;background:#f9fafb;border-style:dashed}
+.chapter[data-status=pending] .chapter-title{margin-bottom:5px;padding-bottom:4px;border:0}
+.chapter[data-status=pending] .chapter-title h2{font-size:16px;line-height:1.45;margin:3px 0}
+.chapter[data-status=pending] .editorial-notice{font-size:12px;margin:5px 0;padding:7px 9px}
+.chapter[data-status=pending] .pending-note{display:none}
+@media(max-width:480px){.prompt-step{margin:10px 0 19px}.prompt-step>summary{padding:10px 9px;gap:4px 8px}.prompt-step>summary strong{font-size:12px}.prompt-summary-sub{font-size:10px}.prompt-expanded{padding:10px 8px}.prompt-lab{padding:10px 11px}.chapter[data-status=pending]{padding:10px 11px}}
