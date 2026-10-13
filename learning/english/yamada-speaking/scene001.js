@@ -78,11 +78,30 @@ async function loadOriginals(){
  const errors=results.flatMap((r,i)=>r.status==='rejected'?['STEP '+(i+1)+'：'+r.reason.message]:[]);
  renderAudit();if(errors.length)$('audit-status').textContent='部分 TXT 無法讀取：'+errors.join('；');
 }
+function addPronunciationToReading(chapter){
+ const list=chapter.querySelector('.keyphrase-list');if(!list||chapter.querySelector('.scene-pronunciation'))return;
+ const wrap=node('section','scene-pronunciation');
+ wrap.append(node('h3','', '發音補充｜依私人日文 Prompt 音標編輯（原書英文不變）'));
+ const rows=[
+  ['/wʌt kaɪndz əv/ · /drɪŋks/','kinds of の連結と弱形。drinks の語尾 /s/。','kinds of 的連音與弱讀；注意 drinks 字尾 /s/；do you have 自然連接。'],
+  ['/kən aɪ/ · /ə kʌp əv/ · /aɪst/','Can I の弱形、a cup of の連結、iced の /t/。','Can I 的弱讀與連音、a cup of 的順暢銜接，以及 iced 字尾 /t/；請求句尾自然下降。']
+ ];
+ rows.forEach(([ipa,ja,zh])=>{
+  const row=node('div','scene-phonetic-item');row.append(node('div','scene-ipa',ipa));
+  const pair=node('div','pair'),original=node('div','original',ja),translated=node('div','translation',zh);
+  original.lang='ja';translated.lang='zh-Hant-TW';pair.append(original,translated);row.append(pair);wrap.append(row);
+ });
+ list.after(wrap);
+ const pairs=[...chapter.querySelectorAll('.pair')];
+ const outdated=pairs.find(p=>p.querySelector('.translation')?.textContent.includes('該附錄將在後續批次納入連結'));
+ if(outdated)outdated.querySelector('.translation').textContent='原書第 236 頁的模型對話日文譯文已收錄於本課末段，可直接向下閱讀。';
+}
 function init(){
  if(loaded||!$('scene-001')||$('reader')?.hidden)return;
  const chapter=$('scene-001'),cards=[...chapter.querySelectorAll('details.prompt-step[data-step]')];
  if(cards.length!==3)return;
  loaded=true;
+ addPronunciationToReading(chapter);
  const main=document.querySelector('.content-pane'),book=$('book-content');
  const nav=node('nav','scene-main-tabs');nav.setAttribute('role','tablist');nav.setAttribute('aria-label','SCENE 001 主分頁');
  for(const [id,label] of [['read','課文閱讀'],['speak','AI 口說練習'],['audit','日文原文／台灣版 Prompt 對照']]){
