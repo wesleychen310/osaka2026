@@ -279,3 +279,25 @@ html[data-scene-focus="006"] .upcoming,html[data-scene-focus="006"] .reader-jump
 .printed-memo-row:last-child{border-bottom:0}
 .printed-memo-row strong{font-size:11px}
 @media(max-width:480px){.printed-names{gap:5px;padding:8px 5px}.printed-name{gap:3px;font-size:9px}.printed-name input{font-size:11px}.printed-form-column{padding:7px 4px}.printed-form-column legend{font-size:10px}.printed-option{font-size:9px;gap:3px}.printed-option input{width:11px;height:11px}.printed-memo-row{grid-template-columns:29% 1fr;font-size:11px;gap:6px}}
+
+/* Batch 02: SCENE 007–011 focus isolation and strict private-prompt safety. */
+html[data-scene-focus="007"] #book-content > .chapter:not(#scene-007){display:none!important}
+html[data-scene-focus="007"] #toc-items > a:not([href="#scene-007"]){display:none!important}
+html[data-scene-focus="007"] .upcoming,html[data-scene-focus="007"] .reader-jumps{display:none!important}
+#scene-007 .prompt-lab,#scene-007 > details.prompt-step,#scene-007 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="008"] #book-content > .chapter:not(#scene-008){display:none!important}
+html[data-scene-focus="008"] #toc-items > a:not([href="#scene-008"]){display:none!important}
+html[data-scene-focus="008"] .upcoming,html[data-scene-focus="008"] .reader-jumps{display:none!important}
+#scene-008 .prompt-lab,#scene-008 > details.prompt-step,#scene-008 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="009"] #book-content > .chapter:not(#scene-009){display:none!important}
+html[data-scene-focus="009"] #toc-items > a:not([href="#scene-009"]){display:none!important}
+html[data-scene-focus="009"] .upcoming,html[data-scene-focus="009"] .reader-jumps{display:none!important}
+#scene-009 .prompt-lab,#scene-009 > details.prompt-step,#scene-009 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="010"] #book-content > .chapter:not(#scene-010){display:none!important}
+html[data-scene-focus="010"] #toc-items > a:not([href="#scene-010"]){display:none!important}
+html[data-scene-focus="010"] .upcoming,html[data-scene-focus="010"] .reader-jumps{display:none!important}
+#scene-010 .prompt-lab,#scene-010 > details.prompt-step,#scene-010 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="011"] #book-content > .chapter:not(#scene-011){display:none!important}
+html[data-scene-focus="011"] #toc-items > a:not([href="#scene-011"]){display:none!important}
+html[data-scene-focus="011"] .upcoming,html[data-scene-focus="011"] .reader-jumps{display:none!important}
+#scene-011 .prompt-lab,#scene-011 > details.prompt-step,#scene-011 .prompt-translation-audit{display:none!important}
