@@ -64,6 +64,13 @@
     }
   }
   function setPanelLabel(block, lang) {
+    // These captions were added by the electronic editor in Chinese; keep them in the Chinese version only.
+    if(lang==='ja'){
+      const caption=block.querySelector(':scope > .caption');
+      if(caption)caption.hidden=true;
+      const concourse=block.querySelector('.station-concourse');
+      if(concourse)concourse.textContent=concourse.textContent.split(' · ')[0];
+    }
     const head=block.querySelector(':scope > header');
     if(!head) return;
     const raw=head.textContent.trim();
