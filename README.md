@@ -239,3 +239,10 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ ，目前 **160／223 小節**：§1.1–§1.4 均完成，下一批 **§1.5 Data Validation**。
 - §1.4 的私人教材 Google Drive ID `1tnMUnufssHsrZoen0nio5M3NeitXAgM_`，頁碼 p.173–192，16 節，含 15 張原稿圖與精算教師卡；公開網站僅存入口、CSS/JS、檔案 ID。
 - 維護紀錄與正式交接：`learning/atpa-modules/module2/README.md`。四種全章模式及左側目錄不變。
+
+
+## 2026-10-14｜ATPA Module 2 §1.5 最新進度
+
+- 私人閱讀網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ 目前完成 **181／223 小節**（§1.1–§1.5）。§1.5.1–§1.5.21 原書 p.193–214 已存私人 Drive HTML `1XcX7WF9HE5J32zaTnlsc_LUsHcTOt2Q9`，GitHub JS `learning/atpa-modules/module2/module2.js` 僅映射檔案 ID。
+- 下一批 **§1.6 Missing and Extreme Values（29 節，p.215–244）**；其後 §1.7 Case Studies（13 節，p.245–257）。保留原有四模式、單一長頁與私人 OAuth 存取。
+- 詳細製作紀錄、原書校稿、Google Drive 權限、下一步及實機待驗收限制：`learning/atpa-modules/module2/README.md`。
