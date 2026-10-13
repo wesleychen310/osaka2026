@@ -1,5 +1,19 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-13｜Google Drive 專案集中管理（已搬移與驗證）
+
+- 統一專案根資料夾「山田優」：https://drive.google.com/drive/folders/1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB，owner-only。父資料夾為「英文學」。
+- 根資料夾包含 SCENE001-STEP1.txt 等日文 Prompt 原始文字檔，並保留 PART1_SCENE001-030_PROMPT.zip、PART2_SCENE031-050_PROMPT.zip、PART3_SCENE051-082_PROMPT.zip、PART4_SCENE083-100_PROMPT.zip。
+- 本次根目錄實際列得 176 個獨立 STEP 文字檔，涵蓋 SCENE001–059；SCENE058 的 STEP2 沒出現在獨立 txt 清單，待查 ZIP 或補檔。PART 1–4 ZIP 的內部完整性尚待逐項檢查，勿僅憑 ZIP 名稱斷言 100 課逐字齊全。
+- 子資料夾「山田優_新AI時代英會話_私人教材」原 ID 1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3 從 AI 資料夾原地移入統一根資料夾，未複製，保持檔案樹與 _backup。
+- 正本 HTML Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY.html，原 ID 1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_，當下大小 296,282 bytes，仍在上述子資料夾；GitHub reader.js 仍使用原 ID，無須變更 OAuth 路徑。
+- 課本 PDF ChatGPT英會話_山田優.pdf，原 ID 1sGQoKXyXvAWflI6iucbOl0x1qliTW6St，40,838,035 bytes，從 AI 資料夾搬入教材子資料夾。
+- 原 PDF 編修前備份 ChatGPT英會話_山田優_20261012_220804_before-OCR.pdf，原 ID 1F2o6883Y65Mib8x_7csmAidcv-AIOfG9，從 AI/_backup 搬入教材子資料夾內 _backup（ID 1msKZUfeUDD2AviiIlogXWg1eXbzBUbPw），原 ID 保留。
+- Google Drive metadata 確認根資料夾／子資料夾／正本 HTML／PDF 均僅 owner grant。此輪僅移動父資料夾 metadata、無覆寫教材內容或私有 Prompt。
+- **來源分級提醒**：統一根資料夾已能讀取日文語音 Prompt，例如 SCENE001 STEP1/2/3；其中出現 Gemini-specific 音訊操作條文，因此現有日文檔應標記「使用者保存的日文 Prompt 底稿」。在逐字比對アルク官方下載檔以前，不能直接認定所有文字都是出版社官方不變原稿。
+- **下一步先驗收 SCENE 001**：將 3 個原日文 Prompt 的全部條件、流程、IPA、英文句型逐條映射至台灣繁體中文；左原文／右完整台灣版，教學及 Prompt 切換分層，正常閱讀預設收合長 Prompt。經使用者確認版面後再擴充 002–100。
+
+
 ## 2026-10-13｜SCENE 001 官方 Prompt 來源新增
 
 - 使用者指定官方目錄：https://chatgpt-eikaiwa.alc.co.jp/contents/index.html （頁面標題 Contents）。
