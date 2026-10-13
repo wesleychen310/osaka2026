@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
 const FILE_ID='1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_';
-const SUPPLEMENT_IDS=['18FEtT4P16OxKNj5-raxkFFsxvW8Vf2O9','1Pta3E50Aqq8iDei5fL73sOGwc-tPGmp_'];
+const SUPPLEMENT_IDS=['18FEtT4P16OxKNj5-raxkFFsxvW8Vf2O9','1Pta3E50Aqq8iDei5fL73sOGwc-tPGmp_','1bqd7gB0XJFS_9OIhaq970GFX3IW-Pfps'];
 const SCOPE='https://www.googleapis.com/auth/drive.readonly';
 const TOKEN_KEY='hanami-kyoto-google-token-v3';
 const MODE_KEY='yamada-speaking-language-mode-v1';
@@ -100,7 +100,7 @@ function enhancePromptLabs(){
 
 function scene001ReviewLayout(){
  const params=new URLSearchParams(location.search),queryScene=params.get('scene')||'001';
- const scene=/^0(?:0[1-9]|[12][0-9]|3[0-2])$/.test(queryScene)?queryScene:'001';
+ const scene=/^0(?:0[1-9]|[12][0-9]|3[0-9]|4[0-2])$/.test(queryScene)?queryScene:'001';
  const chapter=$('scene-'+scene);if(!chapter)return;
  const steps=[...chapter.children].filter(x=>x.tagName==='H3'&&/^STEP\s*[123]/.test(x.textContent.trim()));
  steps.forEach((h,i)=>h.id='scene-'+scene+'-step-'+(i+1));
