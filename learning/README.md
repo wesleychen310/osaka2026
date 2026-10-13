@@ -201,3 +201,10 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - 三份新增私人 Google Drive HTML ID：`1-jBApP08QPdJ6DVdbI0RExnUSm6wre83`、`1L-yLFwsMii4TmnWVtGi4HQ5R8xNr0Xsn`、`1LdOL-zzs8NuK6XNx2vUtXbuO0GanOUNA`。教材仍是授權存取；GitHub 僅程式與導航。
 - 正式入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/；四模式保持全英文、全中文、上中文下英文、左英文右中文。
 - 靜態文本與程式檢查已完成；後 24 節為原頁英文加中文分段解說、待進一步逐段對位校稿，外部 Rmd CHUNK 解答未執行；Google OAuth 與跨裝置 E2E 待驗收。詳細紀錄：`learning/atpa-modules/module2/README.md`。
+
+## 2026-10-14｜ATPA Module 2 下一批已完成：§1.4 Relational Databases
+
+- 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s141
+- **目前完成 160／223（71.7%）**：§1.1 36 + §1.2 38 + §1.3 70 + §1.4 16。下次從 **§1.5.1 Data Validation** 製作，共 21 小節，原書起於 p.193。
+- 新增具名授權 Google Drive HTML `1tnMUnufssHsrZoen0nio5M3NeitXAgM_`，§1.4.1–§1.4.16，20 英中對譯區塊、16 張教師卡、48 個英文語塊、15 張 SOA 原 PDF 頁面圖；原書 p.173–192 英文 16／16 節逐字比對通過。
+- GitHub `learning/atpa-modules/module2/module2.js` 的第 10 個來源和左側 1.4 章節已新增，四種閱讀模式及私有 Google OAuth 保持原樣。README 詳細交接：`learning/atpa-modules/module2/README.md`。
