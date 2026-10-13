@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
 const FILE_ID='1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_';
-const SUPPLEMENT_ID='1cq95lmK6qFQkUhL2FFi3R0J3aq5fO2Oo';
+const SUPPLEMENT_ID='1_RUXLyM4rBTb1HgTxydOG0Kbzro769-A';
 const SCOPE='https://www.googleapis.com/auth/drive.readonly';
 const TOKEN_KEY='hanami-kyoto-google-token-v3';
 const MODE_KEY='yamada-speaking-language-mode-v1';
