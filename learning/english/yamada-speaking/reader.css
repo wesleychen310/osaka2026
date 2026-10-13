@@ -235,3 +235,6 @@ html[data-yamada-tab=speak] .content-pane,html[data-yamada-tab=audit] .content-p
 .audit-zh{border-right:0}
 .audit-line-header .audit-ja,.audit-line-header .audit-zh{font-family:inherit;font-weight:800;font-size:14px}
 @media(max-width:600px){.audit-ja,.audit-zh{padding:5px 6px;font-size:10px;line-height:1.6}.audit-line-header .audit-ja,.audit-line-header .audit-zh{font-size:12px}}
+
+/* SCENE 001 safety: legacy adapted private-HTML prompts must never become visible. */
+#scene-001 .prompt-lab,#scene-001 > details.prompt-step,#scene-001 .prompt-translation-audit{display:none!important}
