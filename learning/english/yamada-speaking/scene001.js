@@ -23,7 +23,7 @@ const stepRules={
 };
 let loaded=false,active='1',sourceText={};
 function correctedPrompt(step,raw){
- if(!stepRules[step])return raw;
+ if(!stepRules[step]||raw.includes('【已校訂｜SCENE 001 STEP '+step+'｜'))return raw;
  let txt=raw;
  txt=txt.replace('15. 本 STEP 所有任務完成、第三次重試上限用盡，或學生說「結束練習」時，直接進入「與 AI 一起回顧」；無須請學生翻書朗讀日文回顧問題。','15. 本 STEP 完成全部對話或學習者明確結束時，立即進入繁體中文課後回顧；不用請學習者翻書朗讀原書回顧問題。');
  const a=txt.indexOf('【聽取輸入、分級與重試演算法】');
@@ -73,8 +73,15 @@ async function fetchOriginal(i){
  return response.text();
 }
 async function loadOriginals(){
+ // Prefer the complete user-saved TXT archive embedded in the owner-only Drive HTML.
+ // Fallback to the same private Drive TXT files only for older HTML versions.
+ for(const i of [1,2,3]){
+  const pre=document.querySelector('#scene-001 .saved-japanese-prompt[data-step="'+i+'"]');
+  if(pre)sourceText[String(i)]=pre.textContent;
+ }
+ if([1,2,3].every(i=>sourceText[String(i)]?.trim())){renderAudit();return}
  const results=await Promise.allSettled([0,1,2].map(fetchOriginal));
- results.forEach((r,i)=>{if(r.status==='fulfilled')sourceText[String(i+1)]=r.value});
+ results.forEach((r,i)=>{if(r.status==='fulfilled'&&!sourceText[String(i+1)])sourceText[String(i+1)]=r.value});
  const errors=results.flatMap((r,i)=>r.status==='rejected'?['STEP '+(i+1)+'：'+r.reason.message]:[]);
  renderAudit();if(errors.length)$('audit-status').textContent='部分 TXT 無法讀取：'+errors.join('；');
 }
@@ -151,8 +158,8 @@ function init(){
   const versionButtons=card.querySelectorAll('.prompt-variant-tab');if(versionButtons[0])versionButtons[0].click();
   wrapper.append(card);speaking.append(wrapper);
  });
- speaking.append(node('p','practice-qualifier','SCENE 001 STEP 2/3 的流程修正目前在網站載入後套用，複製的是修正版全文。私人 Google Drive 原教材正本目前未覆寫。'));
- audit.append(node('h2','workspace-title','日文底稿 × 台灣版 Prompt 全文'),node('p','workspace-lead','日本語左側取自你私人 Google Drive 中保存的日文 TXT，右側取自私人教材台灣版 Prompt。完整全文可左右捲動閱讀；來源尚未與出版社 ZIP 逐位元比對。'));
+ speaking.append(node('p','practice-qualifier','SCENE 001 STEP 1–3 的完整台灣版 Prompt 由登入後的私人 Google Drive HTML 供應；STEP 2/3 已直接校訂並保存在正本。出版社官方 Prompt 來源同一性尚待確認。'));
+ audit.append(node('h2','workspace-title','日文底稿 × 台灣版 Prompt 全文'),node('p','workspace-lead','左側為私人教材保存的日文 Prompt 原始 TXT 全文；右側為完整繁體中文 Taiwan Edition Prompt。英文句型保留。兩欄皆須 Google 授權後方可讀取；日文 TXT 尚未與出版社官方 ZIP 逐位元比對。'));
  audit.append(aSteps);
  const status=node('p','source-status');status.id='audit-status';status.setAttribute('role','status');audit.append(status);
  const grid=node('div','audit-grid');
@@ -164,7 +171,7 @@ function init(){
  const link=node('a','audit-origin','開啟原始 TXT（Google Drive） ↗');link.id='audit-link';link.rel='noopener noreferrer';link.target='_blank';audit.append(link);
  audit.append(node('h3','audit-title','差異與修改理由'));
  const differences=node('div','audit-differences');differences.id='audit-differences';audit.append(differences);
- audit.append(node('p','audit-caveat','驗收註記：兩欄均顯示全文，已記錄修改類別；正式逐條句對句翻譯配對及出版社原檔比對尚未驗收，不能標記全數完成。'));
+ audit.append(node('p','audit-caveat','驗收註記：三份使用者保存的日文底稿與完整 Taiwan Edition Prompt 已儲存於私人 HTML，可全文並列閱讀；正式逐條句對句的忠實譯文配對及出版社 ZIP 同一性尚未完成，不能標記全數驗收通過。'));
  setStep('1');setTab('read');loadOriginals();
 }
 const watch=new MutationObserver(init);watch.observe(document.documentElement,{childList:true,subtree:true});
