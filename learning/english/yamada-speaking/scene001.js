@@ -1,7 +1,14 @@
-/* SCENE 001: interface only. Original and strictly translated prompts stay private on Drive. */
+/* SCENE 001–002: UI only. Original and strict-translation texts stay private on Google Drive. */
 (()=>{'use strict';
-const ORIGINAL_IDS=['1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1','1a9josI4bwp6wjDzmjSAtrZ1usQRRax96','1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL'];
-const TRANSLATION_IDS=['17FbLFtPGIof7br3tGkThSCqHth76h0-z','1C-96VaGUXcFryvr-lw5mkTq0IX1c4Ojg','1qEyhxq-n1dRN0vU1FWcSGOkfxaavTy5m'];
+const sceneParam=new URLSearchParams(location.search).get('scene');
+const SCENE=sceneParam==='002'?'002':'001';
+if(sceneParam&&sceneParam!=='001'&&sceneParam!=='002')return;
+const SOURCES={
+ '001':{ja:['1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1','1a9josI4bwp6wjDzmjSAtrZ1usQRRax96','1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL'],zh:['17FbLFtPGIof7br3tGkThSCqHth76h0-z','1C-96VaGUXcFryvr-lw5mkTq0IX1c4Ojg','1qEyhxq-n1dRN0vU1FWcSGOkfxaavTy5m']},
+ '002':{ja:['10pgyxYWA--Lf_kZH7qV7H9BsNLDFr58m','1yKn_B5-VV6NPkodrpCKtAWWZas3WKoKr','17PYoMRZEqz6U7YBvenMOjunXoucdiEzS'],zh:['18KA9BmcvDwgLD3DBwCpOqKmXcvp9M73_','1efcTBEjV6NV9oy9vLkOUK1GzISHrsuVF','1t6LoRcu0OlcUaMgkTCoFXDIOwKHr-ljE']}
+};
+const ORIGINAL_IDS=SOURCES[SCENE].ja;
+const TRANSLATION_IDS=SOURCES[SCENE].zh;
 const $=id=>document.getElementById(id);
 const node=(tag,cls,str)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(str!==undefined)e.textContent=str;return e;};
 let initialized=false,active='1',originals={},translations={};
@@ -101,11 +108,11 @@ function addPronunciationToReading(chapter){
 }
 
 function init(){
- if(initialized||!$('scene-001')||$('reader')?.hidden)return;
- const scene=$('scene-001'),cards=[...scene.querySelectorAll('details.prompt-step[data-step]')];
+ if(initialized||!$('scene-'+SCENE)||$('reader')?.hidden)return;
+ const scene=$('scene-'+SCENE),cards=[...scene.querySelectorAll('details.prompt-step[data-step]')];
  if(cards.length!==3)return;
  initialized=true;
- addPronunciationToReading(scene);rebuildSceneMenu(scene);markModelDialogue(scene);
+ if(SCENE==='001'){addPronunciationToReading(scene);rebuildSceneMenu(scene);markModelDialogue(scene);}
  const main=document.querySelector('.content-pane'),book=$('book-content');
  const nav=node('nav','scene-main-tabs');nav.setAttribute('role','tablist');
  for(const [tab,title] of [['read','課文閱讀'],['speak','AI 口說練習'],['audit','日文／繁體中文對照']]){
@@ -118,7 +125,7 @@ function init(){
  document.querySelectorAll('.reader-status,.scene-review-nav,.reader-jumps,.lookup,.results').forEach(x=>x.classList.add('scene-read-toolbar'));
  scene.querySelector('.prompt-lab')?.setAttribute('hidden','');
  scene.querySelector('.prompt-translation-audit')?.setAttribute('hidden','');
- const info=$('reader-mode-info');if(info)info.textContent='原書 p.024–025 ＋ p.236 · STEP 1–3 · 日文 Prompt 繁體中文直譯';
+ const info=$('reader-mode-info');if(info)info.textContent=SCENE==='001'?'原書 p.024–025 ＋ p.236 · STEP 1–3 · 日文 Prompt 繁體中文直譯':'原書 p.026–027 · STEP 1–3 · 日文 Prompt 繁體中文直譯';
  practice.append(node('h2','workspace-title','AI 口說練習'),node('p','workspace-lead','各 STEP 完整保留原稿的規則與英文，只把日文翻成繁體中文。'));
  const steps=node('div','scene-step-tabs'),auditSteps=node('div','scene-step-tabs');practice.append(steps);
  for(let i=1;i<=3;i++){
