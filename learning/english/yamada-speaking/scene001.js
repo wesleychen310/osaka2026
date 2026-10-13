@@ -1,15 +1,20 @@
-/* SCENE 001–006: UI only. Full copyrighted prompt texts stay private on Google Drive. */
+/* SCENE 001–011: UI only. Full copyrighted prompt texts stay private on Google Drive. */
 (()=>{'use strict';
 const sceneParam=new URLSearchParams(location.search).get('scene');
-const SCENE=/^00[1-6]$/.test(sceneParam||'')?sceneParam:'001';
-if(sceneParam&&!/^00[1-6]$/.test(sceneParam))return;
+const SCENE=/^0(?:0[1-9]|1[01])$/.test(sceneParam||'')?sceneParam:'001';
+if(sceneParam&&!/^0(?:0[1-9]|1[01])$/.test(sceneParam))return;
 const SOURCES={
  '001':{ja:['1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1','1a9josI4bwp6wjDzmjSAtrZ1usQRRax96','1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL'],zh:['17FbLFtPGIof7br3tGkThSCqHth76h0-z','1C-96VaGUXcFryvr-lw5mkTq0IX1c4Ojg','1qEyhxq-n1dRN0vU1FWcSGOkfxaavTy5m']},
  '002':{ja:['10pgyxYWA--Lf_kZH7qV7H9BsNLDFr58m','1yKn_B5-VV6NPkodrpCKtAWWZas3WKoKr','17PYoMRZEqz6U7YBvenMOjunXoucdiEzS'],zh:['18KA9BmcvDwgLD3DBwCpOqKmXcvp9M73_','1efcTBEjV6NV9oy9vLkOUK1GzISHrsuVF','1t6LoRcu0OlcUaMgkTCoFXDIOwKHr-ljE']},
  '003':{ja:['1k3ojQFFPW14FJi-sStm6p2mb0f_mA10r','1ynaFfyj3LN9EGLYkr-BKoqQDeZK3oyXj','1Gdh1Dzqnfynqkecoi19DNZlEzm_DoL2P'],zh:['11I1szQ8E2SHgGO36Thbt4lnGGJhaGKl4','1HXU0GYzH8ga40Cwnxm7EV6x0NLRPGvb8','1cBC--LirKB9voZbVZ7e3Sz0aGHKuKkNr']},
  '004':{ja:['1hucgh94B8BXkZdFe_C8cHDlamEu0FURj','1y7rBc6njt29Yc22xNHaXXjHGExyAToVV','10AtFVu7yw940Q7Tr8HkPQHHRY_9izGcF'],zh:['1VYhRfIdXn0wBz9P0COzaOW00Uq1Yxriv','1_s36B73Ogmi6WtULov5s2cSyMDz0cUpN','1lKNXLd3wA5I07T8UIJbhJ4PyMYjBbIEL']},
  '005':{ja:['1Er5JcPbWjML6g6C4JwhST0eXiY7_k8P9','17txCZdpA0pi12KzKEdsXbl-NbqKRCiOt','1uco6ZxvgyygCaJO8048AHb49n1yoUtEu'],zh:['1mZBLYV5HvoNRXuIZPyQQ7UbdfvOCBYyH','157i_6k3XRg_atid6REPcHEGI23Nz7-Qu','1JEM9oVZy5NfprbraqszkBhz4QQ5sQkg7']},
- '006':{ja:['1ksdOX6hoXyQ2hfKhp9thpMuJx9uzXhHs','1LpgVO23iu6-E1xFDyI3ZJQYpD7WvxWzi','1ArAa93glIgzgVLA00QIDpEZioeQiBbHF'],zh:['19eQ7KAJL-MbFkMM1hI3SmvG-lgrj3d9G','16LBlYsVpOr4Kxw3VC3G4z0ZKnWH3P6JW','1Zk_L1KmWPVvH4nCIOCtmb_8elMjYlr6t']}
+ '006':{ja:['1ksdOX6hoXyQ2hfKhp9thpMuJx9uzXhHs','1LpgVO23iu6-E1xFDyI3ZJQYpD7WvxWzi','1ArAa93glIgzgVLA00QIDpEZioeQiBbHF'],zh:['19eQ7KAJL-MbFkMM1hI3SmvG-lgrj3d9G','16LBlYsVpOr4Kxw3VC3G4z0ZKnWH3P6JW','1Zk_L1KmWPVvH4nCIOCtmb_8elMjYlr6t']},
+ '007':{ja:['1UkSIiMw9-IkvwbGnPA9ZnMLZ_VDX6qht','1TT-QhBkkwbTf3c1bc9e8GuLET0lF_q-2','1M37knS48KsBtikKoxvzCrUX02YhP7kZB'],zh:['1mxZJZJK0Z0rV39nTfbsoaPXyEAztIxiz','1SQvhh1WMViCZImXLh3H9U_ru5enAYCzu','1a53iMi8nd3eDsTdSMpLQ7PAdchNot9Og']},
+ '008':{ja:['1JOxv4nbg1QIqtoJizZ1CucAlkUNNqIYF','14roEGHkvtmiMgej_qaFgS7C4Gll7RqI8','1xhTzB-DXVTFGT7_H79HTbzaLDhPj_hPh'],zh:['1t58Ja8wFyTpvkCVK0IHCGJGJ1SF2Tj7R','1cGeNrhsSpuBGsIp_n-sNyjtMz-PU8wPD','1d1BkZdFK_Ts2Cr3oQQ7AHaQbhUxfSE4_']},
+ '009':{ja:['1nGn-UCKFEWx0FRtbBaZDK0MU4477u6IB','12_LJ_hijJP97wq73MRemzMk3cf1_pmSq','14MHH9u8AXobhMfCZHfdpht1jz8JS0VqJ'],zh:['1Wd0I4rOTKq5qNe3FHLj7y6uAZK_b0M0d','1zEN2wHH2-TQVWgaYtuvK72Bop4NAhuPW','13iBopI2BbtgLuHzQ_bMK1IvR_mJsvbbn']},
+ '010':{ja:['1QRjmTIrA5kdOr22vH_Ay-MNXGEhPg-LN','1VxbTT5LMEa2CZyxCAtngi26wMDpp5l0J','11pdiBRvgGVjRJibx1tMY7mUp59C_SbP8'],zh:['1VaS4nN34GGRMzqN_0AoFJcD7sbS_V6Li','1ve841iDV8B4D-eBYZRmSDhGUGFb2vwB7','1rHbZzViJ_5uxyFedRwTEbanfxmRh2Zxd']},
+ '011':{ja:['1z8BJqPLwtmNVaQbDDtq-r-ETzjBc-ZR7','1sHuobO-sSmlwR2AdezewauVGcyEfme9H','1WT0c1mNeXjkeQ8mK0Ce9x-agrBMpoTV2'],zh:['1nNVxpwbWZlrrSsU7_0kl8O4UhHrxVQYz','1ir7U4UAqYKspog-vUyAJAUfX2xWFK2i9','1jnlNMTJNVdvP24ex7SUYNkhGdl224O8Z']}
 };
 const ORIGINAL_IDS=SOURCES[SCENE].ja;
 const TRANSLATION_IDS=SOURCES[SCENE].zh;
