@@ -3,42 +3,9 @@
 const IDS=['1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1','1a9josI4bwp6wjDzmjSAtrZ1usQRRax96','1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL'];
 const $=id=>document.getElementById(id);
 const node=(tag,cls,str)=>{let x=document.createElement(tag);if(cls)x.className=cls;if(str!==undefined)x.textContent=str;return x};
-const stepRules={
-  2:[
-    '【STEP 2 對話流程（優先適用，取代其他章節關於逐句糾錯的共通敘述）】',
-    'AI 是 CA；使用者是 Passenger。嚴守八句原書順序：1、3、5、7 由 CA 說，2、4、6、8 由 Passenger 說；每次僅說一行 CA 台詞並等待。必要時用 Your line. Please say: “(目標乘客台詞)” 提示。',
-    '整段對話進行期間禁止 Exact／Almost／Retry 判定、糾音、要求重說或其他形式中斷。只有無法理解而無法繼續時，才自然確認一次並維持輪次。語音辨識失敗不可認定為學生犯錯。',
-    '第 8 句完成後才進入 Post。引用四句實際 Passenger 發話逐句評估；無法可靠引用時註明「目標句」，不得杜撰學生說過的字句。每一回合至少一項具體回饋，提供事後 Exact／Almost／Retry、合格／合格但需改善／待加強及簡短原因。',
-    '等待學生完整說完；如能確認沉默過久再簡短鼓勵。沒有音訊時不得宣稱直接聽出弱讀、連音、字尾 /s/ 或語調；只能評估內容。全程使用台灣繁體中文操作與回饋。',
-    '開始與重置口令：Let’s start／開始練習；Slow／再慢一點調整下一句速度；End practice／結束練習直接進 Post。對話後主動帶領 Can I have 禮貌語氣複習。'
-  ].join('\n'),
-  3:[
-    '【STEP 3 自由對話流程（優先適用，取代固定句逐次重試的共通敘述）】',
-    'AI 扮演空服員，先說 Would you like rice or pasta?；接著自然問 Would you like something to drink?、Anything else?；必要時可問 What kind of drink would you like?、Hot or cold?。原書 Rice／Pasta 與飲料菜單不得修改。',
-    '每回合只問一題並等待學生回覆。自由對話時不糾錯、不給 Exact／Almost／Retry 分數；只有溝通中斷時才用角色內自然澄清維持會話。語音轉錄失敗應請重說，不能算發音錯誤。',
-    '明確結束：Feedback please.／Feedback.／Let’s do feedback.／請給我回饋／結束練習，立即進 Post。自然結束：That’s all.／Thank you.／No, thanks.，進 Post；若學生仍要補充，最多額外兩個問答回合。',
-    'Post 至少給三項具體、可追溯至實際回答的回饋，總評先短英文後繁體中文；明確宣告合格、不合格或合格但需改善。音訊不可得時不能精確評分連音或語調；最後安排一句 Can I have 的簡短複習。',
-    '口令 Let’s start／開始練習才開始；從台灣桃園出發，目的地未預設；只使用自然美式英語示範。'
-  ].join('\n')
-};
+/* Full training rules, translations and all Japanese sources live exclusively in private Google Drive HTML. */
 let loaded=false,active='1',sourceText={};
-function correctedPrompt(step,raw){
- if(!stepRules[step]||raw.includes('【已校訂｜SCENE 001 STEP '+step+'｜'))return raw;
- let txt=raw;
- txt=txt.replace('15. 本 STEP 所有任務完成、第三次重試上限用盡，或學生說「結束練習」時，直接進入「與 AI 一起回顧」；無須請學生翻書朗讀日文回顧問題。','15. 本 STEP 完成全部對話或學習者明確結束時，立即進入繁體中文課後回顧；不用請學習者翻書朗讀原書回顧問題。');
- const a=txt.indexOf('【聽取輸入、分級與重試演算法】');
- const b=txt.indexOf('【結束練習與繁中 Feedback】',a);
- if(a>=0&&b>a)txt=txt.slice(0,a)+stepRules[step]+'\n\n'+txt.slice(b);
- if(step===2){
- const old='針對每一行 Passenger 進行 Exact／Almost／Retry 三級判定；自然且意思相同的禮貌變化容許 Almost，避免背誦僵化。Retry 時示範當前一句的必要片語，最多共三次；不要為了學生漏一個音而打斷整課節奏。ASR 失敗不得算 Retry。可以 Slow 短語訓練，但回歸整句自然語速。';
- txt=txt.replace(old,'八句對話完整結束後，才依序評估學習者四句台詞；途中不糾錯、不要求重試。');
- }
- if(step===3){
- txt=txt.replace('對話必須由 AI 使用原書指定的第一句「Rice or pasta?」開始。只問一個問題、等待我回答，再根據回答自然追問飲料與其他需求。','對話由 AI 說 Would you like rice or pasta? 開始，一次一問並等待。原書印刷的 Rice or pasta? 保留於「課文閱讀」頁。');
- txt=txt.replace('4. 進行自然自由對話，容許不同但同樣禮貌且能理解的英文句子。若我的回答影響溝通，用簡短英文澄清；Exact／Almost／Retry 適用溝通任務完成度，無固定台詞時不可拿逐字背誦判分。Retry 最多三次；需要時 Slow 示範。','4. 自由對話時不評分、不糾錯；若無法理解，只用簡短英文澄清，合格評判留到 Post。');
- }
- return txt;
-}
+function correctedPrompt(step,raw){return raw;}
 function setTab(tab){
  document.documentElement.dataset.yamadaTab=tab;
  document.querySelectorAll('[data-main-tab]').forEach(b=>{let v=b.dataset.mainTab===tab;b.setAttribute('aria-selected',String(v));b.tabIndex=v?0:-1});
