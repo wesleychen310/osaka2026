@@ -9,14 +9,14 @@
 - GitHub 檔案 `reader.js` 的每份 Prompt 複製／開啟 ChatGPT 按鈕，改成點擊時讀取最新 `.prompt-body`，因此會讀取 SCENE 001 私人 HTML 已原地校訂的完整台灣版 Prompt。完整教學規則與修正內容不存放在公開 JS，網站只負責顯示、導覽和複製。
 - **STEP 2** 將「對話中逐句 Retry」調整為原日文底稿規則：八句對話嚴守 CA／Passenger 輪次，結束後再一次提供四個乘客台詞的回饋／合格判定。
 - **STEP 3** 移除自由會話進行中重試與評分，補明確及自然結束、最多額外兩回合、至少三項具體回饋與三種合格判定。依使用者指定的美式表達以 `Would you like rice or pasta?` 作為台灣版開場；原書印刷的 `Rice or pasta?` 留在課文閱讀。
-- **Google Drive 原地更新已完成**：原始 HTML File ID `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_` 保留原檔名、父資料夾及 owner-only 權限；更新前 296,282 bytes，更新後 311,546 bytes。已獨立重新從 Drive materialize 讀回，與送出版本以 SHA-256 完全吻合：`32e0e1aade6b87522531d2d5afde585e4751cc20833c2a0c4afa67b409ded235`。
+- **Google Drive 原地更新已完成**：原始 HTML File ID `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_` 保留原檔名、父資料夾及 owner-only 權限；更新前 296,282 bytes，更新後 311,566 bytes。已獨立重新從 Drive materialize 讀回，與送出版本以 SHA-256 完全吻合：`8af563d0281b63308d9b84d93077ec26c5ab0193c4603775a7b67c8b43bac9ee`。
 - **日中校訂狀態**：雙欄目前可並列日文與台灣版的各自**完整 Prompt**，並顯示忠實翻譯、在地化、操作指令、教學改善之差異原因；**尚未建成每句一一對應的逐條翻譯表**。使用者保存日文 TXT 有 Gemini-specific 條文，尚未與出版社官方 ZIP 逐位元驗證，標記為「使用者保存的日文底稿」。
 
 ### Drive 檔案與備份
 - 私人 HTML 正本：`1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`，`Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY.html`；父資料夾：`1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`，僅 owner 授權。
 - 校對 PDF：`1sGQoKXyXvAWflI6iucbOl0x1qliTW6St`；PDF 文字層含辨識錯字，正式原文須以頁面影像核對。
 - SCENE 001 日文：STEP 1 `1IWtKMTOjQhX0LuMXoUE4UnRe1i7JSCv1`；STEP 2 `1a9josI4bwp6wjDzmjSAtrZ1usQRRax96`；STEP 3 `1sm72ObNm0j2eytSaLTG0E8K27WK-9mDL`。
-- 更新前備份已建立：`_backup/Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY_20261013_1016_before-SCENE001-tabs-translation.html`，File ID `1QJ6LdLR2EVAigYYKiKKzeUR6KDW-F6FN`；`_backup` ID `1msKZUfeUDD2AviiIlogXWg1eXbzBUbPw`。**備份已完成，隨後正本亦已原地更新並獨立讀回比對**。另外保留更新後版本快照：`1TEMO9TGK5g8lTx9HIhKtw22bOzXSRxwr`。
+- 更新前備份已建立：`_backup/Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY_20261013_1016_before-SCENE001-tabs-translation.html`，File ID `1QJ6LdLR2EVAigYYKiKKzeUR6KDW-F6FN`；`_backup` ID `1msKZUfeUDD2AviiIlogXWg1eXbzBUbPw`。**備份已完成，隨後正本亦已原地更新並獨立讀回比對**。另外保留更新後版本快照：`1TEMO9TGK5g8lTx9HIhKtw22bOzXSRxwr`。 正式最後一輪清除 STEP 3 Taiwan Prompt 中殘留的日文操作文字前，已另備份：`1YSnfT_0hotKe4lK4n3aQAeNueQqy1kaL`（`20261013_104706_before-JP-text-cleanup`）。最終 Drive 檔案大小 311,566 bytes、SHA-256 已再度讀回確認。
 
 - 完整性自動核對：原 HTML 新舊皆有 21 章、12 SCENE，三個 STEP 新 Prompt 均存在、三份日文 TXT 檔全內嵌為私人來源，SCENE 002–012 DOM 結構未改；原書八句模型會話、Rice／Pasta 與飲料菜單全部保留。完整未授權公開，僅在 OAuth 後載入。
 
