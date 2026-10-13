@@ -1,6 +1,6 @@
 # SOA ATPA Module 2 — Working with Data｜私人雙語教材
 
-版本：2026-10-14 · 最新完成進度 **160／223 小節（71.7%）**，§1.1–§1.4 已全部接入私人網站；下次從 §1.5.1 接續。
+版本：2026-10-14 · 最新完成進度 **181／223 小節（81.2%）**，§1.1–§1.5 全部接入私人網站；下次從 §1.6.1 接續。
 
 ## 官方使用入口
 
@@ -138,3 +138,21 @@
 - **待驗收界線**：Owner 實際 Google OAuth、GitHub Pages CDN 發布時間、iPhone/iPad/Mac 四模式、15 張原圖的客戶端顯示與外部 Rmd 執行尚待正式端對端測試。靜態檔驗證不可冒充這些測試。
 - **下次製作**：**§1.5 Data Validation，共 21 小節，原書起於 p.193**。先讀清原書每頁，依順序製作英中／原圖／teacher note／3–5 英文語塊，存入同一受限 Drive 目錄；再增加來源路由、校驗總數 181 小節，最後同步更新本 README、上層 README 和根目錄 README。
 
+
+
+## 2026-10-14 最新交接｜§1.5 Data Validation 全 21 小節完成
+
+**以本段作為最新完成範圍；README 其他較早進度敘述均屬歷史紀錄。**
+
+- **正式站點**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s151
+- **累計進度**：§1.1 36 + §1.2 38 + §1.3 70 + §1.4 16 + **§1.5 21** = **181／223（81.2%）**。待完成：§1.6 29 節與 §1.7 13 節，共 42 節。
+- **官方來源**：`/mnt/data/ATPA_Official_Modules_1-4_Combined(1).pdf`，Module 2 原書印刷 p.193–214（合併 PDF 0-based pages 265–286），§1.5.9 的 Table 197 跨 p.201–202，完整保留於同一小節。
+- **私人教材檔**：`ATPA_Module_2_1.5.1-1.5.21_私人雙語教材.html`，Google Drive `1XcX7WF9HE5J32zaTnlsc_LUsHcTOt2Q9`；父目錄 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，MIME `text/html`，897,774 bytes；SHA256 `7b59468c250f4f0cdc01aa9d9ada08f36d0e63485f95c769cbecc714db83bd9b`。
+- **權限已核對**：Google Drive metadata 僅回傳 `user` owner 與具名 `user` reader，沒有 `anyone` 或 `domain`；檔案不在公開 GitHub。GitHub 只保留原稿的 fileId 參照及閱讀器程式。
+- **教材結構已驗證**：21／21 `section.lesson`、21／21 英中配對區塊、21 張 teacher notes、21 份 Reusable English 卡（共 63 個語塊）、**14 張原 SOA PDF 頁面截圖**；首錨點 `s151`、末錨點 `s1521`。原文從官方 PDF 文字層直接擷取（頁首頁尾由網站標題／頁碼承接），保留源頭 Component Tables、R/Python 函數、資料列、官方 exercise 題幹與 source links；中文對應是逐節詳解與重要原文內容翻譯，日後可加密化成更多逐段對位區塊。
+- **教學涵蓋**：accuracy = correct value / consistency / unambiguity；initial entry errors / system changes / misaligned data / null；資料校驗 10 筆保戶記錄（缺失、跳號、重複、過大年齡、格式錯）；data reconciliation、manual inspection、algorithmic duplicate detection；R `unique(directory)`、`filter(!duplicated(Name))`、`fromLast=TRUE`、Python `drop_duplicates()`、`drop_duplicates("Name",keep="last")`、轉置去重欄位；internal consistency；pre-outcome 和 algorithmic target leakage；domain/value check；Exercise 2.5.1 `flights.csv` 時間 HHMM、Exercise 2.5.2 `youth_risk.csv` 的重複值、Data_Value 上下界與跨州分群相關檢驗。
+- **來源差異與驗證界線**：原書 p.193 表頭意外寫「Module 4 Learning Objectives」、p.196 Tab Title = R/Python 但內文為品質原因等均保留；來源每節 PDF 英文直接原字串擷取，QA 檢查有 21 個原始小節識別符、英文與繁中、14 圖、63 語塊。**外部 Rmd、CSV 不曾在本批直接執行；Exercise 2.5.2 沒有編造數值答案。**
+- **網站更新**：`learning/atpa-modules/module2/module2.js` 新增 `SOURCE["2:11"]`（`part="11"` 僅為內部分檔，UI 無批次選單）、`CHAPTERS["1.5"]`，`EXPECTED_COUNTS=[12,19,5,14,14,10,20,20,30,16,21]`、`FIRST_IDS` 末項 `s151`，合計 181 個不同錨點；`module2/index.html` CSS/JS 版本 `20261014-sec15-complete`。保留原有 **全英文／全中文／上中文下英文／左英文右中文** 四模式、左側章節目錄與單一長頁。
+- **正式端對端待驗收**：GitHub Pages CDN 發布、使用者 Google OAuth、手機／iPad／Mac 實際排版、圖像放大、21 節全部載入及練習互動；單靠 GitHub JS 靜態檢查不得宣稱已完成真實瀏覽器驗收。
+- **下一批從 §1.6.1 開始**：§1.6 Missing and Extreme Values 共 29 節，原書 p.215–244（§1.6.23 前後有跨頁），完成後應更新總量為 210／223；再製作 §1.7 Case Studies 13 節，原書 p.245–257，完工為 223／223。每批新增前查 PDF 並保留原文、圖表、R/Python 原始 code、Exercises、3–5 英文語塊及精算說明，存入同一受限 Google Drive 資料夾，網站的 SOURCE/CHAPTERS/EXPECTED_COUNTS/FIRST_IDS 依序補充。
+- **每次交接規則**：完成後更新此 README、`learning/README.md`、`learning/atpa-modules/README.md` 及根目錄 `README.md`。如需修改任何已存在的 Google Drive 私人教材，先備份進原資料夾下 `_backup`，保留原檔 ID、名稱、位置及權限。
