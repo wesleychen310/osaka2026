@@ -62,6 +62,12 @@
 - GitHub 只修改前端 HTML / JS / CSS / README；未把原書與 Prompt 正文提交到公開 GitHub。
 - 已執行 Drive 讀回雜湊、來源章節與句數計數、原始英日段落保留及 JS 語法解析；**尚未完成真正 Google OAuth iPhone/iPad/Mac Safari 端到端測試與使用者視覺確認**。在使用者明確驗收前，停止製作後續課程。
 
+## 官方 Contents 入口校正｜2026-10-13
+- 使用者提供且已核對之**官方全課目錄入口**：https://chatgpt-eikaiwa.alc.co.jp/contents/index.html ，標題為「Contents - ChatGPT英会話」。此頁有「日常会話／インバウンド／ビジネス／雑談・発展」分類。過去只追查官方首頁和 QR 深連結，忽略此 Contents 頁，是流程缺失。
+- 目前一般網站文字擷取工具只能取回動態目錄的標題／分類，**尚未真正取得 SCENE 001 STEP 1–3 的逐字日文官方 Prompt**；原書 PDF 日文說明與官方網站日文 Prompt 必須分別標記來源，嚴禁相互替代。
+- 先前製作的 SCENE 001 左右對照審稿 HTML，以**原書日文任務**為左欄，不能稱為日本官方網站 AI Prompt 全文校訂。此階段官方欄維持「官方原文待取得」。
+- 下一次以能執行 JavaScript 的真實瀏覽器／ChatGPT Work 開啟官方 Contents，再選 SCENE 001，逐 STEP 擷取、核對合法取得的原文，與台灣版逐句對照後才能驗收。
+
 ## 2026-10-13｜官方 AI Prompt × Taiwan Edition 工程交付
 
 ### 實際產出與來源真實性
