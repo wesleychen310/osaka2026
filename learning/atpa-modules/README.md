@@ -249,3 +249,11 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 新私人 Drive ID `1tnMUnufssHsrZoen0nio5M3NeitXAgM_`（受限 owner/reader），20 對來源英中區塊、16 教師卡、48 語塊、15 原書 PDF 頁面圖。GitHub 公開網頁只存 CSS/JS/file ID。
 - 正式入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s141 ，四個模式仍依序為全英文、全中文、上中文下英文、左英文右中文。
 - 詳細校稿與下一步 SOP：`learning/atpa-modules/module2/README.md`。
+
+
+## 2026-10-14｜Module 2 已完成 §1.5 Data Validation
+
+- **完成 181／223 小節（81.2%）**，§1.1–§1.5 完成；下個製作起點 **§1.6.1**，29 節，原書 p.215–244。
+- 新增 Google Drive 受限 HTML `1XcX7WF9HE5J32zaTnlsc_LUsHcTOt2Q9`，§1.5.1–§1.5.21／印刷 p.193–214，21 英中配對、21 teacher notes、63 英文語塊、14 張原書截圖；兩道官方 Exercises 的題幹和參照來源均保留。
+- 網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s151 ，四模式順序「全英文、全中文、上中文下英文、左英文右中文」不變；GitHub 僅留空白 shell 和 fileId。
+- 詳細交接與待驗收清單請以 `module2/README.md` **最尾的 2026-10-14 最新交接段**為準。
