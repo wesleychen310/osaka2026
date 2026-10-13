@@ -448,3 +448,45 @@ html[data-scene-focus="032"] #book-content > .chapter:not(#scene-032){display:no
 html[data-scene-focus="032"] #toc-items > a:not([href="#scene-032"]){display:none!important}
 html[data-scene-focus="032"] .upcoming,html[data-scene-focus="032"] .reader-jumps{display:none!important}
 #scene-032 .prompt-lab,#scene-032 > details.prompt-step,#scene-032 .prompt-translation-audit{display:none!important}
+
+/* Batch 06: SCENE 033–042 bilingual reading, pending prompt verification. */
+html[data-scene-focus="033"] #book-content > .chapter:not(#scene-033){display:none!important}
+html[data-scene-focus="033"] #toc-items > a:not([href="#scene-033"]){display:none!important}
+html[data-scene-focus="033"] .upcoming,html[data-scene-focus="033"] .reader-jumps{display:none!important}
+#scene-033 .prompt-lab,#scene-033 > details.prompt-step,#scene-033 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="034"] #book-content > .chapter:not(#scene-034){display:none!important}
+html[data-scene-focus="034"] #toc-items > a:not([href="#scene-034"]){display:none!important}
+html[data-scene-focus="034"] .upcoming,html[data-scene-focus="034"] .reader-jumps{display:none!important}
+#scene-034 .prompt-lab,#scene-034 > details.prompt-step,#scene-034 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="035"] #book-content > .chapter:not(#scene-035){display:none!important}
+html[data-scene-focus="035"] #toc-items > a:not([href="#scene-035"]){display:none!important}
+html[data-scene-focus="035"] .upcoming,html[data-scene-focus="035"] .reader-jumps{display:none!important}
+#scene-035 .prompt-lab,#scene-035 > details.prompt-step,#scene-035 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="036"] #book-content > .chapter:not(#scene-036){display:none!important}
+html[data-scene-focus="036"] #toc-items > a:not([href="#scene-036"]){display:none!important}
+html[data-scene-focus="036"] .upcoming,html[data-scene-focus="036"] .reader-jumps{display:none!important}
+#scene-036 .prompt-lab,#scene-036 > details.prompt-step,#scene-036 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="037"] #book-content > .chapter:not(#scene-037){display:none!important}
+html[data-scene-focus="037"] #toc-items > a:not([href="#scene-037"]){display:none!important}
+html[data-scene-focus="037"] .upcoming,html[data-scene-focus="037"] .reader-jumps{display:none!important}
+#scene-037 .prompt-lab,#scene-037 > details.prompt-step,#scene-037 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="038"] #book-content > .chapter:not(#scene-038){display:none!important}
+html[data-scene-focus="038"] #toc-items > a:not([href="#scene-038"]){display:none!important}
+html[data-scene-focus="038"] .upcoming,html[data-scene-focus="038"] .reader-jumps{display:none!important}
+#scene-038 .prompt-lab,#scene-038 > details.prompt-step,#scene-038 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="039"] #book-content > .chapter:not(#scene-039){display:none!important}
+html[data-scene-focus="039"] #toc-items > a:not([href="#scene-039"]){display:none!important}
+html[data-scene-focus="039"] .upcoming,html[data-scene-focus="039"] .reader-jumps{display:none!important}
+#scene-039 .prompt-lab,#scene-039 > details.prompt-step,#scene-039 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="040"] #book-content > .chapter:not(#scene-040){display:none!important}
+html[data-scene-focus="040"] #toc-items > a:not([href="#scene-040"]){display:none!important}
+html[data-scene-focus="040"] .upcoming,html[data-scene-focus="040"] .reader-jumps{display:none!important}
+#scene-040 .prompt-lab,#scene-040 > details.prompt-step,#scene-040 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="041"] #book-content > .chapter:not(#scene-041){display:none!important}
+html[data-scene-focus="041"] #toc-items > a:not([href="#scene-041"]){display:none!important}
+html[data-scene-focus="041"] .upcoming,html[data-scene-focus="041"] .reader-jumps{display:none!important}
+#scene-041 .prompt-lab,#scene-041 > details.prompt-step,#scene-041 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="042"] #book-content > .chapter:not(#scene-042){display:none!important}
+html[data-scene-focus="042"] #toc-items > a:not([href="#scene-042"]){display:none!important}
+html[data-scene-focus="042"] .upcoming,html[data-scene-focus="042"] .reader-jumps{display:none!important}
+#scene-042 .prompt-lab,#scene-042 > details.prompt-step,#scene-042 .prompt-translation-audit{display:none!important}
