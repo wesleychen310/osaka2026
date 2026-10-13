@@ -235,3 +235,10 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ ，程式 `module2/module2.js` 新增 `SOURCE["2:4"]` 及 50 小節驗證。
 - 最新四種閱讀模式：全英文、全中文、上中文下英文、左英文右中文。舊「沒有按鈕」與點按模式的紀錄已失效。
 - **完整且優先的製作規範及驗收紀錄**：`learning/atpa-modules/module2/README.md`。
+
+
+## 2026-10-13 字級修復｜上中文下英文模式（§1.1.8 等）
+- 使用者回報 Module 1 `#s118` 的「上中文下英文」模式字級偏小。實際核對 `reader.css`：英文原始正文桌面 15px、手機 14px；英文小節標題桌面 17px、手機 15px；與單語模式的正文 16px 有落差。
+- 已修復：上中文下英文的**繁中與英文正文均為 16px（桌面與手機）**，Knowledge Check 題目中英文同為 16px；英文小節標題桌面 `clamp(20px,2.2vw,23px)`、手機 20px。保留繁中在上、英文在下。
+- GitHub 共用 CSS `learning/atpa-modules/reader.css` 更新，Module 1 `index.html` 以 `20261013-normal-font1` 刷新快取；Module 2 也引用同一份更新版 CSS，因此上下雙語正文在兩個 Module 的標準一致。
+- 四模式按鈕（全英文、全中文、上中文下英文、左英文右中文）、目錄、私人 Google OAuth 載入和 Knowledge Checks 均保留。已完成 GitHub 原始碼核對；私人授權後的手機實機顯示仍待使用者確認。
