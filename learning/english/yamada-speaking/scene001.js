@@ -81,7 +81,7 @@ async function loadOriginals(){
 function addPronunciationToReading(chapter){
  const list=chapter.querySelector('.keyphrase-list');if(!list||chapter.querySelector('.scene-pronunciation'))return;
  const wrap=node('section','scene-pronunciation');
- wrap.append(node('h3','', '發音補充｜依私人日文 Prompt 音標編輯（原書英文不變）'));
+ const heading=node('h3','bilingual-heading');const hJa=node('span','heading-ja','発音のポイント（保存された練習プロンプトより）');const hZh=node('span','heading-zh','發音補充｜依私人日文練習底稿整理');hJa.lang='ja';hZh.lang='zh-Hant-TW';heading.append(hJa,hZh);wrap.append(heading);
  const rows=[
   ['/wʌt kaɪndz əv/ · /drɪŋks/','kinds of の連結と弱形。drinks の語尾 /s/。','kinds of 的連音與弱讀；注意 drinks 字尾 /s/；do you have 自然連接。'],
   ['/kən aɪ/ · /ə kʌp əv/ · /aɪst/','Can I の弱形、a cup of の連結、iced の /t/。','Can I 的弱讀與連音、a cup of 的順暢銜接，以及 iced 字尾 /t/；請求句尾自然下降。']
