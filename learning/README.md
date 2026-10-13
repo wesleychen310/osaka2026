@@ -208,3 +208,12 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - **目前完成 160／223（71.7%）**：§1.1 36 + §1.2 38 + §1.3 70 + §1.4 16。下次從 **§1.5.1 Data Validation** 製作，共 21 小節，原書起於 p.193。
 - 新增具名授權 Google Drive HTML `1tnMUnufssHsrZoen0nio5M3NeitXAgM_`，§1.4.1–§1.4.16，20 英中對譯區塊、16 張教師卡、48 個英文語塊、15 張 SOA 原 PDF 頁面圖；原書 p.173–192 英文 16／16 節逐字比對通過。
 - GitHub `learning/atpa-modules/module2/module2.js` 的第 10 個來源和左側 1.4 章節已新增，四種閱讀模式及私有 Google OAuth 保持原樣。README 詳細交接：`learning/atpa-modules/module2/README.md`。
+
+
+## 2026-10-14｜最新 ATPA Module 2 §1.5 Data Validation 完工
+
+- 進度：**181／223（81.2%）**，§1.1–§1.5 已完成並接上連續閱讀頁。正式網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s151
+- 新的 §1.5 來源 `1XcX7WF9HE5J32zaTnlsc_LUsHcTOt2Q9`（原書 p.193–214）存於受限 Google Drive `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`；21 節、21 英中配對區塊、21 tutor、63 Reusable English、14 張原書頁圖。metadata owner + named reader。
+- GitHub `learning/atpa-modules/module2/module2.js` 新增來源 `2:11`、第 1.5 章導航，驗證 181 unique sections；四模式和隱私權限不變。
+- **下一批 §1.6.1–§1.6.29 Missing and Extreme Values**（p.215–244），後續 §1.7.1–§1.7.13 Case Studies（p.245–257），全部完成才是 223／223。
+- 詳細 QA 與原稿異常、後續交接請讀 `learning/atpa-modules/module2/README.md`。已核對私人檔內容及 GitHub 靜態原碼；實際使用者 OAuth/iPhone 端對端尚待確認。
