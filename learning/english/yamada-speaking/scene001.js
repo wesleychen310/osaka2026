@@ -79,17 +79,18 @@ async function loadAll(){
  renderComparison();
 }
 function rebuildSceneMenu(chapter){
- const menu=chapter.querySelector('.english-block[data-kind="menu"]');
- if(!menu||menu.dataset.structured)return;
+ for(const menu of chapter.querySelectorAll('.english-block[data-kind="menu"]')){
+ if(menu.dataset.structured)continue;
  const ps=[...menu.querySelectorAll(':scope>p[lang="en"]')];
  const mainIndex=ps.findIndex(p=>p.textContent.trim().toUpperCase()==='MAIN');
  const drinkIndex=ps.findIndex(p=>p.textContent.trim().toUpperCase()==='DRINK');
- if(mainIndex<0||drinkIndex<=mainIndex)return;
+ if(mainIndex<0||drinkIndex<=mainIndex)continue;
  const grid=node('div','scene-menu-grid');
  const main=node('div','scene-menu-column'),drinks=node('div','scene-menu-column');
  ps.slice(mainIndex,drinkIndex).forEach(p=>{if(p===ps[mainIndex])p.classList.add('scene-menu-heading');main.appendChild(p)});
  ps.slice(drinkIndex).forEach(p=>{if(p===ps[drinkIndex])p.classList.add('scene-menu-heading');drinks.appendChild(p)});
  grid.append(main,drinks);menu.append(grid);menu.dataset.structured='true';
+ }
 }
 function markModelDialogue(chapter){
  chapter.querySelectorAll('.english-block[data-kind="dialogue"]>p[lang="en"]').forEach(p=>{
@@ -117,8 +118,8 @@ function addPronunciationToReading(chapter){
 }
 
 function enhancePrintedExercises(scene){
- const form=scene.querySelector('.english-block[data-kind="form"]');
- if(!form||form.dataset.printed==='true')return;
+ for(const form of scene.querySelectorAll('.english-block[data-kind="form"]')){
+ if(form.dataset.printed==='true')continue;
  const lines=[...form.querySelectorAll(':scope > p[lang="en"]')];
  if(SCENE==='002'&&lines.length===4){
   const names=node('div','printed-names');
@@ -141,6 +142,7 @@ function enhancePrintedExercises(scene){
    const row=node('div','printed-memo-row');row.append(node('strong','',raw.slice(0,at).trim()),node('span','',raw.slice(at+1).trim()));table.append(row);
   });
   lines.forEach(p=>p.remove());form.append(table);form.dataset.printed='true';
+ }
  }
 }
 
