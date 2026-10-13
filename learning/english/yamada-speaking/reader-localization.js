@@ -54,6 +54,8 @@
     scene.querySelectorAll('.feedback > strong').forEach(el=>{
       let labels=splitLabel(el.textContent);
       if(!labels[1]&&labels[0].includes('振り返り'))labels=[labels[0],labels[0].replace('振り返り','與 AI 回顧')];
+      const step=labels[0].match(/^(STEP\s*[123]\s*·\s*)/);
+      if(step&&labels[1]&&!labels[1].startsWith('STEP'))labels[1]=step[1]+labels[1];
       twoLabels(el,...labels);
     });
     const caption=scene.querySelector(':scope > .source-caption');
@@ -106,8 +108,25 @@
       key.replaceChildren(wrap);
     });
   }
+  function preserveSourceEnglish(scene) {
+    scene.querySelectorAll('.pair').forEach(pair=>{
+      const original=pair.querySelector(':scope > .original');
+      const translated=pair.querySelector(':scope > .translation');
+      if(!original||!translated)return;
+      if(original.textContent.startsWith('Task：')&&translated.textContent.startsWith('任務：')){
+        translated.textContent='Task：'+translated.textContent.slice('任務：'.length);
+      }
+      // A pre-existing SCENE 005 gloss lost the source's parenthesized English term.
+      // Restore the exact English without modifying the private Google Drive original.
+      if(scene.id==='scene-005'&&original.textContent.includes('（city center）')&&
+         translated.textContent.includes('市中心')&&!translated.textContent.includes('city center')){
+        translated.textContent=translated.textContent.replace('市中心','市中心（city center）');
+      }
+    });
+  }
   function localize(scene) {
     if(scene.dataset.readingTwins==='ready')return;
+    preserveSourceEnglish(scene);
     localizeHeadings(scene);
     keyphrases(scene);
     scene.querySelectorAll('.english-block').forEach(block=>twinPanels(block,(panel,lang)=>setPanelLabel(panel,lang)));
