@@ -122,3 +122,39 @@ html[data-reading-mode=ja] .prompt-pane,html[data-reading-mode=zh] .prompt-pane,
 .reader-jumps a{display:inline-flex;align-items:center;padding:6px 10px;border-radius:8px;border:1px solid #c9dce5;background:white;color:#1b617d;text-decoration:none;font-size:12px;font-weight:700}
 .reader-jumps a:focus-visible,.reader-jumps a:hover{background:#e7f4f9}
 @media(max-width:480px){.reader-jumps{gap:5px}.reader-jumps a{font-size:11px;padding:6px 7px}}
+
+/* SCENE 001: complete original p.024–025 and p.236; focused review before other scenes. */
+html[data-scene-focus="001"] #book-content > .chapter:not(#scene-001){display:none!important}
+html[data-scene-focus="001"] #toc-items > a:not([href="#scene-001"]){display:none!important}
+html[data-scene-focus="001"] .upcoming{display:none}
+html[data-scene-focus="001"] .reader-jumps:not(#scene-one-jumps){display:none}
+html[data-scene-focus="001"] #scene-001{box-shadow:0 14px 42px #244f6811}
+.scene-review-nav{display:flex;gap:12px;margin:0 0 10px;font-size:12px;align-items:center}
+.scene-review-nav a{color:#1b617d;text-decoration:underline;text-underline-offset:3px}
+#scene-one-jumps{gap:6px;margin-top:6px;margin-bottom:16px}
+#scene-one-jumps a{font-size:12px}
+#scene-001 .scene-source-note{font-size:12px;line-height:1.6;margin:7px 0;color:#507485}
+#scene-001 .scene-official-link{display:inline-block;font-size:12px;margin-top:6px;text-decoration:underline;text-underline-offset:3px}
+#scene-001 .source-caption{font-size:12px;color:#677c86;margin:13px 0 7px;line-height:1.7}
+#scene-001 .bilingual-heading{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;scroll-margin-top:125px}
+#scene-001 .bilingual-heading .heading-ja,#scene-001 .bilingual-heading .heading-zh{display:block;min-width:0}
+html[data-reading-mode="ja"] #scene-001 .bilingual-heading .heading-zh{display:none}
+html[data-reading-mode="zh"] #scene-001 .bilingual-heading .heading-ja{display:none}
+html[data-reading-mode="vertical"] #scene-001 .bilingual-heading{flex-direction:column;align-items:flex-start;gap:0}
+html[data-reading-mode="vertical"] #scene-001 .bilingual-heading .heading-zh{order:0}
+html[data-reading-mode="vertical"] #scene-001 .bilingual-heading .heading-ja{order:1;font-size:13px;font-weight:600;color:#73919f}
+html[data-reading-mode="parallel"] #scene-001 .bilingual-heading{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+html[data-reading-mode="parallel"] #scene-001 .bilingual-heading .heading-zh{font-size:15px}
+.model-translation,.prompt-translation-audit{margin-top:22px;border:1px solid #d3e3e8;background:#fbfdfe;border-radius:12px;padding:0;overflow:hidden}
+.model-translation>summary,.prompt-translation-audit>summary{list-style:none;cursor:pointer;padding:13px 15px;background:#eaf5f9;font-size:13px;font-weight:800;color:#1a5875}
+.model-translation>summary::-webkit-details-marker,.prompt-translation-audit>summary::-webkit-details-marker{display:none}
+.model-translation>summary:after,.prompt-translation-audit>summary:after{content:"展開";font-size:11px;float:right}
+.model-translation[open]>summary:after,.prompt-translation-audit[open]>summary:after{content:"收合"}
+.model-translation .source-caption,.prompt-translation-audit>p,.prompt-translation-audit>ul{margin:12px 15px;font-size:13px;line-height:1.8}
+.appendix-line{border-top:1px solid #e5ecef;padding:10px 14px;margin:0}
+.appendix-line:nth-child(even){background:#f8fbfd}
+.appendix-en{font:700 14px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;white-space:pre-wrap;color:#164c65;margin:0 0 5px}
+.appendix-line .pair{margin:4px 0 0;font-size:13px}
+#scene-001 .prompt-translation-audit>ul{padding-left:23px}
+#scene-001 .prompt-translation-audit li{margin:5px 0}
+@media(max-width:480px){html[data-scene-focus="001"] .reader-status{font-size:11px}#scene-one-jumps a{font-size:11px;padding:6px 8px}#scene-001 .bilingual-heading{font-size:14px}.model-translation>summary,.prompt-translation-audit>summary{padding:11px;font-size:12px}.appendix-line{padding:9px 10px}.appendix-en{font-size:13px}.appendix-line .pair{font-size:12px}}
