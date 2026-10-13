@@ -112,7 +112,7 @@ function scene001ReviewLayout(){
  if(focusLink){focusLink.hidden=focused;focusLink.href='?scene='+scene;focusLink.textContent='專注 SCENE '+scene;}
  if(focused){
   const label=$('reader-mode-label');if(label)label.textContent='SCENE '+scene+'｜原書雙語電子版';
-  const info=$('reader-mode-info');if(info)info.textContent='原書 p.'+String(24+(Number(scene)-1)*2).padStart(3,'0')+'–'+String(25+(Number(scene)-1)*2).padStart(3,'0')+'｜原書日中對照｜Prompt 完成度依課別顯示';
+  const info=$('reader-mode-info');if(info){const bookPage=chapter.querySelector('.chapter-title small')?.textContent.trim();const firstPage=24+(Number(scene)-1)*2+(Number(scene)>=31?2:0);info.textContent=(bookPage||('原書 p.'+firstPage+'–'+(firstPage+1)))+'｜原書英日／英中對照｜Prompt 完成度依課別顯示';}
   const coverage=$('coverage');if(coverage)coverage.textContent='';
   const placeholder=$('toc-items');if(placeholder){[...placeholder.children].forEach(a=>a.hidden=a.getAttribute('href')!=='#scene-'+scene);}
  }
