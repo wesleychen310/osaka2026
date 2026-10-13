@@ -1,5 +1,39 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-13｜第 1 批完成：SCENE 002–006（正式生效）
+
+本批依使用者核准的標準，一次完成五課，延續 SCENE 001 的日文原文／繁體中文逐行直譯、AI 練習與閱讀模式。**本文頂部此節為最新狀態**；下方「002–012 台灣在地化」等內容為歷史紀錄，已由此次 Drive 直譯 TXT 與網站新控制器取代。
+
+### 來源、直譯與完整性
+
+- 私人原書 PDF：`1sGQoKXyXvAWflI6iucbOl0x1qliTW6St`；已比對 PDF 第 15–19 張雙頁，對應原書印刷 p.026–035（002–006 五課）。
+- 使用者的私人 Drive 資料夾 `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB` 保留 **15 份日文原始 TXT**，並新增 **15 份繁體中文逐行譯稿**（每課 3 STEP）；原文完全保留。
+- 逐行程式檢查：五課共 **2,467 行**，日中逐行數量吻合；源文純英語行逐行保留，中文譯稿無日文假名；15 份繁中 TXT 在 Google Drive 建立後另行下載，15/15 逐位元與本地成品完全一致。
+- STEP 行數：002＝141／129／176；003＝184／152／173；004＝148／164／148；005＝185／176／172；006＝185／156／178。
+- 私人譯稿 ID 按 STEP1／2／3：  
+  - 002：`18KA9BmcvDwgLD3DBwCpOqKmXcvp9M73_`、`1efcTBEjV6NV9oy9vLkOUK1GzISHrsuVF`、`1t6LoRcu0OlcUaMgkTCoFXDIOwKHr-ljE`  
+  - 003：`11I1szQ8E2SHgGO36Thbt4lnGGJhaGKl4`、`1HXU0GYzH8ga40Cwnxm7EV6x0NLRPGvb8`、`1cBC--LirKB9voZbVZ7e3Sz0aGHKuKkNr`  
+  - 004：`1VYhRfIdXn0wBz9P0COzaOW00Uq1Yxriv`、`1_s36B73Ogmi6WtULov5s2cSyMDz0cUpN`、`1lKNXLd3wA5I07T8UIJbhJ4PyMYjBbIEL`  
+  - 005：`1mZBLYV5HvoNRXuIZPyQQ7UbdfvOCBYyH`、`157i_6k3XRg_atid6REPcHEGI23Nz7-Qu`、`1JEM9oVZy5NfprbraqszkBhz4QQ5sQkg7`  
+  - 006：`19eQ7KAJL-MbFkMM1hI3SmvG-lgrj3d9G`、`16LBlYsVpOr4Kxw3VC3G4z0ZKnWH3P6JW`、`1Zk_L1KmWPVvH4nCIOCtmb_8elMjYlr6t`
+
+### 網站實作（公開 repo 僅含程式，不含原書）
+
+- 網站：`https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/`，可用 `?scene=002`～`?scene=006` 直接切換；原 `?scene=001` 保持可用。
+- `scene001.js` 改為六課共用的 Prompt 閱讀／練習控制器；登入後才從私人 Drive 讀取正確課別的完整日文與中文 TXT，支持三分頁、STEP1–3、全文複製及逐行比較。JS 不包含原書文本。
+- `reader.js` 支持 SCENE 個別路由；`reader.css` 擋掉私人舊 HTML 的改編 Prompt，避免舊文混入本次嚴格直譯。
+- SCENE 002 入境卡恢復原書三欄勾選項；SCENE 003 行李說明備忘錄恢復表格布局；SCENE 004 原書匯率板數值全部保留；005 筆記區、006 A–E 路線地圖沿用電子化原件。
+- 私人 HTML 正本 `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_` 原檔名與 ID **未修改**，本批只修改 GitHub 公開介面並新增私有 TXT。原書、日文 TXT、繁中 TXT 仍為 Google Drive owner-only。
+
+### 驗收狀態與待辦
+
+- 已完成：五課的 TXT 逐行翻譯與 15／15 Drive 獨立下載驗證；GitHub 實際提交；公開 JS 靜態語法檢查；原書 p.026–035 圖像核對。
+- 尚未完成：實際 OAuth 登入、Google Drive API 在 Safari 上的載入、iPhone/iPad/Mac 動態 UI、剪貼簿及 GitHub Pages 真實部署瀏覽器端到端驗收。靜態測試不能冒稱實機測試。
+- 下一批：**SCENE 007–011**，仍用每批五課、原書雙頁核對＋15 份原文及直譯＋私有 Drive＋GitHub UI＋README 驗收。長期缺檔追蹤：SCENE 092–100 的 STEP1 共 9 份在本次 Drive 日文源檔盤點中未找到。
+
+---
+
+
 ## 2026-10-13｜SCENE 001 Prompt 嚴格日文直譯回復（目前優先生效）
 
 使用者要求取消前一版「Taiwan Edition」重新設計。SCENE 001 STEP 1–3 的 **網站顯示與複製內容** 改為直接讀取私人 Google Drive 新存的三份繁體中文直譯文字檔。只翻譯使用者保存的日文文字，不增刪任何流程或改寫英語句型。原稿中的 Gemini-specific 英文、3 秒沉默要求、ASR 視為 Retry、回顧需依課本提示、STEP 2 對話結束後回饋、STEP 3 明確／自然結束條件全部保留。日文原稿不做更動。
