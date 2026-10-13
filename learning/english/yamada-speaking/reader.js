@@ -61,6 +61,7 @@ function enhancePromptLabs(){
       const expanded=document.createElement('div');expanded.className='prompt-expanded';
       while(step.firstChild)expanded.appendChild(step.firstChild);
       card.appendChild(expanded);
+      step.remove();
       const controls=card.querySelector('.prompt-controls');
       if(!controls)return;
       const tabs=document.createElement('div');tabs.className='prompt-variant-tabs';tabs.setAttribute('role','group');tabs.setAttribute('aria-label','STEP '+step.dataset.step+' Prompt 版本');
