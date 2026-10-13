@@ -380,3 +380,29 @@ html[data-scene-focus="016"] #book-content > .chapter:not(#scene-016){display:no
 html[data-scene-focus="016"] #toc-items > a:not([href="#scene-016"]){display:none!important}
 html[data-scene-focus="016"] .upcoming,html[data-scene-focus="016"] .reader-jumps{display:none!important}
 #scene-016 .prompt-lab,#scene-016 > details.prompt-step,#scene-016 .prompt-translation-audit{display:none!important}
+
+/* Batch 04: SCENE 017–022 are readable, original adapted Prompt cards hidden. */
+html[data-scene-focus="017"] #book-content > .chapter:not(#scene-017){display:none!important}
+html[data-scene-focus="017"] #toc-items > a:not([href="#scene-017"]){display:none!important}
+html[data-scene-focus="017"] .upcoming,html[data-scene-focus="017"] .reader-jumps{display:none!important}
+#scene-017 .prompt-lab,#scene-017 > details.prompt-step,#scene-017 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="018"] #book-content > .chapter:not(#scene-018){display:none!important}
+html[data-scene-focus="018"] #toc-items > a:not([href="#scene-018"]){display:none!important}
+html[data-scene-focus="018"] .upcoming,html[data-scene-focus="018"] .reader-jumps{display:none!important}
+#scene-018 .prompt-lab,#scene-018 > details.prompt-step,#scene-018 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="019"] #book-content > .chapter:not(#scene-019){display:none!important}
+html[data-scene-focus="019"] #toc-items > a:not([href="#scene-019"]){display:none!important}
+html[data-scene-focus="019"] .upcoming,html[data-scene-focus="019"] .reader-jumps{display:none!important}
+#scene-019 .prompt-lab,#scene-019 > details.prompt-step,#scene-019 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="020"] #book-content > .chapter:not(#scene-020){display:none!important}
+html[data-scene-focus="020"] #toc-items > a:not([href="#scene-020"]){display:none!important}
+html[data-scene-focus="020"] .upcoming,html[data-scene-focus="020"] .reader-jumps{display:none!important}
+#scene-020 .prompt-lab,#scene-020 > details.prompt-step,#scene-020 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="021"] #book-content > .chapter:not(#scene-021){display:none!important}
+html[data-scene-focus="021"] #toc-items > a:not([href="#scene-021"]){display:none!important}
+html[data-scene-focus="021"] .upcoming,html[data-scene-focus="021"] .reader-jumps{display:none!important}
+#scene-021 .prompt-lab,#scene-021 > details.prompt-step,#scene-021 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="022"] #book-content > .chapter:not(#scene-022){display:none!important}
+html[data-scene-focus="022"] #toc-items > a:not([href="#scene-022"]){display:none!important}
+html[data-scene-focus="022"] .upcoming,html[data-scene-focus="022"] .reader-jumps{display:none!important}
+#scene-022 .prompt-lab,#scene-022 > details.prompt-step,#scene-022 .prompt-translation-audit{display:none!important}
