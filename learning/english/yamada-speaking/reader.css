@@ -263,3 +263,19 @@ html[data-scene-focus="006"] .upcoming,html[data-scene-focus="006"] .reader-jump
 .scene-shortcuts{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:12px 0 3px}
 .scene-shortcuts a{display:inline-block;font-size:12px;padding:6px 9px;background:#ecf4f7;border:1px solid #c5dce7;color:#145273;text-decoration:none;border-radius:7px}
 .scene-shortcuts a:hover,.scene-shortcuts a:focus-visible{background:#daeef7;text-decoration:underline}
+
+/* Batch 01: printed originals rebuilt from private English data, no textbook data in public CSS. */
+.printed-names{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 11px;border:1px solid #bbd0db;border-bottom:0;background:#fff}
+.printed-name{display:flex;align-items:center;gap:8px;min-width:0;font-size:11px;font-weight:700;color:#506571}
+.printed-name input{width:100%;min-width:0;border:0;border-bottom:1px solid #b1c2cd;background:transparent;border-radius:0;font-size:13px;padding:5px 2px}
+.printed-form-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#fff;border:1px solid #bbd0db}
+.printed-form-column{display:flex;flex-direction:column;margin:0;padding:9px 9px 11px;min-width:0;border:0;border-right:1px solid #bbd0db}
+.printed-form-column:last-child{border-right:0}
+.printed-form-column legend{float:left;width:100%;margin:0 0 6px;padding:0;font-size:11px;font-weight:700;color:#445762}
+.printed-option{display:flex;align-items:center;gap:5px;margin:3px 0;line-height:1.4;min-width:0;font-size:11px;color:#394954;overflow-wrap:anywhere}
+.printed-option input{appearance:auto;width:13px;height:13px;flex:0 0 auto;margin:0;accent-color:#2696a7}
+.printed-memo-table{border:1px solid #bbd0db;background:#fff;padding:6px 10px}
+.printed-memo-row{display:grid;grid-template-columns:27% 1fr;gap:8px;align-items:start;padding:7px 0;border-bottom:1px solid #e2e7ea;font-size:13px;line-height:1.5}
+.printed-memo-row:last-child{border-bottom:0}
+.printed-memo-row strong{font-size:11px}
+@media(max-width:480px){.printed-names{gap:5px;padding:8px 5px}.printed-name{gap:3px;font-size:9px}.printed-name input{font-size:11px}.printed-form-column{padding:7px 4px}.printed-form-column legend{font-size:10px}.printed-option{font-size:9px;gap:3px}.printed-option input{width:11px;height:11px}.printed-memo-row{grid-template-columns:29% 1fr;font-size:11px;gap:6px}}
