@@ -111,12 +111,41 @@ function addPronunciationToReading(chapter){
  if(outdated)outdated.querySelector('.translation').textContent='原書第 236 頁的模型對話日文譯文已收錄於本課末段，可直接向下閱讀。';
 }
 
+function enhancePrintedExercises(scene){
+ const form=scene.querySelector('.english-block[data-kind="form"]');
+ if(!form||form.dataset.printed==='true')return;
+ const lines=[...form.querySelectorAll(':scope > p[lang="en"]')];
+ if(SCENE==='002'&&lines.length===4){
+  const names=node('div','printed-names');
+  const fields=lines[0].textContent.trim().split(/\s{2,}/);
+  fields.forEach(part=>{const label=node('label','printed-name');const caption=node('span','',part.replace(/:\s*_+$/,'').trim());const inp=node('input');inp.type='text';inp.setAttribute('aria-label',caption.textContent);label.append(caption,inp);names.append(label);});
+  const columns=node('div','printed-form-columns');
+  lines.slice(1).forEach(p=>{
+   const bits=p.textContent.split(':');if(bits.length<2)return;
+   const column=node('fieldset','printed-form-column');
+   const legend=node('legend','',bits.shift().trim());column.append(legend);
+   bits.join(':').split(' / ').forEach(t=>{const label=node('label','printed-option'),inp=node('input');inp.type='checkbox';label.append(inp,node('span','',t.trim()));column.append(label);});
+   columns.append(column);
+  });
+  lines.forEach(p=>p.remove());form.append(names,columns);form.dataset.printed='true';
+ }
+ else if(SCENE==='003'&&lines.length===4){
+  const table=node('div','printed-memo-table');
+  lines.forEach(p=>{
+   const raw=p.textContent;const at=raw.indexOf(':');if(at<0)return;
+   const row=node('div','printed-memo-row');row.append(node('strong','',raw.slice(0,at).trim()),node('span','',raw.slice(at+1).trim()));table.append(row);
+  });
+  lines.forEach(p=>p.remove());form.append(table);form.dataset.printed='true';
+ }
+}
+
 function init(){
  if(initialized||!$('scene-'+SCENE)||$('reader')?.hidden)return;
  const scene=$('scene-'+SCENE),cards=[...scene.querySelectorAll('details.prompt-step[data-step]')];
  if(cards.length!==3)return;
  initialized=true;
  if(SCENE==='001'){addPronunciationToReading(scene);rebuildSceneMenu(scene);markModelDialogue(scene);}
+ enhancePrintedExercises(scene);
  const main=document.querySelector('.content-pane'),book=$('book-content');
  const nav=node('nav','scene-main-tabs');nav.setAttribute('role','tablist');
  for(const [tab,title] of [['read','課文閱讀'],['speak','AI 口說練習'],['audit','日文／繁體中文對照']]){
