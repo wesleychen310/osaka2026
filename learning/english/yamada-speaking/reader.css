@@ -216,3 +216,12 @@ html[data-yamada-tab=speak] .content-pane,html[data-yamada-tab=audit] .content-p
 .scene-ipa{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;color:#195875;font-weight:700;overflow-wrap:anywhere}
 .scene-phonetic-item .pair{margin:4px 0!important;font-size:13px!important}
 @media(max-width:480px){.scene-pronunciation{padding:9px}.scene-ipa{font-size:12px}}
+
+/* SCENE 001 rebuilt source menu: two columns preserve original English labels and order. */
+#scene-001 .english-block[data-kind="menu"] .scene-menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#scene-001 .scene-menu-column{min-width:0;border:1px solid #dce7ec;border-radius:9px;padding:10px 12px;background:#fbfdfd}
+#scene-001 .scene-menu-column p{margin:6px 0!important;overflow-wrap:anywhere;font-size:14px;line-height:1.65}
+#scene-001 .scene-menu-column .scene-menu-heading{font-weight:800;color:#155877;border-bottom:1px solid #c9dfe9;margin-bottom:10px!important;padding-bottom:5px}
+#scene-001 .english-block[data-kind="dialogue"] .scene-dialogue-ca{padding:8px 11px;margin:0;background:#f0f7fa;border-left:3px solid #86b9d0}
+#scene-001 .english-block[data-kind="dialogue"] .scene-dialogue-passenger{padding:8px 11px;margin:0 0 7px;border-left:3px solid #d5e2e9}
+@media(max-width:480px){#scene-001 .english-block[data-kind="menu"] .scene-menu-grid{gap:6px}#scene-001 .scene-menu-column{padding:7px}#scene-001 .scene-menu-column p{font-size:12px}#scene-001 .english-block[data-kind="dialogue"] .scene-dialogue-ca,#scene-001 .english-block[data-kind="dialogue"] .scene-dialogue-passenger{padding:7px 8px}}
