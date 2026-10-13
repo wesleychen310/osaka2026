@@ -1,5 +1,30 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-13｜第 2 批完成：SCENE 007–011（目前最新）
+
+已接續第 1 批製作五課，採用使用者保存的日文 Prompt TXT 逐行譯成繁體中文，僅翻譯日文；原英語句型、讀音符號、原始操作規則及序號照原檔保存。課文與原圖/圖表以私人原書 PDF 印刷 p.036–045（PDF 第 20–24 張）核對，沿用既有私人 HTML `1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_` 的 SCENE 007–011 完整課文、四閱讀模式與原樣重建圖表，無需覆寫原 HTML，故此批沒有執行既存 HTML 檔修改／備份。
+
+### 本批交付與品質校驗
+
+| SCENE | 主題 | STEP 1／2／3 原文＝譯文行數 | 私人繁中譯稿 Google Drive File ID（按 STEP 1／2／3） |
+|---|---|---|---|
+| 007 | 購買交通 IC 卡 | 199／169／137 | `1mxZJZJK0Z0rV39nTfbsoaPXyEAztIxiz`、`1SQvhh1WMViCZImXLh3H9U_ru5enAYCzu`、`1a53iMi8nd3eDsTdSMpLQ7PAdchNot9Og` |
+| 008 | 詢問應搭哪班電車 | 417／148／181 | `1t58Ja8wFyTpvkCVK0IHCGJGJ1SF2Tj7R`、`1cGeNrhsSpuBGsIp_n-sNyjtMz-PU8wPD`、`1d1BkZdFK_Ts2Cr3oQQ7AHaQbhUxfSE4_` |
+| 009 | 詢問電車延誤 | 186／165／149 | `1Wd0I4rOTKq5qNe3FHLj7y6uAZK_b0M0d`、`1zEN2wHH2-TQVWgaYtuvK72Bop4NAhuPW`、`13iBopI2BbtgLuHzQ_bMK1IvR_mJsvbbn` |
+| 010 | 購買 SIM 卡 | 177／170／142 | `1VaS4nN34GGRMzqN_0AoFJcD7sbS_V6Li`、`1ve841iDV8B4D-eBYZRmSDhGUGFb2vwB7`、`1rHbZzViJ_5uxyFedRwTEbanfxmRh2Zxd` |
+| 011 | 飯店辦理入住 | 195／173／147 | `1nNVxpwbWZlrrSsU7_0kl8O4UhHrxVQYz`、`1ir7U4UAqYKspog-vUyAJAUfX2xWFK2i9`、`1jnlNMTJNVdvP24ex7SUYNkhGdl224O8Z` |
+
+- 全部 **15 份原日文 TXT 與 15 份中文 TXT** 對應，**2,755 行**原文與譯文行數完全一致；254 行純英文檢查保留，無日文假名殘留。保留原檔中混排 `JP:` 與 `EN:` 標籤，標籤後的日文已翻成中文。
+- 15 份繁中譯稿已上傳至私人山田優 Google Drive 根目錄（folder `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB`），另下載一次，逐位元核對 **15/15 相同**；metadata 讀回確認 **15/15 owner-only、沒有 any/domain 分享、父資料夾正確**。原日文 15 份完全不改。
+- 嚴格遵循原稿包含不一致與重複資訊。例如 **SCENE 008 STEP 1 日文原始 TXT 有 417 行，含重複片段**，忠實譯稿保留 417 行；若未來要清理須另外取得授權，不得視為翻譯完成後可自行刪除。
+- 原書 PDF 第 20–24 張影像核對：007 押金 $5／卡費 $20／實戰儲值 $35；008 Platform 1–6、Ticket Gates 及 Platform 5 方向；009 10:10／10:15 Delayed 電子看板；010 三 SIM 方案 3GB 7 days／10GB 14 days／Unlimited 30 days；011 飯店入住 5 項 checklist。上述既有 HTML 已電子化，英語原文沒有轉寫至公開 GitHub。
+- 公開 UI 控制器 `scene001.js` 延伸至 SCENE 001–011，依 `?scene=007` 等參數登入後讀取私人 Drive 的原文及直譯；原舊「台灣在地化版」版本切換鈕在練習卡中移除，保留唯一中文直譯；日中逐行全文另在對照頁。CSS 隱藏原舊改編 Prompt，新增 007–011 聚焦與 iPhone 兩欄支援；首頁課程入口、版本 cache-bust 更新。
+- **驗收分級**：GitHub 寫入成功，腳本語法核對完成、15 份 Drive 譯文下載回讀與 owner-only 權限確認完成。外部 GitHub Pages live、Google OAuth 與 iPhone/iPad/Mac Safari 互動尚未實測；目前不可標記 E2E 通過。
+- **全書進度：11/100 課（001–011）；第 2 批 5/5 完成。下一批 SCENE 012–016**：012 已有私有 HTML 初稿；013–016 須由 PDF 正式製作新課文與內容頁，更新私人 HTML 前應先在同資料夾 `_backup` 備份，維持原檔 ID、名稱及位置。
+
+---
+
+
 ## 2026-10-13｜第 1 批完成：SCENE 002–006（正式生效）
 
 本批依使用者核准的標準，一次完成五課，延續 SCENE 001 的日文原文／繁體中文逐行直譯、AI 練習與閱讀模式。**本文頂部此節為最新狀態**；下方「002–012 台灣在地化」等內容為歷史紀錄，已由此次 Drive 直譯 TXT 與網站新控制器取代。
