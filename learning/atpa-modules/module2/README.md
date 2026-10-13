@@ -1,6 +1,6 @@
 # SOA ATPA Module 2 — Working with Data｜私人雙語教材
 
-版本：2026-10-12 · 最新完成進度 **50／223 小節**（§1.1.1–1.1.36 全部，以及 §1.2.1–1.2.14）
+版本：2026-10-14 · 最新完成進度 **160／223 小節（71.7%）**，§1.1–§1.4 已全部接入私人網站；下次從 §1.5.1 接續。
 
 ## 官方使用入口
 
@@ -121,3 +121,20 @@
 ## 2026-10-13 共用閱讀 CSS 字級調整
 - Module 2 共用 `../reader.css` 已改成「上中文下英文」中英正文均 16px，手機亦相同；移除舊英文字級 14px 的縮小排版，英文小節標題正常化。
 - `module2/index.html` 之共用樣式表快取版本更新為 `20261013-normal-font1`；四個閱讀模式和私人教材來源無變更。原先偏小字級的問題來自共用 CSS，因此同步修正 Module 1 與 2。
+
+
+## 2026-10-14｜最新交接：§1.4 Relational Databases 全 16 小節完成
+
+**此段優先於上方的歷史進度說明。** 本次新增 SOA ATPA Module 2 原書 §1.4.1–§1.4.16（印刷頁 p.173–192；合併 PDF 全檔 0-based index 245–264）。
+
+- **正式入口**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s141
+- **累計進度**：§1.1 36 + §1.2 38 + §1.3 70 + §1.4 16 = **160／223（71.7%）**。§1.5–§1.7 尚未製作完畢，不得標示完成。
+- **新私人來源檔**：`ATPA_Module_2_1.4.1-1.4.16_私人雙語教材.html`，Google Drive `1tnMUnufssHsrZoen0nio5M3NeitXAgM_`，資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`；`text/html`，1,481,342 bytes，SHA256 `045637d995cec457597991b94d9cf41a52cff138ea42dc42424159d4e5366e80`。權限：owner + 具名 reader（無 anyone/domain）。
+- **教材範圍**：RDBMS、primary／foreign key、left/right/inner/full joins、multi-column composite keys、duplicate foreign keys、column/row binds、Exercise 2.4.1（五份虛構電影／總經資料）。包含 **16 節、20 個英中來源對應區塊、16 張精算教師卡、48 個 Reusable English 語塊、15 張由原 PDF 頁面直接擷取的原始表格與程式截圖**。
+- **原書驗證**：本地腳本以 PyMuPDF 擷取 p.173–192 的文字，逐一與 HTML 中 `.original` 比對，**16／16 節全部完全吻合**；16 個原書編號、每節 3 英文語塊及成對原文／翻譯均通過結構檢查。來源正文中繼續保留原書 Component Table、CHUNK、程式與英文原樣。中文版含逐節原文解說及所有範例表格／Exercise 指令的完整繁中說明；遇跨頁表格延續時，原圖與來源文字完整保留。
+- **忠於原稿的問題註記**：p.177 `AMNZ` vs `AMZN`；p.181 full join 的 Table_4／Table_5；p.182 原書 row-count 邊界未充分考慮 duplicate keys；p.183 R inner vs Python outer；p.186 R inner vs Python left。未在原文中擅自改寫，於獨立教師卡／Source discrepancy 提醒。
+- **原書練習**：Exercise 2.4.1 五道 joins 實務題完整保留；CHUNK 10／11 所需 Rmd、CSV 需另行取得並執行，這次沒有聲稱完成外部 Rmd 的實機計算。
+- **GitHub 網站更新**：`learning/atpa-modules/module2/module2.js` 新增 `SOURCE["2:10"]`，`CHAPTERS["1.4"]`；`EXPECTED_COUNTS=[12,19,5,14,14,10,20,20,30,16]`、`FIRST_IDS` 新增 `s141`、總量 160 unique IDs；`module2/index.html` 使用 `20261014-sec14-complete` 刷新快取。四個按鈕固定 **全英文、全中文、上中文下英文、左英文右中文**；不顯示私下製作批次。教材原文與圖片不放公開 GitHub。
+- **待驗收界線**：Owner 實際 Google OAuth、GitHub Pages CDN 發布時間、iPhone/iPad/Mac 四模式、15 張原圖的客戶端顯示與外部 Rmd 執行尚待正式端對端測試。靜態檔驗證不可冒充這些測試。
+- **下次製作**：**§1.5 Data Validation，共 21 小節，原書起於 p.193**。先讀清原書每頁，依順序製作英中／原圖／teacher note／3–5 英文語塊，存入同一受限 Drive 目錄；再增加來源路由、校驗總數 181 小節，最後同步更新本 README、上層 README 和根目錄 README。
+
