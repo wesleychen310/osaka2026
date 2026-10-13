@@ -47,7 +47,7 @@ function enhancePromptLabs(){
       allStatus.textContent=(await copyPromptText(allText))?'已複製本課三份台灣版 Prompt':'複製失敗，請展開 STEP 後選取文字';
     });
     allbar.append(allCopy,allStatus);lab.appendChild(allbar);
-    headings[0].before(lab);
+    // Keep the full-lesson copy control after textbook STEP 3; show individual exercises under their STEP.
     steps.forEach((step,index)=>{
       const paneTw=step.querySelector('.prompt-pane[data-variant=tw]');
       const paneOfficial=step.querySelector('.prompt-pane[data-variant=official]');
@@ -92,11 +92,30 @@ function enhancePromptLabs(){
       }
       tabs.append(taiwanBtn,officialBtn);actions.append(copy,launch,stat);controls.append(tabs,actions);
       select(preferredPromptMode());
-      if(index<2)headings[index+1].before(card);else scene.appendChild(card);
+      if(index<2)headings[index+1].before(card);else lab.before(card);
     });
   });
 }
-function mount(raw){const doc=new DOMParser().parseFromString(raw,'text/html');const source=sanitize(doc);const all=[...source.querySelectorAll(':scope>section.chapter')];if(all.length!==21||!all.some(x=>x.id==='preface')||!all.some(x=>x.id==='scene-012'))throw Error('教材內容或章節數不符，為避免漏頁已停止顯示。');for(const c of all){if(c.querySelector('img,details.scan'))throw Error(c.id+' 含有掃描影像，已停止顯示以維持純電子文字版。');if(c.dataset.status==='verified'){if(!c.querySelector('.pair'))throw Error(c.id+' 缺少翻譯');for(const p of c.querySelectorAll('.pair'))if(!p.querySelector('.original')||!p.querySelector('.translation'))throw Error(c.id+' 的原文與翻譯未配對')}}const frag=document.createDocumentFragment();all.forEach(c=>frag.appendChild(document.importNode(c,true)));$('book-content').replaceChildren(frag);chapters=[...$('book-content').querySelectorAll('section.chapter')];buildToc();enhanceEnglish();enhancePromptLabs();chapterSearchIndex=chapters.map(c=>{const clean=c.cloneNode(true);clean.querySelectorAll('.prompt-lab,.prompt-step').forEach(n=>n.remove());return clean.textContent.toLowerCase()});const count=chapters.filter(x=>x.dataset.kind==='scene').length;$('coverage').textContent=' · 已收錄 '+count+'／100 個 SCENE';$('gate').hidden=true;$('reader').hidden=false;ready=true;let saved='zh';try{saved=localStorage.getItem(MODE_KEY)||'zh'}catch(_){}mode(saved);if(location.hash){const id=decodeURIComponent(location.hash.slice(1));requestAnimationFrame(()=>$(id)?.scrollIntoView({block:'start'}))}}
+
+function scene001ReviewLayout(){
+  const scene=$('scene-001');if(!scene)return;
+  const steps=[...scene.children].filter(x=>x.tagName==='H3'&&/^STEP\s*[123]/.test(x.textContent.trim()));
+  steps.forEach((h,i)=>h.id='scene-001-step-'+(i+1));
+  const focused=new URLSearchParams(location.search).get('view')!=='all';
+  document.documentElement.dataset.sceneFocus=focused?'001':'all';
+  const focusJumps=$('scene-one-jumps'),allLink=$('view-all-link'),focusLink=$('view-scene-link');
+  if(focusJumps)focusJumps.hidden=!focused;
+  if(allLink)allLink.hidden=!focused;
+  if(focusLink)focusLink.hidden=focused;
+  if(focused){
+    const label=$('reader-mode-label');if(label)label.textContent='SCENE 001｜完整原書電子版';
+    const info=$('reader-mode-info');if(info)info.textContent='原書 p.024–025 ＋ 會話日譯 p.236 · 3 個 STEP · 台灣語音練習版 · 官方原文待取得';
+    const coverage=$('coverage');if(coverage)coverage.textContent='';
+    const placeholder=$('toc-items');if(placeholder){[...placeholder.children].forEach(a=>a.hidden=a.getAttribute('href')!=='#scene-001')}
+  }
+}
+
+function mount(raw){const doc=new DOMParser().parseFromString(raw,'text/html');const source=sanitize(doc);const all=[...source.querySelectorAll(':scope>section.chapter')];if(all.length!==21||!all.some(x=>x.id==='preface')||!all.some(x=>x.id==='scene-012'))throw Error('教材內容或章節數不符，為避免漏頁已停止顯示。');for(const c of all){if(c.querySelector('img,details.scan'))throw Error(c.id+' 含有掃描影像，已停止顯示以維持純電子文字版。');if(c.dataset.status==='verified'){if(!c.querySelector('.pair'))throw Error(c.id+' 缺少翻譯');for(const p of c.querySelectorAll('.pair'))if(!p.querySelector('.original')||!p.querySelector('.translation'))throw Error(c.id+' 的原文與翻譯未配對')}}const frag=document.createDocumentFragment();all.forEach(c=>frag.appendChild(document.importNode(c,true)));$('book-content').replaceChildren(frag);chapters=[...$('book-content').querySelectorAll('section.chapter')];buildToc();enhanceEnglish();enhancePromptLabs();scene001ReviewLayout();chapterSearchIndex=chapters.map(c=>{const clean=c.cloneNode(true);clean.querySelectorAll('.prompt-lab,.prompt-step').forEach(n=>n.remove());return clean.textContent.toLowerCase()});const count=chapters.filter(x=>x.dataset.kind==='scene').length;$('coverage').textContent=' · 已收錄 '+count+'／100 個 SCENE';$('gate').hidden=true;$('reader').hidden=false;ready=true;let saved='zh';try{saved=localStorage.getItem(MODE_KEY)||'zh'}catch(_){}mode(saved);if(location.hash){const id=decodeURIComponent(location.hash.slice(1));requestAnimationFrame(()=>$(id)?.scrollIntoView({block:'start'}))}}
 async function load(token){status('正在從私人 Google Drive 讀取教材…');const resp=await fetch('https://www.googleapis.com/drive/v3/files/'+FILE_ID+'?alt=media',{headers:{Authorization:'Bearer '+token},cache:'no-store'});if(resp.status===401){sessionStorage.removeItem(TOKEN_KEY);throw Error('授權已過期，請重新登入。')}if(resp.status===403)throw Error('目前 Google 帳號沒有這本私人教材的讀取權限。');if(!resp.ok)throw Error('Google Drive 下載錯誤：HTTP '+resp.status);mount(await resp.text())}
 function init(){if(tokenClient)return true;const g=window.google?.accounts?.oauth2;if(!g)return false;tokenClient=g.initTokenClient({client_id:CLIENT_ID,scope:SCOPE,callback:async r=>{if(r.error){status('Google 授權未完成。');return}try{const t=saveToken(r);await window.HanamiAuth?.remember?.(t);await load(t)}catch(e){status(e.message||'教材載入失敗。');$('login').disabled=false}},error_callback:()=>{status('請按一下「使用 Google 帳號閱讀」。');$('login').disabled=false}});return true}
 function signIn(switchAccount=false){if(!init()){status('Google 授權元件尚未就緒，請稍後重試。');return}try{if(window.HanamiAuth)window.HanamiAuth.request(tokenClient,switchAccount);else tokenClient.requestAccessToken({prompt:switchAccount?'select_account':''})}catch(_){status('授權未完成，請再按一次登入。')}}
