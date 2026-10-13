@@ -1,5 +1,14 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-13｜SCENE 001 官方 Prompt 來源新增
+
+- 使用者指定官方目錄：https://chatgpt-eikaiwa.alc.co.jp/contents/index.html （頁面標題 Contents）。
+- **已發現官方提供文字檔的 Download 頁**：https://chatgpt-eikaiwa.alc.co.jp/downloads/index.html ，頁面明列 PART 1 SCENE 001-030「プロンプトテキストファイル」，另有 PART 2/3/4；官方音訊下載連結為獨立項目。
+- **待取得**：上述 Prompt 文字檔的實際下載 URL／內容。一般網頁文字擷取工具讀得到下載品項，但未取到由 JavaScript 提供的 Prompt 檔案及逐課 STEP 原文；本輪仍不能把「下載項目存在」記為「官方原文已取得」，SCENE 001 STEP 1–3 官方全文目前核實 0/3。
+- 本輪已將官方 Downloads 入口加至 SCENE 001 的 GitHub 學習網站。正式頁面僅提供來源位置與已核實狀態，台灣版仍標示私人改編；**沒有改動私人 Google Drive 正本，未開啟新備份流程**。
+- 官方全日文 Prompt 的正式逐句左右對照，須先在可執行網站 JavaScript 的瀏覽器取得 PART 1 提示詞下載檔（建議用 ChatGPT Work 的 Cloud Browser），或在本人瀏覽器取得原檔後做來源核對。以原書日文課程指令代替官方網站 Prompt 的先前對照，仍僅供「原書 vs 台灣版」參考。
+
+
 **最新版本：2026-10-13，SCENE 001–012 純電子教材＋36 份台灣版 AI Prompt；正式 Drive 正本 ID 1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_（原地更新）。**
 
 ## 讀者與架構
