@@ -176,6 +176,7 @@ function init(){
   if(body)body.textContent='正在載入原稿直譯…';
   const sub=card.querySelector('.prompt-summary-sub');if(sub)sub.textContent='完整直譯 · 點擊展開';
   const btn=card.querySelector('.prompt-variant-tab');if(btn)btn.click();
+  card.querySelector('.prompt-variant-tabs')?.remove(); // Only the exact Chinese translation is offered in practice; JA appears in audit.
   wrapper.append(card);practice.append(wrapper);
  });
  const practiceStatus=node('p','source-status','正在從私人 Google Drive 載入全文…');practiceStatus.id='practice-load-status';practiceStatus.setAttribute('role','status');practice.append(practiceStatus);
