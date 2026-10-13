@@ -41,6 +41,27 @@
 - **本批程式化核對**：15 個 chapters、10 個標記 verified、5 個明確 pending、104 組日中 pair、6 個 scene 全有 STEP 1/2/3、0 圖片。私有內容讀回可包含 SCENE 001–006。實際 Google OAuth／Safari iPhone E2E 與 CDN 生效仍待真人授權及裝置實測，不能宣稱通過。
 - **回退**：上一版本 Google Drive source File ID `1cMjd--G7ZJwZyWEHrY35oezW18vUsMRz` 未覆寫；GitHub commit 歷史可回復 UI。再次修改現有 Google Drive 正本仍須先備份到同資料夾 `_backup`，保留 ID、父資料夾、分享權限。
 
+## 2026-10-13｜SCENE 001 原書逐頁核對與版面驗收（待使用者確認）
+
+### 範圍鎖定：只做 SCENE 001
+- 使用者要求先完整呈現 SCENE 001 的原書掃描文字並審核版面，確認滿意後才繼續 SCENE 002 或後續課程。已保留 12 個 SCENE 的原有資料，但閱讀器**預設只顯示 SCENE 001**；網址 query `?view=all` 才顯示先前十二課，禁止宣稱其他章節本輪已通過校訂。
+- 原書權威來源：PDF 0-based index 13，印刷右頁 **024**、左頁 **025**；書末日文對話譯文：PDF 0-based index 119，印刷 **236**。
+- SCENE 001 原書完整文字：SCENE 001／Part 1 日常会話編／難易度 ★☆☆☆／機内／機内食を頼む／QR Code 練習引導／場面設定／練習のポイント／STEP 1 Key Phrase 2 句及回顧／STEP 2 原英文模型對話 8 句及回顧／STEP 3 原書 Main／Drink 英文菜單及回顧；0 張整頁掃描影像。場景日文原文逐段對照台灣繁中，英文原書保留。
+- **本輪補齊書末 p.236**：SCENE001 STEP2 模型對話 8 句的原書日文譯文，另附 8 句台灣繁中譯文；開啟「原書第 236 頁」收合區檢視。
+- 針對本課的五個標題，提供符合四模式的日/中標題切換：全日文、全繁中、上繁中下日文、左日文右繁中。其餘章節的標題與前置頁面仍待逐頁驗收。
+- 本課三份 Taiwan Edition 已改為完整語音訓練版：原書全部兩句 Key Phrase、八句模型對話、Rice/Pasta 菜單與原文回顧題；啟動口令 Let’s start／開始練習、Slow／短語分段、Exact／Almost／Retry、最多三次、沉默與 ASR 辨識失敗分流、IPA `/wʌt kaɪndz əv/` `/kən aɪ/` `/ə kʌp əv/` `/aɪst/`、中文 Feedback。各 STEP 練習卡預設收合，不再打斷課本。
+- **譯文稽核限制**：第二組使用者先前貼過的日本語語音 Prompt 尚未能以完整逐字原稿讀回，所以此回只能依已知規則獨立重寫 Taiwan Edition，**不能宣稱已完成第二組日文 Prompt 全文逐句左右對照**；官方出版社原文也仍是來源頁已知、Prompt 正文 0 份。原書教材兩頁與書末 p.236 的日文原文則可直接依掃描核對。
+
+### 本次 Drive 原地更新與備份
+- 正本檔名、File ID **`1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_`**、父資料夾 **`1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`**、owner-only 權限不變；更新後 **296,282 bytes**。
+- 更新前完整備份：`_backup/Yamada_Speaking_FrontMatter_Scenes001-012_TEXT_ONLY_20261013_0811_before-SCENE001-FULL-AUDIT.html`，ID **`1meVY3G7dUn0wvXkiBCrU4RMpkrSMA8ip`**。
+- Drive 最新正本重新 materialize，與本地生成檔 SHA-256 相同：`100472ffd589adcfc13cf1716a4104f476c628f22a6b1d98002fd1b386b40f28`；21 個 chapter、12 個 scene、211 組 pair（新增 p.236 八組＋QR 日中一組），0 張圖片，SCENE 001 具有 3 個 STEP 與 3 份台灣版語音 Prompt。
+
+### 網頁操作和驗收級別
+- 網站 `https://wesleychen310.github.io/osaka2026/learning/english/yamada-speaking/` 預設聚焦 SCENE001。`?view=all` 仍能看既有十二課。可直接跳 STEP1、2、3 及 p.236 模型對話翻譯；每 STEP 下的台灣版練習 Prompt 卡可展開、一鍵複製、開啟 ChatGPT，官方欄位待取得。
+- GitHub 只修改前端 HTML / JS / CSS / README；未把原書與 Prompt 正文提交到公開 GitHub。
+- 已執行 Drive 讀回雜湊、來源章節與句數計數、原始英日段落保留及 JS 語法解析；**尚未完成真正 Google OAuth iPhone/iPad/Mac Safari 端到端測試與使用者視覺確認**。在使用者明確驗收前，停止製作後續課程。
+
 ## 2026-10-13｜官方 AI Prompt × Taiwan Edition 工程交付
 
 ### 實際產出與來源真實性
