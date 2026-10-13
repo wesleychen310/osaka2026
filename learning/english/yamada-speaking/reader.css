@@ -116,3 +116,9 @@ html[data-reading-mode=ja] .prompt-pane,html[data-reading-mode=zh] .prompt-pane,
 .chapter[data-status=pending] .editorial-notice{font-size:12px;margin:5px 0;padding:7px 9px}
 .chapter[data-status=pending] .pending-note{display:none}
 @media(max-width:480px){.prompt-step{margin:10px 0 19px}.prompt-step>summary{padding:10px 9px;gap:4px 8px}.prompt-step>summary strong{font-size:12px}.prompt-summary-sub{font-size:10px}.prompt-expanded{padding:10px 8px}.prompt-lab{padding:10px 11px}.chapter[data-status=pending]{padding:10px 11px}}
+
+/* Fast access to existing chapters, without jumping through unfinished front matter. */
+.reader-jumps{display:flex;gap:7px;flex-wrap:wrap;margin:-4px 0 15px}
+.reader-jumps a{display:inline-flex;align-items:center;padding:6px 10px;border-radius:8px;border:1px solid #c9dce5;background:white;color:#1b617d;text-decoration:none;font-size:12px;font-weight:700}
+.reader-jumps a:focus-visible,.reader-jumps a:hover{background:#e7f4f9}
+@media(max-width:480px){.reader-jumps{gap:5px}.reader-jumps a{font-size:11px;padding:6px 7px}}
