@@ -158,3 +158,53 @@ html[data-reading-mode="parallel"] #scene-001 .bilingual-heading .heading-zh{fon
 #scene-001 .prompt-translation-audit>ul{padding-left:23px}
 #scene-001 .prompt-translation-audit li{margin:5px 0}
 @media(max-width:480px){html[data-scene-focus="001"] .reader-status{font-size:11px}#scene-one-jumps a{font-size:11px;padding:6px 8px}#scene-001 .bilingual-heading{font-size:14px}.model-translation>summary,.prompt-translation-audit>summary{padding:11px;font-size:12px}.appendix-line{padding:9px 10px}.appendix-en{font-size:13px}.appendix-line .pair{font-size:12px}}
+
+
+/* SCENE 001 tabbed reading / voice / audited original. Public presentation only. */
+.scene-main-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:2px 0 14px;padding:7px;background:#fff;border:1px solid #d9e6ed;border-radius:13px;position:sticky;top:0;z-index:12;box-shadow:0 8px 23px #123a5011}
+.scene-main-tab{color:#36566a;background:#eef4f7;border:1px solid #d9e6ed;min-width:0;padding:11px 6px;font-size:13px;line-height:1.5;white-space:normal}
+.scene-main-tab[aria-selected=true]{background:#195875;color:#fff;border-color:#195875}
+html[data-yamada-tab=read] #toolbar{top:70px}
+html[data-yamada-tab=speak] .scene-read-toolbar,html[data-yamada-tab=audit] .scene-read-toolbar{display:none!important}
+html[data-yamada-tab=speak] .reading-layout,html[data-yamada-tab=audit] .reading-layout{display:block}
+html[data-yamada-tab=speak] .sidebar,html[data-yamada-tab=audit] .sidebar{display:none!important}
+html[data-yamada-tab=speak] .content-pane,html[data-yamada-tab=audit] .content-pane{max-width:100%;width:100%}
+.scene-workspace{min-width:0;background:#fff;border:1px solid #dce5e9;border-radius:16px;padding:clamp(14px,3vw,32px);margin:0 0 25px}
+.workspace-title{font-size:clamp(22px,3vw,29px);line-height:1.35;margin:0 0 5px;color:#184e67}
+.workspace-lead{font-size:13px;color:#4d6b7a;line-height:1.8;margin:0 0 16px}
+.scene-step-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0 20px}
+.scene-step-tab{background:#f2f7f9;color:#245e78;border:1px solid #c7dce6;font-weight:700;padding:9px 12px}
+.scene-step-tab[aria-pressed=true]{background:#195875;border-color:#195875;color:white}
+.scene-training-card{min-width:0}
+.step-goal{font-size:14px;font-weight:650;line-height:1.7;border-left:3px solid #7fb5d0;padding:8px 12px;background:#f4f9fb;margin:10px 0}
+#scene-panel-speak .prompt-step{margin:10px 0 22px}
+#scene-panel-speak .prompt-expanded .prompt-body{max-height:none;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font-size:13px;line-height:1.85}
+#scene-panel-speak .prompt-variant-tabs{display:none!important}
+#scene-panel-speak .prompt-pane[data-variant="official"]{display:none!important}
+#scene-panel-speak .prompt-pane[data-variant="tw"]{display:block!important}
+#scene-panel-speak .prompt-expanded .prompt-controls{display:block}
+.practice-qualifier,.audit-caveat{font-size:12px;line-height:1.8;color:#657b89;background:#f4f7f8;padding:10px 12px;border-radius:9px}
+.source-status{font-size:12px;color:#476c7c}
+.audit-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
+.audit-col{border:1px solid #d3e3ec;border-radius:12px;min-width:0;overflow:hidden}
+.audit-col>h3{background:#eaf3f8;font-size:14px;padding:11px 14px;margin:0;color:#215a77}
+.audit-raw{font-family:ui-monospace,Menlo,Consolas,"Noto Sans Mono CJK TC",monospace;font-size:12px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;tab-size:2;padding:14px;margin:0;max-height:none}
+.audit-col:first-child .audit-raw{background:#fcfdfd}
+.audit-col:nth-child(2) .audit-raw{background:#f8fcff}
+.audit-origin{display:inline-block;font-size:12px;margin-top:14px}
+.audit-title{font-size:16px;margin:24px 0 8px}
+.audit-differences{display:grid;gap:7px}
+.audit-difference{display:flex;gap:14px;padding:10px 12px;border-bottom:1px solid #e2e9ee;font-size:13px;line-height:1.75}
+.audit-difference strong{flex:0 0 110px;color:#1d5c78}
+#scene-panel-read #scene-001 .prompt-lab,#scene-panel-read #scene-001 .prompt-translation-audit{display:none!important}
+@media(max-width:680px){
+ .scene-main-tabs{padding:5px;gap:5px}
+ .scene-main-tab{font-size:11px;padding:9px 3px;line-height:1.45}
+ .scene-step-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+ .scene-step-tab{font-size:11px;padding:8px 5px}
+ .audit-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px}
+ .audit-col>h3{font-size:11px;padding:8px}
+ .audit-raw{font-size:10px;line-height:1.7;padding:8px}
+ .audit-difference{display:block}
+ .audit-difference strong{display:block}
+}
