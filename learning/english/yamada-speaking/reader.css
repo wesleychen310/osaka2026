@@ -208,3 +208,11 @@ html[data-yamada-tab=speak] .content-pane,html[data-yamada-tab=audit] .content-p
  .audit-difference{display:block}
  .audit-difference strong{display:block}
 }
+
+/* SCENE 001 pronunciation supplement; original English and source remain unchanged. */
+.scene-pronunciation{margin:15px 0 22px;border:1px solid #d6e5eb;border-radius:11px;padding:12px 15px;background:#f8fbfd}
+.scene-pronunciation h3{margin:0 0 11px!important}
+.scene-phonetic-item{padding:8px 0;border-top:1px solid #e0eaee}
+.scene-ipa{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;color:#195875;font-weight:700;overflow-wrap:anywhere}
+.scene-phonetic-item .pair{margin:4px 0!important;font-size:13px!important}
+@media(max-width:480px){.scene-pronunciation{padding:9px}.scene-ipa{font-size:12px}}
