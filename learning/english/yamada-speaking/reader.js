@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const CLIENT_ID='57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com';
 const FILE_ID='1DZrmlIpac6cl3iEN_UoiSgcKlLsl1Wn_';
-const SUPPLEMENT_IDS=['18FEtT4P16OxKNj5-raxkFFsxvW8Vf2O9','1Pta3E50Aqq8iDei5fL73sOGwc-tPGmp_','1bqd7gB0XJFS_9OIhaq970GFX3IW-Pfps','1pFDJbcoC5bXB_B-bNbkLjpYkjtKtnSVQ'];
+const SUPPLEMENT_IDS=['18FEtT4P16OxKNj5-raxkFFsxvW8Vf2O9','1Pta3E50Aqq8iDei5fL73sOGwc-tPGmp_','1bqd7gB0XJFS_9OIhaq970GFX3IW-Pfps','1HO-aSqALcN0ZmIfAASLD-Yk0DCM5X0Y-'];
 const SCOPE='https://www.googleapis.com/auth/drive.readonly';
 const TOKEN_KEY='hanami-kyoto-google-token-v3';
 const MODE_KEY='yamada-speaking-language-mode-v1';
