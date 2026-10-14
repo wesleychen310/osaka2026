@@ -210,3 +210,12 @@
 - Module 2 完成的 223 節不變，私有資料來源與所有原文未修改。共用閱讀器 `module2.js` 新增 `captureReadingPosition/restoreReadingPosition`，切換四種語言模式時鎖定目前閱讀段落（含大型 PDF 來源 pair），避免滑動到其他小節。
 - `module2/index.html` JS 更新到 `?v=20261014-reading-anchor1` 強制刷新舊快取。首次載入及深連結 `#s171` 不強制保留舊 scroll。
 - 靜態語法已通過；本地 Chromium 三種長頁定位情境、24 次四模式往返皆維持同段。正式登入與 iOS Safari 尚待確認。
+
+## 2026-10-14｜四種閱讀模式切換不跳頁（Module 1／2／3）
+
+- **使用者要求**：閱讀長頁到某個段落時，按「全英文／全中文／上中文下英文／左英文右中文」，必須停留在**相同教材段落、相近的螢幕位置**，不可因內容長度變化跳到其他段落或小節。
+- **正式修正**：`learning/atpa-modules/reader.js`、`learning/atpa-modules/module2/module2.js`、`learning/atpa-modules/module3/module3.js`。四個全頁語言模式及資料來源未變動。
+- **技術處理**：在閱讀按鈕 `pointerdown` 時先保存當下可見的穩定雙語 `.pair` 或圖表錨點，避開切成全英文時會隱藏的 `details.tutor` 與 `details.phrases`。切換後依同一元素和垂直閱讀比例補償 scroll，暫停平滑捲動及瀏覽器自動捲動錨定；在重排的連續影格與延遲 110ms 時各做一次校正，支援 iOS Safari 的工具列 focus／viewport 變動。使用跨瀏覽器 `behavior:"auto"`。
+- **三個站的 JS cache rev**：`reading-anchor2`（如再次調整程式碼必須更新 query 版本避免手機快取舊程式）。
+- **驗證範圍**：三份 JS 已通過靜態語法檢查、四種按鈕仍保留。Chromium 以自建 140 節長文模擬桌面 1280×850 與 iPhone 尺寸 390×844，連續切換 `en → zh → vertical → parallel → en → vertical`，選定的同一段落始終維持在可視範圍。**尚未在使用者真實 Google OAuth 私人教材的 Safari／iPhone 上完成端對端驗收**。
+- **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
