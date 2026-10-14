@@ -64,10 +64,11 @@ function cleanSource(doc){
  }
  return{main,lessons};
 }
-/* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
+/* Module 1: source English, annotated English, existing Chinese translation and bilingual summaries are immutable source nodes. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","annotated","vertical","triple"];
-const DISPLAY_KEY="atpa-modules-reading-mode-v3";
+const DISPLAY_MODES=["en","stacked","triple"];
+const DISPLAY_KEY="atpa-module1-reading-mode-v4";
+const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 /* Work-created views live in private Drive next to immutable bilingual pairs.
    Validate all enhanced content before switching the reading interface. */
 function prepareEnhancedViews(){
@@ -76,9 +77,9 @@ function prepareEnhancedViews(){
  if(pairs.length!==349)throw new Error("新版閱讀資料組數不符（預期 349 組，讀到 "+pairs.length+" 組）。");
  for(const p of pairs){
    if(!p.querySelector(":scope>.reading-annotated")||
-      !p.querySelector(":scope>.reading-diagonal")||
-      !p.querySelector(":scope>.reading-summary"))
-     throw new Error("缺少完整英文精讀／斜向排版／雙語摘要，請檢查 "+(p.closest(".lesson")?.dataset.num||"原始教材")+"。");
+      !p.querySelector(":scope>.reading-summary .summary-en")||
+      !p.querySelector(":scope>.reading-summary .summary-zh"))
+     throw new Error("缺少英文精讀或英中摘要，請檢查 "+(p.closest(".lesson")?.dataset.num||"原始教材")+"。");
  }
  // CSS manages display. Remove source HTML's hidden attribute only after QA.
  article.querySelectorAll(".reading-view").forEach(node=>node.removeAttribute("hidden"));
@@ -86,7 +87,7 @@ function prepareEnhancedViews(){
    const base=node.previousElementSibling;
    if(base&&/^(H2|H3|H4)$/.test(base.tagName))base.classList.add("replaced-by-reading");
  });
- // Preserve the original bilingual tab label intact for mode 3.
+ // Preserve the original bilingual tab label intact for both study layouts.
  article.querySelectorAll(".source-tabs > details > summary").forEach(summary=>{
    const english=summary.querySelector(":scope>.reading-tab-label");
    if(!english||summary.querySelector(":scope>.source-tab-base"))return;
@@ -116,8 +117,12 @@ function prepareBilingualLabels(){
  });
 }
 function preferredReadingMode(){
- try{const saved=localStorage.getItem(DISPLAY_KEY);const legacy={zh:"annotated",parallel:"triple",tap:"vertical"};const next=legacy[saved]||saved;return DISPLAY_MODES.includes(next)?next:"vertical"}
- catch(_){return "vertical"}
+ try{
+   const saved=localStorage.getItem(DISPLAY_KEY)||localStorage.getItem(LEGACY_DISPLAY_KEY);
+   const legacy={zh:"stacked",parallel:"triple",tap:"stacked",vertical:"stacked",annotated:"stacked"};
+   const next=legacy[saved]||saved;
+   return DISPLAY_MODES.includes(next)?next:"stacked";
+ }catch(_){return "stacked"}
 }
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
@@ -137,7 +142,7 @@ function captureReadingPosition(){
  const stable=".pair,.lesson header,.chapter-heading,.source-figure,.source-page-figure";
  const unstable="details.tutor,details.phrases,.teacher-answer";
  let node=null;
- // The same .pair exists in all four modes, even if either language is hidden.
+ // The same .pair exists in all three modes, even if its learning layers are hidden.
  for(const dy of [0,-30,30,-75,75,-120,120]){
    const py=Math.max(barBottom+8,Math.min(viewport-8,y+dy));
    const hit=document.elementFromPoint(x,py);
@@ -178,7 +183,7 @@ function restoreReadingPosition(saved){
  }
 }
 function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
- const selected=DISPLAY_MODES.includes(mode)?mode:"vertical";
+ const selected=DISPLAY_MODES.includes(mode)?mode:"stacked";
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
  const saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
@@ -199,7 +204,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  });
  document.querySelectorAll("#toc .toc-link").forEach(link=>{
    const title=link.querySelector(".toc-label");
-   if(title)title.textContent=(selected==="en"||selected==="annotated")?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
+   if(title)title.textContent=selected==="en"?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
  });
  try{localStorage.setItem(DISPLAY_KEY,selected)}catch(_){}
  function finish(){
@@ -261,7 +266,7 @@ window.addEventListener("resize",()=>{if(window.innerWidth>800&&document.body.cl
 
 /* Knowledge Check UI is created after sanitization; no questions/answers live in the public repository. */
 function activateQuizzes(){
- const isEnglish=()=>["en","annotated"].includes(document.documentElement.dataset.readingMode);
+ const isEnglish=()=>document.documentElement.dataset.readingMode==="en";
  document.querySelectorAll("#study-content .knowledge-check").forEach((quiz,qIndex)=>{
    if(quiz.dataset.enhanced==="true")return;
    quiz.dataset.enhanced="true";
