@@ -252,3 +252,11 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - **最新私人教材 File ID** `1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP`，官方主 PDF p.19–40，21 小節、94 英中配對、17 張原圖、84 可重複使用英文語塊。Google Drive 仍限具名 owner／reader，公開 GitHub 不含受限原文及譯文。
 - **重要限制**：官版 §1.2.8 p.26 三公式為破圖占位符，網站保留原頁並標記教師重建；外部 Rmd/CSV 沒有執行驗算，p.39／40 官方 MSE 數字來自原書。
 - **下一批**：§1.3 Linear Mixed Models 共 29 節，印刷 p.41–71；最新完整交接與 QA：`learning/atpa-modules/module3/README.md`。
+
+
+## 2026-10-14｜ATPA Modules 1／2／3 閱讀模式切換定位修復
+
+- 問題：在長頁點「全英文／全中文／上中文下英文／左英文右中文」會因排版高度變動而跳到不相關段落。
+- 已更新 `learning/atpa-modules/reader.js`、`module2/module2.js`、`module3/module3.js` 和三個入口 index.html cache（`20261014-reading-anchor1`），以目前閱讀段落和段內高度作錨點，切換後立即恢復近似閱讀位置。共用 CSS/私人 HTML 不變。
+- Chromium 模擬 390px 與 1280px viewport，24／24 次四模式切換維持同一個段落 ID；正式 iPhone Safari / owner Google OAuth 尚未實機驗收。
+- **課程進度不變**：Module 1 60 節、Module 2 223 節、Module 3 31／211 節（§1.1 與 §1.2）。Module 3 下一批 §1.3 Linear Mixed Models。
