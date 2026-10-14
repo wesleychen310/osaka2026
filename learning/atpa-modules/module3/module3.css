@@ -6,7 +6,7 @@
 #study-content .pdf-source-translation>p{margin:0 0 12px}
 #study-content .pdf-source-translation>p:last-child{margin-bottom:0}
 #study-content .source-figure{margin:18px 0 23px;background:#fff;border:1px solid #dfe5e8;border-radius:10px;padding:14px;text-align:center}
-#study-content .source-figure img{display:block;width:auto;max-width:100%;height:auto;object-fit:contain;margin:0 auto;border:0;box-shadow:none;cursor:zoom-in}
+#study-content .source-figure img{display:block;width:auto;max-width:100%;height:auto;object-fit:contain;margin:0 auto;border:0;box-shadow:none;cursor:default}
 #study-content .source-figure figcaption{font-size:12px;line-height:1.65;margin:10px auto 0;color:#62798a}
 #study-content .source-note{font-size:13px;line-height:1.75;color:#6d7e8d;border-left:3px solid #c5d2db;padding:7px 11px;margin:12px 0}
 #study-content .calc-reference{margin:18px 0;border:1px solid #cad8e0;border-radius:9px;padding:14px 17px;background:#f5f8fa;overflow-wrap:anywhere}
@@ -32,3 +32,10 @@ html[data-reading-mode=parallel] #study-content .pdf-source-translation{grid-col
  html[data-reading-mode=parallel] #study-content .pdf-source-original{padding-right:8px}
  html[data-reading-mode=parallel] #study-content .pdf-source-translation{padding-left:8px}
 }
+
+/* Preview the full 211-section official chapter map without dead-end links. */
+#chapter-sidebar .toc-pending{opacity:.78}
+#chapter-sidebar .toc-pending>summary{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#chapter-sidebar .pending-label{margin-left:auto;font-size:11px;font-weight:650;color:#758895;white-space:nowrap}
+#chapter-sidebar .pending-detail{padding:0 15px 13px;margin:0;color:#637987;font-size:12px;line-height:1.55}
+@media(max-width:490px){#chapter-sidebar .pending-label{font-size:10px}}
