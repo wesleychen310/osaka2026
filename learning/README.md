@@ -244,3 +244,11 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - **下一批 §1.2 Additive Models** 21 小節（原書 p.19–40），新增後應達 **31／211**；完整來源、QA/限制與續接 SOP 以 `learning/atpa-modules/module3/README.md` 為準。正式使用者 Google OAuth、手機端實機尚待驗收。
 
 **2026-10-14 Module 3 首批原圖校正**：§1.1.1–§1.1.10 私人來源 `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb` 已在更新前備份（`_backup` ID `1sDt59rh11_FAw6ovKiNRktBz-silPWfN`），原書 p.7、14、17 面板擴展裁切避免截掉末列。正本保留原 File ID；最新大小 665,987 bytes，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`。詳 `learning/atpa-modules/module3/README.md`。
+
+
+## 2026-10-14｜ATPA Module 3 完成第二批 §1.2
+
+- 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s121 ，已完成 **31／211** 小節（§1.1 Model Accuracy 10 節 + §1.2 Additive Models 21 節），左側 1.2 章節可直接切換；四模式按鈕不變。
+- **最新私人教材 File ID** `1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP`，官方主 PDF p.19–40，21 小節、94 英中配對、17 張原圖、84 可重複使用英文語塊。Google Drive 仍限具名 owner／reader，公開 GitHub 不含受限原文及譯文。
+- **重要限制**：官版 §1.2.8 p.26 三公式為破圖占位符，網站保留原頁並標記教師重建；外部 Rmd/CSV 沒有執行驗算，p.39／40 官方 MSE 數字來自原書。
+- **下一批**：§1.3 Linear Mixed Models 共 29 節，印刷 p.41–71；最新完整交接與 QA：`learning/atpa-modules/module3/README.md`。
