@@ -11,7 +11,7 @@ const params=new URLSearchParams(location.search);
 const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="3";
 const SOURCES=Object.values(SOURCE).sort((a,b)=>Number(a.part)-Number(b.part));
-const CHAPTERS={"1.1":{title:"Model Accuracy",zh:"模型準確性"}};
+const CHAPTERS={"1.1":{title:"Model Accuracy",zh:"模型準確性",total:10},"1.2":{title:"Additive Models",zh:"加法模型",total:21},"1.3":{title:"Linear Mixed Models",zh:"線性混合模型",total:29},"1.4":{title:"Neural Networks",zh:"神經網路",total:48},"1.5":{title:"Bayesian Models and Analysis",zh:"貝氏模型與分析",total:44},"1.6":{title:"Stacking",zh:"模型堆疊",total:9},"1.7":{title:"Further Modeling Topics",zh:"其他進階建模主題",total:50}};
 const EXPECTED_COUNTS=[10];
 const FIRST_IDS=["s111"];
 const SESSION_PREFIX="hanami-kyoto-google-token-v3";
@@ -179,17 +179,31 @@ function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
  const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 10／211 小節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
-   const details=document.createElement("details");details.className="toc-group";details.open=true;
+   const chapterLessons=lessons.filter(sec=>sec.dataset.num.startsWith(chapter+"."));
+   const details=document.createElement("details");details.className="toc-group";
+   details.open=chapterLessons.length>0;
+   if(!chapterLessons.length)details.classList.add("toc-pending");
    const summary=document.createElement("summary");
    const num=document.createElement("span");num.className="group-num";num.textContent=chapter;
-   const label=document.createElement("span");label.className="group-label";label.textContent=meta.zh;
+   const label=document.createElement("span");label.className="group-label";
+   label.textContent=meta.zh;
    summary.append(num,label);
+   if(!chapterLessons.length){
+     const status=document.createElement("span");status.className="pending-label";
+     status.textContent="待製作 · "+meta.total+" 小節";
+     summary.append(status);
+     const note=document.createElement("p");note.className="pending-detail";
+     note.textContent="原書 "+meta.title+"（"+meta.total+" 個編號小節）將依章節順序補進同一頁面。";
+     details.append(summary,note);
+     toc.append(details);
+     continue;
+   }
    const links=document.createElement("div");links.className="toc-links";
    const sectionHead=document.createElement("a");sectionHead.className="toc-chapter-link";
    sectionHead.href="#chapter"+chapter.replace(".","");
    sectionHead.textContent="↳ "+meta.zh;
    links.append(sectionHead);
-   lessons.filter(s=>s.dataset.num.startsWith(chapter+".")).forEach(sec=>{
+   chapterLessons.forEach(sec=>{
      const a=document.createElement("a");a.href="#"+sec.id;a.className="toc-link";a.dataset.id=sec.id;
      a.dataset.en=sec.querySelector("header h2")?.textContent||"";
      a.dataset.zh=sec.querySelector(".zh-heading")?.textContent||a.dataset.en;
