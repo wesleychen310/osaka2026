@@ -126,3 +126,12 @@
 - **三個站的 JS cache rev**：`reading-anchor2`（如再次調整程式碼必須更新 query 版本避免手機快取舊程式）。
 - **驗證範圍**：三份 JS 已通過靜態語法檢查、四種按鈕仍保留。Chromium 以自建 140 節長文模擬桌面 1280×850 與 iPhone 尺寸 390×844，連續切換 `en → zh → vertical → parallel → en → vertical`，選定的同一段落始終維持在可視範圍。**尚未在使用者真實 Google OAuth 私人教材的 Safari／iPhone 上完成端對端驗收**。
 - **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
+
+## 2026-10-14｜最新批次 §1.3.1–§1.3.10 Linear Mixed Models
+- **最新完成 41／211 個編號小節**：1.1 10、1.2 21、1.3 前 10。§1.3 全章 29 節（官方 p.41–71），下次從 **§1.3.11 Random Intercepts Model** 續做，直到 §1.3.29 Bühlmann–Straub Credibility／Exercise 3.3.3。
+- 來源官方合併 PDF 頁 373–384（1-based），Module 3 p.41–52，包含 §1.3.10 Knowledge Check 第 50–52 頁跨頁題目／回饋。**只完成前 10 節，請勿宣稱 1.3 全章完成**。
+- 最新來源：私人 Drive `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`、`ATPA_Module_3_1.3.1-1.3.10_私人雙語教材.html`，folder `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，text/html，944,492 bytes，SHA256 `d186edf4c4008e5e877ce66e5aef0e3ce54c6711d73a194e36525e82a4db9ac9`。10 節、10 組原文／繁中教學配對、12 張 PDF 原頁圖、10 tutor notes、30 Reusable English。
+- 品質界線：本批英語來源文字以 PyMuPDF 直接擷取、保留原始資料與 Knowledge Check 跨頁內容；中文為逐節詳解及精算應用，**尚未逐段逐句翻譯核對**，後續需加細分段。圖像保留公式／原始資料表完整頁；外部 Rmd、CSV 尚未取得或執行。
+- GitHub `learning/atpa-modules/module3/module3.js` 增加 `SOURCE["3:3"]`、`EXPECTED_COUNTS=[10,21,10]`、`FIRST_IDS=["s111","s121","s131"]`、總 guard 41。四閱讀模式及同段捲動保留；首頁 JS 快取版本 `20261014-sec13-10-position2`。
+- 閱讀 https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s131 ，需具名帳號 OAuth。下一批製作時沿用本檔與現有 source，不要重做 §1.3.1–1.3.10。
+
