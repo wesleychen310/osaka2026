@@ -1,6 +1,6 @@
 # SOA ATPA Module 2 — Working with Data｜私人雙語教材
 
-版本：2026-10-14 · 最新完成進度 **210／223 小節（94.2%）**，§1.1–§1.6 完整接入私人閱讀站；下次從 §1.7.1 繼續。
+版本：2026-10-14 · 最新完成進度 **223／223（100% 編號小節均已接入）**；§1.1–§1.7 的官方主 PDF 內容均已納入網站。外部案例附件仍待取得與執行。
 
 ## 官方使用入口
 
@@ -172,3 +172,34 @@
 - **尚待端對端驗收**：GitHub Pages CDN 立即可用性、使用者 Google OAuth、iPhone/iPad/Mac 四模式渲染及滾動效能（新增約 1.2 MB 原稿）、各圖像放大效果、複選/單選題與可展開區塊。静態校驗不等於真正使用者裝置驗收。
 - **下一批**：§1.7 Case Studies，原書 p.245–257，共 **13 個編號小節**；製作後更新網站 `SOURCE["2:13"]`、`CHAPTERS["1.7"]`、`EXPECTED_COUNTS` 和 `FIRST_IDS`，合計應 **223 個**。請完整保留兩個原書 Case Studies、所有官方題幹與 Sample Answers，並清楚區分原書解答與另外提供的精算教師解析。
 - **交接紀律**：每次完成同步修改此檔、`learning/atpa-modules/README.md`、`learning/README.md`、根 `README.md`。修改既有 Drive 私人 HTML 前先建立 `_backup` 時間戳備份、保留原 file ID 與權限。新來源繼續只放 Google Drive。
+
+
+## 2026-10-14 最新交接｜§1.7 Case Studies 完成；Module 2 共 223／223 編號小節
+
+**本段為目前最新有效的進度紀錄。** 先前出現的 50／74／144／160／181／210 節進度為歷史記錄，皆已由本批 223 節狀態取代。
+
+### 正式網址、進度與來源
+
+- **私人雙語閱讀網址**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s171 。維持單一長頁、固定左側／手機章節目錄。
+- **SOA ATPA Module 2 官方 2023-04-06 主 PDF**：原書總 259 頁。§1.7 Case Studies 位於印刷 p.245–259（其中 §1.7.13 Bibliography 跨 p.257–259），在本專案 `ATPA_Official_Modules_1-4_Combined(1).pdf` 中為 0-based pages **317–331**（Module 2 p.1=combined index 73）。
+- **最終合計**：§1.1 36 + §1.2 38 + §1.3 70 + §1.4 16 + §1.5 21 + §1.6 29 + §1.7 13 = **223／223 個編號小節**。此數字指官版主教材的小節已納入網站，**不等於案例附件 ZIP／PDF／Rmd 已全數取得、實際運算或中文逐句校對完成**。
+- **本批新私人檔案**：Google Drive `1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ`，檔名 `ATPA_Module_2_1.7.1-1.7.13_私人雙語教材.html`，parent `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`；`text/html`；**1,324,402 bytes**；SHA256 `e947f83679a29c23fadf103fdf439acd6220e9c96caead6379e621ebb643ff1e`。Google Drive metadata 讀回為 owner 與具名 reader 權限，沒有 anyone/domain。
+- **內容驗收**：13／13 `section.lesson` 與連續 `s171`–`s1713`；15 組 `.pair`（13 節，其中最後 Bibliography 3 頁）；13 張 teacher notes；39 個精算實務英文語塊（每節 3 個）；9 張直接從使用者上傳原 SOA PDF 擷取的原頁 JPG，內嵌私有 HTML；8 組原書外部連結。PyMuPDF `get_text(sort=True)` 在移除每頁統一頁眉與頁碼後，與存入 HTML 的全部 **15／15 英文來源區塊完全一致**，其中含 bibliography p.257／258／259 三頁。
+- **網站程式**：`learning/atpa-modules/module2/module2.js` 的 `SOURCE["2:13"]` 指向新 Drive ID，`CHAPTERS["1.7"] = Case Studies／案例研究`，`EXPECTED_COUNTS=[12,19,5,14,14,10,20,20,30,16,21,29,13]`，`FIRST_IDS` 最末為 `s171`，總節數 guard = 223 unique section IDs。 `module2/index.html` 的 JS/CSS cache rev `20261014-module2-complete`。保留 4 模式（全英文、全中文、上中文下英文、左英文右中文），預設上中文下英文，使用者模式記錄共用 `localStorage`。
+- **GitHub 公開倉庫保護**：主 PDF 英文全文、翻譯、練習及官方截圖僅儲存於具名授權 Drive HTML；公開倉庫只更新來源 fileId、HTML shell、JS/CSS 和這份 README。
+
+### 案例及官方答案的完整性界線
+
+- **案例 1｜Website Visit Duration (§1.7.3–1.7.6)**：原書主 PDF 的案例敘述與 §1.7.4 提供的 **3 項官方解答** 已完整保留：重現可能性對 outliers 的影響、target leakage、依用途考量 fairness；§1.7.5 的資料準備溝通任務完整保留。原書附檔 `atpa_2_7_cs11.pdf` 詳細題目、`atpa_2_7_cs12.pdf` Sample Report，以及 `atpa_2_7_1_r.rmd`／Python Rmd **尚未取得**。
+- **案例 2｜Chiropractic Visits (§1.7.7–1.7.12)**：§1.7.7 的 NSC 完整情境（questionnaire.csv、visits.xml、2015–2018 年逐次訪次、2018 年 target）、§1.7.8 官方 A–G 七項資料問題，以及 §1.7.10 **6 項官方資料處理決定**（延長／重新預約比例、以 2017 年訪次作前期特徵、340 人中 5 人約 1.4% 年分不一致、surgery 缺值補否、why_visit 多個 0/1、how_heard 合併為 referral/radio ad/internet search/other）均保留原文與繁中詳解。原書 `atpa_2_7_2_r.rmd`／Python Rmd、`atpa_2_7_cs23.pdf` Sample Report、個案 CSV/XML 原始檔 **尚未取得及執行**。
+- **官方 source link 限制**：原書 §1.7.2 明載 `2.7_case_studies.zip`，但合併 PDF 的該段 [BEGIN LINK] 不合邏輯地指向前一節 DBSCAN 部落格；網站以註記明確揭露，不虛構 ZIP 的正確下載網址。其他 SOA CDN 連結依 PDF 原文保留，但目前網路讀取未成功，**不得宣稱那些外部附件已被併入網站或完成外部 Rmd 的計算結果**。
+- **§1.7.13** 原書 bibliography 的 p.257–259 全部引文與排版文字保留在原文，中文另外按原書順序逐筆說明用途。原書誤植 `Module 4 Learning Objectives` 仍原樣保留，並於教師卡註記。
+- **考試作答價值**：對觀測單位、資料年度、前期 predictor、資料內部一致性、imputation、類別變數重新編碼、outliers、target leakage，以及以 actuarial memo 表達資料清理理由，均有逐節中文教學卡與 3 組可直接套用的英文語塊。
+- **驗收限制**：已核對原書英文文字層、HTML 章節結構、Drive metadata 權限與 GitHub 程式碼靜態語法。Google OAuth 以擁有存取權的真實使用者登入後完整載入、手機／桌面四模式實際版面、9 張原書截圖呈現、原書外部資料實際程式運行、英文附件完整內容與中文逐句人工複校 **仍待完成**。
+
+### 後續維護次序（核心工作）
+
+1. **實機驗收**：請使用者持有 Drive 讀取權的 Google 帳號開啟正式網頁，驗證 223 段、左側目錄 §1.7.1–§1.7.13、四模式，尤其 `#s171`、`#s178`、`#s1713`。若 Google 授權失效、載入時間過長、iPhone 字太小，按實際反饋修復。
+2. **取得未隨 PDF 附上的 SOA 官方案例資料／範例報告／Rmd**，逐筆確認原書連結現況後保存在受限 Drive，不擅自上傳 GitHub。取得後可擴充 §1.7.3/§1.7.4/§1.7.6/§1.7.7/§1.7.10/§1.7.12，區分官方來源和教師分析。任何原私有檔案修改先做 `_backup` 時間戳備份並保留原 ID、路徑、權限。
+3. **深度翻譯校稿／可執行程式**：本批英文原文逐頁驗證通過；中文已逐節詳解但尚可進一步改成逐段更細的原文－譯文對位。官方附件未取得前不編造結果；原書及範例實作獨立版本控制。
+4. 更新本 README 及 `learning/atpa-modules/README.md`、`learning/README.md`、根 `README.md`。凡與上方歷史紀錄有衝突，以最新本段及 GitHub／Drive 即時狀態為準。
