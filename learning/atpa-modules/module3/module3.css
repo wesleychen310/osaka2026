@@ -39,3 +39,22 @@ html[data-reading-mode=parallel] #study-content .pdf-source-translation{grid-col
 #chapter-sidebar .pending-label{margin-left:auto;font-size:11px;font-weight:650;color:#758895;white-space:nowrap}
 #chapter-sidebar .pending-detail{padding:0 15px 13px;margin:0;color:#637987;font-size:12px;line-height:1.55}
 @media(max-width:490px){#chapter-sidebar .pending-label{font-size:10px}}
+
+/* §1.3: official PDF page images, formula/callout legibility and source overlays */
+#study-content .source-page-figure{margin:13px 0 20px;padding:0;border:1px solid #dee7ec;border-radius:10px;overflow:hidden;background:#fff}
+#study-content .source-page-figure>summary{cursor:pointer;padding:12px 15px;font-size:13px;font-weight:700;color:#385c71;line-height:1.6}
+#study-content .source-page-figure[open]>summary{border-bottom:1px solid #dee7ec}
+#study-content .source-page-figure .source-figure{margin:0;padding:12px 8px;border:0;border-radius:0}
+#study-content .calc-reference{background:#f6f8fa;border:1px solid #cddce5}
+#study-content .chapter-quiz{margin:20px 0;padding:14px 12px;border:1px solid #dee7ee;border-radius:9px}
+#study-content .chapter-quiz>h3{margin:0 0 16px;color:#2b536d;font-size:17px}
+#study-content .chapter-quiz>.knowledge-check{padding:11px 0;margin-bottom:13px;border-bottom:1px solid #e4e9ec}
+#study-content .chapter-quiz>.knowledge-check>h4{margin:0 0 10px;font-size:15px;line-height:1.65}
+#study-content .chapter-quiz .quiz-option .pair>.original{font-size:15px}
+#study-content .chapter-quiz .quiz-option .pair>.translation{font-size:15px}
+@media(max-width:540px){
+ #study-content .source-page-figure>summary{font-size:12.5px;padding:10px}
+ #study-content .chapter-quiz{padding:11px 8px}
+ html[data-reading-mode=vertical] #study-content .chapter-quiz .quiz-option .pair>.original,
+ html[data-reading-mode=vertical] #study-content .chapter-quiz .quiz-option .pair>.translation{font-size:16px}
+}
