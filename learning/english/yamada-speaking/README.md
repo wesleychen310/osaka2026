@@ -1,5 +1,20 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-14｜第 7 批結案：SCENE 043–052 完整教材與三 STEP Prompt（最新）
+
+**完整課程：52／100；本批 10／10 課完成檔案交付和程式靜態驗收。**
+
+- 私人雙語課文：`Yamada_Speaking_SCENE043-052_TEXT_ONLY_v2.html`，Google Drive ID `1HO-aSqALcN0ZmIfAASLD-Yk0DCM5X0Y-`；原始增量教材及既有 SCENE 001–042 正本保留，不在公開 GitHub 暴露教材全文。網站從私人 Google Drive 登入後讀取英日、英中內容；上下與左右對照各自完整保留英文。
+- **30 份日文 Prompt + 30 份繁中直譯**：SCENE 043–052 每課 STEP 1／2／3，來源資料夾 `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB`。前 15 份（043–047）已在 Drive 並以先前 QA 檔 SHA-256 再比對；本次重建後五課（048–052）缺少的 15 份譯稿，並全部新增到同一私人資料夾。
+- QA：**30／30 份在 Drive 讀回與本地成品逐位元一致**；逐份日中行數相同，合計 **5,312 行**；2,760 行不含日文字元的原文行未更改；253 行含 IPA 發音符號的原文與譯稿對應檢查通過；0 筆漏譯假名及格式違規。練習觸發詞 `レッツスタート` 按原文保留。2026-10-14 本次 QA 紀錄 Drive ID `10avRboMA70qUHLU8F0K4a98DMhFHjuN3`（`SCENE043-052_Final_QA_20261014.csv`）。
+- 網站：新增公開控制器 `scene-batch07.js`，僅儲存 60 個受限 Drive 原稿／譯稿 ID，不存放 Prompt 內容。支援 STEP 1–3 切換、完整 Prompt 複製、日中逐行對照、ChatGPT 開啟方式；`index.html` 已載入新控制器並更新版本；`reader.js` 完成度顯示 SCENE 001–052。
+- 本地來源驗證：私人 HTML 五份合併後，共 52 個連續、不重複的場景 ID；本批十課皆有原文英文、繁體中文說明和三 STEP 內容。GitHub JavaScript 語法與 Manifest 資料配置待讀回最終確認。
+- **驗收限制**：Google OAuth 正式登入、GitHub Pages CDN 實際載入、iPhone/iPad/Mac Safari 及朗讀互動尚未端到端測試；不將其列為已通過。
+- **下一批**：SCENE 053–062，十課英文原文／日文與繁體中文、30 份完整 Prompt，來源與譯稿均須留存私人 Drive，完成 QA 再更新網站。
+
+---
+
+
 ## 2026-10-14｜第 6 批完全結案：SCENE 033–042 三 STEP Prompt（最新）
 
 **完成情形：完整課程達 42／100，雙語課文與完整 STEP 1–3 口說練習及對照，皆至 SCENE 042。**
