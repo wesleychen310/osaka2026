@@ -135,9 +135,12 @@ function diagonalClone(original){
  el.lang="en";
  el.setAttribute("aria-label","完整英文原文，語義模塊階梯式排版");
  const raw=original.textContent;
- const chunks=(original.classList.contains("pdf-source-original")&&
-                 (/^\s*(?:CHUNK\b|(?:library|import|from)\s+|\{|\[)/m.test(raw)))
-               ?[raw]:semanticSegments(raw);
+ const lines=raw.split("\n");
+ const codeLines=lines.filter(line=>/^\s*(?:library\(|(?:print|head|summary)\(|def |import |from \w+ import |<\?xml|<\/?[\w-]+>|(?:[\w.]+\s*(?:<-|=)\s*(?:function|\w+\())|\{\s*$)/.test(line)).length;
+ // Preserve visually sensitive code blocks as one preformatted chunk.
+ const preserveCode=original.classList.contains("pdf-source-original")&&
+                    codeLines>Math.max(7,Math.floor(lines.length*.35));
+ const chunks=preserveCode?[raw]:semanticSegments(raw);
  chunks.forEach((chunk,i)=>{
    const span=document.createElement("span");
    span.className="semantic-chunk depth-"+Math.min(4,i%5);
@@ -147,18 +150,44 @@ function diagonalClone(original){
  return el;
 }
 function extractSentence(text,limit=210,lang="en"){
- const cleaned=text.replace(/\s+/g," ").trim();
+ let raw=text.replace(/\r/g,"");
+ // SOA PDF source sometimes contains printer-layer component labels. Strip
+ // these only from the derived summary, never from the original manuscript.
+ if(lang==="en"){
+   raw=raw.replace(/\bComponent Table\d+\b/gi," ")
+     .replace(/^\s*(?:Type|Title|Header|Footer)\s+(?:Panel|Callout|Panel Footer|Module \d+ Learning Objectives)?\s*$/gmi," ")
+     .replace(/^\s*Content\s*$/gmi," ")
+     .replace(/^\s*(?:Section\s+\d+(?:\.\d+)?\s+Learning Objective|Case Studies)\s*$/gmi," ")
+     .replace(/^\s*\[BEGIN LINK[^\n]*/gmi," ")
+     .replace(/^\s*\[END LINK\]\s*$/gmi," ")
+     .replace(/[●•]/g," ");
+ }
+ const cleaned=raw.replace(/\s+/g," ").trim();
  if(!cleaned)return "";
  const segments=cleaned.split(/(?<=[.!?。！？])\s+/);
- const usable=segments.filter(x=>x.length>=12&&!/^([\[<]|Component Table|Content\b|Footer\b|Header\b|[=#{}])/i.test(x));
- const chosen=(usable.find(x=>x.length>=35&&x.length<=limit+65)||
-               usable.find(x=>x.length>=15)||segments[0]||"").trim();
+ const good=segments.map((value,index)=>({value:value.trim(),index}))
+   .filter(x=>x.value.length>=12&&!/^(?:[\[<]|(?:Content|Footer|Header|Title|Type)\b|[=#{}])/i.test(x.value));
+ const score=x=>{
+   const v=x.value;
+   let pts=0;
+   if(v.length>35&&v.length<limit+75)pts+=4;
+   if(v.length>limit+120)pts-=5;
+   if(/\b(?:data|dataset|model|variable|predict|database|record|join|missing|imput|table|file|quality|validation|value|sample|coding|structure|workflow|filter)\b/i.test(v))pts+=3;
+   if(/\b(?:is|are|can|should|could|allows|need|used|using|contains|provide|requires|define|applied|identify|calculate|helps)\b/i.test(v))pts+=2;
+   if(/\b(?:Component Table|Panel|CHUNK \d+|BEGIN LINK|END LINK|Footer|Header)\b/i.test(v))pts-=12;
+   if(/(?:https?:\/\/|\.csv\b|www\.|\{|\}|\[\[)/i.test(v))pts-=3;
+   if(/^\d+(?:\.\d+){1,3}\s/.test(v))pts-=3;
+   pts-=Math.min(4,x.index*.2);
+   return pts;
+ };
+ good.sort((a,b)=>score(b)-score(a)||a.index-b.index);
+ const chosen=(good[0]?.value||segments.find(x=>x.trim())||"").trim();
  if(chosen.length<=limit)return chosen;
  const breaker=lang==="zh"?/[。！？；]/:/[.!?;]/;
- const ix=chosen.slice(0,limit+30).search(breaker);
+ const ix=chosen.slice(0,limit+35).search(breaker);
  if(ix>=35)return chosen.slice(0,ix+1);
- const words=chosen.slice(0,limit+15),end=words.lastIndexOf(lang==="zh"?"，":" ");
- return words.slice(0,end>60?end:limit).trim()+"…";
+ const end=chosen.slice(0,limit+10).lastIndexOf(lang==="zh"?"，":" ");
+ return chosen.slice(0,end>70?end:limit).trim()+"…";
 }
 function makeSummary(original,translation,section){
  const pane=document.createElement("aside");pane.className="reading-view reading-summary";
