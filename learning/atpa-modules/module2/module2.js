@@ -19,6 +19,7 @@ const SOURCE={
  "2:13":{fileId:"1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ",module:"2",part:"13",label:"1.7.1–1.7.13",sourcePages:"245–259",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
+document.body.dataset.atpaModule="2";
 const params=new URLSearchParams(location.search);
 const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="2";
@@ -69,10 +70,167 @@ function cleanSource(doc){
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","zh","vertical","parallel"];
+const DISPLAY_MODES=["en","annotated","vertical","triple"];
 const DISPLAY_KEY="atpa-modules-reading-mode-v3";
+
+/* PRIVATE-SOURCE READING LAYERS: All English and translated Chinese remain
+   in the original Google Drive HTML. These are display-only, reversible
+   derivatives generated after the existing source-pair QA succeeds. */
+const STUDY_GLOSSARY=[["extract, transform, and load","擷取、轉換、載入"],["exploratory data analysis","探索性資料分析"],["data validation","資料驗證"],["data transformation","資料轉換"],["data cleaning","資料清理"],["data pipeline","資料管線"],["data warehouse","資料倉儲"],["data lake","資料湖泊"],["relational database","關聯式資料庫"],["database management","資料庫管理"],["data quality","資料品質"],["data integrity","資料完整性"],["data dictionary","資料字典"],["data structure","資料結構"],["data frame","資料框架"],["data types","資料型別"],["structured data","結構化資料"],["unstructured data","非結構化資料"],["semi-structured data","半結構化資料"],["nested data","巢狀資料"],["primary key","主鍵"],["foreign key","外鍵"],["unique identifier","唯一識別碼"],["key variables","鍵值變數"],["data source","資料來源"],["missing completely at random","完全隨機缺失"],["missing not at random","非隨機缺失"],["missing at random","隨機缺失"],["missing values","缺失值"],["missing value","缺失值"],["missingness","缺失機制"],["imputation","缺失值插補"],["multiple imputation","多重插補"],["mean imputation","平均值插補"],["median imputation","中位數插補"],["reasonability checks","合理性檢查"],["reasonableness checks","合理性檢查"],["reasonability check","合理性檢查"],["outlier detection","離群值偵測"],["outliers","離群值"],["extreme values","極端值"],["multicollinearity","多重共線性"],["target leakage","目標洩漏"],["data leakage","資料洩漏"],["sampling bias","抽樣偏差"],["selection bias","選擇偏差"],["feature engineering","特徵工程"],["dimension reduction","維度縮減"],["predictor variables","預測變數"],["predictor variable","預測變數"],["target variable","目標變數"],["response variable","反應變數"],["categorical variables","類別變數"],["numeric variables","數值變數"],["continuous variables","連續變數"],["binary variables","二元變數"],["logical variables","邏輯變數"],["factor variables","因子變數"],["duplicate records","重複紀錄"],["duplicate observations","重複觀測"],["data merging","資料合併"],["merge datasets","合併資料集"],["left outer join","左外部連接"],["right outer join","右外部連接"],["full outer join","完全外部連接"],["left join","左連接"],["right join","右連接"],["inner join","內連接"],["outer join","外連接"],["cross join","交叉連接"],["many-to-many","多對多"],["one-to-many","一對多"],["one-to-one","一對一"],["join key","連接鍵值"],["join method","連接方法"],["SQL query","SQL 查詢"],["query results","查詢結果"],["aggregation","彙總"],["group by","依群組彙整"],["filtering","篩選"],["sorting","排序"],["transformation","轉換"],["normalization","正規化"],["standardization","標準化"],["one-hot encoding","獨熱編碼"],["dummy variables","虛擬變數"],["training data","訓練資料"],["test data","測試資料"],["train-test split","訓練／測試資料切分"],["cross-validation","交叉驗證"],["predictive modeling","預測建模"],["predictive model","預測模型"],["statistical model","統計模型"],["observations","觀測值"],["variables","變數"],["distribution","分布"],["quantiles","分位數"],["percentiles","百分位數"],["median","中位數"],["mean","平均數"],["variance","變異數"],["standard deviation","標準差"],["interquartile range","四分位距"],["frequency table","次數分配表"],["contingency table","列聯表"],["conditional probability","條件機率"],["conditional distribution","條件分布"],["data collection","資料蒐集"],["data preparation","資料準備"],["data manipulation","資料操作"],["data extraction","資料擷取"],["raw data","原始資料"],["business objective","商業目標"],["business problem","商業問題"],["domain knowledge","領域知識"],["model performance","模型表現"],["model accuracy","模型準確度"],["policyholders","保戶"],["policyholder","保戶"],["underwriting","核保"],["mortality","死亡率"],["lapse rates","脫退率"],["claim frequency","理賠頻率"],["claim severity","理賠金額嚴重度"],["claims data","理賠資料"],["character encoding","字元編碼"],["file format","檔案格式"],["delimiter","分隔符號"],["comma-separated values","逗號分隔值"],["working directory","工作目錄"],["relative path","相對路徑"],["absolute path","絕對路徑"],["read the data","讀取資料"],["load the data","載入資料"],["convert the data","轉換資料"],["check the data","檢查資料"],["data types","資料型別"],["tidy data","整齊資料"],["missing observations","缺失觀測值"],["random sampling","隨機抽樣"],["potential bias","潛在偏差"],["is associated with","與……相關"],["holding other variables constant","其他變數固定下"],["subject to","受……限制"],["with respect to","就……而言"],["take into account","納入考量"],["based on","根據"],["in order to","為了"],["result in","導致"],["consists of","由……組成"],["is likely to","可能會"],["should be considered","應予考量"],["could be used to","可用於"],["may indicate","可能顯示"],["be used to predict","用來預測"],["different from","與……不同"],["in contrast","相較之下"]];
+const STUDY_MAP=new Map(STUDY_GLOSSARY.map(([en,zh])=>[en.toLowerCase(),zh]));
+const STUDY_RX=new RegExp(STUDY_GLOSSARY.map(x=>x[0]).sort((a,b)=>b.length-a.length).map(x=>x.replace(/[.*+?^$\{\}()|[\]\\]/g,"\\function prepareBilingualLabels(){")).join("|"),"gi");
+function annotateTextInto(node,text){
+ if(!text)return;
+ STUDY_RX.lastIndex=0;
+ let i=0,m,count=0;
+ while((m=STUDY_RX.exec(text))&&count<20){
+   const j=m.index, k=j+m[0].length, left=j>0?text[j-1]:"",right=k<text.length?text[k]:"";
+   if((left&&/[A-Za-z]/.test(left))||(right&&/[A-Za-z]/.test(right)))continue;
+   node.appendChild(document.createTextNode(text.slice(i,j)));
+   const mark=document.createElement("strong");mark.className="learning-mark";mark.textContent=m[0];node.appendChild(mark);
+   const gloss=document.createElement("span");gloss.className="learning-gloss";gloss.lang="zh-Hant";gloss.textContent="（"+STUDY_MAP.get(m[0].toLowerCase())+"）";node.appendChild(gloss);
+   i=k;count++;
+ }
+ node.appendChild(document.createTextNode(text.slice(i)));
+}
+function annotatedClone(original){
+ const clone=original.cloneNode(true);
+ clone.className="reading-view reading-annotated"+(original.classList.contains("pdf-source-original")?" pdf-source-original":"");
+ clone.removeAttribute("id");
+ clone.setAttribute("lang","en");
+ const walker=document.createTreeWalker(clone,NodeFilter.SHOW_TEXT),nodes=[];
+ while(walker.nextNode())nodes.push(walker.currentNode);
+ for(const textNode of nodes){
+   const p=textNode.parentElement;
+   if(!p||p.closest("pre,code,a,script,style,svg,math,textarea"))continue;
+   if(!textNode.nodeValue.trim())continue;
+   const before=textNode.nodeValue,frag=document.createDocumentFragment();
+   annotateTextInto(frag,before);
+   textNode.replaceWith(frag);
+ }
+ return clone;
+}
+/* Delimiters are retained verbatim. Prefix whitespace is never normalized,
+   so concatenating all semantic chunks restores original.textContent. */
+function semanticSegments(text){
+ if(!text)return [""];
+ const result=[];let last=0;
+ for(let i=0;i<text.length;i++){
+   const c=text[i], next=text[i+1]||"",len=i-last;
+   const boundary=(c==="\n"&&next==="\n"&&len>25)||
+      (/[.!?;:]/.test(c)&&/[ \n\t]/.test(next)&&len>52)||
+      (c===","&&/[ \n\t]/.test(next)&&len>95);
+   if(boundary&&result.length<140){
+     let end=i+1;
+     while(end<text.length&&/[ \t]/.test(text[end]))end++;
+     result.push(text.slice(last,end));last=end;i=end-1;
+   }
+ }
+ if(last<text.length)result.push(text.slice(last));
+ return result.length?result:[text];
+}
+function diagonalClone(original){
+ const el=document.createElement("div");
+ el.className="reading-view reading-diagonal";
+ el.lang="en";
+ el.setAttribute("aria-label","完整英文原文，語義模塊階梯式排版");
+ const raw=original.textContent;
+ const chunks=(original.classList.contains("pdf-source-original")&&
+                 (/^\s*(?:CHUNK\b|(?:library|import|from)\s+|\{|\[)/m.test(raw)))
+               ?[raw]:semanticSegments(raw);
+ chunks.forEach((chunk,i)=>{
+   const span=document.createElement("span");
+   span.className="semantic-chunk depth-"+Math.min(4,i%5);
+   annotateTextInto(span,chunk);
+   el.appendChild(span);
+ });
+ return el;
+}
+function extractSentence(text,limit=210,lang="en"){
+ const cleaned=text.replace(/\s+/g," ").trim();
+ if(!cleaned)return "";
+ const segments=cleaned.split(/(?<=[.!?。！？])\s+/);
+ const usable=segments.filter(x=>x.length>=12&&!/^([\[<]|Component Table|Content\b|Footer\b|Header\b|[=#{}])/i.test(x));
+ const chosen=(usable.find(x=>x.length>=35&&x.length<=limit+65)||
+               usable.find(x=>x.length>=15)||segments[0]||"").trim();
+ if(chosen.length<=limit)return chosen;
+ const breaker=lang==="zh"?/[。！？；]/:/[.!?;]/;
+ const ix=chosen.slice(0,limit+30).search(breaker);
+ if(ix>=35)return chosen.slice(0,ix+1);
+ const words=chosen.slice(0,limit+15),end=words.lastIndexOf(lang==="zh"?"，":" ");
+ return words.slice(0,end>60?end:limit).trim()+"…";
+}
+function makeSummary(original,translation,section){
+ const pane=document.createElement("aside");pane.className="reading-view reading-summary";
+ pane.setAttribute("aria-label","英文重點摘錄與既有中文譯文摘錄");
+ pane.dataset.method="source-extractive";
+ const en=document.createElement("p");en.className="summary-en";en.lang="en";
+ const zh=document.createElement("p");zh.className="summary-zh";zh.lang="zh-Hant";
+ const raw=original.textContent;
+ const english=extractSentence(raw,240,"en");
+ const chinese=extractSentence(translation.textContent,130,"zh");
+ en.textContent=english||section.querySelector("header h2")?.textContent||"";
+ zh.textContent=chinese||section.querySelector("header .zh-heading")?.textContent||"";
+ pane.append(en,zh);return pane;
+}
+function prepareEnhancedViews(){
+ const article=$("study-content");
+ const pairs=[...article.querySelectorAll(".pair")];
+ if(!pairs.length)throw new Error("無法建立精讀檢視：找不到雙語段落。");
+ let enhanced=0;
+ for(const pair of pairs){
+   const original=pair.querySelector(":scope>.original"),
+         translation=pair.querySelector(":scope>.translation");
+   if(!original||!translation)throw new Error("原文或 Work 譯文缺失。");
+   if(pair.querySelector(":scope>.reading-annotated"))continue;
+   const anot=annotatedClone(original);
+   const diag=diagonalClone(original);
+   const summary=makeSummary(original,translation,pair.closest(".lesson"));
+   // Test unaltered source text, preserving all whitespace and original punctuation.
+   const withoutGloss=el=>{
+     const c=el.cloneNode(true);c.querySelectorAll(".learning-gloss").forEach(g=>g.remove());return c.textContent;
+   };
+   if(withoutGloss(anot)!==original.textContent||withoutGloss(diag)!==original.textContent)
+     throw new Error("英文完整性驗證失敗："+(pair.closest(".lesson")?.dataset.num||"未知"));
+   pair.append(anot,diag,summary);enhanced++;
+ }
+ for(const section of article.querySelectorAll("section.lesson")){
+   const header=section.querySelector(":scope>header");
+   const h2=header?.querySelector(":scope>h2");
+   if(h2&&!header.querySelector(".reading-heading")){
+     const heading=document.createElement("h2");
+     heading.className="reading-view reading-heading";heading.lang="en";
+     annotateTextInto(heading,h2.textContent);
+     h2.after(heading);h2.classList.add("replaced-by-reading");
+   }
+ }
+ for(const heading of article.querySelectorAll("h3,h4")){
+   if(heading.classList.contains("reading-view")||
+      heading.closest(".translation,.original,.reading-annotated,.reading-diagonal,.reading-summary"))continue;
+   if(heading.nextElementSibling?.classList.contains("reading-heading"))continue;
+   if(!heading.textContent.includes("／"))continue;
+   const clone=document.createElement(heading.tagName.toLowerCase());
+   clone.className="reading-view reading-heading";clone.lang="en";
+   annotateTextInto(clone,heading.textContent.split("／")[0].trim());
+   heading.after(clone);heading.classList.add("replaced-by-reading");
+ }
+ // Enrich source tab summaries without altering their original content.
+ for(const summary of article.querySelectorAll(".source-tabs > details > summary")){
+   if(summary.querySelector(".reading-tab-label"))continue;
+   const base=document.createElement("span");base.className="source-tab-base";
+   while(summary.firstChild)base.appendChild(summary.firstChild);
+   const english=document.createElement("span");english.className="reading-view reading-tab-label";
+   english.lang="en";english.textContent=base.textContent.split("／")[0].trim();
+   summary.append(base,english);
+ }
+ // Only derivatives are unhidden; original pair data are never rewritten.
+ article.querySelectorAll(".reading-view").forEach(el=>el.removeAttribute("hidden"));
+ article.dataset.enhancedPairs=String(pairs.length);
+}
+
 function prepareBilingualLabels(){
  document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(node=>{
+   if(node.classList.contains("reading-view")||node.querySelector(".reading-tab-label"))return;
    const original=node.dataset.origFull||node.textContent;
    if(!node.dataset.origFull)node.dataset.origFull=original;
    if(node.classList.contains("stacked-bilingual-label")||!original.includes("／"))return;
@@ -89,7 +247,7 @@ function prepareBilingualLabels(){
  });
 }
 function preferredReadingMode(){
- try{const saved=localStorage.getItem(DISPLAY_KEY);return DISPLAY_MODES.includes(saved)?saved:"vertical"}
+ try{const saved=localStorage.getItem(DISPLAY_KEY);const legacy={zh:"annotated",parallel:"triple",tap:"vertical"};const next=legacy[saved]||saved;return DISPLAY_MODES.includes(next)?next:"vertical"}
  catch(_){return "vertical"}
 }
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
@@ -172,7 +330,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  });
  document.querySelectorAll("#toc .toc-link").forEach(link=>{
    const title=link.querySelector(".toc-label");
-   if(title)title.textContent=selected==="en"?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
+   if(title)title.textContent=(selected==="en"||selected==="annotated")?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
  });
  try{localStorage.setItem(DISPLAY_KEY,selected)}catch(_){}
  function finish(){
@@ -234,7 +392,7 @@ window.addEventListener("resize",()=>{if(window.innerWidth>800&&document.body.cl
 
 /* Knowledge Check UI is created after sanitization; no questions/answers live in the public repository. */
 function activateQuizzes(){
- const isEnglish=()=>document.documentElement.dataset.readingMode==="en";
+ const isEnglish=()=>["en","annotated"].includes(document.documentElement.dataset.readingMode);
  document.querySelectorAll("#study-content .knowledge-check").forEach((quiz,qIndex)=>{
    if(quiz.dataset.enhanced==="true")return;
    quiz.dataset.enhanced="true";
@@ -381,10 +539,12 @@ function mountAll(texts){
  }
  article.replaceChildren(frag);
  allLessons=[...article.querySelectorAll("section.lesson")];
+ prepareBilingualLabels();
+ prepareEnhancedViews();
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
- prepareBilingualLabels();
+ 
  applyReadingMode(preferredReadingMode(),false);
  activateQuizzes();
  // Old bookmarked ?part= links remain valid. A hash always wins.
