@@ -301,3 +301,12 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - **程式修復**：三份閱讀器 JS 的 `captureReadingPosition` 在切換前以工具列下方約 38% 視窗高度，擷取當前 `.pair` 或圖、標題、教師卡作為錨點；對 `.original/.translation` 記錄讀取語言與相對高度。完成切換後 `restoreReadingPosition` 使用即時捲動與兩個 `requestAnimationFrame` 重定位同段，待穩定後還原原本 `scroll-behavior` 與 `overflow-anchor`。首次載入 `applyReadingMode(preferredReadingMode(),false)` 避免阻礙 hash/deep-link 起始位置。支援快速重複切換與缺少可見錨點的情形。
 - **程式位置**：`reader.js`、`module2/module2.js`、`module3/module3.js`；對應三個 `index.html` JS cache 改成 `20261014-reading-anchor1`。**四按鈕、字級、Google Drive 私有來源、登入和原始教材一律不變。**
 - **本地 Chromium 模擬**：viewport 390×780、1280×900，三個長頁中途位置，四模式往返 **24／24 次在同一 pair ID**；測試是公開閱讀排版的 mock fixture，不代表真實使用者 Google OAuth/iPhone Safari 端對端驗證。其後須使用者確認 iPhone 的實際閱讀焦點與長段落行內定位。
+
+## 2026-10-14｜四種閱讀模式切換不跳頁（Module 1／2／3）
+
+- **使用者要求**：閱讀長頁到某個段落時，按「全英文／全中文／上中文下英文／左英文右中文」，必須停留在**相同教材段落、相近的螢幕位置**，不可因內容長度變化跳到其他段落或小節。
+- **正式修正**：`learning/atpa-modules/reader.js`、`learning/atpa-modules/module2/module2.js`、`learning/atpa-modules/module3/module3.js`。四個全頁語言模式及資料來源未變動。
+- **技術處理**：在閱讀按鈕 `pointerdown` 時先保存當下可見的穩定雙語 `.pair` 或圖表錨點，避開切成全英文時會隱藏的 `details.tutor` 與 `details.phrases`。切換後依同一元素和垂直閱讀比例補償 scroll，暫停平滑捲動及瀏覽器自動捲動錨定；在重排的連續影格與延遲 110ms 時各做一次校正，支援 iOS Safari 的工具列 focus／viewport 變動。使用跨瀏覽器 `behavior:"auto"`。
+- **三個站的 JS cache rev**：`reading-anchor2`（如再次調整程式碼必須更新 query 版本避免手機快取舊程式）。
+- **驗證範圍**：三份 JS 已通過靜態語法檢查、四種按鈕仍保留。Chromium 以自建 140 節長文模擬桌面 1280×850 與 iPhone 尺寸 390×844，連續切換 `en → zh → vertical → parallel → en → vertical`，選定的同一段落始終維持在可視範圍。**尚未在使用者真實 Google OAuth 私人教材的 Safari／iPhone 上完成端對端驗收**。
+- **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
