@@ -217,3 +217,11 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - GitHub `learning/atpa-modules/module2/module2.js` 新增來源 `2:11`、第 1.5 章導航，驗證 181 unique sections；四模式和隱私權限不變。
 - **下一批 §1.6.1–§1.6.29 Missing and Extreme Values**（p.215–244），後續 §1.7.1–§1.7.13 Case Studies（p.245–257），全部完成才是 223／223。
 - 詳細 QA 與原稿異常、後續交接請讀 `learning/atpa-modules/module2/README.md`。已核對私人檔內容及 GitHub 靜態原碼；實際使用者 OAuth/iPhone 端對端尚待確認。
+
+
+## 2026-10-14｜ATPA Module 2 完成 §1.6（最新進度）
+
+- 正式入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s161 ，累計 **210／223 小節（94.2%）**，已完成 §1.1–§1.6，**下批 §1.7.1–§1.7.13 Case Studies**。
+- 新私人 Drive HTML：`1qQyqkrgtUBSz4AgjhHI1mxp5x7OXm6si`，§1.6.1–§1.6.29，原書 p.215–244（含 p.238 跨頁），29 段官方英文／繁中詳解、29 精算教師卡、87 英文語塊、20 張原書頁圖，SHA256 `41cb331e6275c0d75c4a4ed77414e9d483ec569579a7b7377dff564d03be072f`。只存受限 Drive，不放 GitHub 原文。
+- GitHub `learning/atpa-modules/module2/module2.js` 新增第 12 個來源及左側 1.6 目錄，四種閱讀模式保持原樣；實機 OAuth/跨裝置測試尚待完成。
+- **交接 SOP 與完整 QA**：`learning/atpa-modules/module2/README.md` 最後一段 2026-10-14 §1.6。
