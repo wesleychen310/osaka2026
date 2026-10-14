@@ -312,3 +312,10 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
 
 2026-10-14：Module 3 新增 §1.3.1–§1.3.10；進度 **41／211**。私人 Drive 來源 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`，下批從 §1.3.11 接續。詳細 QA：`learning/atpa-modules/module3/README.md`。
+
+
+## 2026-10-14｜Module 3 §1.3 Mixed Models 29 小節已完成
+
+- 官方 Module 3 進度 **60／211（28.4%）**：已完成 §1.1–§1.3；下一批 **§1.4 Neural Networks** 48 節，原書 p.72–126。
+- §1.3.1–§1.3.10 既存受限 Drive `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`；後續 §1.3.11–§1.3.29 新受限 Drive `13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC`，19 節含 31 英中來源區塊、19 精算教師卡、57 語塊、16 原書頁圖與公式。
+- 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s1311 。四閱讀模式／切換保留閱讀錨點／左側目錄保留；公開 GitHub 只存 shell/JS/CSS/fileId。完整 QA 和來源矛盾、未驗證項目見 `module3/README.md` 最新交接段。
