@@ -319,3 +319,10 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 官方 Module 3 進度 **60／211（28.4%）**：已完成 §1.1–§1.3；下一批 **§1.4 Neural Networks** 48 節，原書 p.72–126。
 - §1.3.1–§1.3.10 既存受限 Drive `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`；後續 §1.3.11–§1.3.29 新受限 Drive `13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC`，19 節含 31 英中來源區塊、19 精算教師卡、57 語塊、16 原書頁圖與公式。
 - 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s1311 。四閱讀模式／切換保留閱讀錨點／左側目錄保留；公開 GitHub 只存 shell/JS/CSS/fileId。完整 QA 和來源矛盾、未驗證項目見 `module3/README.md` 最新交接段。
+
+
+## 2026-10-14｜ATPA Module 2 中文校譯完成
+
+- [Module 2](module2/) 的 223 節、506 組英中對照已完成全模組校譯，13 份私人 HTML 沿用原 ID 更新，修改前均有時間戳備份；已逐檔下載核對內容雜湊及權限。
+- 補回完整正文、範例與練習翻譯，重建 76 個中文表格，新增 45 處獨立校譯註解；原英文、110 張來源圖片與測驗答案鍵保留。譯文沿用網站既有表格／程式碼樣式，無須公開主分支部署；本次 PR 只更新維護文件。
+- 真實 OAuth 與 Safari／iPhone 瀏覽驗收、外部資料及 Rmd 執行仍待完成。詳細範圍見 [Module 2 維護文件](module2/README.md)。
