@@ -147,7 +147,7 @@ function restoreReadingPosition(saved){
  if(Math.abs(delta)>.6){
    const root=document.scrollingElement||document.documentElement;
    const limit=Math.max(0,root.scrollHeight-window.innerHeight);
-   window.scrollTo({top:Math.min(limit,Math.max(0,window.scrollY+delta)),behavior:"instant"});
+   window.scrollTo({top:Math.min(limit,Math.max(0,window.scrollY+delta)),behavior:"auto"});
  }
 }
 function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
