@@ -294,3 +294,5 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - **三個站的 JS cache rev**：`reading-anchor2`（如再次調整程式碼必須更新 query 版本避免手機快取舊程式）。
 - **驗證範圍**：三份 JS 已通過靜態語法檢查、四種按鈕仍保留。Chromium 以自建 140 節長文模擬桌面 1280×850 與 iPhone 尺寸 390×844，連續切換 `en → zh → vertical → parallel → en → vertical`，選定的同一段落始終維持在可視範圍。**尚未在使用者真實 Google OAuth 私人教材的 Safari／iPhone 上完成端對端驗收**。
 - **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
+
+2026-10-14 ATPA Module 3 最新交接：完成 **41／211**；§1.3.1–§1.3.10 新來源 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`，下一批 §1.3.11–§1.3.29。詳細見 `learning/atpa-modules/module3/README.md`。
