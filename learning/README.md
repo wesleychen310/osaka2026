@@ -239,6 +239,8 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 
 - **私人閱讀入口**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ 。官方主教材共 211 節，已完成 §1.1.1–§1.1.10 **10／211**；新站左側先呈現七個完整官方章節，其中 §1.2–§1.7 均明示待製作。
 - §1.1 原書 p.7–18，合併 PDF 1-based p.339–350，英文逐區塊依 PDF 原始順序核對。含 **10 小節、38 對英中來源、10 張精算教師卡、38 Reusable English、5 張原 PDF 面板／流程圖**（p.7/9/13/14/17）；p.8、15 原書空白。
-- 私人教材 `ATPA_Module_3_1.1.1-1.1.10_私人雙語教材.html`：Google Drive fileId `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`，父資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，652,483 bytes，SHA256 `06a8f9b47b466b1e00a89a29bf4f440240335fa24d58f516897b4d94d85de1fd`，僅具名 owner/reader，無公開分享。原 §1.1.1 翻譯對位修正前備份位於同層 `_backup`，備份 ID `1LcpVq21ldlG-99cnxkh6YuzJTUi8z-S0`。
+- 私人教材 `ATPA_Module_3_1.1.1-1.1.10_私人雙語教材.html`：Google Drive fileId `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`，父資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，665,987 bytes，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`，僅具名 owner/reader，無公開分享。原 §1.1.1 翻譯對位修正前備份位於同層 `_backup`，備份 ID `1LcpVq21ldlG-99cnxkh6YuzJTUi8z-S0`。
 - GitHub 公開介面：`learning/atpa-modules/module3/index.html`、`module3.js`、`module3.css`，延用 `../reader.css`。四模式保持全英文／全中文／上中文下英文／左英文右中文（預設第三項，中英文 16px）。
 - **下一批 §1.2 Additive Models** 21 小節（原書 p.19–40），新增後應達 **31／211**；完整來源、QA/限制與續接 SOP 以 `learning/atpa-modules/module3/README.md` 為準。正式使用者 Google OAuth、手機端實機尚待驗收。
+
+**2026-10-14 Module 3 首批原圖校正**：§1.1.1–§1.1.10 私人來源 `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb` 已在更新前備份（`_backup` ID `1sDt59rh11_FAw6ovKiNRktBz-silPWfN`），原書 p.7、14、17 面板擴展裁切避免截掉末列。正本保留原 File ID；最新大小 665,987 bytes，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`。詳 `learning/atpa-modules/module3/README.md`。
