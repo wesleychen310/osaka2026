@@ -266,5 +266,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 ## 2026-10-14｜SOA ATPA Module 3 進階模型私人教科書上線
 
 - 新入口 https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ ，已製作 **§1.1.1–§1.1.10，10／211 小節**（Model Accuracy）。新增 GitHub `learning/atpa-modules/module3/index.html`、`module3.js`、`module3.css`、`module3/README.md`，沿用四模式與具名 OAuth。
-- 私人教材正本只存在受限 Google Drive `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`，652,483 bytes，38 對英中來源，38 實用英文語塊、5 原書 PDF 圖。原始官方 PDF：Module 3 p.7–18。
+- 私人教材正本只存在受限 Google Drive `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`，665,987 bytes，38 對英中來源，38 實用英文語塊、5 原書 PDF 圖。原始官方 PDF：Module 3 p.7–18。
 - **下一批**：§1.2 Additive Models，全 21 節（印刷 p.19–40），新增後總量應為 31／211。完整章節地圖、來源校對、GitHub/Drive 追溯、備份與待驗收 SOP：`learning/atpa-modules/module3/README.md`。
+
+**2026-10-14 Module 3 首批原圖校正**：§1.1.1–§1.1.10 私人來源 `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb` 已在更新前備份（`_backup` ID `1sDt59rh11_FAw6ovKiNRktBz-silPWfN`），原書 p.7、14、17 面板擴展裁切避免截掉末列。正本保留原 File ID；最新大小 665,987 bytes，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`。詳 `learning/atpa-modules/module3/README.md`。
