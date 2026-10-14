@@ -416,3 +416,7 @@ html[data-reading-mode=triple] body[data-atpa-module="1"] .source-page-figure{ma
  html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-3{padding-left:2.8em}
  html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-4{padding-left:3.4em}
 }
+
+/* Show Work-created English source headings beyond the section header. */
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .lesson h3.reading-heading,
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .lesson h4.reading-heading{display:block!important}
