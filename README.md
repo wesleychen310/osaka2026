@@ -296,3 +296,10 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
 
 2026-10-14 ATPA Module 3 最新交接：完成 **41／211**；§1.3.1–§1.3.10 新來源 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`，下一批 §1.3.11–§1.3.29。詳細見 `learning/atpa-modules/module3/README.md`。
+
+
+## 2026-10-14｜SOA ATPA Module 3 進展至 §1.3 全章完成
+
+- 私人雙語網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ ，已完成 **60／211 小節（§1.1–§1.3）**，目前下一批 **§1.4 Neural Networks（48 節，p.72–126）**。
+- §1.3.1–§1.3.10 來源 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`；新增 §1.3.11–§1.3.29 來源 `13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC`，兩份私有 Google Drive 文件同網站連續閱讀。保留公式原頁圖、英中對照、精算可信度應用與官方題目。
+- GitHub Module 3 JS/CSS 及進度已同步；四模式與保留閱讀位置功能不變。§1.3 完整校稿備用稿放入 Drive `_backup`；官版外部 Rmd／CSV 尚未實際執行。交接、來源／PDF 頁碼與驗收界線：`learning/atpa-modules/module3/README.md`。
