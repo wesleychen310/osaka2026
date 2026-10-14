@@ -1,6 +1,6 @@
 # SOA ATPA Module 3 — Advanced Models｜私人雙語教科書
 
-> 最新交接：**2026-10-14**。已完成 §1.1 Model Accuracy（10 節）與 §1.2 Additive Models（21 節），累計 **31／211 小節（14.7%）**。下次接續 **§1.3 Linear Mixed Models（29 小節，p.41–71）**。較早進度數字是歷史紀錄。
+> 最新交接：**2026-10-14 §1.3 全章完成**。Module 3 已製作 §1.1–§1.3 共 **60／211 小節（28.4%）**。下一批為 **§1.4 Neural Networks 48 節（p.72–126）**；詳細來源、權限及 QA 見本文件最末最新交接節。
 
 ## 使用者正式入口
 
@@ -135,3 +135,29 @@
 - GitHub `learning/atpa-modules/module3/module3.js` 增加 `SOURCE["3:3"]`、`EXPECTED_COUNTS=[10,21,10]`、`FIRST_IDS=["s111","s121","s131"]`、總 guard 41。四閱讀模式及同段捲動保留；首頁 JS 快取版本 `20261014-sec13-10-position2`。
 - 閱讀 https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s131 ，需具名帳號 OAuth。下一批製作時沿用本檔與現有 source，不要重做 §1.3.1–1.3.10。
 
+
+## 2026-10-14｜§1.3 Linear Mixed Models 全章完成（最新有效交接）
+
+**已完成 60／211 小節（28.4%）**：§1.1 Model Accuracy 10 節，§1.2 Additive Models 21 節，§1.3 Linear Mixed Models 29 節。官方原書 §1.3.1–1.3.29 依原編號位於 p.41–71（合併 PDF 0-based index 372–402；1-based p.373–403）。下一批從 **§1.4.1 Neural Networks p.72** 開始，全章 48 節、p.72–126；全部完成則為 **108／211 小節**。閱讀：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s1311
+
+### 私人來源及相容性
+
+- 當時另一個更新已先接入 §1.3.1–§1.3.10（原書 p.41–52），**既有 SOURCE["3:3"] 及該十節的 Google Drive ID 完全保留**：`1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`，`text/html` 944,492 bytes；10 節含跨 p.50–52 的官方五題 Knowledge Check。沒有覆蓋或重新上傳先前來源。
+- **新增 SOURCE["3:4"]**：`13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC`，檔名 `ATPA_Module_3_1.3.11-1.3.29_私人雙語教材.html`，原書 p.53–71。大小 **1,874,068 bytes**，SHA256 `d037d34eca79d14c5c43f787fa2e501d91f162fe1fb9499d7afb2cfbf92f640f`。19 節、**31 個英中來源區塊**、19 張教師說明、57 個英文實務語塊、**16 張直接擷取的原書頁面截圖**，含頁內圖片公式與 Component Tables。
+- 來源檔保存在私人 Google Drive 資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，Google Drive metadata 已確認 **owner + 具名 reader**；沒有 anyone/domain 分享。Google OAuth 仍僅使用 `drive.readonly`；原文、中文、SOA 圖片不存入公開 GitHub。
+- 製作時另生成全章 §1.3.1–1.3.29 的**整章校稿備用稿**（29 節、45 組來源英中區塊、87 英文語塊、24 張原書圖與五題互動式 Knowledge Check），為避免正式資料夾重複展示，已重新命名並移入既有私人 `_backup`：fileId `1ce8h9ClEwEuOZlk6nZkLR4EeSi0rPEbu`；`ATPA_Module_3_1.3.1-1.3.29_整章校稿備份_20261014.html`；大小 2,808,616 bytes，SHA256 `3cd35aa26370c9a54427ec88c26bd5d2ee943c7cbc7f27d4b3b6d17de79b154c`。**此備用稿未被網站 SOURCE 載入**，僅供未來依節段落細化校稿；不可把其中前十節計入正式網站第二遍。
+
+### 教材內容與驗證
+
+- Fixed versus Random Effects（professor／year／major／hours）、混合模型與組內相關、Random Intercepts／Slopes 模型、已知與新群組不同預測方式、移除 nuisance effect、Repeated Measures／Longitudinal Data、GLMM、Bühlmann–Straub Credibility，以及 Exercises 3.3.1／3.3.2／3.3.3。
+- §1.3.11／§1.3.16／§1.3.21 等包含 PDF 圖像公式；其原頁截圖直接嵌於私人教材，額外公式寫明「**教師補充公式**」，不替換原書來源。原書五題 Knowledge Check 位於先前已接入的 §1.3.10；完整跨頁官方回饋另在整章校稿備用稿內。
+- **PDF 來源校驗**：新增 19 節的每一個 `.original` 內容與 PyMuPDF 官方 PDF `get_text(sort=True)` 擷取文字逐節比對，全部 19／19 通過（只排除一致的頁首／頁尾和無語意空白）；保留原稿 CHUNK 指令、英語題幹、官方表格數字。與來源圖片互相補足公式／圖表文字層缺漏。
+- 原書 p.69 Bühlmann–Straub 的 Line 2 範例：Z≈0.507、Line 1 174.75 × 50 = 8,737.50 均保留；**原文另記「175.08 × 50 → 8,574.00」但正確算術乘積為 8,754.00**。私人教師卡及中文教學獨立標註算術差異，不擅自修改英文原文。
+- 原書 Exercise 所需 `atpa_3_3_r.rmd`、`comp_course.csv`、`comp_course_2.csv` 等外部附件，在本批沒有實際取得並執行，因此沒有聲稱驗證 CHUNK 3–17 的程式係數或數值結果。教師的 lme4::lmer 語法與 ICC 公式均獨立標示補充。
+
+### GitHub 接線及驗收
+
+- GitHub `module3.js` 新增第四份 private source `3:4`；`EXPECTED_COUNTS=[10,21,10,19]`，`FIRST_IDS=["s111","s121","s131","s1311"]`，**60 個不同小節錨點**，前後連續；左側 1.3 章節顯示全部 29 節，§1.4–§1.7 保留明確「待製作」。
+- `module3/index.html` 更新進度與網址快取版本 `20261014-sec13-complete`，`module3.css` 增加官方來源頁面、公式面板樣式。原有四個按鈕 **全英文／全中文／上中文下英文／左英文右中文**、16px 上下雙語、切換時保留閱讀位置，以及 Google OAuth 均維持。
+- 已驗收 GitHub 來源程式靜態語法、私有 Drive 的 metadata 權限、來源小節數／英中對應／圖表與原稿一致性。**實際 GitHub Pages CDN 發布、使用者 Google OAuth、iPhone Safari 上四模式與讀取 1.8MB 新檔時的顯示效能，仍待端對端實機驗收。**
+- 下批如需改既存的 Drive 來源，一律先在 `_backup` 先保留備份，保有原 File ID、檔名與具名權限，並於最新 README 紀錄更新結果。根／learning／atpa-modules README 同步更新。
