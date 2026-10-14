@@ -281,3 +281,5 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 網站沿用 Module 1/2 的 CSS、OAuth 與「全英文、全中文、上中文下英文、左英文右中文」四模式。GitHub `module3/index.html`／`module3.js`／`module3.css`；公開 repo 沒有教材原文與個人私密資料正文。
 - §1.1 原始 R 與 Python 軟體敘述來自 2022 年教材，並已保留來源年份。**下一批從 §1.2.1 Additive Models（p.19）開始，21 節**。
 - 詳細私有 Drive、備份、驗證與下階段工作指令見 **`module3/README.md`**。Module 2 的 223／223 是另一套獨立課程進度，不可與 Module 3 混算。
+
+**2026-10-14 Module 3 首批原圖校正**：§1.1.1–§1.1.10 私人來源 `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb` 已在更新前備份（`_backup` ID `1sDt59rh11_FAw6ovKiNRktBz-silPWfN`），原書 p.7、14、17 面板擴展裁切避免截掉末列。正本保留原 File ID；最新大小 665,987 bytes，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`。詳 `learning/atpa-modules/module3/README.md`。
