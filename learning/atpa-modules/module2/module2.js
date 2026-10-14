@@ -92,9 +92,84 @@ function preferredReadingMode(){
  try{const saved=localStorage.getItem(DISPLAY_KEY);return DISPLAY_MODES.includes(saved)?saved:"vertical"}
  catch(_){return "vertical"}
 }
-function applyReadingMode(mode){
+/* Preserve the paragraph AND approximate line being read when any of the four
+   modes changes document height. This is crucial for a long, continuous book. */
+let readingSwitchRevision=0;
+let readingScrollStyles=null;
+function captureReadingPosition(){
+ const article=$("study-content");
+ if(!loaded||!article)return null;
+ const viewport=window.innerHeight,barBottom=$("mode-bar")?.getBoundingClientRect().bottom||0;
+ const artRect=article.getBoundingClientRect();
+ if(artRect.bottom<=barBottom||artRect.top>=viewport)return null;
+ const y=Math.min(viewport-24,Math.max(barBottom+38,viewport*.38));
+ const x=Math.max(8,Math.min(window.innerWidth-8,artRect.left+artRect.width*.4));
+ const targets=".pair,.lesson header,.chapter-heading,.source-figure,.source-page-figure,.calc-reference,.knowledge-check,details.tutor,details.phrases";
+ let node=null,hit=null;
+ for(const dy of [0,25,-25,65,-65,105,-105]){
+   const py=Math.max(barBottom+6,Math.min(viewport-8,y+dy));
+   const found=document.elementFromPoint(x,py);
+   const match=found?.closest(targets);
+   if(match&&article.contains(match)){node=match;hit=found;break}
+ }
+ if(!node){
+   let distance=Infinity;
+   article.querySelectorAll(targets).forEach(candidate=>{
+     const rect=candidate.getBoundingClientRect();
+     if(!rect.width||!rect.height||rect.bottom<barBottom||rect.top>viewport)return;
+     const delta=Math.max(0,rect.top-y,y-rect.bottom);
+     if(delta<distance){distance=delta;node=candidate}
+   });
+ }
+ if(!node)return null;
+ const pair=node.closest(".pair");
+ let field=null,box=node;
+ if(pair){
+   const language=hit?.closest(".original,.translation");
+   field=language?.classList.contains("original")?"original":language?.classList.contains("translation")?"translation":null;
+   if(!field){
+     const mode=document.documentElement.dataset.readingMode;
+     field=mode==="en"?"original":"translation";
+   }
+   const chosen=pair.querySelector(":scope>."+field);
+   if(chosen&&chosen.getBoundingClientRect().height)box=chosen;
+ }
+ const rect=box.getBoundingClientRect();
+ return{node:pair||node,field,y,progress:Math.max(0,Math.min(1,(y-rect.top)/Math.max(1,rect.height)))};
+}
+function restoreReadingPosition(saved){
+ if(!saved||!saved.node.isConnected)return;
+ let box=saved.node;
+ if(saved.node.classList.contains("pair")){
+   const first=saved.node.querySelector(":scope>."+saved.field);
+   const other=saved.node.querySelector(":scope>."+(saved.field==="original"?"translation":"original"));
+   if(first?.getBoundingClientRect().height)box=first;
+   else if(other?.getBoundingClientRect().height)box=other;
+ }
+ let rect=box.getBoundingClientRect();
+ if(!rect.height){
+   box=saved.node.closest(".lesson")?.querySelector("header")||saved.node;
+   rect=box.getBoundingClientRect();
+ }
+ if(!rect.height)return;
+ const pointY=rect.top+saved.progress*rect.height;
+ const delta=pointY-saved.y;
+ if(Math.abs(delta)>.75)window.scrollTo({top:Math.max(0,window.scrollY+delta),behavior:"instant"});
+}
+function applyReadingMode(mode,preservePosition=true){
  const selected=DISPLAY_MODES.includes(mode)?mode:"vertical";
- document.documentElement.dataset.readingMode=selected;
+ if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
+ const saved=preservePosition?captureReadingPosition():null;
+ const root=document.documentElement;
+ const revision=++readingSwitchRevision;
+ if(saved){
+   if(!readingScrollStyles)readingScrollStyles={
+     behavior:root.style.scrollBehavior,anchor:root.style.overflowAnchor
+   };
+   root.style.scrollBehavior="auto";
+   root.style.overflowAnchor="none";
+ }
+ root.dataset.readingMode=selected;
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
    button.setAttribute("aria-pressed",String(button.dataset.mode===selected));
  });
@@ -103,6 +178,26 @@ function applyReadingMode(mode){
    if(title)title.textContent=selected==="en"?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
  });
  try{localStorage.setItem(DISPLAY_KEY,selected)}catch(_){}
+ if(saved){
+   restoreReadingPosition(saved);
+   requestAnimationFrame(()=>{
+     if(revision!==readingSwitchRevision)return;
+     restoreReadingPosition(saved);
+     requestAnimationFrame(()=>{
+       if(revision!==readingSwitchRevision)return;
+       restoreReadingPosition(saved);
+       if(readingScrollStyles){
+         root.style.scrollBehavior=readingScrollStyles.behavior;
+         root.style.overflowAnchor=readingScrollStyles.anchor;
+         readingScrollStyles=null;
+       }
+     });
+   });
+ }else if(readingScrollStyles){
+   root.style.scrollBehavior=readingScrollStyles.behavior;
+   root.style.overflowAnchor=readingScrollStyles.anchor;
+   readingScrollStyles=null;
+ }
 }
 $("mode-bar")?.addEventListener("click",event=>{
  const button=event.target.closest("button[data-mode]");
@@ -274,7 +369,7 @@ function mountAll(texts){
  show("gate",false);show("reader-wrap",true);
  loaded=true;
  prepareBilingualLabels();
- applyReadingMode(preferredReadingMode());
+ applyReadingMode(preferredReadingMode(),false);
  activateQuizzes();
  // Old bookmarked ?part= links remain valid. A hash always wins.
  const legacyPart=params.get("part");
