@@ -61,3 +61,16 @@ html[data-reading-mode=vertical] .pdf-source-original{order:2;white-space:pre-wr
  html[data-reading-mode=parallel] .pdf-source-translation{font-size:11.7px;line-height:1.65}
  .study-content .source-figure{padding:6px}
 }
+
+
+/* §1.7 original SOA case-study page facsimiles and separated external attachments. */
+#study-content .source-page-figure{margin:13px 0 18px;border:1px solid #e1e9ed;border-radius:9px;overflow:hidden;background:#fbfcfd}
+#study-content .source-page-figure>summary{cursor:pointer;display:list-item;padding:11px 15px;font-size:13px;font-weight:650;color:#37596d;line-height:1.6}
+#study-content .source-page-figure[open]>summary{border-bottom:1px solid #e1e9ed}
+#study-content .source-page-figure .source-figure{margin:0;border:0;border-radius:0;padding:12px;background:#fff}
+#study-content .source-page-figure .source-figure img{width:100%;height:auto;object-fit:contain;border:0;max-width:850px}
+#study-content .source-tabs a{overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:2px}
+#study-content .source-tabs ul{padding-left:19px}
+#study-content .source-tabs li{margin-bottom:8px;line-height:1.7}
+html[data-reading-mode=en] #study-content .source-page-figure>summary{font-size:13px}
+@media(max-width:540px){#study-content .source-page-figure .source-figure{padding:5px}#study-content .source-page-figure>summary{font-size:12px;padding:10px}}
