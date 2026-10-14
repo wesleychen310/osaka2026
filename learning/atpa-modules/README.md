@@ -283,3 +283,12 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 詳細私有 Drive、備份、驗證與下階段工作指令見 **`module3/README.md`**。Module 2 的 223／223 是另一套獨立課程進度，不可與 Module 3 混算。
 
 **2026-10-14 Module 3 首批原圖校正**：§1.1.1–§1.1.10 私人來源 `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb` 已在更新前備份（`_backup` ID `1sDt59rh11_FAw6ovKiNRktBz-silPWfN`），原書 p.7、14、17 面板擴展裁切避免截掉末列。正本保留原 File ID；最新大小 665,987 bytes，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`。詳 `learning/atpa-modules/module3/README.md`。
+
+
+## 2026-10-14｜Module 3 §1.2 Additive Models（最新）
+
+- Module 3 `Advanced Models` 已完成 **§1.1（10 節）+ §1.2（21 節）= 31／211 節（14.7%）**。§1.2 原書 p.19–40，練習 3.2.1 的題幹、官方測試 MSE 與 GA(M) 擬合比較已保存。
+- 新私人來源：Google Drive `1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP`，`ATPA_Module_3_1.2.1-1.2.21_私人雙語教材.html`，2,618,055 bytes，SHA256 `57045cb5c8a080681505669681a4b64a5d4e6c1d15cc806185f8cdea8f9a8822`。**21 節、94 對官方 PDF 原文／中文、21 教師卡、84 英文語塊、17 張原 PDF 圖**；保留 p.36–37 續表。
+- 原書 p.26 三組公式原圖已損壞，保留破圖原頁並將可用公式標記為教師依上下文重建；外部 Rmd／CSV 尚未執行，官方 MSE 僅如實轉錄。
+- 正式入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s121 ，私有 Drive 授權、四模式、七章左側導覽不變。下一批 **§1.3 Linear Mixed Models（29 節，p.41–71）**，完成後目標 60／211。
+- 本批驗收紀錄與異常：`learning/atpa-modules/module3/README.md` 最新 2026-10-14 §1.2 區段。
