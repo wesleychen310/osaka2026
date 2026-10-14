@@ -1,6 +1,6 @@
 # SOA ATPA Module 2 — Working with Data｜私人雙語教材
 
-版本：2026-10-14 · 最新完成進度 **181／223 小節（81.2%）**，§1.1–§1.5 全部接入私人網站；下次從 §1.6.1 接續。
+版本：2026-10-14 · 最新完成進度 **210／223 小節（94.2%）**，§1.1–§1.6 完整接入私人閱讀站；下次從 §1.7.1 繼續。
 
 ## 官方使用入口
 
@@ -156,3 +156,19 @@
 - **正式端對端待驗收**：GitHub Pages CDN 發布、使用者 Google OAuth、手機／iPad／Mac 實際排版、圖像放大、21 節全部載入及練習互動；單靠 GitHub JS 靜態檢查不得宣稱已完成真實瀏覽器驗收。
 - **下一批從 §1.6.1 開始**：§1.6 Missing and Extreme Values 共 29 節，原書 p.215–244（§1.6.23 前後有跨頁），完成後應更新總量為 210／223；再製作 §1.7 Case Studies 13 節，原書 p.245–257，完工為 223／223。每批新增前查 PDF 並保留原文、圖表、R/Python 原始 code、Exercises、3–5 英文語塊及精算說明，存入同一受限 Google Drive 資料夾，網站的 SOURCE/CHAPTERS/EXPECTED_COUNTS/FIRST_IDS 依序補充。
 - **每次交接規則**：完成後更新此 README、`learning/README.md`、`learning/atpa-modules/README.md` 及根目錄 `README.md`。如需修改任何已存在的 Google Drive 私人教材，先備份進原資料夾下 `_backup`，保留原檔 ID、名稱、位置及權限。
+
+## 2026-10-14 最新交接｜§1.6 Missing and Extreme Values 全部 29 小節完成
+
+**本段為最新有效進度。** README 上方其他完成節數仍保留作為歷史記錄。
+
+- **網站**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s161 ，站內左側新增「1.6 缺失值與極端值」29 節。
+- **累計進度**：1.1(36) + 1.2(38) + 1.3(70) + 1.4(16) + 1.5(21) + 1.6(29) = **210／223（94.2%）**。下一批 §1.7 Case Studies 13 節；未完成前不可對使用者聲稱全章已完成。
+- **官方來源**：本 Project 上傳 `ATPA_Official_Modules_1-4_Combined(1).pdf`，Module 2 印刷 p.215–244（合併 PDF 0-based pages 287–316）。§1.6.23 跨 p.237–238，p.238 是 Component Table219 的續頁，沒有獨立的 §1.6.n 標題；製作時必須隸屬同一節。
+- **新受限 Google Drive 教材**：`ATPA_Module_2_1.6.1-1.6.29_私人雙語教材.html`，fileId **`1qQyqkrgtUBSz4AgjhHI1mxp5x7OXm6si`**，父目錄 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，1,189,690 bytes（text/html），SHA256 `41cb331e6275c0d75c4a4ed77414e9d483ec569579a7b7377dff564d03be072f`。Google Drive metadata 已驗證 owner + 具名 reader、無 anyone/domain。
+- **內容品質**：29／29 個獨立編號 `section.lesson`、29 個 `.pair`（含完整官方英文來源文字與逐節繁中詳細解說）、29 張精算教師卡、87 個 Reusable English 語塊、20 張官方 PDF 原頁截圖（含 p.223 PDF 文字層遺漏的 permutation variance 公式、p.238 跨頁 Callout）。原書 29／29 節英文字元與 PDF `get_text(sort=True)` 直接擷取對照相符；中文內容為逐節翻譯與教學解說，部分長段為合併式翻譯，尚需人工逐句語意校對，不可誤稱完成逐句校對。
+- **核心涵蓋**：MCAR、MAR、MNAR、置換檢定七步驟與 T=90.8、重排近似變異數、mean/median regression/KNN/CART/mice/autoimpute 插補、missing target 的資料處理、Exercise 2.6.1（automobile.csv 六項任務）、z-score/LOO、三組 cutoff 對應刪除率、轉換/移除/截尾/百分位/保留、DBSCAN ε/minPts 參數及18筆離群示例。
+- **忠於原書**：保留原本的 Source Links、R/Python CHUNK 編號和 PDF 原圖。官方 CSV／Rmd 並未在此批執行，**沒有製造 permutation test p-value 或 Exercise 2.6.1 數值解答**；實務應在下一階段補驗算與真正可執行程式。
+- **GitHub 變更**：`module2.js` 新增 `SOURCE["2:12"]`、`CHAPTERS["1.6"]`，`EXPECTED_COUNTS=[12,19,5,14,14,10,20,20,30,16,21,29]`，`FIRST_IDS` 新增 `s161`，驗證 210 unique IDs；`module2/index.html` 使用 `module2.js?v=20261014-sec16-complete` 刷新快取。四個按鈕仍依序 **全英文、全中文、上中文下英文、左英文右中文**；持續維持單一長頁、Google OAuth 私人載入。
+- **尚待端對端驗收**：GitHub Pages CDN 立即可用性、使用者 Google OAuth、iPhone/iPad/Mac 四模式渲染及滾動效能（新增約 1.2 MB 原稿）、各圖像放大效果、複選/單選題與可展開區塊。静態校驗不等於真正使用者裝置驗收。
+- **下一批**：§1.7 Case Studies，原書 p.245–257，共 **13 個編號小節**；製作後更新網站 `SOURCE["2:13"]`、`CHAPTERS["1.7"]`、`EXPECTED_COUNTS` 和 `FIRST_IDS`，合計應 **223 個**。請完整保留兩個原書 Case Studies、所有官方題幹與 Sample Answers，並清楚區分原書解答與另外提供的精算教師解析。
+- **交接紀律**：每次完成同步修改此檔、`learning/atpa-modules/README.md`、`learning/README.md`、根 `README.md`。修改既有 Drive 私人 HTML 前先建立 `_backup` 時間戳備份、保留原 file ID 與權限。新來源繼續只放 Google Drive。
