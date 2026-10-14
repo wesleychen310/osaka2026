@@ -88,82 +88,79 @@ function preferredReadingMode(){
  try{const saved=localStorage.getItem(DISPLAY_KEY);return DISPLAY_MODES.includes(saved)?saved:"vertical"}
  catch(_){return "vertical"}
 }
-/* Preserve the paragraph AND approximate line being read when any of the four
-   modes changes document height. This is crucial for a long, continuous book. */
+/* Keep the SAME source paragraph in view when a reading mode changes page height.
+   Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
+   and anchor to stable bilingual pairs rather than notes hidden in English-only. */
 let readingSwitchRevision=0;
 let readingScrollStyles=null;
+let pendingModeAnchor=null;
 function captureReadingPosition(){
  const article=$("study-content");
  if(!loaded||!article)return null;
- const viewport=window.innerHeight,barBottom=$("mode-bar")?.getBoundingClientRect().bottom||0;
- const artRect=article.getBoundingClientRect();
- if(artRect.bottom<=barBottom||artRect.top>=viewport)return null;
- const y=Math.min(viewport-24,Math.max(barBottom+38,viewport*.38));
- const x=Math.max(8,Math.min(window.innerWidth-8,artRect.left+artRect.width*.4));
- const targets=".pair,.lesson header,.chapter-heading,.source-figure,.source-page-figure,.calc-reference,.knowledge-check,details.tutor,details.phrases";
- let node=null,hit=null;
- for(const dy of [0,25,-25,65,-65,105,-105]){
-   const py=Math.max(barBottom+6,Math.min(viewport-8,y+dy));
-   const found=document.elementFromPoint(x,py);
-   const match=found?.closest(targets);
-   if(match&&article.contains(match)){node=match;hit=found;break}
+ const viewport=window.innerHeight;
+ const barBottom=Math.max(0,$("mode-bar")?.getBoundingClientRect().bottom||0);
+ const page=article.getBoundingClientRect();
+ if(page.bottom<=barBottom||page.top>=viewport)return null;
+ const y=Math.min(viewport-24,Math.max(barBottom+32,viewport*.43));
+ const x=Math.max(8,Math.min(window.innerWidth-8,page.left+page.width*.5));
+ const stable=".pair,.lesson header,.chapter-heading,.source-figure,.source-page-figure";
+ const unstable="details.tutor,details.phrases,.teacher-answer";
+ let node=null;
+ // The same .pair exists in all four modes, even if either language is hidden.
+ for(const dy of [0,-30,30,-75,75,-120,120]){
+   const py=Math.max(barBottom+8,Math.min(viewport-8,y+dy));
+   const hit=document.elementFromPoint(x,py);
+   const candidate=hit?.closest(stable);
+   if(!candidate||!article.contains(candidate)||candidate.closest(unstable))continue;
+   const rect=candidate.getBoundingClientRect();
+   if(rect.width&&rect.height){node=candidate;break}
  }
  if(!node){
-   let distance=Infinity;
-   article.querySelectorAll(targets).forEach(candidate=>{
+   // When the reader is inside a Chinese-only tutor note, choose the closest
+   // surviving paragraph, not the chapter heading hundreds of lines away.
+   let best=Infinity;
+   article.querySelectorAll(stable).forEach(candidate=>{
+     if(candidate.closest(unstable))return;
      const rect=candidate.getBoundingClientRect();
-     if(!rect.width||!rect.height||rect.bottom<barBottom||rect.top>viewport)return;
-     const delta=Math.max(0,rect.top-y,y-rect.bottom);
-     if(delta<distance){distance=delta;node=candidate}
+     if(!rect.width||!rect.height)return;
+     const distance=Math.max(0,rect.top-y,y-rect.bottom);
+     if(distance<best){best=distance;node=candidate}
    });
  }
  if(!node)return null;
- const pair=node.closest(".pair");
- let field=null,box=node;
- if(pair){
-   const language=hit?.closest(".original,.translation");
-   field=language?.classList.contains("original")?"original":language?.classList.contains("translation")?"translation":null;
-   if(!field){
-     const mode=document.documentElement.dataset.readingMode;
-     field=mode==="en"?"original":"translation";
-   }
-   const chosen=pair.querySelector(":scope>."+field);
-   if(chosen&&chosen.getBoundingClientRect().height)box=chosen;
- }
- const rect=box.getBoundingClientRect();
- return{node:pair||node,field,y,progress:Math.max(0,Math.min(1,(y-rect.top)/Math.max(1,rect.height)))};
+ const rect=node.getBoundingClientRect();
+ return {
+   node,
+   y,
+   fraction:Math.max(0,Math.min(1,(y-rect.top)/Math.max(1,rect.height)))
+ };
 }
 function restoreReadingPosition(saved){
- if(!saved||!saved.node.isConnected)return;
- let box=saved.node;
- if(saved.node.classList.contains("pair")){
-   const first=saved.node.querySelector(":scope>."+saved.field);
-   const other=saved.node.querySelector(":scope>."+(saved.field==="original"?"translation":"original"));
-   if(first?.getBoundingClientRect().height)box=first;
-   else if(other?.getBoundingClientRect().height)box=other;
- }
- let rect=box.getBoundingClientRect();
- if(!rect.height){
-   box=saved.node.closest(".lesson")?.querySelector("header")||saved.node;
-   rect=box.getBoundingClientRect();
- }
+ if(!saved?.node?.isConnected)return;
+ const rect=saved.node.getBoundingClientRect();
  if(!rect.height)return;
- const pointY=rect.top+saved.progress*rect.height;
- const delta=pointY-saved.y;
- if(Math.abs(delta)>.75)window.scrollTo({top:Math.max(0,window.scrollY+delta),behavior:"instant"});
+ const delta=rect.top+saved.fraction*rect.height-saved.y;
+ if(Math.abs(delta)>.6){
+   const root=document.scrollingElement||document.documentElement;
+   const limit=Math.max(0,root.scrollHeight-window.innerHeight);
+   window.scrollTo({top:Math.min(limit,Math.max(0,window.scrollY+delta)),behavior:"instant"});
+ }
 }
-function applyReadingMode(mode,preservePosition=true){
+function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  const selected=DISPLAY_MODES.includes(mode)?mode:"vertical";
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
- const saved=preservePosition?captureReadingPosition():null;
+ const saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
  const revision=++readingSwitchRevision;
  if(saved){
    if(!readingScrollStyles)readingScrollStyles={
-     behavior:root.style.scrollBehavior,anchor:root.style.overflowAnchor
+     behavior:root.style.scrollBehavior,
+     rootAnchor:root.style.overflowAnchor,
+     bodyAnchor:document.body.style.overflowAnchor
    };
    root.style.scrollBehavior="auto";
    root.style.overflowAnchor="none";
+   document.body.style.overflowAnchor="none";
  }
  root.dataset.readingMode=selected;
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
@@ -174,7 +171,19 @@ function applyReadingMode(mode,preservePosition=true){
    if(title)title.textContent=selected==="en"?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
  });
  try{localStorage.setItem(DISPLAY_KEY,selected)}catch(_){}
+ function finish(){
+   if(revision!==readingSwitchRevision)return;
+   if(saved)restoreReadingPosition(saved);
+   if(readingScrollStyles){
+     root.style.scrollBehavior=readingScrollStyles.behavior;
+     root.style.overflowAnchor=readingScrollStyles.rootAnchor;
+     document.body.style.overflowAnchor=readingScrollStyles.bodyAnchor;
+     readingScrollStyles=null;
+   }
+ }
  if(saved){
+   // One correction before painting, two after reflow, and a delayed Safari
+   // correction after toolbar focus / dynamic viewport settles.
    restoreReadingPosition(saved);
    requestAnimationFrame(()=>{
      if(revision!==readingSwitchRevision)return;
@@ -182,22 +191,29 @@ function applyReadingMode(mode,preservePosition=true){
      requestAnimationFrame(()=>{
        if(revision!==readingSwitchRevision)return;
        restoreReadingPosition(saved);
-       if(readingScrollStyles){
-         root.style.scrollBehavior=readingScrollStyles.behavior;
-         root.style.overflowAnchor=readingScrollStyles.anchor;
-         readingScrollStyles=null;
-       }
      });
    });
- }else if(readingScrollStyles){
-   root.style.scrollBehavior=readingScrollStyles.behavior;
-   root.style.overflowAnchor=readingScrollStyles.anchor;
-   readingScrollStyles=null;
+   setTimeout(finish,110);
+ }else{
+   finish();
  }
 }
+$("mode-bar")?.addEventListener("pointerdown",event=>{
+ const button=event.target.closest("button[data-mode]");
+ if(button)pendingModeAnchor={
+   mode:button.dataset.mode,
+   anchor:captureReadingPosition(),
+   time:Date.now()
+ };
+},{passive:true});
 $("mode-bar")?.addEventListener("click",event=>{
  const button=event.target.closest("button[data-mode]");
- if(button)applyReadingMode(button.dataset.mode);
+ if(!button)return;
+ const captured=pendingModeAnchor;
+ pendingModeAnchor=null;
+ const anchor=captured&&captured.mode===button.dataset.mode&&Date.now()-captured.time<2500
+   ?captured.anchor:null;
+ applyReadingMode(button.dataset.mode,true,anchor);
 });
 
 function toggleMenu(open){
