@@ -253,3 +253,11 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - Module 2 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ 目前 **210／223 小節（94.2%）**，§1.1–§1.6 已接入。
 - 本次私人 Drive 新來源 `1qQyqkrgtUBSz4AgjhHI1mxp5x7OXm6si`，原書 p.215–244／§1.6 共 29 節。**下一步 §1.7 Case Studies（13 小節，p.245–257）**。
 - GitHub 僅存公開 reader shell + Drive file ID；四閱讀模式保留。詳細 QA 與原書對照、權限及待驗收事項：`learning/atpa-modules/module2/README.md`。
+
+
+## 2026-10-14｜ATPA Module 2 官方主教材 223／223 小節全部接入
+
+- 正式網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ 。已完成 §1.1–§1.7 全部 223 編號小節；四模式和左側章節目錄不變。
+- 最新 §1.7 Case Studies（印刷 p.245–259）在具名授權 Google Drive HTML `1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ`，13 小節、15 組英文原文／繁中教學、39 實務語塊、9 張原書頁圖。公開 GitHub 只保留閱讀器 shell、來源檔 ID 和 SOP。
+- **尚待取得**：官方案例的獨立資料 ZIP／CSV／XML、Sample Report PDF 和 R/Python Rmd；尚待真實 owner OAuth、iPhone／Mac 四模式 E2E 及逐段中文細校。保留外部連結及限制說明。
+- 交接與 QA：`learning/atpa-modules/module2/README.md` 最新 §1.7 進度區塊；來源映射 `learning/atpa-modules/module2/module2.js`。
