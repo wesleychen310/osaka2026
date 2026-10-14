@@ -1,5 +1,21 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-14｜第 6 批完全結案：SCENE 033–042 三 STEP Prompt（最新）
+
+**完成情形：完整課程達 42／100，雙語課文與完整 STEP 1–3 口說練習及對照，皆至 SCENE 042。**
+
+- 原始日文 30 份：SCENE 033–042 每課 STEP 1／2／3，私人 Drive 原稿不變，合計 **5,322 行**。
+- 繁體中文直譯 30 份已上傳至私人 Drive 原 Prompt 資料夾 `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB`；**SCENE 033、034 使用經校正的 `_ZH_v2.txt`**，網站 manifest 指向 v2；其餘 035–042 為 `_ZH.txt`。既存舊檔保留不覆寫。
+- 驗收：逐檔行數完全相同；原文純英文 2,777 行逐字不改；237 行 IPA 符號核對通過；沒有缺譯標記或非預期日文假名（練習觸發口令 `レッツスタート` 按原文保留）；**30／30 份翻譯上傳後重新下載，SHA-256 與本地成品逐位元一致**。抽查檔案權限 owner-only、父資料夾正確。
+- QA 追蹤 `SCENE033-042_translation_QA_20261014.csv`，私人 Drive ID `1nuhqNcu_20gFqfwzKRSxvAVCdjQre7RJ`；逐筆記錄原文／譯稿行數、英文行數、IPA 行數、譯稿 SHA-256。
+- GitHub UI 更新：新增 `learning/english/yamada-speaking/scene-batch06.js`，內含 SCENE 033–042 的 30 組日文與 30 組譯稿私人 Drive ID，提供課文閱讀、口說練習、全文複製，以及逐行日文／繁中對照；`index.html` 增加腳本及版本 cache-bust，`reader.js` 進度至 042。**公開 GitHub 僅程式及檔案 ID，沒有教材全文。**
+- 四模式規格延續：英＋日、英＋中、上下對照、左右對照；上下／左右顯示兩個完整版本時英文在各版本皆保留，不合併共用。
+- 已完成 GitHub commit 寫入及 JavaScript 靜態語法檢查；**正式 GitHub Pages Google OAuth、iPhone/iPad/Mac Safari 與英文朗讀互動等真實瀏覽器端到端測試尚未執行**。
+- 下一批 **SCENE 043–052**：先核對原書及 30 份日文來源，再一次完成十課雙語課文、三 STEP 中文直譯、私人 Drive 讀回驗證及網站整合。目標 **52／100**。
+
+---
+
+
 ## 2026-10-14｜第 6 批 SCENE 033–042 雙語課文已完成（Prompt 尚待驗收）
 
 - **原始依據**：私人原書 PDF `1sGQoKXyXvAWflI6iucbOl0x1qliTW6St`，SCENE 033–042 印刷 pp.090–109；原始日文 Prompt 皆自私人 Google Drive `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB` 讀取，共 **30 份、5,322 行（本地 splitlines 計數）**。
