@@ -110,3 +110,10 @@
 - **端對端未驗收**：使用者 Google OAuth、GitHub Pages CDN 實際發布延遲、iPhone/iPad/Mac 四模式、2.6 MB 原圖載入速度和長頁捲動；Rmd、CSV 與官方模型運算結果的可執行驗證。
 - **下一批**：§1.3 **Linear Mixed Models** 共 29 小節，官方印刷 p.41–71，若全部完成則累計應為 **60／211**。先核對原書公式／圖表／R code，再產製逐段英中對照與精算教學；優先說明 fixed effects／random effects、random intercept／slope、credibility、Bühlmann–Straub 及 group-level variation。
 - **寫入紀律**：新教材繼續存相同受限 Google Drive 資料夾，GitHub 只存 reader 與 fileId。修改任何既存 Drive 原稿前先備份到 `_backup`；每批完成同步更新本 README、上層 `learning/atpa-modules/README.md`、`learning/README.md` 及根 `README.md`。
+
+
+## 2026-10-14｜四模式切換時定位維持（最新 UX 修復）
+
+- Module 3 已完成 §1.1／§1.2 共 **31／211 節**，來源 `3:1`、`3:2` 與私有 Drive 檔不動。修正 `module3.js` 四模式切換前後的錨點定位：保存目前 `.pair`、語言欄與段內進度，切換排版後恢復相同閱讀段落；特別適用 §1.2 94 組英中配對與長內容。
+- `module3/index.html` JS cache 改 `?v=20261014-reading-anchor1`；目錄七章、四模式、官方圖表及 16px 上下對照字級保留。
+- JavaScript 靜態語法通過；使用 Chromium 模擬三種長頁閱讀位置，24／24 次切換均停同段。使用者真實 OAuth 與 iPhone Safari 實機仍待驗收。下一批仍為 §1.3 Linear Mixed Models。
