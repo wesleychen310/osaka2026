@@ -246,3 +246,10 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 私人閱讀網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ 目前完成 **181／223 小節**（§1.1–§1.5）。§1.5.1–§1.5.21 原書 p.193–214 已存私人 Drive HTML `1XcX7WF9HE5J32zaTnlsc_LUsHcTOt2Q9`，GitHub JS `learning/atpa-modules/module2/module2.js` 僅映射檔案 ID。
 - 下一批 **§1.6 Missing and Extreme Values（29 節，p.215–244）**；其後 §1.7 Case Studies（13 節，p.245–257）。保留原有四模式、單一長頁與私人 OAuth 存取。
 - 詳細製作紀錄、原書校稿、Google Drive 權限、下一步及實機待驗收限制：`learning/atpa-modules/module2/README.md`。
+
+
+## 2026-10-14｜ATPA Module 2 §1.6 接入完成
+
+- Module 2 網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/ 目前 **210／223 小節（94.2%）**，§1.1–§1.6 已接入。
+- 本次私人 Drive 新來源 `1qQyqkrgtUBSz4AgjhHI1mxp5x7OXm6si`，原書 p.215–244／§1.6 共 29 節。**下一步 §1.7 Case Studies（13 小節，p.245–257）**。
+- GitHub 僅存公開 reader shell + Drive file ID；四閱讀模式保留。詳細 QA 與原書對照、權限及待驗收事項：`learning/atpa-modules/module2/README.md`。
