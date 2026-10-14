@@ -8,7 +8,7 @@
     if (text !== undefined) el.textContent = text;
     return el;
   };
-  const sceneNumber = id => /^scene-0(?:0[1-9]|[12][0-9]|3[0-9]|4[0-2])$/.test(id || '');
+  const sceneNumber = id => /^scene-0(?:0[1-9]|[12][0-9]|[34][0-9]|5[0-2])$/.test(id || '');
   const headingTranslations = {
     '場面設定':'情境設定',
     '練習のポイント':'練習重點',
