@@ -34,9 +34,9 @@
 - **檔名**：`ATPA_Module_3_1.1.1-1.1.10_私人雙語教材.html`
 - **私人 Google Drive File ID**：`1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`
 - **資料夾**：`1uLenu319fQEQwltPasYv1HH_EL6Swk4q`（所有 Module 1／2 的私人雙語教材同層）。
-- **MIME**：`text/html`；**652,483 bytes**；**SHA256：`06a8f9b47b466b1e00a89a29bf4f440240335fa24d58f516897b4d94d85de1fd`**。
+- **MIME**：`text/html`；**665,987 bytes**；**SHA256：`95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`**。
 - **已核對存取權**：Google Drive metadata 返回 2 組 `user` 權限（owner + 具名 reader），無 `anyone` 或 `domain`。GitHub 僅保存公開 HTML shell、JS/CSS、來源識別碼與 SOP，**不得上傳官方教材原文、翻譯或原圖至公開 GitHub**。
-- **更新備份**：首次上傳後發現 §1.1.1 學習目標表的中文標題對位需要修正，**已先建立備份，再更新原檔且保留 File ID**。備份 File ID `1LcpVq21ldlG-99cnxkh6YuzJTUi8z-S0`，位於 `_backup` 資料夾 `1IGm40lPbbVwADj4ffg82gfVdx281YXvv`。最新正本為 652,483 bytes，舊備份為 652,549 bytes。
+- **更新備份**：首次上傳後發現 §1.1.1 學習目標表的中文標題對位需要修正，**已先建立備份，再更新原檔且保留 File ID**。備份 File ID `1LcpVq21ldlG-99cnxkh6YuzJTUi8z-S0`，位於 `_backup` 資料夾 `1IGm40lPbbVwADj4ffg82gfVdx281YXvv`。最新正本為 665,987 bytes，舊備份為 652,549 bytes。
 
 ## §1.1 的製作與實際驗收數字
 
@@ -73,3 +73,9 @@
 3. 中文教授須逐段對位，保留原英文，解釋公式用途、成立條件、視覺座標／曲線、模型診斷及 PA／ATPA 作答。每節增加 3–5 組 Reusable English 及壽險精算實務例子。
 4. 依來源尺寸可在 **同一章中拆多份私有 HTML**，但網站永遠連續顯示；將新 Drive 檔 ID 加入 `module3.js SOURCE`、擴充 `EXPECTED_COUNTS`、`FIRST_IDS` 與已完成章節子目錄、總量 guard。保持四模式與私人權限。
 5. 每批完成請核對 GitHub 靜態 JS、來源 HTML 結構與 Drive metadata，更新**本 README**、`learning/atpa-modules/README.md`、`learning/README.md` 及根 `README.md`；保留可交接的來源頁碼、Drive File ID、GitHub commit 及未驗收項目。修改任何現有 Drive HTML 前先建立同層 `_backup` 時間戳備份，保留原始 ID 和位置。
+
+## 2026-10-14 原書圖片裁切品質修正（最新來源版本）
+
+- 第二次來源檢查發現 p.7 與 p.14 的官方 Component Table 截圖最後一行被裁掉（來源文字層已完整保留）；p.17 原面板上方標籤也太貼邊。已改以更寬的 PyMuPDF Clip 重新擷取，確保 **完整表格列、Footer 與 Component Table 標題**出現在私人教材圖片中。
+- 更新前先備份 Drive 原檔至 `_backup`：備份 ID **`1sDt59rh11_FAw6ovKiNRktBz-silPWfN`**，備份名 `ATPA_Module_3_1.1.1-1.1.10_私人雙語教材__backup_20261014_原圖擴充前.html`。原檔保持同一 ID `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`、原檔名、原目錄與權限，最新版本大小 **665,987 bytes**，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`。
+- 上述修正僅擴展三張官方圖片的裁切範圍，10 小節／38 組英中對照／38 個實務語塊與原文順序均未變動。已在本地打開 p.7、p.13、p.14 的輸出圖目視檢查；用戶 Google OAuth 實機端尚未驗收。
