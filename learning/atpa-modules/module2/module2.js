@@ -15,16 +15,17 @@ const SOURCE={
  "2:9":{fileId:"1ZzB8zn5r57n1ShmTUivd-23XOfiF3igV",module:"2",part:"9",label:"1.3.41–1.3.70",sourcePages:"138–172",kind:"raw"},
  "2:10":{fileId:"1tnMUnufssHsrZoen0nio5M3NeitXAgM_",module:"2",part:"10",label:"1.4.1–1.4.16",sourcePages:"173–192",kind:"raw"},
  "2:11":{fileId:"1XcX7WF9HE5J32zaTnlsc_LUsHcTOt2Q9",module:"2",part:"11",label:"1.5.1–1.5.21",sourcePages:"193–214",kind:"raw"},
- "2:12":{fileId:"1qQyqkrgtUBSz4AgjhHI1mxp5x7OXm6si",module:"2",part:"12",label:"1.6.1–1.6.29",sourcePages:"215–244",kind:"raw"}
+ "2:12":{fileId:"1qQyqkrgtUBSz4AgjhHI1mxp5x7OXm6si",module:"2",part:"12",label:"1.6.1–1.6.29",sourcePages:"215–244",kind:"raw"},
+ "2:13":{fileId:"1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ",module:"2",part:"13",label:"1.7.1–1.7.13",sourcePages:"245–259",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
 const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="2";
 const SOURCES=Object.values(SOURCE).sort((a,b)=>Number(a.part)-Number(b.part));
-const CHAPTERS={"1.1":{title:"Data Pipeline",zh:"資料管線"},"1.2":{title:"Reading and Writing Data",zh:"讀取與寫入資料"},"1.3":{title:"Data Transformation and Cleaning",zh:"資料轉換與清理"},"1.4":{title:"Relational Databases",zh:"關聯式資料庫"},"1.5":{title:"Data Validation",zh:"資料驗證"},"1.6":{title:"Missing and Extreme Values",zh:"缺失值與極端值"}};
-const EXPECTED_COUNTS=[12,19,5,14,14,10,20,20,30,16,21,29];
-const FIRST_IDS=["s111","s1113","s1132","s121","s1215","s1229","s131","s1321","s1341","s141","s151","s161"];
+const CHAPTERS={"1.1":{title:"Data Pipeline",zh:"資料管線"},"1.2":{title:"Reading and Writing Data",zh:"讀取與寫入資料"},"1.3":{title:"Data Transformation and Cleaning",zh:"資料轉換與清理"},"1.4":{title:"Relational Databases",zh:"關聯式資料庫"},"1.5":{title:"Data Validation",zh:"資料驗證"},"1.6":{title:"Missing and Extreme Values",zh:"缺失值與極端值"},"1.7":{title:"Case Studies",zh:"案例研究"}};
+const EXPECTED_COUNTS=[12,19,5,14,14,10,20,20,30,16,21,29,13];
+const FIRST_IDS=["s111","s1113","s1132","s121","s1215","s1229","s131","s1321","s1341","s141","s151","s161","s171"];
 const SESSION_PREFIX="hanami-kyoto-google-token-v3";
 let tokenClient=null,loaded=false,allLessons=[],scrollScheduled=false;
 const show=(id,visible)=>{const n=$(id);if(n)n.hidden=!visible};
@@ -188,7 +189,7 @@ function makeChapter(id,key){
 }
 function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
- const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 210 小節";toc.append(count);
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 223 小節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const details=document.createElement("details");details.className="toc-group";details.open=true;
    const summary=document.createElement("summary");
@@ -256,8 +257,8 @@ function mountAll(texts){
      throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
    sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
  }
- if(sections.length!==210||new Set(sections.map(s=>s.id)).size!==210)
-   throw new Error("210 個已製作小節未完整載入，請重新整理後再試。");
+ if(sections.length!==223||new Set(sections.map(s=>s.id)).size!==223)
+   throw new Error("223 個小節未完整載入，請重新整理後再試。");
  const article=$("study-content"),frag=document.createDocumentFragment();let lastChapter="";
  for(const sec of sections){
    const group=sec.dataset.num.split(".").slice(0,2).join(".");
@@ -298,7 +299,7 @@ async function fetchOneSource(source,token){
 }
 async function fetchPrivate(token){
  if(loaded||!selected)return;
- status("正在載入 Module 2 已製作的 210 個小節…");
+ status("正在載入 Module 2 全部 223 個小節…");
  const texts=await Promise.all(SOURCES.map(source=>fetchOneSource(source,token)));
  mountAll(texts);
 }
