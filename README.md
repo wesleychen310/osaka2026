@@ -303,3 +303,10 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 私人雙語網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ ，已完成 **60／211 小節（§1.1–§1.3）**，目前下一批 **§1.4 Neural Networks（48 節，p.72–126）**。
 - §1.3.1–§1.3.10 來源 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`；新增 §1.3.11–§1.3.29 來源 `13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC`，兩份私有 Google Drive 文件同網站連續閱讀。保留公式原頁圖、英中對照、精算可信度應用與官方題目。
 - GitHub Module 3 JS/CSS 及進度已同步；四模式與保留閱讀位置功能不變。§1.3 完整校稿備用稿放入 Drive `_backup`；官版外部 Rmd／CSV 尚未實際執行。交接、來源／PDF 頁碼與驗收界線：`learning/atpa-modules/module3/README.md`。
+
+
+## 2026-10-14｜ATPA Module 2 中文校譯完成
+
+- [Module 2](learning/atpa-modules/module2/) 的 223 節、506 組英中對照已完成全模組校譯，13 份私人 HTML 沿用原 ID 更新，修改前均有時間戳備份；已逐檔下載核對內容雜湊及權限。
+- 補回完整正文、範例與練習翻譯，重建 76 個中文表格，新增 45 處獨立校譯註解；原英文、110 張來源圖片與測驗答案鍵保留。譯文沿用網站既有表格／程式碼樣式，無須公開主分支部署；本次 PR 只更新維護文件。
+- 真實 OAuth 與 Safari／iPhone 瀏覽驗收、外部資料及 Rmd 執行仍待完成。詳細範圍見 [Module 2 維護文件](learning/atpa-modules/module2/README.md)。
