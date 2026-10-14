@@ -264,3 +264,11 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 已製作 **210／223 個小節**。§1.6.1–1.6.29（p.215–244）使用私人 Google Drive 檔案 `1qQyqkrgtUBSz4AgjhHI1mxp5x7OXm6si`，包含 29 英中配對區塊、87 語塊、20 官方原頁圖。
 - 正式閱讀：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s161 。GitHub `module2/module2.js` 已新增第 12 來源並更新總驗證 210。四按鈕：全英文、全中文、上中文下英文、左英文右中文。
 - **後續從 §1.7.1 Case Studies（13 小節）接續**；細節及仍未完成的端對端驗收請讀 `module2/README.md` 的最新交接段。
+
+
+## 2026-10-14｜Module 2 全部 223 小節已接入（最新狀態）
+
+- 章節總量：§1.1 36 + §1.2 38 + §1.3 70 + §1.4 16 + §1.5 21 + §1.6 29 + §1.7 13 = **223／223**，指官方 Module 2 主 PDF 內的編號小節全文與中文教學已在私人網站上，不代表 SOA 個案外部附件已全部取得。
+- 最新 §1.7 Case Studies Google Drive HTML：`1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ`，印刷 p.245–259，包含網站停留時間與 Chiropractic Visits 兩案例、主 PDF 的解答、外部 Sample Report 連結、完整 bibliography；13 節、15 英中來源對照區塊、39 英文語塊、9 原書頁圖，受限具名帳號。
+- 正式網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s171；4 模式「全英文、全中文、上中文下英文、左英文右中文」，單頁連續閱讀。
+- **遺留任務**：Owner OAuth 和各裝置端對端驗證、無法從主 PDF 內取得的官方 `2.7_case_studies.zip`、`atpa_2_7_cs11.pdf`、`atpa_2_7_cs12.pdf`、`atpa_2_7_cs23.pdf` 以及官方 Rmd／個案 CSV XML，及下一輪逐段中文翻譯語意複校。詳細以 `module2/README.md` 最後 2026-10-14 §1.7 交接為準。
