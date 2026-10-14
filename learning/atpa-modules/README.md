@@ -292,3 +292,12 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 原書 p.26 三組公式原圖已損壞，保留破圖原頁並將可用公式標記為教師依上下文重建；外部 Rmd／CSV 尚未執行，官方 MSE 僅如實轉錄。
 - 正式入口：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s121 ，私有 Drive 授權、四模式、七章左側導覽不變。下一批 **§1.3 Linear Mixed Models（29 節，p.41–71）**，完成後目標 60／211。
 - 本批驗收紀錄與異常：`learning/atpa-modules/module3/README.md` 最新 2026-10-14 §1.2 區段。
+
+
+## 2026-10-14｜修復四種閱讀模式切換時跳到其他段落（適用 Modules 1／2／3）
+
+- **使用者要求**：正在閱讀某個位置時，按「全英文／全中文／上中文下英文／左英文右中文」應繼續停在**同一段落與接近同一行**，不因文字隱藏或雙欄高度改變而被捲到其他節。
+- **根因**：舊版 `applyReadingMode` 僅改 `html.dataset.readingMode`、按鈕狀態與目錄語言。前文排版高度大幅變化，瀏覽器 scroll anchoring/scroll position 會顯示錯的段落。
+- **程式修復**：三份閱讀器 JS 的 `captureReadingPosition` 在切換前以工具列下方約 38% 視窗高度，擷取當前 `.pair` 或圖、標題、教師卡作為錨點；對 `.original/.translation` 記錄讀取語言與相對高度。完成切換後 `restoreReadingPosition` 使用即時捲動與兩個 `requestAnimationFrame` 重定位同段，待穩定後還原原本 `scroll-behavior` 與 `overflow-anchor`。首次載入 `applyReadingMode(preferredReadingMode(),false)` 避免阻礙 hash/deep-link 起始位置。支援快速重複切換與缺少可見錨點的情形。
+- **程式位置**：`reader.js`、`module2/module2.js`、`module3/module3.js`；對應三個 `index.html` JS cache 改成 `20261014-reading-anchor1`。**四按鈕、字級、Google Drive 私有來源、登入和原始教材一律不變。**
+- **本地 Chromium 模擬**：viewport 390×780、1280×900，三個長頁中途位置，四模式往返 **24／24 次在同一 pair ID**；測試是公開閱讀排版的 mock fixture，不代表真實使用者 Google OAuth/iPhone Safari 端對端驗證。其後須使用者確認 iPhone 的實際閱讀焦點與長段落行內定位。
