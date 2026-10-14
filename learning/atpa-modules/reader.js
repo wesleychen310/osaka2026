@@ -11,6 +11,7 @@ const SOURCE={
  "1:5":{fileId:"1EqGTGWeCtvEQHiuJKXhjUdecdSjNol2Z",module:"1",part:"5",label:"1.3.1–1.3.8",sourcePages:"63–73",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
+document.body.dataset.atpaModule="1";
 const params=new URLSearchParams(location.search);
 const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="1";
@@ -65,10 +66,40 @@ function cleanSource(doc){
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","zh","vertical","parallel"];
+const DISPLAY_MODES=["en","annotated","vertical","triple"];
 const DISPLAY_KEY="atpa-modules-reading-mode-v3";
+/* Work-created views live in private Drive next to immutable bilingual pairs.
+   Validate all enhanced content before switching the reading interface. */
+function prepareEnhancedViews(){
+ const article=$("study-content");
+ const pairs=[...article.querySelectorAll(".pair")];
+ if(pairs.length!==349)throw new Error("新版閱讀資料組數不符（預期 349 組，讀到 "+pairs.length+" 組）。");
+ for(const p of pairs){
+   if(!p.querySelector(":scope>.reading-annotated")||
+      !p.querySelector(":scope>.reading-diagonal")||
+      !p.querySelector(":scope>.reading-summary"))
+     throw new Error("缺少完整英文精讀／斜向排版／雙語摘要，請檢查 "+(p.closest(".lesson")?.dataset.num||"原始教材")+"。");
+ }
+ // CSS manages display. Remove source HTML's hidden attribute only after QA.
+ article.querySelectorAll(".reading-view").forEach(node=>node.removeAttribute("hidden"));
+ article.querySelectorAll(".reading-heading").forEach(node=>{
+   const base=node.previousElementSibling;
+   if(base&&/^(H2|H3|H4)$/.test(base.tagName))base.classList.add("replaced-by-reading");
+ });
+ // Preserve the original bilingual tab label intact for mode 3.
+ article.querySelectorAll(".source-tabs > details > summary").forEach(summary=>{
+   const english=summary.querySelector(":scope>.reading-tab-label");
+   if(!english||summary.querySelector(":scope>.source-tab-base"))return;
+   const base=document.createElement("span");
+   base.className="source-tab-base";
+   while(summary.firstChild&&summary.firstChild!==english)
+     base.appendChild(summary.firstChild);
+   summary.insertBefore(base,english);
+ });
+}
 function prepareBilingualLabels(){
  document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(node=>{
+   if(node.classList.contains("reading-view")||node.querySelector(":scope>.reading-tab-label"))return;
    const original=node.dataset.origFull||node.textContent;
    if(!node.dataset.origFull)node.dataset.origFull=original;
    if(node.classList.contains("stacked-bilingual-label")||!original.includes("／"))return;
@@ -85,7 +116,7 @@ function prepareBilingualLabels(){
  });
 }
 function preferredReadingMode(){
- try{const saved=localStorage.getItem(DISPLAY_KEY);return DISPLAY_MODES.includes(saved)?saved:"vertical"}
+ try{const saved=localStorage.getItem(DISPLAY_KEY);const legacy={zh:"annotated",parallel:"triple",tap:"vertical"};const next=legacy[saved]||saved;return DISPLAY_MODES.includes(next)?next:"vertical"}
  catch(_){return "vertical"}
 }
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
@@ -168,7 +199,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  });
  document.querySelectorAll("#toc .toc-link").forEach(link=>{
    const title=link.querySelector(".toc-label");
-   if(title)title.textContent=selected==="en"?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
+   if(title)title.textContent=(selected==="en"||selected==="annotated")?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
  });
  try{localStorage.setItem(DISPLAY_KEY,selected)}catch(_){}
  function finish(){
@@ -230,7 +261,7 @@ window.addEventListener("resize",()=>{if(window.innerWidth>800&&document.body.cl
 
 /* Knowledge Check UI is created after sanitization; no questions/answers live in the public repository. */
 function activateQuizzes(){
- const isEnglish=()=>document.documentElement.dataset.readingMode==="en";
+ const isEnglish=()=>["en","annotated"].includes(document.documentElement.dataset.readingMode);
  document.querySelectorAll("#study-content .knowledge-check").forEach((quiz,qIndex)=>{
    if(quiz.dataset.enhanced==="true")return;
    quiz.dataset.enhanced="true";
@@ -377,6 +408,7 @@ function mountAll(texts){
  }
  article.replaceChildren(frag);
  allLessons=[...article.querySelectorAll("section.lesson")];
+ prepareEnhancedViews();
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
