@@ -280,3 +280,10 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - 原書 p.53–71 隨機截距／斜率、縱貫資料、GLMM、Bühlmann–Straub 可信度。p.69 原書 175.08×50 與列示 8,574 的乘積矛盾已獨立標示。原稿文字層對照通過 19／19 節。
 - GitHub module3.js 維持共用四模式、語言切換不跳頁，新增 `3:4`，總量 guard = 60，`EXPECTED_COUNTS=[10,21,10,19]`；上傳的整章校稿備用稿已移至 Drive `_backup`，不重複顯示。
 - **完整交接**：`learning/atpa-modules/module3/README.md` 最末 2026-10-14 §1.3 交接；GitHub 靜態／Drive 權限已核對，真實 OAuth／iPhone 網站顯示未端對端驗收。
+
+
+## 2026-10-14｜Module 1 新閱讀模式
+
+- Module 1 改為全英文／英文精讀／上中文下英文／三欄精讀；全部 60 節、349 組對照完成語塊註解及雙語摘要，既有中譯與原英文保留。
+- 5 份私人來源皆先備份、原 ID 更新並讀回核對；教材內容維持私人。模式偏好與新樣式僅作用於 Module 1。詳見 `learning/atpa-modules/README.md` 最新紀錄。
+- 靜態內容保留及 7 項模式測試通過；真實 OAuth 與 iPhone／Safari 渲染尚未驗收。

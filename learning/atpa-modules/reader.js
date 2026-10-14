@@ -59,17 +59,21 @@ function cleanSource(doc){
    pairs.forEach(p=>{
      if(!p.querySelector(":scope>.original")||!p.querySelector(":scope>.translation"))
        throw new Error("§"+sec.dataset.num+" 有未配對的英文或中文段落。");
+     for(const cls of ["reading-annotated","reading-diagonal","reading-summary"]){
+       if(!p.querySelector(":scope>."+cls))throw new Error("§"+sec.dataset.num+" 精讀內容尚未完整載入，請重新整理。");
+     }
    });
  }
  return{main,lessons};
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","zh","vertical","parallel"];
-const DISPLAY_KEY="atpa-modules-reading-mode-v3";
+const DISPLAY_MODES=["en","annotated","vertical","study"];
+const DISPLAY_KEY="atpa-module1-reading-mode-v4";
 function prepareBilingualLabels(){
- document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(node=>{
-   const original=node.dataset.origFull||node.textContent;
+ document.querySelectorAll("#study-content .source-tabs summary,#study-content .soa-sample-answer>summary,#study-content .lesson h3:not(.reading-heading)").forEach(node=>{
+   const label=node.querySelector(":scope>.reading-tab-label");
+   const original=node.dataset.origFull||[...node.childNodes].filter(n=>n!==label).map(n=>n.textContent).join("");
    if(!node.dataset.origFull)node.dataset.origFull=original;
    if(node.classList.contains("stacked-bilingual-label")||!original.includes("／"))return;
    const parts=original.split("／");
@@ -80,13 +84,38 @@ function prepareBilingualLabels(){
    chinese.lang="zh-Hant";chinese.className="bilingual-label-zh";chinese.textContent=zh;
    const english=document.createElement("span");
    english.lang="en";english.className="bilingual-label-en";english.textContent=en;
-   node.replaceChildren(chinese,english);
+   node.replaceChildren(chinese,english,...(label?[label]:[]));
    node.classList.add("stacked-bilingual-label");
  });
 }
 function preferredReadingMode(){
- try{const saved=localStorage.getItem(DISPLAY_KEY);return DISPLAY_MODES.includes(saved)?saved:"vertical"}
- catch(_){return "vertical"}
+ try{
+   const current=localStorage.getItem(DISPLAY_KEY);
+   if(DISPLAY_MODES.includes(current))return current;
+   const previous=localStorage.getItem("atpa-modules-reading-mode-v3");
+   return ({en:"en",zh:"annotated",vertical:"vertical",parallel:"study"})[previous]||"vertical";
+ }catch(_){return "vertical"}
+}
+function prepareStudyViews(){
+ document.querySelectorAll("#study-content section.lesson").forEach(sec=>{
+   const labels=document.createElement("div");labels.className="study-column-headings reading-view";labels.hidden=true;
+   for(const text of ["原文｜斜向閱讀","中文翻譯","摘要｜English → 中文"]){
+     const label=document.createElement("strong");label.textContent=text;labels.appendChild(label);
+   }
+   sec.querySelector("header")?.after(labels);
+ });
+}
+function updateStudyViews(mode){
+ document.querySelectorAll("#study-content .reading-view").forEach(node=>{
+   const annotation=node.matches(".reading-annotated,.reading-heading,.reading-tab-label");
+   node.hidden=annotation?mode!=="annotated":mode!=="study";
+ });
+ const article=$("study-content");
+ if(article){
+   article.tabIndex=mode==="study"?0:-1;
+   if(mode!=="study")article.scrollLeft=0;
+   article.setAttribute("aria-label",mode==="study"?"Module 1 三欄精讀；窄螢幕可左右捲動":"官方 Module 1 連續正文");
+ }
 }
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
@@ -163,12 +192,13 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
    document.body.style.overflowAnchor="none";
  }
  root.dataset.readingMode=selected;
+ updateStudyViews(selected);
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
    button.setAttribute("aria-pressed",String(button.dataset.mode===selected));
  });
  document.querySelectorAll("#toc .toc-link").forEach(link=>{
    const title=link.querySelector(".toc-label");
-   if(title)title.textContent=selected==="en"?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
+   if(title)title.textContent=(selected==="en"||selected==="annotated")?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
  });
  try{localStorage.setItem(DISPLAY_KEY,selected)}catch(_){}
  function finish(){
@@ -230,7 +260,7 @@ window.addEventListener("resize",()=>{if(window.innerWidth>800&&document.body.cl
 
 /* Knowledge Check UI is created after sanitization; no questions/answers live in the public repository. */
 function activateQuizzes(){
- const isEnglish=()=>document.documentElement.dataset.readingMode==="en";
+ const isEnglish=()=>["en","annotated"].includes(document.documentElement.dataset.readingMode);
  document.querySelectorAll("#study-content .knowledge-check").forEach((quiz,qIndex)=>{
    if(quiz.dataset.enhanced==="true")return;
    quiz.dataset.enhanced="true";
@@ -381,6 +411,7 @@ function mountAll(texts){
  show("gate",false);show("reader-wrap",true);
  loaded=true;
  prepareBilingualLabels();
+ prepareStudyViews();
  applyReadingMode(preferredReadingMode(),false);
  activateQuizzes();
  // Old bookmarked ?part= links remain valid. A hash always wins.

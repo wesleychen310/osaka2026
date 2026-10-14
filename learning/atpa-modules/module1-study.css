@@ -1,0 +1,55 @@
+/* Module 1 only: curated study content is loaded from private Drive sources. */
+.reading-view[hidden]{display:none!important}
+.learning-mark{font-weight:750;color:inherit}
+.learning-gloss{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;font-size:.84em;font-weight:400;color:#657f8c;letter-spacing:0}
+html[data-reading-mode=annotated] .pair>.original,
+html[data-reading-mode=annotated] .pair>.translation,
+html[data-reading-mode=annotated] .lesson header>h2:not(.reading-heading),
+html[data-reading-mode=annotated] .lesson .zh-heading,
+html[data-reading-mode=annotated] .lesson h3:not(.reading-heading),
+html[data-reading-mode=annotated] .lesson h4:not(.reading-heading),
+html[data-reading-mode=annotated] .chapter-heading-zh,
+html[data-reading-mode=annotated] .bilingual-label-zh,
+html[data-reading-mode=annotated] .bilingual-label-en,
+html[data-reading-mode=annotated] .tutor,
+html[data-reading-mode=annotated] .phrases,
+html[data-reading-mode=annotated] .teacher-answer,
+html[data-reading-mode=annotated] .source-anomaly,
+html[data-reading-mode=annotated] .source-note,
+html[data-reading-mode=annotated] .official-answer-label,
+html[data-reading-mode=annotated] .case-study-instruction{display:none!important}
+html[data-reading-mode=annotated] .pair>.reading-annotated{margin:0;font:16px/1.95 Georgia,"Times New Roman",serif;color:#253947;overflow-wrap:anywhere}
+html[data-reading-mode=annotated] .reading-tab-label{font-size:14px;line-height:1.8}
+html[data-reading-mode=annotated] .lesson header>.reading-heading{margin:0;font:600 clamp(23px,2.4vw,28px)/1.5 Georgia,serif;color:#253f4e}
+html[data-reading-mode=annotated] .chapter-heading-en{font:600 clamp(26px,3vw,34px)/1.4 Georgia,serif;color:var(--accent-dark)}
+html[data-reading-mode=annotated] .lesson h3.reading-heading{font-size:15px;line-height:1.8}
+html[data-reading-mode=study] .shell{max-width:1780px}
+html[data-reading-mode=study] .study-layout{max-width:none;grid-template-columns:220px minmax(0,1fr);gap:26px}
+html[data-reading-mode=study] .study-content{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding:28px}
+html[data-reading-mode=study] .lesson{min-width:1000px}
+html[data-reading-mode=study] .pair,
+html[data-reading-mode=study] .study-column-headings{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,32fr) minmax(0,24fr);column-gap:20px;align-items:start;min-width:0}
+html[data-reading-mode=study] .study-column-headings{padding:10px 0;border-top:1px solid #d8e4e9;border-bottom:1px solid #d8e4e9;margin:12px 0 6px;font-size:12px;color:#5c7c8d}
+html[data-reading-mode=study] .pair>.original{display:none!important}
+html[data-reading-mode=study] .pair>.reading-diagonal{grid-column:1;grid-row:1;min-width:0;font:16px/1.9 Georgia,"Times New Roman",serif;color:#253947;overflow-wrap:anywhere}
+html[data-reading-mode=study] .pair>.translation{display:block!important;grid-column:2;grid-row:1;margin:0;padding:0;font-size:15.5px;line-height:1.9;overflow-wrap:anywhere}
+html[data-reading-mode=study] .pair>.reading-summary{grid-column:3;grid-row:1;min-width:0;padding-left:16px;border-left:1px solid #e4ebef;overflow-wrap:anywhere}
+.semantic-chunk{display:block;margin:0 0 5px}
+.semantic-chunk.depth-1{margin-left:1.25em}
+.semantic-chunk.depth-2{margin-left:2.5em}
+.reading-summary .summary-en{margin:0 0 12px;font:14px/1.8 Georgia,"Times New Roman",serif;color:#526b7b}
+.reading-summary .summary-zh{margin:0;font-size:14px;line-height:1.85;color:#617782}
+html[data-reading-mode=study] .stacked-bilingual-label>span{display:block}
+html[data-reading-mode=study] .bilingual-label-en{font:14px/1.7 Georgia,serif;color:#738894}
+html[data-reading-mode=study] .lesson header .zh-heading{margin-top:6px}
+html[data-reading-mode=study] .quiz-option .choice-body{min-width:0}
+html[data-reading-mode=study] .quiz-option .choice-body>.pair{grid-template-columns:minmax(0,44fr) minmax(0,32fr) minmax(0,24fr)}
+@media(max-width:800px){
+ html[data-reading-mode=study] .study-layout{display:block}
+ html[data-reading-mode=study] .study-content{padding:18px 14px}
+ html[data-reading-mode=study] .lesson{min-width:1000px}
+}
+@media(max-width:490px){
+ html[data-reading-mode=annotated] .pair>.reading-annotated{font-size:16px;line-height:1.95}
+ html[data-reading-mode=annotated] .lesson header>.reading-heading{font-size:23px}
+}
