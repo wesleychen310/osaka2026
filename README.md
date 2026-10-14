@@ -261,3 +261,10 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 最新 §1.7 Case Studies（印刷 p.245–259）在具名授權 Google Drive HTML `1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ`，13 小節、15 組英文原文／繁中教學、39 實務語塊、9 張原書頁圖。公開 GitHub 只保留閱讀器 shell、來源檔 ID 和 SOP。
 - **尚待取得**：官方案例的獨立資料 ZIP／CSV／XML、Sample Report PDF 和 R/Python Rmd；尚待真實 owner OAuth、iPhone／Mac 四模式 E2E 及逐段中文細校。保留外部連結及限制說明。
 - 交接與 QA：`learning/atpa-modules/module2/README.md` 最新 §1.7 進度區塊；來源映射 `learning/atpa-modules/module2/module2.js`。
+
+
+## 2026-10-14｜SOA ATPA Module 3 進階模型私人教科書上線
+
+- 新入口 https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ ，已製作 **§1.1.1–§1.1.10，10／211 小節**（Model Accuracy）。新增 GitHub `learning/atpa-modules/module3/index.html`、`module3.js`、`module3.css`、`module3/README.md`，沿用四模式與具名 OAuth。
+- 私人教材正本只存在受限 Google Drive `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`，652,483 bytes，38 對英中來源，38 實用英文語塊、5 原書 PDF 圖。原始官方 PDF：Module 3 p.7–18。
+- **下一批**：§1.2 Additive Models，全 21 節（印刷 p.19–40），新增後總量應為 31／211。完整章節地圖、來源校對、GitHub/Drive 追溯、備份與待驗收 SOP：`learning/atpa-modules/module3/README.md`。
