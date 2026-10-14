@@ -278,3 +278,10 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 新私人 Google Drive 原稿 `1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP`，21 節／94 英中對照／17 PDF 原圖／84 英文語塊。首頁和 GitHub 讀取器已加上 `SOURCE["3:2"]` 並將總量驗證更新至 31 節。
 - 四個閱讀模式維持全英文／全中文／上中文下英文／左英文右中文。下一批 **§1.3 Linear Mixed Models（29 節）**。
 - 備註：§1.2.8 原 PDF 公式破圖，教師重建獨立標示；尚待使用者 Google OAuth、手機實機與官方外部 Rmd／CSV 執行驗收。詳細來源／QA／下一批 SOP：`learning/atpa-modules/module3/README.md`。
+
+
+## 2026-10-14｜ATPA 私人雙語學習站：修復語言切換跳位
+
+- Module 1／2／3 均已更新語言模式切換程式，切換時擷取當前閱讀的 `.pair` 段落及大致段內行位，改變版面後自動恢復同段，避免大量折疊原文造成跳到其他小節。四個切換鈕與 16px 上下雙語規格保留。
+- JS GitHub 路徑：`learning/atpa-modules/reader.js`、`learning/atpa-modules/module2/module2.js`、`learning/atpa-modules/module3/module3.js`；三個 index.html 均更新快取版號 `20261014-reading-anchor1`。未變動私人 Google Drive 正文／權限。
+- 本地 Chromium 24／24 次模擬切換維持相同 paragraph ID；正式 iPhone Safari／OAuth 仍待驗收。完整工程交接見 `learning/atpa-modules/README.md`。
