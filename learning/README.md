@@ -233,3 +233,12 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - **最新受限 Google Drive 原稿**：`1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ`，原書 §1.7.1–§1.7.13、p.245–259；13 小節、15 組英文/中文詳解、13 教師卡、39 英文語塊、9 張原 PDF 頁面圖；SHA256 `e947f83679a29c23fadf103fdf439acd6220e9c96caead6379e621ebb643ff1e`。官方英文 15／15 來源區塊逐頁對照 PDF 一致。
 - **未完成的外部來源**：案例原始 ZIP/CSV/XML、SOA CDN 詳細題目與 Sample Report PDF、R/Python Rmd 仍需另取得與實際執行；主 PDF 內的答案及案例敘述已納入，未擅自冒稱外部附件完成。
 - 程式 `learning/atpa-modules/module2/module2.js` 已新增第 13 個來源、1.7 導覽與 223 unique section guard，`module2/index.html` 資產版號 `20261014-module2-complete`。**最新完整交接與驗收界線以 `learning/atpa-modules/module2/README.md` 最末 2026-10-14 §1.7 區塊為準。**
+
+
+## 2026-10-14｜ATPA Module 3 正式啟動：§1.1 Model Accuracy
+
+- **私人閱讀入口**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ 。官方主教材共 211 節，已完成 §1.1.1–§1.1.10 **10／211**；新站左側先呈現七個完整官方章節，其中 §1.2–§1.7 均明示待製作。
+- §1.1 原書 p.7–18，合併 PDF 1-based p.339–350，英文逐區塊依 PDF 原始順序核對。含 **10 小節、38 對英中來源、10 張精算教師卡、38 Reusable English、5 張原 PDF 面板／流程圖**（p.7/9/13/14/17）；p.8、15 原書空白。
+- 私人教材 `ATPA_Module_3_1.1.1-1.1.10_私人雙語教材.html`：Google Drive fileId `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`，父資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，652,483 bytes，SHA256 `06a8f9b47b466b1e00a89a29bf4f440240335fa24d58f516897b4d94d85de1fd`，僅具名 owner/reader，無公開分享。原 §1.1.1 翻譯對位修正前備份位於同層 `_backup`，備份 ID `1LcpVq21ldlG-99cnxkh6YuzJTUi8z-S0`。
+- GitHub 公開介面：`learning/atpa-modules/module3/index.html`、`module3.js`、`module3.css`，延用 `../reader.css`。四模式保持全英文／全中文／上中文下英文／左英文右中文（預設第三項，中英文 16px）。
+- **下一批 §1.2 Additive Models** 21 小節（原書 p.19–40），新增後應達 **31／211**；完整來源、QA/限制與續接 SOP 以 `learning/atpa-modules/module3/README.md` 為準。正式使用者 Google OAuth、手機端實機尚待驗收。
