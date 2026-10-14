@@ -270,3 +270,11 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - **下一批**：§1.2 Additive Models，全 21 節（印刷 p.19–40），新增後總量應為 31／211。完整章節地圖、來源校對、GitHub/Drive 追溯、備份與待驗收 SOP：`learning/atpa-modules/module3/README.md`。
 
 **2026-10-14 Module 3 首批原圖校正**：§1.1.1–§1.1.10 私人來源 `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb` 已在更新前備份（`_backup` ID `1sDt59rh11_FAw6ovKiNRktBz-silPWfN`），原書 p.7、14、17 面板擴展裁切避免截掉末列。正本保留原 File ID；最新大小 665,987 bytes，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`。詳 `learning/atpa-modules/module3/README.md`。
+
+
+## 2026-10-14｜ATPA Module 3 §1.2 Additive Models 已部署到閱讀器
+
+- 正式站點：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ ，已完成 **31／211 小節**（§1.1–§1.2）。新增 §1.2 21 節，原書 p.19–40，包含 GAM、mgcv/smooth、gam.check、變數選擇及飯店預訂官方解答。
+- 新私人 Google Drive 原稿 `1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP`，21 節／94 英中對照／17 PDF 原圖／84 英文語塊。首頁和 GitHub 讀取器已加上 `SOURCE["3:2"]` 並將總量驗證更新至 31 節。
+- 四個閱讀模式維持全英文／全中文／上中文下英文／左英文右中文。下一批 **§1.3 Linear Mixed Models（29 節）**。
+- 備註：§1.2.8 原 PDF 公式破圖，教師重建獨立標示；尚待使用者 Google OAuth、手機實機與官方外部 Rmd／CSV 執行驗收。詳細來源／QA／下一批 SOP：`learning/atpa-modules/module3/README.md`。
