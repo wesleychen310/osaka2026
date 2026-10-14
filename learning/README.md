@@ -269,3 +269,5 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - **三個站的 JS cache rev**：`reading-anchor2`（如再次調整程式碼必須更新 query 版本避免手機快取舊程式）。
 - **驗證範圍**：三份 JS 已通過靜態語法檢查、四種按鈕仍保留。Chromium 以自建 140 節長文模擬桌面 1280×850 與 iPhone 尺寸 390×844，連續切換 `en → zh → vertical → parallel → en → vertical`，選定的同一段落始終維持在可視範圍。**尚未在使用者真實 Google OAuth 私人教材的 Safari／iPhone 上完成端對端驗收**。
 - **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
+
+2026-10-14：Module 3 已完成 §1.1 全 10、§1.2 全 21、§1.3 前 10，合計 **41／211**。新私人來源 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`，閱讀 `/learning/atpa-modules/module3/#s131`；§1.3.11–§1.3.29 待製作。
