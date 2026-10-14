@@ -225,3 +225,11 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - 新私人 Drive HTML：`1qQyqkrgtUBSz4AgjhHI1mxp5x7OXm6si`，§1.6.1–§1.6.29，原書 p.215–244（含 p.238 跨頁），29 段官方英文／繁中詳解、29 精算教師卡、87 英文語塊、20 張原書頁圖，SHA256 `41cb331e6275c0d75c4a4ed77414e9d483ec569579a7b7377dff564d03be072f`。只存受限 Drive，不放 GitHub 原文。
 - GitHub `learning/atpa-modules/module2/module2.js` 新增第 12 個來源及左側 1.6 目錄，四種閱讀模式保持原樣；實機 OAuth/跨裝置測試尚待完成。
 - **交接 SOP 與完整 QA**：`learning/atpa-modules/module2/README.md` 最後一段 2026-10-14 §1.6。
+
+
+## 2026-10-14｜SOA ATPA Module 2 §1.7 完成，官方主教材 223／223 節接入
+
+- **正式私人閱讀網站**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s171 。§1.1–§1.7 全部 **223／223 個編號小節**，四個閱讀模式與左側目錄保留。
+- **最新受限 Google Drive 原稿**：`1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ`，原書 §1.7.1–§1.7.13、p.245–259；13 小節、15 組英文/中文詳解、13 教師卡、39 英文語塊、9 張原 PDF 頁面圖；SHA256 `e947f83679a29c23fadf103fdf439acd6220e9c96caead6379e621ebb643ff1e`。官方英文 15／15 來源區塊逐頁對照 PDF 一致。
+- **未完成的外部來源**：案例原始 ZIP/CSV/XML、SOA CDN 詳細題目與 Sample Report PDF、R/Python Rmd 仍需另取得與實際執行；主 PDF 內的答案及案例敘述已納入，未擅自冒稱外部附件完成。
+- 程式 `learning/atpa-modules/module2/module2.js` 已新增第 13 個來源、1.7 導覽與 223 unique section guard，`module2/index.html` 資產版號 `20261014-module2-complete`。**最新完整交接與驗收界線以 `learning/atpa-modules/module2/README.md` 最末 2026-10-14 §1.7 區塊為準。**
