@@ -321,3 +321,98 @@ html[data-reading-mode=en] .source-anomaly,html[data-reading-mode=en] .source-no
  html[data-reading-mode=parallel] .lesson header>.zh-heading{font-size:15px;line-height:1.5}
  html[data-reading-mode=parallel] .lesson header>h2{font-size:16px;line-height:1.5}
 }
+
+
+/* ATPA MODULE 1 | FOUR READING MODES 20261014
+   The original English and translated Chinese source nodes are never rewritten.
+   Work-created reading-view annotations, semantic chunks and summaries are rendered
+   in the browser only when their corresponding mode is selected. Scoped to M1. */
+body[data-atpa-module="1"] .reading-view{display:none!important}
+body[data-atpa-module="1"] .triple-swipe-note{display:none}
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .pair>.original,
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .pair>.translation,
+html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.original,
+html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.reading-annotated{display:none!important}
+
+/* 2. English inline reading: unchanged word order + semantic glosses. */
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .pair>.reading-annotated{display:block!important;max-width:77ch;margin:0;font:17px/2.05 Georgia,"Times New Roman",serif;color:#263b4a;overflow-wrap:break-word}
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .pair{padding:16px 0}
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .lesson header>.zh-heading,
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .chapter-heading-zh{display:none!important}
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .chapter-heading-en{display:block;font:600 clamp(25px,3vw,34px)/1.45 Georgia,serif;color:#193e52}
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .lesson header>.reading-heading{display:block!important}
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .replaced-by-reading{display:none!important}
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .source-bullet>.reading-annotated::before{content:"• ";font-weight:700;color:#64859a}
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .source-anomaly,
+html[data-reading-mode=annotated] body[data-atpa-module="1"] .source-note,
+html[data-reading-mode=annotated] body[data-atpa-module="1"] details.tutor,
+html[data-reading-mode=annotated] body[data-atpa-module="1"] details.phrases{display:none!important}
+
+/* Shared learning notation: bold English phrase followed by quiet Chinese gloss. */
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .learning-mark{font-weight:750;color:#16425b}
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .learning-gloss{font:400 .88em/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#587487;white-space:normal}
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-zh{display:none!important}
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-en{display:inline!important;color:inherit}
+html:is([data-reading-mode=en],[data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .source-tab-base{display:none!important}
+html:is([data-reading-mode=en],[data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .source-tabs summary>.reading-tab-label{display:inline!important;color:#2e5368}
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .source-heading.replaced-by-reading{display:none!important}
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] .source-heading+.reading-heading{display:block!important}
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] details.tutor,
+html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="1"] details.phrases{display:none!important}
+
+/* 4. Three-column deep reading: diagonal original / verified Chinese / bilingual summary. */
+html[data-reading-mode=triple] body[data-atpa-module="1"] .shell{max-width:1720px}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .study-layout{max-width:none;grid-template-columns:195px minmax(0,1fr);gap:clamp(15px,1.9vw,28px)}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .study-content{padding:clamp(18px,2vw,30px)}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .pair{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,33fr) minmax(0,23fr);align-items:start;gap:0;padding:15px 0;min-width:0}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.reading-diagonal{display:block!important;grid-column:1;grid-row:1;margin:0;padding:0 17px 0 0;font:16px/1.9 Georgia,"Times New Roman",serif;color:#263e4d;min-width:0;overflow-wrap:break-word;border-right:1px solid #dfe6e9}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.translation{display:block!important;grid-column:2;grid-row:1;margin:0;padding:0 16px;font-size:15.5px;line-height:1.94;color:#253740;min-width:0;overflow-wrap:break-word;border-right:1px solid #dfe6e9}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.reading-summary{display:block!important;grid-column:3;grid-row:1;margin:0;padding:0 0 0 16px;min-width:0;overflow-wrap:break-word}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .reading-summary p{margin:0;line-height:1.77}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .reading-summary .summary-en{font:14px/1.77 Georgia,"Times New Roman",serif;color:#37586b}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .reading-summary .summary-zh{font-size:13.5px;line-height:1.78;color:#53636d;margin-top:9px;padding-top:8px;border-top:1px solid #edf0f1}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk{display:block;max-width:100%;margin:0;white-space:normal}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-0{padding-left:0}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-1{padding-left:1.45em}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-2{padding-left:2.9em}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-3{padding-left:4.35em}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-4{padding-left:5.8em}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .source-bullet>.reading-diagonal::before{content:"• ";color:#63849a;font-weight:700}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .lesson header{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,33fr) minmax(0,23fr);gap:0;align-items:start}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .lesson header>.sec-num{grid-column:1/-1;grid-row:1}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .lesson header>.reading-heading{display:block!important;grid-column:1;grid-row:2;font:600 clamp(19px,2vw,25px)/1.5 Georgia,serif;padding-right:17px}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .lesson header>.zh-heading{display:block!important;grid-column:2;grid-row:2;padding:0 16px;font-size:clamp(17px,1.5vw,21px);font-weight:740;color:#274659}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .lesson header>small{grid-column:1/-1;grid-row:3}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .replaced-by-reading{display:none!important}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .chapter-heading{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,33fr) minmax(0,23fr);align-items:start}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .chapter-code{grid-column:1/-1}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .chapter-heading-en{display:block;grid-column:1;padding-right:16px;font:600 clamp(23px,2.6vw,32px)/1.42 Georgia,serif;color:var(--accent-dark)}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .chapter-heading-zh{display:block;grid-column:2;padding:0 16px;font-size:clamp(20px,2.2vw,29px)}
+html[data-reading-mode=triple] body[data-atpa-module="1"] .source-anomaly,
+html[data-reading-mode=triple] body[data-atpa-module="1"] .source-note{display:none!important}
+/* Images, original tables, and interactive source questions remain outside the paragraph grid. */
+html[data-reading-mode=triple] body[data-atpa-module="1"] .source-figure,
+html[data-reading-mode=triple] body[data-atpa-module="1"] .source-table-wrap,
+html[data-reading-mode=triple] body[data-atpa-module="1"] .source-page-figure{max-width:100%}
+
+@media(max-width:900px){
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .study-layout{display:block}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .pair{grid-template-columns:310px 265px 235px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .triple-swipe-note{display:block;font-size:12px;color:#526d7d;padding:9px 4px}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .lesson header{display:flex;flex-direction:column;gap:2px}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .lesson header>.reading-heading{font-size:22px;padding:0}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .lesson header>.zh-heading{font-size:17px;padding:0}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .chapter-heading{display:block}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .chapter-heading-zh{padding:0;font-size:22px}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .chapter-heading-en{padding:0;margin:3px 0 0;font-size:19px}
+}
+@media(max-width:490px){
+ html[data-reading-mode=annotated] body[data-atpa-module="1"] .pair>.reading-annotated{font-size:16px;line-height:2.0}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .study-content{padding:14px 10px}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .pair{grid-template-columns:300px 250px 230px}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.reading-diagonal{font-size:15px;padding-right:12px}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.translation{font-size:15px;padding:0 12px}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.reading-summary{padding-left:12px}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-3{padding-left:2.8em}
+ html[data-reading-mode=triple] body[data-atpa-module="1"] .semantic-chunk.depth-4{padding-left:3.4em}
+}
