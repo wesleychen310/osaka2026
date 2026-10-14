@@ -272,3 +272,12 @@ Part 04：§1.2.19–1.2.28（原書 p.53–62）：Module Summary、Ethical Pri
 - 最新 §1.7 Case Studies Google Drive HTML：`1eR9g8wl5_ZKxCl5eXrWTtSQmS1OE26tZ`，印刷 p.245–259，包含網站停留時間與 Chiropractic Visits 兩案例、主 PDF 的解答、外部 Sample Report 連結、完整 bibliography；13 節、15 英中來源對照區塊、39 英文語塊、9 原書頁圖，受限具名帳號。
 - 正式網址：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module2/#s171；4 模式「全英文、全中文、上中文下英文、左英文右中文」，單頁連續閱讀。
 - **遺留任務**：Owner OAuth 和各裝置端對端驗證、無法從主 PDF 內取得的官方 `2.7_case_studies.zip`、`atpa_2_7_cs11.pdf`、`atpa_2_7_cs12.pdf`、`atpa_2_7_cs23.pdf` 以及官方 Rmd／個案 CSV XML，及下一輪逐段中文翻譯語意複校。詳細以 `module2/README.md` 最後 2026-10-14 §1.7 交接為準。
+
+
+## 2026-10-14｜Module 3 Advanced Models 啟動與正式交接
+
+- 新站 https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ ，目前完成 **§1.1 Model Accuracy 10／211 小節**。原書 Module 3 全 242 頁（合併官方 PDF 第333–574頁），七章共 211 節。
+- 新的 10 小節私人原稿 Drive ID `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`，原書 p.7–18；38 英中對照，10 教師卡，38 實用英文語塊，5 官方原圖。
+- 網站沿用 Module 1/2 的 CSS、OAuth 與「全英文、全中文、上中文下英文、左英文右中文」四模式。GitHub `module3/index.html`／`module3.js`／`module3.css`；公開 repo 沒有教材原文與個人私密資料正文。
+- §1.1 原始 R 與 Python 軟體敘述來自 2022 年教材，並已保留來源年份。**下一批從 §1.2.1 Additive Models（p.19）開始，21 節**。
+- 詳細私有 Drive、備份、驗證與下階段工作指令見 **`module3/README.md`**。Module 2 的 223／223 是另一套獨立課程進度，不可與 Module 3 混算。
