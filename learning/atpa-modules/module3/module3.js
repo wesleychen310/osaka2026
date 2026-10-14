@@ -4,7 +4,8 @@ const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercon
 const SCOPE="https://www.googleapis.com/auth/drive.readonly";
 const SESSION_KEY="hanami-kyoto-google-token-v3";
 const SOURCE={
- "3:1":{fileId:"1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb",module:"3",part:"1",label:"1.1.1–1.1.10",sourcePages:"7–18",kind:"raw"}
+ "3:1":{fileId:"1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb",module:"3",part:"1",label:"1.1.1–1.1.10",sourcePages:"7–18",kind:"raw"},
+ "3:2":{fileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",module:"3",part:"2",label:"1.2.1–1.2.21",sourcePages:"19–40",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -12,8 +13,8 @@ const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="3";
 const SOURCES=Object.values(SOURCE).sort((a,b)=>Number(a.part)-Number(b.part));
 const CHAPTERS={"1.1":{title:"Model Accuracy",zh:"模型準確性",total:10},"1.2":{title:"Additive Models",zh:"加法模型",total:21},"1.3":{title:"Linear Mixed Models",zh:"線性混合模型",total:29},"1.4":{title:"Neural Networks",zh:"神經網路",total:48},"1.5":{title:"Bayesian Models and Analysis",zh:"貝氏模型與分析",total:44},"1.6":{title:"Stacking",zh:"模型堆疊",total:9},"1.7":{title:"Further Modeling Topics",zh:"其他進階建模主題",total:50}};
-const EXPECTED_COUNTS=[10];
-const FIRST_IDS=["s111"];
+const EXPECTED_COUNTS=[10,21];
+const FIRST_IDS=["s111","s121"];
 const SESSION_PREFIX="hanami-kyoto-google-token-v3";
 let tokenClient=null,loaded=false,allLessons=[],scrollScheduled=false;
 const show=(id,visible)=>{const n=$(id);if(n)n.hidden=!visible};
@@ -177,7 +178,7 @@ function makeChapter(id,key){
 }
 function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
- const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 10／211 小節";toc.append(count);
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 31／211 小節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const chapterLessons=lessons.filter(sec=>sec.dataset.num.startsWith(chapter+"."));
    const details=document.createElement("details");details.className="toc-group";
@@ -259,8 +260,8 @@ function mountAll(texts){
      throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
    sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
  }
- if(sections.length!==10||new Set(sections.map(s=>s.id)).size!==10)
-   throw new Error("10 個已製作小節未完整載入，請重新整理後再試。");
+ if(sections.length!==31||new Set(sections.map(s=>s.id)).size!==31)
+   throw new Error("31 個已製作小節未完整載入，請重新整理後再試。");
  const article=$("study-content"),frag=document.createDocumentFragment();let lastChapter="";
  for(const sec of sections){
    const group=sec.dataset.num.split(".").slice(0,2).join(".");
@@ -301,7 +302,7 @@ async function fetchOneSource(source,token){
 }
 async function fetchPrivate(token){
  if(loaded||!selected)return;
- status("正在載入 Module 3 已製作的 10 個小節…");
+ status("正在載入 Module 3 已製作的 31 個小節…");
  const texts=await Promise.all(SOURCES.map(source=>fetchOneSource(source,token)));
  mountAll(texts);
 }
