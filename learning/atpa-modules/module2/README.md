@@ -203,3 +203,10 @@
 2. **取得未隨 PDF 附上的 SOA 官方案例資料／範例報告／Rmd**，逐筆確認原書連結現況後保存在受限 Drive，不擅自上傳 GitHub。取得後可擴充 §1.7.3/§1.7.4/§1.7.6/§1.7.7/§1.7.10/§1.7.12，區分官方來源和教師分析。任何原私有檔案修改先做 `_backup` 時間戳備份並保留原 ID、路徑、權限。
 3. **深度翻譯校稿／可執行程式**：本批英文原文逐頁驗證通過；中文已逐節詳解但尚可進一步改成逐段更細的原文－譯文對位。官方附件未取得前不編造結果；原書及範例實作獨立版本控制。
 4. 更新本 README 及 `learning/atpa-modules/README.md`、`learning/README.md`、根 `README.md`。凡與上方歷史紀錄有衝突，以最新本段及 GitHub／Drive 即時狀態為準。
+
+
+## 2026-10-14｜跨模式閱讀位置保持（最新 UX 修復）
+
+- Module 2 完成的 223 節不變，私有資料來源與所有原文未修改。共用閱讀器 `module2.js` 新增 `captureReadingPosition/restoreReadingPosition`，切換四種語言模式時鎖定目前閱讀段落（含大型 PDF 來源 pair），避免滑動到其他小節。
+- `module2/index.html` JS 更新到 `?v=20261014-reading-anchor1` 強制刷新舊快取。首次載入及深連結 `#s171` 不強制保留舊 scroll。
+- 靜態語法已通過；本地 Chromium 三種長頁定位情境、24 次四模式往返皆維持同段。正式登入與 iOS Safari 尚待確認。
