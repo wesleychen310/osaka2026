@@ -271,3 +271,12 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
 
 2026-10-14：Module 3 已完成 §1.1 全 10、§1.2 全 21、§1.3 前 10，合計 **41／211**。新私人來源 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`，閱讀 `/learning/atpa-modules/module3/#s131`；§1.3.11–§1.3.29 待製作。
+
+
+## 2026-10-14｜ATPA Module 3 §1.3 Linear Mixed Models 已接入（最新）
+
+- **網站**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s1311 ，§1.1 10 + §1.2 21 + §1.3 29 = **60／211 小節（28.4%）**。後續 **§1.4 Neural Networks（48 節，p.72–126）**。
+- §1.3 兩份正式來源：先完成的 §1.3.1–§1.3.10 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO` 維持原樣；新增 §1.3.11–§1.3.29 受限 Drive `13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC`，19 節、31 組英中來源、57 英文語塊、16 張 SOA 原 PDF 圖。最新教材 Google Drive 具名 owner/reader；不公開原文。
+- 原書 p.53–71 隨機截距／斜率、縱貫資料、GLMM、Bühlmann–Straub 可信度。p.69 原書 175.08×50 與列示 8,574 的乘積矛盾已獨立標示。原稿文字層對照通過 19／19 節。
+- GitHub module3.js 維持共用四模式、語言切換不跳頁，新增 `3:4`，總量 guard = 60，`EXPECTED_COUNTS=[10,21,10,19]`；上傳的整章校稿備用稿已移至 Drive `_backup`，不重複顯示。
+- **完整交接**：`learning/atpa-modules/module3/README.md` 最末 2026-10-14 §1.3 交接；GitHub 靜態／Drive 權限已核對，真實 OAuth／iPhone 網站顯示未端對端驗收。
