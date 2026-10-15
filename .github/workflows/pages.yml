@@ -1,8 +1,10 @@
 name: Deploy static site to Pages
 
+# GitHub Pages is already published from the main branch through
+# GitHub's built-in "pages build and deployment" workflow.
+# Keep this alternative deployment workflow for manual recovery only.
+# Running both on each push causes overlapping deployment failures and Gmail alerts.
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
 
 permissions:
