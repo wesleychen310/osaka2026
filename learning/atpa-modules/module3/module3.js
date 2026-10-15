@@ -73,8 +73,84 @@ function cleanSource(doc){
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","zh","vertical","parallel"];
-const DISPLAY_KEY="atpa-modules-reading-mode-v3";
+/* Derive display layers only from authenticated source nodes. */
+function prepareEnhancedViews(){
+ const article=$("study-content"),glossary=new Map();
+ const add=(en,zh)=>{
+  en=en.trim().replace(/[.!?]+$/,"");zh=zh.trim().replace(/^[（(—\s]+|[）)\s]+$/g,"");
+  if(en.length>=8&&en.length<=110&&/[A-Za-z]/.test(en)&&/[\u3400-\u9fff]/.test(zh)&&!glossary.has(en.toLowerCase()))glossary.set(en.toLowerCase(),{en,zh});
+ };
+ article.querySelectorAll(".gpt-phrase").forEach(term=>{
+  const gloss=term.nextElementSibling;
+  if(gloss?.classList.contains("gpt-gloss"))add(term.textContent,gloss.textContent);
+ });
+ article.querySelectorAll(".phrases li,.phrases p").forEach(node=>{
+  const en=node.querySelector('[lang="en"]'),zh=node.querySelector('[lang^="zh"]');
+  if(en)add(en.textContent,zh?.textContent||node.textContent.slice(en.textContent.length));
+ });
+ const terms=[...glossary.values()].sort((a,b)=>b.en.length-a.en.length);
+ const escaped=terms.map(t=>t.en.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
+ const matcher=escaped.length?new RegExp("\\b(?:"+escaped.join("|")+")\\b","gi"):null;
+ function annotate(original){
+  const clone=original.cloneNode(true);clone.className="reading-annotated reading-view";
+  clone.removeAttribute("id");
+  if(!matcher)return clone;
+  const walker=document.createTreeWalker(clone,NodeFilter.SHOW_TEXT),nodes=[];
+  while(walker.nextNode())if(!walker.currentNode.parentElement.closest("table,pre,code,math"))nodes.push(walker.currentNode);
+  const used=new Set();let count=0;
+  const max=Math.max(3,Math.min(12,Math.ceil(original.textContent.split(/\s+/).length/70)));
+  for(const node of nodes){
+   if(count>=max)break;
+   matcher.lastIndex=0;const text=node.textContent,fragment=document.createDocumentFragment();let end=0,match;
+   while((match=matcher.exec(text))){
+    const key=match[0].toLowerCase();if(used.has(key)||count>=max)continue;
+    fragment.append(document.createTextNode(text.slice(end,match.index)));
+    const strong=document.createElement("strong");strong.className="learning-mark";strong.textContent=match[0];
+    const gloss=document.createElement("span");gloss.className="learning-gloss";gloss.lang="zh-Hant";gloss.textContent="（"+glossary.get(key).zh+"）";
+    fragment.append(strong,gloss);end=match.index+match[0].length;used.add(key);count++;
+   }
+   if(end){fragment.append(document.createTextNode(text.slice(end)));node.replaceWith(fragment)}
+  }
+  return clone;
+ }
+ function excerpt(text,lang){
+  const cleaned=text.split(/\n+/).map(s=>s.trim()).filter(s=>s&&!/^(?:ATPA Module|Created:|Component Table\d*|Type|Panel|Title|Header|Footer|Panel Footer|Content|\d+ of \d+)$/i.test(s)).join(" ");
+  if(!cleaned)return text.trim();
+  if(typeof Intl.Segmenter==="function"){
+   const parts=[...new Intl.Segmenter(lang,{granularity:"sentence"}).segment(cleaned)].map(s=>s.segment);
+   return parts.slice(0,2).join("").trim();
+  }
+  return cleaned;
+ }
+ article.querySelectorAll("section.lesson").forEach(lesson=>{
+  const pairs=[...lesson.querySelectorAll(".pair")];
+  const actualSummary=lesson.querySelector(":scope>.gpt-summary");
+  pairs.forEach((pair,index)=>{
+   const original=pair.querySelector(":scope>.original"),translation=pair.querySelector(":scope>.translation");
+   if(!original||!translation)return;
+   let annotated=pair.querySelector(":scope>.gpt-annotated");
+   if(annotated)annotated.classList.add("reading-annotated","reading-view");
+   else{annotated=annotate(original);pair.append(annotated)}
+   const summary=document.createElement("aside");summary.className="reading-summary reading-view";
+   const en=document.createElement("p"),zh=document.createElement("p");
+   en.className="summary-en";en.lang="en";zh.className="summary-zh";zh.lang="zh-Hant";
+   if(actualSummary&&index===0){
+    en.textContent=actualSummary.querySelector(".gpt-summary-en")?.textContent||"";
+    zh.textContent=actualSummary.querySelector(".gpt-summary-zh")?.textContent||"";
+    summary.dataset.kind="authored";
+   }else{
+    // Earlier bilingual sources have no authored summaries. Keep their provenance explicit.
+    en.textContent=excerpt(original.textContent,"en");zh.textContent=excerpt(translation.textContent,"zh-Hant");
+    summary.dataset.kind="excerpt";
+   }
+   summary.append(en,zh);pair.append(summary);
+  });
+ });
+}
+
+const DISPLAY_MODES=["en","stacked","triple"];
+const DISPLAY_KEY="atpa-module3-reading-mode-v4";
+const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 function prepareBilingualLabels(){
  document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(node=>{
    const original=node.dataset.origFull||node.textContent;
@@ -93,8 +169,11 @@ function prepareBilingualLabels(){
  });
 }
 function preferredReadingMode(){
- try{const saved=localStorage.getItem(DISPLAY_KEY);return DISPLAY_MODES.includes(saved)?saved:"vertical"}
- catch(_){return "vertical"}
+ try{
+  const saved=localStorage.getItem(DISPLAY_KEY)||localStorage.getItem(LEGACY_DISPLAY_KEY);
+  const migrated={en:"en",zh:"stacked",vertical:"stacked",parallel:"triple",annotated:"stacked",tap:"stacked"}[saved]||saved;
+  return DISPLAY_MODES.includes(migrated)?migrated:"stacked";
+ }catch(_){return "stacked"}
 }
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
@@ -155,7 +234,7 @@ function restoreReadingPosition(saved){
  }
 }
 function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
- const selected=DISPLAY_MODES.includes(mode)?mode:"vertical";
+ const selected=DISPLAY_MODES.includes(mode)?mode:"stacked";
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
  const saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
@@ -412,6 +491,7 @@ function mountAll(texts){
  }
  article.replaceChildren(frag);
  allLessons=[...article.querySelectorAll("section.lesson")];
+ prepareEnhancedViews();
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
@@ -499,3 +579,4 @@ async function main(){
 
 main();
 })();
+

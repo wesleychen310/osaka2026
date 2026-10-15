@@ -201,3 +201,43 @@ html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair>
 #study-content .lesson.gpt-bilingual .source-compare-table tbody th {
  background:#f8fafb;min-width:120px;font-weight:700;color:#385c71
 }
+
+/* Module 3: the same authenticated source content in three reading modes. */
+#study-content .reading-view,.triple-swipe-note{display:none}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.original,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .lesson>.gpt-summary{display:none!important}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.reading-annotated,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.reading-summary,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.translation{display:block!important;box-sizing:border-box;min-width:0;max-width:none;overflow-wrap:break-word}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-annotated{font:16px/1.95 Georgia,"Times New Roman",serif;white-space:pre-wrap;color:#263b4a}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-summary p{margin:0;line-height:1.8}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .summary-en{font:15px/1.8 Georgia,"Times New Roman",serif;color:#34566b}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .summary-zh{font-size:14.5px;color:#536975;margin-top:8px!important}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .translation{font-size:16px;line-height:1.92}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-summary::before,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-annotated::before,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.translation::before{display:block;margin:0 0 9px;font:600 11px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;letter-spacing:.04em;color:#668091}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-summary::before{content:"摘要 · Summary"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-summary[data-kind=excerpt]::before{content:"內容提要 · 原文節錄"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-annotated::before{content:"英文精讀"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.translation::before{content:"完整中文翻譯"}
+#study-content .learning-mark{font-weight:750;color:#21536f}
+#study-content .learning-gloss{font:400 .87em/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#6b7469;white-space:normal}
+html[data-reading-mode=stacked] #study-content .pair{display:flex;flex-direction:column;gap:0;padding:18px 0 24px;border-bottom:1px solid #e1e8ec}
+html[data-reading-mode=stacked] #study-content .pair>.reading-summary{order:0;padding:12px 16px;background:#f4f8fa;border:1px solid #e0e8ed;border-radius:8px}
+html[data-reading-mode=stacked] #study-content .pair>.reading-annotated{order:1;padding:16px 0 0;margin:0}
+html[data-reading-mode=stacked] #study-content .pair>.translation{order:2;padding:13px 0 0;margin:14px 0 0;border-top:1px solid #e5ebee}
+html[data-reading-mode=triple] .shell{max-width:1740px}
+html[data-reading-mode=triple] .study-layout{grid-template-columns:205px minmax(0,1fr)}
+html[data-reading-mode=triple] #study-content .pair{display:grid;grid-template-columns:minmax(0,26fr) minmax(0,42fr) minmax(0,32fr);align-items:start;gap:0;padding:20px 0;border-bottom:1px solid #e0e8ec}
+html[data-reading-mode=triple] #study-content .pair>.reading-summary{grid-column:1;grid-row:1;padding:0 15px 0 0;margin:0;border-right:1px solid #e0e6e9}
+html[data-reading-mode=triple] #study-content .pair>.reading-annotated{grid-column:2;grid-row:1;padding:0 17px;margin:0;border-right:1px solid #e0e6e9}
+html[data-reading-mode=triple] #study-content .pair>.translation{grid-column:3;grid-row:1;padding:0 0 0 17px;margin:0;border:0}
+@media(max-width:1000px){
+ html[data-reading-mode=triple] .study-layout{display:block}
+ html[data-reading-mode=triple] #study-content .pair{grid-template-columns:255px 320px 265px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scroll-snap-type:x proximity}
+ html[data-reading-mode=triple] #study-content .pair>.reading-summary,
+ html[data-reading-mode=triple] #study-content .pair>.reading-annotated,
+ html[data-reading-mode=triple] #study-content .pair>.translation{scroll-snap-align:start}
+ html[data-reading-mode=triple] .triple-swipe-note{display:block;font-size:12px;line-height:1.6;color:#526d7e;margin:10px 4px}
+}
