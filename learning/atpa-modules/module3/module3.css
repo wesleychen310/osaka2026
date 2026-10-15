@@ -179,3 +179,25 @@ html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair>
  }
  #study-content .lesson.gpt-bilingual .gpt-summary{padding:12px 13px}
 }
+
+/* §1.7.9 comparison: preserve the official 4-column table semantically, with horizontal scroll on phones. */
+#study-content .lesson.gpt-bilingual .source-table-wrap {
+ width:100%;max-width:100%;min-width:0;overflow-x:auto;
+ overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+ margin:16px 0;border:1px solid #dfe7ec;border-radius:9px
+}
+#study-content .lesson.gpt-bilingual .source-compare-table {
+ width:100%;min-width:710px;border-collapse:collapse;
+ font-size:13px;line-height:1.6;background:white
+}
+#study-content .lesson.gpt-bilingual .source-compare-table th,
+#study-content .lesson.gpt-bilingual .source-compare-table td {
+ padding:9px 11px;text-align:left;vertical-align:top;
+ border:1px solid #e2e8ed;overflow-wrap:anywhere
+}
+#study-content .lesson.gpt-bilingual .source-compare-table thead th {
+ background:#f1f5f7;color:#34576a;font-weight:750
+}
+#study-content .lesson.gpt-bilingual .source-compare-table tbody th {
+ background:#f8fafb;min-width:120px;font-weight:700;color:#385c71
+}
