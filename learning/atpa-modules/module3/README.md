@@ -1,12 +1,12 @@
 # SOA ATPA Module 3 — Advanced Models
 
-**Current progress (2026-10-15, Bayesian batch 2)**
+**Current progress (2026-10-15, Bayesian batch 3)**
 - Complete source English: **211/211** (100%).
-- Completed bilingual lessons: **130/211** (61.6%).
+- Completed bilingual lessons: **141/211** (66.8%).
 - Completed bilingual Neural Networks §1.4: **48/48**.
-- Completed bilingual Bayesian Models and Analysis §1.5: **22/44**.
-- Remaining English-only lessons: **81/211**, covering §1.5.23–§1.5.44 and §1.6–§1.7.
-- Next GPT production tranche: **§1.5.23–§1.5.33 (11 lessons)**.
+- Completed bilingual Bayesian Models and Analysis §1.5: **33/44**.
+- Remaining English-only lessons: **70/211**, covering §1.5.34–§1.5.44 and §1.6–§1.7.
+- Next GPT production tranche: **§1.5.34–§1.5.44 (11 lessons)**.
 
 ## Privacy and source handling
 The public GitHub Pages repository contains the interface and progress notes only. Licensed source English, original PDF images, GPT Chinese translations, bilingual summaries, curated semantic annotations, and actuarial English phrases are stored in access-controlled Google Drive. The same private Drive source file ID is retained for each batch. The public file IDs are non-credentials; Google Drive named permissions enforce access.
@@ -26,3 +26,12 @@ The public GitHub Pages repository contains the interface and progress notes onl
 - Original private Drive file was backed up before in-place update; retained current source file ID and named owner/reader permission settings.
 - Model training examples are from the official 2022 textbook; RStan package and Stan language version descriptions retain their original historical context.
 - The next bilingual batch begins at §1.5.23. Signed-in Safari end-to-end rendering still requires confirmation.
+
+## 2026-10-15 Bayesian batch 3 — §1.5.23–§1.5.33
+- Completed GPT-authored complete Traditional Chinese translations with preserved textbook order and official source figures for 11 numbered sections, textbook printed pp.154–165 (12 source pages).
+- Added 11 English/Traditional-Chinese GPT summaries, 55 source-verified semantic English chunk annotations, and 33 reusable actuarial / ATPA phrases.
+- Source-extracted English preserved verbatim and compared with the official SOA PDF text layer page-by-page. Twelve original full-page JPEG source facsimiles retained unchanged.
+- Source results kept intact: n=50 prior experiment posterior mean 2.826 and variance 0.056; original LOO comparison fit2 0.0/0.0, fit6 -2.9/1.4, fit10 -4.7/2.5; horseshoe comparison includes fit10H -3.4/1.9 and regression coefficient comparisons.
+- The source file was backed up in restricted Google Drive and updated in place; the same named owner and reader permissions and file ID remain. No lesson content was committed to public GitHub.
+- Some source figures and R syntax are from the original 2022 course era; instructor commentary distinguishes conceptual extensions and historical software defaults from source claims.
+- Next batch: §1.5.34–§1.5.44 (11 sections), completing all 44 Bayesian Models and Analysis lessons. Authenticated Safari UI end-to-end check remains pending.
