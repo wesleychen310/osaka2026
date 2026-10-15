@@ -314,3 +314,10 @@ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair.pdf-source-pair>
 }
 html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-figure figcaption{display:block}
 html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-popup-full{display:block}
+
+/* Private GPT index: labels indicate whether paragraph-level content was reviewed. */
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair[data-gpt-reviewed="true"]>.reading-summary::before{content:"GPT 精讀 · 英中摘要"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair[data-gpt-reviewed="true"]>.reading-annotated::before{content:"GPT 精選語義註解 · 完整英文"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair[data-gpt-reviewed="false"]>.reading-summary::before{content:"原文節錄 · 待 GPT 校訂"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair[data-gpt-reviewed="false"]>.reading-annotated::before{content:"完整英文 · 語義註解待校訂"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair[data-gpt-reviewed="false"]>.reading-summary{background:#fafbfc;border-left-color:#e2e7eb}
