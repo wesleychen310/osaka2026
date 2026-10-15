@@ -11,24 +11,8 @@
 <style>
 :root{--bg:#f3f6f8;--ink:#1a2d3d;--accent:#174961;--line:#dbe3e9;--muted:#5a6d7a}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC",Arial,sans-serif;background:linear-gradient(160deg,#e5f0f5,var(--bg) 50%);color:var(--ink)}.wrap{max-width:760px;margin:0 auto;padding:clamp(25px,6vw,65px) 16px 60px}.eyebrow{font-weight:850;color:var(--accent);font-size:12px;letter-spacing:.15em}.head h1{font-size:clamp(29px,6vw,46px);font-family:Georgia,"Noto Serif TC",serif;margin:14px 0 12px;line-height:1.18;color:#163f56}.head p{font-size:15px;line-height:1.75;color:var(--muted);margin:0 0 23px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 14px 40px rgba(26,51,69,.07);padding:clamp(17px,4vw,25px);margin:12px 0}.card h2{font-size:19px;margin:2px 0 6px}.card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0}.tag{font-size:11px;font-weight:800;color:#8b5b3a;letter-spacing:.1em}.btn{border:0;border-radius:12px;padding:13px 18px;background:var(--accent);color:#fff;font:inherit;font-size:14px;font-weight:750;cursor:pointer;display:inline-block;text-decoration:none;margin-top:18px}.btn:disabled{opacity:.55;cursor:wait}.ghost{background:#fff;border:1px solid var(--line);color:var(--accent);margin-left:8px}.status{font-size:13px;color:var(--muted);margin-top:15px;min-height:22px}.link{color:var(--accent);font-size:13px;text-decoration:none}.meta{display:flex;gap:9px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:12px}.meta span{border:1px solid var(--line);padding:3px 9px;border-radius:99px}.back{display:inline-block;margin-bottom:24px}.spinner{display:inline-block;width:15px;height:15px;border:2px solid #dce5ea;border-top-color:#46758f;border-radius:99px;animation:sp .85s linear infinite;vertical-align:-2px;margin-right:7px}@keyframes sp{to{transform:rotate(360deg)}}
 </style>
-</head>
-<body>
-<main class="wrap">
-<a class="link back" href="../">← 返回 FAM-S 教科書入口</a>
-<header class="head"><div class="eyebrow">PRIVATE LEARNING · ASM FAM-S</div><h1>Lesson 29 · Binomial Trees — One Period</h1><p>一課一個獨立網址與私人 HTML 檔案。英文文字可選取、搜尋；數學式、圖表和題解尚待逐頁校對。</p></header>
-<section class="card">
-<div class="tag">LESSON 29 · ENGLISH TEXT · DRAFT</div>
-<h2>Binomial Trees — One Period｜Single-lesson source text</h2>
-<p>One lesson per private page. Source English OCR text; mathematical formulas and exercises remain DRAFT pending Work QA.</p>
-<div class="meta"><span>雙語左右對照</span><span>全中文／全英文</span><span>私人 Google Drive</span></div>
-<button class="btn" id="openBtn" type="button">使用 Google 帳號閱讀</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換 Google 帳號</button>
-<div id="status" class="status" role="status">正在確認私人教材存取狀態…</div>
-</section>
-<section class="card">
-<div class="tag">NEXT · CONTINUATION</div><h2>英文文字校對</h2>
-<p>正在核對英文原文、表格與數學符號。全文完成驗收後才會進入繁中翻譯。</p>
-</section>
-</main>
+<style id="public-minimal-css">#status,.status{display:none!important}</style></head>
+<body><main class="wrap"><header class="head"><h1>Lesson 29</h1></header><section class="card"><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
