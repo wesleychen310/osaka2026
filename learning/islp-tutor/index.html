@@ -18,35 +18,18 @@ h1{font-size:clamp(33px,6vw,52px);line-height:1.23;color:#153e57;margin:8px 0 12
 @media(max-width:600px){main{padding:22px 12px 65px}.eyebrow{margin-top:28px}p.lead{margin-bottom:22px}.chapter{padding:17px 16px;border-radius:14px}.num{font-size:41px}.chapter h2{font-size:21px}.course{padding:15px 0}}
 </style>
 </head>
-<body><main><a class="back" href="../">← 回私人學校</a>
-<div class="eyebrow">ISLP · PERSONAL TUTOR</div><h1>統計學私人教授</h1>
-<p class="lead">先選 Chapter，再選 Section。依原書順序、例子、Python 輸出與圖表教學；每節保留個別學習進度、精算應用，以及 PA／ATPA 的專業英文作答練習。</p>
-<section class="chapter" aria-labelledby="ch3"><div class="chapterTop"><div><span class="num">03</span><h2 id="ch3">Chapter 3｜線性迴歸</h2><div class="eng">Linear Regression</div></div><div class="meta">8 個已建置 Section</div></div>
-<p class="desc">先理解 linear regression 的問題診斷，再實際操作 Python Lab；目前已涵蓋迴歸診斷、簡單迴歸、多元迴歸，goodness of fit／VIF、interaction，以及 polynomial transformations，以及 qualitative predictors 的 Python Lab，並新增 Chapter 3.7 全章習題；各節可獨立開啟，也可依原書順序閱讀。</p>
-<div class="sectionTitle">選擇要學習的 Section</div>
-<a class="course" href="./chapters/3-3-3.html"><div><h3>3.3.3｜Potential Problems</h3><p>非線性、誤差相關、異質變異數、outliers、high leverage 與 collinearity。<br><span class="meta">印刷頁 100–109 · 6 單元</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/3-6-2.html"><div><h3>3.6.2｜Simple Linear Regression</h3><p>Boston OLS、ModelSpec、CI／PI、官方 Lab 原始圖與 residual／leverage diagnostics。<br><span class="meta">印刷頁 117–122 · 7 單元</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/3-6-3.html"><div><h3>3.6.3｜Multiple Linear Regression</h3><p>Boston 兩變數 OLS、全部 12 個 predictors 的完整模型、係數與 p-value 解讀，以及刪除 age 後重新配適。<br><span class="meta">印刷頁 122–123 · 5 單元 · 原書 In [25]–[28]</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/3-6-4.html"><div><h3>3.6.4｜Multivariate Goodness of Fit</h3><p>R²、RSE、variance inflation factors、原書完整 12 個 VIF 數值及 Python list comprehension／for loop；提供精算應用與 SOA 考試英文。<br><span class="meta">印刷頁 123–124 · 4 單元 · 原書 In [29]／Out [29]／In [30]</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/3-6-5.html"><div><h3>3.6.5｜Interaction Terms</h3><p>ModelSpec tuple、Boston 原書 In [31] 與跨頁 Out [31]、conditional slopes、主效果 p-value 陷阱、互動計算及精算考試英文。<br><span class="meta">印刷頁 124–125 · 5 單元 · Interaction Model</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-
-<a class="course" href="./chapters/3-6-6.html"><div><h3>3.6.6｜Non-linear Transformations of the Predictors</h3><p>Boston 二次迴歸、orthogonal polynomial、raw=True、原書 Out [32]／[33]、nested-model ANOVA、F=t²、residual diagnostics、精算案例與 PA／ATPA 英文答案。<br><span class="meta">印刷頁 125–126 · 6 單元 · 原書 In [32]–[34]</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/3-6-7.html"><div><h3>3.6.7｜Qualitative Predictors</h3><p>Carseats（400 地點）、ShelveLoc dummy coding、reference category、Out [36] 完整 14 個係數、Good／Medium 對比、interaction 及精算應用。<br><span class="meta">印刷頁 126–127 · 7 單元 · 原書 In [35]／Out [35]／In [36]／Out [36]</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-
-<a class="course" href="./chapters/3-7.html"><div><h3>3.7｜Exercises（全章習題）</h3><p>依原書印刷頁 127–134，完整教學 Conceptual 1–7 與 Applied 8–15；每題逐小題解法、官方 Auto／Carseats／Boston 資料計算、真實散點圖、Python 程式及 PA／ATPA 英文寫作。<br><span class="meta">印刷頁 127–134 · 15 題 · 15 個教學單元 · 每題理解驗收</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-
-</section>
-<section class="chapter" aria-labelledby="ch4" style="margin-top:18px">
-  <div class="chapterTop"><div><span class="num">04</span><h2 id="ch4">Chapter 4｜分類</h2><div class="eng">Classification</div></div><div class="meta">7 個已建置 Section</div></div>
-  <p class="desc">依原書從分類問題的 response 定義、實務案例與模擬 Default 資料進入 Chapter 4。目前已建置 4.1 分類概論、4.2 為什麼不用普通線性迴歸，以及 4.3.1 Logistic Model 的公式與圖形教學；4.3.2 已加入最大概似估計與 Table 4.1；4.3.3 教授 Default 與 student 的機率預測；4.3.4 加入多元 logistic、Table 4.3、Figure 4.3 與 confounding；最新 4.5.1 依原書比較 LDA、QDA、naive Bayes、logistic regression、KNN 的決策邊界及 bias–variance。各節可獨立選讀，尚未建置的小節將按後續指定補齊。</p>
-  <div class="sectionTitle">選擇要學習的 Section</div>
-  <a class="course" href="./chapters/4-1.html"><div><h3>★ 4.1｜An Overview of Classification</h3><p>Qualitative response、五種分類器、急診／網銀／基因案例、training vs test、10,000 筆 Default 模擬資料、Figure 4.1 三 panel 原書講解，及 PA／ATPA 作答。<br><span class="meta">印刷頁 135–136 · Figure 4.1 見 p.137 · 7 個教學單元</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/4-2.html"><div><h3>4.2｜Why Not Linear Regression?</h3><p>急診三類診斷的任意數值編碼、ordinal 與 nominal 的差異、二元 0/1 OLS 和 0.5 cutoff、翻轉編碼證明、Figure 4.2 原圖及非法機率的直覺，附精算案例與 PA／ATPA 完整英文作答。<br><span class="meta">印刷頁 136–138 · Figure 4.2 見 p.139 · 6 個教學單元</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/4-3-1.html"><div><h3>★ 4.3.1｜The Logistic Model</h3><p>由線性機率模型轉為 logistic function，原書式 (4.1)–(4.4)、Figure 4.2 雙圖、odds、log odds、odds ratio、係數與機率變化；附兩個互動滑桿、精算案例及 PA／ATPA 英文作答。<br><span class="meta">印刷頁 139–140 · 8 單元 · Figure 4.2 完整原圖</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/4-3-2.html"><div><h3>★ 4.3.2｜Estimating the Regression Coefficients</h3><p>Maximum Likelihood Estimation、原書式 (4.5)、Bernoulli likelihood 逐筆貢獻、可互動的概似函數、原書 Table 4.1 完整數值、z／p-value 解讀、官方 Default 資料重新估計、精算應用與 PA／ATPA 完整英文答案。<br><span class="meta">印刷頁 140–141 · Table 4.1 見 p.142 · 8 個教學單元</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/4-3-3.html"><div><h3>★ 4.3.3｜Making Predictions</h3><p>原書 balance=$1,000/$2,000 預測 0.00576/0.586、學生 4.31% 與非學生 2.92%、dummy coding、Table 4.2 原始表格裁圖、官方 Default.csv 重算；互動計算機率與完整 PA／ATPA 英文答案。<br><span class="meta">印刷頁 141–142 · 7 教學單元 · 原圖與互動計算</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/4-3-4.html"><div><h3>★ 4.3.4｜Multiple Logistic Regression</h3><p>式 (4.6)–(4.9)、Table 4.3 全部係數與 p-value、原書 Figure 4.3 雙 panel、student 係數由正轉負的 confounding 論證、同 balance／income 的預測比較；9 個理解單元、互動計算、精算應用及 PA／ATPA 完整英文答案。<br><span class="meta">印刷頁 142–144 · 9 個教學單元 · Figure 4.3 完整原圖</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-<a class="course" href="./chapters/4-5-1.html"><div><h3>★ 4.5.1｜An Analytical Comparison</h3><p>共用的 posterior-log-odds (4.31)、LDA Gaussian 完整推導 (4.32)、QDA 二次交互作用 (4.33)、Naive Bayes 可加形式 (4.34)；四項模型間的數學關係、Logistic vs LDA、KNN 的 n／p／bias–variance，以及互動式二維分類邊界。<br><span class="meta">原書印刷頁 161–164 · 12 個單元 · 12 道驗收題 · 無原書獨立圖表</span></p></div><span class="arrow" aria-hidden="true">→</span></a>
-</section>
-<p class="info">後續新增 Chapter 4 的其他小節或 Chapter 5 等教材時，會直接擴充本章節選擇頁，不再讓私人學校首頁堆滿各個小節。課程存取使用 GitHub Pages 網址，並非真正的登入限制頁。</p>
-</main></body></html>
+<body><main><h1>統計學私人教授</h1><section class="chapter"><a class="course" href="./chapters/3-3-3.html"><h3>3.3.3｜Potential Problems</h3></a>
+<a class="course" href="./chapters/3-6-2.html"><h3>3.6.2｜Simple Linear Regression</h3></a>
+<a class="course" href="./chapters/3-6-3.html"><h3>3.6.3｜Multiple Linear Regression</h3></a>
+<a class="course" href="./chapters/3-6-4.html"><h3>3.6.4｜Multivariate Goodness of Fit</h3></a>
+<a class="course" href="./chapters/3-6-5.html"><h3>3.6.5｜Interaction Terms</h3></a>
+<a class="course" href="./chapters/3-6-6.html"><h3>3.6.6｜Non-linear Transformations of the Predictors</h3></a>
+<a class="course" href="./chapters/3-6-7.html"><h3>3.6.7｜Qualitative Predictors</h3></a>
+<a class="course" href="./chapters/3-7.html"><h3>3.7｜Exercises（全章習題）</h3></a>
+<a class="course" href="./chapters/4-1.html"><h3>★ 4.1｜An Overview of Classification</h3></a>
+<a class="course" href="./chapters/4-2.html"><h3>4.2｜Why Not Linear Regression?</h3></a>
+<a class="course" href="./chapters/4-3-1.html"><h3>★ 4.3.1｜The Logistic Model</h3></a>
+<a class="course" href="./chapters/4-3-2.html"><h3>★ 4.3.2｜Estimating the Regression Coefficients</h3></a>
+<a class="course" href="./chapters/4-3-3.html"><h3>★ 4.3.3｜Making Predictions</h3></a>
+<a class="course" href="./chapters/4-3-4.html"><h3>★ 4.3.4｜Multiple Logistic Regression</h3></a>
+<a class="course" href="./chapters/4-5-1.html"><h3>★ 4.5.1｜An Analytical Comparison</h3></a></section></main></body></html>
