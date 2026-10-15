@@ -74,12 +74,18 @@ function cleanSource(doc){
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
 /* Derive display layers only from authenticated source nodes. */
-function prepareEnhancedViews(){
+function createViewEnhancer(){
  const article=$("study-content"),glossary=new Map();
  const add=(en,zh)=>{
   en=en.trim().replace(/[.!?]+$/,"");zh=zh.trim().replace(/^[（(—\s]+|[）)\s]+$/g,"");
   if(en.length>=8&&en.length<=110&&/[A-Za-z]/.test(en)&&/[\u3400-\u9fff]/.test(zh)&&!glossary.has(en.toLowerCase()))glossary.set(en.toLowerCase(),{en,zh});
  };
+ let matcher=null,glossaryReady=false,glossaryQueued=false;
+ const pendingAnnotations=[];
+ const segmenters={};
+ function ensureGlossary(){
+  if(glossaryReady)return;
+  glossaryReady=true;
  article.querySelectorAll(".gpt-phrase").forEach(term=>{
   const gloss=term.nextElementSibling;
   if(gloss?.classList.contains("gpt-gloss"))add(term.textContent,gloss.textContent);
@@ -90,10 +96,9 @@ function prepareEnhancedViews(){
  });
  const terms=[...glossary.values()].sort((a,b)=>b.en.length-a.en.length);
  const escaped=terms.map(t=>t.en.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
- const matcher=escaped.length?new RegExp("\\b(?:"+escaped.join("|")+")\\b","gi"):null;
- function annotate(original){
-  const clone=original.cloneNode(true);clone.className="reading-annotated reading-view";
-  clone.removeAttribute("id");
+ matcher=escaped.length?new RegExp("\\b(?:"+escaped.join("|")+")\\b","gi"):null;
+ }
+ function applyAnnotations(clone,original){
   if(!matcher)return clone;
   const walker=document.createTreeWalker(clone,NodeFilter.SHOW_TEXT),nodes=[];
   while(walker.nextNode())if(!walker.currentNode.parentElement.closest("table,pre,code,math"))nodes.push(walker.currentNode);
@@ -113,16 +118,43 @@ function prepareEnhancedViews(){
   }
   return clone;
  }
+ function annotate(original){
+  const clone=original.cloneNode(true);clone.className="reading-annotated reading-view";
+  clone.removeAttribute("id");
+  if(glossaryReady)return applyAnnotations(clone,original);
+  pendingAnnotations.push({clone,original});
+  if(!glossaryQueued){
+   glossaryQueued=true;
+   const work=()=>{
+    ensureGlossary();
+    const next=()=>{
+     const batch=pendingAnnotations.splice(0,4);
+     batch.forEach(({clone,original})=>applyAnnotations(clone,original));
+     if(pendingAnnotations.length)setTimeout(next,0);
+    };
+    next();
+   };
+   // Let the first visible text paint before building optional vocabulary indexes.
+   requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    if(typeof requestIdleCallback==="function")requestIdleCallback(work,{timeout:1500});
+    else setTimeout(work,0);
+   }));
+  }
+  return clone;
+ }
  function excerpt(text,lang){
   const cleaned=text.split(/\n+/).map(s=>s.trim()).filter(s=>s&&!/^(?:ATPA Module|Created:|Component Table\d*|Type|Panel|Title|Header|Footer|Panel Footer|Content|\d+ of \d+)$/i.test(s)).join(" ");
   if(!cleaned)return text.trim();
   if(typeof Intl.Segmenter==="function"){
-   const parts=[...new Intl.Segmenter(lang,{granularity:"sentence"}).segment(cleaned)].map(s=>s.segment);
-   return parts.slice(0,2).join("").trim();
+   const segmenter=segmenters[lang]||(segmenters[lang]=new Intl.Segmenter(lang,{granularity:"sentence"}));
+   const parts=[];
+   for(const item of segmenter.segment(cleaned)){parts.push(item.segment);if(parts.length===2)break}
+   return parts.join("").trim();
   }
   return cleaned;
  }
- article.querySelectorAll("section.lesson").forEach(lesson=>{
+ return function enhanceLesson(lesson){
+  if(lesson.dataset.viewsReady==="true")return;
   const pairs=[...lesson.querySelectorAll(".pair")];
   const actualSummary=lesson.querySelector(":scope>.gpt-summary");
   pairs.forEach((pair,index)=>{
@@ -145,7 +177,49 @@ function prepareEnhancedViews(){
    }
    summary.append(en,zh);pair.append(summary);
   });
- });
+  lesson.dataset.viewsReady="true";
+ };
+}
+let enhanceLesson=null,viewObserver=null,viewPreparationStarted=false,resumeViewPreparation=null;
+function prepareEnhancedViews(){
+ if(!enhanceLesson)enhanceLesson=createViewEnhancer();
+ // Prepare the opening and bookmarked lessons before the next paint.
+ let target=null;
+ target=document.getElementById($("toc")?.querySelector(".toc-link.active")?.dataset.id||"");
+ if(!target)try{target=document.getElementById(decodeURIComponent(location.hash.slice(1)))}catch(_){}
+ if(!target&&params.get("part"))target=document.getElementById(FIRST_IDS[Number(params.get("part"))-1]);
+ allLessons.slice(0,2).forEach(enhanceLesson);
+ if(target?.classList.contains("lesson"))enhanceLesson(target);
+ if(viewPreparationStarted){
+  if(viewObserver){
+   viewObserver.disconnect();
+   allLessons.filter(lesson=>lesson.dataset.viewsReady!=="true").forEach(lesson=>viewObserver.observe(lesson));
+  }else resumeViewPreparation?.();
+  return;
+ }
+ viewPreparationStarted=true;
+ if(typeof IntersectionObserver==="function"){
+  viewObserver=new IntersectionObserver(entries=>{
+   if(document.documentElement.dataset.readingMode==="en")return;
+   entries.forEach(entry=>{
+    if(entry.isIntersecting){enhanceLesson(entry.target);viewObserver.unobserve(entry.target)}
+   });
+  },{rootMargin:"1000px 0px"});
+  allLessons.forEach(lesson=>viewObserver.observe(lesson));
+ }else{
+  // Older browsers: spread the work across event-loop turns to keep the UI responsive.
+  let index=2,timer=null;
+  resumeViewPreparation=()=>{
+   if(timer!==null||index>=allLessons.length)return;
+   timer=setTimeout(()=>{
+    timer=null;
+    if(document.documentElement.dataset.readingMode==="en")return;
+    enhanceLesson(allLessons[index++]);
+    resumeViewPreparation();
+   },16);
+  };
+  resumeViewPreparation();
+ }
 }
 
 const DISPLAY_MODES=["en","stacked","triple"];
@@ -238,6 +312,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
  const saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
+ if(selected!=="en")prepareEnhancedViews();
  const revision=++readingSwitchRevision;
  if(saved){
    if(!readingScrollStyles)readingScrollStyles={
@@ -460,15 +535,15 @@ function syncCurrentSection(){
 window.addEventListener("scroll",()=>{
  if(loaded&&!scrollScheduled){scrollScheduled=true;requestAnimationFrame(syncCurrentSection)}
 },{passive:true});
-function mountAll(texts){
- const sections=[];
- for(let i=0;i<texts.length;i++){
-   const doc=new DOMParser().parseFromString(texts[i].replace(/^\uFEFF/,""),"text/html");
-   const parsed=cleanSource(doc);
-   if(parsed.lessons.length!==EXPECTED_COUNTS[i]||parsed.lessons[0].id!==FIRST_IDS[i])
-     throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
-   sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
- }
+function parseSourceLessons(text,index){
+ const doc=new DOMParser().parseFromString(text.replace(/^\uFEFF/,""),"text/html");
+ const parsed=cleanSource(doc);
+ if(parsed.lessons.length!==EXPECTED_COUNTS[index]||parsed.lessons[0].id!==FIRST_IDS[index])
+  throw new Error("教材 §"+SOURCES[index].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
+ return parsed.lessons;
+}
+function mountAll(parsedSources){
+ const sections=parsedSources.flatMap(lessons=>lessons.map(s=>document.adoptNode(s)));
  if(sections.length!==211||new Set(sections.map(s=>s.id)).size!==211)
    throw new Error("211 個編號小節未完整載入，請重新整理後再試。");
  // The original 60 bilingual lessons and 151 enhanced lessons must all be present.
@@ -491,7 +566,6 @@ function mountAll(texts){
  }
  article.replaceChildren(frag);
  allLessons=[...article.querySelectorAll("section.lesson")];
- prepareEnhancedViews();
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
@@ -528,13 +602,21 @@ async function fetchOneSource(source,token){
 async function fetchPrivate(token){
  if(loaded||!selected)return;
  status("正在載入 Module 3：原文 211／211 節，已完成雙語 211／211 節…");
- const texts=new Array(SOURCES.length);
- for(let i=0;i<SOURCES.length;i+=4){
-   status("正在讀取私人教材 "+Math.min(i+4,SOURCES.length)+"／"+SOURCES.length+" 份…");
-   const slice=await Promise.all(SOURCES.slice(i,i+4).map(source=>fetchOneSource(source,token)));
-   slice.forEach((text,j)=>texts[i+j]=text);
+ const parsedSources=new Array(SOURCES.length);
+ let nextIndex=0,complete=0,failed=false;
+ async function worker(){
+  while(!failed&&nextIndex<SOURCES.length){
+   const index=nextIndex++;
+   try{
+    const text=await fetchOneSource(SOURCES[index],token);
+    if(failed)return;
+    parsedSources[index]=parseSourceLessons(text,index);
+    status("已讀取私人教材 "+(++complete)+"／"+SOURCES.length+" 份…");
+   }catch(e){failed=true;throw e}
+  }
  }
- mountAll(texts);
+ await Promise.all(Array.from({length:Math.min(4,SOURCES.length)},worker));
+ mountAll(parsedSources);
 }
 
 function initClient(){
@@ -549,7 +631,7 @@ function initClient(){
      if(response?.error){status("Google 授權未完成："+response.error);return}
      try{
        const t=remember(response);
-       try{await window.HanamiAuth?.remember?.(t)}catch(_){}
+       try{Promise.resolve(window.HanamiAuth?.remember?.(t)).catch(()=>{})}catch(_){}
        await fetchPrivate(t)
      }catch(e){status(e?.message||"教材載入失敗，請再試一次。")}
    }
@@ -579,4 +661,5 @@ async function main(){
 
 main();
 })();
+
 

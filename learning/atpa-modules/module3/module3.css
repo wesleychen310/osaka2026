@@ -241,3 +241,7 @@ html[data-reading-mode=triple] #study-content .pair>.translation{grid-column:3;g
  html[data-reading-mode=triple] #study-content .pair>.translation{scroll-snap-align:start}
  html[data-reading-mode=triple] .triple-swipe-note{display:block;font-size:12px;line-height:1.6;color:#526d7e;margin:10px 4px}
 }
+
+/* Keep unprepared off-screen source text readable until its study layers are needed. */
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .lesson:not([data-views-ready]) .pair>.original{display:block!important}
+html[data-reading-mode=triple] #study-content .lesson:not([data-views-ready]) .pair>.original{grid-column:2;grid-row:1;padding:0 17px}
