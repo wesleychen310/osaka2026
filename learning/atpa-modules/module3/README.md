@@ -1,46 +1,14 @@
-# SOA ATPA Module 3 — Advanced Models
+# Module 3 — Advanced Models
 
-**Current progress (2026-10-15, Bayesian batch 4 complete)**
-- Complete source English: **211/211** (100%).
-- Completed bilingual lessons: **152/211** (72.0%).
-- Completed bilingual Neural Networks §1.4: **48/48**.
-- Completed bilingual Bayesian Models and Analysis §1.5: **44/44** (100%).
-- Remaining English-only lessons: **59/211**, covering §1.6 (9) and §1.7 (50).
-- Next GPT production tranche: **§1.6.1–§1.6.9 Stacking (9 lessons)**.
+**Content progress: 211/211 numbered sections complete.**
 
-## Privacy and source handling
-The public GitHub Pages repository contains the interface and progress notes only. Licensed source English, original PDF images, GPT Chinese translations, bilingual summaries, curated semantic annotations, and actuarial English phrases are stored in access-controlled Google Drive. The same private Drive source file ID is retained for each batch. The public file IDs are non-credentials; Google Drive named permissions enforce access.
+- The public repository provides only the reading interface (HTML, CSS, JavaScript).
+- Original English content, Traditional Chinese translation, summary, annotations, official PDF page facsimiles, and study phrases are stored on access-controlled Google Drive.
+- Section 1.7.38–1.7.50 now has 13 distinct lesson nodes and covers the complete official printed pages 225–242.
+- The source English count is 211/211 and bilingual study count is 211/211; no English-only sections remain.
+- The original 60 bilingual lessons in sections 1.1–1.3 remain in place.
+- The 151 enhanced lessons in sections 1.4–1.7 include GPT-authored Traditional Chinese explanations, paired summaries and semantic English phrases.
+- Google Drive named-user access remains the source authorization mechanism.
+- GitHub Pages deployment alone does not establish a passed signed-in iPhone Safari test; mobile OAuth and layout acceptance remain pending.
 
-## 2026-10-15 Bayesian Models and Analysis batch 1
-- Complete §1.5.1–§1.5.11 covering official Module 3 **pp.127–142**.
-- 11 complete Traditional Chinese explanations/translations aligned to 16 source-page text blocks; 11 English/Chinese GPT summaries; 5 curated English semantic chunks in every section; 33 reusable actuarial English sentences.
-- Complete original source text and 16 original PDF page images preserved verbatim.
-- Source PDF contains visibly broken formula objects on several pages. The private translations distinguish image defects from verified readable formulas and separately labeled teacher derivations.
-- Original source was privately backed up before the in-place update; Drive file ID and named access were preserved.
-- Static JavaScript structure/source integrity and deployment verification are performed each batch. Signed-in iPhone Safari end-to-end visual QA is still pending.
-
-## 2026-10-15 Bayesian batch 2 — §1.5.12–§1.5.22
-- Fully authored and saved 11 Traditional Chinese detailed translations (printed pages 143–153), 11 bilingual GPT summaries, 55 grounded inline English semantic phrase annotations, and 33 reusable actuarial/ATPA English sentences.
-- All 11 original source pages and all 11 PDF page-facsimiles preserved exactly, with English text cross-checked character-for-character using the official PDF's extracted text layer.
-- Preserved original six Stan blocks; rstan code; four diagnostics tabs; Poisson–Gamma Stan/R syntax; source-output lambda mean=3.03, SD=0.08, quantile range 2.88–3.19, n_eff=7320, Rhat=1; and Uniform(1,2) versus Uniform(0,100) prior sensitivity example.
-- Original private Drive file was backed up before in-place update; retained current source file ID and named owner/reader permission settings.
-- Model training examples are from the official 2022 textbook; RStan package and Stan language version descriptions retain their original historical context.
-- The next bilingual batch begins at §1.5.23. Signed-in Safari end-to-end rendering still requires confirmation.
-
-## 2026-10-15 Bayesian batch 3 — §1.5.23–§1.5.33
-- Completed GPT-authored complete Traditional Chinese translations with preserved textbook order and official source figures for 11 numbered sections, textbook printed pp.154–165 (12 source pages).
-- Added 11 English/Traditional-Chinese GPT summaries, 55 source-verified semantic English chunk annotations, and 33 reusable actuarial / ATPA phrases.
-- Source-extracted English preserved verbatim and compared with the official SOA PDF text layer page-by-page. Twelve original full-page JPEG source facsimiles retained unchanged.
-- Source results kept intact: n=50 prior experiment posterior mean 2.826 and variance 0.056; original LOO comparison fit2 0.0/0.0, fit6 -2.9/1.4, fit10 -4.7/2.5; horseshoe comparison includes fit10H -3.4/1.9 and regression coefficient comparisons.
-- The source file was backed up in restricted Google Drive and updated in place; the same named owner and reader permissions and file ID remain. No lesson content was committed to public GitHub.
-- Some source figures and R syntax are from the original 2022 course era; instructor commentary distinguishes conceptual extensions and historical software defaults from source claims.
-- Next batch: §1.5.34–§1.5.44 (11 sections), completing all 44 Bayesian Models and Analysis lessons. Authenticated Safari UI end-to-end check remains pending.
-
-## 2026-10-15 Bayesian batch 4 — §1.5.34–§1.5.44
-- §1.5 completed in full: 11 GPT-authored bilingual translations, summaries, 55 context-verified English semantic phrase annotations, 33 reusable actuarial/ATPA English phrases, pp.166–176.
-- The textbook uses posterior predictive draws and compares frequentist prediction intervals; brms predictive distributions can aggregate policy-level claim scenarios.
-- Source frequency GLM case: 677,991 French motor liability records, with the example based on 3,000 sampled policies, VehAge/DrivAge and log(Exposure) offset; LOO relative ELPD differences ZINB 0.0 (SE 0.0), ZIP −0.3 (0.3), NB −0.6 (0.6), Poisson −1.9 (2.3).
-- Posterior predictive distribution: 4,000 draws of 3,000-policy total claim count, mean about 175; source describes 100–250 as a reasonable possible range without labeling a specific credibility probability.
-- Severity ex-cat exercise: remove amounts above 25,000, preserve one-to-many claim joins, treat about 200 unmatched IDs as in the original; Gamma and Lognormal families compared. Final LOO relative ELPD table: Gamma (No pred) 0.0 (0.0), Gamma −2.7 (1.6), Lognormal (No pred) −56.8 (39.7), Lognormal −57.6 (39.6).
-- Verified all 11 original PDF text pages verbatim with the official PDF and preserved all 11 full-page source JPEG images. Restricted Drive source backed up and updated in place, retaining its file ID and named permissions; no copyrighted page source committed to GitHub.
-- Complete English source: 211/211; bilingual: 152/211; remaining English-only: 59. Next batch §1.6.1–§1.6.9 Stacking; signed-in Safari end-to-end visual QA remains outstanding.
+Last updated: 2026-10-15.
