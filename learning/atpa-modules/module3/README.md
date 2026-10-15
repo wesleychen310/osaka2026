@@ -1,4 +1,7 @@
 # SOA ATPA Module 3 — Advanced Models
+
+**Latest progress (2026-10-15):** English 211/211 (100%); bilingual 108/211 (51.2%); Neural Networks §1.4 completed 48/48; remaining 103 English-only (§1.5–§1.7). The official source, translation, page images, and GPT notes remain restricted to private Google Drive.
+
 **Current completion (2026-10-15): English original 211/211; bilingual reading 96/211; English-only awaiting GPT reading 115/211.**
 
 
@@ -40,3 +43,11 @@ The legacy 60 sections maintain their existing functionality and historical book
 - This batch includes the source-reported network accuracy (74.2%), AUC (0.821), logistic-regression accuracy (71.8%), AUC (0.782), and model-CV values (0.438, 0.440, 0.439, 0.437). No CHUNK code was executed or figures invented.
 - Cumulative: English 211/211 (100%), bilingual 96/211 (45.5%), awaiting GPT 115/211. Next batch: §1.4.37–§1.4.48 (12 remaining Neural Networks sections).
 - Authenticated iPhone Safari end-to-end display remains outstanding.
+
+## 2026-10-15 GPT bilingual batch 4
+- Completed §1.4.37–§1.4.48 (12 sections), official Module 3 PDF pp.111–126 (16 source-page images), GPT Traditional Chinese translations, bilingual summaries, curated semantic English annotations, and 36 reusable actuarial English phrases.
+- Source text verified page-by-page against official SOA Module 3 PDF; all source facsimile images retained exactly.
+- Textbook numerical results preserved: maternal-risk class probabilities and Abalone CV error 1.441, test MAE neural network 1.520 versus linear regression 1.637.
+- A private Google Drive backup was created, original file updated in place while preserving sharing permissions and file ID.
+- Next: Bayesian Models and Analysis §1.5.1–§1.5.11 (11 sections), followed by subsequent §1.5 material.
+- Browser OAuth and iPhone Safari visual E2E verification pending.
