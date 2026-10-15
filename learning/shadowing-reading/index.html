@@ -27,24 +27,8 @@ button:disabled{opacity:.5}#switchBtn{color:#184963;background:transparent;borde
 aside{font-size:12px;margin-top:22px;color:#7c8b95;line-height:1.7}
 @media(max-width:480px){.wrap{padding:28px 13px 55px}.card{border-radius:16px}}
 </style>
-</head>
-<body>
-<main class="wrap">
-<a class="back" href="../english/">← 返回英文學習</a>
-<div class="kicker">PRIVATE LEARNING · SHADOWING</div>
-<h1>3 個月打造英語耳<br>Shadowing 互動閱讀</h1>
-<p class="lead">依原書順序閱讀日文與繁中解說，完整保留 English Script。支援全中文、日文原文、同屏左右對照；原書頁面可展開核對。</p>
-<section class="card">
-<div class="tag">CHAPTER 02 · PART 1</div>
-<h2>STEP 01–07｜七個核心訓練步驟</h2>
-<p>Listening、Dictation、默讀理解、音讀、Repeating、Overlapping、Shadowing。</p>
-<div class="pills"><span>三種閱讀模式</span><span>iPhone 同屏雙欄</span><span>原書頁面</span><span>英語朗讀</span><span>Google Drive 私人教材</span></div>
-<button id="openBtn" type="button">使用 Google 帳號閱讀</button>
-<button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
-<div id="status" role="status"><span class="spinner"></span>正在確認私人教材的存取狀態…</div>
-</section>
-<aside>目前完成範圍為第 2 章 STEP 01–07。其餘章節將以相同方式分批製作。原書日文 OCR 文字可能包含辨識誤差；可直接對照內嵌的原頁影像。</aside>
-</main>
+<style id="public-minimal-css">#status,.status{display:none!important}</style></head>
+<body><main class="wrap"><header class="head"><h1>Shadowing</h1></header><section class="card"><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";

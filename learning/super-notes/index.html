@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light">
-<title>超級筆記｜PA / ATPA</title>
+<title>超級筆記</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/osaka2026/private-auth-hint.js"></script>
 <style>
@@ -27,16 +27,16 @@ button:disabled{opacity:.5}
 @keyframes spin{to{transform:rotate(360deg)}}
 #switchBtn{width:100%;margin-top:8px;background:transparent;color:var(--accent);border:1px solid var(--line);padding:10px;font-weight:700}#switchBtn[hidden]{display:none}
 </style>
-</head>
+<style id="public-minimal-css">#message,#status,.gate .back{display:none!important}</style></head>
 <body>
 <main class="gate">
   <section class="panel">
-    <div class="eyebrow">PRIVATE · PA / ATPA</div>
+    
     <h1>超級筆記</h1>
-    <p id="message">正在確認 Google 授權；如果已有有效登入，會直接開啟超級筆記。</p>
+    <p id="message" hidden></p>
     <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
     <button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
-    <div id="status" class="status"><span class="spinner"></span>正在連線…</div>
+    <div id="status" class="status" hidden></div>
     <a class="back" href="../">← 回私人學習入口</a>
   </section>
 </main>
