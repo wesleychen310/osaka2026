@@ -447,27 +447,136 @@ html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-m
 html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="1"] .pair>.reading-annotated::before{content:"02 · 英文原文精讀"}
 html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="1"] .pair>.translation::before{content:"03 · 完整繁體中文翻譯"}
 
-/* Stacked: three discrete reading sections for EACH individual paragraph. */
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair{display:flex;flex-direction:column;gap:0;padding:18px 0 22px;margin:0;border-bottom:1px solid #dce5ea;overflow:visible;cursor:default}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary{order:1;padding:12px 16px 14px;margin:0;background:#f7f9fa;border-radius:7px}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-annotated{order:2;padding:17px 5px 15px;margin:0;border-bottom:1px solid #e7edef}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.translation{order:3;padding:15px 5px 0;margin:0}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header{display:flex;flex-direction:column;gap:4px;cursor:default}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>.sec-num{order:0}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>.reading-heading{display:block!important;order:1;font-size:clamp(21px,2.5vw,26px);line-height:1.45;margin:0;color:#28475a}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>.zh-heading{display:block!important;order:2;font-size:17px;color:#527080;margin:0}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>small{order:3}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .replaced-by-reading{display:none!important}
+/* Stacked reading v2 — calm, paragraph-by-paragraph editorial layout.
+   Text content, translation and summaries remain in their original Drive nodes.
+   All rules are scoped to Module 1 and stacked mode only. */
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson,
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .chapter-heading{
+ max-width:760px;margin-left:auto;margin-right:auto
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson{padding:28px 0 26px}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .chapter-heading{padding-bottom:18px}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .chapter-heading:not(:first-child){padding-top:40px}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .chapter-heading-en{
+ display:block;font:600 clamp(23px,2.6vw,30px)/1.38 Georgia,"Times New Roman",serif;color:#183e52
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .chapter-heading-zh{
+ display:block;font:500 16px/1.55 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ margin:5px 0 0;color:#6a808d
+}
+
+/* Only one English title and one understated Chinese subtitle. Show the actual
+   source heading, avoiding duplicated annotation tags beside translated titles. */
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header{
+ display:flex;flex-direction:column;gap:3px;cursor:default;padding-bottom:12px;margin-bottom:10px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>.sec-num{
+ order:0;margin-bottom:3px;color:#5c7a89;font-size:11px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>h2:not(.reading-heading){
+ display:block!important;order:1;font:600 clamp(21px,2.35vw,25px)/1.4 Georgia,"Times New Roman",serif;
+ color:#25495f;margin:0
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>.reading-heading{display:none!important}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>.zh-heading{
+ display:block!important;order:2;font-size:15px;line-height:1.55;font-weight:500;color:#728894;margin:1px 0 0
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson header>small{
+ order:3;font-size:10.5px;color:#97a5ac;margin-top:4px
+}
 html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson h3.reading-heading,
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson h4.reading-heading{display:block!important}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson h4.reading-heading{display:none!important}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson h3.replaced-by-reading,
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson h4.replaced-by-reading{
+ display:block!important;font-size:15px;line-height:1.6;margin:21px 0 9px;color:#345c72
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .stacked-bilingual-label{
+ display:block!important
+}
 html[data-reading-mode=stacked] body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-en,
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-zh{display:block!important}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-en{font:600 15px/1.6 Georgia,"Times New Roman",serif;color:#2c5267}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-zh{font:14px/1.65 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#587280;margin-top:4px}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-zh{
+ display:block!important
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-en{
+ font:600 15px/1.62 Georgia,"Times New Roman",serif;color:#31586d
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .stacked-bilingual-label>.bilingual-label-zh{
+ font:400 13px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#718795;margin:3px 0 0
+}
 html[data-reading-mode=stacked] body[data-atpa-module="1"] .source-tabs .source-tab-base{display:none!important}
 html[data-reading-mode=stacked] body[data-atpa-module="1"] .source-tabs .reading-tab-label{display:inline!important}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .chapter-heading-en{display:block;font:600 clamp(24px,3vw,33px)/1.4 Georgia,serif;color:#183e52}
-html[data-reading-mode=stacked] body[data-atpa-module="1"] .chapter-heading-zh{display:block;font-size:20px;margin-top:5px;color:#587487}
+
+/* One quiet learning unit: a small bilingual overview, the dominant complete
+   annotated English paragraph, then the existing full Chinese translation. */
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair{
+ display:flex;flex-direction:column;align-items:stretch;gap:0;min-width:0;max-width:100%;
+ padding:17px 0 21px;margin:0;border:0;border-bottom:1px solid #e6ecef;
+ border-radius:0;overflow:visible;cursor:default;background:transparent
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair:last-child{border-bottom:0}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary{
+ order:1;display:block!important;margin:0;padding:11px 15px 12px;border:0;border-left:2px solid #c6d7e1;
+ border-radius:0 5px 5px 0;background:#f6f8fa;box-shadow:none
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-annotated{
+ order:2;display:block!important;margin:0;padding:14px 2px 0;border:0;max-width:none;
+ color:#233746;font:17px/1.94 Georgia,"Times New Roman",serif;white-space:normal;overflow-wrap:break-word
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.translation{
+ order:3;display:block!important;margin:13px 0 0;padding:12px 2px 0;
+ border:0;border-top:1px solid #e9eef1;color:#445966;
+ font:16px/1.88 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;overflow-wrap:break-word
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary .summary-en{
+ margin:0;padding:0;border:0;font:400 14.5px/1.72 Georgia,"Times New Roman",serif;color:#465d6b
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary .summary-zh{
+ margin:6px 0 0;padding:0;border:0;font:400 14.5px/1.76 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ color:#5b6f7b
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary::before,
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-annotated::before,
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.translation::before{
+ display:block;margin:0 0 6px;font:700 10.5px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ letter-spacing:.03em;color:#79909c
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary::before{content:"摘要 · Summary"}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-annotated::before{content:"英文精讀"}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.translation::before{content:"完整中文翻譯"}
+
+/* Editorial rather than card-heavy source notes and supplemental sections. */
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .source-anomaly,
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .source-note{
+ background:#f8f9fa;border-color:#e4ebee;color:#607480;padding:9px 12px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] details.tutor,
+html[data-reading-mode=stacked] body[data-atpa-module="1"] details.phrases{
+ background:#fafbfc;border-color:#e2e9ed;box-shadow:none
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .quiz-option .pair{
+ padding:8px 0 9px;border-bottom:0
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .quiz-option .pair>.reading-summary{
+ padding:9px 11px 10px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .quiz-option .pair>.reading-annotated{padding-top:10px}
+html[data-reading-mode=stacked] body[data-atpa-module="1"] .quiz-option .pair>.translation{
+ margin-top:9px;padding-top:9px
+}
+@media(max-width:800px){
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .lesson{padding:24px 0 19px}
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair{padding:14px 0 19px}
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary{padding:10px 12px 11px}
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-annotated{font-size:16.5px;padding:12px 1px 0}
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.translation{font-size:16px;padding:11px 1px 0;margin-top:11px}
+}
+@media(max-width:490px){
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .study-content{padding:15px 14px}
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-annotated{font-size:16px;line-height:1.94}
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.translation{font-size:15.8px;line-height:1.88}
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary .summary-en,
+ html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary .summary-zh{font-size:14.3px}
+}
 
 /* Three columns: 1 BILINGUAL SUMMARY | 2 ANNOTATED ENGLISH | 3 ORIGINAL CHINESE TRANSLATION.
    Remove earlier semantic stair-step; render original English sentences in natural paragraphs. */
@@ -514,9 +623,6 @@ html[data-reading-mode=triple] body[data-atpa-module="1"] .choice-body>.pair{mar
 }
 @media(max-width:490px){
  body[data-atpa-module="1"] .mode-options button{font-size:11px;padding:7px 3px}
- html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-summary{padding:12px 11px}
- html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.reading-annotated,
- html[data-reading-mode=stacked] body[data-atpa-module="1"] .pair>.translation{padding-left:2px;padding-right:2px;font-size:16px}
  html[data-reading-mode=triple] body[data-atpa-module="1"] .pair{grid-template-columns:255px 320px 265px}
  html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.reading-summary{padding-right:12px}
  html[data-reading-mode=triple] body[data-atpa-module="1"] .pair>.reading-annotated{padding-left:12px;padding-right:12px;font-size:16px}
