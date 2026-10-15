@@ -58,3 +58,45 @@ html[data-reading-mode=parallel] #study-content .pdf-source-translation{grid-col
  html[data-reading-mode=vertical] #study-content .chapter-quiz .quiz-option .pair>.original,
  html[data-reading-mode=vertical] #study-content .chapter-quiz .quiz-option .pair>.translation{font-size:16px}
 }
+
+/* §1.4–§1.7: 151 original-English-first sections.
+   Override all four legacy bilingual layouts when no GPT translation exists.
+   The original PDF facsimile remains inside a collapsible, accessible detail. */
+#study-content .lesson.source-english-only > header > .zh-heading{font-size:13px;color:#806c4c}
+#study-content .lesson.source-english-only .pair.source-english-only{
+  display:block!important;grid-template-columns:1fr!important;
+  padding:0;max-width:100%;min-width:0
+}
+#study-content .lesson.source-english-only .pair.source-english-only>.original{
+  display:block!important;opacity:1!important;visibility:visible!important;
+  width:100%!important;max-width:100%!important;order:1!important;
+  font-size:16px;line-height:1.82;white-space:pre-wrap;overflow-wrap:anywhere;
+  color:#253f50
+}
+#study-content .lesson.source-english-only .pair.source-english-only>.translation{
+  display:none!important
+}
+#study-content .lesson.source-english-only details.original-page{
+  max-width:100%;min-width:0;border:1px solid #dce5eb;border-radius:10px;
+  margin:8px 0 22px;background:#f9fbfc;overflow:hidden
+}
+#study-content .lesson.source-english-only details.original-page>summary{
+  display:list-item;cursor:pointer;line-height:1.55;
+  padding:11px 16px;color:#385c71;font-size:13px;font-weight:700
+}
+#study-content .lesson.source-english-only details.original-page[open]>summary{
+  border-bottom:1px solid #dce5eb
+}
+#study-content .lesson.source-english-only .source-page-figure{
+  margin:0;padding:12px;max-width:100%;border:0;border-radius:0;background:#fff
+}
+#study-content .lesson.source-english-only .source-page-figure img{
+  display:block;max-width:100%;width:auto;height:auto;margin:0 auto
+}
+#study-content .lesson.source-english-only .source-page-figure figcaption{
+  text-align:center;line-height:1.5;font-size:12px;margin-top:7px
+}
+@media(max-width:600px){
+  #study-content .lesson.source-english-only details.original-page>summary{font-size:12px;padding:11px}
+  #study-content .lesson.source-english-only .pair.source-english-only>.original{font-size:16px}
+}

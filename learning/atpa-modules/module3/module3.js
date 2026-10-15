@@ -7,7 +7,20 @@ const SOURCE={
  "3:1":{fileId:"1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb",module:"3",part:"1",label:"1.1.1–1.1.10",sourcePages:"7–18",kind:"raw"},
  "3:2":{fileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",module:"3",part:"2",label:"1.2.1–1.2.21",sourcePages:"19–40",kind:"raw"},
  "3:3":{fileId:"1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO",module:"3",part:"3",label:"1.3.1–1.3.10",sourcePages:"41–52",kind:"raw"},
- "3:4":{fileId:"13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC",module:"3",part:"4",label:"1.3.11–1.3.29",sourcePages:"53–71",kind:"raw"}
+ "3:4":{fileId:"13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC",module:"3",part:"4",label:"1.3.11–1.3.29",sourcePages:"53–71",kind:"raw"},
+ "3:5":{fileId:"1ivOBsbEcwDaWBeUZsQGJ8Pl0UYx-4nI5",module:"3",part:"5",label:"1.4.1–1.4.12",sourcePages:"72–83",kind:"raw"},
+ "3:6":{fileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",module:"3",part:"6",label:"1.4.13–1.4.24",sourcePages:"84–95",kind:"raw"},
+ "3:7":{fileId:"1dzG8Ndybq0JKzsAVMA3GOJH2Nd2U0nRa",module:"3",part:"7",label:"1.4.25–1.4.36",sourcePages:"96–108",kind:"raw"},
+ "3:8":{fileId:"1-XQSQF-XLMr0sR3Cmi3mg4-FW8yhSspq",module:"3",part:"8",label:"1.4.37–1.4.48",sourcePages:"109–126",kind:"raw"},
+ "3:9":{fileId:"1RNzmcl2YMUCu7JaAgeTNHMpTB3ACtzyU",module:"3",part:"9",label:"1.5.1–1.5.11",sourcePages:"127–137",kind:"raw"},
+ "3:10":{fileId:"104Eb1-JQIxGecEODTPMd9yhDjuZb1bun",module:"3",part:"10",label:"1.5.12–1.5.22",sourcePages:"138–151",kind:"raw"},
+ "3:11":{fileId:"14FAhZ6zmZd4CcE9ucGxJFVLH5-zB-8YB",module:"3",part:"11",label:"1.5.23–1.5.33",sourcePages:"152–163",kind:"raw"},
+ "3:12":{fileId:"11OF4uSZZgeEfY7t6zDVjztwxTI3bdvMb",module:"3",part:"12",label:"1.5.34–1.5.44",sourcePages:"164–176",kind:"raw"},
+ "3:13":{fileId:"1HzJRMndryyd4JH2yszUiTGXnZTXVOTSC",module:"3",part:"13",label:"1.6.1–1.6.9",sourcePages:"177–185",kind:"raw"},
+ "3:14":{fileId:"1A-hUmD0DgUfxxr4NMd-qnqIjMmjzO8MA",module:"3",part:"14",label:"1.7.1–1.7.13",sourcePages:"186–198",kind:"raw"},
+ "3:15":{fileId:"19tp5PaNi4YUwpI2fUmYmsD7mcTHxBGod",module:"3",part:"15",label:"1.7.14–1.7.25",sourcePages:"199–210",kind:"raw"},
+ "3:16":{fileId:"1MbOWCP5qCfZOxZQ6W0LoRvescQT0shXa",module:"3",part:"16",label:"1.7.26–1.7.37",sourcePages:"211–222",kind:"raw"},
+ "3:17":{fileId:"1rn886abWZqdYJxk4QIMGklFVK57DcAwV",module:"3",part:"17",label:"1.7.38–1.7.50",sourcePages:"223–242",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -15,8 +28,8 @@ const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="3";
 const SOURCES=Object.values(SOURCE).sort((a,b)=>Number(a.part)-Number(b.part));
 const CHAPTERS={"1.1":{title:"Model Accuracy",zh:"模型準確性",total:10},"1.2":{title:"Additive Models",zh:"加法模型",total:21},"1.3":{title:"Linear Mixed Models",zh:"線性混合模型",total:29},"1.4":{title:"Neural Networks",zh:"神經網路",total:48},"1.5":{title:"Bayesian Models and Analysis",zh:"貝氏模型與分析",total:44},"1.6":{title:"Stacking",zh:"模型堆疊",total:9},"1.7":{title:"Further Modeling Topics",zh:"其他進階建模主題",total:50}};
-const EXPECTED_COUNTS=[10,21,10,19];
-const FIRST_IDS=["s111","s121","s131","s1311"];
+const EXPECTED_COUNTS=[10,21,10,19,12,12,12,12,11,11,11,11,9,13,12,12,13];
+const FIRST_IDS=["s111","s121","s131","s1311","s141","s1413","s1425","s1437","s151","s1512","s1523","s1534","s161","s171","s1714","s1726","s1738"];
 const SESSION_PREFIX="hanami-kyoto-google-token-v3";
 let tokenClient=null,loaded=false,allLessons=[],scrollScheduled=false;
 const show=(id,visible)=>{const n=$(id);if(n)n.hidden=!visible};
@@ -291,7 +304,7 @@ function makeChapter(id,key){
 }
 function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
- const count=document.createElement("p");count.className="toc-summary";count.textContent="按原書順序 · 已完成 60／211 小節";toc.append(count);
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="原文 211／211 節 · GPT 雙語 60／211 節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const chapterLessons=lessons.filter(sec=>sec.dataset.num.startsWith(chapter+"."));
    const details=document.createElement("details");details.className="toc-group";
@@ -301,6 +314,7 @@ function makeNavigation(lessons){
    const num=document.createElement("span");num.className="group-num";num.textContent=chapter;
    const label=document.createElement("span");label.className="group-label";
    label.textContent=meta.zh;
+   if(["1.4","1.5","1.6","1.7"].includes(chapter))label.textContent+=" · 英文已完成";
    summary.append(num,label);
    if(!chapterLessons.length){
      const status=document.createElement("span");status.className="pending-label";
@@ -320,7 +334,7 @@ function makeNavigation(lessons){
    chapterLessons.forEach(sec=>{
      const a=document.createElement("a");a.href="#"+sec.id;a.className="toc-link";a.dataset.id=sec.id;
      a.dataset.en=sec.querySelector("header h2")?.textContent||"";
-     a.dataset.zh=sec.querySelector(".zh-heading")?.textContent||a.dataset.en;
+     a.dataset.zh=sec.dataset.stage==="english-only"?a.dataset.en:(sec.querySelector(".zh-heading")?.textContent||a.dataset.en);
      const n=document.createElement("span");n.className="toc-num";n.textContent=sec.dataset.num;
      const title=document.createElement("span");title.className="toc-label";title.textContent=a.dataset.zh;
      a.append(n,title);links.append(a);
@@ -373,8 +387,12 @@ function mountAll(texts){
      throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
    sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
  }
- if(sections.length!==60||new Set(sections.map(s=>s.id)).size!==60)
-   throw new Error("60 個已製作小節未完整載入，請重新整理後再試。");
+ if(sections.length!==211||new Set(sections.map(s=>s.id)).size!==211)
+   throw new Error("211 個編號小節未完整載入，請重新整理後再試。");
+ // Exactly the original 60 lessons are bilingual; all 151 newly added sections are English-only.
+ const englishOnly=sections.filter(s=>s.dataset.stage==="english-only");
+ if(englishOnly.length!==151||englishOnly.some(s=>!s.querySelector(".original")||!s.querySelector(".source-page-figure img")))
+   throw new Error("英文先行教材不完整（151 節／PDF 原頁影像），停止顯示。");
  const article=$("study-content"),frag=document.createDocumentFragment();let lastChapter="";
  for(const sec of sections){
    const group=sec.dataset.num.split(".").slice(0,2).join(".");
@@ -415,8 +433,13 @@ async function fetchOneSource(source,token){
 }
 async function fetchPrivate(token){
  if(loaded||!selected)return;
- status("正在載入 Module 3 已製作的 60 個小節…");
- const texts=await Promise.all(SOURCES.map(source=>fetchOneSource(source,token)));
+ status("正在載入 Module 3：原文 211／211 節，既有雙語 60／211 節…");
+ const texts=new Array(SOURCES.length);
+ for(let i=0;i<SOURCES.length;i+=4){
+   status("正在讀取私人教材 "+Math.min(i+4,SOURCES.length)+"／"+SOURCES.length+" 份…");
+   const slice=await Promise.all(SOURCES.slice(i,i+4).map(source=>fetchOneSource(source,token)));
+   slice.forEach((text,j)=>texts[i+j]=text);
+ }
  mountAll(texts);
 }
 

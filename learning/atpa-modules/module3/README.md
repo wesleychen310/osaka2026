@@ -1,163 +1,19 @@
-# SOA ATPA Module 3 — Advanced Models｜私人雙語教科書
+# SOA ATPA Module 3 — Advanced Models
 
-> 最新交接：**2026-10-14 §1.3 全章完成**。Module 3 已製作 §1.1–§1.3 共 **60／211 小節（28.4%）**。下一批為 **§1.4 Neural Networks 48 節（p.72–126）**；詳細來源、權限及 QA 見本文件最末最新交接節。
+Public interface only; source English paragraphs, private translations, official page images and GPT notes remain in access-controlled Google Drive.
 
-## 使用者正式入口
+## Current completion (2026-10-15)
+- **English original: 211/211 numbered sections (100%)**, covering textbook Module 3 pp.7–242.
+- **Previously completed bilingual content: 60/211 sections**, §1.1–§1.3, unchanged.
+- **New English-first material: 151/151 sections**, §1.4 Neural Networks (48), §1.5 Bayesian Models and Analysis (44), §1.6 Stacking (9), §1.7 Further Modeling Topics (50).
+- Added 13 new restricted Google Drive HTML sources containing complete PDF-extracted text and **171 original PDF full-page facsimiles** for the new sections.
+- Original extractable text is checked character-for-character against the official PDF with PyMuPDF; original-page images preserve formulas and figures which text extraction may not reproduce semantically.
+- The existing four mode buttons are retained for backward compatibility. New English-only sections always show English regardless of mode; no machine-generated or fictitious Chinese translation is inserted.
+- User access is controlled by Google Drive permissions. GitHub Pages hosts a public reading interface but never stores the copyrighted original PDF text or page snapshots.
 
-- **Module 3 私人閱讀**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/
-- **第一批 §1.1.1**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s111
-- **流程圖 §1.1.6**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s116
-- **§1.1.10 Bias–Variance**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s1110
-- 學習首頁：https://wesleychen310.github.io/osaka2026/learning/
+## Next editorial phase
+1. GPT-authored Traditional Chinese translations for §1.4–§1.7.
+2. GPT-authored aligned English/Traditional-Chinese summaries and in-context semantic English chunk annotations.
+3. Formal paragraph-level bilingual alignment and mobile Safari end-to-end visual QA.
 
-## 官方教材定位與頁碼
-
-唯一權威來源為使用者提供的 `ATPA_Official_Modules_1-4_Combined(1).pdf`。**Module 3** 共 242 頁，標示 `Created: Mon Apr 18, 2022`；位於合併 PDF **1-based 第 333–574 頁**（0-based index 332–573）。Module 3 的印刷頁 p.`N` 對應合併 PDF **0-based index = 331+N**、**1-based 頁碼 = 332+N**。
-
-### 211 小節完整章節地圖
-
-| 章節 | 原書名稱 | 小節數 | 頁碼 | 狀態 |
-| --- | --- | ---: | --- | --- |
-| 1.1 | Model Accuracy | 10 | 7–18 | **全部 10 節已製作** |
-| 1.2 | Additive Models | 21 | 19–40 | **全部 21 節已製作** |
-| 1.3 | Linear Mixed Models | 29 | 41–71 | 待製作 |
-| 1.4 | Neural Networks | 48 | 72–126 | 待製作 |
-| 1.5 | Bayesian Models and Analysis | 44 | 127–176 | 待製作 |
-| 1.6 | Stacking | 9 | 177–185 | 待製作 |
-| 1.7 | Further Modeling Topics | 50 | 186–242 | 待製作 |
-| **合計** | | **211** | **242 頁** | **31／211** |
-
-網站左欄展示七個正式章節；第 1.1 可點選已完成的 10 個小節，其餘六章標示「待製作」與精確小節數，不導向未存在的教材錨點。
-
-## §1.1 第一批正式來源與權限
-
-- **檔名**：`ATPA_Module_3_1.1.1-1.1.10_私人雙語教材.html`
-- **私人 Google Drive File ID**：`1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`
-- **資料夾**：`1uLenu319fQEQwltPasYv1HH_EL6Swk4q`（所有 Module 1／2 的私人雙語教材同層）。
-- **MIME**：`text/html`；**665,987 bytes**；**SHA256：`95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`**。
-- **已核對存取權**：Google Drive metadata 返回 2 組 `user` 權限（owner + 具名 reader），無 `anyone` 或 `domain`。GitHub 僅保存公開 HTML shell、JS/CSS、來源識別碼與 SOP，**不得上傳官方教材原文、翻譯或原圖至公開 GitHub**。
-- **更新備份**：首次上傳後發現 §1.1.1 學習目標表的中文標題對位需要修正，**已先建立備份，再更新原檔且保留 File ID**。備份 File ID `1LcpVq21ldlG-99cnxkh6YuzJTUi8z-S0`，位於 `_backup` 資料夾 `1IGm40lPbbVwADj4ffg82gfVdx281YXvv`。最新正本為 665,987 bytes，舊備份為 652,549 bytes。
-
-## §1.1 的製作與實際驗收數字
-
-- **10／10 節**，錨點連續 `s111`–`s1110`，編號 `1.1.1`–`1.1.10`。
-- **38 組** `.pair`：各組皆有原 PDF 英文來源文字與相對應繁體中文翻譯／詳解。
-- **10 張**獨立精算教師解說卡，包含模型限制、考試易錯處、壽險定價／lapse／核保的專業應用。
-- **38 個** Reusable English（每節 3–4 個），包含 actuarial memo／PA／ATPA 可用語塊。
-- **5 張原 SOA PDF 擷取圖**：原書印刷 p.7（Module Objectives）、p.9（Section Objective）、**p.13（Model Workflow 原始流程圖）**、p.14（Model Safety 原面板）、p.17（In-sample／Out-of-sample Validation 原始表格）。
-- 本批來源原書 p.7–18，**p.8 與 p.15 為空白頁**，已在相應小節註記。所有來源英文字串取自原 PDF 可擷取文字層，38 個來源區塊各自核對為原頁文字序列，不憑空添加官方英文。來源圖片由 PyMuPDF 直接裁切／內嵌原頁；補充公式／教師數值例子獨立標示。
-- §1.1.8 **Accuracy / Sensitivity / Specificity** 的公式忠於 p.16；另加 1000 保單 TP=32、TN=900、FP=60、FN=8 例子，清楚標示為教師自編。
-- §1.1.10 官方原文對 **Bias** 的定義為平均預測與實際目標值絕對差、Variance 為預測變化，另設 **MSE = Bias² + Variance + Irreducible Error** 為教師延伸，不能混成原書圖示。
-- §1.1.3 對 `statsmodels`、`pygam`、`mgcv` 的評述**明確限於 2022 年 3 月**；2026 年版本功能需要另行查證，不能直接照搬作現況。
-
-## GitHub 公開閱讀器與 UX
-
-- `learning/atpa-modules/module3/index.html` — 新網址、Google OAuth 登入、四模式按鈕、章節目錄、內容容器。
-- `learning/atpa-modules/module3/module3.js` — 保留 Module 1／2 經過驗證的 OAuth 載入與 DOM 清理邏輯，`SOURCE["3:1"]` 指向私有 `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`。嚴格檢查每批 `EXPECTED_COUNTS=[10]`、`FIRST_IDS=["s111"]`、**10 個 unique IDs**。未來新增批次依序加來源，更新三項核對資訊。
-- `learning/atpa-modules/module3/module3.css` — 原書圖片、雙語長段落、公式與待製作章節標籤。
-- **共用** `learning/atpa-modules/reader.css?v=20261013-normal-font1`，手機「上中文下英文」中英文正文均 16px，iPhone 左右模式兩欄較小字級。
-- **四個完整頁面切換模式，順序不可更動**：①全英文 `en`、②全中文 `zh`、③上中文下英文 `vertical`（預設）、④左英文右中文 `parallel`；使用者選擇保存於既有 `atpa-modules-reading-mode-v3`。左側目錄、手機章節抽屜與 OAuth 都維持原先網站操作體驗。
-- 私有來源 HTML 使用 `<main id="atpa-source">` 和 `<section class="lesson" ...>`；段落 `.pair>.original/.translation`，教師 `details.tutor`，英文語塊 `details.phrases`。所有新的 Module 3 分批 HTML **必須遵守此結構**。
-
-## 需誠實列出的驗收限制
-
-1. **靜態與來源驗證已執行**：官方 PDF 原文／原圖、10 節結構、來源 Google Drive 上傳／讀回、owner + reader 權限、GitHub 程式語法與連結。
-2. **動態尚待真正使用者登入後驗收**：GitHub Pages 部署、Google OAuth 真正啟動並讀取 652 KB 私有 HTML、iPhone/iPad/Mac 四模式切換、圖片呈現、使用者裝置的閱讀效能。不要以靜態檢查代替實機證據。
-3. 繁中內容逐節對應原文主段落，**尚未有人工作為第三方逐字逐句翻譯複校**。未製作的 §1.2–§1.7 僅呈現章節狀態。
-4. Module 3 後續的 Rmd／CSV／Stan 等外部附件，應依原 PDF 的文字與連結另外查證、取得及執行。任何新程式結果都必須區分為原書數據或獨立教學示例。
-
-## 下一批指令（§1.2）
-
-1. 從官方 Module 3 **§1.2.1 Additive Models，p.19（合併 PDF 第 351 頁，0-based index 350）**開始，按原書編號完成 §1.2.1–§1.2.21；總節數應由 10 增為 **31／211**。
-2. 保留 GAM、Spline、smoothing、Model fitting 的所有公式、可執行 R 程式和對應圖表；須把原書報表及外部 Rmd 擷取到受限 Drive，而非公開 GitHub。
-3. 中文教授須逐段對位，保留原英文，解釋公式用途、成立條件、視覺座標／曲線、模型診斷及 PA／ATPA 作答。每節增加 3–5 組 Reusable English 及壽險精算實務例子。
-4. 依來源尺寸可在 **同一章中拆多份私有 HTML**，但網站永遠連續顯示；將新 Drive 檔 ID 加入 `module3.js SOURCE`、擴充 `EXPECTED_COUNTS`、`FIRST_IDS` 與已完成章節子目錄、總量 guard。保持四模式與私人權限。
-5. 每批完成請核對 GitHub 靜態 JS、來源 HTML 結構與 Drive metadata，更新**本 README**、`learning/atpa-modules/README.md`、`learning/README.md` 及根 `README.md`；保留可交接的來源頁碼、Drive File ID、GitHub commit 及未驗收項目。修改任何現有 Drive HTML 前先建立同層 `_backup` 時間戳備份，保留原始 ID 和位置。
-
-## 2026-10-14 原書圖片裁切品質修正（最新來源版本）
-
-- 第二次來源檢查發現 p.7 與 p.14 的官方 Component Table 截圖最後一行被裁掉（來源文字層已完整保留）；p.17 原面板上方標籤也太貼邊。已改以更寬的 PyMuPDF Clip 重新擷取，確保 **完整表格列、Footer 與 Component Table 標題**出現在私人教材圖片中。
-- 更新前先備份 Drive 原檔至 `_backup`：備份 ID **`1sDt59rh11_FAw6ovKiNRktBz-silPWfN`**，備份名 `ATPA_Module_3_1.1.1-1.1.10_私人雙語教材__backup_20261014_原圖擴充前.html`。原檔保持同一 ID `1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb`、原檔名、原目錄與權限，最新版本大小 **665,987 bytes**，SHA256 `95e16bec54e872b978dafe9d5115a2382e75daab4ec75423f83bef030d2eba57`。
-- 上述修正僅擴展三張官方圖片的裁切範圍，10 小節／38 組英中對照／38 個實務語塊與原文順序均未變動。已在本地打開 p.7、p.13、p.14 的輸出圖目視檢查；用戶 Google OAuth 實機端尚未驗收。
-
-## 2026-10-14 最新進度｜§1.2 Additive Models 全 21 節已完成
-
-**本節為最新權威交接。** 已完成 **31／211（14.7%）**，可於同一網址連續閱讀 §1.1–§1.2。下一批從 **§1.3.1 Linear Mixed Models** 開始。
-
-### 本批正式來源與內容品質
-
-- **私人來源檔**：`ATPA_Module_3_1.2.1-1.2.21_私人雙語教材.html`。Google Drive fileId **`1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP`**；存於 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，`text/html`，**2,618,055 bytes**，SHA256 **`57045cb5c8a080681505669681a4b64a5d4e6c1d15cc806185f8cdea8f9a8822`**。
-- **受限權限**：Google Drive metadata 與實際來源讀回已確認 owner + 一位具名 reader，均為 `user`；未設定 `anyone`／`domain`。所有 SOA 原文、翻譯與內嵌原圖只在此 Drive 私人 HTML，公開 GitHub 僅保存讀取介面與 fileId。
-- **範圍**：原書 Module 3 p.19–40（合併 PDF 0-based index 350–371；1-based 第 351–372 頁）。來源 1.2.18 Exercise Data 跨 **p.36–37**，完整容納第二頁的變數字典；後續 §1.2.19 從 p.38 起。
-- **結構驗收**：21／21 `section.lesson`，連續錨點 `s121`–`s1221`；**94 組** `.pair.pdf-source-pair`、每對包含來源英文 `.original` 與繁體中文 `.translation`；**21 張 tutor 精算教師卡、84 個 Reusable English 語塊（每節 4 個）**；**17 張直接由 SOA 官方 PDF 擷取的原頁圖**（p.19／21／22／23／24／25／26／27／28／30／31／32／36／37／38／39／40）。
-- **官方文字核對**：原書 p.19–40 以 PyMuPDF `get_text(sort=True)` 萃取，移除重複頁眉和印刷頁碼後拆出 94 個原文區塊，並與私有 HTML 中 94 個 `.original` **逐區塊完全一致**。官版 Component Tables、CHUNK 1–14 的參照、R 程式 `lm(Traffic ~ Hour)`、`gam(Traffic ~ s(Hour))`、`k`／`gam.check()`／`select=TRUE`、全部題幹、資料字典及兩組官方 MSE 表格都保留。
-- **原始圖形**：交通雙峰散點圖、直線模型、多項式階數 1／2／3／5／8／10、對數轉換、GAM 擬合、三條 smooth 的圖、原書 GAM summary、p.36–37 變數表、p.39–40 飯店訂房官方答案均存於 17 張原圖。圖為原 PDF 頁面裁切，並非重繪。
-- **需要特別註記的來源損壞**：p.26 三個公式在原 PDF 實際呈現紅色破圖 icon，`get_text()` 僅擷取到殘留句點。原頁圖已保留這項事實；另以「教師依上下文重建」獨立說明 `y=α+β₁x+ε`、`y=α+f(x)+ε`、`f(x)=ΣγᵢBᵢ(x)`，**不能冒稱這些是官方公式影像或完成原公式忠實復刻**。p.31 的加法 `ŷ=α+Σfⱼ(xⱼ)` 公式則在 PDF 中清楚可見，已直接保留原圖。
-- **官方題目與答案**：Exercise 3.2.1 p.36–40 八大題目已完整收錄；p.39 第一組 MSE **2162.86／1814.57／2131.98／1798.51**；p.40 第二組 **1814.57／1798.51／1757.09／1747.82**。包含官方 negative ADR 討論及用 `1+adr` 建 Gamma GLM 的決定。p.40 官方文字出現 `complimentary room`，但題幹四個 predictors 未直接列該欄；已在繁中教師說明中特別註記，待外部 Rmd 核對，不默默修稿。
-- **來源版本與外部附件**：原教材標記為 2022-04-18。外部 `atpa_3_2_r.rmd` 與 `hotel_bookings_small.csv` 以原書來源連結保留；PDF 也提到 `traffic_data.csv`。本批只收錄主 PDF 可核對內容，**尚未下載並實際執行外部 CSV／Rmd**，因此不得宣稱 CHUNK 1–14 的 R 程式已跑完、輸出由本次重算。原書 2022 年的套件敘述不應直接冒充 2026 年最新軟體現況。
-- **翻譯範圍與界線**：94 段有中文一對一對照，教材重點以中文詳解呈現，涵蓋公式、統計直覺與精算實務。原始表格格線與精確數字另以原書截圖保存；中文尚未經第二人逐句人工審稿，不得虛稱完全人工複校。
-
-### 本批 GitHub 網站更新
-
-- `learning/atpa-modules/module3/module3.js` 新增 `SOURCE["3:2"]`，fileId 如上，`EXPECTED_COUNTS=[10,21]`、`FIRST_IDS=["s111","s121"]`、總量為 **31 unique anchors**，1.2 章目錄由待製作改為可點選 21 節。
-- `learning/atpa-modules/module3/index.html` 修正先前從 Module 2 模板殘留的「Working with Data」為「Advanced Models」，網站標示 **31／211**，JS/CSS 快取參數 `20261014-m3-sec12`。
-- `learning/index.html` 的 Module 3 卡片同步更新為 31 節；Module 1／2 私人來源與網址均未變動。
-- **保留四模式**：①全英文，②全中文，③上中文下英文（預設、正文 16px），④左英文右中文；左側目錄仍列七章及未完成小節數。新增 2.6 MB 私人來源，正式效能需用使用者裝置測試。
-
-### 驗收邊界與下一步
-
-- **靜態檢查**：來源 HTML 21／21、英文 PDF text 94／94、原頁圖 17／17、tutor 21／21、英文語塊 84／84、Drive metadata，GitHub JS 語法及 SOURCE 計數已驗證。
-- **端對端未驗收**：使用者 Google OAuth、GitHub Pages CDN 實際發布延遲、iPhone/iPad/Mac 四模式、2.6 MB 原圖載入速度和長頁捲動；Rmd、CSV 與官方模型運算結果的可執行驗證。
-- **下一批**：§1.3 **Linear Mixed Models** 共 29 小節，官方印刷 p.41–71，若全部完成則累計應為 **60／211**。先核對原書公式／圖表／R code，再產製逐段英中對照與精算教學；優先說明 fixed effects／random effects、random intercept／slope、credibility、Bühlmann–Straub 及 group-level variation。
-- **寫入紀律**：新教材繼續存相同受限 Google Drive 資料夾，GitHub 只存 reader 與 fileId。修改任何既存 Drive 原稿前先備份到 `_backup`；每批完成同步更新本 README、上層 `learning/atpa-modules/README.md`、`learning/README.md` 及根 `README.md`。
-
-
-## 2026-10-14｜四模式切換時定位維持（最新 UX 修復）
-
-- Module 3 已完成 §1.1／§1.2 共 **31／211 節**，來源 `3:1`、`3:2` 與私有 Drive 檔不動。修正 `module3.js` 四模式切換前後的錨點定位：保存目前 `.pair`、語言欄與段內進度，切換排版後恢復相同閱讀段落；特別適用 §1.2 94 組英中配對與長內容。
-- `module3/index.html` JS cache 改 `?v=20261014-reading-anchor1`；目錄七章、四模式、官方圖表及 16px 上下對照字級保留。
-- JavaScript 靜態語法通過；使用 Chromium 模擬三種長頁閱讀位置，24／24 次切換均停同段。使用者真實 OAuth 與 iPhone Safari 實機仍待驗收。下一批仍為 §1.3 Linear Mixed Models。
-
-## 2026-10-14｜四種閱讀模式切換不跳頁（Module 1／2／3）
-
-- **使用者要求**：閱讀長頁到某個段落時，按「全英文／全中文／上中文下英文／左英文右中文」，必須停留在**相同教材段落、相近的螢幕位置**，不可因內容長度變化跳到其他段落或小節。
-- **正式修正**：`learning/atpa-modules/reader.js`、`learning/atpa-modules/module2/module2.js`、`learning/atpa-modules/module3/module3.js`。四個全頁語言模式及資料來源未變動。
-- **技術處理**：在閱讀按鈕 `pointerdown` 時先保存當下可見的穩定雙語 `.pair` 或圖表錨點，避開切成全英文時會隱藏的 `details.tutor` 與 `details.phrases`。切換後依同一元素和垂直閱讀比例補償 scroll，暫停平滑捲動及瀏覽器自動捲動錨定；在重排的連續影格與延遲 110ms 時各做一次校正，支援 iOS Safari 的工具列 focus／viewport 變動。使用跨瀏覽器 `behavior:"auto"`。
-- **三個站的 JS cache rev**：`reading-anchor2`（如再次調整程式碼必須更新 query 版本避免手機快取舊程式）。
-- **驗證範圍**：三份 JS 已通過靜態語法檢查、四種按鈕仍保留。Chromium 以自建 140 節長文模擬桌面 1280×850 與 iPhone 尺寸 390×844，連續切換 `en → zh → vertical → parallel → en → vertical`，選定的同一段落始終維持在可視範圍。**尚未在使用者真實 Google OAuth 私人教材的 Safari／iPhone 上完成端對端驗收**。
-- **下一步若使用者仍見跳頁**：索取實際 Module、節號、切換前後模式及機型；優先檢查被隱藏的教師卡、瀏覽器自動錨定和快取，不要把教材 DOM 拆成每種模式獨立重新載入。
-
-## 2026-10-14｜最新批次 §1.3.1–§1.3.10 Linear Mixed Models
-- **最新完成 41／211 個編號小節**：1.1 10、1.2 21、1.3 前 10。§1.3 全章 29 節（官方 p.41–71），下次從 **§1.3.11 Random Intercepts Model** 續做，直到 §1.3.29 Bühlmann–Straub Credibility／Exercise 3.3.3。
-- 來源官方合併 PDF 頁 373–384（1-based），Module 3 p.41–52，包含 §1.3.10 Knowledge Check 第 50–52 頁跨頁題目／回饋。**只完成前 10 節，請勿宣稱 1.3 全章完成**。
-- 最新來源：私人 Drive `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`、`ATPA_Module_3_1.3.1-1.3.10_私人雙語教材.html`，folder `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，text/html，944,492 bytes，SHA256 `d186edf4c4008e5e877ce66e5aef0e3ce54c6711d73a194e36525e82a4db9ac9`。10 節、10 組原文／繁中教學配對、12 張 PDF 原頁圖、10 tutor notes、30 Reusable English。
-- 品質界線：本批英語來源文字以 PyMuPDF 直接擷取、保留原始資料與 Knowledge Check 跨頁內容；中文為逐節詳解及精算應用，**尚未逐段逐句翻譯核對**，後續需加細分段。圖像保留公式／原始資料表完整頁；外部 Rmd、CSV 尚未取得或執行。
-- GitHub `learning/atpa-modules/module3/module3.js` 增加 `SOURCE["3:3"]`、`EXPECTED_COUNTS=[10,21,10]`、`FIRST_IDS=["s111","s121","s131"]`、總 guard 41。四閱讀模式及同段捲動保留；首頁 JS 快取版本 `20261014-sec13-10-position2`。
-- 閱讀 https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s131 ，需具名帳號 OAuth。下一批製作時沿用本檔與現有 source，不要重做 §1.3.1–1.3.10。
-
-
-## 2026-10-14｜§1.3 Linear Mixed Models 全章完成（最新有效交接）
-
-**已完成 60／211 小節（28.4%）**：§1.1 Model Accuracy 10 節，§1.2 Additive Models 21 節，§1.3 Linear Mixed Models 29 節。官方原書 §1.3.1–1.3.29 依原編號位於 p.41–71（合併 PDF 0-based index 372–402；1-based p.373–403）。下一批從 **§1.4.1 Neural Networks p.72** 開始，全章 48 節、p.72–126；全部完成則為 **108／211 小節**。閱讀：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/#s1311
-
-### 私人來源及相容性
-
-- 當時另一個更新已先接入 §1.3.1–§1.3.10（原書 p.41–52），**既有 SOURCE["3:3"] 及該十節的 Google Drive ID 完全保留**：`1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`，`text/html` 944,492 bytes；10 節含跨 p.50–52 的官方五題 Knowledge Check。沒有覆蓋或重新上傳先前來源。
-- **新增 SOURCE["3:4"]**：`13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC`，檔名 `ATPA_Module_3_1.3.11-1.3.29_私人雙語教材.html`，原書 p.53–71。大小 **1,874,068 bytes**，SHA256 `d037d34eca79d14c5c43f787fa2e501d91f162fe1fb9499d7afb2cfbf92f640f`。19 節、**31 個英中來源區塊**、19 張教師說明、57 個英文實務語塊、**16 張直接擷取的原書頁面截圖**，含頁內圖片公式與 Component Tables。
-- 來源檔保存在私人 Google Drive 資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`，Google Drive metadata 已確認 **owner + 具名 reader**；沒有 anyone/domain 分享。Google OAuth 仍僅使用 `drive.readonly`；原文、中文、SOA 圖片不存入公開 GitHub。
-- 製作時另生成全章 §1.3.1–1.3.29 的**整章校稿備用稿**（29 節、45 組來源英中區塊、87 英文語塊、24 張原書圖與五題互動式 Knowledge Check），為避免正式資料夾重複展示，已重新命名並移入既有私人 `_backup`：fileId `1ce8h9ClEwEuOZlk6nZkLR4EeSi0rPEbu`；`ATPA_Module_3_1.3.1-1.3.29_整章校稿備份_20261014.html`；大小 2,808,616 bytes，SHA256 `3cd35aa26370c9a54427ec88c26bd5d2ee943c7cbc7f27d4b3b6d17de79b154c`。**此備用稿未被網站 SOURCE 載入**，僅供未來依節段落細化校稿；不可把其中前十節計入正式網站第二遍。
-
-### 教材內容與驗證
-
-- Fixed versus Random Effects（professor／year／major／hours）、混合模型與組內相關、Random Intercepts／Slopes 模型、已知與新群組不同預測方式、移除 nuisance effect、Repeated Measures／Longitudinal Data、GLMM、Bühlmann–Straub Credibility，以及 Exercises 3.3.1／3.3.2／3.3.3。
-- §1.3.11／§1.3.16／§1.3.21 等包含 PDF 圖像公式；其原頁截圖直接嵌於私人教材，額外公式寫明「**教師補充公式**」，不替換原書來源。原書五題 Knowledge Check 位於先前已接入的 §1.3.10；完整跨頁官方回饋另在整章校稿備用稿內。
-- **PDF 來源校驗**：新增 19 節的每一個 `.original` 內容與 PyMuPDF 官方 PDF `get_text(sort=True)` 擷取文字逐節比對，全部 19／19 通過（只排除一致的頁首／頁尾和無語意空白）；保留原稿 CHUNK 指令、英語題幹、官方表格數字。與來源圖片互相補足公式／圖表文字層缺漏。
-- 原書 p.69 Bühlmann–Straub 的 Line 2 範例：Z≈0.507、Line 1 174.75 × 50 = 8,737.50 均保留；**原文另記「175.08 × 50 → 8,574.00」但正確算術乘積為 8,754.00**。私人教師卡及中文教學獨立標註算術差異，不擅自修改英文原文。
-- 原書 Exercise 所需 `atpa_3_3_r.rmd`、`comp_course.csv`、`comp_course_2.csv` 等外部附件，在本批沒有實際取得並執行，因此沒有聲稱驗證 CHUNK 3–17 的程式係數或數值結果。教師的 lme4::lmer 語法與 ICC 公式均獨立標示補充。
-
-### GitHub 接線及驗收
-
-- GitHub `module3.js` 新增第四份 private source `3:4`；`EXPECTED_COUNTS=[10,21,10,19]`，`FIRST_IDS=["s111","s121","s131","s1311"]`，**60 個不同小節錨點**，前後連續；左側 1.3 章節顯示全部 29 節，§1.4–§1.7 保留明確「待製作」。
-- `module3/index.html` 更新進度與網址快取版本 `20261014-sec13-complete`，`module3.css` 增加官方來源頁面、公式面板樣式。原有四個按鈕 **全英文／全中文／上中文下英文／左英文右中文**、16px 上下雙語、切換時保留閱讀位置，以及 Google OAuth 均維持。
-- 已驗收 GitHub 來源程式靜態語法、私有 Drive 的 metadata 權限、來源小節數／英中對應／圖表與原稿一致性。**實際 GitHub Pages CDN 發布、使用者 Google OAuth、iPhone Safari 上四模式與讀取 1.8MB 新檔時的顯示效能，仍待端對端實機驗收。**
-- 下批如需改既存的 Drive 來源，一律先在 `_backup` 先保留備份，保有原 File ID、檔名與具名權限，並於最新 README 紀錄更新結果。根／learning／atpa-modules README 同步更新。
+The legacy 60 sections maintain their existing functionality and historical bookmarks.
