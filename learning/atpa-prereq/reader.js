@@ -1,71 +1,120 @@
-/* ATPA prereq four-mode adapter. Original three reading modes remain unchanged. */
-(()=>{'use strict';
-const KEY='atpa-prereq-language-v1';
-const root=document.documentElement;
-const bar=document.getElementById('islp-reading-mode');
-if(!bar)return;
-bar.querySelector('button[data-mode="bi"]')?.remove();
-const opts=bar.querySelector('.islp-mode-options');
-if(opts){
-  opts.setAttribute('aria-label','ATPA 先備教材閱讀模式');
-  if(!opts.querySelector('button[data-mode="swipe"]')){
-    const button=document.createElement('button');
-    button.type='button';
-    button.dataset.mode='swipe';
-    button.textContent='大字橫滑';
-    button.setAttribute('aria-pressed','false');
-    button.title='英文與繁體中文以大字左右排列；在段落上左右滑動閱讀';
-    opts.appendChild(button);
+/* ATPA prerequisite reader: public presentation logic only.
+   All English, Traditional Chinese, figures and phrase annotations are fetched
+   from the authorized Google Drive chapter. No textbook material lives here. */
+(()=>{"use strict";
+  const root=document.documentElement;
+  const originalBar=document.getElementById("islp-reading-mode");
+  const source=document.querySelector("main .pair");
+  if(!source)return;
+  // The common ISLP script prepares paired headings and language classes.
+  // Keep both source languages in the DOM and let this independent reader
+  // choose the visible three-layer presentation.
+  root.dataset.islpReadingMode="bi";
+  if(originalBar)originalBar.hidden=true;
+  const modes=["en","stacked","triple"];
+  const KEY="atpa-prereq-reading-mode-v2";
+  const legacy="atpa-prereq-language-v1";
+  function preferred(){
+    try{
+      const saved=localStorage.getItem(KEY);
+      if(modes.includes(saved))return saved;
+      if(localStorage.getItem(legacy)==="en")return "en";
+    }catch(_){}
+    return "stacked";
   }
-}
-const names={zh:'全中文',en:'全英文',parallel:'左右對照',swipe:'大字橫滑'};
-bar.querySelectorAll('button[data-mode]').forEach(b=>{
-  if(names[b.dataset.mode]){
-    b.textContent=names[b.dataset.mode];
-    if(b.dataset.mode!=='swipe')b.removeAttribute('title');
-  }
-});
-const hint=document.createElement('div');
-hint.id='atpa-swipe-hint';
-hint.textContent='↔ 在每段文字上左右滑動：英文原文 ⇄ 繁體中文（大字）';
-hint.setAttribute('aria-live','polite');
-bar.appendChild(hint);
-const pairs=[...document.querySelectorAll('.islp-parallel-pair')];
-const valid=x=>Object.prototype.hasOwnProperty.call(names,x);
-let saved='zh';
-try{const s=localStorage.getItem(KEY);if(valid(s))saved=s}catch(_){}
-function apply(v){
-  if(!valid(v))return;
-  root.dataset.islpReadingMode=v;
-  bar.querySelectorAll('button[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===v)));
-  pairs.forEach(pair=>{
-    if(v==='swipe'){
-      pair.setAttribute('tabindex','0');
-      pair.setAttribute('aria-label','大字雙語對照：向左滑動看中文，向右滑動看英文');
-      pair.scrollLeft=0;
-    }else{
-      pair.removeAttribute('tabindex');
-      pair.removeAttribute('aria-label');
-    }
-  });
-  if(v==='zh'&&'speechSynthesis'in window)window.speechSynthesis.cancel();
-}
-apply(saved);
-bar.addEventListener('click',e=>{
-  const b=e.target.closest('button[data-mode]');
-  if(!b||!valid(b.dataset.mode))return;
-  apply(b.dataset.mode);
-  try{localStorage.setItem(KEY,b.dataset.mode)}catch(_){}
-});
-window.addEventListener('storage',e=>{if(e.key===KEY&&valid(e.newValue))apply(e.newValue)});
-const topbar=document.querySelector('body > .topbar');
-if(topbar){
-  const sync=()=>{
-    let h=0;
-    try{let s=getComputedStyle(topbar);if(['fixed','sticky'].includes(s.position))h=topbar.getBoundingClientRect().height}catch(_){}
-    root.style.setProperty('--islp-mode-top',h+'px');
+  const normalize=s=>(s||"").replace(/\s+/g," ").trim();
+  const sentence=(text,language)=>{
+    const raw=normalize(text);
+    if(!raw)return "";
+    const end=language==="zh"
+      ?raw.match(/^.*?[。！？](?=\s|$|[^。！？])/)
+      :raw.match(/^.*?[.!?](?=\s|$)/);
+    return end?end[0].trim():raw;
   };
-  sync();
-  window.addEventListener('resize',sync,{passive:true});
-}
+  const plainOriginal=el=>{
+    const clone=el.cloneNode(true);
+    clone.querySelectorAll(".inline-gloss,.learning-gloss,[aria-hidden='true'].inline-gloss").forEach(n=>n.remove());
+    return normalize(clone.textContent);
+  };
+  let enhanced=0;
+  for(const pair of document.querySelectorAll(".pair")){
+    const english=pair.querySelector(":scope > .original, :scope > .en-text");
+    const chinese=pair.querySelector(":scope > .translation, :scope > .zh-text");
+    if(!english||!chinese||pair.querySelector(":scope > .atpa-reading-summary"))continue;
+    const summary=document.createElement("div");
+    summary.className="atpa-reading-summary";
+    summary.setAttribute("aria-label","原文摘錄式英中重點");
+    const en=document.createElement("p");
+    en.className="atpa-summary-en";
+    en.lang="en";
+    en.textContent=sentence(plainOriginal(english),"en");
+    const zh=document.createElement("p");
+    zh.className="atpa-summary-zh";
+    zh.lang="zh-Hant-TW";
+    zh.textContent=sentence(chinese.textContent,"zh");
+    summary.append(en,zh);
+    const annotated=english.cloneNode(true);
+    annotated.classList.remove("original","en-text","islp-parallel-en","islp-mode-en");
+    annotated.classList.add("atpa-reading-annotated");
+    annotated.removeAttribute("style");
+    annotated.removeAttribute("id");
+    pair.append(summary,annotated);
+    pair.classList.add("atpa-enhanced-pair");
+    enhanced++;
+  }
+  if(!enhanced)return;
+  const toolbar=document.createElement("nav");
+  toolbar.id="atpa-prereq-modes";
+  toolbar.setAttribute("aria-label","ATPA 精讀閱讀模式");
+  toolbar.innerHTML='<div class="atpa-mode-inner"><span class="atpa-mode-title">閱讀模式</span><div class="atpa-mode-options" role="group" aria-label="閱讀模式"><button type="button" data-mode="en" aria-pressed="false" title="僅完整英文原文">全英文</button><button type="button" data-mode="stacked" aria-pressed="false" title="英中重點 → 含語塊註解之完整英文 → 原有完整繁中">三段式精讀</button><button type="button" data-mode="triple" aria-pressed="false" title="第一欄英中重點｜第二欄英文精讀｜第三欄完整繁中">三欄式精讀</button></div></div><p class="atpa-mode-hint">三欄式：在手機上於每段左右滑動，查看英中重點、英文精讀、完整中文翻譯。</p>';
+  const insertAfter=originalBar||document.querySelector("body > .topbar")||document.querySelector("#atpa-prereq-bar");
+  if(insertAfter)insertAfter.after(toolbar);else document.body.prepend(toolbar);
+  root.classList.add("atpa-prereq-has-modes");
+  const visiblePairs=[...document.querySelectorAll("main .atpa-enhanced-pair")];
+  function captureAnchor(){
+    if(window.scrollY<180)return null;
+    const y=Math.max(toolbar.getBoundingClientRect().bottom+22,Math.round(innerHeight*.43));
+    let chosen=null,dist=Infinity;
+    for(const node of visiblePairs){
+      const rect=node.getBoundingClientRect();
+      if(rect.height<1)continue;
+      const d=Math.max(0,rect.top-y,y-rect.bottom);
+      if(d<dist){chosen=node;dist=d;if(d===0)break}
+    }
+    if(!chosen)return null;
+    const rect=chosen.getBoundingClientRect();
+    return {node:chosen,y,fraction:Math.max(0,Math.min(1,(y-rect.top)/rect.height))};
+  }
+  function restoreAnchor(saved){
+    if(!saved||!saved.node.isConnected)return;
+    const rect=saved.node.getBoundingClientRect();
+    if(!rect.height)return;
+    const target=rect.top+saved.fraction*rect.height-saved.y;
+    if(Math.abs(target)>.5)window.scrollTo({top:Math.max(0,window.scrollY+target),behavior:"instant"});
+  }
+  let sequence=0;
+  function apply(mode,preserve=true){
+    if(!modes.includes(mode))return;
+    if(root.dataset.atpaPrereqMode===mode)return;
+    const saved=preserve?captureAnchor():null;
+    const token=++sequence;
+    const oldBehavior=root.style.scrollBehavior,oldAnchor=root.style.overflowAnchor;
+    root.style.scrollBehavior="auto";root.style.overflowAnchor="none";
+    root.dataset.islpReadingMode="bi";
+    root.dataset.atpaPrereqMode=mode;
+    toolbar.querySelectorAll("button[data-mode]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode)));
+    toolbar.querySelector(".atpa-mode-hint").hidden=mode!=="triple";
+    try{localStorage.setItem(KEY,mode)}catch(_){}
+    if(saved){
+      restoreAnchor(saved);
+      requestAnimationFrame(()=>{if(token===sequence){restoreAnchor(saved);requestAnimationFrame(()=>{if(token===sequence)restoreAnchor(saved)})}});
+      setTimeout(()=>{if(token===sequence){restoreAnchor(saved);root.style.scrollBehavior=oldBehavior;root.style.overflowAnchor=oldAnchor}},120);
+    }else{root.style.scrollBehavior=oldBehavior;root.style.overflowAnchor=oldAnchor}
+  }
+  toolbar.addEventListener("click",e=>{
+    const button=e.target.closest("button[data-mode]");
+    if(button)apply(button.dataset.mode);
+  });
+  window.addEventListener("storage",e=>{if(e.key===KEY&&modes.includes(e.newValue))apply(e.newValue)});
+  apply(preferred(),false);
 })();
