@@ -42,10 +42,10 @@ function loadSaved(){
 }
 function remember(t){
  const expiry=Number(t.expires_in)||3500;
- sessionStorage.setItem(SESSION_KEY,JSON.stringify({access_token:t.access_token,expires_at:Date.now()+expiry*1000}));
+ try{sessionStorage.setItem(SESSION_KEY,JSON.stringify({access_token:t.access_token,expires_at:Date.now()+expiry*1000}))}catch(_){}
  return t.access_token;
 }
-function clearToken(){sessionStorage.removeItem(SESSION_KEY);try{window.HanamiAuth?.forget?.()}catch(_){}}
+function clearToken(){try{sessionStorage.removeItem(SESSION_KEY)}catch(_){}try{window.HanamiAuth?.forget?.()}catch(_){}}
 function cleanSource(doc){
  const main=doc.querySelector("#atpa-source");
  if(!main)throw new Error("找不到私人教材內容，請檢查原始檔。");
@@ -392,7 +392,7 @@ function mountAll(texts){
  }
  if(sections.length!==211||new Set(sections.map(s=>s.id)).size!==211)
    throw new Error("211 個編號小節未完整載入，請重新整理後再試。");
- // Exactly the original 60 lessons are bilingual; all 151 newly added sections are English-only.
+ // The original 60 bilingual lessons and 151 enhanced lessons must all be present.
  const englishOnly=sections.filter(s=>s.dataset.stage==="english-only");
  if(englishOnly.length!==0||englishOnly.some(s=>!s.querySelector(".original")||!s.querySelector(".source-page-figure img")))
    throw new Error("英文先行教材不完整（0 節／PDF 原頁影像），停止顯示。");
@@ -431,13 +431,19 @@ function mountAll(texts){
 async function fetchOneSource(source,token){
  const endpoint="https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(source.fileId)+
    (source.kind==="raw"?"?alt=media":"/export?mimeType="+encodeURIComponent("text/plain"));
- let res;
- try{res=await fetch(endpoint,{headers:{"Authorization":"Bearer "+token},cache:"no-store"})}
- catch(e){throw new Error("下載 §"+source.label+" 時網路連線失敗。")}
- if(res.status===401){clearToken();throw new Error("Google 授權已過期，請重新登入。")}
- if(res.status===403)throw new Error("目前帳號無法讀取 §"+source.label+"，請切換 Google 帳號。");
- if(!res.ok)throw new Error("讀取 §"+source.label+" 時 Google Drive 回應 HTTP "+res.status);
- return res.text();
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),30000);
+ try{
+  const res=await fetch(endpoint,{headers:{"Authorization":"Bearer "+token},cache:"no-store",signal:controller.signal});
+  if(res.status===401){clearToken();throw new Error("Google 授權已過期，請按「Google 登入」重新授權。")}
+  if(res.status===403)throw new Error("目前帳號無法讀取 §"+source.label+"，請按「切換帳號」使用有教材權限的帳號。");
+  if(!res.ok)throw new Error("讀取 §"+source.label+" 時 Google Drive 回應 HTTP "+res.status+"，請按「Google 登入」重試。");
+  return await res.text();
+ }catch(e){
+  if(e?.name==="AbortError")throw new Error("下載 §"+source.label+" 超過 30 秒，請確認網路後按「Google 登入」重試。");
+  if(e instanceof TypeError)throw new Error("下載 §"+source.label+" 時網路連線失敗，請確認網路後按「Google 登入」重試。");
+  throw e;
+ }finally{clearTimeout(timer)}
 }
 async function fetchPrivate(token){
  if(loaded||!selected)return;
@@ -455,6 +461,10 @@ function initClient(){
  if(tokenClient||!window.google?.accounts?.oauth2)return !!tokenClient;
  tokenClient=google.accounts.oauth2.initTokenClient({
    client_id:CLIENT_ID,scope:SCOPE,
+   error_callback:error=>{
+     status(error?.type==="popup_closed"?"Google 登入視窗已關閉，請按「Google 登入」重試。":
+       "無法開啟 Google 登入視窗，請允許此網站開啟彈出式視窗後重試。");
+   },
    callback:async response=>{
      if(response?.error){status("Google 授權未完成："+response.error);return}
      try{
