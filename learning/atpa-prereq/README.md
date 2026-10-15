@@ -1,3 +1,20 @@
+# 2026-10-15 現行閱讀器規格（優先於本 README 下方舊版紀錄）
+
+本專案現採與 ATPA Module 1 最新閱讀器相同的 **三個 UI 模式**，不再提供舊版「全中文／左右對照／大字橫滑」切換鍵：
+
+1. **全英文（en）**：只顯示私人 Drive 原有完整英文原文；隱藏內嵌中文 gloss 與中文譯文。
+2. **三段式精讀（stacked，新預設）**：每個雙語段落依序呈現英中重點、含既有中文語塊註解的完整英文原文、原有完整繁中翻譯。
+3. **三欄式精讀（triple）**：上述三段並排，順序為 **英中重點／英文原文精讀／完整中文翻譯**。窄螢幕每個原文段落獨立橫向滑動，不讓整頁水平溢出。
+
+**內容邊界**：四份 ISLP 全章英文、中文、Figure、Table、公式、code、語塊與圖說仍全部在 Google Drive 的原 HTML 檔案。GitHub 只放獨立 HTML shell 與顯示用 CSS／JavaScript。新閱讀層在授權後於瀏覽器從 Google 私人來源 DOM 複製 annotated English，第一層暫用原文及中譯的**首句摘錄**作英中提要（source-derived extract，不宣稱為獨立撰寫的語義摘要）。因此未對 Google Drive 正本做任何內容更新，也無新增公開的教材資料或摘要。若要與 ATPA Module 1 的人工整理 bilingual summaries 完全同等，應另在 Google 私人來源逐段補寫，先建立 _backup 再原位更新；不可把新增教材放進 GitHub。
+
+來源選讀仍是 Ch4/5/6/8 **23 個 subsection**，Figure／Table／Equation 保留原本 sibling DOM 不併入三欄格線。舊版 README 的「三模式 zh/en/parallel」與後來的四模式 swipe 均屬歷史紀錄，以本節與現行 GitHub 程式碼為準。
+
+**程式更新**：reader.js（獨立三模式、來源摘錄、閱讀位置保存）、reader.css（三段／三欄及手機滑動排版）、index.html（新版本 20261015-3views1，清除舊 swipe.css 載入）。
+
+**驗收狀態**：已提交 GitHub 原始碼，接續核對 JS 語法、模式標記、Drive File ID／具名權限。Google OAuth 真實瀏覽器端到端、iPhone／iPad／Mac 三模式視覺驗收仍待執行，不把 GitHub commit 當作實機驗收。
+
+---
 # ATPA 先備精華版｜私人 ISLP 雙語閱讀器 README
 
 版本：2026-10-11 · 3-mode reader + 補充教學／數學排版 v2 · 狀態：**GitHub 程式碼已更新；Google 私人內容 E2E／實機 QA 待驗收**。
