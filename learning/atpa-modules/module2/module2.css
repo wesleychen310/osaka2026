@@ -75,114 +75,242 @@ html[data-reading-mode=vertical] .pdf-source-original{order:2;white-space:pre-wr
 html[data-reading-mode=en] #study-content .source-page-figure>summary{font-size:13px}
 @media(max-width:540px){#study-content .source-page-figure .source-figure{padding:5px}#study-content .source-page-figure>summary{font-size:12px;padding:10px}}
 
-/* ATPA MODULE 2 | FOUR READING MODES 20261015
-   The original English and translated Chinese source nodes are never rewritten.
-   Work-created reading-view annotations, semantic chunks and summaries are rendered
-   in the browser only when their corresponding mode is selected. Scoped to M1. */
+/* Module 2 views are generated in the browser; source remains private in Google Drive. */
 body[data-atpa-module="2"] .reading-view{display:none!important}
 body[data-atpa-module="2"] .triple-swipe-note{display:none}
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .pair>.original,
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .pair>.translation,
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.original,
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-annotated{display:none!important}
+html[data-reading-mode=en] body[data-atpa-module="2"] .source-tab-base{display:none!important}
+html[data-reading-mode=en] body[data-atpa-module="2"] .source-tabs summary>.reading-tab-label{display:inline!important}
 
-/* 2. English inline reading: unchanged word order + semantic glosses. */
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .pair>.reading-annotated{display:block!important;max-width:77ch;margin:0;font:17px/2.05 Georgia,"Times New Roman",serif;color:#263b4a;overflow-wrap:break-word}
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .pair{padding:16px 0}
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .lesson header>.zh-heading,
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .chapter-heading-zh{display:none!important}
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .chapter-heading-en{display:block;font:600 clamp(25px,3vw,34px)/1.45 Georgia,serif;color:#193e52}
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .lesson header>.reading-heading{display:block!important}
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .replaced-by-reading{display:none!important}
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .source-bullet>.reading-annotated::before{content:"• ";font-weight:700;color:#64859a}
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .source-anomaly,
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .source-note,
-html[data-reading-mode=annotated] body[data-atpa-module="2"] details.tutor,
-html[data-reading-mode=annotated] body[data-atpa-module="2"] details.phrases{display:none!important}
+/* MODULE 2 · 2026-10-15 · three modes, immutable bilingual source data.
+   EN = original English; STACKED = summary > annotated English > existing Chinese;
+   TRIPLE = the same three layers in three side-by-side columns.
+   The other modules retain their existing CSS and modes until separately upgraded. */
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.original,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-diagonal{display:none!important}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-summary,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-annotated,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.translation{display:block!important;min-width:0;max-width:none;box-sizing:border-box}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-summary{font:inherit;overflow-wrap:break-word}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-summary .summary-en{font:500 15.5px/1.83 Georgia,"Times New Roman",serif;color:#2d4d61;margin:0}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-summary .summary-zh{font:15px/1.87 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#536975;margin:8px 0 0}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-annotated{font:17px/2.02 Georgia,"Times New Roman",serif;color:#263b4a;overflow-wrap:break-word;white-space:normal}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.translation{font:16px/1.91 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#243c4a;overflow-wrap:break-word}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .learning-mark{font-weight:750;color:#16425b}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .learning-gloss{font:400 .88em/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#597181;white-space:normal}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-summary::before,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-annotated::before,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.translation::before{
+ display:block;font:750 11px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;letter-spacing:.045em;color:#718896;margin:0 0 9px
+}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-summary::before{content:"01 · 英文摘要 / 中文摘要"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.reading-annotated::before{content:"02 · 英文原文精讀"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair>.translation::before{content:"03 · 完整繁體中文翻譯"}
 
-/* Shared learning notation: bold English phrase followed by quiet Chinese gloss. */
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .learning-mark{font-weight:750;color:#16425b}
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .learning-gloss{font:400 .88em/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#587487;white-space:normal}
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .stacked-bilingual-label>.bilingual-label-zh{display:none!important}
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .stacked-bilingual-label>.bilingual-label-en{display:inline!important;color:inherit}
-html:is([data-reading-mode=en],[data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-tab-base{display:none!important}
-html:is([data-reading-mode=en],[data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-tabs summary>.reading-tab-label{display:inline!important;color:#2e5368}
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-heading.replaced-by-reading{display:none!important}
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-heading+.reading-heading{display:block!important}
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] details.tutor,
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] details.phrases{display:none!important}
+/* Stacked reading v2 — calm, paragraph-by-paragraph editorial layout.
+   Text content, translation and summaries remain in their original Drive nodes.
+   All rules are scoped to Module 1 and stacked mode only. */
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .chapter-heading{
+ max-width:760px;margin-left:auto;margin-right:auto
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson{padding:28px 0 26px}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .chapter-heading{padding-bottom:18px}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .chapter-heading:not(:first-child){padding-top:40px}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .chapter-heading-en{
+ display:block;font:600 clamp(23px,2.6vw,30px)/1.38 Georgia,"Times New Roman",serif;color:#183e52
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .chapter-heading-zh{
+ display:block;font:500 16px/1.55 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ margin:5px 0 0;color:#6a808d
+}
 
-/* 4. Three-column deep reading: diagonal original / verified Chinese / bilingual summary. */
-html[data-reading-mode=triple] body[data-atpa-module="2"] .shell{max-width:1720px}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .study-layout{max-width:none;grid-template-columns:195px minmax(0,1fr);gap:clamp(15px,1.9vw,28px)}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .study-content{padding:clamp(18px,2vw,30px)}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,33fr) minmax(0,23fr);align-items:start;gap:0;padding:15px 0;min-width:0}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-diagonal{display:block!important;grid-column:1;grid-row:1;margin:0;padding:0 17px 0 0;font:16px/1.9 Georgia,"Times New Roman",serif;color:#263e4d;min-width:0;overflow-wrap:break-word;border-right:1px solid #dfe6e9}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.translation{display:block!important;grid-column:2;grid-row:1;margin:0;padding:0 16px;font-size:15.5px;line-height:1.94;color:#253740;min-width:0;overflow-wrap:break-word;border-right:1px solid #dfe6e9}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-summary{display:block!important;grid-column:3;grid-row:1;margin:0;padding:0 0 0 16px;min-width:0;overflow-wrap:break-word}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .reading-summary p{margin:0;line-height:1.77}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .reading-summary .summary-en{font:14px/1.77 Georgia,"Times New Roman",serif;color:#37586b}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .reading-summary .summary-zh{font-size:13.5px;line-height:1.78;color:#53636d;margin-top:9px;padding-top:8px;border-top:1px solid #edf0f1}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .semantic-chunk{display:block;max-width:100%;margin:0;white-space:normal}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .semantic-chunk.depth-0{padding-left:0}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .semantic-chunk.depth-1{padding-left:1.45em}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .semantic-chunk.depth-2{padding-left:2.9em}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .semantic-chunk.depth-3{padding-left:4.35em}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .semantic-chunk.depth-4{padding-left:5.8em}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .source-bullet>.reading-diagonal::before{content:"• ";color:#63849a;font-weight:700}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,33fr) minmax(0,23fr);gap:0;align-items:start}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.sec-num{grid-column:1/-1;grid-row:1}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.reading-heading{display:block!important;grid-column:1;grid-row:2;font:600 clamp(19px,2vw,25px)/1.5 Georgia,serif;padding-right:17px}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.zh-heading{display:block!important;grid-column:2;grid-row:2;padding:0 16px;font-size:clamp(17px,1.5vw,21px);font-weight:740;color:#274659}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>small{grid-column:1/-1;grid-row:3}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .replaced-by-reading{display:none!important}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading{display:grid;grid-template-columns:minmax(0,44fr) minmax(0,33fr) minmax(0,23fr);align-items:start}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-code{grid-column:1/-1}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-en{display:block;grid-column:1;padding-right:16px;font:600 clamp(23px,2.6vw,32px)/1.42 Georgia,serif;color:var(--accent-dark)}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-zh{display:block;grid-column:2;padding:0 16px;font-size:clamp(20px,2.2vw,29px)}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .source-anomaly,
-html[data-reading-mode=triple] body[data-atpa-module="2"] .source-note{display:none!important}
-/* Images, original tables, and interactive source questions remain outside the paragraph grid. */
-html[data-reading-mode=triple] body[data-atpa-module="2"] .source-figure,
-html[data-reading-mode=triple] body[data-atpa-module="2"] .source-table-wrap,
-html[data-reading-mode=triple] body[data-atpa-module="2"] .source-page-figure{max-width:100%}
+/* Only one English title and one understated Chinese subtitle. Show the actual
+   source heading, avoiding duplicated annotation tags beside translated titles. */
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson header{
+ display:flex;flex-direction:column;gap:3px;cursor:default;padding-bottom:12px;margin-bottom:10px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson header>.sec-num{
+ order:0;margin-bottom:3px;color:#5c7a89;font-size:11px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson header>h2:not(.reading-heading){
+ display:block!important;order:1;font:600 clamp(21px,2.35vw,25px)/1.4 Georgia,"Times New Roman",serif;
+ color:#25495f;margin:0
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson header>.reading-heading{display:none!important}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson header>.zh-heading{
+ display:block!important;order:2;font-size:15px;line-height:1.55;font-weight:500;color:#728894;margin:1px 0 0
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson header>small{
+ order:3;font-size:10.5px;color:#97a5ac;margin-top:4px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson h3.reading-heading,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson h4.reading-heading{display:none!important}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson h3.replaced-by-reading,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson h4.replaced-by-reading{
+ display:block!important;font-size:15px;line-height:1.6;margin:21px 0 9px;color:#345c72
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .stacked-bilingual-label{
+ display:block!important
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .stacked-bilingual-label>.bilingual-label-en,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .stacked-bilingual-label>.bilingual-label-zh{
+ display:block!important
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .stacked-bilingual-label>.bilingual-label-en{
+ font:600 15px/1.62 Georgia,"Times New Roman",serif;color:#31586d
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .stacked-bilingual-label>.bilingual-label-zh{
+ font:400 13px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#718795;margin:3px 0 0
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .source-tabs .source-tab-base{display:none!important}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .source-tabs .reading-tab-label{display:inline!important}
 
-@media(max-width:900px){
- html[data-reading-mode=triple] body[data-atpa-module="2"] .study-layout{display:block}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .pair{grid-template-columns:310px 265px 235px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .triple-swipe-note{display:block;font-size:12px;color:#526d7d;padding:9px 4px}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header{display:flex;flex-direction:column;gap:2px}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.reading-heading{font-size:22px;padding:0}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.zh-heading{font-size:17px;padding:0}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading{display:block}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-zh{padding:0;font-size:22px}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-en{padding:0;margin:3px 0 0;font-size:19px}
+/* One quiet learning unit: a small bilingual overview, the dominant complete
+   annotated English paragraph, then the existing full Chinese translation. */
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair{
+ display:flex;flex-direction:column;align-items:stretch;gap:0;min-width:0;max-width:100%;
+ padding:17px 0 21px;margin:0;border:0;border-bottom:1px solid #e6ecef;
+ border-radius:0;overflow:visible;cursor:default;background:transparent
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair:last-child{border-bottom:0}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-summary{
+ order:1;display:block!important;margin:0;padding:11px 15px 12px;border:0;border-left:2px solid #c6d7e1;
+ border-radius:0 5px 5px 0;background:#f6f8fa;box-shadow:none
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-annotated{
+ order:2;display:block!important;margin:0;padding:14px 2px 0;border:0;max-width:none;
+ color:#233746;font:17px/1.94 Georgia,"Times New Roman",serif;white-space:normal;overflow-wrap:break-word
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.translation{
+ order:3;display:block!important;margin:13px 0 0;padding:12px 2px 0;
+ border:0;border-top:1px solid #e9eef1;color:#445966;
+ font:16px/1.88 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;overflow-wrap:break-word
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-summary .summary-en{
+ margin:0;padding:0;border:0;font:400 14.5px/1.72 Georgia,"Times New Roman",serif;color:#465d6b
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-summary .summary-zh{
+ margin:6px 0 0;padding:0;border:0;font:400 14.5px/1.76 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ color:#5b6f7b
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-summary::before,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-annotated::before,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.translation::before{
+ display:block;margin:0 0 6px;font:700 10.5px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ letter-spacing:.03em;color:#79909c
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-summary::before{content:"摘要 · Summary"}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-annotated::before{content:"英文精讀"}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.translation::before{content:"完整中文翻譯"}
+
+/* Editorial rather than card-heavy source notes and supplemental sections. */
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .source-anomaly,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .source-note{
+ background:#f8f9fa;border-color:#e4ebee;color:#607480;padding:9px 12px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] details.tutor,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] details.phrases{
+ background:#fafbfc;border-color:#e2e9ed;box-shadow:none
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .quiz-option .pair{
+ padding:8px 0 9px;border-bottom:0
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .quiz-option .pair>.reading-summary{
+ padding:9px 11px 10px
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .quiz-option .pair>.reading-annotated{padding-top:10px}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .quiz-option .pair>.translation{
+ margin-top:9px;padding-top:9px
+}
+@media(max-width:800px){
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .lesson{padding:24px 0 19px}
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair{padding:14px 0 19px}
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-summary{padding:10px 12px 11px}
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-annotated{font-size:16.5px;padding:12px 1px 0}
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.translation{font-size:16px;padding:11px 1px 0;margin-top:11px}
 }
 @media(max-width:490px){
- html[data-reading-mode=annotated] body[data-atpa-module="2"] .pair>.reading-annotated{font-size:16px;line-height:2.0}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .study-content{padding:14px 10px}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .pair{grid-template-columns:300px 250px 230px}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-diagonal{font-size:15px;padding-right:12px}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.translation{font-size:15px;padding:0 12px}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-summary{padding-left:12px}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .semantic-chunk.depth-3{padding-left:2.8em}
- html[data-reading-mode=triple] body[data-atpa-module="2"] .semantic-chunk.depth-4{padding-left:3.4em}
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .study-content{padding:15px 14px}
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-annotated{font-size:16px;line-height:1.94}
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.translation{font-size:15.8px;line-height:1.88}
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-summary .summary-en,
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair>.reading-summary .summary-zh{font-size:14.3px}
 }
 
-/* Show Work-created English source headings beyond the section header. */
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .lesson h3.reading-heading,
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .lesson h4.reading-heading{display:block!important}
+/* Three columns: 1 BILINGUAL SUMMARY | 2 ANNOTATED ENGLISH | 3 ORIGINAL CHINESE TRANSLATION.
+   Remove earlier semantic stair-step; render original English sentences in natural paragraphs. */
+html[data-reading-mode=triple] body[data-atpa-module="2"] .pair{display:grid;grid-template-columns:minmax(0,26fr) minmax(0,42fr) minmax(0,32fr);align-items:start;gap:0;padding:19px 0;border-bottom:1px solid #e0e8ec;min-width:0}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-summary{grid-column:1;grid-row:1;padding:0 15px 0 0;margin:0;border-right:1px solid #e0e6e9}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-annotated{grid-column:2;grid-row:1;padding:0 17px;margin:0;border-right:1px solid #e0e6e9}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.translation{grid-column:3;grid-row:1;padding:0 0 0 17px;margin:0;border:0}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .reading-summary .summary-zh{padding:0;border:0;margin-top:8px}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.reading-heading{grid-column:1/3;grid-row:2;display:block!important;padding:0;font-size:clamp(20px,2vw,25px)}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.zh-heading{grid-column:3;grid-row:2;display:block!important;font-size:clamp(16px,1.5vw,20px);padding:0 0 0 17px}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-en{grid-column:1/3;padding-right:15px}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-zh{grid-column:3;padding:0 0 0 17px}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .stacked-bilingual-label>.bilingual-label-en,
+html[data-reading-mode=triple] body[data-atpa-module="2"] .stacked-bilingual-label>.bilingual-label-zh{display:inline!important}
 
-/* M2-specific text preformatting and preservation of data-source imagery */
-html[data-reading-mode=annotated] body[data-atpa-module="2"] .pair.pdf-source-pair>.reading-annotated,
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair.pdf-source-pair>.reading-diagonal{
-  white-space:pre-wrap;tab-size:4;font-family:Georgia,"Times New Roman",serif;word-break:break-word;
+/* Keep supplementary explanations and the originally translated text available in BOTH learning modes. */
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] details.tutor,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] details.phrases,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-anomaly,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-note{display:block!important}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .source-bullet>.reading-annotated,
+html[data-reading-mode=triple] body[data-atpa-module="2"] .source-bullet>.reading-annotated{padding-top:0}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .choice-body>.pair,
+html[data-reading-mode=triple] body[data-atpa-module="2"] .choice-body>.pair{margin:0}
+
+/* Phone: three equal-width MODE BUTTONS; the 3-column learning mode scrolls per paragraph. */
+@media(max-width:900px){
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .study-layout{display:block}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair{grid-template-columns:265px 325px 275px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scroll-snap-type:x proximity}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-summary,
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-annotated,
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.translation{scroll-snap-align:start}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .triple-swipe-note{display:block;font-size:12px;color:#506b7c;margin:8px 0;padding:8px 5px}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header{display:flex;flex-direction:column;gap:5px}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.reading-heading,
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson header>.zh-heading{padding:0;font-size:19px}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading{display:block}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-en,
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-zh{padding:0}
 }
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair.pdf-source-pair>.translation{white-space:normal}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair.pdf-source-pair>.translation pre{overflow-x:auto;font-size:12px}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .reading-summary{background:transparent}
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-popup-full{display:none!important}
-html:is([data-reading-mode=annotated],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-figure figcaption{display:block}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-diagonal{border-right:1px solid #dfe6e9}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-summary{overflow-wrap:anywhere}
-html[data-reading-mode=triple] body[data-atpa-module="2"] .source-data-table{max-width:100%}
+@media(max-width:800px){
+ body[data-atpa-module="2"] .mode-options{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+ body[data-atpa-module="2"] .mode-options button{font-size:12px;padding:8px 5px;min-height:43px}
+}
+@media(max-width:490px){
+ body[data-atpa-module="2"] .mode-options button{font-size:11px;padding:7px 3px}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair{grid-template-columns:255px 320px 265px}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-summary{padding-right:12px}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.reading-annotated{padding-left:12px;padding-right:12px;font-size:16px}
+ html[data-reading-mode=triple] body[data-atpa-module="2"] .pair>.translation{padding-left:12px;font-size:15.5px}
+}
+
+/* PDF page composites and code-heavy learning units: preserve intentional
+   source newlines; keep translated HTML blocks, tables and code legible. */
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair.pdf-source-pair>.reading-annotated{
+ white-space:pre-wrap;tab-size:4;word-break:normal;overflow-wrap:anywhere
+}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair.pdf-source-pair>.reading-annotated pre,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair.pdf-source-pair>.translation pre{
+ font:13px/1.68 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+ white-space:pre;max-width:100%;overflow-x:auto;tab-size:4;padding:9px 10px;
+ background:#f6f8fa;border-radius:5px
+}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair.pdf-source-pair>.translation table{display:table;max-width:100%}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair.pdf-source-pair>.translation .translated-table-wrap{
+ overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] .pair.pdf-source-pair>.reading-summary{
+ max-width:100%;overflow-wrap:anywhere
+}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .pair.pdf-source-pair>.reading-annotated{
+ font-size:15.5px;line-height:1.79
+}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .pair.pdf-source-pair>.translation{
+ font-size:15px;line-height:1.78
+}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-figure figcaption{display:block}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .source-popup-full{display:block}

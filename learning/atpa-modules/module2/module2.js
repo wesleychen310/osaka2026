@@ -70,8 +70,9 @@ function cleanSource(doc){
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","annotated","vertical","triple"];
-const DISPLAY_KEY="atpa-modules-reading-mode-v3";
+const DISPLAY_MODES=["en","stacked","triple"];
+const DISPLAY_KEY="atpa-module2-reading-mode-v4";
+const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 
 /* PRIVATE-SOURCE READING LAYERS: All English and translated Chinese remain
    in the original Google Drive HTML. These are display-only, reversible
@@ -213,15 +214,14 @@ function prepareEnhancedViews(){
    if(!original||!translation)throw new Error("原文或 Work 譯文缺失。");
    if(pair.querySelector(":scope>.reading-annotated"))continue;
    const anot=annotatedClone(original);
-   const diag=diagonalClone(original);
    const summary=makeSummary(original,translation,pair.closest(".lesson"));
    // Test unaltered source text, preserving all whitespace and original punctuation.
    const withoutGloss=el=>{
      const c=el.cloneNode(true);c.querySelectorAll(".learning-gloss").forEach(g=>g.remove());return c.textContent;
    };
-   if(withoutGloss(anot)!==original.textContent||withoutGloss(diag)!==original.textContent)
+   if(withoutGloss(anot)!==original.textContent)
      throw new Error("英文完整性驗證失敗："+(pair.closest(".lesson")?.dataset.num||"未知"));
-   pair.append(anot,diag,summary);enhanced++;
+   pair.append(anot,summary);enhanced++;
  }
  for(const section of article.querySelectorAll("section.lesson")){
    const header=section.querySelector(":scope>header");
@@ -276,8 +276,12 @@ function prepareBilingualLabels(){
  });
 }
 function preferredReadingMode(){
- try{const saved=localStorage.getItem(DISPLAY_KEY);const legacy={zh:"annotated",parallel:"triple",tap:"vertical"};const next=legacy[saved]||saved;return DISPLAY_MODES.includes(next)?next:"vertical"}
- catch(_){return "vertical"}
+ try{
+   const saved=localStorage.getItem(DISPLAY_KEY)||localStorage.getItem(LEGACY_DISPLAY_KEY);
+   const legacy={zh:"stacked",parallel:"triple",tap:"stacked",vertical:"stacked",annotated:"stacked"};
+   const next=legacy[saved]||saved;
+   return DISPLAY_MODES.includes(next)?next:"stacked";
+ }catch(_){return "stacked"}
 }
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
@@ -338,7 +342,7 @@ function restoreReadingPosition(saved){
  }
 }
 function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
- const selected=DISPLAY_MODES.includes(mode)?mode:"vertical";
+ const selected=DISPLAY_MODES.includes(mode)?mode:"stacked";
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
  const saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
@@ -359,7 +363,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  });
  document.querySelectorAll("#toc .toc-link").forEach(link=>{
    const title=link.querySelector(".toc-label");
-   if(title)title.textContent=(selected==="en"||selected==="annotated")?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
+   if(title)title.textContent=selected==="en"?(link.dataset.en||link.dataset.zh||""):(link.dataset.zh||link.dataset.en||"");
  });
  try{localStorage.setItem(DISPLAY_KEY,selected)}catch(_){}
  function finish(){
@@ -421,7 +425,7 @@ window.addEventListener("resize",()=>{if(window.innerWidth>800&&document.body.cl
 
 /* Knowledge Check UI is created after sanitization; no questions/answers live in the public repository. */
 function activateQuizzes(){
- const isEnglish=()=>["en","annotated"].includes(document.documentElement.dataset.readingMode);
+ const isEnglish=()=>document.documentElement.dataset.readingMode==="en";
  document.querySelectorAll("#study-content .knowledge-check").forEach((quiz,qIndex)=>{
    if(quiz.dataset.enhanced==="true")return;
    quiz.dataset.enhanced="true";
