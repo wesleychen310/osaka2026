@@ -304,7 +304,7 @@ function makeChapter(id,key){
 }
 function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
- const count=document.createElement("p");count.className="toc-summary";count.textContent="原文 211／211 節 · 完整雙語 152／211 節";toc.append(count);
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="原文 211／211 節 · 完整雙語 161／211 節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const chapterLessons=lessons.filter(sec=>sec.dataset.num.startsWith(chapter+"."));
    const details=document.createElement("details");details.className="toc-group";
@@ -316,7 +316,8 @@ function makeNavigation(lessons){
    label.textContent=meta.zh;
    if(chapter==="1.4")label.textContent+=" · GPT 精讀 48 節完成";
    else if(chapter==="1.5")label.textContent+=" · GPT 精讀 44／44 節完成";
-   else if(["1.6","1.7"].includes(chapter))label.textContent+=" · 英文已完成";
+   else if(chapter==="1.6")label.textContent+=" · GPT 精讀 9／9 節完成";
+   else if(chapter==="1.7")label.textContent+=" · 英文已完成";
    summary.append(num,label);
    if(!chapterLessons.length){
      const status=document.createElement("span");status.className="pending-label";
@@ -393,13 +394,13 @@ function mountAll(texts){
    throw new Error("211 個編號小節未完整載入，請重新整理後再試。");
  // Exactly the original 60 lessons are bilingual; all 151 newly added sections are English-only.
  const englishOnly=sections.filter(s=>s.dataset.stage==="english-only");
- if(englishOnly.length!==59||englishOnly.some(s=>!s.querySelector(".original")||!s.querySelector(".source-page-figure img")))
-   throw new Error("英文先行教材不完整（59 節／PDF 原頁影像），停止顯示。");
+ if(englishOnly.length!==50||englishOnly.some(s=>!s.querySelector(".original")||!s.querySelector(".source-page-figure img")))
+   throw new Error("英文先行教材不完整（50 節／PDF 原頁影像），停止顯示。");
  const reviewed=sections.filter(s=>s.dataset.stage==="gpt-bilingual");
- if(reviewed.length!==92||reviewed.some(s=>!s.querySelector(".translation p")||
+ if(reviewed.length!==101||reviewed.some(s=>!s.querySelector(".translation p")||
     !s.querySelector(".gpt-summary-en")||!s.querySelector(".gpt-summary-zh")||
     !s.querySelector(".gpt-annotated")||!s.querySelector(".source-page-figure img")))
-   throw new Error("§1.4.1–1.4.48、§1.5.1–1.5.44 的 GPT 精讀組件不完整，停止顯示。");
+   throw new Error("§1.4.1–1.4.48、§1.5.1–1.5.44、§1.6.1–1.6.9 的 GPT 精讀組件不完整，停止顯示。");
  const article=$("study-content"),frag=document.createDocumentFragment();let lastChapter="";
  for(const sec of sections){
    const group=sec.dataset.num.split(".").slice(0,2).join(".");
@@ -440,7 +441,7 @@ async function fetchOneSource(source,token){
 }
 async function fetchPrivate(token){
  if(loaded||!selected)return;
- status("正在載入 Module 3：原文 211／211 節，已完成雙語 152／211 節…");
+ status("正在載入 Module 3：原文 211／211 節，已完成雙語 161／211 節…");
  const texts=new Array(SOURCES.length);
  for(let i=0;i<SOURCES.length;i+=4){
    status("正在讀取私人教材 "+Math.min(i+4,SOURCES.length)+"／"+SOURCES.length+" 份…");
