@@ -23,3 +23,10 @@ The legacy 60 sections maintain their existing functionality and historical book
 - Private source file updated in place after creating a private backup; 12 original full-page facsimiles and all extracted English source characters are preserved.
 - Source complete: 211/211; bilingual complete: 72/211; English-only pending translation: 139/211.
 - The four existing viewing modes are retained for backward compatibility. GPT enhanced sections have conditional bilingual rendering; English-only sections remain readable in every mode.
+
+## 2026-10-15 GPT bilingual batch 2
+- §1.4.13–§1.4.24: GPT-authored complete Traditional Chinese translations, bilingual English/Chinese summaries, five aligned in-context English semantic chunks, and three reusable actuarial phrases per section.
+- §1.4.21 spans two official source PDF pages; 13 original page facsimiles remain unchanged. The source copy has damaged embedded math diagrams on pp.86, 90, and 92–93; the private translation explicitly distinguishes source defects from explanatory standard equations.
+- Backed up restricted Drive file before in-place update; source index and Google Drive sharing settings remain unchanged.
+- Cumulative English source: 211/211; completed bilingual: 84/211; remaining English-only: 127/211.
+- iPhone Safari signed-in visual end-to-end test remains outstanding.
