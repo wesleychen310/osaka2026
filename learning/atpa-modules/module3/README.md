@@ -1,4 +1,6 @@
 # SOA ATPA Module 3 — Advanced Models
+**Current completion (2026-10-15): English original 211/211; bilingual reading 96/211; English-only awaiting GPT reading 115/211.**
+
 
 Public interface only; source English paragraphs, private translations, official page images and GPT notes remain in access-controlled Google Drive.
 
@@ -30,3 +32,11 @@ The legacy 60 sections maintain their existing functionality and historical book
 - Backed up restricted Drive file before in-place update; source index and Google Drive sharing settings remain unchanged.
 - Cumulative English source: 211/211; completed bilingual: 84/211; remaining English-only: 127/211.
 - iPhone Safari signed-in visual end-to-end test remains outstanding.
+
+## 2026-10-15 GPT bilingual batch 3
+- §1.4.25–§1.4.36 added: complete Traditional Chinese translations, 12 aligned English/Chinese GPT summaries, 5 English semantic chunks per section and 3 reusable actuarial English phrases per section.
+- Source English text and all 14 full-page PDF images are unchanged; original One-Hot Encoding and cross-validation tables and reported scores retained. Three-stage check compared the source HTML and the updated HTML before and after saving.
+- Drive raw file was backed up privately and updated in place, preserving File ID, owner/reader permissions, and website route.
+- This batch includes the source-reported network accuracy (74.2%), AUC (0.821), logistic-regression accuracy (71.8%), AUC (0.782), and model-CV values (0.438, 0.440, 0.439, 0.437). No CHUNK code was executed or figures invented.
+- Cumulative: English 211/211 (100%), bilingual 96/211 (45.5%), awaiting GPT 115/211. Next batch: §1.4.37–§1.4.48 (12 remaining Neural Networks sections).
+- Authenticated iPhone Safari end-to-end display remains outstanding.
