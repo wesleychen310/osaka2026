@@ -9,18 +9,18 @@ const SOURCE={
  "3:3":{fileId:"1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO",module:"3",part:"3",label:"1.3.1–1.3.10",sourcePages:"41–52",kind:"raw"},
  "3:4":{fileId:"13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC",module:"3",part:"4",label:"1.3.11–1.3.29",sourcePages:"53–71",kind:"raw"},
  "3:5":{fileId:"1ivOBsbEcwDaWBeUZsQGJ8Pl0UYx-4nI5",module:"3",part:"5",label:"1.4.1–1.4.12",sourcePages:"72–83",kind:"raw"},
- "3:6":{fileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",module:"3",part:"6",label:"1.4.13–1.4.24",sourcePages:"84–95",kind:"raw"},
- "3:7":{fileId:"1dzG8Ndybq0JKzsAVMA3GOJH2Nd2U0nRa",module:"3",part:"7",label:"1.4.25–1.4.36",sourcePages:"96–108",kind:"raw"},
- "3:8":{fileId:"1-XQSQF-XLMr0sR3Cmi3mg4-FW8yhSspq",module:"3",part:"8",label:"1.4.37–1.4.48",sourcePages:"109–126",kind:"raw"},
- "3:9":{fileId:"1RNzmcl2YMUCu7JaAgeTNHMpTB3ACtzyU",module:"3",part:"9",label:"1.5.1–1.5.11",sourcePages:"127–137",kind:"raw"},
- "3:10":{fileId:"104Eb1-JQIxGecEODTPMd9yhDjuZb1bun",module:"3",part:"10",label:"1.5.12–1.5.22",sourcePages:"138–151",kind:"raw"},
- "3:11":{fileId:"14FAhZ6zmZd4CcE9ucGxJFVLH5-zB-8YB",module:"3",part:"11",label:"1.5.23–1.5.33",sourcePages:"152–163",kind:"raw"},
- "3:12":{fileId:"11OF4uSZZgeEfY7t6zDVjztwxTI3bdvMb",module:"3",part:"12",label:"1.5.34–1.5.44",sourcePages:"164–176",kind:"raw"},
+ "3:6":{fileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",module:"3",part:"6",label:"1.4.13–1.4.24",sourcePages:"84–96",kind:"raw"},
+ "3:7":{fileId:"1dzG8Ndybq0JKzsAVMA3GOJH2Nd2U0nRa",module:"3",part:"7",label:"1.4.25–1.4.36",sourcePages:"97–110",kind:"raw"},
+ "3:8":{fileId:"1-XQSQF-XLMr0sR3Cmi3mg4-FW8yhSspq",module:"3",part:"8",label:"1.4.37–1.4.48",sourcePages:"111–126",kind:"raw"},
+ "3:9":{fileId:"1RNzmcl2YMUCu7JaAgeTNHMpTB3ACtzyU",module:"3",part:"9",label:"1.5.1–1.5.11",sourcePages:"127–142",kind:"raw"},
+ "3:10":{fileId:"104Eb1-JQIxGecEODTPMd9yhDjuZb1bun",module:"3",part:"10",label:"1.5.12–1.5.22",sourcePages:"143–153",kind:"raw"},
+ "3:11":{fileId:"14FAhZ6zmZd4CcE9ucGxJFVLH5-zB-8YB",module:"3",part:"11",label:"1.5.23–1.5.33",sourcePages:"154–165",kind:"raw"},
+ "3:12":{fileId:"11OF4uSZZgeEfY7t6zDVjztwxTI3bdvMb",module:"3",part:"12",label:"1.5.34–1.5.44",sourcePages:"166–176",kind:"raw"},
  "3:13":{fileId:"1HzJRMndryyd4JH2yszUiTGXnZTXVOTSC",module:"3",part:"13",label:"1.6.1–1.6.9",sourcePages:"177–185",kind:"raw"},
- "3:14":{fileId:"1A-hUmD0DgUfxxr4NMd-qnqIjMmjzO8MA",module:"3",part:"14",label:"1.7.1–1.7.13",sourcePages:"186–198",kind:"raw"},
- "3:15":{fileId:"19tp5PaNi4YUwpI2fUmYmsD7mcTHxBGod",module:"3",part:"15",label:"1.7.14–1.7.25",sourcePages:"199–210",kind:"raw"},
- "3:16":{fileId:"1MbOWCP5qCfZOxZQ6W0LoRvescQT0shXa",module:"3",part:"16",label:"1.7.26–1.7.37",sourcePages:"211–222",kind:"raw"},
- "3:17":{fileId:"1rn886abWZqdYJxk4QIMGklFVK57DcAwV",module:"3",part:"17",label:"1.7.38–1.7.50",sourcePages:"223–242",kind:"raw"}
+ "3:14":{fileId:"1A-hUmD0DgUfxxr4NMd-qnqIjMmjzO8MA",module:"3",part:"14",label:"1.7.1–1.7.13",sourcePages:"186–200",kind:"raw"},
+ "3:15":{fileId:"19tp5PaNi4YUwpI2fUmYmsD7mcTHxBGod",module:"3",part:"15",label:"1.7.14–1.7.25",sourcePages:"201–212",kind:"raw"},
+ "3:16":{fileId:"1MbOWCP5qCfZOxZQ6W0LoRvescQT0shXa",module:"3",part:"16",label:"1.7.26–1.7.37",sourcePages:"213–224",kind:"raw"},
+ "3:17":{fileId:"1rn886abWZqdYJxk4QIMGklFVK57DcAwV",module:"3",part:"17",label:"1.7.38–1.7.50",sourcePages:"225–242",kind:"raw"}
 };
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
