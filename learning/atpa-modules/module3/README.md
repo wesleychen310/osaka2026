@@ -1,12 +1,12 @@
 # SOA ATPA Module 3 — Advanced Models
 
-**Current progress (2026-10-15, Bayesian batch 3)**
+**Current progress (2026-10-15, Bayesian batch 4 complete)**
 - Complete source English: **211/211** (100%).
-- Completed bilingual lessons: **141/211** (66.8%).
+- Completed bilingual lessons: **152/211** (72.0%).
 - Completed bilingual Neural Networks §1.4: **48/48**.
-- Completed bilingual Bayesian Models and Analysis §1.5: **33/44**.
-- Remaining English-only lessons: **70/211**, covering §1.5.34–§1.5.44 and §1.6–§1.7.
-- Next GPT production tranche: **§1.5.34–§1.5.44 (11 lessons)**.
+- Completed bilingual Bayesian Models and Analysis §1.5: **44/44** (100%).
+- Remaining English-only lessons: **59/211**, covering §1.6 (9) and §1.7 (50).
+- Next GPT production tranche: **§1.6.1–§1.6.9 Stacking (9 lessons)**.
 
 ## Privacy and source handling
 The public GitHub Pages repository contains the interface and progress notes only. Licensed source English, original PDF images, GPT Chinese translations, bilingual summaries, curated semantic annotations, and actuarial English phrases are stored in access-controlled Google Drive. The same private Drive source file ID is retained for each batch. The public file IDs are non-credentials; Google Drive named permissions enforce access.
@@ -35,3 +35,12 @@ The public GitHub Pages repository contains the interface and progress notes onl
 - The source file was backed up in restricted Google Drive and updated in place; the same named owner and reader permissions and file ID remain. No lesson content was committed to public GitHub.
 - Some source figures and R syntax are from the original 2022 course era; instructor commentary distinguishes conceptual extensions and historical software defaults from source claims.
 - Next batch: §1.5.34–§1.5.44 (11 sections), completing all 44 Bayesian Models and Analysis lessons. Authenticated Safari UI end-to-end check remains pending.
+
+## 2026-10-15 Bayesian batch 4 — §1.5.34–§1.5.44
+- §1.5 completed in full: 11 GPT-authored bilingual translations, summaries, 55 context-verified English semantic phrase annotations, 33 reusable actuarial/ATPA English phrases, pp.166–176.
+- The textbook uses posterior predictive draws and compares frequentist prediction intervals; brms predictive distributions can aggregate policy-level claim scenarios.
+- Source frequency GLM case: 677,991 French motor liability records, with the example based on 3,000 sampled policies, VehAge/DrivAge and log(Exposure) offset; LOO relative ELPD differences ZINB 0.0 (SE 0.0), ZIP −0.3 (0.3), NB −0.6 (0.6), Poisson −1.9 (2.3).
+- Posterior predictive distribution: 4,000 draws of 3,000-policy total claim count, mean about 175; source describes 100–250 as a reasonable possible range without labeling a specific credibility probability.
+- Severity ex-cat exercise: remove amounts above 25,000, preserve one-to-many claim joins, treat about 200 unmatched IDs as in the original; Gamma and Lognormal families compared. Final LOO relative ELPD table: Gamma (No pred) 0.0 (0.0), Gamma −2.7 (1.6), Lognormal (No pred) −56.8 (39.7), Lognormal −57.6 (39.6).
+- Verified all 11 original PDF text pages verbatim with the official PDF and preserved all 11 full-page source JPEG images. Restricted Drive source backed up and updated in place, retaining its file ID and named permissions; no copyrighted page source committed to GitHub.
+- Complete English source: 211/211; bilingual: 152/211; remaining English-only: 59. Next batch §1.6.1–§1.6.9 Stacking; signed-in Safari end-to-end visual QA remains outstanding.
