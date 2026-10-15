@@ -51,7 +51,7 @@ button{width:100%;margin-top:18px;border:0;border-radius:15px;padding:13px 16px;
 .bridge-foot{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:13px}.bridge-foot a{color:#38627b;text-decoration:none}
 @media(max-width:760px){.bridge-grid{grid-template-columns:1fr}.bridge-card-head{padding:19px 17px 13px}.bridge-item{padding:11px 17px}.bridge-read-all{padding:13px 17px}}
 </style>
-</head>
+<style id="public-minimal-css">#islp-reading-mode-slot,#message,#status{display:none!important}</style></head>
 <body>
 <div id="app"></div>
 <script>
@@ -75,33 +75,13 @@ let pendingChapter=null;
 const app=document.getElementById("app");
 
 function selector(){
- document.title="ATPA 先備精華版｜ISLP 23 小節";
- const cards=Object.entries(BRIDGE).map(([ch,c])=>
-  '<section class="bridge-card"><div class="bridge-card-head"><span class="bridge-count">'+c.sections.length+' 小節</span><h2>'+c.title+'</h2><p class="bridge-zh">'+c.zh+'</p><p class="bridge-why">'+c.why+'</p></div>'+
-  '<div class="bridge-items">'+c.sections.map(([id,label],i)=>
-  '<a href="?chapter='+encodeURIComponent(ch)+'#'+encodeURIComponent(id)+'" class="bridge-item"><span>'+label+'</span><span aria-hidden="true">↗</span></a>').join('')+'</div>'+
-  '<a class="bridge-read-all" href="?chapter='+encodeURIComponent(ch)+'">連續閱讀本章指定小節 →</a></section>'
- ).join('');
- app.innerHTML='<main class="wrap bridge-home"><div class="eyebrow">ATPA · ESSENTIAL READING</div><h1>ATPA 先備精華版</h1>'+
- '<p class="dek">從原本的 ISLP 私人雙語教材抽取 23 個先備小節。保留原文、繁中、公式、Figure、Table 與專業英文語塊；刪去本輪不必閱讀的內容。</p>'+
- '<div class="bridge-meta"><span>4 個 Chapter</span><span>23 個 Subsection</span><span>Google 私人授權</span><span>全英文／三段式精讀／三欄式精讀</span></div>'+
- '<div class="bridge-rule"></div><div class="bridge-guide">依序讀 Chapter 4 → 5 → 6 → 8；各小節可直接點入；閱讀時可按「再解說一次」，展開核心概念、簡單例子與類比記憶。GLMM、GAM、Neural Networks、Bayesian、Stacking 接著在 ATPA 官方 Module 3 學習。</div>'+
- '<div class="bridge-grid">'+cards+'</div><footer class="bridge-foot"><a href="../">← 學習首頁</a><a href="../islp-reading/">ISLP 完整版 →</a></footer></main>';
+document.title='ATPA 先備精華版';app.innerHTML='<main class="wrap bridge-home"><h1>ATPA 先備精華版</h1><div class="bridge-grid">'+Object.keys(BRIDGE).map(ch=>'<a class="bridge-card" href="?chapter='+ch+'"><h2>Chapter '+ch+'</h2></a>').join('')+'</div></main>';
 }
 
 function gate(ch){
   const c=CHAPTERS[ch];
   document.title=c.title+"｜ATPA 先備精華版";
-  app.innerHTML=`
-  <main class="gate"><section class="panel">
-    <div class="eyebrow">PRIVATE · ISLP</div>
-    <h1>${c.title}</h1>
-    <p id="message">正在確認 Google 授權。授權完成後，指定先備小節會直接顯示。</p>
-    <button id="loginBtn" type="button" hidden>使用 Google 帳號繼續</button>
-    <button id="switchBtn" type="button" hidden>切換 Google 帳號</button>
-    <div id="status" class="status"><span class="spinner"></span>正在準備…</div>
-    <p style="margin-top:15px"><a class="back" href="./">← 回章節目錄</a></p>
-  </section></main>`;
+  app.innerHTML=`<main class="gate"><section class="panel"><h1>Chapter ${ch}</h1><p id="message" hidden></p><button id="loginBtn" type="button" hidden>Google 登入</button><button id="switchBtn" type="button" hidden>切換帳號</button><div id="status" hidden></div></section></main>`;
 }
 
 function setStatus(text,loading=false){
