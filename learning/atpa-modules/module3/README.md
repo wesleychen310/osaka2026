@@ -17,3 +17,9 @@ Public interface only; source English paragraphs, private translations, official
 3. Formal paragraph-level bilingual alignment and mobile Safari end-to-end visual QA.
 
 The legacy 60 sections maintain their existing functionality and historical bookmarks.
+
+## 2026-10-15 GPT bilingual follow-up
+- §1.4.1–§1.4.12 now include GPT-authored Traditional Chinese translations, aligned English/Chinese summaries, source-preserving English semantic annotations and three reusable actuarial English phrases per section.
+- Private source file updated in place after creating a private backup; 12 original full-page facsimiles and all extracted English source characters are preserved.
+- Source complete: 211/211; bilingual complete: 72/211; English-only pending translation: 139/211.
+- The four existing viewing modes are retained for backward compatibility. GPT enhanced sections have conditional bilingual rendering; English-only sections remain readable in every mode.

@@ -100,3 +100,82 @@ html[data-reading-mode=parallel] #study-content .pdf-source-translation{grid-col
   #study-content .lesson.source-english-only details.original-page>summary{font-size:12px;padding:11px}
   #study-content .lesson.source-english-only .pair.source-english-only>.original{font-size:16px}
 }
+
+/* Module 3 §1.4.1–1.4.12: GPT-authored private bilingual study content.
+   No excerpt or vocabulary is baked into this public stylesheet. */
+#study-content .lesson.gpt-bilingual>.header .zh-heading{color:#385c71}
+#study-content .lesson.gpt-bilingual .gpt-summary{
+ display:block;max-width:100%;min-width:0;margin:15px 0 16px;
+ padding:15px 19px;background:#f4f8fa;border:1px solid #e0e8ed;
+ border-left:3px solid #64899d;border-radius:9px;line-height:1.8
+}
+#study-content .lesson.gpt-bilingual .gpt-summary::before{
+ content:"GPT 精讀 · 英文摘要＋繁中摘要";display:block;font-size:12px;
+ font-weight:700;color:#456e83;margin-bottom:7px
+}
+#study-content .lesson.gpt-bilingual .gpt-summary p{margin:0 0 9px;font-size:15px;line-height:1.8}
+#study-content .lesson.gpt-bilingual .gpt-summary p:last-child{margin-bottom:0}
+#study-content .lesson.gpt-bilingual .gpt-summary-en{font-family:Georgia,"Times New Roman",serif}
+#study-content .lesson.gpt-bilingual .gpt-summary-zh{color:#365368}
+#study-content .lesson.gpt-bilingual .gpt-pair{min-width:0;max-width:100%;gap:12px}
+#study-content .lesson.gpt-bilingual .gpt-pair>.gpt-annotated{
+ display:none;min-width:0;max-width:100%;overflow-wrap:anywhere;
+ white-space:pre-wrap;line-height:1.9;font-size:16px
+}
+#study-content .lesson.gpt-bilingual .gpt-pair>.translation{
+ min-width:0;max-width:100%;overflow-wrap:anywhere
+}
+#study-content .lesson.gpt-bilingual .gpt-phrase{font-weight:750;color:#21536f}
+#study-content .lesson.gpt-bilingual .gpt-gloss{font-size:.85em;font-weight:500;color:#6b7469}
+#study-content .lesson.gpt-bilingual details.gpt-reusable{
+ margin:12px 0 18px;padding:12px 15px;background:#fcfcfd;
+ border:1px solid #e1e8ec;border-radius:8px;color:#344f60
+}
+#study-content .lesson.gpt-bilingual details.gpt-reusable summary{
+ cursor:pointer;font-size:13px;font-weight:700;line-height:1.7
+}
+#study-content .lesson.gpt-bilingual details.gpt-reusable ul{margin:10px 0 0;padding-left:18px}
+#study-content .lesson.gpt-bilingual details.gpt-reusable li{margin-bottom:7px;font-size:14px;line-height:1.75}
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-summary,
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-annotated,
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-reusable,
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-pair>.translation{display:none!important}
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-pair>.original{
+ display:block!important;width:100%!important;max-width:100%!important
+}
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-pair>.original,
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-pair>.gpt-annotated,
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-summary-en{display:none!important}
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-summary::before{content:"GPT 精讀 · 繁中摘要"}
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-pair>.translation{
+ display:block!important;width:100%!important;max-width:100%!important
+}
+html[data-reading-mode=vertical] #study-content .lesson.gpt-bilingual .gpt-pair{
+ display:flex!important;flex-direction:column!important;gap:10px!important
+}
+html[data-reading-mode=vertical] #study-content .lesson.gpt-bilingual .gpt-pair>.original{display:none!important}
+html[data-reading-mode=vertical] #study-content .lesson.gpt-bilingual .gpt-pair>.translation{
+ display:block!important;order:1!important;width:100%!important
+}
+html[data-reading-mode=vertical] #study-content .lesson.gpt-bilingual .gpt-pair>.gpt-annotated{
+ display:block!important;order:2!important;width:100%!important;
+ border-top:1px solid #e2e8ec;padding-top:13px
+}
+html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair{
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+ gap:18px!important
+}
+html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair>.original{display:none!important}
+html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair>.gpt-annotated{
+ display:block!important;order:1!important
+}
+html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair>.translation{
+ display:block!important;order:2!important
+}
+@media(max-width:700px){
+ html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair{
+  display:grid!important;grid-template-columns:minmax(265px,1fr) minmax(265px,1fr)!important;
+  width:max(100%,530px)!important;overflow:visible
+ }
+ #study-content .lesson.gpt-bilingual .gpt-summary{padding:12px 13px}
+}
