@@ -14,29 +14,8 @@
 <style>
 :root{--bg:#f3f6f8;--ink:#1a2d3d;--accent:#174961;--line:#dbe3e9;--muted:#5a6d7a}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC",Arial,sans-serif;background:linear-gradient(160deg,#e5f0f5,var(--bg) 50%);color:var(--ink)}.wrap{max-width:760px;margin:0 auto;padding:clamp(25px,6vw,65px) 16px 60px}.eyebrow{font-weight:850;color:var(--accent);font-size:12px;letter-spacing:.15em}.head h1{font-size:clamp(29px,6vw,46px);font-family:Georgia,"Noto Serif TC",serif;margin:14px 0 12px;line-height:1.18;color:#163f56}.head p{font-size:15px;line-height:1.75;color:var(--muted);margin:0 0 23px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 14px 40px rgba(26,51,69,.07);padding:clamp(17px,4vw,25px);margin:12px 0}.card h2{font-size:19px;margin:2px 0 6px}.card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0}.tag{font-size:11px;font-weight:800;color:#8b5b3a;letter-spacing:.1em}.btn{border:0;border-radius:12px;padding:13px 18px;background:var(--accent);color:#fff;font:inherit;font-size:14px;font-weight:750;cursor:pointer;display:inline-block;text-decoration:none;margin-top:18px}.btn:disabled{opacity:.55;cursor:wait}.ghost{background:#fff;border:1px solid var(--line);color:var(--accent);margin-left:8px}.status{font-size:13px;color:var(--muted);margin-top:15px;min-height:22px}.link{color:var(--accent);font-size:13px;text-decoration:none}.meta{display:flex;gap:9px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:12px}.meta span{border:1px solid var(--line);padding:3px 9px;border-radius:99px}.back{display:inline-block;margin-bottom:24px}.spinner{display:inline-block;width:15px;height:15px;border:2px solid #dce5ea;border-top-color:#46758f;border-radius:99px;animation:sp .85s linear infinite;vertical-align:-2px;margin-right:7px}@keyframes sp{to{transform:rotate(360deg)}}
 </style>
-</head>
-<body>
-<main class="wrap">
-<a class="link back" href="../">← 返回 FAM-S 教科書入口</a>
-<header class="head"><div class="eyebrow">PRIVATE LEARNING · ASM FAM-S</div><h1>Lesson 11 · Deductibles</h1><p>三種閱讀模式：全英文、全中文、左右對照。主文與 Examples 11A–11K，以及 Exercises 11.1–11.45、數學公式和可展開解答均已網頁化；目前為校對中的 DRAFT。</p></header>
-<section class="card">
-<div class="tag">LESSON 11 · 3 MODES · BILINGUAL PILOT</div>
-<h2>Deductibles｜Single-lesson source text</h2>
-<p>已改用共用閱讀器：內容從私人 Google Drive 載入，三種模式、字體排版、搜尋與題解定位由共用 CSS／JavaScript 管理。數學保留 LaTeX 來源，以 MathML 顯示。</p>
-<div class="meta"><span>雙語左右對照</span><span>全中文／全英文</span><span>私人 Google Drive</span></div>
-<button class="btn" id="openBtn" type="button">使用 Google 帳號閱讀</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換 Google 帳號</button>
-<div id="status" class="status" role="status">正在確認私人教材存取狀態…</div>
-</section>
-<section class="card">
-<div class="tag">PROJECT WORKFLOW / 交接手冊</div>
-<h2>教材網頁化 SOP</h2>
-<p>其他 ChatGPT 對話與 Work 請先閱讀 <a href="https://github.com/wesleychen310/osaka2026/blob/main/learning/fam-s-reading/README.md" rel="noopener noreferrer" target="_blank">README 專案現況與技術手冊</a>及 <a href="https://github.com/wesleychen310/osaka2026/blob/main/learning/fam-s-reading/WORKFLOW.md" rel="noopener noreferrer" target="_blank">製作與驗收 SOP</a>，再處理指定課程。</p>
-</section>
-<section class="card">
-<div class="tag">SOURCE QA · DRAFT</div><h2>內容校對進度</h2>
-<p>2026-10-11 修復版：已重建原書題目及解答、繁中、可編輯 LaTeX、表格與密度圖，並保存獨立數學驗算。仍為 DRAFT；逐頁最終簽核、12 組瀏覽器測試及私人登入驗收尚待完成。詳見 README 與私人 QA 報告。</p>
-</section>
-</main>
+<style id="public-minimal-css">#status,.status{display:none!important}</style></head>
+<body><main class="wrap"><header class="head"><h1>Lesson 11</h1></header><section class="card"><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
