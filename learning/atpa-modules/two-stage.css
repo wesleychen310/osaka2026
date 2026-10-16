@@ -1,0 +1,57 @@
+/* All four private readers: two-stage paragraph layout.
+   Keep the persisted stacked mode key and the other two modes unchanged.
+   This stylesheet contains presentation only, never private study content. */
+html[data-reading-mode=stacked] #study-content .reading-summary,
+html[data-reading-mode=stacked] #study-content .gpt-summary {
+ display:none!important;
+}
+html[data-reading-mode=stacked] #study-content .pair {
+ display:flex;flex-direction:column;align-items:stretch;gap:0;
+ min-width:0;max-width:100%;margin:0;padding:20px 0 24px;
+ border:0;border-radius:0;background:transparent;box-shadow:none;
+}
+html[data-reading-mode=stacked] #study-content .pair>.reading-annotated {
+ order:0;display:block!important;min-width:0;max-width:100%;
+ margin:0;padding:0;border:0;background:transparent;
+ font:17px/1.94 Georgia,"Times New Roman",serif;color:#243746;
+ overflow-wrap:break-word;
+}
+html[data-reading-mode=stacked] #study-content .pair>.translation {
+ order:1;display:block!important;min-width:0;max-width:100%;
+ margin:18px 0 0;padding:0;border:0;background:transparent;
+ font:16px/1.9 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
+ color:#52616b;overflow-wrap:break-word;
+}
+html[data-reading-mode=stacked] #study-content .pair>.reading-annotated::before,
+html[data-reading-mode=stacked] #study-content .pair>.translation::before {
+ display:block;margin:0 0 8px;padding:0;border:0;
+ font:500 10.5px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ letter-spacing:.04em;color:#7b8992;
+}
+html[data-reading-mode=stacked] #study-content .pair>.reading-annotated::before {
+ content:"① 原文｜English";
+}
+html[data-reading-mode=stacked] #study-content .pair>.translation::before {
+ content:"② 翻譯｜繁體中文";
+}
+html[data-reading-mode=stacked] #study-content .learning-mark {
+ font-weight:700;color:inherit;
+}
+html[data-reading-mode=stacked] #study-content .learning-gloss {
+ font:400 .85em/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ color:#687b87;white-space:normal;
+}
+/* Preserve semantic table rows/cells and code indentation. Scroll only the
+   existing table container when a source table exceeds the phone width. */
+html[data-reading-mode=stacked] #study-content .source-table-wrap {
+ max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+html[data-reading-mode=stacked] #study-content pre {
+ max-width:100%;overflow-x:auto;white-space:pre;
+}
+@media(max-width:600px) {
+ html[data-reading-mode=stacked] #study-content {padding:20px 18px;}
+ html[data-reading-mode=stacked] #study-content .pair {padding:17px 0 25px;}
+ html[data-reading-mode=stacked] #study-content .pair>.reading-annotated {font-size:17px;line-height:1.94;}
+ html[data-reading-mode=stacked] #study-content .pair>.translation {font-size:16px;line-height:1.9;margin-top:16px;}
+}
