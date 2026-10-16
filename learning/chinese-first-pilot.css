@@ -1,0 +1,37 @@
+/* Chinese-first two-stage trial: Module 2 and prerequisite Chapter 8 only.
+   No source nodes, annotations, other chapters or three-column modes change. */
+html[data-reading-mode=stacked] body[data-atpa-module="2"] #study-content .lesson .pair>.translation {
+ order:0;margin:0;padding:0;border:0;
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated),
+html[data-reading-mode=stacked] body[data-atpa-module="2"] #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original {
+ order:1;margin:18px 0 0;padding:0;border:0;
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] #study-content .lesson .pair>.translation::before {
+ content:"① 翻譯｜繁體中文";
+}
+html[data-reading-mode=stacked] body[data-atpa-module="2"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated)::before,
+html[data-reading-mode=stacked] body[data-atpa-module="2"] #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original::before {
+ content:"② 原文｜English";
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text) {
+ order:0;margin:0!important;padding:0!important;border:0;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated {
+ order:1;margin:18px 0 0!important;padding:0!important;border:0;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text)::before {
+ content:"① 翻譯｜繁體中文";
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated::before {
+ content:"② 原文｜English";
+}
+@media(max-width:600px) {
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated),
+ html[data-reading-mode=stacked] body[data-atpa-module="2"] #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original {
+  margin-top:16px;
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated {
+  margin-top:16px!important;
+ }
+}

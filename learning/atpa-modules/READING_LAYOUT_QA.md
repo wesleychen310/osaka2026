@@ -1,5 +1,11 @@
 # Reader layout repair — 2026-10-16
 
+Later scoped trial: Module 2's `stacked` view now places the full Chinese
+translation above the full annotated English paragraph. This is a display-only
+override in `../chinese-first-pilot.css`; Modules 1/3/4 and all three-column views
+retain their approved layouts. Paragraph-level English fallback follows the
+same Chinese-first order before lazy enhancement completes.
+
 Scope: all four readers. Keep the persisted `stacked` mode key; display it as 二段式精讀. Preserve `en` and `triple` preferences and navigation.
 
 ## Regressions and fixes

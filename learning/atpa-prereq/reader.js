@@ -3,6 +3,8 @@
    from the authorized Google Drive chapter. No textbook material lives here. */
 (()=>{"use strict";
   const root=document.documentElement;
+  const chapter=new URLSearchParams(location.search).get("chapter");
+  root.dataset.atpaPrereqChapter=chapter||"";
   const originalBar=document.getElementById("islp-reading-mode");
   const source=document.querySelector("main .pair");
   if(!source)return;
@@ -67,6 +69,7 @@
   toolbar.id="atpa-prereq-modes";
   toolbar.setAttribute("aria-label","ATPA 精讀閱讀模式");
   toolbar.innerHTML='<div class="atpa-mode-inner"><span class="atpa-mode-title">閱讀模式</span><div class="atpa-mode-options" role="group" aria-label="閱讀模式"><button type="button" data-mode="en" aria-pressed="false" title="僅完整英文原文">全英文</button><button type="button" data-mode="stacked" aria-pressed="false" title="逐段：完整英文與語塊註解 → 完整繁體中文翻譯">二段式精讀</button><button type="button" data-mode="triple" aria-pressed="false" title="三欄同時顯示；可雙指放大、拖曳閱讀">三欄式精讀</button></div></div><p class="atpa-mode-hint">三欄同時顯示 · 可雙指放大，再拖曳閱讀。</p>';
+  if(chapter==="8")toolbar.querySelector('[data-mode="stacked"]').title="逐段：完整繁體中文翻譯 → 完整英文與語塊註解";
   const insertAfter=originalBar||document.querySelector("body > .topbar")||document.querySelector("#atpa-prereq-bar");
   if(insertAfter)insertAfter.after(toolbar);else document.body.prepend(toolbar);
   root.classList.add("atpa-prereq-has-modes");
