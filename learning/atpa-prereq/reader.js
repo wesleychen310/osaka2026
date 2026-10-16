@@ -66,7 +66,7 @@
   const toolbar=document.createElement("nav");
   toolbar.id="atpa-prereq-modes";
   toolbar.setAttribute("aria-label","ATPA 精讀閱讀模式");
-  toolbar.innerHTML='<div class="atpa-mode-inner"><span class="atpa-mode-title">閱讀模式</span><div class="atpa-mode-options" role="group" aria-label="閱讀模式"><button type="button" data-mode="en" aria-pressed="false" title="僅完整英文原文">全英文</button><button type="button" data-mode="stacked" aria-pressed="false" title="英中重點 → 含語塊註解之完整英文 → 原有完整繁中">三段式精讀</button><button type="button" data-mode="triple" aria-pressed="false" title="第一欄英中重點｜第二欄英文精讀｜第三欄完整繁中">三欄式精讀</button></div></div><p class="atpa-mode-hint">三欄式：在手機上於每段左右滑動，查看英中重點、英文精讀、完整中文翻譯。</p>';
+  toolbar.innerHTML='<div class="atpa-mode-inner"><span class="atpa-mode-title">閱讀模式</span><div class="atpa-mode-options" role="group" aria-label="閱讀模式"><button type="button" data-mode="en" aria-pressed="false" title="僅完整英文原文">全英文</button><button type="button" data-mode="stacked" aria-pressed="false" title="逐段：完整英文與語塊註解 → 完整繁體中文翻譯">二段式精讀</button><button type="button" data-mode="triple" aria-pressed="false" title="三欄同時顯示；可雙指放大、拖曳閱讀">三欄式精讀</button></div></div><p class="atpa-mode-hint">三欄同時顯示 · 可雙指放大，再拖曳閱讀。</p>';
   const insertAfter=originalBar||document.querySelector("body > .topbar")||document.querySelector("#atpa-prereq-bar");
   if(insertAfter)insertAfter.after(toolbar);else document.body.prepend(toolbar);
   root.classList.add("atpa-prereq-has-modes");

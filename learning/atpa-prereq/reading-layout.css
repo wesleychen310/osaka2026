@@ -1,0 +1,77 @@
+/* The approved module reading layouts, adapted to private textbook pairs. */
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair {
+ display:flex!important;flex-direction:column;align-items:stretch;gap:0;
+ max-width:780px;margin:0 auto;padding:20px 0 24px;border:0;background:transparent;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>.atpa-reading-summary {display:none!important;}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated {
+ order:0;display:block!important;margin:0!important;padding:0!important;border:0;
+ font:17px/1.94 Georgia,"Times New Roman",serif;color:#243746;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text) {
+ order:1;display:block!important;margin:18px 0 0!important;padding:0!important;border:0;
+ font:16px/1.9 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#52616b;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated::before,
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text)::before {
+ display:block;margin:0 0 8px;padding:0;
+ font:500 10.5px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ letter-spacing:.04em;color:#7b8992;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated::before {content:"① 原文｜English";}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text)::before {content:"② 翻譯｜繁體中文";}
+html.atpa-prereq-has-modes:is([data-atpa-prereq-mode=stacked],[data-atpa-prereq-mode=triple]) body main .pair.atpa-enhanced-pair>.label {display:none!important;}
+html.atpa-prereq-has-modes:is([data-atpa-prereq-mode=stacked],[data-atpa-prereq-mode=triple]) body .atpa-reading-annotated .english-chunk {font-weight:700;color:inherit;}
+html.atpa-prereq-has-modes:is([data-atpa-prereq-mode=stacked],[data-atpa-prereq-mode=triple]) body .atpa-reading-annotated .inline-gloss {
+ font:400 .85em/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#687b87;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] {
+ --triple-english:clamp(10.5px,2.9vw,16px);
+ --triple-chinese:clamp(10px,2.8vw,15.5px);
+ --triple-summary:clamp(9px,2.5vw,14px);
+ -webkit-text-size-adjust:100%;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair {
+ display:grid!important;grid-template-columns:minmax(0,24fr) minmax(0,43fr) minmax(0,33fr)!important;
+ align-items:start;gap:0;width:100%;min-width:0;max-width:100%;
+ overflow:visible!important;scroll-snap-type:none;overscroll-behavior-x:auto;
+ padding:15px 0;touch-action:auto;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>:is(.atpa-reading-summary,.atpa-reading-annotated,.translation,.zh-text) {
+ min-width:0;max-width:100%;width:auto;scroll-snap-align:none;
+ overflow-wrap:anywhere;word-break:normal;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>.atpa-reading-summary {
+ grid-column:1;grid-row:1;padding:0 10px 0 0!important;margin:0!important;
+ border:0;border-right:1px solid #e3e9ec;background:transparent;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated {
+ grid-column:2;grid-row:1;padding:0 11px!important;margin:0!important;
+ border:0;border-right:1px solid #e3e9ec;font-size:var(--triple-english);line-height:1.82;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text) {
+ grid-column:3;grid-row:1;padding:0 0 0 11px!important;margin:0!important;border:0;
+ font-size:var(--triple-chinese);line-height:1.82;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body .atpa-reading-summary :is(.atpa-summary-en,.atpa-summary-zh) {font-size:var(--triple-summary);line-height:1.78;}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>:is(.atpa-reading-summary,.atpa-reading-annotated,.translation,.zh-text)::before {
+ display:block;font-size:clamp(8px,1.9vw,10.5px);line-height:1.5;letter-spacing:0;margin:0 0 6px;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>.atpa-reading-summary::before {content:"摘要";}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated::before {content:"英文精讀";}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text)::before {content:"繁中翻譯";}
+@media(max-width:1000px) {
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body .layout {display:block;max-width:100%;padding-inline:8px;}
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .section {padding:14px 9px;}
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair {padding:12px 0;}
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>.atpa-reading-summary {padding-right:6px!important;}
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated {padding-left:7px!important;padding-right:7px!important;}
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text) {padding-left:7px!important;}
+}
+@media(max-width:600px) {
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair {padding:17px 0 25px;}
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=stacked] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text) {margin-top:16px!important;}
+}
+@media print {
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode=triple] body main .pair.atpa-enhanced-pair {display:flex!important;flex-direction:column;overflow:visible!important;}
+}
