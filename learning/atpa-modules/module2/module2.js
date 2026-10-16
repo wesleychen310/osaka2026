@@ -7,6 +7,7 @@ const SESSION_KEY="hanami-kyoto-google-token-v3";
 const PRIVATE_INDEX_FILE_ID="1tqQmZxUU99EWeKBHiRw9NOTfKf_V7ZRGJrJigvNoi0A";
 let SOURCES=[];
 let GPT_READINGS=Object.create(null);
+const sourcePairsByLesson=new Map();
 const $=id=>document.getElementById(id);
 document.body.dataset.atpaModule="2";
 const params=new URLSearchParams(location.search);
@@ -27,10 +28,10 @@ function loadSaved(){
 }
 function remember(t){
  const expiry=Number(t.expires_in)||3500;
- sessionStorage.setItem(SESSION_KEY,JSON.stringify({access_token:t.access_token,expires_at:Date.now()+expiry*1000}));
+ try{sessionStorage.setItem(SESSION_KEY,JSON.stringify({access_token:t.access_token,expires_at:Date.now()+expiry*1000}))}catch(_){}
  return t.access_token;
 }
-function clearToken(){sessionStorage.removeItem(SESSION_KEY);try{window.HanamiAuth?.forget?.()}catch(_){}}
+function clearToken(){try{sessionStorage.removeItem(SESSION_KEY)}catch(_){}try{window.HanamiAuth?.forget?.()}catch(_){}}
 function cleanSource(doc){
  const main=doc.querySelector("#atpa-source");
  if(!main)throw new Error("找不到私人教材內容，請檢查原始檔。");
@@ -44,17 +45,19 @@ function cleanSource(doc){
    }
  });
  const lessons=[...main.querySelectorAll("section.lesson")];
+ const lessonPairs=new Map();let pairCount=0;
  if(!lessons.length)throw new Error("來源沒有可閱讀的小節。");
  for(const sec of lessons){
    if(!sec.dataset.num||!sec.id)throw new Error("來源缺少原書編號或小節識別碼。");
    const pairs=sec.querySelectorAll(".pair");
+   lessonPairs.set(sec.id,pairs);pairCount+=pairs.length;
    if(!pairs.length)throw new Error("§"+sec.dataset.num+" 缺少雙語配對。");
    pairs.forEach(p=>{
      if(!p.querySelector(":scope>.original")||!p.querySelector(":scope>.translation"))
        throw new Error("§"+sec.dataset.num+" 有未配對的英文或中文段落。");
    });
  }
- return{main,lessons};
+ return{main,lessons,lessonPairs,pairCount};
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
@@ -91,6 +94,7 @@ function annotatedClone(original,curatedPhrases){
  clone.className="reading-view reading-annotated"+(original.classList.contains("pdf-source-original")?" pdf-source-original":"");
  clone.removeAttribute("id");
  clone.setAttribute("lang","en");
+ if(!Array.isArray(curatedPhrases)||!curatedPhrases.length)return clone;
  const walker=document.createTreeWalker(clone,NodeFilter.SHOW_TEXT),nodes=[];
  while(walker.nextNode())nodes.push(walker.currentNode);
  for(const textNode of nodes){
@@ -157,9 +161,10 @@ function makeSummary(original,translation,section,record){
  }
  pane.append(en,zh);return pane;
 }
-function prepareEnhancedViews(){
- const article=$("study-content");
- const pairs=[...article.querySelectorAll(".pair")];
+function prepareLessonViews(lesson){
+ if(lesson.dataset.viewsReady==="true")return;
+ const article=lesson;
+ const pairs=[...(sourcePairsByLesson.get(lesson.id)||lesson.querySelectorAll(".pair"))];
  if(!pairs.length)throw new Error("無法建立精讀檢視：找不到雙語段落。");
  let enhanced=0;
  const pairOrder=new Map();
@@ -178,17 +183,15 @@ function prepareEnhancedViews(){
    const summary=makeSummary(original,translation,lesson,record);
    // Test unaltered source text, preserving all whitespace and original punctuation.
    const withoutGloss=el=>{
-     const c=el.cloneNode(true);c.querySelectorAll(".learning-gloss").forEach(g=>g.remove());return c.textContent;
+     const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let text="";
+     while(walker.nextNode())if(!walker.currentNode.parentElement.closest(".learning-gloss"))text+=walker.currentNode.nodeValue;
+     return text;
    };
    if(withoutGloss(anot)!==original.textContent)
      throw new Error("英文完整性驗證失敗："+(pair.closest(".lesson")?.dataset.num||"未知"));
    pair.append(anot,summary);enhanced++;
  }
- for(const [lessonId,records] of Object.entries(GPT_READINGS)){
-   if((pairOrder.get(lessonId)||0)!==records.length)
-     throw new Error("GPT 精讀與原始教材段落數不符："+lessonId);
- }
- for(const section of article.querySelectorAll("section.lesson")){
+ for(const section of [lesson]){
    const header=section.querySelector(":scope>header");
    const h2=header?.querySelector(":scope>h2");
    if(h2&&!header.querySelector(".reading-heading")){
@@ -220,7 +223,50 @@ function prepareEnhancedViews(){
  // Only derivatives are unhidden; original pair data are never rewritten.
  article.querySelectorAll(".reading-view").forEach(el=>el.removeAttribute("hidden"));
  article.dataset.enhancedPairs=String(pairs.length);
+ lesson.dataset.viewsReady="true";
 }
+
+let viewObserver=null,viewPreparationStarted=false,resumeViewPreparation=null;
+function prepareEnhancedViews(){
+ // Prepare the opening and bookmarked lessons before the next paint.
+ let target=null;
+ target=document.getElementById($("toc")?.querySelector(".toc-link.active")?.dataset.id||"");
+ if(!target)try{target=document.getElementById(decodeURIComponent(location.hash.slice(1)))}catch(_){}
+ if(!target&&params.get("part"))target=document.getElementById(FIRST_IDS[Number(params.get("part"))-1]);
+ allLessons.slice(0,2).forEach(prepareLessonViews);
+ if(target?.classList.contains("lesson"))prepareLessonViews(target);
+ if(viewPreparationStarted){
+  if(viewObserver){
+   viewObserver.disconnect();
+   allLessons.filter(lesson=>lesson.dataset.viewsReady!=="true").forEach(lesson=>viewObserver.observe(lesson));
+  }else resumeViewPreparation?.();
+  return;
+ }
+ viewPreparationStarted=true;
+ if(typeof IntersectionObserver==="function"){
+  viewObserver=new IntersectionObserver(entries=>{
+   if(document.documentElement.dataset.readingMode==="en")return;
+   entries.forEach(entry=>{
+    if(entry.isIntersecting){prepareLessonViews(entry.target);viewObserver.unobserve(entry.target)}
+   });
+  },{rootMargin:"1000px 0px"});
+  allLessons.forEach(lesson=>viewObserver.observe(lesson));
+ }else{
+  // Older browsers: spread the work across event-loop turns to keep the UI responsive.
+  let index=2,timer=null;
+  resumeViewPreparation=()=>{
+   if(timer!==null||index>=allLessons.length)return;
+   timer=setTimeout(()=>{
+    timer=null;
+    if(document.documentElement.dataset.readingMode==="en")return;
+    prepareLessonViews(allLessons[index++]);
+    resumeViewPreparation();
+   },16);
+  };
+  resumeViewPreparation();
+ }
+}
+
 
 function prepareBilingualLabels(){
  document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(node=>{
@@ -311,6 +357,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
  const saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
+ if(selected!=="en")prepareEnhancedViews();
  const revision=++readingSwitchRevision;
  if(saved){
    if(!readingScrollStyles)readingScrollStyles={
@@ -515,14 +562,23 @@ function syncCurrentSection(){
 window.addEventListener("scroll",()=>{
  if(loaded&&!scrollScheduled){scrollScheduled=true;requestAnimationFrame(syncCurrentSection)}
 },{passive:true});
-function mountAll(texts){
- const sections=[];
- for(let i=0;i<texts.length;i++){
-   const doc=new DOMParser().parseFromString(texts[i].replace(/^\uFEFF/,""),"text/html");
-   const parsed=cleanSource(doc);
-   if(parsed.lessons.length!==EXPECTED_COUNTS[i]||parsed.lessons[0].id!==FIRST_IDS[i])
-     throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
-   sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
+function parseSource(text,index){
+ const doc=new DOMParser().parseFromString(text.replace(/^\uFEFF/,""),"text/html");
+ const parsed=cleanSource(doc);
+ if(parsed.lessons.length!==EXPECTED_COUNTS[index]||parsed.lessons[0].id!==FIRST_IDS[index])
+  throw new Error("教材 §"+SOURCES[index].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
+ for(const [id,pairs] of parsed.lessonPairs){
+  sourcePairsByLesson.set(id,pairs);
+  const records=GPT_READINGS[id];
+  if(records&&records.length!==pairs.length)throw new Error("GPT 精讀與原始教材段落數不符："+id);
+ }
+ return parsed;
+}
+function mountAll(parsedSources){
+ // Adopt the already validated nodes instead of cloning the entire chapter.
+ const sections=parsedSources.flatMap(parsed=>parsed.lessons.map(section=>document.adoptNode(section)));
+ for(const id of Object.keys(GPT_READINGS)){
+  if(!sourcePairsByLesson.has(id))throw new Error("GPT 精讀對應小節不存在："+id);
  }
  if(sections.length!==223||new Set(sections.map(s=>s.id)).size!==223)
    throw new Error("223 個小節未完整載入，請重新整理後再試。");
@@ -538,7 +594,6 @@ function mountAll(texts){
  article.replaceChildren(frag);
  allLessons=[...article.querySelectorAll("section.lesson")];
  prepareBilingualLabels();
- prepareEnhancedViews();
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
@@ -598,8 +653,13 @@ async function fetchPrivate(token){
  if(loaded||!selected)return;
  status("正在驗證私人索引及載入 Module 2 全部 223 個小節…");
  await fetchPrivateIndex(token);
- const texts=await Promise.all(SOURCES.map(source=>fetchOneSource(source,token)));
- mountAll(texts);
+ let complete=0;
+ const parsedSources=await Promise.all(SOURCES.map(async(source,index)=>{
+  const parsed=parseSource(await fetchOneSource(source,token),index);
+  status("已讀取私人教材 "+(++complete)+"／"+SOURCES.length+" 份…");
+  return parsed;
+ }));
+ mountAll(parsedSources);
 }
 
 function initClient(){
@@ -610,7 +670,7 @@ function initClient(){
      if(response?.error){status("Google 授權未完成："+response.error);return}
      try{
        const t=remember(response);
-       try{await window.HanamiAuth?.remember?.(t)}catch(_){}
+       try{Promise.resolve(window.HanamiAuth?.remember?.(t)).catch(()=>{})}catch(_){}
        await fetchPrivate(t)
      }catch(e){status(e?.message||"教材載入失敗，請再試一次。")}
    }

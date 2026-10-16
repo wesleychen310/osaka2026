@@ -35,10 +35,10 @@ function loadSaved(){
 }
 function remember(t){
  const expiry=Number(t.expires_in)||3500;
- sessionStorage.setItem(SESSION_KEY,JSON.stringify({access_token:t.access_token,expires_at:Date.now()+expiry*1000}));
+ try{sessionStorage.setItem(SESSION_KEY,JSON.stringify({access_token:t.access_token,expires_at:Date.now()+expiry*1000}))}catch(_){}
  return t.access_token;
 }
-function clearToken(){sessionStorage.removeItem(SESSION_KEY);try{window.HanamiAuth?.forget?.()}catch(_){}}
+function clearToken(){try{sessionStorage.removeItem(SESSION_KEY)}catch(_){}try{window.HanamiAuth?.forget?.()}catch(_){}}
 function cleanSource(doc){
  const main=doc.querySelector("#atpa-source");
  if(!main)throw new Error("找不到私人教材內容，請檢查原始檔。");
@@ -52,17 +52,19 @@ function cleanSource(doc){
    }
  });
  const lessons=[...main.querySelectorAll("section.lesson")];
+ const lessonPairs=new Map();let pairCount=0;
  if(!lessons.length)throw new Error("來源沒有可閱讀的小節。");
  for(const sec of lessons){
    if(!sec.dataset.num||!sec.id)throw new Error("來源缺少原書編號或小節識別碼。");
    const pairs=sec.querySelectorAll(".pair");
+   lessonPairs.set(sec.id,pairs);pairCount+=pairs.length;
    if(!pairs.length)throw new Error("§"+sec.dataset.num+" 缺少雙語配對。");
    pairs.forEach(p=>{
      if(!p.querySelector(":scope>.original")||!p.querySelector(":scope>.translation"))
        throw new Error("§"+sec.dataset.num+" 有未配對的英文或中文段落。");
    });
  }
- return{main,lessons};
+ return{main,lessons,lessonPairs,pairCount};
 }
 /* Module 1: source English, annotated English, existing Chinese translation and bilingual summaries are immutable source nodes. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
@@ -71,10 +73,7 @@ const DISPLAY_KEY="atpa-module1-reading-mode-v4";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 /* Work-created views live in private Drive next to immutable bilingual pairs.
    Validate all enhanced content before switching the reading interface. */
-function prepareEnhancedViews(){
- const article=$("study-content");
- const pairs=[...article.querySelectorAll(".pair")];
- if(pairs.length!==349)throw new Error("新版閱讀資料組數不符（預期 349 組，讀到 "+pairs.length+" 組）。");
+function prepareEnhancedViews(article,pairs){
  for(const p of pairs){
    if(!p.querySelector(":scope>.reading-annotated")||
       !p.querySelector(":scope>.reading-summary .summary-en")||
@@ -391,15 +390,19 @@ function syncCurrentSection(){
 window.addEventListener("scroll",()=>{
  if(loaded&&!scrollScheduled){scrollScheduled=true;requestAnimationFrame(syncCurrentSection)}
 },{passive:true});
-function mountAll(texts){
- const sections=[];
- for(let i=0;i<texts.length;i++){
-   const doc=new DOMParser().parseFromString(texts[i].replace(/^\uFEFF/,""),"text/html");
-   const parsed=cleanSource(doc);
-   if(parsed.lessons.length!==EXPECTED_COUNTS[i]||parsed.lessons[0].id!==FIRST_IDS[i])
-     throw new Error("教材 §"+SOURCES[i].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
-   sections.push(...parsed.lessons.map(s=>document.importNode(s,true)));
- }
+function parseSource(text,index){
+ const doc=new DOMParser().parseFromString(text.replace(/^\uFEFF/,""),"text/html");
+ const parsed=cleanSource(doc);
+ if(parsed.lessons.length!==EXPECTED_COUNTS[index]||parsed.lessons[0].id!==FIRST_IDS[index])
+  throw new Error("教材 §"+SOURCES[index].label+" 的小節數量或順序不符，暫停顯示以避免漏頁。");
+ prepareEnhancedViews(parsed.main,[...parsed.lessonPairs.values()].flatMap(pairs=>[...pairs]));
+ return parsed;
+}
+function mountAll(parsedSources){
+ // Adopt the already validated nodes instead of cloning the entire chapter.
+ const sections=parsedSources.flatMap(parsed=>parsed.lessons.map(section=>document.adoptNode(section)));
+ if(parsedSources.reduce((sum,parsed)=>sum+parsed.pairCount,0)!==349)
+  throw new Error("新版閱讀資料組數不符（預期 349 組）。");
  if(sections.length!==60||new Set(sections.map(s=>s.id)).size!==60)
    throw new Error("60 個小節未完整載入，請重新整理後再試。");
  const article=$("study-content"),frag=document.createDocumentFragment();let lastChapter="";
@@ -413,7 +416,6 @@ function mountAll(texts){
  }
  article.replaceChildren(frag);
  allLessons=[...article.querySelectorAll("section.lesson")];
- prepareEnhancedViews();
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
@@ -444,8 +446,13 @@ async function fetchOneSource(source,token){
 async function fetchPrivate(token){
  if(loaded||!selected)return;
  status("正在載入 Module 1 全部 60 個小節，請稍候…");
- const texts=await Promise.all(SOURCES.map(source=>fetchOneSource(source,token)));
- mountAll(texts);
+ let complete=0;
+ const parsedSources=await Promise.all(SOURCES.map(async(source,index)=>{
+  const parsed=parseSource(await fetchOneSource(source,token),index);
+  status("已讀取私人教材 "+(++complete)+"／"+SOURCES.length+" 份…");
+  return parsed;
+ }));
+ mountAll(parsedSources);
 }
 
 function initClient(){
@@ -456,7 +463,7 @@ function initClient(){
      if(response?.error){status("Google 授權未完成："+response.error);return}
      try{
        const t=remember(response);
-       try{await window.HanamiAuth?.remember?.(t)}catch(_){}
+       try{Promise.resolve(window.HanamiAuth?.remember?.(t)).catch(()=>{})}catch(_){}
        await fetchPrivate(t)
      }catch(e){status(e?.message||"教材載入失敗，請再試一次。")}
    }

@@ -321,3 +321,8 @@ html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-m
 html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair[data-gpt-reviewed="false"]>.reading-summary::before{content:"原文節錄 · 待 GPT 校訂"}
 html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair[data-gpt-reviewed="false"]>.reading-annotated::before{content:"完整英文 · 語義註解待校訂"}
 html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .pair[data-gpt-reviewed="false"]>.reading-summary{background:#fafbfc;border-left-color:#e2e7eb}
+
+
+/* Source paragraphs remain readable before their off-screen study views are prepared. */
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) body[data-atpa-module="2"] .lesson:not([data-views-ready]) .pair>.original{display:block!important}
+html[data-reading-mode=triple] body[data-atpa-module="2"] .lesson:not([data-views-ready]) .pair>.original{grid-column:2;grid-row:1;padding:0 17px}
