@@ -67,6 +67,13 @@ function cleanSource(doc){
    pairs.forEach(p=>{
      if(!p.querySelector(":scope>.original")||!p.querySelector(":scope>.translation"))
        throw new Error("§"+sec.dataset.num+" 有未配對的英文或中文段落。");
+     // Authored English annotations already exist in the private source.
+     // Expose them before deferred summaries or viewport observers run.
+     const annotated=p.querySelector(":scope>.gpt-annotated");
+     if(annotated){
+       annotated.classList.add("reading-annotated","reading-view");
+       annotated.removeAttribute("hidden");
+     }
    });
  }
  return{main,lessons};
@@ -99,6 +106,7 @@ function createViewEnhancer(){
  matcher=escaped.length?new RegExp("\\b(?:"+escaped.join("|")+")\\b","gi"):null;
  }
  function applyAnnotations(clone,original){
+  if(clone.querySelector(".learning-mark,.gpt-phrase"))return clone;
   if(!matcher)return clone;
   const walker=document.createTreeWalker(clone,NodeFilter.SHOW_TEXT),nodes=[];
   while(walker.nextNode())if(!walker.currentNode.parentElement.closest("table,pre,code,math"))nodes.push(walker.currentNode);
@@ -615,7 +623,7 @@ async function fetchPrivate(token){
    }catch(e){failed=true;throw e}
   }
  }
- await Promise.all(Array.from({length:Math.min(4,SOURCES.length)},worker));
+ await Promise.all([window.ATPAReadingTerms.load(token),...Array.from({length:Math.min(4,SOURCES.length)},worker)]);
  mountAll(parsedSources);
 }
 

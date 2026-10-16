@@ -652,7 +652,7 @@ async function fetchPrivateIndex(token){
 async function fetchPrivate(token){
  if(loaded||!selected)return;
  status("正在驗證私人索引及載入 Module 2 全部 223 個小節…");
- await fetchPrivateIndex(token);
+ await Promise.all([fetchPrivateIndex(token),window.ATPAReadingTerms.load(token)]);
  let complete=0;
  const parsedSources=await Promise.all(SOURCES.map(async(source,index)=>{
   const parsed=parseSource(await fetchOneSource(source,token),index);

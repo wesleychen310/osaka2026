@@ -447,11 +447,11 @@ async function fetchPrivate(token){
  if(loaded||!selected)return;
  status("正在載入 Module 1 全部 60 個小節，請稍候…");
  let complete=0;
- const parsedSources=await Promise.all(SOURCES.map(async(source,index)=>{
+ const [parsedSources]=await Promise.all([Promise.all(SOURCES.map(async(source,index)=>{
   const parsed=parseSource(await fetchOneSource(source,token),index);
   status("已讀取私人教材 "+(++complete)+"／"+SOURCES.length+" 份…");
   return parsed;
- }));
+ })),window.ATPAReadingTerms.load(token)]);
  mountAll(parsedSources);
 }
 

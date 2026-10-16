@@ -1,7 +1,7 @@
 /* All four private readers: two-stage paragraph layout.
    Keep the persisted stacked mode key and the other two modes unchanged.
    This stylesheet contains presentation only, never private study content. */
-html[data-reading-mode=stacked] #study-content .reading-summary,
+html[data-reading-mode=stacked] #study-content .lesson .pair>.reading-summary,
 html[data-reading-mode=stacked] #study-content .gpt-summary {
  display:none!important;
 }
@@ -10,7 +10,7 @@ html[data-reading-mode=stacked] #study-content .pair {
  min-width:0;max-width:100%;margin:0;padding:20px 0 24px;
  border:0;border-radius:0;background:transparent;box-shadow:none;
 }
-html[data-reading-mode=stacked] #study-content .pair>.reading-annotated {
+html[data-reading-mode=stacked] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated) {
  order:0;display:block!important;min-width:0;max-width:100%;
  margin:0;padding:0;border:0;background:transparent;
  font:17px/1.94 Georgia,"Times New Roman",serif;color:#243746;
@@ -22,13 +22,13 @@ html[data-reading-mode=stacked] #study-content .pair>.translation {
  font:16px/1.9 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
  color:#52616b;overflow-wrap:break-word;
 }
-html[data-reading-mode=stacked] #study-content .pair>.reading-annotated::before,
+html[data-reading-mode=stacked] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated)::before,
 html[data-reading-mode=stacked] #study-content .pair>.translation::before {
  display:block;margin:0 0 8px;padding:0;border:0;
  font:500 10.5px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
  letter-spacing:.04em;color:#7b8992;
 }
-html[data-reading-mode=stacked] #study-content .pair>.reading-annotated::before {
+html[data-reading-mode=stacked] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated)::before {
  content:"① 原文｜English";
 }
 html[data-reading-mode=stacked] #study-content .pair>.translation::before {
@@ -52,6 +52,32 @@ html[data-reading-mode=stacked] #study-content pre {
 @media(max-width:600px) {
  html[data-reading-mode=stacked] #study-content {padding:20px 18px;}
  html[data-reading-mode=stacked] #study-content .pair {padding:17px 0 25px;}
- html[data-reading-mode=stacked] #study-content .pair>.reading-annotated {font-size:17px;line-height:1.94;}
+ html[data-reading-mode=stacked] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated) {font-size:17px;line-height:1.94;}
  html[data-reading-mode=stacked] #study-content .pair>.translation {font-size:16px;line-height:1.9;margin-top:16px;}
+}
+
+/* A paragraph may be mounted before its deferred enhanced view. Never hide
+   the only English node. Authored annotations are usable immediately, without
+   waiting for IntersectionObserver (including inside closed source tabs). */
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original {
+ display:block!important;
+}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .lesson .pair:has(>.reading-annotated,>.gpt-annotated)>.original {
+ display:none!important;
+}
+html[data-reading-mode=stacked] #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original {
+ order:0;margin:0;padding:0;border:0;
+ font:17px/1.94 Georgia,"Times New Roman",serif;color:#243746;
+}
+html[data-reading-mode=stacked] #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original::before {
+ content:"① 原文｜English";display:block;margin:0 0 8px;
+ font:500 10.5px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ letter-spacing:.04em;color:#7b8992;
+}
+html[data-reading-mode=stacked] #study-content .gpt-phrase {
+ font-weight:700;color:inherit;
+}
+html[data-reading-mode=stacked] #study-content .gpt-gloss {
+ font:400 .85em/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ color:#687b87;white-space:normal;
 }
