@@ -1,0 +1,250 @@
+/* SOA ATPA Module 4 — original PDF facsimiles, paired bilingual paragraphs.
+   Layout and four language modes come from ../reader.css shared with Modules 1/2. */
+#study-content .pdf-source-pair{min-width:0;max-width:100%;align-items:start}
+#study-content .pdf-source-original{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;tab-size:4;min-width:0;font-size:16px;line-height:1.85}
+#study-content .pdf-source-translation{min-width:0;overflow-wrap:anywhere;font-size:16px;line-height:1.85}
+#study-content .pdf-source-translation>p{margin:0 0 12px}
+#study-content .pdf-source-translation>p:last-child{margin-bottom:0}
+#study-content .source-figure{margin:18px 0 23px;background:#fff;border:1px solid #dfe5e8;border-radius:10px;padding:14px;text-align:center}
+#study-content .source-figure img{display:block;width:auto;max-width:100%;height:auto;object-fit:contain;margin:0 auto;border:0;box-shadow:none;cursor:default}
+#study-content .source-figure figcaption{font-size:12px;line-height:1.65;margin:10px auto 0;color:#62798a}
+#study-content .source-note{font-size:13px;line-height:1.75;color:#6d7e8d;border-left:3px solid #c5d2db;padding:7px 11px;margin:12px 0}
+#study-content .calc-reference{margin:18px 0;border:1px solid #cad8e0;border-radius:9px;padding:14px 17px;background:#f5f8fa;overflow-wrap:anywhere}
+#study-content .calc-reference strong{display:block;color:#264d65;margin-bottom:8px}
+#study-content .calc-reference p{font-family:Georgia,"Times New Roman","PingFang TC",serif;font-size:16px;line-height:1.85;margin:5px 0}
+html[data-reading-mode=en] #study-content details.tutor,
+html[data-reading-mode=en] #study-content details.phrases,
+html[data-reading-mode=en] #study-content .source-note,
+html[data-reading-mode=en] #study-content .calc-reference,
+html[data-reading-mode=en] #study-content .source-figure figcaption{display:none!important}
+html[data-reading-mode=zh] #study-content .source-figure{border-color:#e0e7ec}
+html[data-reading-mode=vertical] #study-content .pdf-source-pair{display:flex;flex-direction:column;gap:0}
+html[data-reading-mode=vertical] #study-content .pdf-source-translation{order:1;font-size:16px;line-height:1.88;padding:0 0 8px}
+html[data-reading-mode=vertical] #study-content .pdf-source-original{order:2;font-size:16px;line-height:1.88;color:#506676}
+html[data-reading-mode=parallel] #study-content .pdf-source-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
+html[data-reading-mode=parallel] #study-content .pdf-source-original{grid-column:1;grid-row:1;padding-right:12px;min-width:0}
+html[data-reading-mode=parallel] #study-content .pdf-source-translation{grid-column:2;grid-row:1;padding-left:12px;min-width:0}
+@media(max-width:600px){
+ #study-content .source-figure{padding:7px}
+ #study-content .pdf-source-translation{font-size:16px}
+ #study-content .pdf-source-original{font-size:16px}
+ html[data-reading-mode=parallel] #study-content .pdf-source-original,html[data-reading-mode=parallel] #study-content .pdf-source-translation{font-size:12.5px;line-height:1.65}
+ html[data-reading-mode=parallel] #study-content .pdf-source-original{padding-right:8px}
+ html[data-reading-mode=parallel] #study-content .pdf-source-translation{padding-left:8px}
+}
+
+/* Preview the full 211-section official chapter map without dead-end links. */
+#chapter-sidebar .toc-pending{opacity:.78}
+#chapter-sidebar .toc-pending>summary{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#chapter-sidebar .pending-label{margin-left:auto;font-size:11px;font-weight:650;color:#758895;white-space:nowrap}
+#chapter-sidebar .pending-detail{padding:0 15px 13px;margin:0;color:#637987;font-size:12px;line-height:1.55}
+@media(max-width:490px){#chapter-sidebar .pending-label{font-size:10px}}
+
+/* §1.3: official PDF page images, formula/callout legibility and source overlays */
+#study-content .source-page-figure{margin:13px 0 20px;padding:0;border:1px solid #dee7ec;border-radius:10px;overflow:hidden;background:#fff}
+#study-content .source-page-figure>summary{cursor:pointer;padding:12px 15px;font-size:13px;font-weight:700;color:#385c71;line-height:1.6}
+#study-content .source-page-figure[open]>summary{border-bottom:1px solid #dee7ec}
+#study-content .source-page-figure .source-figure{margin:0;padding:12px 8px;border:0;border-radius:0}
+#study-content .calc-reference{background:#f6f8fa;border:1px solid #cddce5}
+#study-content .chapter-quiz{margin:20px 0;padding:14px 12px;border:1px solid #dee7ee;border-radius:9px}
+#study-content .chapter-quiz>h3{margin:0 0 16px;color:#2b536d;font-size:17px}
+#study-content .chapter-quiz>.knowledge-check{padding:11px 0;margin-bottom:13px;border-bottom:1px solid #e4e9ec}
+#study-content .chapter-quiz>.knowledge-check>h4{margin:0 0 10px;font-size:15px;line-height:1.65}
+#study-content .chapter-quiz .quiz-option .pair>.original{font-size:15px}
+#study-content .chapter-quiz .quiz-option .pair>.translation{font-size:15px}
+@media(max-width:540px){
+ #study-content .source-page-figure>summary{font-size:12.5px;padding:10px}
+ #study-content .chapter-quiz{padding:11px 8px}
+ html[data-reading-mode=vertical] #study-content .chapter-quiz .quiz-option .pair>.original,
+ html[data-reading-mode=vertical] #study-content .chapter-quiz .quiz-option .pair>.translation{font-size:16px}
+}
+
+/* §1.4–§1.7: 151 original-English-first sections.
+   Override all four legacy bilingual layouts when no GPT translation exists.
+   The original PDF facsimile remains inside a collapsible, accessible detail. */
+#study-content .lesson.source-english-only > header > .zh-heading{font-size:13px;color:#806c4c}
+#study-content .lesson.source-english-only .pair.source-english-only{
+  display:block!important;grid-template-columns:1fr!important;
+  padding:0;max-width:100%;min-width:0
+}
+#study-content .lesson.source-english-only .pair.source-english-only>.original{
+  display:block!important;opacity:1!important;visibility:visible!important;
+  width:100%!important;max-width:100%!important;order:1!important;
+  font-size:16px;line-height:1.82;white-space:pre-wrap;overflow-wrap:anywhere;
+  color:#253f50
+}
+#study-content .lesson.source-english-only .pair.source-english-only>.translation{
+  display:none!important
+}
+#study-content .lesson.source-english-only details.original-page{
+  max-width:100%;min-width:0;border:1px solid #dce5eb;border-radius:10px;
+  margin:8px 0 22px;background:#f9fbfc;overflow:hidden
+}
+#study-content .lesson.source-english-only details.original-page>summary{
+  display:list-item;cursor:pointer;line-height:1.55;
+  padding:11px 16px;color:#385c71;font-size:13px;font-weight:700
+}
+#study-content .lesson.source-english-only details.original-page[open]>summary{
+  border-bottom:1px solid #dce5eb
+}
+#study-content .lesson.source-english-only .source-page-figure{
+  margin:0;padding:12px;max-width:100%;border:0;border-radius:0;background:#fff
+}
+#study-content .lesson.source-english-only .source-page-figure img{
+  display:block;max-width:100%;width:auto;height:auto;margin:0 auto
+}
+#study-content .lesson.source-english-only .source-page-figure figcaption{
+  text-align:center;line-height:1.5;font-size:12px;margin-top:7px
+}
+@media(max-width:600px){
+  #study-content .lesson.source-english-only details.original-page>summary{font-size:12px;padding:11px}
+  #study-content .lesson.source-english-only .pair.source-english-only>.original{font-size:16px}
+}
+
+/* Module 4 §1.4.1–1.4.12: GPT-authored private bilingual study content.
+   No excerpt or vocabulary is baked into this public stylesheet. */
+#study-content .lesson.gpt-bilingual>.header .zh-heading{color:#385c71}
+#study-content .lesson.gpt-bilingual .gpt-summary{
+ display:block;max-width:100%;min-width:0;margin:15px 0 16px;
+ padding:15px 19px;background:#f4f8fa;border:1px solid #e0e8ed;
+ border-left:3px solid #64899d;border-radius:9px;line-height:1.8
+}
+#study-content .lesson.gpt-bilingual .gpt-summary::before{
+ content:"GPT 精讀 · 英文摘要＋繁中摘要";display:block;font-size:12px;
+ font-weight:700;color:#456e83;margin-bottom:7px
+}
+#study-content .lesson.gpt-bilingual .gpt-summary p{margin:0 0 9px;font-size:15px;line-height:1.8}
+#study-content .lesson.gpt-bilingual .gpt-summary p:last-child{margin-bottom:0}
+#study-content .lesson.gpt-bilingual .gpt-summary-en{font-family:Georgia,"Times New Roman",serif}
+#study-content .lesson.gpt-bilingual .gpt-summary-zh{color:#365368}
+#study-content .lesson.gpt-bilingual .gpt-pair{min-width:0;max-width:100%;gap:12px}
+#study-content .lesson.gpt-bilingual .gpt-pair>.gpt-annotated{
+ display:none;min-width:0;max-width:100%;overflow-wrap:anywhere;
+ white-space:pre-wrap;line-height:1.9;font-size:16px
+}
+#study-content .lesson.gpt-bilingual .gpt-pair>.translation{
+ min-width:0;max-width:100%;overflow-wrap:anywhere
+}
+#study-content .lesson.gpt-bilingual .gpt-phrase{font-weight:750;color:#21536f}
+#study-content .lesson.gpt-bilingual .gpt-gloss{font-size:.85em;font-weight:500;color:#6b7469}
+#study-content .lesson.gpt-bilingual details.gpt-reusable{
+ margin:12px 0 18px;padding:12px 15px;background:#fcfcfd;
+ border:1px solid #e1e8ec;border-radius:8px;color:#344f60
+}
+#study-content .lesson.gpt-bilingual details.gpt-reusable summary{
+ cursor:pointer;font-size:13px;font-weight:700;line-height:1.7
+}
+#study-content .lesson.gpt-bilingual details.gpt-reusable ul{margin:10px 0 0;padding-left:18px}
+#study-content .lesson.gpt-bilingual details.gpt-reusable li{margin-bottom:7px;font-size:14px;line-height:1.75}
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-summary,
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-annotated,
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-reusable,
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-pair>.translation{display:none!important}
+html[data-reading-mode=en] #study-content .lesson.gpt-bilingual .gpt-pair>.original{
+ display:block!important;width:100%!important;max-width:100%!important
+}
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-pair>.original,
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-pair>.gpt-annotated,
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-summary-en{display:none!important}
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-summary::before{content:"GPT 精讀 · 繁中摘要"}
+html[data-reading-mode=zh] #study-content .lesson.gpt-bilingual .gpt-pair>.translation{
+ display:block!important;width:100%!important;max-width:100%!important
+}
+html[data-reading-mode=vertical] #study-content .lesson.gpt-bilingual .gpt-pair{
+ display:flex!important;flex-direction:column!important;gap:10px!important
+}
+html[data-reading-mode=vertical] #study-content .lesson.gpt-bilingual .gpt-pair>.original{display:none!important}
+html[data-reading-mode=vertical] #study-content .lesson.gpt-bilingual .gpt-pair>.translation{
+ display:block!important;order:1!important;width:100%!important
+}
+html[data-reading-mode=vertical] #study-content .lesson.gpt-bilingual .gpt-pair>.gpt-annotated{
+ display:block!important;order:2!important;width:100%!important;
+ border-top:1px solid #e2e8ec;padding-top:13px
+}
+html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair{
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+ gap:18px!important
+}
+html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair>.original{display:none!important}
+html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair>.gpt-annotated{
+ display:block!important;order:1!important
+}
+html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair>.translation{
+ display:block!important;order:2!important
+}
+@media(max-width:700px){
+ html[data-reading-mode=parallel] #study-content .lesson.gpt-bilingual .gpt-pair{
+  display:grid!important;grid-template-columns:minmax(265px,1fr) minmax(265px,1fr)!important;
+  width:max(100%,530px)!important;overflow:visible
+ }
+ #study-content .lesson.gpt-bilingual .gpt-summary{padding:12px 13px}
+}
+
+/* §1.7.9 comparison: preserve the official 4-column table semantically, with horizontal scroll on phones. */
+#study-content .lesson.gpt-bilingual .source-table-wrap {
+ width:100%;max-width:100%;min-width:0;overflow-x:auto;
+ overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+ margin:16px 0;border:1px solid #dfe7ec;border-radius:9px
+}
+#study-content .lesson.gpt-bilingual .source-compare-table {
+ width:100%;min-width:710px;border-collapse:collapse;
+ font-size:13px;line-height:1.6;background:white
+}
+#study-content .lesson.gpt-bilingual .source-compare-table th,
+#study-content .lesson.gpt-bilingual .source-compare-table td {
+ padding:9px 11px;text-align:left;vertical-align:top;
+ border:1px solid #e2e8ed;overflow-wrap:anywhere
+}
+#study-content .lesson.gpt-bilingual .source-compare-table thead th {
+ background:#f1f5f7;color:#34576a;font-weight:750
+}
+#study-content .lesson.gpt-bilingual .source-compare-table tbody th {
+ background:#f8fafb;min-width:120px;font-weight:700;color:#385c71
+}
+
+/* Module 4: the same authenticated source content in three reading modes. */
+#study-content .reading-view,.triple-swipe-note{display:none}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.original,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .lesson>.gpt-summary{display:none!important}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.reading-annotated,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.reading-summary,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.translation{display:block!important;box-sizing:border-box;min-width:0;max-width:none;overflow-wrap:break-word}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-annotated{font:16px/1.95 Georgia,"Times New Roman",serif;white-space:pre-wrap;color:#263b4a}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-summary p{margin:0;line-height:1.8}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .summary-en{font:15px/1.8 Georgia,"Times New Roman",serif;color:#34566b}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .summary-zh{font-size:14.5px;color:#536975;margin-top:8px!important}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .translation{font-size:16px;line-height:1.92}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-summary::before,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-annotated::before,
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.translation::before{display:block;margin:0 0 9px;font:600 11px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;letter-spacing:.04em;color:#668091}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-summary::before{content:"摘要 · Summary"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-summary[data-kind=excerpt]::before{content:"內容提要 · 原文節錄"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .reading-annotated::before{content:"英文精讀"}
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .pair>.translation::before{content:"完整中文翻譯"}
+#study-content .learning-mark{font-weight:750;color:#21536f}
+#study-content .learning-gloss{font:400 .87em/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#6b7469;white-space:normal}
+html[data-reading-mode=stacked] #study-content .pair{display:flex;flex-direction:column;gap:0;padding:18px 0 24px;border-bottom:1px solid #e1e8ec}
+html[data-reading-mode=stacked] #study-content .pair>.reading-summary{order:0;padding:12px 16px;background:#f4f8fa;border:1px solid #e0e8ed;border-radius:8px}
+html[data-reading-mode=stacked] #study-content .pair>.reading-annotated{order:1;padding:16px 0 0;margin:0}
+html[data-reading-mode=stacked] #study-content .pair>.translation{order:2;padding:13px 0 0;margin:14px 0 0;border-top:1px solid #e5ebee}
+html[data-reading-mode=triple] .shell{max-width:1740px}
+html[data-reading-mode=triple] .study-layout{grid-template-columns:205px minmax(0,1fr)}
+html[data-reading-mode=triple] #study-content .pair{display:grid;grid-template-columns:minmax(0,26fr) minmax(0,42fr) minmax(0,32fr);align-items:start;gap:0;padding:20px 0;border-bottom:1px solid #e0e8ec}
+html[data-reading-mode=triple] #study-content .pair>.reading-summary{grid-column:1;grid-row:1;padding:0 15px 0 0;margin:0;border-right:1px solid #e0e6e9}
+html[data-reading-mode=triple] #study-content .pair>.reading-annotated{grid-column:2;grid-row:1;padding:0 17px;margin:0;border-right:1px solid #e0e6e9}
+html[data-reading-mode=triple] #study-content .pair>.translation{grid-column:3;grid-row:1;padding:0 0 0 17px;margin:0;border:0}
+@media(max-width:1000px){
+ html[data-reading-mode=triple] .study-layout{display:block}
+ html[data-reading-mode=triple] #study-content .pair{grid-template-columns:255px 320px 265px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scroll-snap-type:x proximity}
+ html[data-reading-mode=triple] #study-content .pair>.reading-summary,
+ html[data-reading-mode=triple] #study-content .pair>.reading-annotated,
+ html[data-reading-mode=triple] #study-content .pair>.translation{scroll-snap-align:start}
+ html[data-reading-mode=triple] .triple-swipe-note{display:block;font-size:12px;line-height:1.6;color:#526d7e;margin:10px 4px}
+}
+
+/* Keep unprepared off-screen source text readable until its study layers are needed. */
+html:is([data-reading-mode=stacked],[data-reading-mode=triple]) #study-content .lesson:not([data-views-ready]) .pair>.original{display:block!important}
+html[data-reading-mode=triple] #study-content .lesson:not([data-views-ready]) .pair>.original{grid-column:2;grid-row:1;padding:0 17px}
+
+/* Original source figures and semantic multi-column tables. */
+#study-content .source-table{margin:16px 0;max-width:100%;min-width:0}#study-content .source-table img{display:block;width:auto;max-width:100%;height:auto;margin:auto}#study-content .source-table figcaption{font-size:12px;color:#62798a;margin:8px 0}#study-content .table-wrap{max-width:100%;overflow-x:auto}#study-content table{border-collapse:collapse;width:100%;font-size:.9em;line-height:1.65}#study-content th,#study-content td{border:1px solid #dfe7ec;text-align:left;vertical-align:top;padding:8px;overflow-wrap:anywhere}#study-content th{background:#f4f8fa}#study-content .source-caption{font-size:12px;color:#71818c}#study-content .gpt-annotated{white-space:normal!important}html[data-reading-mode=en] #study-content .source-table figcaption{display:none}
