@@ -1,0 +1,65 @@
+/* Approved Module 1 layout applied to Modules 2–4.
+   One three-column page with native pinch zoom and pan; other modes unchanged. */
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) {
+ --triple-english:clamp(10.5px,2.9vw,16px);
+ --triple-chinese:clamp(10px,2.8vw,15.5px);
+ --triple-summary:clamp(9px,2.5vw,14px);
+ -webkit-text-size-adjust:100%;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content {
+ min-width:0;touch-action:auto;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair {
+ display:grid;grid-template-columns:minmax(0,24fr) minmax(0,43fr) minmax(0,33fr);
+ align-items:start;gap:0;width:100%;min-width:0;max-width:100%;
+ overflow:visible;scroll-snap-type:none;overscroll-behavior-x:auto;
+ padding:15px 0;touch-action:auto;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-summary,
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-annotated,
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.translation,
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.original {
+ min-width:0;max-width:100%;width:auto;scroll-snap-align:none;
+ overflow-wrap:anywhere;word-break:normal;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-summary {
+ grid-column:1;grid-row:1;padding:0 10px 0 0;margin:0;
+ border:0;border-right:1px solid #e3e9ec;background:transparent;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-annotated,
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.original {
+ grid-column:2;grid-row:1;padding:0 11px;margin:0;
+ border:0;border-right:1px solid #e3e9ec;
+ font-size:var(--triple-english);line-height:1.82;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.translation {
+ grid-column:3;grid-row:1;padding:0 0 0 11px;margin:0;border:0;
+ font-size:var(--triple-chinese);line-height:1.82;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .reading-summary .summary-en,
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .reading-summary .summary-zh {
+ font-size:var(--triple-summary);line-height:1.78;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-summary::before,
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-annotated::before,
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.translation::before {
+ display:block;font-size:clamp(8px,1.9vw,10.5px);line-height:1.5;
+ letter-spacing:0;margin:0 0 6px;
+}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-summary::before {content:"摘要";}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-annotated::before {content:"英文精讀";}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.translation::before {content:"繁中翻譯";}
+html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) .triple-swipe-note {
+ display:block;font-size:11px;line-height:1.6;color:#71808b;
+ padding:0;margin:9px 2px 12px;
+}
+@media(max-width:1000px) {
+ html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) .study-layout {display:block;}
+ html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) .shell {padding-left:8px;padding-right:8px;}
+ html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content {padding:14px 9px;}
+ html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair {padding:12px 0;}
+ html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-summary {padding-right:6px;}
+ html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.reading-annotated,
+ html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.original {padding-left:7px;padding-right:7px;}
+ html[data-reading-mode=triple] body:is([data-atpa-module="2"],[data-atpa-module="3"],[data-atpa-module="4"]) #study-content .lesson .pair>.translation {padding-left:7px;}
+}
