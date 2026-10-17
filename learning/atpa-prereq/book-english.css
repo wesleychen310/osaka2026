@@ -1,0 +1,122 @@
+/* All ATPA prerequisite chapters · English-only editorial textbook typography. */
+   No change to source, equations, figures, or Chinese-first two-stage mode. */
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body{
+  background:#faf9f6;
+  color:#27313a;
+  -webkit-text-size-adjust:100%;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body .layout{
+  max-width:1190px;
+  margin-left:auto;
+  margin-right:auto;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body main{
+  max-width:850px;
+  padding-bottom:66px;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body main .section{
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  padding:clamp(22px,3vw,38px) 0;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body main .pair.atpa-enhanced-pair{
+  display:block!important;
+  width:100%;
+  max-width:100%;
+  margin:0 0 1.3em;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body main .pair.atpa-enhanced-pair>:is(.original,.en-text){
+  display:block!important;
+  max-width:69ch;
+  width:auto;
+  margin:0!important;
+  padding:0!important;
+  border:0;
+  background:transparent;
+  color:#26323c;
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  font-size:clamp(17.5px,1.32vw,19px);
+  font-weight:400;
+  line-height:1.86;
+  letter-spacing:0;
+  text-align:left;
+  text-wrap:pretty;
+  word-break:normal;
+  overflow-wrap:break-word;
+  hyphens:none;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body main .pair.atpa-enhanced-pair>:is(.original,.en-text) :is(.inline-gloss,.learning-gloss,.gpt-gloss){
+  display:none!important;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body :is(.islp-readable-heading,.source-heading){
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:#263d4b;
+  letter-spacing:-.023em;
+  line-height:1.4;
+  font-weight:650;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body :is(h1,h2).islp-readable-heading{
+  font-size:clamp(25px,2.9vw,33px);
+  margin-block:16px 20px;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body :is(h3,h4).islp-readable-heading{
+  font-size:clamp(20px,2.1vw,25px);
+  margin-block:26px 15px;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body .islp-readable-heading>.islp-heading-en{
+  display:block!important;
+  font:inherit;
+  color:inherit;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body .islp-readable-heading>:is(.heading-translation,.islp-heading-only-zh){
+  display:none!important;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body :is(.equation,.codeblock,.outputblock,pre,.table-wrap){
+  max-width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body :is(pre,code,kbd,samp){
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:0;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body pre{
+  white-space:pre;
+  font-size:13.5px;
+  line-height:1.62;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body #atpa-prereq-modes{
+  background:rgba(250,249,246,.97);
+}
+@media(max-width:800px){
+  html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body :is(main,.hero,.footer){
+    padding-left:max(18px,env(safe-area-inset-left));
+    padding-right:max(18px,env(safe-area-inset-right));
+  }
+  html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body main{
+    max-width:100%;
+  }
+  html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body main .section{
+    padding:14px 0;
+  }
+  html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body main .pair.atpa-enhanced-pair>:is(.original,.en-text){
+    font-size:18px;
+    line-height:1.83;
+  }
+}
+
+/* Hide inherited FAM language badges in genuine English-only book mode. */
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="en"] body.bilingual-clean main .pair.atpa-enhanced-pair>:is(.original,.en-text)::before{
+  display:none!important;content:none!important;
+}
+/* The source paragraph stays in the DOM, while the extra annotated clone is not shown. */
