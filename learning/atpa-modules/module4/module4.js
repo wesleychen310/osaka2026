@@ -281,6 +281,37 @@ function preferredReadingMode(){
   return DISPLAY_MODES.includes(migrated)?migrated:"stacked";
  }catch(_){return "stacked"}
 }
+/* Adaptive iPhone comparison: a full-width English or Chinese page,
+   with one native-style segment and a stable same-paragraph anchor. */
+const COMPARE_LANGUAGE_KEY="atpa-module4-compare-language-v1";
+function preferredCompareLanguage(){
+ try{return localStorage.getItem(COMPARE_LANGUAGE_KEY)==="zh"?"zh":"en"}
+ catch(_){return "en"}
+}
+function setCompareLanguage(language,preservePosition=true){
+ const selected=language==="zh"?"zh":"en";
+ const root=document.documentElement;
+ if(root.dataset.compareLang===selected)return;
+ const saved=preservePosition&&loaded&&root.dataset.readingMode==="compare"
+  ?captureReadingPosition():null;
+ const oldBehavior=root.style.scrollBehavior;
+ if(saved)root.style.scrollBehavior="auto";
+ root.dataset.compareLang=selected;
+ document.querySelectorAll(".compare-mobile-switch [data-compare-lang]").forEach(button=>{
+  button.setAttribute("aria-pressed",String(button.dataset.compareLang===selected));
+ });
+ try{localStorage.setItem(COMPARE_LANGUAGE_KEY,selected)}catch(_){}
+ if(saved){
+  restoreReadingPosition(saved);
+  requestAnimationFrame(()=>{
+   restoreReadingPosition(saved);
+   requestAnimationFrame(()=>{
+    restoreReadingPosition(saved);
+    root.style.scrollBehavior=oldBehavior;
+   });
+  });
+ }
+}
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
    and anchor to stable bilingual pairs rather than notes hidden in English-only. */
@@ -357,6 +388,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
    document.body.style.overflowAnchor="none";
  }
  root.dataset.readingMode=selected;
+ if(selected==="compare"&&!root.dataset.compareLang)setCompareLanguage(preferredCompareLanguage(),false);
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
    button.setAttribute("aria-pressed",String(button.dataset.mode===selected));
  });
@@ -409,6 +441,33 @@ $("mode-bar")?.addEventListener("click",event=>{
    ?captured.anchor:null;
  applyReadingMode(button.dataset.mode,true,anchor);
 });
+
+/* The segmented control stays within the sticky reading toolbar.
+   Horizontal swipes inside normal prose also change the comparison language;
+   native table, code and image gestures remain untouched. */
+document.querySelector(".compare-mobile-switch")?.addEventListener("click",event=>{
+ const button=event.target.closest("button[data-compare-lang]");
+ if(button)setCompareLanguage(button.dataset.compareLang);
+});
+let compareTouchStart=null;
+$("study-content")?.addEventListener("touchstart",event=>{
+ compareTouchStart=null;
+ if(event.touches.length!==1||document.documentElement.dataset.readingMode!=="compare"
+    ||!window.matchMedia("(max-width:800px)").matches)return;
+ if(event.target.closest("a,button,input,textarea,select,summary,pre,code,table,.table-wrap,.source-table-wrap,.source-figure,.source-page-figure,.quiz-controls"))return;
+ const touch=event.touches[0];
+ if(touch.clientX<26||touch.clientX>window.innerWidth-26)return;
+ compareTouchStart={x:touch.clientX,y:touch.clientY};
+},{passive:true});
+$("study-content")?.addEventListener("touchend",event=>{
+ if(!compareTouchStart||event.changedTouches.length!==1)return;
+ const dx=event.changedTouches[0].clientX-compareTouchStart.x;
+ const dy=event.changedTouches[0].clientY-compareTouchStart.y;
+ compareTouchStart=null;
+ if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.7)
+  setCompareLanguage(dx<0?"zh":"en");
+},{passive:true});
+$("study-content")?.addEventListener("touchcancel",()=>{compareTouchStart=null},{passive:true});
 
 function toggleMenu(open){
  document.body.classList.toggle("toc-open",open);
