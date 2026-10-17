@@ -61,7 +61,7 @@ function cleanSource(doc){
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","stacked"];
+const DISPLAY_MODES=["en","stacked","compare"];
 const DISPLAY_KEY="atpa-module2-reading-mode-v4";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 
@@ -294,6 +294,36 @@ function preferredReadingMode(){
    return DISPLAY_MODES.includes(next)?next:"stacked";
  }catch(_){return "stacked"}
 }
+/* Adaptive mobile comparison: show one readable language at a time. */
+const COMPARE_LANGUAGE_KEY="atpa-module2-compare-language-v1";
+function preferredCompareLanguage(){
+ try{return localStorage.getItem(COMPARE_LANGUAGE_KEY)==="zh"?"zh":"en"}
+ catch(_){return "en"}
+}
+function setCompareLanguage(language,preservePosition=true){
+ const selected=language==="zh"?"zh":"en";
+ const root=document.documentElement;
+ if(root.dataset.compareLang===selected)return;
+ const saved=preservePosition&&loaded&&root.dataset.readingMode==="compare"
+  ?captureReadingPosition():null;
+ const oldBehavior=root.style.scrollBehavior;
+ if(saved)root.style.scrollBehavior="auto";
+ root.dataset.compareLang=selected;
+ document.querySelectorAll(".compare-mobile-switch [data-compare-lang]").forEach(button=>{
+  button.setAttribute("aria-pressed",String(button.dataset.compareLang===selected));
+ });
+ try{localStorage.setItem(COMPARE_LANGUAGE_KEY,selected)}catch(_){}
+ if(saved){
+  restoreReadingPosition(saved);
+  requestAnimationFrame(()=>{
+   restoreReadingPosition(saved);
+   requestAnimationFrame(()=>{
+    restoreReadingPosition(saved);
+    root.style.scrollBehavior=oldBehavior;
+   });
+  });
+ }
+}
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
    and anchor to stable bilingual pairs rather than notes hidden in English-only. */
@@ -370,6 +400,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
    document.body.style.overflowAnchor="none";
  }
  root.dataset.readingMode=selected;
+ if(selected==="compare"&&!root.dataset.compareLang)setCompareLanguage(preferredCompareLanguage(),false);
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
    button.setAttribute("aria-pressed",String(button.dataset.mode===selected));
  });
@@ -422,6 +453,31 @@ $("mode-bar")?.addEventListener("click",event=>{
    ?captured.anchor:null;
  applyReadingMode(button.dataset.mode,true,anchor);
 });
+
+/* Native-style segment + swipe on plain text; keep tables, code and links native. */
+document.querySelector(".compare-mobile-switch")?.addEventListener("click",event=>{
+ const button=event.target.closest("button[data-compare-lang]");
+ if(button)setCompareLanguage(button.dataset.compareLang);
+});
+let compareTouchStart=null;
+$("study-content")?.addEventListener("touchstart",event=>{
+ compareTouchStart=null;
+ if(event.touches.length!==1||document.documentElement.dataset.readingMode!=="compare"
+    ||!window.matchMedia("(max-width:800px)").matches)return;
+ if(event.target.closest("a,button,input,textarea,select,summary,pre,code,table,.table-wrap,.source-table-wrap,.source-figure,.source-page-figure,.quiz-controls"))return;
+ const touch=event.touches[0];
+ if(touch.clientX<26||touch.clientX>window.innerWidth-26)return;
+ compareTouchStart={x:touch.clientX,y:touch.clientY};
+},{passive:true});
+$("study-content")?.addEventListener("touchend",event=>{
+ if(!compareTouchStart||event.changedTouches.length!==1)return;
+ const dx=event.changedTouches[0].clientX-compareTouchStart.x;
+ const dy=event.changedTouches[0].clientY-compareTouchStart.y;
+ compareTouchStart=null;
+ if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.7)
+  setCompareLanguage(dx<0?"zh":"en");
+},{passive:true});
+$("study-content")?.addEventListener("touchcancel",()=>{compareTouchStart=null},{passive:true});
 
 function toggleMenu(open){
  document.body.classList.toggle("toc-open",open);
