@@ -68,7 +68,7 @@ function cleanSource(doc){
 }
 /* Module 1: source English, annotated English, existing Chinese translation and bilingual summaries are immutable source nodes. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","stacked","triple"];
+const DISPLAY_MODES=["en","stacked"];
 const DISPLAY_KEY="atpa-module1-reading-mode-v4";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 /* Work-created views live in private Drive next to immutable bilingual pairs.
@@ -118,7 +118,7 @@ function prepareBilingualLabels(){
 function preferredReadingMode(){
  try{
    const saved=localStorage.getItem(DISPLAY_KEY)||localStorage.getItem(LEGACY_DISPLAY_KEY);
-   const legacy={zh:"stacked",parallel:"triple",tap:"stacked",vertical:"stacked",annotated:"stacked"};
+   const legacy={zh:"stacked",parallel:"stacked",tap:"stacked",vertical:"stacked",annotated:"stacked"};
    const next=legacy[saved]||saved;
    return DISPLAY_MODES.includes(next)?next:"stacked";
  }catch(_){return "stacked"}
