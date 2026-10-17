@@ -1,0 +1,91 @@
+/* Chapter 8: the approved Module 2 Chinese-first phone typography. */
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body {
+ --ch8-reading-font:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
+ background:#faf9f6;color:#282d32;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main {
+ background:transparent;border:0;border-radius:0;box-shadow:none;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main .pair.atpa-enhanced-pair {
+ padding:0;margin-block:0 30px;border:0;background:transparent;box-shadow:none;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text) {
+ order:0;margin:0!important;padding:0!important;border:0;
+ font:400 19px/1.8 var(--ch8-reading-font);color:#282d32;
+ overflow-wrap:break-word;word-break:normal;letter-spacing:normal;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text)>p {
+ font:inherit;color:inherit;margin:0 0 12px;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text)>p:last-child {
+ margin-bottom:0;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated {
+ order:1;margin:12px 0 0!important;padding:0!important;border:0;
+ font:400 18px/1.8 var(--ch8-reading-font);color:#35424c;
+ overflow-wrap:break-word;word-break:normal;letter-spacing:normal;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text,.atpa-reading-annotated)::before {
+ content:none;display:none!important;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .atpa-reading-annotated :is(.english-chunk,.learning-mark,.gpt-phrase) {
+ font-weight:700;color:inherit;background:transparent;text-decoration:none;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .atpa-reading-annotated :is(.inline-gloss,.learning-gloss,.gpt-gloss) {
+ font:400 16px/1.8 var(--ch8-reading-font);color:#59646e;white-space:normal;
+}
+/* Source heading nodes and anchors remain intact; only their visual order changes. */
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .islp-readable-heading {
+ display:flex;flex-direction:column;gap:6px;
+ font:650 23px/1.5 var(--ch8-reading-font);color:#263e4b;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .islp-readable-heading>:is(.heading-translation,.islp-heading-only-zh) {
+ display:block!important;order:0;margin:0;
+ font:inherit;color:inherit;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .islp-readable-heading>.islp-heading-en {
+ display:block!important;order:1;margin:0;
+ font:400 17px/1.55 var(--ch8-reading-font);color:#596b76;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .heading-translation>.islp-heading-number {
+ display:inline!important;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body h1.islp-readable-heading {
+ font-size:28px;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body h2.islp-readable-heading {
+ font-size:26px;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body h4.islp-readable-heading {
+ font-size:21px;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .islp-heading-en :is(.source-en,.chapter-number) {
+ font:inherit;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .islp-heading-en br {
+ display:none;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body #atpa-prereq-modes {
+ background:rgba(250,249,246,.97);
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body #atpa-prereq-modes button {
+ min-height:44px!important;
+}
+@media(max-width:800px) {
+ html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body :is(main,.hero,.footer) {
+  padding-left:max(20px,env(safe-area-inset-left));
+  padding-right:max(20px,env(safe-area-inset-right));
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main {
+  padding-top:16px;
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body .hero {
+  padding-top:24px;padding-bottom:12px;
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body main .section {
+  padding:0;border:0;background:transparent;box-shadow:none;
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-chapter="8"][data-atpa-prereq-mode="stacked"] body #atpa-prereq-modes {
+  padding-inline:20px;
+ }
+}
