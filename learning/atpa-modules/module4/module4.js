@@ -46,6 +46,7 @@ const SOURCE={
  }
 };
 const $=id=>document.getElementById(id);
+document.body.dataset.atpaModule="4";
 const params=new URLSearchParams(location.search);
 const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="4";
@@ -253,7 +254,7 @@ function prepareEnhancedViews(){
  }
 }
 
-const DISPLAY_MODES=["en","stacked","triple"];
+const DISPLAY_MODES=["en","stacked"];
 const DISPLAY_KEY="atpa-module4-reading-mode-v4";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 function prepareBilingualLabels(){
@@ -276,7 +277,7 @@ function prepareBilingualLabels(){
 function preferredReadingMode(){
  try{
   const saved=localStorage.getItem(DISPLAY_KEY)||localStorage.getItem(LEGACY_DISPLAY_KEY);
-  const migrated={en:"en",zh:"stacked",vertical:"stacked",parallel:"triple",annotated:"stacked",tap:"stacked"}[saved]||saved;
+  const migrated={en:"en",zh:"stacked",vertical:"stacked",parallel:"stacked",annotated:"stacked",tap:"stacked"}[saved]||saved;
   return DISPLAY_MODES.includes(migrated)?migrated:"stacked";
  }catch(_){return "stacked"}
 }
