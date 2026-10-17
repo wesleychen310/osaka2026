@@ -1,0 +1,93 @@
+/* ATPA prerequisites only. Reuse the complete annotated English clone and
+   original Chinese node; never replace source text, maths or figures. */
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body {
+ background:#faf9f6;color:#282d32;-webkit-text-size-adjust:100%;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main {
+ min-width:0;max-width:100%;background:transparent;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair.atpa-enhanced-pair {
+ display:grid!important;
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:0 28px!important;
+ width:100%;min-width:0;max-width:100%;
+ overflow:visible!important;scroll-snap-type:none;
+ align-items:start;margin:0 0 27px;padding:0;border:0;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair.atpa-enhanced-pair>:is(.original,.en-text,.atpa-reading-summary,.label) {
+ display:none!important;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair.atpa-enhanced-pair>:is(.atpa-reading-annotated,.translation,.zh-text) {
+ display:block!important;grid-row:1;
+ width:100%;min-width:0;max-width:100%;box-sizing:border-box;
+ margin:0!important;padding:0!important;border:0;
+ font:400 18px/1.83 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ overflow-wrap:anywhere;word-break:normal;white-space:normal;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair.atpa-enhanced-pair>.atpa-reading-annotated {
+ grid-column:1;padding-right:6px!important;border-right:1px solid #dadfdd;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair.atpa-enhanced-pair>:is(.translation,.zh-text) {
+ grid-column:2;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair.atpa-enhanced-pair>:is(.atpa-reading-annotated,.translation,.zh-text)>p {
+ font:inherit;margin:0 0 12px;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body .atpa-reading-annotated :is(.inline-gloss,.learning-gloss,.gpt-gloss) {
+ display:inline!important;font:400 .88em/1.65 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+ color:#61707a;white-space:normal;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body .islp-readable-heading {
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:0 28px;align-items:start;overflow-wrap:anywhere;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body .islp-readable-heading>.islp-heading-en {
+ display:block!important;grid-column:1;grid-row:1;font:inherit;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body .islp-readable-heading>:is(.heading-translation,.islp-heading-only-zh) {
+ display:block!important;grid-column:2;grid-row:1;margin:0;font:inherit;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main :is(.equation,.table-wrap,.translated-table-wrap,.codeblock,.outputblock,pre,math) {
+ min-width:0;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main pre {
+ white-space:pre;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main :is(figure,.figure) {
+ min-width:0;max-width:100%;margin-inline:0;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair table {
+ display:block;max-width:100%;overflow-x:auto;
+}
+html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main :is(img,svg,video) {
+ max-width:100%;height:auto;
+}
+@media(max-width:800px) {
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body .layout {
+  display:block;min-width:0;width:100%;padding-inline:0;
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body :is(main,.hero,.footer) {
+  box-sizing:border-box;
+  padding-left:max(10px,env(safe-area-inset-left));
+  padding-right:max(10px,env(safe-area-inset-right));
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .section {
+  padding-inline:0;border:0;background:transparent;
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair.atpa-enhanced-pair,
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body .islp-readable-heading {
+  column-gap:12px!important;
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body main .pair.atpa-enhanced-pair>:is(.atpa-reading-annotated,.translation,.zh-text) {
+  font-size:clamp(14px,3.7vw,16px);line-height:1.8;
+ }
+ html.atpa-prereq-has-modes[data-atpa-prereq-mode="compare"] body .islp-readable-heading {
+  font-size:clamp(16px,4.2vw,20px);line-height:1.5;
+ }
+ html.atpa-prereq-has-modes body #atpa-prereq-modes .atpa-mode-title {
+  display:none;
+ }
+ html.atpa-prereq-has-modes body #atpa-prereq-modes button {
+  padding-inline:5px!important;min-height:44px!important;
+ }
+}

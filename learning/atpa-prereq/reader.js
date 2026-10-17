@@ -10,10 +10,10 @@
   if(!source)return;
   // The common ISLP script prepares paired headings and language classes.
   // Keep both source languages in the DOM and let this independent reader
-  // choose one of the two approved reading modes without altering the source.
+  // choose an approved reading mode without altering the source.
   root.dataset.islpReadingMode="bi";
   if(originalBar)originalBar.hidden=true;
-  const modes=["en","stacked"];
+  const modes=["en","stacked","compare"];
   const KEY="atpa-prereq-reading-mode-v2";
   const legacy="atpa-prereq-language-v1";
   function preferred(){
@@ -68,7 +68,7 @@
   const toolbar=document.createElement("nav");
   toolbar.id="atpa-prereq-modes";
   toolbar.setAttribute("aria-label","ATPA 精讀閱讀模式");
-  toolbar.innerHTML='<div class="atpa-mode-inner"><span class="atpa-mode-title">閱讀模式</span><div class="atpa-mode-options" role="group" aria-label="閱讀模式"><button type="button" data-mode="en" aria-pressed="false" title="僅顯示完整英文原文">全英文</button><button type="button" data-mode="stacked" aria-pressed="false" title="逐段：完整繁體中文翻譯 → 完整英文原文與語意註解">二段式精讀</button></div></div>';
+  toolbar.innerHTML='<div class="atpa-mode-inner"><span class="atpa-mode-title">閱讀模式</span><div class="atpa-mode-options" role="group" aria-label="閱讀模式"><button type="button" data-mode="en" aria-pressed="false" title="僅顯示完整英文原文">全英文</button><button type="button" data-mode="stacked" aria-pressed="false" title="逐段：完整繁體中文翻譯 → 完整英文原文與語意註解">二段式精讀</button><button type="button" data-mode="compare" aria-pressed="false" title="左欄完整英文含語意註解、右欄繁體中文；手機與桌面同時並排">左右對照</button></div></div>';
   const insertAfter=originalBar||document.querySelector("body > .topbar")||document.querySelector("#atpa-prereq-bar");
   if(insertAfter)insertAfter.after(toolbar);else document.body.prepend(toolbar);
   root.classList.add("atpa-prereq-has-modes");
