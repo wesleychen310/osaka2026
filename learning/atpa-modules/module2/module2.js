@@ -304,8 +304,8 @@ function preferredCompareLanguage(){
 function alignComparePage(animate=false){
  const root=document.documentElement,article=$("study-content");
  if(!article||root.dataset.readingMode!=="compare"||window.innerWidth>800)return;
- const maxLeft=Math.max(0,article.scrollWidth-article.clientWidth);
- const target=root.dataset.compareLang==="zh"?maxLeft:0;
+ const pageWidth=Math.min(article.clientWidth,Math.max(0,article.scrollWidth-article.clientWidth));
+ const target=root.dataset.compareLang==="zh"?pageWidth:0;
  if(Math.abs(article.scrollLeft-target)<1)return;
  if(animate){
   article.scrollTo({left:target,behavior:"smooth"});
@@ -479,9 +479,9 @@ $("study-content")?.addEventListener("scroll",()=>{
  if(root.dataset.readingMode!=="compare"||window.innerWidth>800||compareScrollFrame)return;
  compareScrollFrame=requestAnimationFrame(()=>{
   compareScrollFrame=0;
-  const maxLeft=Math.max(0,article.scrollWidth-article.clientWidth);
-  if(maxLeft<4)return;
-  const selected=article.scrollLeft>=maxLeft/2?"zh":"en";
+  const pageWidth=Math.min(article.clientWidth,Math.max(0,article.scrollWidth-article.clientWidth));
+  if(pageWidth<4)return;
+  const selected=article.scrollLeft>=pageWidth/2?"zh":"en";
   if(root.dataset.compareLang===selected)return;
   root.dataset.compareLang=selected;
   document.querySelectorAll(".compare-mobile-switch [data-compare-lang]").forEach(button=>{
@@ -492,6 +492,9 @@ $("study-content")?.addEventListener("scroll",()=>{
 },{passive:true});
 window.addEventListener("resize",()=>{
  if(document.documentElement.dataset.readingMode==="compare")alignComparePage(false);
+});
+window.addEventListener("hashchange",()=>{
+ if(document.documentElement.dataset.readingMode==="compare")requestAnimationFrame(()=>alignComparePage(false));
 });
 
 function toggleMenu(open){
@@ -678,6 +681,7 @@ function mountAll(parsedSources){
    requestAnimationFrame(()=>requestAnimationFrame(()=>{
      document.getElementById(targetId)?.scrollIntoView({block:"start",behavior:"instant"});
      activateSection(targetId);
+     if(document.documentElement.dataset.readingMode==="compare")alignComparePage(false);
    }));
  else activateSection(allLessons[0].id);
 }
