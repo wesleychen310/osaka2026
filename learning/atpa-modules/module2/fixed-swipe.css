@@ -2,7 +2,7 @@
    Both language columns are always laid out, so a swipe never reflows text or
    changes the vertical reading position. Desktop and other reading modes unchanged. */
 @media screen and (max-width:800px) {
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content {
   overflow-x:auto!important;
   overflow-y:visible;
   -webkit-overflow-scrolling:touch;
@@ -12,68 +12,68 @@
   scrollbar-width:none;
   scroll-behavior:smooth;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content::-webkit-scrollbar{
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content::-webkit-scrollbar{
   display:none;
  }
  /* The complete article scrolls horizontally as one unit, not one paragraph at
     a time. Each chapter/lesson has two fixed-width pages (100% + 100%). */
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content>.chapter-heading,
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content>.lesson {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content>.chapter-heading,
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content>.lesson {
   width:200%!important;
   min-width:200%!important;
   max-width:none!important;
   box-sizing:border-box;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .chapter-heading {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .chapter-heading {
   display:grid!important;
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
   column-gap:0!important;
   align-items:start;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .chapter-heading>.chapter-code {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .chapter-heading>.chapter-code {
   grid-column:1/-1;
   grid-row:1;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .chapter-heading>.chapter-heading-en {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .chapter-heading>.chapter-heading-en {
   display:block!important;
   grid-column:1;grid-row:2;
   padding-right:26px;
   box-sizing:border-box;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .chapter-heading>.chapter-heading-zh {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .chapter-heading>.chapter-heading-zh {
   display:block!important;
   grid-column:2;grid-row:2;
   padding-left:26px;
   box-sizing:border-box;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson header {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson header {
   display:grid!important;
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
   column-gap:0!important;
   row-gap:4px;
   align-items:start;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson header>.sec-num {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson header>.sec-num {
   grid-column:1/-1;grid-row:1;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson header>h2:not(.reading-heading) {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson header>h2:not(.reading-heading) {
   display:block!important;
   grid-column:1;grid-row:2;
   padding-right:26px;
   box-sizing:border-box;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson header>.zh-heading {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson header>.zh-heading {
   display:block!important;
   grid-column:2;grid-row:2;
   padding-left:26px;
   box-sizing:border-box;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson header>small {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson header>small {
   grid-column:1/-1;grid-row:3;
  }
  /* Keep both complete paragraphs in the DOM and in the same two-column grid.
     The row height is fixed to the taller translation, so page height stays put. */
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson .pair {
   display:grid!important;
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
   column-gap:0!important;
@@ -85,7 +85,7 @@
   align-items:start;
   box-sizing:border-box;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated) {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated) {
   display:block!important;
   grid-column:1!important;
   grid-row:1!important;
@@ -101,7 +101,7 @@
   line-height:1.82!important;
   scroll-snap-align:start;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>.translation {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson .pair>.translation {
   display:block!important;
   grid-column:2!important;
   grid-row:1!important;
@@ -116,10 +116,10 @@
   line-height:1.86!important;
   scroll-snap-align:start;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>.original {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson .pair>.original {
   display:none!important;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original {
   display:block!important;
   grid-column:1!important;
   grid-row:1!important;
@@ -137,19 +137,19 @@
  }
  /* Two-language labels remain in their fixed columns, including knowledge
     checks and source tabs. */
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .stacked-bilingual-label {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .stacked-bilingual-label {
   display:grid!important;
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
   column-gap:0!important;
   align-items:start;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .stacked-bilingual-label>.bilingual-label-en {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .stacked-bilingual-label>.bilingual-label-en {
   display:block!important;
   grid-column:1;grid-row:1;
   padding-right:26px;
   box-sizing:border-box;
  }
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .stacked-bilingual-label>.bilingual-label-zh {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .stacked-bilingual-label>.bilingual-label-zh {
   display:block!important;
   grid-column:2;grid-row:1;
   padding-left:26px;
@@ -157,12 +157,12 @@
  }
  /* Tables, figures, and code keep their own internal scrolling/zoom behavior.
     Do not squeeze their font sizes or remove their original markup. */
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>.source-figure {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content .lesson .pair>.source-figure {
   grid-column:1/-1;
  }
 }
 @media print {
- html[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content {
+ html[data-reading-mode="compare"][data-compare-lang] body[data-atpa-module="2"] #study-content {
   overflow:visible!important;
   scroll-snap-type:none!important;
  }
