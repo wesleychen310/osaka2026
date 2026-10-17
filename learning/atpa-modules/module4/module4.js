@@ -254,7 +254,7 @@ function prepareEnhancedViews(){
  }
 }
 
-const DISPLAY_MODES=["en","stacked"];
+const DISPLAY_MODES=["en","stacked","compare"];
 const DISPLAY_KEY="atpa-module4-reading-mode-v4";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 function prepareBilingualLabels(){
