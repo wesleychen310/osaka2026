@@ -1,0 +1,279 @@
+/* ATPA Module 4 / pilot: English annotated on the left, Chinese on the right.
+   Presentation only. All original and annotated source nodes remain untouched. */
+html[data-reading-mode="compare"] body[data-atpa-module="4"]{
+  background:#faf9f6;
+  color:#282d32;
+  -webkit-text-size-adjust:100%;
+}
+/* Use the full editorial measure without building extra cards. */
+html[data-reading-mode="compare"] body[data-atpa-module="4"] .shell{
+  max-width:1500px;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] .study-layout{
+  max-width:1380px;
+  grid-template-columns:210px minmax(0,1fr);
+  gap:clamp(22px,3vw,40px);
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content{
+  padding:clamp(22px,2.8vw,36px);
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  min-width:0;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .chapter-heading{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  column-gap:28px;
+  padding:12px 0 20px;
+  margin:0 0 6px;
+  border-bottom:1px solid #d8dcda;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .chapter-heading:not(:first-child){
+  margin-top:30px;
+  padding-top:30px;
+  border-top:1px solid #e3e5e1;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .chapter-heading>.chapter-code{
+  grid-column:1/-1;grid-row:1;
+  margin:0 0 9px;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .chapter-heading>.chapter-heading-en{
+  display:block;
+  grid-column:1;grid-row:2;
+  font:650 clamp(20px,1.9vw,26px)/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:-.02em;
+  color:#263e4b;margin:0;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .chapter-heading>.chapter-heading-zh{
+  display:block;
+  grid-column:2;grid-row:2;
+  font:650 clamp(21px,2vw,27px)/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+  color:#263e4b;margin:0;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson{
+  padding:28px 0 34px;
+  border-bottom:1px solid #e5e7e3;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson header{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  column-gap:28px;
+  row-gap:3px;
+  align-items:start;
+  padding:0;
+  margin:0 0 24px;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson header>.sec-num{
+  grid-column:1/-1;grid-row:1;
+  margin-bottom:6px;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson header>h2:not(.reading-heading){
+  display:block;
+  grid-column:1;grid-row:2;
+  margin:0;
+  font:650 clamp(19px,1.8vw,23px)/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:-.02em;
+  color:#263e4b;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson header>.zh-heading{
+  display:block;
+  grid-column:2;grid-row:2;
+  margin:0;
+  font:650 clamp(19px,1.8vw,23px)/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+  color:#263e4b;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson header>small{
+  grid-column:1/-1;grid-row:3;
+  margin-top:7px;
+  color:#839099;
+}
+/* Exactly one paired grid per original paragraph; aligned top edges.
+   No synopsis, no repeated language badges, no boxes between paragraphs. */
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  column-gap:28px!important;
+  row-gap:0!important;
+  align-items:start;
+  width:100%;
+  max-width:100%;
+  margin:0 0 1.5em;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  min-width:0;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>.reading-summary,
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson>.gpt-summary,
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>.original,
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>.reading-diagonal,
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>.reading-annotated ~ .gpt-annotated{
+  display:none!important;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated){
+  display:block!important;
+  grid-column:1;
+  grid-row:1;
+  order:0;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  margin:0!important;
+  padding:0 18px 0 0!important;
+  border:0;
+  border-right:1px solid #dadfdd;
+  background:transparent;
+  color:#303b42;
+  font:400 18px/1.83 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+  letter-spacing:0;
+  text-align:left;
+  overflow-wrap:break-word;
+  word-break:normal;
+  white-space:pre-wrap;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>.translation{
+  display:block!important;
+  grid-column:2;
+  grid-row:1;
+  order:1;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  margin:0!important;
+  padding:0!important;
+  border:0;
+  background:transparent;
+  color:#292f34;
+  font:400 18px/1.83 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
+  overflow-wrap:break-word;
+  word-break:normal;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>.translation>p{
+  margin:0 0 12px;
+  font:inherit;
+  color:inherit;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>.translation>p:last-child{
+  margin-bottom:0;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated,.translation)::before{
+  display:none!important;
+  content:none!important;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content :is(.gpt-phrase,.learning-mark,.english-chunk){
+  font-weight:700;
+  color:inherit;
+  background:transparent;
+  text-decoration:none;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content :is(.gpt-gloss,.learning-gloss,.inline-gloss){
+  font:400 15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+  color:#61707a;
+  white-space:normal;
+}
+/* Non-book bilingual headings (e.g. a reusable table caption or quiz heading). */
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .stacked-bilingual-label{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  column-gap:28px;
+  align-items:start;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .stacked-bilingual-label>.bilingual-label-en{
+  display:block;
+  grid-column:1;
+  grid-row:1;
+  font-weight:600;
+  color:#344f5d;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .stacked-bilingual-label>.bilingual-label-zh{
+  display:block;
+  grid-column:2;
+  grid-row:1;
+  font-weight:600;
+  color:#344f5d;
+}
+/* The official PDF facsimile and large semantic tables stay full width. */
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content :is(.source-table-wrap,.table-wrap,.source-page-figure,.source-figure,.codeblock,.outputblock,pre){
+  max-width:100%;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content :is(.source-table-wrap,.table-wrap,.codeblock,.outputblock,pre){
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content :is(pre,code,kbd,samp){
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content pre{
+  white-space:pre;
+  font-size:13.5px;
+  line-height:1.6;
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] .mode-bar{
+  background:rgba(250,249,246,.97);
+}
+html[data-reading-mode="compare"] body[data-atpa-module="4"] .compare-hint{
+  display:none;
+}
+/* iPhone: one horizontal scroll container for the whole chapter, not one
+   sideways-scroll box per paragraph. Every column stays at a readable width. */
+@media(max-width:930px){
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] .study-layout{display:block;}
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content{
+    width:100%;
+    padding:12px 0 44px;
+    overflow-x:auto;
+    overflow-y:visible;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+  }
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content :is(.chapter-heading,.lesson){
+    min-width:720px;
+  }
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .chapter-heading,
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson header,
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .lesson .pair,
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content .stacked-bilingual-label{
+    column-gap:24px!important;
+  }
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] .compare-hint{
+    display:block;
+    margin:7px 0 4px;
+    text-align:center;
+    font:500 11px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;
+    color:#77848a;
+  }
+}
+@media(max-width:800px){
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] .shell{
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right));
+  }
+  body[data-atpa-module="4"] .mode-bar .mode-options{
+    display:grid;
+    flex:1;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:3px;
+    min-width:0;
+  }
+  body[data-atpa-module="4"] .mode-bar .mode-options button{
+    min-height:44px;
+    padding:8px 4px;
+    font-size:12px;
+    line-height:1.25;
+    white-space:nowrap;
+  }
+}
+@media(max-width:420px){
+  body[data-atpa-module="4"] .mode-bar .mode-options button{font-size:11px;}
+  body[data-atpa-module="4"] .mode-bar .toc-trigger{padding:8px 6px;font-size:11px;}
+}
+@media print{
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content{overflow:visible;padding:0;}
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] #study-content :is(.chapter-heading,.lesson){min-width:0;}
+  html[data-reading-mode="compare"] body[data-atpa-module="4"] .compare-hint{display:none;}
+}
