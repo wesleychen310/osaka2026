@@ -294,35 +294,37 @@ function preferredReadingMode(){
    return DISPLAY_MODES.includes(next)?next:"stacked";
  }catch(_){return "stacked"}
 }
-/* Adaptive mobile comparison: show one readable language at a time. */
+/* Module 2 pilot: both fixed-width language pages stay laid out.
+   Buttons move the same article horizontally; vertical reading position stays put. */
 const COMPARE_LANGUAGE_KEY="atpa-module2-compare-language-v1";
 function preferredCompareLanguage(){
  try{return localStorage.getItem(COMPARE_LANGUAGE_KEY)==="zh"?"zh":"en"}
  catch(_){return "en"}
 }
-function setCompareLanguage(language,preservePosition=true){
+function alignComparePage(animate=false){
+ const root=document.documentElement,article=$("study-content");
+ if(!article||root.dataset.readingMode!=="compare"||window.innerWidth>800)return;
+ const maxLeft=Math.max(0,article.scrollWidth-article.clientWidth);
+ const target=root.dataset.compareLang==="zh"?maxLeft:0;
+ if(Math.abs(article.scrollLeft-target)<1)return;
+ if(animate){
+  article.scrollTo({left:target,behavior:"smooth"});
+ }else{
+  const oldBehavior=article.style.scrollBehavior;
+  article.style.scrollBehavior="auto";
+  article.scrollLeft=target;
+  article.style.scrollBehavior=oldBehavior;
+ }
+}
+function setCompareLanguage(language,animate=true){
  const selected=language==="zh"?"zh":"en";
  const root=document.documentElement;
- if(root.dataset.compareLang===selected)return;
- const saved=preservePosition&&loaded&&root.dataset.readingMode==="compare"
-  ?captureReadingPosition():null;
- const oldBehavior=root.style.scrollBehavior;
- if(saved)root.style.scrollBehavior="auto";
  root.dataset.compareLang=selected;
  document.querySelectorAll(".compare-mobile-switch [data-compare-lang]").forEach(button=>{
   button.setAttribute("aria-pressed",String(button.dataset.compareLang===selected));
  });
  try{localStorage.setItem(COMPARE_LANGUAGE_KEY,selected)}catch(_){}
- if(saved){
-  restoreReadingPosition(saved);
-  requestAnimationFrame(()=>{
-   restoreReadingPosition(saved);
-   requestAnimationFrame(()=>{
-    restoreReadingPosition(saved);
-    root.style.scrollBehavior=oldBehavior;
-   });
-  });
- }
+ alignComparePage(animate);
 }
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
@@ -400,7 +402,18 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
    document.body.style.overflowAnchor="none";
  }
  root.dataset.readingMode=selected;
- if(selected==="compare"&&!root.dataset.compareLang)setCompareLanguage(preferredCompareLanguage(),false);
+ if(selected==="compare"){
+  if(!root.dataset.compareLang)setCompareLanguage(preferredCompareLanguage(),false);
+  else alignComparePage(false);
+ }else{
+  const article=$("study-content");
+  if(article?.scrollLeft){
+   const oldBehavior=article.style.scrollBehavior;
+   article.style.scrollBehavior="auto";
+   article.scrollLeft=0;
+   article.style.scrollBehavior=oldBehavior;
+  }
+ }
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
    button.setAttribute("aria-pressed",String(button.dataset.mode===selected));
  });
@@ -454,30 +467,32 @@ $("mode-bar")?.addEventListener("click",event=>{
  applyReadingMode(button.dataset.mode,true,anchor);
 });
 
-/* Native-style segment + swipe on plain text; keep tables, code and links native. */
+/* Native horizontal scrolling + CSS snap; no touch interception,
+   so tables, code, selection and iOS browser gestures remain native. */
 document.querySelector(".compare-mobile-switch")?.addEventListener("click",event=>{
  const button=event.target.closest("button[data-compare-lang]");
- if(button)setCompareLanguage(button.dataset.compareLang);
+ if(button)setCompareLanguage(button.dataset.compareLang,true);
 });
-let compareTouchStart=null;
-$("study-content")?.addEventListener("touchstart",event=>{
- compareTouchStart=null;
- if(event.touches.length!==1||document.documentElement.dataset.readingMode!=="compare"
-    ||!window.matchMedia("(max-width:800px)").matches)return;
- if(event.target.closest("a,button,input,textarea,select,summary,pre,code,table,.table-wrap,.source-table-wrap,.source-figure,.source-page-figure,.quiz-controls"))return;
- const touch=event.touches[0];
- if(touch.clientX<26||touch.clientX>window.innerWidth-26)return;
- compareTouchStart={x:touch.clientX,y:touch.clientY};
+let compareScrollFrame=0;
+$("study-content")?.addEventListener("scroll",()=>{
+ const root=document.documentElement,article=$("study-content");
+ if(root.dataset.readingMode!=="compare"||window.innerWidth>800||compareScrollFrame)return;
+ compareScrollFrame=requestAnimationFrame(()=>{
+  compareScrollFrame=0;
+  const maxLeft=Math.max(0,article.scrollWidth-article.clientWidth);
+  if(maxLeft<4)return;
+  const selected=article.scrollLeft>=maxLeft/2?"zh":"en";
+  if(root.dataset.compareLang===selected)return;
+  root.dataset.compareLang=selected;
+  document.querySelectorAll(".compare-mobile-switch [data-compare-lang]").forEach(button=>{
+   button.setAttribute("aria-pressed",String(button.dataset.compareLang===selected));
+  });
+  try{localStorage.setItem(COMPARE_LANGUAGE_KEY,selected)}catch(_){}
+ });
 },{passive:true});
-$("study-content")?.addEventListener("touchend",event=>{
- if(!compareTouchStart||event.changedTouches.length!==1)return;
- const dx=event.changedTouches[0].clientX-compareTouchStart.x;
- const dy=event.changedTouches[0].clientY-compareTouchStart.y;
- compareTouchStart=null;
- if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.7)
-  setCompareLanguage(dx<0?"zh":"en");
-},{passive:true});
-$("study-content")?.addEventListener("touchcancel",()=>{compareTouchStart=null},{passive:true});
+window.addEventListener("resize",()=>{
+ if(document.documentElement.dataset.readingMode==="compare")alignComparePage(false);
+});
 
 function toggleMenu(open){
  document.body.classList.toggle("toc-open",open);
