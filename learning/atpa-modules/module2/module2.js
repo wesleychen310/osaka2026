@@ -61,7 +61,7 @@ function cleanSource(doc){
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","stacked","triple"];
+const DISPLAY_MODES=["en","stacked"];
 const DISPLAY_KEY="atpa-module2-reading-mode-v4";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 
@@ -289,7 +289,7 @@ function prepareBilingualLabels(){
 function preferredReadingMode(){
  try{
    const saved=localStorage.getItem(DISPLAY_KEY)||localStorage.getItem(LEGACY_DISPLAY_KEY);
-   const legacy={zh:"stacked",parallel:"triple",tap:"stacked",vertical:"stacked",annotated:"stacked"};
+   const legacy={zh:"stacked",parallel:"stacked",tap:"stacked",vertical:"stacked",annotated:"stacked"};
    const next=legacy[saved]||saved;
    return DISPLAY_MODES.includes(next)?next:"stacked";
  }catch(_){return "stacked"}
@@ -312,7 +312,7 @@ function captureReadingPosition(){
  const stable=".pair,.lesson header,.chapter-heading,.source-figure,.source-page-figure";
  const unstable="details.tutor,details.phrases,.teacher-answer";
  let node=null;
- // The same .pair exists in all four modes, even if either language is hidden.
+ // The same .pair exists in both modes, even if either language is hidden.
  for(const dy of [0,-30,30,-75,75,-120,120]){
    const py=Math.max(barBottom+8,Math.min(viewport-8,y+dy));
    const hit=document.elementFromPoint(x,py);
