@@ -294,38 +294,6 @@ function preferredReadingMode(){
    return DISPLAY_MODES.includes(next)?next:"stacked";
  }catch(_){return "stacked"}
 }
-/* Module 2 pilot: both fixed-width language pages stay laid out.
-   Buttons move the same article horizontally; vertical reading position stays put. */
-const COMPARE_LANGUAGE_KEY="atpa-module2-compare-language-v1";
-function preferredCompareLanguage(){
- try{return localStorage.getItem(COMPARE_LANGUAGE_KEY)==="zh"?"zh":"en"}
- catch(_){return "en"}
-}
-function alignComparePage(animate=false){
- const root=document.documentElement,article=$("study-content");
- if(!article||root.dataset.readingMode!=="compare"||window.innerWidth>800)return;
- const pageWidth=Math.min(article.clientWidth,Math.max(0,article.scrollWidth-article.clientWidth));
- const target=root.dataset.compareLang==="zh"?pageWidth:0;
- if(Math.abs(article.scrollLeft-target)<1)return;
- if(animate){
-  article.scrollTo({left:target,behavior:"smooth"});
- }else{
-  const oldBehavior=article.style.scrollBehavior;
-  article.style.scrollBehavior="auto";
-  article.scrollLeft=target;
-  article.style.scrollBehavior=oldBehavior;
- }
-}
-function setCompareLanguage(language,animate=true){
- const selected=language==="zh"?"zh":"en";
- const root=document.documentElement;
- root.dataset.compareLang=selected;
- document.querySelectorAll(".compare-mobile-switch [data-compare-lang]").forEach(button=>{
-  button.setAttribute("aria-pressed",String(button.dataset.compareLang===selected));
- });
- try{localStorage.setItem(COMPARE_LANGUAGE_KEY,selected)}catch(_){}
- alignComparePage(animate);
-}
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
    and anchor to stable bilingual pairs rather than notes hidden in English-only. */
@@ -402,18 +370,6 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
    document.body.style.overflowAnchor="none";
  }
  root.dataset.readingMode=selected;
- if(selected==="compare"){
-  if(!root.dataset.compareLang)setCompareLanguage(preferredCompareLanguage(),false);
-  else alignComparePage(false);
- }else{
-  const article=$("study-content");
-  if(article?.scrollLeft){
-   const oldBehavior=article.style.scrollBehavior;
-   article.style.scrollBehavior="auto";
-   article.scrollLeft=0;
-   article.style.scrollBehavior=oldBehavior;
-  }
- }
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
    button.setAttribute("aria-pressed",String(button.dataset.mode===selected));
  });
@@ -465,36 +421,6 @@ $("mode-bar")?.addEventListener("click",event=>{
  const anchor=captured&&captured.mode===button.dataset.mode&&Date.now()-captured.time<2500
    ?captured.anchor:null;
  applyReadingMode(button.dataset.mode,true,anchor);
-});
-
-/* Native horizontal scrolling + CSS snap; no touch interception,
-   so tables, code, selection and iOS browser gestures remain native. */
-document.querySelector(".compare-mobile-switch")?.addEventListener("click",event=>{
- const button=event.target.closest("button[data-compare-lang]");
- if(button)setCompareLanguage(button.dataset.compareLang,true);
-});
-let compareScrollFrame=0;
-$("study-content")?.addEventListener("scroll",()=>{
- const root=document.documentElement,article=$("study-content");
- if(root.dataset.readingMode!=="compare"||window.innerWidth>800||compareScrollFrame)return;
- compareScrollFrame=requestAnimationFrame(()=>{
-  compareScrollFrame=0;
-  const pageWidth=Math.min(article.clientWidth,Math.max(0,article.scrollWidth-article.clientWidth));
-  if(pageWidth<4)return;
-  const selected=article.scrollLeft>=pageWidth/2?"zh":"en";
-  if(root.dataset.compareLang===selected)return;
-  root.dataset.compareLang=selected;
-  document.querySelectorAll(".compare-mobile-switch [data-compare-lang]").forEach(button=>{
-   button.setAttribute("aria-pressed",String(button.dataset.compareLang===selected));
-  });
-  try{localStorage.setItem(COMPARE_LANGUAGE_KEY,selected)}catch(_){}
- });
-},{passive:true});
-window.addEventListener("resize",()=>{
- if(document.documentElement.dataset.readingMode==="compare")alignComparePage(false);
-});
-window.addEventListener("hashchange",()=>{
- if(document.documentElement.dataset.readingMode==="compare")requestAnimationFrame(()=>alignComparePage(false));
 });
 
 function toggleMenu(open){
@@ -681,7 +607,6 @@ function mountAll(parsedSources){
    requestAnimationFrame(()=>requestAnimationFrame(()=>{
      document.getElementById(targetId)?.scrollIntoView({block:"start",behavior:"instant"});
      activateSection(targetId);
-     if(document.documentElement.dataset.readingMode==="compare")alignComparePage(false);
    }));
  else activateSection(allLessons[0].id);
 }

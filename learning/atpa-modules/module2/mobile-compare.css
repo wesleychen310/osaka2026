@@ -1,0 +1,93 @@
+/* Module 2 only: both languages share one mobile viewport.
+   :root also overrides the shared reader's legacy language visibility rules,
+   including a stale data-compare-lang attribute. Desktop styles stay shared. */
+@media screen and (max-width:800px) {
+ html:root[data-reading-mode="compare"] {
+  scroll-padding-top:80px;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] .shell {
+  padding-left:max(10px,env(safe-area-inset-left));
+  padding-right:max(10px,env(safe-area-inset-right));
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content {
+  width:100%;min-width:0;max-width:100%;
+  overflow:visible;
+  scroll-snap-type:none;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content :is(.chapter-heading,.lesson) {
+  width:100%;min-width:0;max-width:100%;
+  scroll-margin-top:80px;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content :is(.chapter-heading,.lesson header,.stacked-bilingual-label) {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  column-gap:12px;
+  align-items:start;
+  overflow-wrap:anywhere;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .chapter-heading>:is(.chapter-heading-en,.chapter-heading-zh),
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson header>:is(h2:not(.reading-heading),.zh-heading) {
+  display:block!important;
+  min-width:0;
+  font-size:clamp(16px,4.2vw,20px);
+  line-height:1.5;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .stacked-bilingual-label>:is(.bilingual-label-en,.bilingual-label-zh) {
+  display:block!important;min-width:0;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:12px!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  align-items:start;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated,.translation,.original) {
+  width:100%;min-width:0;max-width:100%;
+  grid-row:1;
+  font-size:clamp(14px,3.7vw,16px);
+  line-height:1.8;
+  overflow-wrap:anywhere;
+  word-break:normal;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>:is(.reading-annotated,.gpt-annotated),
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair:not(:has(>.reading-annotated,>.gpt-annotated))>.original {
+  display:block!important;
+  grid-column:1;
+  padding:0 6px 0 0!important;
+  border-right:1px solid #dadfdd!important;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>.original,
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>.reading-annotated ~ .gpt-annotated {
+  display:none!important;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .lesson .pair>.translation {
+  display:block!important;
+  grid-column:2;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content :is(.gpt-gloss,.learning-gloss,.inline-gloss) {
+  font-size:.88em;line-height:1.65;overflow-wrap:anywhere;
+ }
+ /* Contain wide tables, code and equations locally, never scroll the chapter.
+    Figures retain their source image and fit the available width. */
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content :is(.source-table-wrap,.translated-table-wrap,.table-wrap,.codeblock,.outputblock,pre,math,mjx-container) {
+  display:block;
+  min-width:0;max-width:100%;
+  margin-left:0;margin-right:0;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .pair table {
+  display:block;max-width:100%;overflow-x:auto;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content :is(.source-figure,.source-page-figure) {
+  min-width:0;max-width:100%;
+  margin-left:0;margin-right:0;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content .pair>.source-figure {
+  grid-column:1/-1;
+ }
+ html:root[data-reading-mode="compare"] body[data-atpa-module="2"] #study-content :is(img,svg,video) {
+  max-width:100%;height:auto;
+ }
+}
