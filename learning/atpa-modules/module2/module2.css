@@ -277,7 +277,7 @@ html[data-reading-mode=triple] body[data-atpa-module="2"] .choice-body>.pair{mar
  html[data-reading-mode=triple] body[data-atpa-module="2"] .chapter-heading-zh{padding:0}
 }
 @media(max-width:800px){
- body[data-atpa-module="2"] .mode-options{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+ body[data-atpa-module="2"] .mode-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}
  body[data-atpa-module="2"] .mode-options button{font-size:12px;padding:8px 5px;min-height:43px}
 }
 @media(max-width:490px){
