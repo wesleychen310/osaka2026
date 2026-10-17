@@ -1,5 +1,7 @@
 /* ATPA Module 4 / pilot: English annotated on the left, Chinese on the right.
    Presentation only. All original and annotated source nodes remain untouched. */
+/* The mobile swipe hint must never appear in the existing two modes. */
+body[data-atpa-module="4"] .compare-hint{display:none;}
 html[data-reading-mode="compare"] body[data-atpa-module="4"]{
   background:#faf9f6;
   color:#282d32;
