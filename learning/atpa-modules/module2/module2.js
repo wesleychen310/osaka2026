@@ -557,6 +557,8 @@ function createConceptMapIntro(){
  for(const [symbol,label] of [["★","核心考點"],["？","變題與陷阱"],["→","概念分層"],["⇢","細節例題"],["⇒","條件性推論"],["↔","概念或模型比較"],["⟶","標準解題 SOP"]]){
   const s=document.createElement("span"),b=document.createElement("b");b.textContent=symbol;s.append(b,document.createTextNode(label));legend.append(s);
  }
+ const jump=document.createElement("details");jump.className="concept-map-jump-list";
+ const jumpTitle=document.createElement("summary");jumpTitle.textContent="選擇概念圖（共 "+CONCEPT_MAPS.length+" 張）";
  const index=document.createElement("nav");index.className="concept-map-index";index.setAttribute("aria-label","概念圖快速跳轉");
  for(const map of CONCEPT_MAPS){
   const link=document.createElement("a");link.href="#concept-"+map.id;
@@ -566,13 +568,14 @@ function createConceptMapIntro(){
   });
   index.append(link);
  }
+ jump.append(jumpTitle,index);
  const controls=document.createElement("div");controls.className="concept-map-bulk";
  for(const [label,open] of [["全部展開",true],["全部收合",false]]){
   const button=document.createElement("button");button.type="button";button.textContent=label;
   button.addEventListener("click",()=>document.querySelectorAll("#study-content .concept-map-branch").forEach(d=>d.open=open));
   controls.append(button);
  }
- section.append(h,p,legend,index,controls);return section;
+ section.append(h,p,legend,jump,controls);return section;
 }
 function mountConceptMaps(lessons){
  CONCEPT_BY_LESSON.clear();
@@ -591,12 +594,13 @@ function mountConceptMaps(lessons){
  article.insertBefore(createConceptMapIntro(),article.firstChild);
  if(last<lessons.length-1){
   const pending=document.createElement("section");pending.className="concept-map-pending";
-  const title=document.createElement("strong");title.textContent="§1.2–1.7 尚未加入哈式解題心智圖";
-  const explain=document.createElement("p");explain.textContent="本批已完成 §1.1.1–1.1.36，後續 §1.2–1.7 可先使用原有三種完整閱讀模式。";
-  const btn=document.createElement("button");btn.type="button";btn.textContent="前往 §1.2 完整教材";
+  const next=lessons[last+1];
+  const latest=lessons[last].dataset.num;
+  const title=document.createElement("strong");title.textContent="§"+next.dataset.num+" 以後尚未加入哈式解題心智圖";
+  const explain=document.createElement("p");explain.textContent="目前已完成 §"+lessons[0].dataset.num+"–"+latest+"（共 "+CONCEPT_MAPS.length+" 張），其餘小節可先使用原有三種完整閱讀模式。";
+  const btn=document.createElement("button");btn.type="button";btn.textContent="前往 §"+next.dataset.num+" 完整教材";
   btn.addEventListener("click",()=>{
-    const dest=lessons.find(s=>s.dataset.num.startsWith("1.2."));
-    if(!dest)return;
+    const dest=next;
     lastConceptLessonId=dest.id;applyReadingMode("stacked",false);
     history.replaceState(null,"","#"+dest.id);
     requestAnimationFrame(()=>{dest.scrollIntoView({block:"start",behavior:"instant"});activateSection(dest.id)});
