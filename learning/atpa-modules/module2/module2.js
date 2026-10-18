@@ -414,7 +414,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  if(isMapTransition&&preservePosition){
    requestAnimationFrame(()=>{
      const id=lastConceptLessonId||allLessons[0]?.id;
-     const dest=selected==="map" ? document.getElementById("concept-"+CONCEPT_BY_LESSON.get(id)?.id) : $(id);
+     const dest=selected==="map" ? (document.getElementById("concept-"+CONCEPT_BY_LESSON.get(id)?.id)||document.querySelector(".concept-map-pending")||document.querySelector(".concept-map-intro")) : $(id);
      if(dest)dest.scrollIntoView({block:"start",behavior:"instant"});
      if(id)activateSection(id);
    });
@@ -724,7 +724,7 @@ function mountAll(parsedSources){
      if(document.documentElement.dataset.readingMode==="map"){
        lastConceptLessonId=targetId;
        const map=CONCEPT_BY_LESSON.get(targetId);
-       (map?document.getElementById("concept-"+map.id):document.querySelector(".concept-map-intro"))?.scrollIntoView({block:"start",behavior:"instant"});
+       (map?document.getElementById("concept-"+map.id):document.querySelector(".concept-map-pending")||document.querySelector(".concept-map-intro"))?.scrollIntoView({block:"start",behavior:"instant"});
      }else document.getElementById(targetId)?.scrollIntoView({block:"start",behavior:"instant"});
      activateSection(targetId);
    }));
