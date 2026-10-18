@@ -520,12 +520,20 @@ function createConceptMap(map){
  const subtitle=document.createElement("div");subtitle.className="map-subtitle";subtitle.textContent=map.subtitle||"";
  head.append(range,title,subtitle);card.append(head);
  const nodes=document.createElement("div");nodes.className="concept-map-nodes";
+ let branch=null;
  for(const item of map.nodes){
+  if(item.d===0){
+   branch=document.createElement("details");branch.className="concept-map-branch";branch.open=true;
+   const heading=document.createElement("summary");heading.className="concept-node concept-branch-heading";
+   heading.dataset.depth="0";
+   const copy=document.createElement("span");copy.className="node-copy";copy.textContent=item.t;
+   heading.append(copy);branch.append(heading);nodes.append(branch);continue;
+  }
   const node=document.createElement("div");node.className="concept-node";
   node.dataset.depth=String(item.d);node.dataset.arrow=item.a||"";
   const arrow=document.createElement("span");arrow.className="node-arrow";arrow.setAttribute("aria-hidden","true");arrow.textContent=item.a||"";
   const copy=document.createElement("span");copy.className="node-copy";copy.textContent=item.t;
-  node.append(arrow,copy);nodes.append(node);
+  node.append(arrow,copy);(branch||nodes).append(node);
  }
  card.append(nodes);
  const actions=document.createElement("div");actions.className="concept-map-actions";
@@ -537,19 +545,34 @@ function createConceptMap(map){
   history.replaceState(null,"","#"+target);
   requestAnimationFrame(()=>{ $(target)?.scrollIntoView({block:"start",behavior:"instant"});activateSection(target)});
  });
- const foot=document.createElement("small");foot.textContent="依概念分組，非逐節機械摘要";
+ const foot=document.createElement("small");foot.textContent="教材導向 · 考點辨識 · 變題條件 · 解題 SOP · 失分排除";
  actions.append(read,foot);card.append(actions);
  return card;
 }
 function createConceptMapIntro(){
  const section=document.createElement("section");section.className="concept-map-intro";
- const h=document.createElement("h2");h.textContent="Module 2｜概念心智圖";
- const p=document.createElement("p");p.textContent="依知識結構合併或拆分小節；閱讀原文、譯文及前後連結時可切換上方其他模式。";
+ const h=document.createElement("h2");h.textContent="Module 2｜哈式解題心智圖";
+ const p=document.createElement("p");p.textContent="從大哉問釐清考點、以題型變化找關鍵條件，再用二點關係與標準 SOP 掌握可複製的解法。按各段標題可收合或展開。";
  const legend=document.createElement("div");legend.className="concept-map-legend";
- for(const [symbol,label] of [["→","概念分層"],["⇢","補充細節"],["⇒","造成結果"],["↔","互相影響"],["⟶","步驟流程"]]){
+ for(const [symbol,label] of [["★","核心考點"],["？","變題與陷阱"],["→","概念分層"],["⇢","細節例題"],["⇒","條件性推論"],["↔","概念或模型比較"],["⟶","標準解題 SOP"]]){
   const s=document.createElement("span"),b=document.createElement("b");b.textContent=symbol;s.append(b,document.createTextNode(label));legend.append(s);
  }
- section.append(h,p,legend);return section;
+ const index=document.createElement("nav");index.className="concept-map-index";index.setAttribute("aria-label","概念圖快速跳轉");
+ for(const map of CONCEPT_MAPS){
+  const link=document.createElement("a");link.href="#concept-"+map.id;
+  link.textContent=map.title;
+  link.addEventListener("click",e=>{
+   e.preventDefault();document.getElementById("concept-"+map.id)?.scrollIntoView({block:"start",behavior:"smooth"});
+  });
+  index.append(link);
+ }
+ const controls=document.createElement("div");controls.className="concept-map-bulk";
+ for(const [label,open] of [["全部展開",true],["全部收合",false]]){
+  const button=document.createElement("button");button.type="button";button.textContent=label;
+  button.addEventListener("click",()=>document.querySelectorAll("#study-content .concept-map-branch").forEach(d=>d.open=open));
+  controls.append(button);
+ }
+ section.append(h,p,legend,index,controls);return section;
 }
 function mountConceptMaps(lessons){
  CONCEPT_BY_LESSON.clear();
@@ -568,7 +591,7 @@ function mountConceptMaps(lessons){
  article.insertBefore(createConceptMapIntro(),article.firstChild);
  if(last<lessons.length-1){
   const pending=document.createElement("section");pending.className="concept-map-pending";
-  const title=document.createElement("strong");title.textContent="後續概念圖將分批上線";
+  const title=document.createElement("strong");title.textContent="§1.2–1.7 尚未加入哈式解題心智圖";
   const explain=document.createElement("p");explain.textContent="本批已完成 §1.1.1–1.1.36，後續 §1.2–1.7 可先使用原有三種完整閱讀模式。";
   const btn=document.createElement("button");btn.type="button";btn.textContent="前往 §1.2 完整教材";
   btn.addEventListener("click",()=>{
