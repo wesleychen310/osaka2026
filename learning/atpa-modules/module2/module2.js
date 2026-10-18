@@ -511,6 +511,52 @@ function activateQuizzes(){
 
 /* The public renderer owns only layout logic; conceptual statements remain in
    the permission-gated Google Doc alongside the private bilingual source index. */
+
+/* Mathematics stays in the access-controlled Drive data, and is rendered on
+   the client only after OAuth. The KaTeX asset is loaded lazily and receives
+   no source content over the network. */
+function addConceptCopy(target,raw){
+ const re=/\\\(([\s\S]*?)\\\)/g;
+ let last=0,m;
+ while((m=re.exec(raw))){
+  if(m.index>last)target.appendChild(document.createTextNode(raw.slice(last,m.index)));
+  const el=document.createElement("span");el.className="concept-math";
+  el.dataset.tex=m[1];
+  el.setAttribute("role","math");
+  el.setAttribute("aria-label",m[1]);
+  const fallback=m[1].replace(/\\mathrm\{([^{}]+)\}/g,"$1")
+   .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g,"($1 / $2)")
+   .replace(/\\times/g," × ").replace(/\\_/g,"_");
+  el.textContent=fallback;target.appendChild(el);
+  last=re.lastIndex;
+ }
+ if(last<raw.length)target.appendChild(document.createTextNode(raw.slice(last)));
+}
+let mapMathLoading=false;
+function renderConceptMath(){
+ const items=[...document.querySelectorAll("#study-content .concept-math[data-tex]")];
+ if(!items.length)return;
+ const render=()=>{
+  if(!window.katex)return;
+  items.forEach(el=>{
+   try{window.katex.render(el.dataset.tex,el,{throwOnError:false,strict:"ignore",output:"htmlAndMathml"})}
+   catch(_){}
+  });
+ };
+ if(window.katex){render();return}
+ if(mapMathLoading)return;
+ mapMathLoading=true;
+ const link=document.createElement("link");
+ link.rel="stylesheet";link.href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css";
+ document.head.append(link);
+ const script=document.createElement("script");
+ script.src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js";
+ script.async=true;
+ script.onload=render;
+ script.onerror=()=>{mapMathLoading=false};
+ document.head.append(script);
+}
+
 function createConceptMap(map){
  const card=document.createElement("section");card.className="concept-map-card";
  card.id="concept-"+map.id;card.dataset.from=map.from;card.dataset.to=map.to;
@@ -526,7 +572,7 @@ function createConceptMap(map){
    branch=document.createElement("details");branch.className="concept-map-branch";branch.open=true;
    const heading=document.createElement("summary");heading.className="concept-node concept-branch-heading";
    heading.dataset.depth="0";
-   const copy=document.createElement("span");copy.className="node-copy";copy.textContent=item.t;
+   const copy=document.createElement("span");copy.className="node-copy";addConceptCopy(copy,item.t);
    heading.append(copy);branch.append(heading);nodes.append(branch);continue;
   }
   const node=document.createElement("div");node.className="concept-node";
@@ -551,10 +597,10 @@ function createConceptMap(map){
 }
 function createConceptMapIntro(){
  const section=document.createElement("section");section.className="concept-map-intro";
- const h=document.createElement("h2");h.textContent="Module 2｜哈式解題心智圖";
+ const h=document.createElement("h2");h.textContent="Module 2｜思考工具";
  const p=document.createElement("p");p.textContent="從大哉問釐清考點、以題型變化找關鍵條件，再用二點關係與標準 SOP 掌握可複製的解法。按各段標題可收合或展開。";
  const legend=document.createElement("div");legend.className="concept-map-legend";
- for(const [symbol,label] of [["★","核心考點"],["？","變題與陷阱"],["→","概念分層"],["⇢","細節例題"],["⇒","條件性推論"],["↔","概念或模型比較"],["⟶","標準解題 SOP"]]){
+ for(const [symbol,label] of [["★","核心考點"],["？","變題與陷阱"],["→","概念分層"],["⇢","細節例題"],["⇒","條件性推論"],["↔","概念或模型比較"],["⟶","標準解題 SOP"],["✅","練習與複習行動"]]){
   const s=document.createElement("span"),b=document.createElement("b");b.textContent=symbol;s.append(b,document.createTextNode(label));legend.append(s);
  }
  const jump=document.createElement("details");jump.className="concept-map-jump-list";
@@ -592,11 +638,12 @@ function mountConceptMaps(lessons){
   last=end;
  }
  article.insertBefore(createConceptMapIntro(),article.firstChild);
+ renderConceptMath();
  if(last<lessons.length-1){
   const pending=document.createElement("section");pending.className="concept-map-pending";
   const next=lessons[last+1];
   const latest=lessons[last].dataset.num;
-  const title=document.createElement("strong");title.textContent="§"+next.dataset.num+" 以後尚未加入哈式解題心智圖";
+  const title=document.createElement("strong");title.textContent="§"+next.dataset.num+" 以後尚未加入思考工具";
   const explain=document.createElement("p");explain.textContent="目前已完成 §"+lessons[0].dataset.num+"–"+latest+"（共 "+CONCEPT_MAPS.length+" 張），其餘小節可先使用原有三種完整閱讀模式。";
   const btn=document.createElement("button");btn.type="button";btn.textContent="前往 §"+next.dataset.num+" 完整教材";
   btn.addEventListener("click",()=>{
@@ -797,7 +844,7 @@ async function fetchPrivateIndex(token){
      !/^s\d+$/.test(m.from)||!/^s\d+$/.test(m.to)||
      typeof m.title!=="string"||!Array.isArray(m.nodes)||!m.nodes.length||
      !m.nodes.every(n=>Number.isInteger(n.d)&&n.d>=0&&n.d<=3&&typeof n.t==="string"&&
-       n.t.length>0&&(!n.a||["→","⇢","⇒","↔","⟶"].includes(n.a))))
+       n.t.length>0&&(!n.a||["→","⇢","⇒","↔","⟶","？","✅"].includes(n.a))))
    throw new Error("私人概念圖資料格式不符，請檢查："+(m?.id||"未知"));
   ids.add(m.id);
  }
