@@ -531,10 +531,11 @@ function createConceptMap(map){
  const actions=document.createElement("div");actions.className="concept-map-actions";
  const read=document.createElement("button");read.type="button";read.textContent="查看對應原文與譯文";
  read.addEventListener("click",()=>{
-  lastConceptLessonId=map.from;
+  const target=CONCEPT_BY_LESSON.get(lastConceptLessonId)?.id===map.id?lastConceptLessonId:map.from;
+  lastConceptLessonId=target;
   applyReadingMode("stacked",false);
-  history.replaceState(null,"","#"+map.from);
-  requestAnimationFrame(()=>{ $(map.from)?.scrollIntoView({block:"start",behavior:"instant"});activateSection(map.from)});
+  history.replaceState(null,"","#"+target);
+  requestAnimationFrame(()=>{ $(target)?.scrollIntoView({block:"start",behavior:"instant"});activateSection(target)});
  });
  const foot=document.createElement("small");foot.textContent="依概念分組，非逐節機械摘要";
  actions.append(read,foot);card.append(actions);
