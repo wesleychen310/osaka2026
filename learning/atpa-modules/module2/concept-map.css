@@ -80,3 +80,14 @@ body[data-atpa-module="2"] .concept-node[data-depth="0"]{font-size:13.7px}
 body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading{padding:10px 9px}
 }
 @media(prefers-reduced-motion:reduce){body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading::after{transition:none}}
+
+/* Batch 2: compact navigation for 17 concept maps on mobile */
+body[data-atpa-module="2"] .concept-map-jump-list{margin-top:14px;border:1px solid #d6e2e5;border-radius:9px;background:#fff;overflow:hidden}
+body[data-atpa-module="2"] .concept-map-jump-list>summary{cursor:pointer;padding:11px 13px;font:700 13px/1.55 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#2a5970}
+body[data-atpa-module="2"] .concept-map-jump-list[open]>summary{border-bottom:1px solid #e5edf0}
+body[data-atpa-module="2"] .concept-map-jump-list .concept-map-index{margin-top:0;padding:10px 11px 12px;max-height:44vh;overflow-y:auto;overscroll-behavior:contain}
+body[data-atpa-module="2"] .concept-map-jump-list .concept-map-index a{flex:1 1 240px}
+@media(max-width:600px){
+body[data-atpa-module="2"] .concept-map-jump-list .concept-map-index{grid-template-columns:1fr;padding:8px;max-height:40vh}
+body[data-atpa-module="2"] .concept-map-jump-list .concept-map-index a{font-size:12px;line-height:1.5}
+}
