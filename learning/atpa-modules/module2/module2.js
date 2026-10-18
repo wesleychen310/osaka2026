@@ -7,6 +7,9 @@ const SESSION_KEY="hanami-kyoto-google-token-v3";
 const PRIVATE_INDEX_FILE_ID="1tqQmZxUU99EWeKBHiRw9NOTfKf_V7ZRGJrJigvNoi0A";
 let SOURCES=[];
 let GPT_READINGS=Object.create(null);
+let CONCEPT_MAPS=[];
+const CONCEPT_BY_LESSON=new Map();
+let lastConceptLessonId=null;
 const sourcePairsByLesson=new Map();
 const $=id=>document.getElementById(id);
 document.body.dataset.atpaModule="2";
@@ -61,7 +64,7 @@ function cleanSource(doc){
 }
 /* Tap-to-translate: English by default; touching one paragraph swaps only that paragraph. */
 /* One-time private-source enhancement: bilingual source labels remain intact in all views. */
-const DISPLAY_MODES=["en","stacked","compare"];
+const DISPLAY_MODES=["en","stacked","compare","map"];
 const DISPLAY_KEY="atpa-module2-reading-mode-v4";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 
@@ -355,9 +358,13 @@ function restoreReadingPosition(saved){
 function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  const selected=DISPLAY_MODES.includes(mode)?mode:"stacked";
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
- const saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
+ const previous=document.documentElement.dataset.readingMode;
+ const isMapTransition=selected==="map"||previous==="map";
+ const activeId=document.querySelector("#toc .toc-link.active")?.dataset.id||allLessons[0]?.id;
+ if(isMapTransition&&activeId)lastConceptLessonId=activeId;
+ const saved=preservePosition&&!isMapTransition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
- if(selected!=="en")prepareEnhancedViews();
+ if(selected==="stacked"||selected==="compare")prepareEnhancedViews();
  const revision=++readingSwitchRevision;
  if(saved){
    if(!readingScrollStyles)readingScrollStyles={
@@ -403,6 +410,14 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
    setTimeout(finish,110);
  }else{
    finish();
+ }
+ if(isMapTransition&&preservePosition){
+   requestAnimationFrame(()=>{
+     const id=lastConceptLessonId||allLessons[0]?.id;
+     const dest=selected==="map" ? document.getElementById("concept-"+CONCEPT_BY_LESSON.get(id)?.id) : $(id);
+     if(dest)dest.scrollIntoView({block:"start",behavior:"instant"});
+     if(id)activateSection(id);
+   });
  }
 }
 $("mode-bar")?.addEventListener("pointerdown",event=>{
@@ -493,6 +508,79 @@ function activateQuizzes(){
  });
 }
 
+
+/* The public renderer owns only layout logic; conceptual statements remain in
+   the permission-gated Google Doc alongside the private bilingual source index. */
+function createConceptMap(map){
+ const card=document.createElement("section");card.className="concept-map-card";
+ card.id="concept-"+map.id;card.dataset.from=map.from;card.dataset.to=map.to;
+ const head=document.createElement("header");head.className="concept-map-top";
+ const range=document.createElement("span");range.className="map-range";range.textContent=map.from.replace(/^s/,"§")+" → "+map.to.replace(/^s/,"");
+ const title=document.createElement("h3");title.textContent=map.title;
+ const subtitle=document.createElement("div");subtitle.className="map-subtitle";subtitle.textContent=map.subtitle||"";
+ head.append(range,title,subtitle);card.append(head);
+ const nodes=document.createElement("div");nodes.className="concept-map-nodes";
+ for(const item of map.nodes){
+  const node=document.createElement("div");node.className="concept-node";
+  node.dataset.depth=String(item.d);node.dataset.arrow=item.a||"";
+  const arrow=document.createElement("span");arrow.className="node-arrow";arrow.setAttribute("aria-hidden","true");arrow.textContent=item.a||"";
+  const copy=document.createElement("span");copy.className="node-copy";copy.textContent=item.t;
+  node.append(arrow,copy);nodes.append(node);
+ }
+ card.append(nodes);
+ const actions=document.createElement("div");actions.className="concept-map-actions";
+ const read=document.createElement("button");read.type="button";read.textContent="查看對應原文與譯文";
+ read.addEventListener("click",()=>{
+  lastConceptLessonId=map.from;
+  applyReadingMode("stacked",false);
+  history.replaceState(null,"","#"+map.from);
+  requestAnimationFrame(()=>{ $(map.from)?.scrollIntoView({block:"start",behavior:"instant"});activateSection(map.from)});
+ });
+ const foot=document.createElement("small");foot.textContent="依概念分組，非逐節機械摘要";
+ actions.append(read,foot);card.append(actions);
+ return card;
+}
+function createConceptMapIntro(){
+ const section=document.createElement("section");section.className="concept-map-intro";
+ const h=document.createElement("h2");h.textContent="Module 2｜概念心智圖";
+ const p=document.createElement("p");p.textContent="依知識結構合併或拆分小節；閱讀原文、譯文及前後連結時可切換上方其他模式。";
+ const legend=document.createElement("div");legend.className="concept-map-legend";
+ for(const [symbol,label] of [["→","概念分層"],["⇢","補充細節"],["⇒","造成結果"],["↔","互相影響"],["⟶","步驟流程"]]){
+  const s=document.createElement("span"),b=document.createElement("b");b.textContent=symbol;s.append(b,document.createTextNode(label));legend.append(s);
+ }
+ section.append(h,p,legend);return section;
+}
+function mountConceptMaps(lessons){
+ CONCEPT_BY_LESSON.clear();
+ if(!CONCEPT_MAPS.length)return;
+ const article=$("study-content");
+ const positions=new Map(lessons.map((s,i)=>[s.id,i]));
+ let last=-1;
+ for(const map of CONCEPT_MAPS){
+  const start=positions.get(map.from),end=positions.get(map.to);
+  if(start===undefined||end===undefined||end<start||start<=last)
+   throw new Error("私人心智圖小節範圍不正確："+map.id);
+  for(let i=start;i<=end;i++)CONCEPT_BY_LESSON.set(lessons[i].id,map);
+  article.insertBefore(createConceptMap(map),lessons[start]);
+  last=end;
+ }
+ article.insertBefore(createConceptMapIntro(),article.firstChild);
+ if(last<lessons.length-1){
+  const pending=document.createElement("section");pending.className="concept-map-pending";
+  const title=document.createElement("strong");title.textContent="後續概念圖將分批上線";
+  const explain=document.createElement("p");explain.textContent="本批已完成 §1.1.1–1.1.36，後續 §1.2–1.7 可先使用原有三種完整閱讀模式。";
+  const btn=document.createElement("button");btn.type="button";btn.textContent="前往 §1.2 完整教材";
+  btn.addEventListener("click",()=>{
+    const dest=lessons.find(s=>s.dataset.num.startsWith("1.2."));
+    if(!dest)return;
+    lastConceptLessonId=dest.id;applyReadingMode("stacked",false);
+    history.replaceState(null,"","#"+dest.id);
+    requestAnimationFrame(()=>{dest.scrollIntoView({block:"start",behavior:"instant"});activateSection(dest.id)});
+  });
+  pending.append(title,explain,btn);article.append(pending);
+ }
+}
+
 function makeChapter(id,key){
  const chapter=CHAPTERS[key],block=document.createElement("div");
  block.id=id;block.className="chapter-heading";
@@ -529,7 +617,20 @@ function makeNavigation(lessons){
    const a=e.target.closest("a[href^='#']");
    if(!a)return;
    toggleMenu(false);
-   if(a.dataset.id)activateSection(a.dataset.id);
+   if(a.dataset.id&&document.documentElement.dataset.readingMode==="map"){
+     e.preventDefault();
+     lastConceptLessonId=a.dataset.id;
+     const map=CONCEPT_BY_LESSON.get(a.dataset.id);
+     if(map){
+       document.getElementById("concept-"+map.id)?.scrollIntoView({block:"start",behavior:"instant"});
+       history.replaceState(null,"","#"+a.dataset.id);
+       activateSection(a.dataset.id);
+     }else{
+       applyReadingMode("stacked",false);
+       history.replaceState(null,"","#"+a.dataset.id);
+       requestAnimationFrame(()=>{$(a.dataset.id)?.scrollIntoView({block:"start",behavior:"instant"});activateSection(a.dataset.id)});
+     }
+   }else if(a.dataset.id)activateSection(a.dataset.id);
  });
 }
 function activateSection(id){
@@ -552,6 +653,20 @@ function activateSection(id){
 function syncCurrentSection(){
  scrollScheduled=false;
  if(!loaded||document.body.classList.contains("toc-open"))return;
+ if(document.documentElement.dataset.readingMode==="map"){
+   let active=CONCEPT_MAPS[0];
+   for(const m of CONCEPT_MAPS){
+     const card=document.getElementById("concept-"+m.id);
+     if(card&&card.getBoundingClientRect().top<=185)active=m;
+     else break;
+   }
+   if(active){
+     const remembered=lastConceptLessonId;
+     const target=remembered&&CONCEPT_BY_LESSON.get(remembered)?.id===active.id?remembered:active.from;
+     if(target!==document.querySelector("#toc .toc-link.active")?.dataset.id)activateSection(target);
+   }
+   return;
+ }
  let target=allLessons[0];
  for(const sec of allLessons){
    if(sec.getBoundingClientRect().top<=185)target=sec;
@@ -592,6 +707,7 @@ function mountAll(parsedSources){
    frag.appendChild(sec);
  }
  article.replaceChildren(frag);
+ mountConceptMaps(sections);
  allLessons=[...article.querySelectorAll("section.lesson")];
  prepareBilingualLabels();
  makeNavigation(allLessons);
@@ -605,7 +721,11 @@ function mountAll(parsedSources){
  const targetId=location.hash?decodeURIComponent(location.hash.slice(1)):(FIRST_IDS[Number(legacyPart)-1]||"s111");
  if(targetId&&document.getElementById(targetId))
    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-     document.getElementById(targetId)?.scrollIntoView({block:"start",behavior:"instant"});
+     if(document.documentElement.dataset.readingMode==="map"){
+       lastConceptLessonId=targetId;
+       const map=CONCEPT_BY_LESSON.get(targetId);
+       (map?document.getElementById("concept-"+map.id):document.querySelector(".concept-map-intro"))?.scrollIntoView({block:"start",behavior:"instant"});
+     }else document.getElementById(targetId)?.scrollIntoView({block:"start",behavior:"instant"});
      activateSection(targetId);
    }));
  else activateSection(allLessons[0].id);
@@ -642,6 +762,17 @@ async function fetchPrivateIndex(token){
      typeof s.fileId==="string"&&/^[A-Za-z0-9_-]{20,}$/.test(s.fileId)))
    throw new Error("私人教材索引順序或來源類型不正確。");
  GPT_READINGS=payload.gpt||Object.create(null);
+ CONCEPT_MAPS=Array.isArray(payload.maps)?payload.maps:[];
+ const ids=new Set();
+ for(const m of CONCEPT_MAPS){
+  if(!m||typeof m.id!=="string"||!/^[a-z0-9-]+$/.test(m.id)||ids.has(m.id)||
+     !/^s\\d+$/.test(m.from)||!/^s\\d+$/.test(m.to)||
+     typeof m.title!=="string"||!Array.isArray(m.nodes)||!m.nodes.length||
+     !m.nodes.every(n=>Number.isInteger(n.d)&&n.d>=0&&n.d<=3&&typeof n.t==="string"&&
+       n.t.length>0&&(!n.a||["→","⇢","⇒","↔","⟶"].includes(n.a))))
+   throw new Error("私人概念圖資料格式不符，請檢查："+(m?.id||"未知"));
+  ids.add(m.id);
+ }
  for(const [key,records] of Object.entries(GPT_READINGS)){
    if(!/^s\d+$/.test(key)||!Array.isArray(records)||!records.length||
       !records.every(r=>Array.isArray(r)&&r.length===3&&typeof r[0]==="string"&&
