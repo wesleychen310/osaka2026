@@ -1,3 +1,29 @@
+# 小記事｜2026-10-18 整合版維護說明（現行）
+
+> **此段為現行作業規範。下方 2026-10-12 舊版三檔架構僅保留歷史參考，不再是網站現況。**
+> GitHub Repository 公開，**不得提交任何私人原文、薪資、交易資料、持股、JSON 或個資**。
+
+## 現行入口與安全邊界
+
+- 私人記事入口：<https://wesleychen310.github.io/osaka2026/records/>，仍以 Google OAuth（drive.readonly）保護私人資料。
+- Google Drive 正式私有單一檔案：**小記事.html**，File ID：`1Va1OoRS1-gC6Qu5SA6_q3vfd82W7HDhA`。
+- 正式資料夾：<https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU>，頂層僅保留正式 HTML 與 `_backup`。
+- 備份資料夾：<https://drive.google.com/drive/folders/1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB>。
+- 公開 GitHub 僅包含 `records/index.html`、`records/app.js` 的 Google OAuth 驗證與 `iframe.srcdoc` 私人資料呈現程式，資料從 Drive `files.get?alt=media` 取回；資料本身**絕不**提交 GitHub。
+- 章節：`finance` 財務、`income` 所得、`trust` 福利信託、`contacts` 隱形眼鏡。網站 `?tab=finance|income|trust|contacts`；舊 `/records/finance/` 和 `/records/income/` 轉址至相應章節。
+
+## 單一 HTML 資料結構與更新 SOP
+
+- 主檔 `小記事.html` 包含 `<script type="application/json" id="bundle">…</script>`，內含 `schemaVersion`、`finance`（完整舊 HTML 字串）、`income`（完整舊 HTML 字串）、`trust`（完整 JSON）、`contacts`（逐字擷取來源文字）、`sourceIds`。財務與所得透過分頁 iframe 顯示，保留原始 HTML/CSS/JS；信託股票含動態頁面，隱形眼鏡含逐筆更換時間線與原始全文。
+- **新增或更正任一記事**：讀取私人單檔主本，取得現行 `bundle`，執行原各類別 SOP 的查重、修正、總額核算，完成修改後重新包裝單一 HTML。勿只更新 `_backup` 內的舊子檔，否則網站不會更新。
+- 在更新 `小記事.html` 之前，先複製當前主檔至同一 `_backup` 資料夾，備份檔名含台灣時間和理由。再使用 Google Drive raw bytes 原位更新 **同一主檔 ID**，維持權限、名稱、父資料夾不變。
+- 回讀驗證 `bundle`、每個來源資料內容與交易／所得控制數，確認未遺漏，才回報完成；不得將私人完整 JSON 回寫公開的 GitHub。
+- 2026-10-18 整合時，已先複製四份原檔至 `_backup`，原始來源 File ID：財務 `1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4`、所得 `12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl`、信託 `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms`、隱形眼鏡 `1S-l63Ng1HQAgmgrlFISSayqqTrzStf8i`。原檔作歷史存證，不再獨立維護。
+
+---
+
+## 以下為 2026-10-12 舊版架構歷史記錄（非現行網站檔案配置）
+
 # 私人記事｜財務、所得與信託股票 — 網站維護與跨對話 SOP
 
 > 此文件為 `records/` 專用維護手冊；入口總表請先參考 Repository 根目錄 [README.md](../README.md)。更新日期：2026-10-12（台灣時間）。
