@@ -515,7 +515,7 @@ function createConceptMap(map){
  const card=document.createElement("section");card.className="concept-map-card";
  card.id="concept-"+map.id;card.dataset.from=map.from;card.dataset.to=map.to;
  const head=document.createElement("header");head.className="concept-map-top";
- const range=document.createElement("span");range.className="map-range";range.textContent=map.from.replace(/^s/,"§")+" → "+map.to.replace(/^s/,"");
+ const range=document.createElement("span");range.className="map-range";range.textContent="§"+map.from.slice(1,2)+"."+map.from.slice(2,3)+"."+map.from.slice(3)+" – §"+map.to.slice(1,2)+"."+map.to.slice(2,3)+"."+map.to.slice(3);
  const title=document.createElement("h3");title.textContent=map.title;
  const subtitle=document.createElement("div");subtitle.className="map-subtitle";subtitle.textContent=map.subtitle||"";
  head.append(range,title,subtitle);card.append(head);
@@ -766,7 +766,7 @@ async function fetchPrivateIndex(token){
  const ids=new Set();
  for(const m of CONCEPT_MAPS){
   if(!m||typeof m.id!=="string"||!/^[a-z0-9-]+$/.test(m.id)||ids.has(m.id)||
-     !/^s\\d+$/.test(m.from)||!/^s\\d+$/.test(m.to)||
+     !/^s\d+$/.test(m.from)||!/^s\d+$/.test(m.to)||
      typeof m.title!=="string"||!Array.isArray(m.nodes)||!m.nodes.length||
      !m.nodes.every(n=>Number.isInteger(n.d)&&n.d>=0&&n.d<=3&&typeof n.t==="string"&&
        n.t.length>0&&(!n.a||["→","⇢","⇒","↔","⟶"].includes(n.a))))
