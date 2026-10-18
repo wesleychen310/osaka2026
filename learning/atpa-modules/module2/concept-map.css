@@ -55,3 +55,28 @@ html[data-reading-mode="map"] body[data-atpa-module="2"] .mode-bar{background:rg
  body[data-atpa-module="2"] .concept-map-legend span{font-size:11px}
 }
 @media(prefers-reduced-motion:reduce){body[data-atpa-module="2"] .concept-map-card{scroll-behavior:auto}}
+
+/* Exam-first outline: foldable conceptual branches and quick jumps */
+body[data-atpa-module="2"] .concept-map-index{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}
+body[data-atpa-module="2"] .concept-map-index a{display:inline-flex;align-items:center;border:1px solid #d3e0e4;border-radius:7px;padding:6px 9px;text-decoration:none;font:600 12px/1.45 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;color:#31596c;background:#fff;max-width:100%;overflow-wrap:anywhere}
+body[data-atpa-module="2"] .concept-map-index a:focus-visible{outline:2px solid #35748a;outline-offset:2px}
+body[data-atpa-module="2"] .concept-map-bulk{display:flex;gap:8px;margin-top:12px}
+body[data-atpa-module="2"] .concept-map-bulk button{border:1px solid #cddcdf;background:#fff;color:#315a6c;padding:7px 11px;min-height:35px;border-radius:7px;font:650 12px/1.4 -apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;cursor:pointer}
+body[data-atpa-module="2"] .concept-map-branch{min-width:0;padding:0;margin:0 0 6px}
+body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading{cursor:pointer;list-style:none;align-items:center;display:flex;gap:8px;margin-bottom:8px}
+body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading::-webkit-details-marker{display:none}
+body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading:focus-visible{outline:2px solid #35748a;outline-offset:2px}
+body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading::after{content:"⌄";color:#547887;font-size:18px;font-weight:700;flex:0 0 auto;transform:rotate(0deg);transition:transform .12s ease}
+body[data-atpa-module="2"] .concept-map-branch:not([open])>.concept-branch-heading::after{transform:rotate(-90deg)}
+body[data-atpa-module="2"] .concept-map-branch>.concept-node{margin-top:4px}
+body[data-atpa-module="2"] .concept-node[data-depth="0"]{font-size:14.5px;line-height:1.6}
+body[data-atpa-module="2"] .concept-branch-heading .node-copy{min-width:0}
+body[data-atpa-module="2"] .concept-map-intro .concept-map-legend b{font-family:Georgia,"PingFang TC",serif}
+body[data-atpa-module="2"] .concept-map-nodes{gap:9px}
+@media(max-width:600px){
+body[data-atpa-module="2"] .concept-map-index{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+body[data-atpa-module="2"] .concept-map-index a{font-size:11px;padding:7px}
+body[data-atpa-module="2"] .concept-node[data-depth="0"]{font-size:13.7px}
+body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading{padding:10px 9px}
+}
+@media(prefers-reduced-motion:reduce){body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading::after{transition:none}}
