@@ -91,3 +91,21 @@ body[data-atpa-module="2"] .concept-map-jump-list .concept-map-index a{flex:1 1 
 body[data-atpa-module="2"] .concept-map-jump-list .concept-map-index{grid-template-columns:1fr;padding:8px;max-height:40vh}
 body[data-atpa-module="2"] .concept-map-jump-list .concept-map-index a{font-size:12px;line-height:1.5}
 }
+
+/* SOA Pass-First v4: source provenance + mathematical fidelity + compact iPhone reading */
+body[data-atpa-module="2"] .concept-map-intro .concept-map-source-note{font-size:11.5px;line-height:1.8;color:#677982;margin:9px 0 2px}
+body[data-atpa-module="2"] .concept-map-source-note a{color:#255e77;text-decoration:underline;text-underline-offset:2px}
+body[data-atpa-module="2"] .concept-map-top .map-subtitle{font-size:11.8px;line-height:1.65;color:#657984;overflow-wrap:anywhere}
+body[data-atpa-module="2"] .concept-node[data-arrow="？"] .node-arrow{color:#b45c48}
+body[data-atpa-module="2"] .concept-node[data-arrow="✅"] .node-arrow{color:#387b59}
+body[data-atpa-module="2"] .concept-math{display:inline-block;max-width:100%;overflow-x:auto;vertical-align:middle;-webkit-overflow-scrolling:touch;white-space:nowrap}
+body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading{scroll-margin-top:98px}
+@media(max-width:600px){
+ body[data-atpa-module="2"] .concept-map-card{margin-bottom:14px;padding:13px;border-radius:10px}
+ body[data-atpa-module="2"] .concept-node{font-size:14px;line-height:1.65;padding:5px 6px;gap:6px}
+ body[data-atpa-module="2"] .concept-map-top{margin-bottom:8px;padding-bottom:9px}
+ body[data-atpa-module="2"] .concept-map-top h3{font-size:17px;line-height:1.47}
+ body[data-atpa-module="2"] .concept-map-top .map-subtitle{font-size:11px}
+ body[data-atpa-module="2"] .concept-map-branch>.concept-branch-heading{margin-bottom:3px}
+ body[data-atpa-module="2"] .concept-map-intro .concept-map-source-note{font-size:11px}
+}
