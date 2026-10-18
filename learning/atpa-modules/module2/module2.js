@@ -566,10 +566,10 @@ function createConceptMap(map){
  const subtitle=document.createElement("div");subtitle.className="map-subtitle";subtitle.textContent=map.subtitle||"";
  head.append(range,title,subtitle);card.append(head);
  const nodes=document.createElement("div");nodes.className="concept-map-nodes";
- let branch=null;
+ let branch=null,branchIndex=0;
  for(const item of map.nodes){
   if(item.d===0){
-   branch=document.createElement("details");branch.className="concept-map-branch";branch.open=true;
+   branch=document.createElement("details");branch.className="concept-map-branch";branch.open=(branchIndex++===0);
    const heading=document.createElement("summary");heading.className="concept-node concept-branch-heading";
    heading.dataset.depth="0";
    const copy=document.createElement("span");copy.className="node-copy";addConceptCopy(copy,item.t);
@@ -578,7 +578,7 @@ function createConceptMap(map){
   const node=document.createElement("div");node.className="concept-node";
   node.dataset.depth=String(item.d);node.dataset.arrow=item.a||"";
   const arrow=document.createElement("span");arrow.className="node-arrow";arrow.setAttribute("aria-hidden","true");arrow.textContent=item.a||"";
-  const copy=document.createElement("span");copy.className="node-copy";copy.textContent=item.t;
+  const copy=document.createElement("span");copy.className="node-copy";addConceptCopy(copy,item.t);
   node.append(arrow,copy);(branch||nodes).append(node);
  }
  card.append(nodes);
@@ -591,14 +591,19 @@ function createConceptMap(map){
   history.replaceState(null,"","#"+target);
   requestAnimationFrame(()=>{ $(target)?.scrollIntoView({block:"start",behavior:"instant"});activateSection(target)});
  });
- const foot=document.createElement("small");foot.textContent="教材導向 · 考點辨識 · 變題條件 · 解題 SOP · 失分排除";
+ const foot=document.createElement("small");foot.textContent="【補充】題型辨識、快速驗算及 SOP 是學習整理；非 SOA 官方標準答案";
  actions.append(read,foot);card.append(actions);
  return card;
 }
 function createConceptMapIntro(){
  const section=document.createElement("section");section.className="concept-map-intro";
  const h=document.createElement("h2");h.textContent="Module 2｜思考工具";
- const p=document.createElement("p");p.textContent="從大哉問釐清考點、以題型變化找關鍵條件，再用二點關係與標準 SOP 掌握可複製的解法。按各段標題可收合或展開。";
+ const p=document.createElement("p");p.textContent="已完成 Module 2 全部 223 小節：共 "+CONCEPT_MAPS.length+" 張概念圖。每張預設只展開核心大哉問；需要時展開其餘知識與解題 SOP。";
+ const note=document.createElement("p");note.className="concept-map-source-note";
+ note.append(document.createTextNode("【教材】ATPA Module 2（原文件標示 2023-04-06）；【官方】"));
+ const syll=document.createElement("a");syll.href="https://www.soa.org/globalassets/assets/files/edu/2022/2022-01-atpa-learning-objectives.pdf";
+ syll.target="_blank";syll.rel="noopener noreferrer";syll.textContent="SOA ATPA Learning Objectives";
+ note.append(syll,document.createTextNode("（目前 SOA ATPA 網站連結的版本）；【補充】本網站自行整理的題型、SOP 及驗算技巧，不視為官方出題頻率或標準答案。"));
  const legend=document.createElement("div");legend.className="concept-map-legend";
  for(const [symbol,label] of [["★","核心考點"],["？","變題與陷阱"],["→","概念分層"],["⇢","細節例題"],["⇒","條件性推論"],["↔","概念或模型比較"],["⟶","標準解題 SOP"],["✅","練習與複習行動"]]){
   const s=document.createElement("span"),b=document.createElement("b");b.textContent=symbol;s.append(b,document.createTextNode(label));legend.append(s);
@@ -621,7 +626,7 @@ function createConceptMapIntro(){
   button.addEventListener("click",()=>document.querySelectorAll("#study-content .concept-map-branch").forEach(d=>d.open=open));
   controls.append(button);
  }
- section.append(h,p,legend,jump,controls);return section;
+ section.append(h,p,note,legend,jump,controls);return section;
 }
 function mountConceptMaps(lessons){
  CONCEPT_BY_LESSON.clear();
