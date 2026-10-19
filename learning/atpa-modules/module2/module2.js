@@ -563,12 +563,12 @@ function createConceptMap(map){
  const head=document.createElement("header");head.className="concept-map-top";
  const range=document.createElement("span");range.className="map-range";range.textContent="§"+map.from.slice(1,2)+"."+map.from.slice(2,3)+"."+map.from.slice(3)+" – §"+map.to.slice(1,2)+"."+map.to.slice(2,3)+"."+map.to.slice(3);
  const title=document.createElement("h3");title.textContent=map.title;
- const subtitle=document.createElement("div");subtitle.className="map-subtitle";subtitle.textContent=map.subtitle||"";
+ const subtitle=document.createElement("div");subtitle.className="map-subtitle";subtitle.textContent=(map.subtitle||"").replace(/^【已按原書核對[^】]*】/,"");
  if(map.subtitle?.startsWith("【已按原書核對")){
   card.dataset.reviewed="true";
   const audit=document.createElement("span");audit.className="map-review-status";
   audit.textContent="已依原始教材重新核對";
-  head.append(audit);
+  subtitle.prepend(audit,document.createTextNode(" · "));
  }
  head.append(range,title,subtitle);card.append(head);
  const nodes=document.createElement("div");nodes.className="concept-map-nodes";
