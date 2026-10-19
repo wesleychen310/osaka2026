@@ -607,7 +607,7 @@ function createConceptMapIntro(){
  const p=document.createElement("p");p.textContent="Module 2 全部 223 個小節已建有思考工具，共 "+CONCEPT_MAPS.length+" 張。每張預設展開核心段落；其餘段落按標題展開。";
  const audited=CONCEPT_MAPS.filter(m=>m.subtitle?.startsWith("【已按原書核對")).length;
  const progress=document.createElement("p");progress.className="concept-audit-progress";
- progress.textContent="Pass-First 新版逐章原書核對："+audited+"/"+CONCEPT_MAPS.length+" 張已完成（目前 §1.1）；尚未核對的圖保留既有稿，勿視為已驗收。";
+ progress.textContent="Pass-First 新版逐章原書核對："+audited+"/"+CONCEPT_MAPS.length+" 張已完成（目前至 "+(audited ? "§"+CONCEPT_MAPS.filter(m=>m.subtitle?.startsWith("【已按原書核對")).at(-1).to.slice(1,2)+"."+CONCEPT_MAPS.filter(m=>m.subtitle?.startsWith("【已按原書核對")).at(-1).to.slice(2,3)+"."+CONCEPT_MAPS.filter(m=>m.subtitle?.startsWith("【已按原書核對")).at(-1).to.slice(3) : "尚未開始")+"）；尚未核對的圖保留既有稿，勿視為已驗收。";
  const note=document.createElement("p");note.className="concept-map-source-note";
  note.append(document.createTextNode("【教材】ATPA Module 2（原文件標示 2023-04-06）；【官方】"));
  const syll=document.createElement("a");syll.href="https://www.soa.org/globalassets/assets/files/edu/2022/2022-01-atpa-learning-objectives.pdf";
