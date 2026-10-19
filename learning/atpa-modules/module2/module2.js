@@ -564,6 +564,12 @@ function createConceptMap(map){
  const range=document.createElement("span");range.className="map-range";range.textContent="§"+map.from.slice(1,2)+"."+map.from.slice(2,3)+"."+map.from.slice(3)+" – §"+map.to.slice(1,2)+"."+map.to.slice(2,3)+"."+map.to.slice(3);
  const title=document.createElement("h3");title.textContent=map.title;
  const subtitle=document.createElement("div");subtitle.className="map-subtitle";subtitle.textContent=map.subtitle||"";
+ if(map.subtitle?.startsWith("【已按原書核對")){
+  card.dataset.reviewed="true";
+  const audit=document.createElement("span");audit.className="map-review-status";
+  audit.textContent="已依原始教材重新核對";
+  head.append(audit);
+ }
  head.append(range,title,subtitle);card.append(head);
  const nodes=document.createElement("div");nodes.className="concept-map-nodes";
  let branch=null,branchIndex=0;
@@ -598,7 +604,10 @@ function createConceptMap(map){
 function createConceptMapIntro(){
  const section=document.createElement("section");section.className="concept-map-intro";
  const h=document.createElement("h2");h.textContent="Module 2｜思考工具";
- const p=document.createElement("p");p.textContent="已完成 Module 2 全部 223 小節：共 "+CONCEPT_MAPS.length+" 張概念圖。每張預設只展開核心大哉問；需要時展開其餘知識與解題 SOP。";
+ const p=document.createElement("p");p.textContent="Module 2 全部 223 個小節已建有思考工具，共 "+CONCEPT_MAPS.length+" 張。每張預設展開核心段落；其餘段落按標題展開。";
+ const audited=CONCEPT_MAPS.filter(m=>m.subtitle?.startsWith("【已按原書核對")).length;
+ const progress=document.createElement("p");progress.className="concept-audit-progress";
+ progress.textContent="Pass-First 新版逐章原書核對："+audited+"/"+CONCEPT_MAPS.length+" 張已完成（目前 §1.1）；尚未核對的圖保留既有稿，勿視為已驗收。";
  const note=document.createElement("p");note.className="concept-map-source-note";
  note.append(document.createTextNode("【教材】ATPA Module 2（原文件標示 2023-04-06）；【官方】"));
  const syll=document.createElement("a");syll.href="https://www.soa.org/globalassets/assets/files/edu/2022/2022-01-atpa-learning-objectives.pdf";
@@ -613,7 +622,7 @@ function createConceptMapIntro(){
  const index=document.createElement("nav");index.className="concept-map-index";index.setAttribute("aria-label","概念圖快速跳轉");
  for(const map of CONCEPT_MAPS){
   const link=document.createElement("a");link.href="#concept-"+map.id;
-  link.textContent=map.title;
+  link.textContent=(map.subtitle?.startsWith("【已按原書核對")?"✓ ":"")+map.title;
   link.addEventListener("click",e=>{
    e.preventDefault();document.getElementById("concept-"+map.id)?.scrollIntoView({block:"start",behavior:"smooth"});
   });
@@ -626,7 +635,7 @@ function createConceptMapIntro(){
   button.addEventListener("click",()=>document.querySelectorAll("#study-content .concept-map-branch").forEach(d=>d.open=open));
   controls.append(button);
  }
- section.append(h,p,note,legend,jump,controls);return section;
+ section.append(h,p,progress,note,legend,jump,controls);return section;
 }
 function mountConceptMaps(lessons){
  CONCEPT_BY_LESSON.clear();
