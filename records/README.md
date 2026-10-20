@@ -1,24 +1,62 @@
-# 小記事｜2026-10-18 整合版維護說明（現行）
+# 小記事｜現行架構與跨對話更新 SOP（2026-10-20）
 
-> **此段為現行作業規範。下方 2026-10-12 舊版三檔架構僅保留歷史參考，不再是網站現況。**
-> GitHub Repository 公開，**不得提交任何私人原文、薪資、交易資料、持股、JSON 或個資**。
+> **現行標準：公開 GitHub Pages OAuth 門禁 + Google Drive 單一私人 `小記事.html`。**
+> 本 Repo 為公開程式庫。**不得提交私人原文、姓名、車牌、VIN、汽車維修細節、交易金額、薪資、持股、個人 JSON、截圖或完整私人 HTML**。下方 2026-10-12 文件僅作歷史參考，不得照舊版流程更新。
 
-## 現行入口與安全邊界
+## 一、現行唯一入口、權限與檔案位置
 
-- 私人記事入口：<https://wesleychen310.github.io/osaka2026/records/>，仍以 Google OAuth（drive.readonly）保護私人資料。
-- Google Drive 正式私有單一檔案：**小記事.html**，File ID：`1Va1OoRS1-gC6Qu5SA6_q3vfd82W7HDhA`。
-- 正式資料夾：<https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU>，頂層僅保留正式 HTML 與 `_backup`。
-- 備份資料夾：<https://drive.google.com/drive/folders/1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB>。
-- 公開 GitHub 僅包含 `records/index.html`、`records/app.js` 的 Google OAuth 驗證與 `iframe.srcdoc` 私人資料呈現程式，資料從 Drive `files.get?alt=media` 取回；資料本身**絕不**提交 GitHub。
-- 章節：`finance` 財務、`income` 所得、`trust` 福利信託、`contacts` 隱形眼鏡。網站 `?tab=finance|income|trust|contacts`；舊 `/records/finance/` 和 `/records/income/` 轉址至相應章節。
+| 功能 | 現行正本與用途 |
+|---|---|
+| 私人網站 | <https://wesleychen310.github.io/osaka2026/records/> |
+| GitHub 公開登入程式 | `records/index.html` + `records/app.js`，使用 Google OAuth 2.0 `drive.readonly`；`private-auth-hint.js` 是共用登入提示 |
+| Google Drive 私人主檔 | `小記事.html`，固定 File ID `1Va1OoRS1-gC6Qu5SA6_q3vfd82W7HDhA`（MIME `text/html`） |
+| 私人記事父資料夾 | <https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU> |
+| **現行** `_backup` | <https://drive.google.com/drive/folders/1WGqjPu-z2d2evUdMzxymqLYxiieCRnjd>；**勿使用已失效的舊備份資料夾 ID** |
+| 汽車 Word 原始紀錄 | 另存於使用者的私人汽車資料夾；其 File ID 在私人 HTML 的 `bundle.car.sourceId` 中，不能向公開 GitHub 寫入原始內容 |
+| 版本與部署 | 修改 GitHub shell／README 提交至 `main`，GitHub Pages 發布；私人記事日常增加紀錄只需更新同一個 Drive File ID |
 
-## 單一 HTML 資料結構與更新 SOP
+目前 Drive 父資料夾的頂層只保留 `小記事.html` 與 `_backup`。備份內含更新前主檔；正式正本只有 **一個 HTML**。
 
-- 主檔 `小記事.html` 包含 `<script type="application/json" id="bundle">…</script>`，內含 `schemaVersion`、`finance`（完整舊 HTML 字串）、`income`（完整舊 HTML 字串）、`trust`（完整 JSON）、`contacts`（逐字擷取來源文字）、`sourceIds`。財務與所得透過分頁 iframe 顯示，保留原始 HTML/CSS/JS；信託股票含動態頁面，隱形眼鏡含逐筆更換時間線與原始全文。
-- **新增或更正任一記事**：讀取私人單檔主本，取得現行 `bundle`，執行原各類別 SOP 的查重、修正、總額核算，完成修改後重新包裝單一 HTML。勿只更新 `_backup` 內的舊子檔，否則網站不會更新。
-- 在更新 `小記事.html` 之前，先複製當前主檔至同一 `_backup` 資料夾，備份檔名含台灣時間和理由。再使用 Google Drive raw bytes 原位更新 **同一主檔 ID**，維持權限、名稱、父資料夾不變。
-- 回讀驗證 `bundle`、每個來源資料內容與交易／所得控制數，確認未遺漏，才回報完成；不得將私人完整 JSON 回寫公開的 GitHub。
-- 2026-10-18 整合時，已先複製四份原檔至 `_backup`，原始來源 File ID：財務 `1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4`、所得 `12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl`、信託 `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms`、隱形眼鏡 `1S-l63Ng1HQAgmgrlFISSayqqTrzStf8i`。原檔作歷史存證，不再獨立維護。
+## 二、五個私人記事主題（同一份 HTML）
+
+| URL 參數 | 導覽名稱 | `bundle` 欄位 | 內容呈現 |
+|---|---|---|---|
+| `?tab=finance` | 財務記事 | `finance` | 完整嵌入舊財務 HTML，內含 `#ledger-data`、已付款／待付款、分類、總額與 CSV |
+| `?tab=income` | 所得記事 | `income` | 完整嵌入舊薪資 HTML，含薪資、扣除、稅務、退休金與私有憑證 |
+| `?tab=trust` | 信託股票 | `trust` | 私有 JSON，信託持股／市值歷史／提存／管理費，在私有 HTML 中用 JS 渲染 |
+| `?tab=contacts` | 隱形眼鏡 | `contacts` | 私有來源文字及更換時間線 |
+| **`?tab=car`** | **汽車** | **`car`** | 汽車 Word 來源全文、維修保養 14 筆、維修明細、車險稅費、輪胎、加油與待補項目 |
+
+直接入口：<https://wesleychen310.github.io/osaka2026/records/?tab=car>。站內切換分頁不用重新登入；`records/app.js` 的 `allowed` 陣列必須同步維護。舊 `/records/finance/`、`/records/income/` 只是導向同一站對應分頁的相容網址。
+
+## 三、技術結構與資料模型
+
+瀏覽器載入 GitHub Pages `records/index.html` → `records/app.js` 透過 Google OAuth 取得 `drive.readonly` access token → Google Drive v3 `files/{FILE_ID}?alt=media` 取得私人 HTML bytes → `iframe.srcdoc` 嵌入私人單頁 → 內部讀取 `<script id="bundle" type="application/json">`，渲染五個分頁。
+
+私有 `bundle` 欄位為：`schemaVersion`、`generatedAt`、`finance`、`income`、`trust`、`contacts`、`car`、`sourceIds`。
+- `finance`、`income` 是原完整 HTML 的字串，會在內嵌 iframe 展示；不可只改 JSON 總額而忘記來源交易核對。
+- `trust` 是 JSON object（快照與動態資料）；`contacts` 是來源文字。
+- `car` 是 object：`schemaVersion`、`sourceText`、`sourceId`、`sourceName`、`sourceUpdatedAt`。來源文字採**原始表格的欄位次序與全部文字**，私有渲染函式 `car()` 將維修時間軸、明細、稅費、舊紀錄、分類摘要拆成表格，並保留全文折疊閱讀。
+- `sourceIds` 包含歷史來源索引，不代表舊來源仍是網站正本。任何章節更新後，以主檔 `bundle` 為網頁正本。
+
+## 四、更新 SOP（必遵守）
+
+1. 先讀取現行 Google Drive 主檔，核對 File ID、父資料夾與 owner-only 權限；必要時比對該類別原始資料。
+2. 在**現行** `_backup` 以 Drive `files.copy` 備份正式 `小記事.html`，檔名後加台灣時間及更新原因。**備份完成前，不覆蓋主檔**。
+3. 解析原主檔 `#bundle`，僅修改本次主題欄位，保留其餘四個欄位不動。財務記帳須查重、逐筆重算，核對每個 `summaryOriginal` 與分類 totals；所得／信託依其原格式驗證。
+4. 更新汽車時以最新可確認的 Word／工單為依據，保留里程、車牌、廠商、費用及原文；照片無法判讀的金額維持「待補」，不可臆測；**汽車歷年維修總額與財務記事的年度支出分開核算，避免雙重計入**。
+5. 若來源時間不同或付款狀態衝突，保留來源原文、標註日期及較新的確認資訊。現有例：汽車文件 2026/10/03 仍將部分 2026/08/01 公路養管費列為待確認，財務記事 2026/10/08 已依本人確認更新。不得把舊記事的待確認覆蓋較新財務狀態。
+6. 將修改後 HTML 作為 raw `text/html` 使用 Drive `files.update` **原位更新同一 ID**；不可新建另一個正式 `小記事.html` 或把原本的私人 HTML 放到 GitHub。
+7. 回讀重新解析 `bundle`，核對五個主題均在、先前未改的資料 byte/text 一致、交易數與加總正確、汽車維修表及來源全文完整，並核對原檔名、File ID、parent、分享權限。
+8. 僅在新增／變更分頁、路由或公開視覺框架時修改 GitHub `index.html`、`app.js`；如有結構調整，同步更新本 README 和 Repository 根 `README.md`。
+9. 自動 QA 與真實登入測試分開回報。只有 GitHub commit 不代表 GitHub Pages 已完成部署；未驗證 iOS／Google OAuth 實機，不得宣稱通過。
+
+## 五、現行程式與歷史紀錄
+
+- 現行五頁皆在同一私人 HTML；公開 Repository 不保存任何汽車、財務或所得資料。
+- `records/trust.js`、`records/trust.css` 是舊版公開外觀模組，目前信託渲染已打包在私人主 HTML 中，是否仍被其他頁面引用需先查證，勿直接刪除。
+- 2026/10/18 完成四主題整合，2026/10/20 新增汽車第五主題。汽車原始 Word 保持原位置，不移入記事資料夾；私人網站的更新來源為單一整合主檔。
+- 已失效舊版三檔操作紀錄列在下方，僅作歷史稽核，不可當作現行更新指令。
 
 ---
 
