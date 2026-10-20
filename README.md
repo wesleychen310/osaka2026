@@ -109,25 +109,24 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 後續閱讀器沿用既有 Google OAuth／短期 session token 與私人 Drive File ID 存取方式；教材、翻譯、題目、題解及原頁影像只存私人 Drive。不得將候選題解映射直接投入答案按鈕。
 - 新對話先讀私人 `progress.json`、manifest、問題清單與報告，保留已核對證據並接續未驗收工作。更新任何既存 Drive 檔案必須依本 README 備份 SOP；不得以目前程式檢查通過宣稱全書完成。
 
-### D. 私人記事／財務記錄（`records/`）
+### D. 小記事私人網站（`records/`，現行五主題）
 
-| 網站／正式 URL | GitHub 路徑 | 私人資料來源 |
+| 入口／主題 | 公開 GitHub 程式 | 私人 Google Drive 正本 |
 |---|---|---|
-| [私人記事總入口](https://wesleychen310.github.io/osaka2026/records/) `records/` | `records/index.html` + `records/app.js` | **單一 Google 登入／支出、所得、信託股票三分頁**，依需讀取兩個私人 Drive HTML；入口不含交易資料 |
-| [2026 財務記事](https://wesleychen310.github.io/osaka2026/records/finance/) `records/finance/` | `records/finance/index.html` | 私人 Drive `2026記事_私人財務帳本.html`；ID `1iW_TBvC_NO6s0PlAPLbRspfD_xYqQs_4` |
-| [所得記事](https://wesleychen310.github.io/osaka2026/records/income/) `records/income/` | `records/income/index.html` | 私人 Drive `2026所得記事_私人薪資紀錄.html`；ID `12WhesQ3XEkxR9B7DhSs_wJXJUDIUKYMl` |
-| [信託股票](https://wesleychen310.github.io/osaka2026/records/?tab=trust) `records/?tab=trust` | `records/index.html`、`records/app.js`、`records/trust.js`、`records/trust.css` | 私人 Drive Google Docs `2026信託股票_私人資料`；ID `1RgnSpArXb2YWmgLMnp7AGTU8kKYUv9OxWmPxnFvfgms`；原始持股資料僅在私人 JSON |
+| [小記事總入口](https://wesleychen310.github.io/osaka2026/records/) | `records/index.html` + `records/app.js`，Google OAuth `drive.readonly` | **唯一正式 `小記事.html`**，File ID `1Va1OoRS1-gC6Qu5SA6_q3vfd82W7HDhA` |
+| [財務記事](https://wesleychen310.github.io/osaka2026/records/?tab=finance) | 同一登入 shell | `bundle.finance` |
+| [所得記事](https://wesleychen310.github.io/osaka2026/records/?tab=income) | 同一登入 shell | `bundle.income` |
+| [信託股票](https://wesleychen310.github.io/osaka2026/records/?tab=trust) | 同一登入 shell | `bundle.trust` |
+| [隱形眼鏡](https://wesleychen310.github.io/osaka2026/records/?tab=contacts) | 同一登入 shell | `bundle.contacts` |
+| **[汽車](https://wesleychen310.github.io/osaka2026/records/?tab=car)** | 同一登入 shell，`app.js` 允許 `car` 路由 | **`bundle.car`**，保養、維修、里程、輪胎、車險稅費、加油紀錄及原始 Word 文字 |
 
-**私人記事（支出＋所得＋信託股票）專用 README：[records/README.md](records/README.md)**。該文件詳細記載：
+**現行架構：五個主題，一份私人 HTML，所有敏感資料只在 Google Drive。** OAuth 驗證成功後，`records/app.js` 呼叫 Drive API `files.get?alt=media`，將取得的主檔以 `iframe.srcdoc` 呈現；GitHub Pages 僅託管公開登入程式、CSS、JS，不上傳私人內容。舊路由 `records/finance/`、`records/income/` 均重新導向單一入口的對應主題。
 
-- 來源 Word 文件 `2026記事.docx`（ID `14_-8w1bTsxsKoj-wDWanL_L0bxYBV-qu`），匯入後保留原件；網站**現行正本**是獨立私人 HTML。
-- Drive 儲存位置與來源相同：[文件／記事](https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU)（Folder ID `1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU`）；備份：[記事／_backup](https://drive.google.com/drive/folders/1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB)（ID `1st72qB2XA4sq7ZGzg-_i3FUDClrxKMNB`）。
-- 日常入口 `records/` 使用共用 Google OAuth（登入一次），可直接切換「支出紀錄」、「所得紀錄」和「信託股票」；`records/app.js` 依需求載入既有私人 Drive HTML 並以 `iframe.srcdoc` 呈現、移除重複視覺雜訊。舊的 `records/finance/`、`records/income/` 直接登入 shell 保留向下相容。公開 GitHub 不含交易明細、總額及個人憑證。
-- Private HTML 的 `#ledger-data` JSON schema v1；`transactions[]`、已付／明確未付款的狀態、房貸月表、分類核對表及週期備註的相依關係。**交易明細一律預設已付款；只有使用者明確說尚未付，才設為待付款。** 2026-10-08 已依本人確認修正 3 筆公路養管費，詳 `records/README.md`。
-- **未來新增任何財務交易，先讀原檔 → 在同層 `_backup` 先備份 → 修改相同 Drive File ID 的私人 HTML → 金額重算與明細驗證 → 維持原檔名、位置、私人權限。** 直接在網站篩選、複製輸入範本、匯出 CSV 均屬唯讀操作，新增要由 ChatGPT／Work 依 SOP 寫回 Drive。
-- **所得記事**：薪資明細表與每月薪酬單據另用 `records/income/` 登入讀取；私人 HTML 及來源截圖均位於同一「文件／記事」資料夾，原始圖檔 File ID `1_q6DSXfGTFKHoYewJ0Xp4px6FYyELSO4`；薪資單上發薪日與銀行實際入帳分開標記，雇主勞退公提與薪資扣除亦分開。詳見 `records/README.md`「所得記事」章節。
-- 信託股票：GitHub `trust.js`／`trust.css` 管理呈現；Google Drive 私人 Google Docs 保存 JSON。由同一 OAuth 登入、Drive export text/plain 載入。後續信託對帳單僅修改既有私人資料檔；先備份至記事 `_backup`，再原位更新。詳 `records/README.md` 第 7 節。
-- 日後新增年度或其他財務主題，由 `records/index.html` 統一導覽；必要時建立獨立私人資料，更新雙層 README。
+- **私人主檔資料夾：** <https://drive.google.com/drive/folders/1ngQ4Tv0CrbCNDBItbAJqJLBhmmnJkUfU>，頂層僅保留 `小記事.html` 與 `_backup`。
+- **現行備份資料夾：** <https://drive.google.com/drive/folders/1WGqjPu-z2d2evUdMzxymqLYxiieCRnjd>。歷史舊資料夾 ID 已失效，勿依舊索引操作。
+- **更新 SOP：** 讀取正式主檔 → 備份至同層 `_backup` → 修改 `#bundle` 之對應主題 → 檢查來源、交易與合計、跨主題資料不重複 → 用 Drive `files.update` 更新原檔 bytes，保留原 File ID、名稱、路徑、權限 → 回讀驗證。汽車資料取自原本私人 Word，其來源文字嵌於 `bundle.car.sourceText`，原 Word 不搬動。
+- **避免資料衝突：** 汽車跨年保養維修累計與年度財務支出分開計算；保留原來源日期與待確認標籤，當較新財務紀錄已確認付款時於 UI 提醒，勿覆蓋新狀態。
+- **完整交接說明：** [records/README.md](records/README.md)。此專用 README 的現行章節優先於 2026/10/12 歷史附錄。改變主題、路由、來源或 Drive 位置時同步更新兩份 README。公開 Repo 禁止加入個人交易、薪資、車牌、VIN、工單內容、原始私人 HTML。
 
 ### E. Repository 根目錄的其他獨立／歷史頁（保留待確認）
 
