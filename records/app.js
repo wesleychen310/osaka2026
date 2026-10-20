@@ -1,5 +1,5 @@
 /* Private notes loader: this PUBLIC file contains no personal financial data.
-   All four chapters reside inside one Google Drive private HTML (OAuth gated). */
+   All five chapters reside inside one Google Drive private HTML (OAuth gated). */
 (function(){
 'use strict';
 const FILE_ID='1Va1OoRS1-gC6Qu5SA6_q3vfd82W7HDhA';
@@ -10,7 +10,7 @@ const gate=document.getElementById('gate'),viewer=document.getElementById('viewe
  frame=document.getElementById('privateFrame'),status=document.getElementById('status'),
  loginBtn=document.getElementById('loginBtn'),switchBtn=document.getElementById('switchBtn');
 let token=null,expiry=0,oauth=null,obs=null,loading=false;
-const allowed=['finance','income','trust','contacts'];
+const allowed=['finance','income','trust','contacts','car'];
 function wanted(){const x=new URLSearchParams(location.search).get('tab');return allowed.includes(x)?x:'finance'}
 function tell(msg){status.textContent=msg||''}
 function restore(){try{const t=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||'null');if(t?.access_token&&Date.now()<Number(t.expires_at)-120000){token=t.access_token;expiry=t.expires_at}}catch(e){}}
