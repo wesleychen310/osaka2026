@@ -53,6 +53,8 @@ async function openBook(token){
  if(!res.ok)throw Error("DRIVE_"+res.status);
  let book=await res.text();
  if(selected==="toc"?!book.includes('id="toc-p5"')||!book.includes('data-mode="parallel"'):!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
+ // Correct cross-book links before loading a private book; a query change forces a full navigation.
+ if(selected==="toc")book=book.replaceAll('https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/#step-','https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/?book=steps#step-');
  // Public shell contains navigation only; both books and all translations remain private in Drive.
  if(selected==="steps"){
   const integrityNotice='<div role="note" style="background:#fff8e9;border-bottom:1px solid #e7d6ad;color:#614b1f;padding:10px 17px;text-align:center;font:13px/1.7 -apple-system,BlinkMacSystemFont,sans-serif">既有 STEP 01–07 試行版｜日文 OCR 與繁中翻譯仍待逐頁驗收。 <a href="./#toc-p1" style="color:#184964">返回已校對的雙語目次</a></div>';
