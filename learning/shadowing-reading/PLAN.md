@@ -57,3 +57,14 @@
 - 原始圖片中尚未完全網頁文字化的語調、重音、連音等標記，標記待校對，不能當成完成。
 - GitHub commit: `070923f337b81efd58e3de75b9344875e578e9a9`，後續精簡導航 `cecfa27fc12aa2e1f1d0a44fe2c10cecc75704df`。
 - 修改前 3 份私人檔案已分別備份至同層 `_backup`：Batch001 `1KSRWcH8rGW4lzBzpmkqbQalOHXvwyc96`、Batch002 `1rKvGhrrzZOQK5B0iiplkQHwVlc83YjoS`、STEP01–07 `13xMP4qklyfF3ELvUg--PhS10G-EhFYJc`。
+
+
+## 2026-10-24｜Batch 003 已完成並接入網站
+
+- 已逐頁比對 PDF **9–12** 的原書圖面，校正 OCR 並完整翻成繁體中文。
+- Batch 003 私人 HTML：`Shadowing_Batch003_前言結尾_PDF009-012_日中對照.html`，Google Drive ID `1ZD4vXm5Njer9pUmY4u6NpqsQ-4_zJIf4`，維持 owner-only。
+- 第 9–12 頁共 **24 組日中對照語塊**，4 個原書來源頁標記；本批 HTML 不包含任何原頁影像或 PDF 查閱連結。
+- 網站 `?book=preface` 已升級成從私人 Google Drive 載入 Batch 002＋Batch 003，於瀏覽器以 DOM 串接，整理為**七頁連續前言**；原第 8/9、11/12 頁的斷句在合併時銜接。
+- 正式網站 GitHub commit：`918a440679081637c5745032d5e7fdbdeba62c28`。
+- 維持全中文／日文原文／左右對照，預設左右對照。真人 Safari OAuth 尚未實機驗證。
+- **下一批 Batch 004**：原書 PDF 第 **13–16** 頁，「この本の使い方」（本書使用方法）前四頁，第五頁續於 Batch 005。
