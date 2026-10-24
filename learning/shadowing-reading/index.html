@@ -28,14 +28,14 @@ aside{font-size:12px;margin-top:22px;color:#7c8b95;line-height:1.7}
 @media(max-width:480px){.wrap{padding:28px 13px 55px}.card{border-radius:16px}}
 </style>
 </head>
-<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">從原書第一頁開始：Batch 001「目次」五頁已完成日中對照。登入後預設閱讀目次，也可切換到原有 STEP 01–07 試行版。</p></header><section class="card"><div class="pills"><span>PDF 1–5｜雙語目次已完成</span><span>STEP 01–07｜既有試行版</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">從目次開始</a> · <a href="./?book=steps#step-1">開啟 STEP 01–07 試行版</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
+<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">從原書第一頁依序製作：Batch 001「目次」五頁及 Batch 002「前言」三頁已完成日中雙語。登入後可切換批次閱讀。</p></header><section class="card"><div class="pills"><span>PDF 1–5｜雙語目次</span><span>PDF 6–8｜前言雙語</span><span>STEP 01–07｜既有試行版</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">從目次開始</a> · <a href="./?book=preface#preface-p6">閱讀前言</a> · <a href="./?book=steps#step-1">開啟 STEP 01–07 試行版</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
 const SCOPE="https://www.googleapis.com/auth/drive.readonly";
 const TOKEN_KEY="hanami-kyoto-google-token-v3";
-const BOOKS={toc:"1M9-IoCUbyvxFHEp9EjoD22NR60lkQaNG",steps:"10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk"};
-const requestedBook=()=>new URLSearchParams(location.search).get("book")==="steps"||/^#step-[1-7](?:\b|$)/.test(location.hash)?"steps":"toc";
+const BOOKS={toc:"1M9-IoCUbyvxFHEp9EjoD22NR60lkQaNG",preface:"1G4adCcGVMl8DcHrrvsQuZ7agQ9QsygNl",steps:"10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk"};
+const requestedBook=()=>{const b=new URLSearchParams(location.search).get("book");return b==="preface"?"preface":b==="steps"||/^#step-[1-7](?:\b|$)/.test(location.hash)?"steps":"toc"};
 const openBtn=document.getElementById("openBtn");
 const switchBtn=document.getElementById("switchBtn");
 const statusBox=document.getElementById("status");
@@ -52,9 +52,10 @@ async function openBook(token){
  if(res.status===403)throw Error("NO_ACCESS");
  if(!res.ok)throw Error("DRIVE_"+res.status);
  let book=await res.text();
- if(selected==="toc"?!book.includes('id="toc-p5"')||!book.includes('data-mode="parallel"'):!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
+ if(selected==="toc"?!book.includes('id="toc-p5"')||!book.includes('data-mode="parallel"'):selected==="preface"?!book.includes('id="preface-p8"')||!book.includes('data-mode="parallel"'):!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
  // Correct cross-book links before loading a private book; a query change forces a full navigation.
  if(selected==="toc")book=book.replaceAll('https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/#step-','https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/?book=steps#step-');
+ if(selected==="toc")book=book.replace('<div class="links">','<div class="links"><a href="./?book=preface#preface-p6">已完成前言（PDF 6–8）↗</a>');
  // Public shell contains navigation only; both books and all translations remain private in Drive.
  if(selected==="steps"){
   const integrityNotice='<div role="note" style="background:#fff8e9;border-bottom:1px solid #e7d6ad;color:#614b1f;padding:10px 17px;text-align:center;font:13px/1.7 -apple-system,BlinkMacSystemFont,sans-serif">既有 STEP 01–07 試行版｜日文 OCR 與繁中翻譯仍待逐頁驗收。 <a href="./#toc-p1" style="color:#184964">返回已校對的雙語目次</a></div>';
