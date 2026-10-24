@@ -28,14 +28,14 @@ aside{font-size:12px;margin-top:22px;color:#7c8b95;line-height:1.7}
 @media(max-width:480px){.wrap{padding:28px 13px 55px}.card{border-radius:16px}}
 </style>
 </head>
-<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">純網頁雙語閱讀：全書目錄、完整前言及七步驟。支援日文、繁中與左右對照。</p></header><section class="card"><div class="pills"><span>目錄</span><span>前言</span><span>七步驟</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">閱讀目錄</a> · <a href="./?book=preface#preface-p6">閱讀前言</a> · <a href="./?book=steps#step-1">閱讀七步驟</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
+<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">純網頁雙語閱讀：目錄、完整前言、本書使用方法及七步驟。日文、繁中與左右對照可切換。</p></header><section class="card"><div class="pills"><span>目錄</span><span>前言</span><span>七步驟</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">閱讀目錄</a> · <a href="./?book=preface#preface-p6">閱讀前言</a> · <a href="./?book=guide#guide">本書使用方法</a> · <a href="./?book=steps#step-1">閱讀七步驟</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
 const SCOPE="https://www.googleapis.com/auth/drive.readonly";
 const TOKEN_KEY="hanami-kyoto-google-token-v3";
-const BOOKS={toc:"1M9-IoCUbyvxFHEp9EjoD22NR60lkQaNG",preface:"1G4adCcGVMl8DcHrrvsQuZ7agQ9QsygNl",prefaceEnd:"1ZD4vXm5Njer9pUmY4u6NpqsQ-4_zJIf4",steps:"10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk"};
-const requestedBook=()=>{const b=new URLSearchParams(location.search).get("book");return b==="preface"?"preface":b==="steps"||/^#step-[1-7](?:\b|$)/.test(location.hash)?"steps":"toc"};
+const BOOKS={toc:"1M9-IoCUbyvxFHEp9EjoD22NR60lkQaNG",preface:"1G4adCcGVMl8DcHrrvsQuZ7agQ9QsygNl",prefaceEnd:"1ZD4vXm5Njer9pUmY4u6NpqsQ-4_zJIf4",guide:"1FiKQ2P3iz1gTcxtsZC4izG7Fgkd2ss0F",steps:"10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk"};
+const requestedBook=()=>{const b=new URLSearchParams(location.search).get("book");return b==="guide"?"guide":b==="preface"?"preface":b==="steps"||/^#step-[1-7](?:\b|$)/.test(location.hash)?"steps":"toc"};
 const openBtn=document.getElementById("openBtn");
 const switchBtn=document.getElementById("switchBtn");
 const statusBox=document.getElementById("status");
@@ -58,7 +58,7 @@ function renderSimpleWebBook(html,selected){
   }
  });
  const heroParagraphs=[...doc.querySelectorAll(".hero p")];
- if(heroParagraphs.length){const summary=heroParagraphs[0];summary.classList.remove("updated");summary.textContent=selected==="toc"?"全書日中雙語目錄":selected==="preface"?"前言 · 日中逐段對照":"第 2 章 · 七步驟日中對照與英文練習";heroParagraphs.slice(1).forEach(p=>p.remove())}
+ if(heroParagraphs.length){const summary=heroParagraphs[0];summary.classList.remove("updated");summary.textContent=selected==="toc"?"全書日中雙語目錄":selected==="preface"?"完整前言 · 日中逐段對照":selected==="guide"?"本書使用方法 · 日中逐段對照":"第 2 章 · 七步驟日中對照與英文練習";heroParagraphs.slice(1).forEach(p=>p.remove())}
  const units=[...doc.querySelectorAll("main .unit")];
  if(selected==="toc"||selected==="preface"){
   const first=units[0],body=first?.querySelector(".contents");
@@ -96,13 +96,32 @@ function renderSimpleWebBook(html,selected){
   });
  }
  if(selected==="toc"){
+  doc.querySelectorAll(".pair").forEach(pair=>{
+   const jp=pair.querySelector(".original")?.textContent?.trim()||"";
+   let hash="";
+   if(jp==="この本の使い方")hash="guide";
+   if(jp.startsWith("特別付録 追加練習教材"))hash="extra";
+   if(jp==="はじめに")hash="preface";
+   if(hash){
+    const a=doc.createElement("a");
+    a.href=hash==="preface"?"./?book=preface#preface-p6":"./?book=guide#"+hash;
+    a.textContent="閱讀 ↗";a.style.cssText="display:inline-block;margin-left:9px;font-size:11px;text-decoration:underline";
+    pair.querySelector(".translation")?.appendChild(a);
+   }
+  });
+ }
+ if(selected==="preface"){
+  const links=doc.querySelector(".hero .links");
+  if(links){const a=doc.createElement("a");a.href="./?book=guide#guide";a.textContent="接續：本書使用方法 →";links.appendChild(a)}
+ }
+ if(selected==="toc"){
   const links=doc.querySelector(".hero .links");
   if(links&&!links.querySelector('a[href*="book=preface"]')){
    const a=doc.createElement("a");a.href="./?book=preface#preface-p6";a.textContent="閱讀前言 →";links.prepend(a);
   }
  }
  const footer=doc.querySelector("footer");
- if(footer)footer.textContent=selected==="toc"?"目錄 · 前言與七步驟可從上方連結閱讀":selected==="preface"?"前言 · 後續內容逐批上線":"七步驟試行版 · 部分發音標記與翻譯仍待校訂";
+ if(footer)footer.textContent=selected==="toc"?"目錄 · 前言與七步驟可從上方連結閱讀":selected==="preface"?"前言 · 已完整收錄":selected==="guide"?"本書使用方法與特別附錄 · 完":"七步驟試行版 · 部分發音標記與翻譯仍待校訂";
  const cleanStyle=doc.createElement("style");cleanStyle.id="simplified-web-reader";
  cleanStyle.textContent=':root{--bg:#fff;--paper:#fff;--ink:#202938;--blue:#334155;--accent:#334155;--line:#e5e7eb;--muted:#667085;--soft:#f8fafc} body{background:#fff!important;color:#202938!important} header.hero,.hero{background:#fff!important;padding:18px 15px 12px!important;border-bottom:1px solid #e5e7eb} .hero h1{font-size:clamp(23px,4vw,30px)!important;letter-spacing:0!important;line-height:1.4!important;margin:0 0 6px!important} .hero p{font-size:13px!important;line-height:1.65!important;color:#667085!important} .hero .links{margin:8px 0 0!important;gap:14px!important} .hero .links a{font-size:13px!important;color:#34495e!important} .hero .updated,.hero .eyebrow,.breadcrumbs{display:none!important} .bar,.modebar{box-shadow:none!important;border-color:#e5e7eb!important} .layout{display:block!important;max-width:980px!important;margin:auto!important;padding:12px 12px 40px!important} .toc-nav{display:none!important} .unit{box-shadow:none!important;border:0!important;border-radius:0!important;overflow:visible!important;margin:0 0 20px!important} .page-head,.unit-head{background:#fff!important;border:0!important;padding:9px 5px 8px!important} .page-head h2,.unit-head h2{font-size:21px!important;color:#293548!important;letter-spacing:0!important} .contents{padding:2px 3px!important} .unit-section{padding:18px 8px!important} .pair>.original{color:#304255!important;border-right-color:#e5e7eb!important} .pair>.translation{color:#293548!important} .pair.chapter,.pair.heading,.pair.column{background:#f8fafc!important;border-radius:3px!important} .pair{border-bottom-color:#eceff2!important} .stepnav:hover{background:#f8fafc!important} .toc{position:static!important;display:flex!important;gap:5px!important;overflow-x:auto!important;white-space:nowrap!important;box-shadow:none!important;border:0!important;border-bottom:1px solid #e5e7eb!important;border-radius:0!important;margin-bottom:13px!important;padding:7px!important} .toc-head{display:none!important} .stepnav{flex:0 0 auto!important;padding:7px 10px!important} .stepnav small{display:none!important} .nstep,.stepno{background:#f1f5f9!important;color:#334155!important} .script-card,.english-phrase{background:#f9fafb!important;border-color:#e5e7eb!important} .scans,.page-bottom,.source-title{display:none!important} .reading-anchor{display:block;position:relative;scroll-margin-top:95px} footer.foot,footer{border-top:1px solid #e5e7eb;color:#667085!important;max-width:980px;margin:auto!important;padding:17px 15px 45px!important;text-align:center;font-size:12px} @media(max-width:800px){.layout{padding:8px 10px 30px!important}.unit-section{padding:12px 3px!important}.toc{margin-bottom:13px!important;overflow-x:auto!important}.hero{padding:15px 12px!important}}';
  doc.head.appendChild(cleanStyle);
@@ -117,7 +136,7 @@ async function openBook(token){
  if(res.status===403)throw Error("NO_ACCESS");
  if(!res.ok)throw Error("DRIVE_"+res.status);
  let book=await res.text();
- if(selected==="toc"?!book.includes('id="toc-p5"')||!book.includes('data-mode="parallel"'):selected==="preface"?!book.includes('id="preface-p8"')||!book.includes('data-mode="parallel"'):!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
+ if(selected==="toc"?!book.includes('id="toc-p5"')||!book.includes('data-mode="parallel"'):selected==="preface"?!book.includes('id="preface-p8"')||!book.includes('data-mode="parallel"'):selected==="guide"?!book.includes('id="extra"')||!book.includes('id="audio"')||!book.includes('data-mode="parallel"'):!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
  if(selected==="preface"){
   // Both source segments remain private; join them in the browser after authorized reads.
   const more=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(BOOKS.prefaceEnd)+"?alt=media",{headers:{Authorization:"Bearer "+token},cache:"no-store"});
