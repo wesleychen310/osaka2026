@@ -101,3 +101,10 @@
 **權限**：所有私人原始資料仍只在 Google Drive。此次因 Drive 原檔內容替換未成功，採用 GitHub Pages 公開殼層的客戶端整理；三個私人 HTML File ID、名稱及位置未修改，原本內嵌的掃描資料仍存在於備份與私人來源檔，不顯示於網站。現有七步驟的部分發音符號尚未完整網頁文字化，等待後續校對。
 
 新的製作批次一律不放原頁掃描、不放 PDF 連結，校對作業內部仍使用原 PDF。
+
+
+### 2026-10-24｜Batch 003 上線：完整前言七頁
+
+原書 PDF 第 9–12 頁已完成 OCR 校訂與繁中翻譯。新私人 HTML ID `1ZD4vXm5Njer9pUmY4u6NpqsQ-4_zJIf4`，24 組日中對照、私人 Drive owner-only。已更新 GitHub Pages 入口，`?book=preface#preface-p6` 現在自動登入後同時讀取 Batch 002＋Batch 003，顯示原書 PDF 6–12 的連續前言並銜接跨頁的中日斷句。
+
+接下來是 PDF 13–16「この本の使い方」。網站規格維持純網頁無掃描、無 PDF 連結。
