@@ -1,4 +1,4 @@
-/* Focused SCENE 063–072 bilingual reading; practice prompts pending verification. */
+/* Focused SCENE 063–072 bilingual reading; full three-step prompts integrated. */
 html[data-scene-focus="063"] #book-content > .chapter:not(#scene-063){display:none!important}
 html[data-scene-focus="063"] #toc-items > a:not([href="#scene-063"]){display:none!important}
 #scene-063 .prompt-lab,#scene-063 > details.prompt-step,#scene-063 .prompt-translation-audit{display:none!important}
