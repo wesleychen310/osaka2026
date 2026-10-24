@@ -28,13 +28,13 @@ aside{font-size:12px;margin-top:22px;color:#7c8b95;line-height:1.7}
 @media(max-width:480px){.wrap{padding:28px 13px 55px}.card{border-radius:16px}}
 </style>
 </head>
-<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">純網頁雙語閱讀：全書目錄、前言及七步驟。支援日文、繁中與左右對照。</p></header><section class="card"><div class="pills"><span>目錄</span><span>前言</span><span>七步驟</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">閱讀目錄</a> · <a href="./?book=preface#preface-p6">閱讀前言</a> · <a href="./?book=steps#step-1">閱讀七步驟</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
+<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">純網頁雙語閱讀：全書目錄、完整前言及七步驟。支援日文、繁中與左右對照。</p></header><section class="card"><div class="pills"><span>目錄</span><span>前言</span><span>七步驟</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">閱讀目錄</a> · <a href="./?book=preface#preface-p6">閱讀前言</a> · <a href="./?book=steps#step-1">閱讀七步驟</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
 const SCOPE="https://www.googleapis.com/auth/drive.readonly";
 const TOKEN_KEY="hanami-kyoto-google-token-v3";
-const BOOKS={toc:"1M9-IoCUbyvxFHEp9EjoD22NR60lkQaNG",preface:"1G4adCcGVMl8DcHrrvsQuZ7agQ9QsygNl",steps:"10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk"};
+const BOOKS={toc:"1M9-IoCUbyvxFHEp9EjoD22NR60lkQaNG",preface:"1G4adCcGVMl8DcHrrvsQuZ7agQ9QsygNl",prefaceEnd:"1ZD4vXm5Njer9pUmY4u6NpqsQ-4_zJIf4",steps:"10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk"};
 const requestedBook=()=>{const b=new URLSearchParams(location.search).get("book");return b==="preface"?"preface":b==="steps"||/^#step-[1-7](?:\b|$)/.test(location.hash)?"steps":"toc"};
 const openBtn=document.getElementById("openBtn");
 const switchBtn=document.getElementById("switchBtn");
@@ -70,7 +70,7 @@ function renderSimpleWebBook(html,selected){
      if(prior?.classList.contains("para")&&next?.classList.contains("para")){
       for(const side of ["original","translation"]){
        const a=prior.querySelector("."+side),b=next.querySelector("."+side);
-       if(a&&b)a.textContent+=b.textContent;
+       if(a&&b){const left=a.textContent,right=b.textContent;a.textContent=side==="translation"&&left.endsWith("的人……")&&right.startsWith("的人，")?left.slice(0,-2)+right.slice(2):left+right}
       }
       next.remove();
      }
@@ -118,6 +118,22 @@ async function openBook(token){
  if(!res.ok)throw Error("DRIVE_"+res.status);
  let book=await res.text();
  if(selected==="toc"?!book.includes('id="toc-p5"')||!book.includes('data-mode="parallel"'):selected==="preface"?!book.includes('id="preface-p8"')||!book.includes('data-mode="parallel"'):!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
+ if(selected==="preface"){
+  // Both source segments remain private; join them in the browser after authorized reads.
+  const more=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(BOOKS.prefaceEnd)+"?alt=media",{headers:{Authorization:"Bearer "+token},cache:"no-store"});
+  if(more.status===401)throw Error("TOKEN_EXPIRED");
+  if(more.status===403)throw Error("NO_ACCESS");
+  if(!more.ok)throw Error("DRIVE_"+more.status);
+  const addition=await more.text();
+  if(!addition.includes('id="preface-p12"')||!addition.includes('data-mode="parallel"'))throw Error("INVALID_BOOK");
+  const firstDoc=new DOMParser().parseFromString(book,"text/html");
+  const lastDoc=new DOMParser().parseFromString(addition,"text/html");
+  const target=firstDoc.querySelector("main");
+  const sections=[...lastDoc.querySelectorAll("main .unit")];
+  if(!target||sections.length!==4)throw Error("INVALID_BOOK");
+  sections.forEach(node=>target.appendChild(firstDoc.importNode(node,true)));
+  book="<!doctype html>\n"+firstDoc.documentElement.outerHTML;
+ }
  // Correct cross-book links before loading a private book; a query change forces a full navigation.
  if(selected==="toc")book=book.replaceAll('https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/#step-','https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/?book=steps#step-');
  
