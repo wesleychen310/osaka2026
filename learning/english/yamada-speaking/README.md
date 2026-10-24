@@ -1,5 +1,20 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-24｜第 10 批正式交付：SCENE 073–082（最新）
+
+**本批完成 10／10 課，累積完整課程 82／100（82%）。** 每課英日／英中雙語電子課文和 STEP 1–3 原始日文及繁中逐行 Prompt 均已交付私人 Drive，網站口說練習／複製及逐行對照功能已接入。
+
+- **原始資料**：原書私人 PDF `1sGQoKXyXvAWflI6iucbOl0x1qliTW6St`，本批印刷 p.172–191；30 份日文原始 Prompt 已由私人 Drive 讀取。場景依序為 SCENE073 提案、074 結束會議、075 線上會議音訊及分享畫面、076 撥打電話、077 接聽電話、078 簡報開場、079 說明數據、080 產品介紹、081 簡報結論、082 交流會自我介紹。
+- **雙語課文私人 HTML**：新建 `Yamada_Speaking_SCENE073-082_TEXT_ONLY.html`，Drive ID `1SnmZugdecAIY7cskHX30GSm9cIAL6mT_`，父資料夾 `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`，含 10 個連續場景、30 組原始英文關鍵句、62 句模型對話／演說及 182 組日中配對。保留原書英文、日文與情境數據；無掃描圖，維持私人 owner-only。
+- **完整 STEP Prompt**：保留全部 30 個原有 `SCENE073–082-STEP1–3.txt` 日文檔 ID；新增 30 個對應 `_ZH.txt` 至私人來源資料夾 `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB`。共 **5,093 個原文行次**逐行一致（30／30 PASS），**892 個純英文／EN 行次**原樣保留，**195 個 IPA token** 精確保留，扣除必要觸發詞 `レッツスタート` 後未翻譯假名為 0，缺譯標記 0。
+- **上傳後實際回讀 QA**：30／30 份繁中 TXT 重新從 Google Drive 下載原始 bytes，SHA-256 與上傳前每份記錄完全一致；30／30 metadata 皆 `shared=false`、僅 owner 權限及正確父資料夾。本批 QA 明細為私人 `SCENE073-082_Final_QA_20261024.csv`，ID `1CIpDUXuImVJWkm6hShHHX5NFLri4vrVC`；私人 HTML SHA-256 `4f13e69c0e4c8d1db23f40165bc85547d4ec05e310024d54757197c292c03466`。
+- **GitHub**：新增 `scene-batch10.js`，僅含 073–082 三 STEP 日／中文的 **60 個獨立私人 Drive ID**，提供練習切換、Prompt 全文複製及日文／中文逐行對照。更新 `reader.js` 第七批私人補充來源、驗證與導航範圍至 082；`reader-localization.js` 四種顯示模式含英文重複呈現延伸至 082；新增 `reader-batch10.css`，`index.html` 加入十課入口及 `scene-batch10.js`，使用 cache-busting `20261024-batch10-allprompts-v1`。保留 SCENE 001–072 原檔與程式。
+- **靜態驗收**：重新從 GitHub 讀回 `scene-batch10.js`、`reader.js`、`reader-localization.js` 皆通過 JavaScript 語法；控制器恰有 SCENE 073–082 的 10 組來源，每組日／中各三份，60 ID 不重複；HTML navigation、私人課文 ID、四種閱讀模式、完成進度文字均查核通過。原書 PDF 逐項人工視覺全頁核對尚未完成。
+- **尚待 E2E 驗收**：Google OAuth 真實登入、GitHub Pages CDN、Safari／iOS／iPadOS 各裝置、Prompt 複製、英語 TTS 語音按鈕及四模式畫面實際操作尚未執行，不聲稱 E2E PASS。
+- **下一批**：SCENE 083–092；完成後目標 92／100。
+
+---
+
 ## 2026-10-24｜第 9 批交付完成：SCENE 063–072（最新）
 
 **雙語課文＋STEP 1–3 日文原稿／繁中逐行譯文已交付，累積 72／100 課。** 本批新增十課、30 個原始日文 Prompt、30 個繁中譯文檔案入口；原有 SCENE 001–062 不變。
