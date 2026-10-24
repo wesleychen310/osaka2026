@@ -68,3 +68,14 @@
 - 正式網站 GitHub commit：`918a440679081637c5745032d5e7fdbdeba62c28`。
 - 維持全中文／日文原文／左右對照，預設左右對照。真人 Safari OAuth 尚未實機驗證。
 - **下一批 Batch 004**：原書 PDF 第 **13–16** 頁，「この本の使い方」（本書使用方法）前四頁，第五頁續於 Batch 005。
+
+
+## 2026-10-24｜Batch 004 完成（原書 PDF 13–17）
+
+- 完整完成原書〈この本の使い方〉、八章內容說明、〈音声ダウンロード方法〉及〈特別付録 追加練習教材のご案内〉。
+- 私人 HTML：`Shadowing_Batch004_本書使用方法_PDF013-017_日中對照.html`，Google Drive ID `1FiKQ2P3iz1gTcxtsZC4izG7Fgkd2ss0F`，父目錄維持 `1BD27TNmiMPGiQlWEDxSE_lYrDBYLbzPj`，owner-only。
+- 本批包含 43 組日中完整對照，三大段（本書架構、音訊下載、額外練習教材），保留原書外部音訊網址，不含任何原頁掃描或私人 PDF 連結。
+- 網站 GitHub Pages 入口新增加載路由 `?book=guide#guide`；從全書目錄可前往本書使用方法及特別附錄，從前言可接續閱讀。
+- 公開 GitHub 僅保存程式及私人檔案 ID；繁中與日文正文保留在私人 Drive。
+- GitHub commit `e9197e666484e87095cbe1c114b4fb68b0f220a0`。已完成私人檔案讀回、段落與權限檢查，真人 Safari OAuth 需實際登入測試。
+- **下一批 Batch 005**：PDF 18–21，第 1 章開頭（含章首頁、英語學習整體架構與四項要素之圖示改寫為網頁語意結構，不顯示原頁掃描）。
