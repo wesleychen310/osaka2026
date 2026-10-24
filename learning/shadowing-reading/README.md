@@ -1,3 +1,14 @@
+## 2026-10-24｜批次 001 已上線（日中雙語目次）
+
+- 正式入口：<https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/>，Google OAuth 登入後預設載入私人 Batch 001（日文原文、繁中翻譯、左右對照）。
+- 第一批以原書實際 PDF 1–5 頁製作五頁全目錄，包含 80 個項目；原書第一頁即是目次。
+- 私人 HTML 檔案 ID：`1M9-IoCUbyvxFHEp9EjoD22NR60lkQaNG`，原來源 PDF ID：`1Zi-K01V8ZKP1DzjmrpszZmP9KGNdii53`。上述私人檔案保持 owner-only；來源掃描經該檔 Google Drive 連結開啟。
+- 舊版 STEP 01–07 使用 `?book=steps#step-1`，繼續保留。目次項目連結由公開登入殼層補上切換路由。
+- 通過 Chromium 8 種寬度 × 3 模式基本渲染檢查；真人 iOS Safari OAuth 待驗證。下批 PDF 6–8 前言。
+- 本次新規格為「從書第 1 頁起，原文校對＋繁中翻譯＋網站發布同步」，以 `PLAN.md` v3 為準。後續版本以完整雙語小批次發布。
+
+---
+
 # Shadowing 私人互動閱讀｜架構、校對與維護 README
 
 > 2026-10-11（Asia/Taipei） · Pilot 0.1 · 第 2 章 STEP 01–07  
