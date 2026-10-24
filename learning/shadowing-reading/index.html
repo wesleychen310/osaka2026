@@ -28,7 +28,7 @@ aside{font-size:12px;margin-top:22px;color:#7c8b95;line-height:1.7}
 @media(max-width:480px){.wrap{padding:28px 13px 55px}.card{border-radius:16px}}
 </style>
 </head>
-<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">從原書第一頁依序製作：Batch 001「目次」五頁及 Batch 002「前言」三頁已完成日中雙語。登入後可切換批次閱讀。</p></header><section class="card"><div class="pills"><span>PDF 1–5｜雙語目次</span><span>PDF 6–8｜前言雙語</span><span>STEP 01–07｜既有試行版</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">從目次開始</a> · <a href="./?book=preface#preface-p6">閱讀前言</a> · <a href="./?book=steps#step-1">開啟 STEP 01–07 試行版</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
+<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">純網頁雙語閱讀：全書目錄、前言及七步驟。支援日文、繁中與左右對照。</p></header><section class="card"><div class="pills"><span>雙語目錄</span><span>前言 · 上篇</span><span>STEP 01–07｜既有試行版</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">從目次開始</a> · <a href="./?book=preface#preface-p6">閱讀前言</a> · <a href="./?book=steps#step-1">開啟 STEP 01–07 試行版</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
@@ -44,6 +44,71 @@ function status(msg,loading=false){statusBox.textContent=msg;if(loading)statusBo
 function saveToken(r){const item={access_token:r.access_token,expires_at:Date.now()+Number(r.expires_in||3600)*1000};sessionStorage.setItem(TOKEN_KEY,JSON.stringify(item));return item}
 function savedToken(){try{const item=JSON.parse(sessionStorage.getItem(TOKEN_KEY)||"null");if(item?.access_token&&Date.now()<item.expires_at-120000)return item}catch(e){}sessionStorage.removeItem(TOKEN_KEY);return null}
 function login(msg){openBtn.hidden=false;openBtn.disabled=false;switchBtn.hidden=false;status(msg||"請使用有權限的 Google 帳號授權。")}
+
+function renderSimpleWebBook(html,selected){
+ // Strip the original page scans before HTML parsing and rendering.
+ html=html.replace(/<details class="scans">[\s\S]*?<\/details>/g,"");
+ const doc=new DOMParser().parseFromString(html,"text/html");
+ doc.querySelectorAll('.scans,.scans-grid,.page-bottom,.source-title,.chapter-tag,.hero .eyebrow').forEach(el=>el.remove());
+ doc.querySelectorAll('a[href*="drive.google.com/file/d/1Zi-K01V8ZKP1DzjmrpszZmP9KGNdii53"]').forEach(el=>el.remove());
+ doc.querySelectorAll('.page-head p,.unit-head p').forEach(el=>{if(/PDF|原書|頁/.test(el.textContent))el.remove()});
+ doc.querySelectorAll('p.note,p.hint,.original p,.translation p').forEach(el=>{
+  if(/請參閱下方原頁影像|請參照本 STEP 下方原頁影像|参照.*原頁/.test(el.textContent)){
+   el.textContent="此處的發音／語調標記仍待校對。";
+  }
+ });
+ const heroIntro=doc.querySelector(".hero p");
+ if(heroIntro)heroIntro.textContent=selected==="toc"?"全書日中雙語目錄":selected==="preface"?"前言 · 日中逐段對照":"第 2 章 · 七步驟日中對照與英文練習";
+ const units=[...doc.querySelectorAll("main .unit")];
+ if(selected==="toc"||selected==="preface"){
+  const first=units[0],body=first?.querySelector(".contents");
+  if(first&&body){
+   if(selected==="preface"){
+    for(let i=1;i<units.length;i++){
+     const prior=units[i-1].querySelector(".contents > .pair:last-child");
+     const next=units[i].querySelector(".contents > .pair:first-child");
+     if(prior?.classList.contains("para")&&next?.classList.contains("para")){
+      for(const side of ["original","translation"]){
+       const a=prior.querySelector("."+side),b=next.querySelector("."+side);
+       if(a&&b)a.textContent+=b.textContent;
+      }
+      next.remove();
+     }
+    }
+   }
+   for(const extra of units.slice(1)){
+    const inner=extra.querySelector(".contents");
+    if(inner){
+     const marker=doc.createElement("span");marker.id=extra.id;marker.className="reading-anchor";
+     body.appendChild(marker);
+     while(inner.firstChild)body.appendChild(inner.firstChild);
+    }
+    extra.remove();
+   }
+   const heading=first.querySelector(".page-head h2");
+   if(heading)heading.textContent=selected==="toc"?"全書目錄":"前言";
+  }
+  doc.querySelectorAll(".toc-nav").forEach(el=>el.remove());
+ }
+ if(selected==="steps"){
+  doc.querySelectorAll(".note").forEach(el=>{
+   if(/原頁影像/.test(el.textContent))el.textContent="原書部分發音標記仍待轉成網頁文字。";
+  });
+ }
+ if(selected==="toc"){
+  const links=doc.querySelector(".hero .links");
+  if(links&&!links.querySelector('a[href*="book=preface"]')){
+   const a=doc.createElement("a");a.href="./?book=preface#preface-p6";a.textContent="閱讀前言 →";links.prepend(a);
+  }
+ }
+ const footer=doc.querySelector("footer");
+ if(footer)footer.textContent=selected==="toc"?"目錄 · 前言與七步驟可從上方連結閱讀":selected==="preface"?"前言 · 後續內容逐批上線":"七步驟試行版 · 部分發音標記與翻譯仍待校訂";
+ const cleanStyle=doc.createElement("style");cleanStyle.id="simplified-web-reader";
+ cleanStyle.textContent=':root{--bg:#fff;--paper:#fff;--ink:#202938;--blue:#334155;--accent:#334155;--line:#e5e7eb;--muted:#667085;--soft:#f8fafc} body{background:#fff!important;color:#202938!important} header.hero,.hero{background:#fff!important;padding:18px 15px 12px!important;border-bottom:1px solid #e5e7eb} .hero h1{font-size:clamp(23px,4vw,30px)!important;letter-spacing:0!important;line-height:1.4!important;margin:0 0 6px!important} .hero p{font-size:13px!important;line-height:1.65!important;color:#667085!important} .hero .links{margin:8px 0 0!important;gap:14px!important} .hero .links a{font-size:13px!important;color:#34495e!important} .hero .updated,.hero .eyebrow,.breadcrumbs{display:none!important} .bar,.modebar{box-shadow:none!important;border-color:#e5e7eb!important} .layout{display:block!important;max-width:980px!important;margin:auto!important;padding:12px 12px 40px!important} .toc-nav{display:none!important} .unit{box-shadow:none!important;border:0!important;border-radius:0!important;overflow:visible!important;margin:0 0 20px!important} .page-head,.unit-head{background:#fff!important;border:0!important;padding:9px 5px 8px!important} .page-head h2,.unit-head h2{font-size:21px!important;color:#293548!important;letter-spacing:0!important} .contents{padding:2px 3px!important} .unit-section{padding:18px 8px!important} .pair>.original{color:#304255!important;border-right-color:#e5e7eb!important} .pair>.translation{color:#293548!important} .pair.chapter,.pair.heading,.pair.column{background:#f8fafc!important;border-radius:3px!important} .pair{border-bottom-color:#eceff2!important} .stepnav:hover{background:#f8fafc!important} .toc{box-shadow:none!important;border-color:#e5e7eb!important;border-radius:4px!important} .nstep,.stepno{background:#f1f5f9!important;color:#334155!important} .script-card,.english-phrase{background:#f9fafb!important;border-color:#e5e7eb!important} .scans,.page-bottom,.source-title{display:none!important} .reading-anchor{display:block;position:relative;scroll-margin-top:95px} footer.foot,footer{border-top:1px solid #e5e7eb;color:#667085!important;max-width:980px;margin:auto!important;padding:17px 15px 45px!important;text-align:center;font-size:12px} @media(max-width:800px){.layout{padding:8px 10px 30px!important}.unit-section{padding:12px 3px!important}.toc{margin-bottom:13px!important;overflow-x:auto!important}.hero{padding:15px 12px!important}}';
+ doc.head.appendChild(cleanStyle);
+ return "<!doctype html>\n"+doc.documentElement.outerHTML;
+}
+
 async function openBook(token){
  status("正在從 Google Drive 下載私人教材…",true);
  const selected=requestedBook();
@@ -55,12 +120,13 @@ async function openBook(token){
  if(selected==="toc"?!book.includes('id="toc-p5"')||!book.includes('data-mode="parallel"'):selected==="preface"?!book.includes('id="preface-p8"')||!book.includes('data-mode="parallel"'):!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
  // Correct cross-book links before loading a private book; a query change forces a full navigation.
  if(selected==="toc")book=book.replaceAll('https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/#step-','https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/?book=steps#step-');
- if(selected==="toc")book=book.replace('<div class="links">','<div class="links"><a href="./?book=preface#preface-p6">已完成前言（PDF 6–8）↗</a>');
+ 
  // Public shell contains navigation only; both books and all translations remain private in Drive.
  if(selected==="steps"){
-  const integrityNotice='<div role="note" style="background:#fff8e9;border-bottom:1px solid #e7d6ad;color:#614b1f;padding:10px 17px;text-align:center;font:13px/1.7 -apple-system,BlinkMacSystemFont,sans-serif">既有 STEP 01–07 試行版｜日文 OCR 與繁中翻譯仍待逐頁驗收。 <a href="./#toc-p1" style="color:#184964">返回已校對的雙語目次</a></div>';
+  const integrityNotice='<div role="note" style="background:#fff8e9;border-bottom:1px solid #e7d6ad;color:#614b1f;padding:10px 17px;text-align:center;font:13px/1.7 -apple-system,BlinkMacSystemFont,sans-serif">既有 STEP 01–07 試行版｜部分文字與發音標記待校訂。 <a href="./#toc-p1" style="color:#184964">返回已校對的雙語目次</a></div>';
   book=book.replace('<header class="hero">',integrityNotice+'<header class="hero">');
  }
+ book=renderSimpleWebBook(book,selected);
  document.open();document.write(book);document.close();
  if(location.hash){const id=location.hash.slice(1);setTimeout(()=>document.getElementById(id)?.scrollIntoView({block:"start"}),160);}
 }
