@@ -66,5 +66,13 @@
 
 - 新增 `learning/english/index.html` 為「英文學習」書目層；總入口 `learning/index.html` 只顯示「英文學習」，再由該層連入本書。原本的 Shadowing URL 保持不變。
 - 移除「雙語上下」按鈕，保留全中文／日文原文／左右對照；預設平行對照，舊的 `localStorage` `bi` 會轉到 `parallel`。
-- 私人 HTML 修改前備份於同層 `_backup` ID `1MxS6f5jwVf6VVAZQoy8PJzWmMa6n49LU`；本次備份檔 ID `1ZugDdvIkdYR2V8fod7A-krsenLbS9g9n`，更新沿用原始私人 HTML ID `10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk`。
+- 私人 HTML 修改前備份於同層 `_backup` ID `1cokwOOxvnNIAFfgWF5cIxlEA6J5pSO1A`（2026-10-24 重建，原舊 ID 已失效）；本次備份檔 ID `1ZugDdvIkdYR2V8fod7A-krsenLbS9g9n`，更新沿用原始私人 HTML ID `10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk`。
 - GitHub 站點殼層只修改導航／描述；私人原文與翻譯未被加入公開 Repo。
+
+## 9. 2026-10-24 原文先行整頓（進行中）
+
+- 每批先逐頁核對原書日文 OCR、原有英文 Script、圖片與頁碼；日文原文校訂通過後即可先供閱讀，再分批完成忠實繁中翻譯與逐段對齊。詳細批次及驗收規則見 `PLAN.md`。
+- 現有 STEP 01–07 **仍為試行版**，不可標示成來源或翻譯完全驗收。STEP 01「實踐方法」已確定存在繁中漏譯；STEP 07 有日文 OCR 缺段。私人 HTML 本身的修正仍待寫回驗證。
+- GitHub Pages 殼層已加入「校訂中」提示，未設定閱讀偏好的新使用者以日文原文模式開啟；若曾儲存其他模式則維持原偏好。所有正文與原頁影像仍僅存於私人 Drive。
+- 已確認原來記載的 `_backup` 資料夾 ID 已失效，在同一原資料夾重建新 `_backup`，並完成原版 HTML 的完整備份。私人正本的 ID、名稱與位置未變。
+- 現況：**保全備份完成、公開殼層提示已部署、原文比對已啟動；私人 HTML 還未完成第一批內容修補與實機 Safari 驗收。**
