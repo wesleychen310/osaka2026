@@ -27,14 +27,15 @@ button:disabled{opacity:.5}#switchBtn{color:#184963;background:transparent;borde
 aside{font-size:12px;margin-top:22px;color:#7c8b95;line-height:1.7}
 @media(max-width:480px){.wrap{padding:28px 13px 55px}.card{border-radius:16px}}
 </style>
-<style id="public-minimal-css">#status,.status{display:none!important}</style></head>
-<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">原書原文優先上線｜STEP 01–07 正在進行 OCR 與翻譯完整性校訂，已完成部分仍可從私人 Drive 登入閱讀。</p></header><section class="card"><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
+</head>
+<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">從原書第一頁開始：Batch 001「目次」五頁已完成日中對照。登入後預設閱讀目次，也可切換到原有 STEP 01–07 試行版。</p></header><section class="card"><div class="pills"><span>PDF 1–5｜雙語目次已完成</span><span>STEP 01–07｜既有試行版</span></div><nav aria-label="已上線教材"><a href="./#toc-p1">從目次開始</a> · <a href="./#step-1">開啟 STEP 01–07 試行版</a></nav><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
 const SCOPE="https://www.googleapis.com/auth/drive.readonly";
 const TOKEN_KEY="hanami-kyoto-google-token-v3";
-const FILE_ID="10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk";
+const BOOKS={toc:"1M9-IoCUbyvxFHEp9EjoD22NR60lkQaNG",steps:"10JdhNj1ynPOTVEe5Nr9OwkkQfnqmlzfk"};
+const requestedBook=()=>/^#step-[1-7](?:\b|$)/.test(location.hash)?"steps":"toc";
 const openBtn=document.getElementById("openBtn");
 const switchBtn=document.getElementById("switchBtn");
 const statusBox=document.getElementById("status");
@@ -45,16 +46,18 @@ function savedToken(){try{const item=JSON.parse(sessionStorage.getItem(TOKEN_KEY
 function login(msg){openBtn.hidden=false;openBtn.disabled=false;switchBtn.hidden=false;status(msg||"請使用有權限的 Google 帳號授權。")}
 async function openBook(token){
  status("正在從 Google Drive 下載私人教材…",true);
- const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(FILE_ID)+"?alt=media",{headers:{Authorization:"Bearer "+token},cache:"no-store"});
+ const selected=requestedBook();
+ const res=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(BOOKS[selected])+"?alt=media",{headers:{Authorization:"Bearer "+token},cache:"no-store"});
  if(res.status===401)throw Error("TOKEN_EXPIRED");
  if(res.status===403)throw Error("NO_ACCESS");
  if(!res.ok)throw Error("DRIVE_"+res.status);
  let book=await res.text();
- if(!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
- // Content remains private: the public shell only annotates its calibration status.
- const integrityNotice='<div role="note" style="background:#fff8e9;border-bottom:1px solid #e7d6ad;color:#614b1f;padding:10px 17px;text-align:center;font:13px/1.7 -apple-system,BlinkMacSystemFont,sans-serif">原文先行校訂中｜現有 STEP 01–07 的日文 OCR 與繁中譯文尚未全部驗收；已發現部分漏譯。閱讀時請以原書頁面影像核對。</div>';
- book=book.replace('<header class="hero">',integrityNotice+'<header class="hero">');
- book=book.replace("let mode='parallel';try{","let mode='jp';try{");
+ if(selected==="toc"?!book.includes('id="toc-p5"')||!book.includes('data-mode="parallel"'):!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
+ // Public shell contains navigation only; both books and all translations remain private in Drive.
+ if(selected==="steps"){
+  const integrityNotice='<div role="note" style="background:#fff8e9;border-bottom:1px solid #e7d6ad;color:#614b1f;padding:10px 17px;text-align:center;font:13px/1.7 -apple-system,BlinkMacSystemFont,sans-serif">既有 STEP 01–07 試行版｜日文 OCR 與繁中翻譯仍待逐頁驗收。 <a href="./#toc-p1" style="color:#184964">返回已校對的雙語目次</a></div>';
+  book=book.replace('<header class="hero">',integrityNotice+'<header class="hero">');
+ }
  document.open();document.write(book);document.close();
  if(location.hash){const id=location.hash.slice(1);setTimeout(()=>document.getElementById(id)?.scrollIntoView({block:"start"}),160);}
 }
