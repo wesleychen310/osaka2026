@@ -57,8 +57,8 @@ function renderSimpleWebBook(html,selected){
    el.textContent="此處的發音／語調標記仍待校對。";
   }
  });
- const heroIntro=doc.querySelector(".hero p");
- if(heroIntro)heroIntro.textContent=selected==="toc"?"全書日中雙語目錄":selected==="preface"?"前言 · 日中逐段對照":"第 2 章 · 七步驟日中對照與英文練習";
+ const heroParagraphs=[...doc.querySelectorAll(".hero p")];
+ if(heroParagraphs.length){const summary=heroParagraphs[0];summary.classList.remove("updated");summary.textContent=selected==="toc"?"全書日中雙語目錄":selected==="preface"?"前言 · 日中逐段對照":"第 2 章 · 七步驟日中對照與英文練習";heroParagraphs.slice(1).forEach(p=>p.remove())}
  const units=[...doc.querySelectorAll("main .unit")];
  if(selected==="toc"||selected==="preface"){
   const first=units[0],body=first?.querySelector(".contents");
