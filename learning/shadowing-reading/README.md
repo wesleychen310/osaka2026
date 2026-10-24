@@ -108,3 +108,8 @@
 原書 PDF 第 9–12 頁已完成 OCR 校訂與繁中翻譯。新私人 HTML ID `1ZD4vXm5Njer9pUmY4u6NpqsQ-4_zJIf4`，24 組日中對照、私人 Drive owner-only。已更新 GitHub Pages 入口，`?book=preface#preface-p6` 現在自動登入後同時讀取 Batch 002＋Batch 003，顯示原書 PDF 6–12 的連續前言並銜接跨頁的中日斷句。
 
 接下來是 PDF 13–16「この本の使い方」。網站規格維持純網頁無掃描、無 PDF 連結。
+
+
+### 2026-10-24｜Batch 004：本書使用方法、音訊及特別附錄
+
+原書 PDF 13–17 已完成整批日中雙語校訂與翻譯，獨立私人 HTML ID `1FiKQ2P3iz1gTcxtsZC4izG7Fgkd2ss0F`，owner-only，43 組對照、3 段邏輯結構。正式網站使用 `?book=guide#guide` 直接載入；全書目錄也有「本書使用方法」及「特別附錄」的對應連結。保留出版社原有音訊下載網址，無掃描圖與 PDF 原頁連結。下一批 PDF 18–21 為第 1 章開頭。
