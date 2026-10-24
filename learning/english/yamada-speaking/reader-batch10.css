@@ -1,4 +1,4 @@
-/* Focused SCENE 073–082 bilingual reading; STEP prompts under translation, preserved in private Drive. */
+/* Focused SCENE 073–082 bilingual reading; full three-step prompts integrated in private Drive. */
 html[data-scene-focus="073"] #book-content > .chapter:not(#scene-073){display:none!important}
 html[data-scene-focus="073"] #toc-items > a:not([href="#scene-073"]){display:none!important}
 #scene-073 .prompt-lab,#scene-073 > details.prompt-step,#scene-073 .prompt-translation-audit{display:none!important}
