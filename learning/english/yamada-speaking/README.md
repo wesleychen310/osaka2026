@@ -1,3 +1,18 @@
+## 2026-10-25｜第 11 批正式交付：SCENE 083–091（9 課；SCENE 092 原書缺頁暫緩）
+
+**正式累積完成進度 91／100（91%）；本批增量 9／9 個可核對的 SCENE，原計畫 SCENE 083–092 中的 SCENE 092 保留待補。** 前 82 課及既有 Drive 原稿不修改。教材與 Prompt 全文僅在私人 Drive；GitHub 公開倉庫只保存 UI／控制器、私有檔 ID、CSS 和狀態說明。
+
+- **來源一致性**：SCENE 083–091 全部 27 份原始日文 STEP 1–3 Prompt 各自保留 Google Drive ID，27 份繁體中文逐行譯稿已獨立上傳至私人資料夾 `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB`。繁中總計 **4,766 行**與原稿行數對應，**296 個 `EN:` 行**逐字保留，**193 個 IPA 音標片段**確認保留。以每份翻譯的原始 SHA-256 上傳後回讀核對，27／27 PASS。另存 SCENE 092 STEP3 的一份私人中文譯文（僅部分課程，不列入完成課數）。SCENE 092 STEP2 的既有來源實際為 SCENE 093，因此沒有將它當作 SCENE 092 正式原稿發佈。
+- **SCENE 083 校正版**：舊 STEP1 中文檔原文標題與尾行格式和本地已驗證版不同，舊 STEP3 中文雖與原稿相符但 Drive MIME 為 `text/html`。兩份舊檔保留不變，新增 STEP1 `_ZH_v2.txt`（`1S3TkkAReKgU7x887nqOkX5NLeAVPQLNt`）及 STEP3 `_ZH_v2.txt`（`1X02Rw4B6Uixdznq-vIODN-QsQM2DGgW6`），MIME 均為 `text/plain`，新控制器僅使用校正版。STEP2 中文檔 `1kOdGaYqO0Di0g-JrryZPw6nQjYr7qacO`。
+- **私人雙語課文**：`Yamada_Speaking_SCENE083-091_TEXT_ONLY.html`（`1MnaY3DFfRJ4k8lIaEyT0OsgGmRWycS89`），保存於私人教材資料夾 `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`。包含九個連續章節、**27 組英文關鍵句／77 句英文示範會話**，均依 27 份 STEP1／STEP2 原文再比對一致；**141 組日文／繁中配對**、STEP3 原書檢查清單。原書印刷 pp.194–211 的日文背景文字由 OCR 加上人工正規化，完整影像逐字校閱未全部完成，故不聲稱 100% 原書逐字版。HTML SHA-256 `96ff54fb306c27b4f819e50ff7759c5ea4cfbbbc175190945062acf11cd0b6d4`。
+- **Drive QA**：`SCENE083-092_Final_QA_20261025.csv`（`18KFoLpPxH6ZHwkIdY-6BdKx15PsNPuqR`），記錄 27 個完成 STEP、SCENE092 STEP3 部分成品與另外兩個來源缺失／錯置，並保留各譯稿 SHA-256、行數、英文／音標檢查及已確認的 Drive ID；CSV 已回讀。
+- **GitHub 網站增量**：新增 `scene-batch11.js` 控制器（9 組獨立場景，各 3 日文及 3 中文私有檔 ID，共 54 個無重複 ID），以及 `reader-batch11.css`；更新 `reader.js` 讀取第 8 份私人補充 HTML（前七批各 10 課，本批最後一份 9 課），更新 `reader-localization.js` 四模式覆蓋至 091，`index.html` 新增 083–091 入口、273 份日文 Prompt／273 份中文 Prompt 的完成統計與 cache-busting `20261025-batch11-scene083-091-v1`。既有 001–082 檔案與控制器保持原有內容。
+- **靜態驗收**：從 GitHub 重新讀回 5 個改動後的檔案，兩份 JS 控制器及閱讀／語言切換 JS 均通過語法檢查，9 個場景的 54 個 ID 唯一，導覽與四模式範圍正確；私人 HTML 已讀回並驗證 SHA-256，27 組關鍵句及 77 句模型會話比對原始 Prompt 為 0 差異。Google OAuth 真實登入、Safari／iOS／iPadOS 畫面、語音、網頁端操作尚未做真實端到端驗收。
+- **SCENE092 缺件及排除規則**：使用者私人 PDF 的 p.108（原書印刷 pp.210–211）重複了 SCENE091，下一頁已跳到 SCENE093 原書 pp.214–215，**原書 pp.212–213 的 SCENE092 原始頁缺失**。私人資料夾無 SCENE092 STEP1，名為 SCENE092 STEP2 的檔案內容標明為 SCENE093 STEP2（澳洲未滿 16 歲社群媒體禁令），只有 SCENE092 STEP3 為 AI 如何改變職場的新聞摘要。**SCENE 092 沒有導覽入口與補充 HTML，不計入完成課數**；需要正確原書掃描和 STEP1、STEP2 後再開放。
+- **下一批**：先補 SCENE092，另處理 SCENE093–100，至多再完成剩餘 9 課。
+
+---
+
 ## 2026-10-25｜第 11 批中途驗收：SCENE 083–092（尚未部署）
 
 **網站正式完成進度仍為 82／100。** 本批已從私人來源讀取 SCENE 083–091 的完整 27 份日文 STEP1–3，及 SCENE092 STEP2、STEP3；共 29 份原稿已製作繁體中文逐行翻譯，合計 5,072 行。本地逐檔文字對應、原始 EN 行與 IPA 保留檢查均通過，並產生私人交付壓縮檔及獨立 QA 明細。此為本地驗證結果，非 Google Drive 29 份全部上傳成功，也非網站 E2E 驗收。
