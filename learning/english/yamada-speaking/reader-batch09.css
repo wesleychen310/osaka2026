@@ -1,0 +1,31 @@
+/* Focused SCENE 063–072 bilingual reading; practice prompts pending verification. */
+html[data-scene-focus="063"] #book-content > .chapter:not(#scene-063){display:none!important}
+html[data-scene-focus="063"] #toc-items > a:not([href="#scene-063"]){display:none!important}
+#scene-063 .prompt-lab,#scene-063 > details.prompt-step,#scene-063 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="064"] #book-content > .chapter:not(#scene-064){display:none!important}
+html[data-scene-focus="064"] #toc-items > a:not([href="#scene-064"]){display:none!important}
+#scene-064 .prompt-lab,#scene-064 > details.prompt-step,#scene-064 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="065"] #book-content > .chapter:not(#scene-065){display:none!important}
+html[data-scene-focus="065"] #toc-items > a:not([href="#scene-065"]){display:none!important}
+#scene-065 .prompt-lab,#scene-065 > details.prompt-step,#scene-065 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="066"] #book-content > .chapter:not(#scene-066){display:none!important}
+html[data-scene-focus="066"] #toc-items > a:not([href="#scene-066"]){display:none!important}
+#scene-066 .prompt-lab,#scene-066 > details.prompt-step,#scene-066 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="067"] #book-content > .chapter:not(#scene-067){display:none!important}
+html[data-scene-focus="067"] #toc-items > a:not([href="#scene-067"]){display:none!important}
+#scene-067 .prompt-lab,#scene-067 > details.prompt-step,#scene-067 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="068"] #book-content > .chapter:not(#scene-068){display:none!important}
+html[data-scene-focus="068"] #toc-items > a:not([href="#scene-068"]){display:none!important}
+#scene-068 .prompt-lab,#scene-068 > details.prompt-step,#scene-068 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="069"] #book-content > .chapter:not(#scene-069){display:none!important}
+html[data-scene-focus="069"] #toc-items > a:not([href="#scene-069"]){display:none!important}
+#scene-069 .prompt-lab,#scene-069 > details.prompt-step,#scene-069 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="070"] #book-content > .chapter:not(#scene-070){display:none!important}
+html[data-scene-focus="070"] #toc-items > a:not([href="#scene-070"]){display:none!important}
+#scene-070 .prompt-lab,#scene-070 > details.prompt-step,#scene-070 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="071"] #book-content > .chapter:not(#scene-071){display:none!important}
+html[data-scene-focus="071"] #toc-items > a:not([href="#scene-071"]){display:none!important}
+#scene-071 .prompt-lab,#scene-071 > details.prompt-step,#scene-071 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="072"] #book-content > .chapter:not(#scene-072){display:none!important}
+html[data-scene-focus="072"] #toc-items > a:not([href="#scene-072"]){display:none!important}
+#scene-072 .prompt-lab,#scene-072 > details.prompt-step,#scene-072 .prompt-translation-audit{display:none!important}
