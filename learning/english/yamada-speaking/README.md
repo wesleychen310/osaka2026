@@ -1,5 +1,21 @@
 # 山田優《今日からはじめる 新AI時代の超独学スピーキングブック》私人雙語網站
 
+## 2026-10-24｜第 9 批交付完成：SCENE 063–072（最新）
+
+**雙語課文＋STEP 1–3 日文原稿／繁中逐行譯文已交付，累積 72／100 課。** 本批新增十課、30 個原始日文 Prompt、30 個繁中譯文檔案入口；原有 SCENE 001–062 不變。
+
+- **私人教材**：沿用私人 Google Drive 已存在的增量 HTML `Yamada_Speaking_SCENE063-072_TEXT_ONLY.html`（ID `1La2dbdMH38LkBKL_N3Ll362XJwwivZ2-`），保留原檔 ID、名稱、位置。含 SCENE 063–072 共 10 個連續場景、150 組日文／繁中配對；以原書第 152–171 頁為範圍。SCENE072 僅有兩組原書關鍵句型，依來源保留。
+- **新譯稿**：SCENE 067–072 各 STEP1–3 共 18 份 `_ZH.txt` 逐行翻譯，上傳私人 Prompt 來源資料夾 `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB`；原始 18 份日文 TXT 不變。
+- **既有譯稿校正**：SCENE 063–066 各 STEP1–3 已發現原 `EN:` 行被改寫以及少量口令／英文格式問題，遂另新增 12 份 `_ZH_v2.txt`；原有 `_ZH.txt` 仍保留。新控制器全部指向校正後的 v2。
+- **逐檔 QA**：30 份原日文 TXT 對 30 份繁中直譯合計 **5,190 行**，30／30 行數匹配；**914 個原文英文行**逐字保留；**194 個 IPA token** 原樣出現在對應翻譯行；排除需保留的 `レッツスタート` 口令與 `EN:` 原文後，未譯假名 0 筆。
+- **上傳後回讀**：全部 **30／30 份譯稿**從 Google Drive 以原始 bytes 再下載，其 SHA-256 與本地待上傳成品完全一致；QA CSV `SCENE063-072_Final_QA_20261024.csv` 已放在私人 Drive（ID `1czmTKxSYO7U-x1Sm6sPECt2vreMkLSsH`）。抽查私人 HTML、新舊版本譯文與 QA 檔之 metadata 均為 `shared=false`、僅 owner 權限，父資料夾正確。
+- **GitHub**：新建 `scene-batch09.js`，只有 SCENE 063–072 的 30 日文及 30 中文私人檔案 ID，提供 STEP1–3 練習、複製、原日文／繁中逐行對照；更新 `reader.js`、`index.html`、`reader-batch09.css` 與 cache-busting 版本 `20261024-batch09-allprompts-v1`。原 `reader-localization.js` 已支援 072，仍保留英日、英中、上下、左右四種閱讀模式，對照時原文英文重複呈現。公開 GitHub 無課文或 Prompt 全文。
+- **靜態驗收**：GitHub 重新讀回 `scene-batch09.js`、`reader.js`、`reader-localization.js` 並通過 JavaScript 語法檢查；新控制器 10 個 SCENE、60 個私人 Drive ID、網站 063–072 導航及私人 HTML ID 驗證通過。
+- **尚待端到端驗收**：真實 GitHub Pages CDN 更新、Google OAuth 登入、30 份 Prompt 在頁面上的逐一動作、語音朗讀、複製按鈕及 iPhone／iPad／Mac Safari 實測，均未執行；不列為 E2E PASS。
+- **下一批**：SCENE 073–082（十課、30 份日文 Prompt 與繁中逐行譯稿）。目標累積 82／100 課。
+
+---
+
 ## 2026-10-24｜第 8 批正式結案：SCENE 053–062 三 STEP Prompt（最新）
 
 **完整課程：62／100。新增 SCENE 053–062 共 10 課，涵蓋英日／英中雙語課文及每課 STEP1–3 全文直譯、複製與日中逐行對照。**
