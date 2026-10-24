@@ -1,0 +1,41 @@
+/* Batch 08: focused SCENE 053–062 and privacy-safe dual-language reading. */
+html[data-scene-focus="053"] #book-content > .chapter:not(#scene-053){display:none!important}
+html[data-scene-focus="053"] #toc-items > a:not([href="#scene-053"]){display:none!important}
+html[data-scene-focus="053"] .reader-jumps,html[data-scene-focus="053"] .upcoming{display:none!important}
+#scene-053 .prompt-lab,#scene-053 > details.prompt-step,#scene-053 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="054"] #book-content > .chapter:not(#scene-054){display:none!important}
+html[data-scene-focus="054"] #toc-items > a:not([href="#scene-054"]){display:none!important}
+html[data-scene-focus="054"] .reader-jumps,html[data-scene-focus="054"] .upcoming{display:none!important}
+#scene-054 .prompt-lab,#scene-054 > details.prompt-step,#scene-054 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="055"] #book-content > .chapter:not(#scene-055){display:none!important}
+html[data-scene-focus="055"] #toc-items > a:not([href="#scene-055"]){display:none!important}
+html[data-scene-focus="055"] .reader-jumps,html[data-scene-focus="055"] .upcoming{display:none!important}
+#scene-055 .prompt-lab,#scene-055 > details.prompt-step,#scene-055 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="056"] #book-content > .chapter:not(#scene-056){display:none!important}
+html[data-scene-focus="056"] #toc-items > a:not([href="#scene-056"]){display:none!important}
+html[data-scene-focus="056"] .reader-jumps,html[data-scene-focus="056"] .upcoming{display:none!important}
+#scene-056 .prompt-lab,#scene-056 > details.prompt-step,#scene-056 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="057"] #book-content > .chapter:not(#scene-057){display:none!important}
+html[data-scene-focus="057"] #toc-items > a:not([href="#scene-057"]){display:none!important}
+html[data-scene-focus="057"] .reader-jumps,html[data-scene-focus="057"] .upcoming{display:none!important}
+#scene-057 .prompt-lab,#scene-057 > details.prompt-step,#scene-057 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="058"] #book-content > .chapter:not(#scene-058){display:none!important}
+html[data-scene-focus="058"] #toc-items > a:not([href="#scene-058"]){display:none!important}
+html[data-scene-focus="058"] .reader-jumps,html[data-scene-focus="058"] .upcoming{display:none!important}
+#scene-058 .prompt-lab,#scene-058 > details.prompt-step,#scene-058 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="059"] #book-content > .chapter:not(#scene-059){display:none!important}
+html[data-scene-focus="059"] #toc-items > a:not([href="#scene-059"]){display:none!important}
+html[data-scene-focus="059"] .reader-jumps,html[data-scene-focus="059"] .upcoming{display:none!important}
+#scene-059 .prompt-lab,#scene-059 > details.prompt-step,#scene-059 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="060"] #book-content > .chapter:not(#scene-060){display:none!important}
+html[data-scene-focus="060"] #toc-items > a:not([href="#scene-060"]){display:none!important}
+html[data-scene-focus="060"] .reader-jumps,html[data-scene-focus="060"] .upcoming{display:none!important}
+#scene-060 .prompt-lab,#scene-060 > details.prompt-step,#scene-060 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="061"] #book-content > .chapter:not(#scene-061){display:none!important}
+html[data-scene-focus="061"] #toc-items > a:not([href="#scene-061"]){display:none!important}
+html[data-scene-focus="061"] .reader-jumps,html[data-scene-focus="061"] .upcoming{display:none!important}
+#scene-061 .prompt-lab,#scene-061 > details.prompt-step,#scene-061 .prompt-translation-audit{display:none!important}
+html[data-scene-focus="062"] #book-content > .chapter:not(#scene-062){display:none!important}
+html[data-scene-focus="062"] #toc-items > a:not([href="#scene-062"]){display:none!important}
+html[data-scene-focus="062"] .reader-jumps,html[data-scene-focus="062"] .upcoming{display:none!important}
+#scene-062 .prompt-lab,#scene-062 > details.prompt-step,#scene-062 .prompt-translation-audit{display:none!important}
