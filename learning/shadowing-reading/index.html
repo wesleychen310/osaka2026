@@ -28,7 +28,7 @@ aside{font-size:12px;margin-top:22px;color:#7c8b95;line-height:1.7}
 @media(max-width:480px){.wrap{padding:28px 13px 55px}.card{border-radius:16px}}
 </style>
 <style id="public-minimal-css">#status,.status{display:none!important}</style></head>
-<body><main class="wrap"><header class="head"><h1>Shadowing</h1></header><section class="card"><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
+<body><main class="wrap"><header class="head"><h1>Shadowing</h1><p class="lead">原書原文優先上線｜STEP 01–07 正在進行 OCR 與翻譯完整性校訂，已完成部分仍可從私人 Drive 登入閱讀。</p></header><section class="card"><button class="btn" id="openBtn" type="button">Google 登入</button><button class="btn ghost" id="switchBtn" type="button" hidden>切換帳號</button><div id="status" class="status" role="status"></div></section></main>
 <script>
 "use strict";
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
@@ -49,8 +49,12 @@ async function openBook(token){
  if(res.status===401)throw Error("TOKEN_EXPIRED");
  if(res.status===403)throw Error("NO_ACCESS");
  if(!res.ok)throw Error("DRIVE_"+res.status);
- const book=await res.text();
+ let book=await res.text();
  if(!book.includes('id="step-7"')||!book.includes('data-mode="parallel"')||!book.includes('English Script'))throw Error("INVALID_BOOK");
+ // Content remains private: the public shell only annotates its calibration status.
+ const integrityNotice='<div role="note" style="background:#fff8e9;border-bottom:1px solid #e7d6ad;color:#614b1f;padding:10px 17px;text-align:center;font:13px/1.7 -apple-system,BlinkMacSystemFont,sans-serif">原文先行校訂中｜現有 STEP 01–07 的日文 OCR 與繁中譯文尚未全部驗收；已發現部分漏譯。閱讀時請以原書頁面影像核對。</div>';
+ book=book.replace('<header class="hero">',integrityNotice+'<header class="hero">');
+ book=book.replace("let mode='parallel';try{","let mode='jp';try{");
  document.open();document.write(book);document.close();
  if(location.hash){const id=location.hash.slice(1);setTimeout(()=>document.getElementById(id)?.scrollIntoView({block:"start"}),160);}
 }
