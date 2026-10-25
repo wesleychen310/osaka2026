@@ -12,7 +12,7 @@ const S={
 '099':{'2':'1I4Ab0a2PJkCxd9Je-BMrpwOkXxqrXE5l','3':'1sdjx6hmaq5BI2NWrKRmX4oX3-f2qHVJY'},
 '100':{'2':'1vhX7tYBJOSQY9qXq3h9RaTSLv7gYCrih','3':'1fJQIm6-hlyO2fPfE0uQoqBJvnX5_hemU'}
 };
-const ZH={'092':{'3':'17cy0qdTXWlvyIe2tNnCMjJazHZIcLUIM'},'093':{'2':'16Cuy3rGJDLzlL8VxMfb83rrjc5fLZohK','3':'15RWiljJDmekFyL_fatxtzOj__zjBU78V'},'099':{'2':'17PAAg1wfNd9_XGn0DWEHMP7p_z2nPO6B','3':'1Mb5tzLFHpolxeFqieHRZMdAZgfzlLYPm'},'098':{'2':'1-oO0K0SaxCcwEgQZw4-xRn7BKfVsBtJf','3':'1OLzRrCDlKwvb74AO7JdUF7j4T7Zlp32W'},'100':{'2':'1_R-u8QSlL8lK41DhTZFSN5FzKb2OrHUH','3':'1K5_TxA8qoCl-nhDcdGOTJa_yDPU_kwkn'}};
+const ZH={'092':{'3':'17cy0qdTXWlvyIe2tNnCMjJazHZIcLUIM'},'093':{'2':'16Cuy3rGJDLzlL8VxMfb83rrjc5fLZohK','3':'15RWiljJDmekFyL_fatxtzOj__zjBU78V'},'099':{'2':'17PAAg1wfNd9_XGn0DWEHMP7p_z2nPO6B','3':'1Mb5tzLFHpolxeFqieHRZMdAZgfzlLYPm'},'097':{'2':'1cDw2GCEUuQ8jiCCaoNAQSFxTIrGWz9Gq','3':'11y6wXG3aec8PkCb8TM8EYk39mSg_5AUk'},'098':{'2':'1-oO0K0SaxCcwEgQZw4-xRn7BKfVsBtJf','3':'1OLzRrCDlKwvb74AO7JdUF7j4T7Zlp32W'},'100':{'2':'1_R-u8QSlL8lK41DhTZFSN5FzKb2OrHUH','3':'1K5_TxA8qoCl-nhDcdGOTJa_yDPU_kwkn'}};
 if(!S[scene])return;
 let complete=false;const elem=(t,txt,c)=>{let e=document.createElement(t);if(txt)e.textContent=txt;if(c)e.className=c;return e};
 function token(){try{let t=JSON.parse(sessionStorage.getItem('hanami-kyoto-google-token-v3')||'null');return t?.access_token&&t.expires_at>Date.now()+60000?t.access_token:null}catch(_){return null}}
