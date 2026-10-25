@@ -1,3 +1,11 @@
+## 2026-10-25｜最後 9 課閱讀索引上線：SCENE 092–100（來源缺件保留）
+- **完整譯稿正式驗收仍為 SCENE 001–091，91／100 課**。本次另外提供 SCENE 092–100 九個閱讀導覽章節，因此前端章節索引包含 100 個 SCENE；未把未完成的 STEP1 或未提供的全文繁中 Prompt 計入完整進度。
+- 最後 9 課私人 HTML：Drive File ID `1soAXc7ayz0GYvIldCDiQET_mcDJxKvxz`，資料夾 `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`。包含 9 chapters、76 日中 pair、54 英文區塊句、私有嵌入原書 SCENE 096/097 漫畫 2 張。
+- PDF 來源 SCENE 093–100 為原書印刷 pp.214–229。原書 pp.212–213 / SCENE 092 缺頁；現有 `SCENE092-STEP3.txt` 可供部分練習。SCENE 093 STEP2 其實存放於命名為 `SCENE092-STEP2.txt` 的檔案；命名為 `SCENE093-STEP2.txt` 的文件卻含 SCENE 012 櫃檯情境，已排除錯誤內容、不修改原始檔。
+- 原書 SCENE 094/095 STEP1 影片必須掃描原書 QR Code；SCENE 096/097 STEP1 四格漫畫只保留於私人 Drive；SCENE 098 STEP1 英文文章與 SCENE 093 原文新聞文章在私有 HTML。
+- 公開 GitHub 新增 `scene-batch12.js`／`reader-batch12.css`。控制器只保留來源文件 ID 與 UI 行為，Prompt 原文不公開。SCENE 092–100 已授權時可檢視／複製目前確認的日文 STEP2/3 原文；原始 STEP1 Prompt 檔案未取得。
+- 驗收限制：Google Drive 新檔原始 bytes 已建立並 fetch 回讀；GitHub 推送和靜態程式碼檢查可執行。未通過實機 Safari/OAuth/GitHub Pages CDN E2E；完整繁中 Prompt 與來源缺失仍需補足。
+
 ## 2026-10-25｜第 11 批正式交付：SCENE 083–091（9 課；SCENE 092 原書缺頁暫緩）
 
 **正式累積完成進度 91／100（91%）；本批增量 9／9 個可核對的 SCENE，原計畫 SCENE 083–092 中的 SCENE 092 保留待補。** 前 82 課及既有 Drive 原稿不修改。教材與 Prompt 全文僅在私人 Drive；GitHub 公開倉庫只保存 UI／控制器、私有檔 ID、CSS 和狀態說明。
