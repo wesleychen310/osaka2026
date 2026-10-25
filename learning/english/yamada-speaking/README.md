@@ -1,3 +1,14 @@
+## 2026-10-25｜第 12 批進階 Prompt 正式交付：SCENE 094–100（14 份繁中，保留來源缺件）
+
+**累計私人繁中 Prompt：290／300；網站可索引 100／100 課，完整 STEP 1–3 驗證維持 91／100 課。**
+
+- 本批完成並上傳 **SCENE 094–100 的 14 份 STEP 2、STEP 3** 繁體中文逐行譯稿，總計 **2,603 行**，原始 `EN:` 行 **215 行** 逐字保留；IPA、觸發口令及行數機械比對通過。每份新建私人 Drive TXT 已下載回讀並核對 SHA-256 全同；原始 Drive 文檔均未覆寫。私人 Prompt 資料夾 `1PFLmOmRKod2E6Quc_X9aN-SsJpb6xzuB`。
+- 公開控制器 `scene-batch12.js` 的 `ZH` 來源映射已補入這 14 份私人檔案 ID；`index.html` 靜態版本標籤更新 `20261025-batch12-advanced-094-100-zh-v3`，保留既有 001–093 所有功能及課文。GitHub 公開倉庫未放入任何課文或 Prompt 全文。
+- **SCENE 094 STEP 2 例外**：日文原稿共 303 行，前 151 行於後半重複，且第 152 行在結尾直接銜接第二份標題；繁中譯稿亦保留原貌 303 行並在 QA 報告註記，不任意刪改。
+- **來源尚欠 10 份**：SCENE 092–100 各 1 份 STEP 1（共 9），以及 SCENE 092 正確 STEP 2（1）。SCENE 093 STEP 2 源檔的名稱誤寫 SCENE 092 STEP 2，系統已依內容指派 SCENE 093；另一份 `SCENE093-STEP2.txt` 內容屬於 SCENE 012，未以其取代。沒有虛構缺漏來源。
+- **驗收範圍**：逐行、英文句、IPA 保留、殘留日文檢查、私人 Drive 下載 SHA-256 回讀、GitHub 控制器更新。尚未進行人工逐字全書審校、真人 Safari／iOS、OAuth／GitHub Pages CDN 正式端到端測試，因此不標記 `PRIVATE-E2E PASS`。
+- 本批完整原稿、繁中檔及機械 QA 詳見私有本地交付壓縮包 `Yamada_Batch12_SCENE094-100_14ZH_QA_20261025.zip`；前 91 課內容與原有檔案保持不變。
+
 ## 2026-10-25｜最後 9 課閱讀索引上線：SCENE 092–100（來源缺件保留）
 - **2026-10-25 翻譯增量**：另完成、上傳並核對 SCENE 092 STEP 3（156 行）、SCENE 093 STEP 2（150 行，正確原文檔名為 SCENE092-STEP2.txt）、SCENE 093 STEP 3（153 行）；繁中 Drive File IDs 分別為 `17cy0qdTXWlvyIe2tNnCMjJazHZIcLUIM`、`16Cuy3rGJDLzlL8VxMfb83rrjc5fLZohK`、`15RWiljJDmekFyL_fatxtzOj__zjBU78V`。最後 9 課仍有其餘全文繁中 Prompt 未完成。
 - **完整譯稿正式驗收仍為 SCENE 001–091，91／100 課**。本次另外提供 SCENE 092–100 九個閱讀導覽章節，因此前端章節索引包含 100 個 SCENE；未把未完成的 STEP1 或未提供的全文繁中 Prompt 計入完整進度。
