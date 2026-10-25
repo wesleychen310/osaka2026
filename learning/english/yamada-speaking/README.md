@@ -1,4 +1,5 @@
 ## 2026-10-25｜最後 9 課閱讀索引上線：SCENE 092–100（來源缺件保留）
+- **2026-10-25 翻譯增量**：另完成、上傳並核對 SCENE 092 STEP 3（156 行）、SCENE 093 STEP 2（150 行，正確原文檔名為 SCENE092-STEP2.txt）、SCENE 093 STEP 3（153 行）；繁中 Drive File IDs 分別為 `17cy0qdTXWlvyIe2tNnCMjJazHZIcLUIM`、`16Cuy3rGJDLzlL8VxMfb83rrjc5fLZohK`、`15RWiljJDmekFyL_fatxtzOj__zjBU78V`。最後 9 課仍有其餘全文繁中 Prompt 未完成。
 - **完整譯稿正式驗收仍為 SCENE 001–091，91／100 課**。本次另外提供 SCENE 092–100 九個閱讀導覽章節，因此前端章節索引包含 100 個 SCENE；未把未完成的 STEP1 或未提供的全文繁中 Prompt 計入完整進度。
 - 最後 9 課私人 HTML：Drive File ID `1soAXc7ayz0GYvIldCDiQET_mcDJxKvxz`，資料夾 `1rlZNQIExCmmN1CkaV3IyCehlzDAnJ8x3`。包含 9 chapters、76 日中 pair、54 英文區塊句、私有嵌入原書 SCENE 096/097 漫畫 2 張。
 - PDF 來源 SCENE 093–100 為原書印刷 pp.214–229。原書 pp.212–213 / SCENE 092 缺頁；現有 `SCENE092-STEP3.txt` 可供部分練習。SCENE 093 STEP2 其實存放於命名為 `SCENE092-STEP2.txt` 的檔案；命名為 `SCENE093-STEP2.txt` 的文件卻含 SCENE 012 櫃檯情境，已排除錯誤內容、不修改原始檔。
