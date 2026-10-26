@@ -100,7 +100,7 @@ function enhancePromptLabs(){
 
 function scene001ReviewLayout(){
  const params=new URLSearchParams(location.search),queryScene=params.get('scene')||'001';
- const scene=/^0(?:0[1-9]|[1234567][0-9]|8[0-2])$/.test(queryScene)?queryScene:'001';
+ const scene=/^(?:0(?:0[1-9]|[1-9][0-9])|100)$/.test(queryScene)?queryScene:'001';
  const chapter=$('scene-'+scene);if(!chapter)return;
  const steps=[...chapter.children].filter(x=>x.tagName==='H3'&&/^STEP\s*[123]/.test(x.textContent.trim()));
  steps.forEach((h,i)=>h.id='scene-'+scene+'-step-'+(i+1));
