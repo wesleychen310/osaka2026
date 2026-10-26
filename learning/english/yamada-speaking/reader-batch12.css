@@ -5,3 +5,22 @@
 .source-prompt-step button{padding:7px 11px;cursor:pointer;border-radius:8px}
 .source-prompt-step a{font-size:.88rem;text-decoration:underline}.source-prompt-body{width:100%;white-space:pre-wrap;overflow-wrap:anywhere;max-height:440px;overflow:auto;font-size:.86rem;line-height:1.65;padding:12px;background:rgba(125,125,125,.055)}
 .source-missing{color:#536173;font-size:.9rem}.source-figure{margin:1rem 0}.source-figure img{height:auto;width:min(100%,700px);object-fit:contain;border:1px solid #d3d8da;border-radius:6px}.source-figure figcaption{font-size:.85rem;color:#555;margin-top:8px}
+/* Focus SCENE092-100; some source Prompts are incomplete. */
+html[data-scene-focus="092"] #book-content > .chapter:not(#scene-092){display:none!important}
+html[data-scene-focus="092"] #toc-items > a:not([href="#scene-092"]){display:none!important}
+html[data-scene-focus="093"] #book-content > .chapter:not(#scene-093){display:none!important}
+html[data-scene-focus="093"] #toc-items > a:not([href="#scene-093"]){display:none!important}
+html[data-scene-focus="094"] #book-content > .chapter:not(#scene-094){display:none!important}
+html[data-scene-focus="094"] #toc-items > a:not([href="#scene-094"]){display:none!important}
+html[data-scene-focus="095"] #book-content > .chapter:not(#scene-095){display:none!important}
+html[data-scene-focus="095"] #toc-items > a:not([href="#scene-095"]){display:none!important}
+html[data-scene-focus="096"] #book-content > .chapter:not(#scene-096){display:none!important}
+html[data-scene-focus="096"] #toc-items > a:not([href="#scene-096"]){display:none!important}
+html[data-scene-focus="097"] #book-content > .chapter:not(#scene-097){display:none!important}
+html[data-scene-focus="097"] #toc-items > a:not([href="#scene-097"]){display:none!important}
+html[data-scene-focus="098"] #book-content > .chapter:not(#scene-098){display:none!important}
+html[data-scene-focus="098"] #toc-items > a:not([href="#scene-098"]){display:none!important}
+html[data-scene-focus="099"] #book-content > .chapter:not(#scene-099){display:none!important}
+html[data-scene-focus="099"] #toc-items > a:not([href="#scene-099"]){display:none!important}
+html[data-scene-focus="100"] #book-content > .chapter:not(#scene-100){display:none!important}
+html[data-scene-focus="100"] #toc-items > a:not([href="#scene-100"]){display:none!important}
