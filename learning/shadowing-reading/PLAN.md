@@ -102,3 +102,14 @@
 - 正式網站新路由：`?book=chapter1b#listening`；從入口與第 1 章前半可接續閱讀。GitHub shell commit：`b99238f348149ddb8f0f1a314915c7eb688ff23f`。
 - 經私人 Google Drive 讀回驗證：64 對、4 節、七步驟、完結段、owner-only 均吻合；GitHub 程式 JS syntax 與 commit 讀回皆驗證。真實 Google OAuth Safari 登入尚未驗證。
 - **下一批 Batch 007**：原書 PDF **33 頁開始**，第 1 章〈1日30分×3ヶ月のシャドーイングを習慣化しよう〉，往後至第 2 章初始處的完整小節界線，保持約 10–12 頁彈性。
+
+
+## 2026-10-28｜Batch 006 已完成（調整為每批約 10 頁）
+
+- 依照使用者最新決定，今後以**每批約 10 頁、以完整小節為界**。首批擴大版 Batch 006 實際跨 **PDF 第 22–33 頁**（12 個實體頁，第 22 頁只收上批未涵蓋的下半部，第 33 頁只收「七步驟總覽」小節結尾）。
+- 完成第 1 章四小節：〈リスニングを制する者は英語を制す〉、〈意識的なトレーニングなしにリスニング力は上がらない〉、〈なぜシャドーイングでリスニング力が上がるのか〉、〈リスニング力アップの効果を最大化するシャドーイング〉。
+- 共 **65 組**日文／繁體中文逐段對照，含 7 個 STEP 名稱與操作說明。OCR 修正含「耳の準備、目の準備、心の準備」及跨頁與重複辨識雜訊。
+- 完成私人 HTML `Shadowing_Batch006_第一章聽力及七步驟_PDF022-033_日中對照.html`，Drive ID `1OMhRpj6W_XhXrp4GJbMFPHEIRoXNFpjZ`；父資料夾 `1BD27TNmiMPGiQlWEDxSE_lYrDBYLbzPj`，`shared=false`，已讀回驗證配對數／段落數／七步驟數量。
+- 正式網站原有入口 `?book=chapter1#chapter-1` 已更新為經 OAuth 後讀取 Batch 005＋Batch 006 兩份私人 HTML，在瀏覽器 DOM 無縫合併。另可由 `?book=chapter1#c1-listening` 直接開啟本批起點。
+- GitHub Pages shell commit `c8cad3cc7c3969a6ae84ae44e66aae3ec94b659e`；只上傳程式碼及 Drive 私人檔案 ID，無版權正文。原書掃描不進網頁。
+- **下一批 Batch 007**：原書 PDF 第 33 頁下半部〈1日30分×3ヶ月のシャドーイングを習慣化しよう〉起，延伸至第 1 章結尾及其後專欄，按小節和批量微調。第 1 章正文結束於 PDF 第 36 頁，後續有專欄。
