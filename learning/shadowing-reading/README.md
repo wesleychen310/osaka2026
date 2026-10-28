@@ -123,3 +123,8 @@
 ### 2026-10-28｜Batch 006：第 1 章聽力與七步驟（續篇）
 
 PDF 22 頁下半至 32 頁，64 組日中對照，四個完整小節。私人教材 Drive ID `1mqWoWeD55CMpbJtXVHJuP1ng1sBWgf48`，owner-only；GitHub Pages 路由 `?book=chapter1b#listening`。原頁掃描僅內部校對，不在網站呈現。私人教材讀回與 GitHub shell 語法檢查完成；手機 Safari Google 授權仍需使用者實測。下一批從 PDF 第 33 頁開始。
+
+
+### 2026-10-28｜Batch 006：第 1 章聽力原理與七步驟總覽
+
+已完成 PDF 22–33（第 22／33 頁各只用部分內容），共 65 組日中配對與七個步驟。私人 Drive HTML ID `1OMhRpj6W_XhXrp4GJbMFPHEIRoXNFpjZ`；網站 `?book=chapter1#c1-listening` 從同一私人讀者端串接 Batch 005 + Batch 006。延續純網頁、不嵌入 PDF 或掃描圖。下一批 Batch 007 自 PDF 第 33 頁的「每天 30 分鐘 × 三個月」開始。
