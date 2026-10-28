@@ -118,3 +118,8 @@
 ### 2026-10-26｜Batch 005 上線：第 1 章首個小節
 
 已接續原書 PDF 18–22 頁，私人 HTML `1ck6WIjhkUdhnTFWlK3xnWLlQvpYktEyh`，14 組日中對照，包含使用原生 HTML 重建的「文法 → 訓練 ↔ 溝通」和「字彙隨程度累積」關係圖。主網站 `?book=chapter1#chapter-1`；目錄及本書使用方法已設入口。原書掃描只供內部核對，網站沒有嵌入圖片。經 8 螢幕寬度 × 3 模式共 24 組 Chromium 檢查，零水平溢出、零 JS 頁面錯誤；真人 Safari OAuth 待驗證。下批從原書 PDF 22 頁下方「掌握聽力，就能掌握英語」開始。
+
+
+### 2026-10-28｜Batch 006：第 1 章聽力與七步驟（續篇）
+
+PDF 22 頁下半至 32 頁，64 組日中對照，四個完整小節。私人教材 Drive ID `1mqWoWeD55CMpbJtXVHJuP1ng1sBWgf48`，owner-only；GitHub Pages 路由 `?book=chapter1b#listening`。原頁掃描僅內部校對，不在網站呈現。私人教材讀回與 GitHub shell 語法檢查完成；手機 Safari Google 授權仍需使用者實測。下一批從 PDF 第 33 頁開始。
