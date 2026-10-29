@@ -57,13 +57,12 @@
  let restored=false;
  function loaded(){
   if(!content.querySelector(".pair"))return;
+  let last=null;
+  if(!restored&&!location.hash){try{last=JSON.parse(localStorage.getItem(POSITION_KEY)||"null")}catch{}}
   addButtons();setLanguage(language,false);
   if(!restored){
    restored=true;
-   if(!location.hash){
-    let last=null;try{last=JSON.parse(localStorage.getItem(POSITION_KEY)||"null")}catch{}
-    if(last?.id&&document.getElementById(last.id))requestAnimationFrame(()=>requestAnimationFrame(()=>restore(last)));
-   }
+   if(last?.id&&document.getElementById(last.id))requestAnimationFrame(()=>requestAnimationFrame(()=>restore(last)));
   }
  }
  document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
