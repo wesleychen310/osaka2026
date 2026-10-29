@@ -302,3 +302,6 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 私人雙語網站：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/ ，已完成 **60／211 小節（§1.1–§1.3）**，目前下一批 **§1.4 Neural Networks（48 節，p.72–126）**。
 - §1.3.1–§1.3.10 來源 `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO`；新增 §1.3.11–§1.3.29 來源 `13HRUq3wFwJcUlhUtFNrVoI5FgtMqR8RC`，兩份私有 Google Drive 文件同網站連續閱讀。保留公式原頁圖、英中對照、精算可信度應用與官方題目。
 - GitHub Module 3 JS/CSS 及進度已同步；四模式與保留閱讀位置功能不變。§1.3 完整校稿備用稿放入 Drive `_backup`；官版外部 Rmd／CSV 尚未實際執行。交接、來源／PDF 頁碼與驗收界線：`learning/atpa-modules/module3/README.md`。
+
+
+ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
