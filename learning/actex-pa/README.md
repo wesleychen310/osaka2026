@@ -17,7 +17,7 @@
 - 下一批從上冊 PDF p.47（原書印刷 p.15）接續，進入 §1.2 The Model Building Process 正文。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
-- QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × 三模式、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
+- QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
 
 
 ## 第三批（2026-10-29）
