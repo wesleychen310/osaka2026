@@ -280,3 +280,10 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 - 原書 p.53–71 隨機截距／斜率、縱貫資料、GLMM、Bühlmann–Straub 可信度。p.69 原書 175.08×50 與列示 8,574 的乘積矛盾已獨立標示。原稿文字層對照通過 19／19 節。
 - GitHub module3.js 維持共用四模式、語言切換不跳頁，新增 `3:4`，總量 guard = 60，`EXPECTED_COUNTS=[10,21,10,19]`；上傳的整章校稿備用稿已移至 Drive `_backup`，不重複顯示。
 - **完整交接**：`learning/atpa-modules/module3/README.md` 最末 2026-10-14 §1.3 交接；GitHub 靜態／Drive 權限已核對，真實 OAuth／iPhone 網站顯示未端對端驗收。
+
+
+## 2026-10-29 新增 ACTEX Exam PA 14th Edition 私人雙語閱讀
+- 網址：https://wesleychen310.github.io/osaka2026/learning/actex-pa/
+- 原書兩冊 PDF 保留在 `官方參考書` Drive folder `1T_-yGaU53ZKDUuo3MgXKLn3R0pn63KgZ`，教材 HTML 建於其同層子資料夾 `ACTEX_PA14_HTML` id `1ioLk3mRCWF9VcZ8DL3p2_uy-OKK1Bc-V`（owner-only）。
+- 第一批：印刷 p.3–4／上冊 PDF p.35–36，共 35 個英中逐段對譯單元，私人 HTML id `1KnmXkwNVVynwE9z8fG7rc2stbpm6O1y0`；支援全英文、二段式精讀（中文上英文下）、左右對照（英文左中文右）；正式來源校訂與真實 OAuth／Safari QA 待補。
+- GitHub 僅公開 OAuth shell、CSS/JS、維護 README，教材均維持私人存取。詳細見 [ACTEX PA 專案 README](./actex-pa/README.md)。
