@@ -290,3 +290,6 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 
 
 ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文、二段式、左右對照。細節見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 智慧雙語閱讀改版：改為單欄 EN／中整頁切換，段落「看中文／看英文」可局部展開、保留原位置與偏好；移除左右、上下對照。既有 74 組中英內容原位保留，已潤飾部分繁中，後續翻譯以自然達意且完整不漏譯為準。詳見 `learning/actex-pa/README.md`。
