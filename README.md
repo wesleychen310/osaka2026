@@ -305,3 +305,6 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 
 
 ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
+
+
+2026-10-30：ACTEX PA 學習網站 `learning/actex-pa/` 改用智慧單欄雙語模式（EN／中、一段翻譯、記住閱讀位置），移除原有上下／左右對照。翻譯一律以流利達意的台灣繁體中文為原則，原書 74 段對照與私人 Drive 權限維持不變。完整規格見 `learning/actex-pa/README.md`。
