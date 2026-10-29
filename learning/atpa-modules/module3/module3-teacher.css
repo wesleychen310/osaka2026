@@ -123,3 +123,12 @@ html[data-reading-mode="teacher"] body[data-atpa-module="3"] #study-content .les
  #study-content .teacher-original-item .teacher-original-text{font-size:15.5px!important}
 }
 @media(prefers-reduced-motion:reduce){.teacher-scroll{scroll-behavior:auto}}
+
+/* Self-checks are optional and remain inside the user's focused lesson. */
+.teacher-self-check{
+ margin:22px 0 6px;padding:12px 14px;border:1px solid #dce5e8;border-radius:8px;
+ background:#f8fafb;color:#334c5b;
+}
+.teacher-self-check summary{cursor:pointer;font-size:13px;font-weight:750;line-height:1.7;color:#36596e}
+.teacher-self-check .teacher-copy{margin:12px 0 2px;font-size:14.5px}
+.teacher-self-check:focus-within{outline-offset:3px}
