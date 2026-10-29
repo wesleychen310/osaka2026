@@ -44,3 +44,15 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .pair.kind-li{padding-left:16px}
 .pair.kind-li>.en>p::before,.pair.kind-li>.zh>p::before{content:'▹ ';color:#547998}
 @media(max-width:440px){.input-output{justify-content:flex-start;gap:7px}.input-output .flow-node{min-width:107px;font-size:12px;padding:6px}.input-output .flow-arrow{min-width:65px;font-size:19px}.observation-table{font-size:13px;min-width:390px}.observation-table th,.observation-table td{padding:6px}.equation-main{gap:7px}.equation-main .math-term{font-size:19px}.equation-main .math-term small{font-size:9px}}
+
+
+/* Chapter 1 §§1.1–1.2: categorical-code case equation and study exercises. */
+.categorical-equation{display:flex;align-items:center;justify-content:center;gap:7px;margin:3px auto;font-family:Georgia,"Times New Roman",serif;font-size:18px;white-space:nowrap}
+.categorical-equation .brace{font-size:80px;font-family:Georgia,serif;font-weight:100;line-height:.9;transform:scaleX(.4);margin:-4px -12px -4px -8px}
+.categorical-equation table{border-collapse:collapse;white-space:nowrap;font-size:15px}
+.categorical-equation td{padding:3px 7px}
+.categorical-equation .symbol{font-style:italic}
+.pair.kind-subli{padding-left:16px}
+.pair.kind-example{padding-left:20px}
+.pair.kind-footnote p{font-size:12px;line-height:1.65}
+@media(max-width:440px){.categorical-equation{justify-content:flex-start}.categorical-equation table{font-size:12px}.categorical-equation td{padding:2px 4px}.pair.kind-subli{padding-left:8px}.pair.kind-example{padding-left:10px}}
