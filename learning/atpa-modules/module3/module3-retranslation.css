@@ -1,0 +1,18 @@
+/* Source-faithful natural Traditional Chinese; only active on authenticated overlays. */
+#study-content .translation[data-translation-version="natural-v1"] .fresh-translation-text{
+ font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;
+ font-size:16px;line-height:1.92;letter-spacing:.005em;white-space:pre-line;
+ margin:0 0 12px;color:#263744;overflow-wrap:anywhere;
+}
+#study-content .translation[data-translation-version="natural-v1"] .fresh-translation-text:last-child{
+ margin-bottom:0;
+}
+.translation-overlay-warning{
+ margin:10px 0;padding:10px 13px;font-size:12px;line-height:1.65;
+ border-left:3px solid #a87842;background:#fff9f1;color:#6e4d2e;
+}
+@media(max-width:600px){
+ #study-content .translation[data-translation-version="natural-v1"] .fresh-translation-text{
+  font-size:15.5px;line-height:1.9;
+ }
+}
