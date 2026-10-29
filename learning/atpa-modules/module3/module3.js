@@ -231,7 +231,7 @@ function prepareEnhancedViews(){
  }
 }
 
-const DISPLAY_MODES=["en","stacked","compare"];
+const DISPLAY_MODES=["en","stacked","compare","teacher"];
 const DISPLAY_KEY="atpa-module3-reading-mode-v4";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 function prepareBilingualLabels(){
@@ -319,8 +319,13 @@ function restoreReadingPosition(saved){
 function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
  const selected=DISPLAY_MODES.includes(mode)?mode:"stacked";
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
- const saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
+ let saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
+ // Tutor mode uses per-section columns; anchor changes to the common heading.
+ if(saved&&(selected==="teacher"||root.dataset.readingMode==="teacher")){
+  const header=saved.node.closest(".lesson")?.querySelector(":scope > header");
+  if(header)saved={node:header,y:Math.max(82,Math.min(window.innerHeight*.32,180)),fraction:0};
+ }
  if(selected!=="en")prepareEnhancedViews();
  const revision=++readingSwitchRevision;
  if(saved){
