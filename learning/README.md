@@ -296,3 +296,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 14：私人雙語教材已擴充至原書 p.3–10（8 頁、93 組）；本批新增 p.9–10（19 組），含輸入輸出圖、觀測表格、式 (1.1.1) 與腳註。智慧單欄 EN／中切換、單段翻譯；見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 私人雙語教材第 5 批：新增 Chapter 1 印刷 p.11–14（第一冊 PDF p.43–46），私人檔案 ID `1ddz_DGWd5WjcbWl3tDQibSwrJpBTXOvi`；新增 55 組中英逐段翻譯，累積 p.3–14 共 12 頁、148 組。§1.1 已完成並開始 §1.2，智慧單欄 EN／中與單段翻譯保留。進度詳見 `learning/actex-pa/README.md`。
