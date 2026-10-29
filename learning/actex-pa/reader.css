@@ -16,3 +16,31 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 @media(min-width:821px){.toolbar{justify-content:center}.toolbar-help{display:inline}}
 @media(max-width:820px){.toolbar{gap:8px}.toolbar-help{display:none}}
 @media(max-width:440px){.pair>.pair-actions>.peek-btn{font-size:12px;padding:4px 8px}.pair[data-peek=true]>.en,.pair[data-peek=true]>.zh{overflow-x:auto}}
+
+/* ACTEX PA §1.1 p.9–10: accessible input-output figure, table and equation. */
+.pair.kind-figure,.pair.kind-table,.pair.kind-math{padding:12px 0}
+.input-output{margin:8px 0;display:flex;gap:11px;align-items:center;justify-content:center;max-width:100%;overflow-x:auto;padding:6px 0}
+.input-output .flow-node{border:1px solid #9eb2c1;border-radius:9px;min-width:125px;text-align:center;padding:7px 9px;background:#f8fbfe;line-height:1.4;font-size:13px}
+.input-output .flow-symbol{font-size:17px;font-family:Georgia,'Times New Roman',serif;white-space:nowrap}
+.input-output .flow-node small{color:#66788a}
+.input-output .flow-arrow{min-width:76px;text-align:center;line-height:1.2;color:#546d83;font-size:23px}
+.input-output .flow-arrow small{display:block;font-size:10px;line-height:1.35}
+.observation-table{border-collapse:collapse;margin:6px auto;min-width:420px;max-width:100%;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.4}
+.observation-table th,.observation-table td{padding:7px 8px;text-align:center;border-bottom:1px solid #d7e1e8;white-space:nowrap}
+.observation-table thead th{font-weight:600;border-bottom:2px solid #91a7b7}
+.observation-table .superhead th{border-bottom:1px solid #afc0cc}
+.observation-table tbody th{font-weight:400}
+.pair .table-scroll{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+.pair .formula-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:12px 4px}
+.equation{font-family:Georgia,'Times New Roman',serif;text-align:center;font-size:18px;white-space:nowrap}
+.equation-main{min-width:350px;display:flex;justify-content:center;align-items:flex-start;gap:10px;margin:0 auto}
+.equation-main .math-term{display:inline-block;text-align:center;white-space:nowrap;font-size:23px;font-style:italic;line-height:1.2}
+.equation-main .math-term small{display:block;font-size:10px;line-height:1.4;white-space:normal;font-style:normal;color:#647989;min-height:30px}
+.equation-main .math-op{font-size:19px;padding-top:2px}
+.equation-main .math-index{font-size:16px;margin-top:5px}
+.equation-main .equation-number{font-size:12px;font-style:normal;color:#687b88;margin-top:8px}
+.pair.kind-footnote{padding-left:10px;border-left:2px solid #ccdbe5}
+.pair.kind-footnote p{font-size:12px;color:#596d7a}
+.pair.kind-li{padding-left:16px}
+.pair.kind-li>.en>p::before,.pair.kind-li>.zh>p::before{content:'▹ ';color:#547998}
+@media(max-width:440px){.input-output{justify-content:flex-start;gap:7px}.input-output .flow-node{min-width:107px;font-size:12px;padding:6px}.input-output .flow-arrow{min-width:65px;font-size:19px}.observation-table{font-size:13px;min-width:390px}.observation-table th,.observation-table td{padding:6px}.equation-main{gap:7px}.equation-main .math-term{font-size:19px}.equation-main .math-term small{font-size:9px}}
