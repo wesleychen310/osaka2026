@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 開頭印刷 p.3–6 已轉錄並翻譯 54/54 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.39（印刷 p.7）接續，進入 §1.1 Basic Terminology。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–14 已轉錄並翻譯 148/148 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.47（原書印刷 p.15）接續，進入 §1.2 The Model Building Process 正文。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × 三模式、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -41,3 +41,12 @@
 - 更新 manifest 前已備份到 Drive `_backup`：`1QxZP4FUL0MsaC8d4a41nqmKmcnYSb45l`，manifest 保留 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN`。
 - HTML 配對檢查 19／19，Chromium 本地 320／390／768／1130px × EN／中顯示 8／8 通過且整頁不橫向溢出。來源 PDF 頁面影像已確認圖表與公式。真實 Google OAuth、GitHub Pages CDN、iOS Safari 尚未完成端到端驗收；持續標示待最終逐字校稿。
 - 下一批從第一冊 PDF p.43（原書印刷 p.11）繼續。
+
+
+## 2026-10-30｜第 5 批：Chapter 1 p.11–14
+- 私人 HTML `ch01_p011-p014.html`，Google Drive ID `1ddz_DGWd5WjcbWl3tDQibSwrJpBTXOvi`；第一冊 PDF 第 43–46 頁，原書印刷 p.11–14。共 55 個雙語單元，中文採流利、達意且不省略原意的繁體中文。
+- 完成 §1.1 後半：訊號／雜訊、數值型與類別型、連續／離散、名目／順序、數字編碼不等於數值型、練習 1.1.1 四題及完整解答、監督／非監督式學習、迴歸／分類；涵蓋 §1.2 開頭的模型生命週期簡介。
+- 原書 p.12–13 跨頁的一句話改為同一完整雙語段落，不拆成不完整翻譯。吸菸狀態 0/1/2 三分支公式以可閱讀 HTML 重建；原書第 5 號腳註與其附帶說明保留。
+- **累積原書印刷 p.3–14：12 頁、148 組英中段落。** 下一批自印刷 p.15／PDF 第 47 頁開始。
+- Chromium 本地模擬 320、390、768、1130px × EN／中 8/8 不溢出，單段展開操作正常；新私有檔案已驗證 owner-only。真實 Google OAuth／iPhone Safari／GitHub Pages CDN 尚未完成端對端驗收。英文轉錄與翻譯仍需正式逐字校稿。
+- manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 已先備份到 `_backup`：`1b6q6kYdJUAR8EGxVd9i3g5UMYpCNqBpW`，再更新檔案原位。新 HTML SHA-256：`948f3849ff92afeb3d14d2c5fbd4eefe93f591bd2e60ea23bcbaaa8aca8ddf4a`。
