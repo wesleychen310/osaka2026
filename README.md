@@ -54,7 +54,7 @@ URL 表的相對路徑皆接在 `https://wesleychen310.github.io/osaka2026/` 後
 - 正式首頁：<https://wesleychen310.github.io/osaka2026/t202607/>。上述 27 個 HTML 入口均由 Repository 路徑盤點；歷史頁仍保留，勿誤刪。
 - 根目錄 `t202607-data.js`、`t202607-places-data.js`、`t202607-books-data.js`、`t202607-themes-data.js`、`t202607-itinerary-*.js`、`t202607-*-theme-data.js` 等皆可能由 2026/2027 多站引用；只可依引用關係判定是否廢棄。
 
-### C. 私人學習｜ISLP／PA／ATPA／FAM-S（`learning/`）
+### C. 私人學習｜ISLP／PA／ATPA／FAM-S（`learning/`）\n\n**新增 ACTEX PA 14（2026-10-29）：** [私人雙語閱讀器](https://wesleychen310.github.io/osaka2026/learning/actex-pa/)；GitHub `learning/actex-pa/` 為公開 OAuth shell，不含原書。私人 Drive `ACTEX_PA14_HTML` folder `1ioLk3mRCWF9VcZ8DL3p2_uy-OKK1Bc-V`；第一批印刷 p.3–4、PDF p.35–36，35 組中英對譯，HTML ID `1KnmXkwNVVynwE9z8fG7rc2stbpm6O1y0`，三種閱讀模式（全英文／上下／左右），後續逐頁擴充。驗收詳細見 `learning/actex-pa/README.md`。\n
 
 | 網站／正式 URL | GitHub 入口 | 私人內容位置 |
 |---|---|---|
