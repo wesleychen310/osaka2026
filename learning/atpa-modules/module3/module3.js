@@ -629,8 +629,27 @@ async function fetchPrivate(token){
    }catch(e){failed=true;throw e}
   }
  }
- await Promise.all([window.ATPAReadingTerms.load(token),...Array.from({length:Math.min(4,SOURCES.length)},worker)]);
+ let retranslationError=null;
+ const translateLoad=window.ATPAModule3Retranslation?.load(token).catch(e=>{retranslationError=e;});
+ await Promise.all([
+  window.ATPAReadingTerms.load(token),
+  translateLoad,
+  ...Array.from({length:Math.min(4,SOURCES.length)},worker)
+ ]);
+ if(!retranslationError&&window.ATPAModule3Retranslation){
+  try{
+   const stats=window.ATPAModule3Retranslation.apply(parsedSources);
+   console.info("Module 3 private retranslation:",stats.sections,"sections,",stats.pairs,"pairs");
+  }catch(e){retranslationError=e}
+ }
  mountAll(parsedSources);
+ if(retranslationError){
+  const notice=document.createElement("div");
+  notice.className="translation-overlay-warning";
+  notice.setAttribute("role","status");
+  notice.textContent="§1.1 新版自然中文翻譯暫時無法載入，現顯示舊譯文。原因："+(retranslationError.message||"未知錯誤");
+  $("mode-bar")?.insertAdjacentElement("afterend",notice);
+ }
 }
 
 function initClient(){
