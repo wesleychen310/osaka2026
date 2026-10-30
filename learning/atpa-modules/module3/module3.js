@@ -646,7 +646,7 @@ async function fetchPrivate(token){
   const notice=document.createElement("div");
   notice.className="translation-overlay-warning";
   notice.setAttribute("role","status");
-  notice.textContent="§1.1 新版自然中文翻譯暫時無法載入，現顯示舊譯文。原因："+(retranslationError.message||"未知錯誤");
+  notice.textContent="新版自然中文譯稿有部分無法載入，相關小節可能顯示舊譯文。原因："+(retranslationError.message||"未知錯誤");
   $("mode-bar")?.insertAdjacentElement("afterend",notice);
  }
 }
