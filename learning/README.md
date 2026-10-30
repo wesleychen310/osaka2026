@@ -305,3 +305,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 14 私人雙語閱讀第 7 批：原書印刷 p.18–22（PDF p.50–54），增加 52 組英文／繁中，涵蓋抽樣代表性、Literary Digest 1936 選舉民調、時間範圍、隨機／分層／系統抽樣、練習 1.2.1／1.2.2 全題與解答、資料粒度。累積原書 p.3–22，20 頁、231 組雙語。新私有 HTML `1wxTMIn8qszoTE5SprlDhFbUp5UjZAjSw`，網站保留智慧單欄 EN／中、單段翻譯。詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 私人智慧雙語教材第 8 批已上線：原書 p.23–28（上冊 PDF p.55–60），57 組英中對譯，涵蓋 Data quality、資料字典、PII、Exercise 1.2.3–1.2.5、Proxy variables、Target Leakage 及 2020 PA Task 3，開始 Stage 3。累積 **p.3–28、26 頁／288 組**。新的私人 Drive HTML `1426dW78KmuTNaPFV7CrcFfgxpmiZPYpK`，智慧單欄 EN／中與單段翻譯維持；詳細見 `learning/actex-pa/README.md`。
