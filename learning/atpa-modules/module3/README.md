@@ -1,5 +1,15 @@
 # Module 3 — Advanced Models
 
+## 2026-10-30 第 12 批結案｜§1.4.23–§1.4.24 全文重譯完成
+
+- 從原始私人英文 HTML `1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe`、原書第 95–96 頁逐節重譯 **§1.4.23 梯度下降的類型及 §1.4.24 延伸方法**：完整涵蓋 batch、mini-batch、SGD、epoch、validation loss、momentum、learning rate 的正負號判斷及各參數不同學習率，保留各段落條件與原始頁碼，非舊譯摘要。
+- 原稿 Part 06 共 §1.4.13–§1.4.24 **12 節／13 組對應段落**現已全數有新版繁體中文。全章累計 **84/211 節、198 組，剩餘 127 節**。下一節 §1.4.25，先核對 Part 07 原始私人來源及其圖像、配對段落再重譯。
+- 本批新增私人 Google Docs：§1.4.23 `1FlmpyWIbDaS17HUbpfyEMhyDcrDyqyQZYJheo3mtMhk`；§1.4.24 `1BvqQoqPZXG2h6mZeD7kgk0ysR-rBl_gFR3iMog8Q9wA`。兩檔位於原教材父資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`；各自 JSON 已讀回解析成功，與原英文來源一節一段對應，權限只有具名使用者、沒有公開分享。原英文、圖片、其他既有譯稿不變。
+- GitHub 僅增私有檔 ID／對應段數索引、快取標記、checkpoint 與 README；**不要把舊版 211/211 誤算為新譯完成**。真實 Google OAuth、iPhone Safari 與 PDF 原圖逐字比對仍 E2E_UNVERIFIED，靜態 QA 不能取代實機驗證。
+
+---
+
+
 ## 2026-10-30 第 12 批第一階段：§1.4.19–§1.4.22
 
 - 自英文原稿 `1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe`（p.90–94）重新翻譯 4 節、5 組段落；**累計 82/211 節、196 組，尚餘 129 節**。舊版仍不算重譯完成。

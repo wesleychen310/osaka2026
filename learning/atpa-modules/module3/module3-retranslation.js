@@ -18,7 +18,9 @@
   {id:"1Nt82Kx__W8cVo9bG_KDHCBI9sP_dWRnyOZyEXmARLQ0",sourceFileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",chapter:"1.4",part:5,expected:{s1416:1,s1417:1,s1418:1}},
   {id:"1XesAYAuO-yBtqXUgpRcse2LPtzeoInFhe7EHGyVD28k",sourceFileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",chapter:"1.4",part:5,expected:{s1419:1,s1420:1}},
   {id:"1GWf8NlGal325UszuorsoELOBV_jgNRg_Dcr01UBcJSY",sourceFileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",chapter:"1.4",part:5,expected:{s1421:2}},
-  {id:"1kM_NaEaKscnZOMLEpyf3vWKKahpHYWak4d0wxxP4U0w",sourceFileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",chapter:"1.4",part:5,expected:{s1422:1}}
+  {id:"1kM_NaEaKscnZOMLEpyf3vWKKahpHYWak4d0wxxP4U0w",sourceFileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",chapter:"1.4",part:5,expected:{s1422:1}},
+  {id:"1FlmpyWIbDaS17HUbpfyEMhyDcrDyqyQZYJheo3mtMhk",sourceFileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",chapter:"1.4",part:5,expected:{s1423:1}},
+  {id:"1BvqQoqPZXG2h6mZeD7kgk0ysR-rBl_gFR3iMog8Q9wA",sourceFileId:"1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe",chapter:"1.4",part:5,expected:{s1424:1}}
  ];
  const expectedSections=SOURCES.reduce((n,s)=>n+Object.keys(s.expected).length,0);
  const expectedPairs=SOURCES.reduce((n,s)=>n+Object.values(s.expected).reduce((a,b)=>a+b,0),0);
