@@ -125,3 +125,14 @@ body[data-atpa-module="3"][data-reader-ready="false"] #mode-bar .mode-options{wi
  body[data-atpa-module="3"] #mode-bar .mode-options button{min-width:0;white-space:nowrap;min-height:44px}
  body[data-atpa-module="3"][data-reader-ready="false"] #mode-bar .mode-options{flex:1 1 100%}
 }
+
+/* TOC tap targets and nested-scroll stability on iPhone/iPad. */
+@media(max-width:800px){
+ body[data-atpa-module="3"] #chapter-sidebar{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+ body[data-atpa-module="3"] #chapter-sidebar .toc-links a{
+  min-height:46px;align-items:center;touch-action:manipulation;
+ }
+ body[data-atpa-module="3"] #chapter-sidebar .toc-group>summary{
+  min-height:48px;align-items:center;touch-action:manipulation;
+ }
+}
