@@ -344,3 +344,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 雙語第 21 批：原書 p.169–190（PDF p.201–222）新增 **22 頁／97 組英中研讀單元**，完整保留每頁原書影像。§3.1.5 正則化包含 Ridge／Lasso／Elastic Net、λ／α、標準化、CV 與 Exercise 3.1.18–3.1.20；§3.2 Advertising 案例包含 200 筆資料探索、相關係數、Figure 3.2.1–3.2.3、Task 1／Task 2 與 lm／summary／confint／predict、TV 簡單線性模型。新 owner-only 私人 HTML：`1WQ_9tW-O7K8vGx5SMO_u_wYXNlyKhzgQ`、`1CLn25X1-H819dbh-EDNtMnMo8lhoZYyx`。累積原書 p.3–190＝**188 頁／1,238 組／29 份私人 HTML**。**可編輯文字是研讀稿，並非完整逐字英文＋中文直譯；未校細節請展開原頁影像。** 下一批從 p.191 接續 CHUNK 11；詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA Safari 載入修復與第22批上線：修正舊版 29 份私人教材必須全部順序下載才能顯示的設計，改成一次只載入所選頁碼、18秒逾時與重試、頁碼切換、錯誤提示，保留 EN／中智慧單欄閱讀。手機控制列亦已修正換行。原書 p.191–209 共19頁／91組已接入，累積 **p.3–209／207頁／1,329組／31份私人 HTML**。原 manifest 備份並原地更新，所有教材仍 owner-only。JS 語法及模擬 Drive 請求/403 回應已通過；真實 iPhone Safari Google OAuth E2E 尚待驗證。詳見 `learning/actex-pa/README.md`。
