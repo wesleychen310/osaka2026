@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–2 印刷 p.3–88 已製成雙語研讀稿 751/751 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.121（原書印刷 p.89）接續，進入 §2.1.2 Categorical Variables。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–2 印刷 p.3–102 已製成雙語研讀稿 838/838 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.135（原書印刷 p.103）接續，進入 §2.2.3 Categorical vs Categorical 及資料視覺化原則。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -146,3 +146,14 @@
 - **重大 JS 修復**：原有 `reader.js` 的目錄組裝函式重複使用 `const select`，可能造成 SyntaxError，已更名為 `featureSelect` 並通過 JavaScript 語法檢查；Chapter 2 已解除「待上線」標示，改為可點擊章節及 2.1／2.1.1／各圖表與練習入口，維持智慧單欄 EN／中與單段看翻譯。
 - Manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 更新前，先建立私人 `_backup` 副本 `1FwERGeJB4Lc70iQ4Uh_WmcZueLzkLS8z` 並驗證 owner-only。兩份 HTML SHA256：`0551c0d44e1ca1c584b1095569ae096930c62e11ff5e076aafd1d42d0503f153`、`fd65537d81a0acf82386f3d8bffdd00142ba6b9e7ac60d67263c6eba8c3a6c81`。
 - **下一批印刷 p.89 起（上冊 PDF p.121）**：§2.1.2 Categorical Variables，進入頻數表、長條圖及雙變數探索；延續每批約 15–20 頁的目標，但以完整題目、表格、圖說、公式和原文核對為優先。
+
+
+## 2026-10-30｜第 16 批：Categorical Variables / Bivariate EDA（14 頁）
+- 本批推進原書印刷 **p.89–102**（上冊 PDF p.121–134），新增 **87 組英中研讀單元**，累計 **p.3–102 共 100 頁、838 組、20 份私人 HTML**。
+- 私人檔 A：`ch02_p089-p092.html`（26 組），Drive ID `1ZtjP_FkAyW0kjx_cuX9XaUE8J_Hwi-RV`，涵蓋 §2.1.2 Categorical Variables、raw vs summarized data、次數與比例表、R CHUNK 9–12、`geom_bar()` 與 `geom_col()` 的用途差異、Figure 2.1.6，以及原書腳註對 `..prop..` 的解釋。
+- 私人檔 B：`ch02_p093-p102.html`（61 組），Drive ID `1EMATho6SyW440roXP3xiijVfPEM4m8Py`，涵蓋 §2.2 Bivariate EDA、2.2.1 Numeric×Numeric 的相關係數、正負相關與零相關、Exercise 2.2.1 的 `Y=X²` 零相關但完全依存示例、R CHUNK 13–16、Figure 2.2.1–2.2.2 散布圖及交互作用；2.2.2 Numeric×Categorical 的條件平均、分組盒鬚圖、Exercise 2.2.2 三個完整答案、R CHUNK 17–20、堆疊／並列直方圖。
+- **重要數字**：傷害代碼 1／2／3／4／5／6／9 的件數、原始金額與時間相關 r＝0.346114、對數金額與時間相關 r＝0.6070667、有無法律代理人分組均值／中位數等依來源核對。圖形以來源 PDF 的裁切 WebP 私有內嵌，另保留 **14/14 個完整原書頁面影像**。
+- **品質範圍與限制**：本批是可閱讀、逐段對應主題的**雙語研讀草稿**，可編輯英文內容係依原文整理與重建，並非原文完整逐字轉錄；不能誤稱已完成所有文字、腳註或 R 程式碼逐字校訂。精確引用仍應以每頁原書完整影像為準；中文採專業而通順的台灣繁體中文，需後續正式逐段精校。原 PDF 未修改。
+- 本地 Chromium **320／390／768／1130px × EN／中 8/8** 無全頁橫向溢出，87/87 中英非空、24/24 圖像載入、單段展開翻譯可用。真實 Google OAuth、GitHub Pages CDN 與 iPhone Safari 實機端到端未完成。
+- Manifest 在更新前先備份到私人 `_backup`，備份 Drive ID `1BBSz3OImB62IvjExtSbahUvKN_UBMmih`；原 manifest ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 原位更新。兩份新 HTML SHA256：`84fee1ab724d70175b37d9e681a6f4f5f69bf6f38b305e3bda545b555eda84a4`、`046911f513b4b58de5089947ebaed24434f605508c647270873c5e001c70c1eb`。
+- **下一批 p.103 起（上冊 PDF p.135）**：§2.2.3 Categorical vs Categorical、堆疊／並列／填滿長條圖、圖形設計原則與後續練習。
