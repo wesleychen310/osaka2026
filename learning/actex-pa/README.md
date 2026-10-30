@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–22 已轉錄並翻譯 231/231 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.55（原書印刷 p.23）接續，完成資料粒度的討論，再進入資料品質與驗證。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–28 已轉錄並翻譯 288/288 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.61（原書印刷 p.29）接續，進入 Stage 4 Model Construction, Evaluation, and Selection。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -68,3 +68,13 @@
 - HTML 52/52 配對，Chromium 本地 320／390／768／1130px × EN／中 **8／8 無全頁橫向溢出**；單段展開翻譯通過。私人教材 HTML 寫入後經 Drive fetch 讀回，owner-only 權限確認；原 PDF 未變更。真實 Google OAuth、GitHub Pages CDN 和 iPhone Safari 尚未端到端實測，文本仍標記 `NEEDS_FINAL_PROOF`。
 - manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 已先備份到 `_backup`，備份 File ID `1IHff31M2nfPNTvmkaIGhGsz47evCEY--`，再更新原位；新 HTML SHA256 `86cbc7d8eb0bd493c966621767c6688b18871502879e2e0d59edd09fe67b63a1`。
 - **下一批：印刷 p.23 起（PDF p.55）**，先完成粒度說明與 Exercise 1.2.3，再繼續 Data quality issues、變數一致性、資料字典等；英文與繁中同批上線。
+
+
+## 2026-10-30｜第 8 批：Data Validation、PII、Proxy variables 與 Target Leakage
+- 上線原書印刷 **p.23–28**（第一冊 PDF p.55–60）；私人 HTML `ch01_p023-p028.html`，Drive ID `1426dW78KmuTNaPFV7CrcFfgxpmiZPYpK`，共 **57 組英中對譯**。已按原書影像校正 OCR，保持完整原文；繁中以流暢、達意、符合精算專業用語為準，不省略原意。
+- 本批依原書順序涵蓋：Exercise 1.2.3「月份與季度粒度」及解答；Reasonableness、Consistency、Sufficient documentation 三項資料品質原則；Exercise 1.2.4 地址 join；文件說明五項要素；五列、三欄的完整保單 Data dictionary；個資 PII、匿名化／資料安全／使用條款；Exercise 1.2.5 社群媒體資料的三項考量；受保護類別、代理變數；Target leakage 的定義、理賠件數／損失嚴重度的例子；2020/6/16、6/19 PA Task 3（醫療檢驗次數與住院天數）；Stage 3 Exploratory Data Analysis 導論。
+- 跨 p.26–27 的 proxy variable 定義以完整段落合併，不因換頁拆成不完整句子。原書五列保單資料字典改成雙語 HTML 表格，手機可在表格區塊橫向捲動。
+- 累積 **原書 p.3–28，共 26 頁／288 組英中對譯**，八份 owner-only Drive HTML；`reader.js` 新增第四類關鍵議題的目錄錨點 `#b8-data-quality`、`#b8-other-data-issues`、`#b8-target-leakage`、`#b8-stage3`，智慧單欄 EN／中及單段展開功能不變。
+- 本地 Chromium 320／390／768／1130px × 英文／繁中 **8／8 整頁無水平溢出**；57／57 英中有內容、資料表可滾動、單段翻譯切換通過。原始 PDF 未修改；私人 HTML 上傳後已從 Drive 讀回確認 57 組及 owner-only 權限。正式 GitHub Pages CDN、真實 Google OAuth 與 iPhone Safari 端對端測試未完成；仍標記 `NEEDS_FINAL_PROOF`，不代表人工逐字審定。
+- manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN`，更新前先於 `_backup` 備份，備份 ID `16-AIl2bAjMqnWXmrhlhh-5A6c1vkVR-R`，原檔原位更新；新 HTML SHA256：`e07c924ee9522f265a4d91718159a6d34b0fcdca499090fc54299711e9da42ab`。
+- 下一批：原書 **p.29 起**（上冊 PDF p.61），Stage 4 的訓練集／測試集、模型構建與評估；英文原文與流暢繁體中文必須同批上線。
