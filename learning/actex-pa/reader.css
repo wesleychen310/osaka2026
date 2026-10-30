@@ -56,3 +56,12 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .pair.kind-example{padding-left:20px}
 .pair.kind-footnote p{font-size:12px;line-height:1.65}
 @media(max-width:440px){.categorical-equation{justify-content:flex-start}.categorical-equation table{font-size:12px}.categorical-equation td{padding:2px 4px}.pair.kind-subli{padding-left:8px}.pair.kind-example{padding-left:10px}}
+
+
+/* Chapter 1 Stage 1: preserve source EXAM NOTE and POTENTIAL EXAM QUESTION boxes. */
+.pair.kind-note,.pair.kind-exam-question{border:1px solid #b9cad8;background:#f7fafc;border-radius:9px;padding:12px 15px;margin:14px 0}
+.pair.kind-exam-question{border-color:#cab894;background:#fffaf0}
+.pair.kind-note strong,.pair.kind-exam-question strong{color:#1b4e71}
+.pair.kind-quote{padding:7px 18px;font-style:italic}
+.pair.kind-note .pair-actions,.pair.kind-exam-question .pair-actions{margin-top:5px}
+@media(max-width:440px){.pair.kind-note,.pair.kind-exam-question{padding:10px 11px}.pair.kind-quote{padding:7px 10px}}
