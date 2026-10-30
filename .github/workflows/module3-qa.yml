@@ -1,0 +1,41 @@
+name: Module 3 static QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - "learning/atpa-modules/module3/**"
+      - ".github/workflows/module3-qa.yml"
+  pull_request:
+    paths:
+      - "learning/atpa-modules/module3/**"
+      - ".github/workflows/module3-qa.yml"
+  workflow_dispatch:
+
+# This only tests public UI and structural metadata; never access private Drive files.
+permissions:
+  contents: read
+
+concurrency:
+  group: module3-static-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: JavaScript syntax checks
+        run: |
+          node --check learning/atpa-modules/module3/module3.js
+          node --check learning/atpa-modules/module3/module3-retranslation.js
+          node --check learning/atpa-modules/module3/smart-reader.js
+          node --check learning/atpa-modules/module3/module3-teacher.js
+          node --check learning/atpa-modules/module3/check-module3.mjs
+      - name: Check language controls, 211 sections and translation checkpoint
+        run: node learning/atpa-modules/module3/check-module3.mjs
