@@ -4,10 +4,10 @@
   "updated": "2026-10-30",
   "sourceSections": 211,
   "originalBilingualSections": 211,
-  "naturalTranslationSections": 90,
-  "naturalTranslationPairs": 205,
-  "completedThrough": "1.4.30",
-  "nextSection": "1.4.31",
+  "naturalTranslationSections": 96,
+  "naturalTranslationPairs": 212,
+  "completedThrough": "1.4.36",
+  "nextSection": "1.4.37",
   "translatedParts": [
     {
       "part": 1,
@@ -41,8 +41,8 @@
     },
     {
       "part": 7,
-      "sections": 6,
-      "pairs": 7
+      "sections": 12,
+      "pairs": 14
     }
   ],
   "publicCodeStatus": "GITHUB_COMMITTED",
@@ -50,8 +50,8 @@
   "mobileOAuthStatus": "E2E_UNVERIFIED",
   "fullRenderStatus": "E2E_UNVERIFIED",
   "instructions": "Legacy bilingual 211/211 is NOT an accepted finished translation. Translate every remaining source section from its original English into natural, fluent, complete Taiwan Traditional Chinese without omissions. Keep existing formula images, tables, quiz answers and feedback. Source English/Chinese stay private Google Drive only. Resume at nextSection; do not skip unfinished sections, and do not claim real iPhone OAuth E2E without verification.",
-  "lastPrivateBatchDocumentId": "1byzzYFrVsAjPrHVuaqWy4xUwNBS74rnjH6cKNoK9EPQ",
-  "lastPrivateBatchRange": "1.4.25–1.4.30",
+  "lastPrivateBatchDocumentId": "1CNvCQCRdjUPngd9WHH64hul9sJwN06ke6llMMtIjRkc",
+  "lastPrivateBatchRange": "1.4.31–1.4.36",
   "legacyTranslationPolicy": "UNACCEPTED_REFERENCE_ONLY",
   "newTranslationVisualProof": "PENDING_PDF_VISUAL_QA"
 }
