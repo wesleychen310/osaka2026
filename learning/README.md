@@ -332,3 +332,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 私人雙語第 16 批：新增原書 p.89–102（上冊 PDF p.121–134），**14 頁／87 組雙語研讀草稿**。包含 §2.1.2 類別變數頻數／比例與 `geom_bar()`／`geom_col()`；§2.2.1 相關係數、散布圖、零相關不等於獨立、Exercise 2.2.1；§2.2.2 條件平均、分組盒鬚圖、交互作用、Exercise 2.2.2 與堆疊／並列直方圖。新增 owner-only Drive HTML `1ZtjP_FkAyW0kjx_cuX9XaUE8J_Hwi-RV`、`1EMATho6SyW440roXP3xiijVfPEM4m8Py`。累積 p.3–102 共 **100 頁／838 組／20 個私有 HTML 檔**；每頁附原書影像供核對，英中可編輯文字仍須正式逐字校稿。下一批 p.103 起。詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 第18批：原書 p.108–128（上冊 PDF p.140–160）一次推進21頁（其中3頁原書空白），新增99組精算／統計雙語研讀單元。第二章收尾（圓餅與長條圖、配色、chartjunk、§2.3）及第三章線性模型（OLS、矩陣、RSS/TSS/R²、t/F test、AIC/BIC、Exercise 3.1.1/3.1.2、模型診斷導論）。新 owner-only Drive HTML IDs `1lLQLr6vCtU5XY8W7767Sndf-IqTc6SNQ`、`15rQoQb3mbmliMuMF29SEXyPmqK6nzvGm`。累積 p.3–128 共126頁、962組／23個私有檔。**注意：可編輯中英文字為研讀稿，非已完成逐字原文及全文翻譯；每頁保留原書影像供完整核對。** 下批 p.129 起。細節見 `learning/actex-pa/README.md`。
