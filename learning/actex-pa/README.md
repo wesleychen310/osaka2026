@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–17 已轉錄並翻譯 179/179 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.50（原書印刷 p.18）接續，進入 Stage 2 資料蒐集與驗證正文。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–22 已轉錄並翻譯 231/231 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.55（原書印刷 p.23）接續，完成資料粒度的討論，再進入資料品質與驗證。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -59,3 +59,12 @@
 - 本地 Chromium 320／390／768／1130px × EN／中檢查 8/8 通過，31/31 單元均有雙語，單段查看另一語言成功。新私人 HTML 及 manifest owner-only；正式 GitHub Pages CDN、真實 Google OAuth、iPhone Safari 端到端測試未完成；逐字校稿仍在進行。
 - manifest 原檔 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 更新前先備份至 `_backup`，備份 ID `1_C4g-n4APNegLp2RYWPetGZHQrasnFPo`，權限為僅擁有者；新 HTML SHA-256 `9cc9a534ca3d4e79ee545904499d612c2676f685c3677589a57ec0d1737e0c90`。
 - **下一批：印刷 p.18 起／PDF p.50 起**，Stage 2 的資料品質、資料設計、母體代表性、時間範圍與抽樣；不得省略案例及習題的原文／譯文。
+
+
+## 2026-10-30｜第 7 批：Stage 2 Data Design and Sampling
+- 印刷 **p.18–22**（上冊 PDF 第 50–54 頁）私人 HTML `ch01_p018-p022.html`，Google Drive ID `1wxTMIn8qszoTE5SprlDhFbUp5UjZAjSw`。全批 **52 組英文＋自然流暢繁體中文**，不省略註腳、題目與解答；已照原書影像校正辨識雜訊。
+- 內容：2021 年 12 月兩道 PA 真題範例（data-source pros/cons）、Relevance / Population、1936 年 Literary Digest 錯誤選舉民調與抽樣偏差、Time frame、練習 1.2.1（題目與正反面解答）、Random sampling / respondent bias、Stratified sampling、oversampling / undersampling、Systematic sampling、練習 1.2.2 四題與完整解答、Granularity 六級地理例子及應用；含原書註腳 6。資料粒度繼續於 p.23。
+- 累計原書 p.3–22，**20 頁／231 組中英對照**；GitHub `reader.js` 已連接七份私有 HTML，章節目錄增 `#b7-data-design`、`#b7-ex122`，智慧單欄 EN／中＋單段翻譯維持不變。
+- HTML 52/52 配對，Chromium 本地 320／390／768／1130px × EN／中 **8／8 無全頁橫向溢出**；單段展開翻譯通過。私人教材 HTML 寫入後經 Drive fetch 讀回，owner-only 權限確認；原 PDF 未變更。真實 Google OAuth、GitHub Pages CDN 和 iPhone Safari 尚未端到端實測，文本仍標記 `NEEDS_FINAL_PROOF`。
+- manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 已先備份到 `_backup`，備份 File ID `1IHff31M2nfPNTvmkaIGhGsz47evCEY--`，再更新原位；新 HTML SHA256 `86cbc7d8eb0bd493c966621767c6688b18871502879e2e0d59edd09fe67b63a1`。
+- **下一批：印刷 p.23 起（PDF p.55）**，先完成粒度說明與 Exercise 1.2.3，再繼續 Data quality issues、變數一致性、資料字典等；英文與繁中同批上線。
