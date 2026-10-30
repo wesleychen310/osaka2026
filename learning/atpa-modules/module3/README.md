@@ -1,5 +1,16 @@
 # Module 3 — Advanced Models
 
+## 2026-10-30 第 10 批｜Neural Networks §1.4.1–§1.4.12
+
+- **已從原英文重新翻譯 12 節、12 組對應段落，累計 72/211 節、185 組，尚餘 139 節。** 原始私人 HTML `1ivOBsbEcwDaWBeUZsQGJ8Pl0UYx-4nI5`，原書 p.72–83；12 張原頁圖片及英文、公式、既有 GPT 補充均保留不變。
+- 新自然繁中私人 Google Docs：§1.4.1–1.4.6 `1yOT_n31PkpwhafeK8TyX2Jfhsg4ZgnZQbZmeEt7zwMw`；§1.4.7–1.4.12 `1Hd3U9p5C3jLPLVK8f0VG_TG006KpZDVE6YCdRS55z80`。因新建 Docs 介面一度被阻擋，改為複製既有私人譯稿成新檔再替換正文；**沒有更動既有譯稿與英文原稿**。兩個新檔均已逐份 Google Docs 讀回並通過 JSON 解析、6/6 章節對位、來源影像計數與具名 ACL 驗證。
+- 本批涵蓋神經網路定義、普遍近似性、保險案例、招聘分類（250 筆、錯分 8 與 11 筆）、神經元、權重與偏差、隱藏層、建模流程、前饋式、RNN／CNN／GAN、啟動函數與 ReLU，保留註腳、作者與年份。
+- 公開 `module3-retranslation.js` 只新增兩個私有來源 ID 與段落數（`part:4`）；`progress.json` 及 `index.html` 快取標籤更新至 `natural10`。**下一小節 §1.4.13**（Part 06 原始私檔 `1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe`）。請勿將舊版中文計入自然重譯進度。
+- 真實 Google OAuth / iPhone Safari 整頁切換與 PDF 原頁逐字視覺校對仍未執行，靜態測試不等於 E2E。
+
+---
+
+
 ## 2026-10-30 第 9 批｜Part 04 全部重新翻譯完成：§1.3.21–§1.3.29
 
 - **本批由英文原稿重新翻譯 9 個完整小節、13 組段落**（來源原書 p.63–71），包含重複測量／縱貫資料、GLMM、練習 3.3.2、Bühlmann–Straub 信賴度、三業務別共 9 筆曝險／損失資料、信賴度保費範例、Gamma/log 模型與練習 3.3.3。原表九筆數值逐項保留。
