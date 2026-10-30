@@ -178,3 +178,12 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .main .meta #progress{flex:1 1 180px;min-width:0;overflow-wrap:anywhere}
 .main .meta #load-state{flex:1 1 100%;margin:0;order:3}
 .main .meta>a{flex:0 1 auto;max-width:100%;overflow-wrap:anywhere}
+
+/* Batch 23: emphasize editorial completeness status and original-source verification. */
+#content .draft-notice{padding:10px 12px;margin:5px 0 16px;border-left:3px solid #9cadbf;border-radius:5px;background:#f4f6f8;color:#576676;font-size:12px;line-height:1.7}
+#content .source-page{max-width:100%;min-width:0;margin:10px 0 19px;overflow:hidden;border-top:1px dashed #d2dde6}
+#content .source-page summary{cursor:pointer;padding:8px 0;color:#355f79;font-size:12px;line-height:1.6}
+#content .source-page img{display:block;width:100%;max-width:100%;height:auto;margin:7px auto 12px;border:1px solid #dce6eb;border-radius:6px}
+#content .b15-figure{max-width:100%;min-width:0;margin:10px 0;overflow:hidden}
+#content .b15-figure img{display:block;width:100%;max-width:100%;height:auto}
+@media(max-width:440px){#content .draft-notice{font-size:11px;padding:8px 9px}}
