@@ -368,3 +368,6 @@ ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
 
 
 2026-10-31 ACTEX PA 第24批：原書印刷 p.234–257／上冊 PDF p.266–289 **新增24頁、133組雙語研讀單元**，完成第三章 §3.3 的 TASK 7–10（stepAIC forward BIC/backward AIC、test RMSE、殘差診斷、glmnet/elastic net、cv.glmnet、lambda.min 與 lambda.1se）與 §3.4 複習入口。四份每份六頁的新 owner-only Drive HTML：`1VPK6XNv4Q4EcXXXZ2dL5Vq1NbjqRxFhb`、`1lL2uBFmAdUlMRmauiL-_1wpu-uCzvZYA`、`131FkPJ-pzjLfUfYL--dLy60YJOoUwYYm`、`1cl3ZGvfIx4VsIgc_XsqEASEDtJgL9jpU`。累積 **p.3–257／255頁／1,588組／39份私人教材**。每頁完整原圖另保留15處重要表格/圖形裁切。注意可編輯英文與繁中仍為研讀草稿，非逐字全譯；iPhone Safari 實機端到端未驗收。下批從 p.258 起，p.261 進入 Chapter 4。詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-31 ACTEX PA 章節目錄問題修正：使用者 iPhone 截圖顯示第 4–8 章與附錄灰色未完成項目被排在第 1 章小節前方，造成內容缺失疑慮。核對 manifest **p.3–257／39 私人 HTML／1,588 組雙語研讀單元**且印刷頁碼區間連續；**第 4 章 GLM 從 p.261 起，確實尚未製作**。已逐項檢查既有 **106／106 小節錨點**皆存在。GitHub 閱讀器改為第 1–3 章獨立可收合分組、小節就近歸章、未製作的第 4–8 章／附錄預設收合，且支援小節 URL 的深連結定位。Safari 單檔按需載入保留，實機 OAuth E2E 尚待驗證。詳見 `learning/actex-pa/README.md`。
