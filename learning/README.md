@@ -311,3 +311,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 私人雙語網站第 9 批：新增原書印刷 p.29–33（第一冊 PDF p.61–65），48 組英文／繁體中文。內容包括訓練／測試切分、70/20/10 三分式驗證、模型選擇偏差、平方／絕對／零一損失，以及 RMSE、MSE、MAE 訓練及測試公式；新的私人 HTML File ID `1MklkHaW3ZMW36JvfoMok7oAg7V5HSqVp`。目前累積 p.3–33 共 31 頁／336 組，EN／中智慧單欄與單段翻譯不變。進度與限制見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 私人雙語教材第 10 批：新增 Chapter 1 印刷 p.34–39（PDF p.66–71），48 組完整英文＋繁中對譯。涵蓋 Exercise 1.2.6–1.2.8、RMSE／MAE 計算、分類錯誤率、超參數與 k-fold CV、模型選擇與 Stage 5 模型驗證導論。累積 **p.3–39 共 37 頁、384 組，10 批**。私人 HTML Drive ID `1cLnah1xyAPlDU_9Jasst1AUh5fFdeNil`，網站保留智慧單欄 EN／中及單段翻譯；詳見 `learning/actex-pa/README.md`。
