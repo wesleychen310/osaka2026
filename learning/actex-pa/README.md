@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–3 印刷 p.3–233 已製成雙語研讀稿 1455/1455 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.266（原書印刷 p.234）接續，完成 §3.3 的 Task 7 Stepwise Selection、模型診斷及後續 Regularization。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–3 印刷 p.3–257 已製成雙語研讀稿 1588/1588 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.290（原書印刷 p.258）接續，保留空白頁與 Study Break，並從印刷 p.261 正式進入 Chapter 4 Generalized Linear Models。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -232,3 +232,15 @@
 - 更新原 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 之前，已於同層 `_backup` 備份 `1MDUd4cKKULBJlockMRhCAlIHZk64hhbM`，含台北時間及 p210–233 原因，確認 owner-only；後原位更新原 File ID、名稱、所在資料夾。
 - GitHub `reader.js` 新增 4 份私有檔案、8 個 §3.3 主題／Task 目錄錨點；`reader.css` 增加完整原書影像與草稿提醒樣式；入口 `reader.js?v=20261031-b23`、`reader.css?v=20261031-b23`。**保留單份載入與 EN／中智慧閱讀，不公開原書或譯文。**
 - **下一批 p.234 起（上冊 PDF p.266）**：完整執行 TASK 7 Stepwise Selection，接續模型診斷與正則化；勿將原書中途跨頁練習拆斷。
+
+
+## 2026-10-31｜第24批：Stepwise Selection / Model Validation / glmnet（24頁）
+- **原書印刷 p.234–257，上冊 PDF 實體 p.266–289，共24頁、133組雙語研讀段落**。累積 **p.3–257＝255頁、1,588組、39份 owner-only 私人 HTML**。依 iPhone 單區間讀取機制拆為四份六頁檔案：
+  - `ch03_p234-p239.html`（34組），Drive ID `1VPK6XNv4Q4EcXXXZ2dL5Vq1NbjqRxFhb`。TASK 7、AIC/BIC 選擇理由、forward/backward 的差異、MASS::stepAIC()、CHUNK 16 向後 AIC、最終六項變數、R² 0.9517。
+  - `ch03_p240-p245.html`（32組），Drive ID `1lL2uBFmAdUlMRmauiL-_1wpu-uCzvZYA`。Exercise 3.3.2 非明確虛擬變數編碼下的整組 Ethnicity 刪除、CHUNK 18 向前 BIC（三項變數 Rating/Income/Student.Yes）、TASK 8 測試 RMSE 四模型 453.3665／105.0656／104.2375／102.6785、Figure 3.3.6 四格模型診斷圖。
+  - `ch03_p246-p251.html`（34組），Drive ID `131FkPJ-pzjLfUfYL--dLy60YJOoUwYYm`。Residuals vs Fitted 的 U 型、Q–Q 兩端偏離、§3.3.4 正則化、TASK 9、model.matrix()/glmnet()、alpha 0.5 下 lambda 0/10/100/500/1000 的係數路徑、TASK 10。
+  - `ch03_p252-p257.html`（33組），Drive ID `1cl3ZGvfIx4VsIgc_XsqEASEDtJgL9jpU`。CHUNK 23–25 的 cv.glmnet、Figure 3.3.7、lambda.min=0.8885539（RMSE 103.9201；11特徵）與 lambda.1se=7.550517（RMSE 102.8241；8特徵），最後推薦三特徵 forward-BIC（102.6785）、alpha 網格調參與 §3.4 Review Problems。
+- **品質標示**：編輯後可搜尋的英文／繁中是原書導向的**雙語研讀稿**，並非原書完整逐字英文轉錄或 100% 逐句直譯。題目原始全文、註腳、輸出表格、係數、R 指令與完整圖形，以私人 HTML 內附 **24/24 原書頁面影像**及 **15 處原圖局部裁切**為最終核對依據。正式逐句全譯及精校仍待執行，不能以已涵蓋頁碼替代精校完成率。
+- 本地 QA：133/133 組有非空英文與繁體中文、24/24 個來源頁影像；Chromium 模擬 320／390／768／1130px × EN／中 **8/8 無水平溢出**，來源圖展開載入成功。對新 `reader.js` 執行 JavaScript 語法檢查；維持一份私人 HTML 單次載入、切換頁碼、重試及 SMART EN／中切換。正式 GitHub Pages CDN／真實 Google OAuth／iPhone Safari 端到端**仍未實測**。
+- 原 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 修改前先備份至原資料夾下的私人 `_backup`：`1d7iHEgHxofKCfRL0xftwC0grF5xlmGgJ`，備份檔名含台灣時間與 p234–257 原因；確認 only-owner 後再**原位更新**，保留原 ID、`manifest.json` 名稱及資料夾。
+- **下一批**：原書 p.258–260 依原頁保留（空白頁及 Study Break），p.261 起進入 **Chapter 4 Generalized Linear Models（GLM）**。第 24 批已完成第三章 §3.4 頁面，外部 GOAL 題庫的題目**沒有在本頁印出**，不自行杜撰。
