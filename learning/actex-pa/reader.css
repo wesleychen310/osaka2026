@@ -65,3 +65,12 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .pair.kind-quote{padding:7px 18px;font-style:italic}
 .pair.kind-note .pair-actions,.pair.kind-exam-question .pair-actions{margin-top:5px}
 @media(max-width:440px){.pair.kind-note,.pair.kind-exam-question{padding:10px 11px}.pair.kind-quote{padding:7px 10px}}
+
+
+/* Chapter 1 Stage 2: preserve exercises, worked solutions, sampling examples. */
+.pair.kind-exercise{border:1px solid #bccbd7;border-radius:9px;background:#f6f9fc;padding:11px 14px;margin:12px 0 3px}
+.pair.kind-solution{border-left:3px solid #9eb7c8;padding:8px 12px;margin:3px 0;background:#fafcfe}
+.pair.kind-example{line-height:1.8}
+.pair.kind-exercise .pair-actions,.pair.kind-solution .pair-actions{margin-top:5px}
+.pair.kind-footnote{border-left:2px solid #d8e1e8;margin:8px 0;padding:4px 10px}
+@media(max-width:440px){.pair.kind-exercise{padding:10px 11px}.pair.kind-solution{padding:7px 9px}.pair.kind-subli{padding-left:10px}}
