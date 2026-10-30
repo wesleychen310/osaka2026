@@ -634,7 +634,9 @@ function mountAll(parsedSources){
  if(targetId&&document.getElementById(targetId))
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
    jumpToSection(targetId,false);
-   if(!location.hash&&!legacyPart)window.ATPASmartReader?.restoreOffset(targetId);
+   // Resume at the original reading line after Safari drawer/layout realignment.
+   if(!location.hash&&!legacyPart)
+    setTimeout(()=>window.ATPASmartReader?.restoreOffset(targetId),280);
   }));
  else activateSection(allLessons[0].id);
 }
