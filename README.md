@@ -317,3 +317,6 @@ ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
 
 
 2026-10-30 ACTEX PA 雙語閱讀第 6 批：Chapter 1 §1.2 印刷 p.15–17（PDF p.47–49），完整英文／繁中 31 組，私人 Drive 檔案 `1KSqgozcWpiG4RyhtsH6gdSgaTD3EU0HC`。累積 p.3–17，共 15 頁、179 組。Stage 1 問題定義完整上線，開始 Stage 2 資料蒐集與驗證。介面維持 EN／中智慧單欄切換與單段翻譯；本地 Chromium 排版 8/8 通過，尚未真實 iPhone Safari OAuth 驗證。詳細見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 14 私人雙語閱讀第 7 批：原書印刷 p.18–22（PDF p.50–54），增加 52 組英文／繁中，涵蓋抽樣代表性、Literary Digest 1936 選舉民調、時間範圍、隨機／分層／系統抽樣、練習 1.2.1／1.2.2 全題與解答、資料粒度。累積原書 p.3–22，20 頁、231 組雙語。新私有 HTML `1wxTMIn8qszoTE5SprlDhFbUp5UjZAjSw`，網站保留智慧單欄 EN／中、單段翻譯。詳見 `learning/actex-pa/README.md`。
