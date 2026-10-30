@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–33 已轉錄並翻譯 336/336 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.66（原書印刷 p.34）接續，處理 Exercise 1.2.6、分類錯誤率及 Cross-validation。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–39 已轉錄並翻譯 384/384 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.72（原書印刷 p.40）接續，繼續 Stage 5 Model Validation 的訓練／測試診斷圖及後續階段。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -87,3 +87,13 @@
 - 驗收：私人 Drive 上傳與 fetch 讀回 48/48、owner-only；本地 Chromium 320／390／768／1130px × EN／中 **8/8 整頁無橫向溢出**；原 PDF 五頁影像校核重大版式與公式。不宣稱已完成逐字人工校稿，亦未完成真實 Google OAuth、GitHub Pages CDN、iPhone Safari 的端到端實測。
 - manifest 原檔 `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 在更新前已備份至私人 `_backup`：`16pjdoJFrND8lbYosRSim_zxr2xhyacrl`。新增 HTML SHA-256 `e289266bfabb6257e009ea132b2ec6c4fcd5c4ab5fae02fedd75cd359e49a172`。
 - 下一批從上冊 PDF 第 66 頁（印刷 p.34）開始，保留 Exercise 1.2.6 各數值／答案、分類問題的 0-1 loss、classification error rate 及 Cross-validation 的全部公式和腳註。
+
+
+## 2026-10-30｜第 10 批：Classification Error、Cross-validation、Model Selection
+- 已上線原書印刷 **p.34–39**（上冊 PDF 物理頁 **66–71**），私人 HTML `ch01_p034-p039.html`，Drive ID `1cLnah1xyAPlDU_9Jasst1AUh5fFdeNil`，共 **48 組完整英中對譯**；每段都有英文原文及流利達意的繁中。仍列 `TRANSLATED-NEEDS-FINAL-PROOF`，最終逐字校稿未完成。
+- 内容：損失函數的配適／評估區別、Exercise 1.2.6 五筆觀測值與 RMSE = 3.0332／MAE = 2.8、0–1 loss 與訓練／測試分類錯誤率完整定義、訓練誤差與測試誤差、重要 Cross-validation／Hyperparameters、Exercise 1.2.7 正則化目標函數與 λ 超參數、註腳 10、k-fold CV 步驟與 k = 3 原書示意圖的 HTML 重建、Exercise 1.2.8 10 折 CV 得 45 筆、CV 優缺點、預測表現／可解釋性／實作容易程度的選模取捨、Stage 5 Model Validation 導言。
+- 原書 p.36–37 超參數訓練資料段落以及 p.38–39 預測績效跨頁敘述，分別以完整語意的雙語段落呈現；原書圖片以語義清楚的 HTML 表格重建，手機表格可局部水平捲動。
+- 累積 **原書 p.3–39，37 頁／384 組英中對照／10 批私人 HTML**。章節入口新增 `#b10-ex126`、`#b10-cv`、`#b10-best-model`、`#b10-stage5`。維持智慧單欄 EN／中整頁切換、單段看翻譯、保存閱讀位置；不恢復左右或上下雙欄。
+- 本地 Chromium 模擬檢查 320／390／768／1130px × 英文／繁中 **8/8 無整頁水平溢出**，48/48 內容可見，單段展開及 CV 流程圖已核對；私人 Drive fetch 讀回 48 單元，權限為僅擁有者。**未執行**正式 GitHub Pages CDN、實際 OAuth 或 iPhone Safari 端到端驗證；不可冒稱已實機測試。
+- 先備份 manifest 至 `_backup`，備份檔案 ID `14X9FoCk1IEVNsUgVYy3y2Ar8faWviWbd`；原 manifest ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 原位更新。新 HTML SHA256：`8066e933113b23c9a2e5d1978491a199cdd5609836283f905217fef257fc0543`。
+- **下一批原書 p.40 起（PDF 第 72 頁）**：Stage 5 Model Validation 之模型診斷、預測／實際散布圖；以及接續內容，必須全文中英同批處理，確保圖、公式及考題無遺漏。
