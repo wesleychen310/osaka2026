@@ -341,3 +341,6 @@ ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
 
 
 2026-10-30 ACTEX PA 雙語閱讀第14批：一次擴充原書 p.57–70（PDF p.89–102）共14頁、93組中英研讀單元；涵蓋 §1.3.2 模擬結果與 §1.4 特徵生成／選擇、三道 Exercise 1.4.1–1.4.3。私人 HTML IDs：`1gM2hGKiTc_K1EMNLGKn0Te-_4TA6-maS`、`1SVTB1vmJyYY_MnGM2e_CK1_wnrjeYT0J`。累積 p.3–70／68頁／607組；每頁保留原書完整影像供核對，研讀稿仍需逐字校對，不可視作完整逐字轉錄。下一批 §1.5 Review Problems 自 p.71 開始；詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 私人雙語第 15 批：一次新增原書 p.71–88（PDF p.103–120），**18 頁、144 組雙語研讀稿**；第一章 §1.5 Review Problems 完成，第二章 Data Exploration and Visualization 已開始，包含 persinj 理賠資料、數值型統計、直方圖、偏態及離群值、對數／平方根轉換、密度圖、盒鬚圖與練習 2.1.1–2.1.2。兩份 owner-only Drive HTML：`1qdtRnFPEg_L4UwJCE6V_G5bPN2ZyBRVR`、`1XnVMLUSgD-lTi3Cg4C09US8IFHMU_DzG`。累積 p.3–88＝86 頁／751 組；新設第二章目錄連結，修正 reader.js 原有重複 `const select` 導致的語法問題。內容仍屬需逐頁校稿的研讀草稿，原書完整圖像保留在私有 HTML，詳細見 `learning/actex-pa/README.md`。
