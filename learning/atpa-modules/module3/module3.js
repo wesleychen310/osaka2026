@@ -24,6 +24,7 @@ const SOURCE={
 };
 const $=id=>document.getElementById(id);
 document.body.dataset.atpaModule="3";
+document.body.dataset.readerReady="false";
 const params=new URLSearchParams(location.search);
 const requestedModule=params.get("module");
 const selected=!requestedModule||requestedModule==="3";
@@ -473,7 +474,7 @@ function makeChapter(id,key){
 }
 function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
- const count=document.createElement("p");count.className="toc-summary";count.textContent="原文與既有雙語 211／211 節 · 自然繁中重譯 10／211 節";toc.append(count);
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="原文與既有雙語 211／211 節 · 自然繁中重譯 "+(window.ATPAModule3Retranslation?.expectedSections??0)+"／211 節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const chapterLessons=lessons.filter(sec=>sec.dataset.num.startsWith(chapter+"."));
    const details=document.createElement("details");details.className="toc-group";
@@ -580,6 +581,7 @@ function mountAll(parsedSources){
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
+ document.body.dataset.readerReady="true";
   prepareBilingualLabels();
   activateQuizzes();
   window.ATPASmartReader?.mount();
@@ -681,6 +683,8 @@ function requestLogin(switchAccount=false){
 $("sign-in")?.addEventListener("click",()=>requestLogin(false));
 $("switch-account")?.addEventListener("click",()=>{clearToken();requestLogin(true)});
 async function main(){
+ // Keep language controls usable before private Google Drive downloads finish.
+ applyReadingMode(preferredReadingMode(),false);
  show("reader-wrap",false);show("gate",true);
  if(!selected){status("請由 Module 3 的閱讀入口開啟本章。");return}
  const saved=loadSaved();
