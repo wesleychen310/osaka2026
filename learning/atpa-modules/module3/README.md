@@ -1,5 +1,27 @@
 # Module 3 — Advanced Models
 
+## 最新有效規格｜2026-10-30 智慧單欄雙語閱讀改版（第 1 批）
+
+**本節優先於以下舊版四模式紀錄。** 唯一主要閱讀體裁為「智慧單欄」：整頁只顯示一種語言，提供 `EN 英文`／`中 中文` 兩個按鈕；每組原文與譯文仍在同一個私有來源段落中，點按「看中文／看英文」才只展開該段另一語言。不再對使用者提供上下雙語、左右雙欄、GPT 並排講義或三欄模式。
+
+- **正式入口**：https://wesleychen310.github.io/osaka2026/learning/atpa-modules/module3/
+- **已修改 GitHub**：`index.html`（兩語入口、搜尋）、`module3.js`（兩語切換／錨點／恢復閱讀位置）、`module3-teacher.js`（保留 53 節 GPT 深入內容，改為可收合單欄補充講義）、`README.md`。新建 `smart-reader.js`、`smart-reader.css`，並在 `index.html` 載入；舊 `module3-teacher.css`、共享的比較／二段式樣式不再於本頁載入。
+- **原有內容與功能保留**：17 份 Google Drive 私人 HTML（211 個編號小節、原圖、表格、公式、題目）、原始 `sourceFileId`、OAuth read-only 授權、私人自然重譯 overlay、章節目錄和深連結、答題選項及教師答案、PDF 原頁影像、原有精讀附註與 English 語塊。其他舊版程式／樣式的未引用檔案暫留 Git 歷史及 repo 中，供 rollback；不是仍開放的閱讀模式。
+- **新增**：單段展開／收合、段落穩定 `id`（既有 ID 不覆蓋）、英中雙語段落搜尋、每書獨立的語言與閱讀位置 localStorage keys、整頁切語時原段落位置補償；URL `#anchor` 優先於上次閱讀位置，舊 `?part=N` 仍可用。
+- **翻譯進度需分開認列**：原有雙語 `211/211`；`2026-10-29` 起逐段重新校譯，目前自然流利繁中 **10/211 節、38/38 段（§1.1.1–1.1.10）**，仍有 **201 節**未完成新版逐段重譯。本次是閱讀體裁改版，**沒有宣稱舊譯其餘 201 節已達自然流利標準**。後續依來源 Part 02（§1.2.1–1.2.21，原書 p.19–40，共 21 節）起逐批改譯、原文校對後才記為新版完成；不可用 GPT 摘要代替全文。
+- **安全回復**：改版前從 `main` 建立保留分支 `backup/module3-before-smart-reader-20261030`；Google Drive 私人原檔本批未改動，故不需要額外覆寫備份。若後續修改既有私人 Drive 原檔，必須先在原父資料夾 `_backup` 複製保留舊版，再維持原 ID 就地更新。
+- **已實測**：從 GitHub 讀回更新後程式、確認只有 `data-mode=en`／`data-mode=zh`、不再引用各舊模式樣式；三個主要 JavaScript 檔通過 V8 語法解析；核對 GPT 指南 53 個唯一 section key；第一份私有來源 metadata 顯示僅具名授權。
+- **尚未通過**：實際 Google OAuth、17 份來源同時下載、211 節登入後渲染、iPhone Safari 捲動位置／點按／搜索、320／390／768／1130px 的端到端互動測試、GitHub Pages CDN 最新頁面驗證（公開網站讀取工具出現 cache miss／無法 DNS 解析）。因此狀態為 **GITHUB_COMMITTED / STATIC_QA_PASSED / E2E_UNVERIFIED**，不等同真人實機驗收完成。
+
+### 後續分批計畫
+
+1. 對新版 iPhone Safari 進行實際 Google OAuth 與高密度小節切換驗收，修復任何現場問題。
+2. Part 02：§1.2.1–1.2.21 的 94 組既有雙語段落逐項檢查、自然繁中重譯及對原書圖表校對；每一批同時有完整英文與中文再發布。
+3. 其後依原 `SOURCE` 的 Part 03–17 順序處理，先完成連續完整小節，按書頁核對，持續更新私有新譯 Doc 與此 README 的精確進度。
+
+---
+
+
 **Content progress: 211/211 numbered sections complete.**
 
 - The public repository provides only the reading interface (HTML, CSS, JavaScript).
@@ -13,8 +35,8 @@
 
 ## GPT 講義對照（2026-10-29）
 
-- Current reading modes: `en` / `stacked` / `compare` / `teacher` (fourth is independently authored instructional notes, not a translation).
-- `index.html` mounts `module3-teacher.js` and `module3-teacher.css` after the base reader; never change the private OAuth loading or overwrite existing bilingual views to add tutor notes.
+- Historical reading modes before 2026-10-30: `en` / `stacked` / `compare` / `teacher`. The smart single-column mode above supersedes them.
+- Historical implementation mounted `module3-teacher.js` and `module3-teacher.css`. As of 2026-10-30, GPT notes are single-column collapsible and the old teacher.css is not loaded.
 - `module3-teacher.js` currently has 53 unique guided lessons: Bayesian Models and Analysis §1.5.1–1.5.44 (44), and Stacking §1.6.1–1.6.9 (9). Others retain existing first-stage bilingual summaries until their own guides are authored.
 - Each completed tutor lesson includes the concept, step-by-step explanation, practical insurance/actuarial example, common trap, ATPA exam application, and a self-check. Original English remains fetched from the owner's private Google Drive files at runtime.
 - In Stacking, maintain the official hotel regression metrics (null 51.16, LM 45.92, RT 45.63, NN 44.87, Meta1 44.74, Meta2 44.77 RMSE) and the classification exercise log loss metrics (null 0.65977, logistic 0.60249, tree 0.60199, NN 0.59828, Meta1 0.587318, Meta2 0.58832).
@@ -36,4 +58,4 @@
 - **接續順序**：下一批為 `SOURCE["3:2"]` 的 §1.2.1–1.2.21，共 21 節；後續依原書與 SOURCE 的 17 份分批逐一完成。若建立額外私有翻譯 Doc，需將檔案移入原資料夾，並在網站覆蓋層 SOURCES 加入 `{id,chapter,part,expectedSections,expectedPairs}` 和精確段落計數驗證。
 - 目前僅完成 GitHub JavaScript 語法／GitHub 版本確認、私有 Google Docs JSON 讀回驗證；**私人 OAuth 實機畫面尚未驗收**。
 
-Last updated: 2026-10-29.
+Last updated: 2026-10-30.
