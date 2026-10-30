@@ -68,100 +68,40 @@ function addText(container,label,value,css){
  else section.append(elem("p","teacher-copy",value));
  container.append(section);
 }
+/* Preserve all 53 authored lessons as optional single-column study notes.
+   Remove the legacy left/right teaching comparison and its duplicated original text. */
 function build(lesson){
- if(lesson.querySelector(":scope > .teacher-view"))return;
- const view=elem("div","teacher-view");
- const hint=elem("div","teacher-view-hint","左：SOA 原文（由私人 Google Drive 載入）　｜　右：GPT 教學講義");
- view.append(hint);
- const scroller=elem("div","teacher-scroll");
- scroller.setAttribute("role","region");scroller.setAttribute("aria-label","原文及 GPT 中文講義並排，可左右滑動");
- scroller.tabIndex=0;
- const columns=elem("div","teacher-columns");
- const original=elem("div","teacher-original");
- original.append(elem("div","teacher-column-title","SOA ORIGINAL · 原文"));
- let n=0;
- const candidates=[...lesson.querySelectorAll(".pair,.source-page-figure,.source-figure")];
- candidates.forEach(item=>{
-  if(item.closest(".teacher-view,details.tutor,details.phrases,details.gpt-reusable,.chapter-quiz"))return;
-  if(item.closest(".pair")!==null && !item.classList.contains("pair"))return;
-  if(item.classList.contains("pair")){
-    const source=item.querySelector(":scope > .original");
-    if(!source)return;
-    const wrap=elem("div","teacher-original-item pair");
-    const clone=source.cloneNode(true);clone.classList.add("teacher-original-text");
-    wrap.append(clone);original.append(wrap);n++;
-  }else if(item.classList.contains("source-page-figure")){
-    const clone=item.cloneNode(true);clone.removeAttribute("id");clone.classList.add("teacher-source-figure");original.append(clone);
-  }else if(!item.closest(".source-page-figure")){
-    original.append(item.cloneNode(true));
-  }
- });
- if(!n){original.append(elem("p","teacher-copy","本小節的原文格式無法直接抽取，請切換「全英文」檢視原始內容。"))}
- const notes=elem("div","teacher-notes");
- notes.append(elem("div","teacher-column-title","GPT TEACHER · 中文講義"));
  const guide=GUIDE[lesson.id];
- if(guide){
-  const lessonNumber=Number(lesson.dataset.num.split(".").pop());
-  const chapter=lesson.dataset.num.split(".").slice(0,2).join(".");
-  const guideLabel=chapter==="1.6"?"GPT 精讀講義 · Stacking §1.6.1–1.6.9":lessonNumber<=11?"GPT 精讀講義 · 第一批 §1.5.1–1.5.11":lessonNumber<=22?"GPT 精讀講義 · 第二批 §1.5.12–1.5.22":lessonNumber<=33?"GPT 精讀講義 · 第三批 §1.5.23–1.5.33":"GPT 精讀講義 · 第四批 §1.5.34–1.5.44";
-  notes.append(elem("div","teacher-guide-id",guideLabel));
-  notes.append(elem("h3","teacher-big-idea",guide.idea));
-  if(guide.formula)notes.append(elem("div","teacher-formula",guide.formula));
-  addText(notes,"一步一步理解",guide.steps);
-  addText(notes,"精算案例",guide.caseText,"teacher-chunk teacher-case");
-  addText(notes,"最容易搞錯",guide.pitfall,"teacher-chunk teacher-trap");
-  addText(notes,"ATPA 怎麼掌握",guide.exam,"teacher-chunk teacher-exam");
-  if(guide.check){const d=elem("details","teacher-self-check");d.append(elem("summary","","自己驗收"));d.append(elem("p","teacher-copy",guide.check));notes.append(d);}
- }else{
-  const summary=lesson.querySelector(":scope > .gpt-summary .gpt-summary-zh")?.textContent?.trim();
-  notes.append(elem("div","teacher-guide-id","第一階段 · 現有精讀摘要"));
-  if(summary){
-   notes.append(elem("h3","teacher-big-idea",summary));
-   const p=lesson.querySelector(".pair > .translation")?.textContent?.trim();
-   if(p && p!==summary) addText(notes,"對照原文，補足脈絡",p.slice(0,750));
-  }else{
-   notes.append(elem("p","teacher-copy","本小節的專屬深入講義尚未完成；目前保留原文檢視。可切換「二段式精讀」閱讀完整繁中翻譯與語塊註解。"));
-  }
-  notes.append(elem("p","teacher-next-batch","深度版講義會依原章節逐批擴充，不以簡短翻譯冒充完整授課。"));
+ if(!guide||lesson.querySelector(":scope > .smart-guide"))return;
+ const details=elem("details","smart-guide");
+ const trigger=elem("summary","","GPT 深入講義 · 展開本節精算案例、考點與自我檢核");
+ details.append(trigger);
+ const notes=elem("div","teacher-notes");
+ notes.append(elem("h3","teacher-big-idea",guide.idea));
+ if(guide.formula)notes.append(elem("div","teacher-formula",guide.formula));
+ addText(notes,"一步一步理解",guide.steps);
+ addText(notes,"精算案例",guide.caseText,"teacher-chunk teacher-case");
+ addText(notes,"最容易搞錯",guide.pitfall,"teacher-chunk teacher-trap");
+ addText(notes,"ATPA 考試應用",guide.exam,"teacher-chunk teacher-exam");
+ if(guide.check){
+  const self=elem("details","teacher-self-check");
+  self.append(elem("summary","","自我檢核"));
+  self.append(elem("p","teacher-copy",guide.check));
+  notes.append(self);
  }
- columns.append(original,notes);scroller.append(columns);view.append(scroller);
- const jump=elem("div","teacher-jump");
- for(const [label,left] of [["看原文",0],["看講義",1]]){
-  const btn=elem("button","teacher-jump-btn",label);btn.type="button";
-  btn.addEventListener("click",()=>scroller.scrollTo({left:left?notes.offsetLeft-original.offsetLeft:0,behavior:"smooth"}));
-  jump.append(btn);
- }
- view.insertBefore(jump,scroller);
- lesson.append(view);
+ details.append(notes);
+ lesson.append(details);
 }
-let observer=null,observed=false;
-function mount(){
- const article=document.getElementById("study-content");
- const lessons=[...article?.querySelectorAll(":scope > section.lesson")||[]];
- if(!lessons.length||observed)return;
- observed=true;
- const hash=decodeURIComponent(location.hash.slice(1));
- for(const sec of lessons.slice(0,2))if(document.documentElement.dataset.readingMode==="teacher")build(sec);
- const current=hash&&document.getElementById(hash);
- if(current?.matches("section.lesson"))build(current);
- if("IntersectionObserver" in window){
-  observer=new IntersectionObserver(entries=>{
-   if(document.documentElement.dataset.readingMode!=="teacher")return;
-   entries.forEach(entry=>{if(entry.isIntersecting)build(entry.target)});
-  },{rootMargin:"650px 0px"});
-  lessons.forEach(sec=>observer.observe(sec));
- }else lessons.forEach(build);
-}
-function ensureVisible(){
- if(document.documentElement.dataset.readingMode!=="teacher")return;
- mount();
+let finished=false;
+function mountGuides(){
+ if(finished)return;
  const lessons=[...document.querySelectorAll("#study-content > section.lesson")];
- lessons.filter(sec=>{const b=sec.getBoundingClientRect();return b.bottom> -450 && b.top<innerHeight+650}).forEach(build);
+ if(lessons.length!==211)return;
+ finished=true;
+ lessons.forEach(build);
 }
 const app=document.getElementById("app");
-new MutationObserver(()=>{if(!observed)mount();if(document.documentElement.dataset.readingMode==="teacher")ensureVisible()}).observe(app,{childList:true,subtree:true});
-new MutationObserver(ensureVisible).observe(document.documentElement,{attributes:true,attributeFilter:["data-reading-mode"]});
-window.addEventListener("hashchange",ensureVisible);
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount,{once:true});
-else mount();
+if(app)new MutationObserver(mountGuides).observe(app,{childList:true,subtree:true});
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mountGuides,{once:true});
+else mountGuides();
 })();
