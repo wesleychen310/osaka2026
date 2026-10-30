@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–3 印刷 p.3–128 已製成雙語研讀稿 962/962 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.161（原書印刷 p.129）接續，深入線性模型殘差診斷、模型驗證與下一小節。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–3 印刷 p.3–145 已製成雙語研讀稿 1053/1053 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.178（原書印刷 p.146）接續，完成數字編碼的類別變數、交互作用項及 Exercise 3.1.7 以後內容。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -174,3 +174,14 @@
 - Private manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 先備份至 owner-only `_backup`：ID `1PuS9CDdq5QyDTX4AAz-6NnRvSY_DaWX6`，再原位更新。新 HTML SHA256：`b67bdf202aae3579d9abb3fea2e16cfaa60d31b713a68a500e96ef78f482cee3`、`8017342ec11564119198d9566162aaa7b05629e5dc431b39ac4a4283bec3a77c`。
 - GitHub 閱讀器新增兩個私人 HTML、第三章可點目錄、§3.1.1／3.1.2 與 AIC/BIC 習題跳轉及數學樣式，智慧單欄 EN／中與逐段翻譯、閱讀位置記憶保持原狀。
 - **下一批印刷 p.129 起／PDF p.161 起**，完成殘差診斷各種圖形、實際與預測關係與後續章節；批次擴張但不把摘要冒稱完整翻譯。
+
+
+## 2026-10-30｜第 19 批：殘差診斷、非線性特徵、Dummy Encoding（17 頁）
+- 發布原書印刷 **p.129–145**（上冊 PDF 實體 p.161–177），**91 組中英研讀單元**；全站累積 **p.3–145 共 143 頁、1,053 組、25 份私人 HTML**。
+- 私有檔案 A：`ch03_p129-p136.html`（8 頁／42 組），Drive ID `1GVhPejVmtvmkgy8y4oivnD8Rlifo3t1v`，包含標準化殘差、studentized residual 與 leverage、同質變異、Residuals vs Fitted／Figure 3.1.1、Exercise 3.1.3 與 3.1.4 含解答、Normal Q–Q／Figure 3.1.2、§3.1.3 特徵生成與 Figure 3.1.3。
+- 私有檔案 B：`ch03_p137-p145.html`（9 頁／49 組），Drive ID `1JMzOUZrvexV3y6j7lPNnq8VACMNQM8gv`，包含多項式迴歸、Exercise 3.1.5 完整 (a)–(c) 問答、Binning 分段常數函數、piecewise linear functions 與 hinge basis／Figure 3.1.4、類別型特徵 binarization、Smoker／Non-smoker／Unknown 虛擬變數、r−1 基準組、係數解讀、Exercise 3.1.6 及 East／South／West 數值答案。
+- **翻譯完整度明確界定**：目前提供依原書重編的英文主題研讀稿及流暢繁中對應說明，**不是原文逐字完整轉錄，也不是已經逐句對譯的出版級全文翻譯**。所有 17 頁完整原書影像皆內嵌於 owner-only HTML，逐頁可展開確認精確英文、圖形、註腳、各練習的原始完整選項與數學上下標；這些尚需逐頁與可編輯文字核對補齊。尤其 3.1.3、3.1.4 的完整原始 (A)–(E) 選項目前必須以原頁影像查看，不能冒稱已完整輸入到 EN 段落。
+- **本地 QA**：91/91 單元均有 EN 與繁中內容、17/17 個原書影像；測試用 Chromium 320／390／768／1130px × EN／繁中 **8/8 無整頁橫向溢出**。真實 Google OAuth、iPhone Safari、正式 GitHub Pages CDN 端對端仍未驗證。
+- 維持公開倉庫僅存閱讀程式與進度資訊、不存教材原文及原圖。私人 manifest ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 更新前已於私人 `_backup` 建立 owner-only 備份 `1kWTs78zr4isBxU6FJUnztuaJ8VtMNJwI`。
+- 本批 HTML SHA256：`f72c64594baa84894851966b74550b0ab76bfaace0aebfd8197e8ded80a8a429`、`1650bd1b40c434741b1ca76cc54d6155a8cc67a9e2a1200233ac1da96f33e6da`。
+- 下一批自**原書 p.146（上冊 PDF p.178）**繼續。先處理 numeric codes 當作 factor、基準組重設，接續 interaction terms 與 Exercise 3.1.7 等題目。後續仍以 15–25 頁批次推進，但必須保留原圖與翻譯精校狀態。
