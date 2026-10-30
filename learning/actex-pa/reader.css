@@ -187,3 +187,30 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 #content .b15-figure{max-width:100%;min-width:0;margin:10px 0;overflow:hidden}
 #content .b15-figure img{display:block;width:100%;max-width:100%;height:auto}
 @media(max-width:440px){#content .draft-notice{font-size:11px;padding:8px 9px}}
+
+
+/* 2026-10-31 TOC structural repair: nested, collapsible chapters with accurate status. */
+#toc .toc-coverage{font-size:12px;color:#526d80;background:#f2f6f9;border-radius:8px;padding:10px 12px;margin:8px 0 13px;line-height:1.65}
+#toc .toc-chapter,#toc .toc-upcoming,#toc .toc-extra{border:1px solid #dbe5ed;border-radius:9px;margin:9px 0;overflow:hidden;background:#fff}
+#toc .toc-chapter>summary,#toc .toc-upcoming>summary,#toc .toc-extra>summary{cursor:pointer;display:block;list-style:none;padding:12px 11px;color:#254d66;background:#f8fbfd;font-weight:700;line-height:1.45;font-size:14px}
+#toc .toc-chapter>summary::-webkit-details-marker,#toc .toc-upcoming>summary::-webkit-details-marker{display:none}
+#toc .toc-chapter>summary:before,#toc .toc-upcoming>summary:before{content:"▸";display:inline-block;margin-right:8px;color:#557994;transition:transform .15s}
+#toc .toc-chapter[open]>summary:before,#toc .toc-upcoming[open]>summary:before{transform:rotate(90deg)}
+#toc .toc-chapter .toc-name,#toc .toc-chapter .toc-pages{display:inline;border:0;padding:0}
+#toc .toc-chapter .toc-name{font-size:14px;color:#244b64}
+#toc .toc-chapter .toc-pages{display:block;margin:3px 0 0 23px;font-size:11px;font-weight:500;color:#6b8190}
+#toc .toc-chapter[open]>summary{background:#eef5fa;border-bottom:1px solid #dbe5ed}
+#toc .toc-links{padding:5px 10px 10px}
+#toc .toc-links>a{display:block;margin:0;line-height:1.55;padding:9px 6px;border-bottom:1px solid #eef2f5;font-size:12px;color:#315b74;overflow-wrap:anywhere}
+#toc .toc-links>a:last-child{border-bottom:0}
+#toc .toc-links>.toc-home{font-weight:700;color:#205473;background:#f7fafc;border-radius:6px}
+#toc .toc-links>.toc-depth-1{padding-left:9px}
+#toc .toc-links>.toc-depth-2{padding-left:18px}
+#toc .toc-links>.toc-depth-3{padding-left:27px}
+#toc .toc-links>a:focus-visible{outline:2px solid #80aac6}
+#toc .toc-upcoming>summary{font-weight:600;color:#687b88;background:#f7f8f9;font-size:13px}
+#toc .toc-pending-links{padding:5px 11px 10px}
+#toc .toc-pending-links>.toc-pending{display:block;color:#8b98a1;border-bottom:1px solid #eef1f3;padding:9px 3px;font-size:12px;line-height:1.55}
+#toc .toc-extra>summary{font-size:12px}
+@media(max-width:820px){#toc{max-height:min(75vh,720px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}}
+@media(max-width:440px){#toc .toc-chapter>summary{font-size:13px;padding:11px 10px}#toc .toc-links>a{font-size:12px;padding-top:10px;padding-bottom:10px}}
