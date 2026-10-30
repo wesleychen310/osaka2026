@@ -329,3 +329,6 @@ ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
 
 
 2026-10-30 ACTEX PA 私人雙語教材第 10 批：新增 Chapter 1 印刷 p.34–39（PDF p.66–71），48 組完整英文＋繁中對譯。涵蓋 Exercise 1.2.6–1.2.8、RMSE／MAE 計算、分類錯誤率、超參數與 k-fold CV、模型選擇與 Stage 5 模型驗證導論。累積 **p.3–39 共 37 頁、384 組，10 批**。私人 HTML Drive ID `1cLnah1xyAPlDU_9Jasst1AUh5fFdeNil`，網站保留智慧單欄 EN／中及單段翻譯；詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 雙語第 11 批：原書 p.40–42（PDF p.72–74），新增 31 組英中段落，包含 Stage 5 預測／實際診斷圖、Stage 6 模型維護與 §1.3 偏差—變異數權衡導論。累計 p.3–42 共 40 頁、415 組，私人 HTML `1Ucb0rFKyUI0vOpW_S6RZlK4V4aDsFaN4`，智慧單欄 EN／中與單段翻譯不變。詳見 `learning/actex-pa/README.md`。
