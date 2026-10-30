@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–42 已轉錄並翻譯 415/415 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.75（原書印刷 p.43）接續，進入 §1.3.1 偏差—變異數權衡的理論正文。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–46 已轉錄並翻譯 443/443 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.79（原書印刷 p.47）接續，進入 Bias–Variance Decomposition 的公式與推導。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -104,3 +104,12 @@
 - 內容包括 Stage 5 模型驗證：訓練／測試集診斷、兩張 Predicted vs Actual 比較圖（以明確標示的示意點位重建，原 PDF 是精確圖形依據）、系統性高估與低估、baseline model 比較；Stage 6 模型維護：業務問題調整、領域專家、補充資料、模型精進、實地測試、考試提醒；以及 §1.3 與 §1.3.1 的理論導論「模型越複雜，不保證預測越好」。
 - 智慧單欄 EN／中切換和單段翻譯不變。新資料儲於 owner-only Drive，公開 GitHub 只有程式碼及維護紀錄；manifest 更新前已備份至私人 _backup，備份 ID `19DC52VYPgB5t_-xbUz1BPi40g2Pm1dv8`。
 - 文件完整性仍列 `TRANSLATED-NEEDS-FINAL-PROOF`；未完成實際 iPhone Safari + Google OAuth 端到端驗收。下一批印刷 p.43 起（上冊 PDF p.75）。
+
+
+## 2026-10-30｜第 12 批：§1.3 Training / Test Error, Underfitting / Overfitting
+- 私人 HTML `ch01_p043-p046.html`，Drive File ID `1FiW3KG2dlbMhZLnQolAp17sRCF4cF8aQ`，印刷 p.43–46／PDF p.75–78；**28 組英中單元**，累計 p.3–46、44 頁、443 組、12 批。
+- 原書 Figure 1.3.1「訓練／測試誤差」及 Figure 1.3.2「欠擬合／過度擬合／Goldilocks model」直接從原 PDF 裁切、以 WebP 內嵌私人 HTML，非重畫示意點位，保持原有曲線與數據點；搭配完整中文圖說。原文段落、2×2 誤差診斷表、原書例子及註腳 11、12 同批翻譯。
+- 說明：僅將原書私有內容儲存在擁有者的 Google Drive，GitHub 公開倉庫僅含閱讀器程式、樣式與進度。沿用智慧單欄 EN／中整頁切換、單段翻譯及位置記憶。英文需持續依原 PDF 最終逐字校稿（`TRANSLATED-NEEDS-FINAL-PROOF`），不能冒稱人工完整校訂或實際 Google OAuth/iPhone Safari 已實測。
+- manifest 更新前已在私人 `_backup` 建立副本 `1jeAsS9l7sosDeTIptl0pL2B8e5VKfAti`，原 manifest ID 不變。SHA256 `8c2345b6402dfd3dd9f8dfd02cb0c041a72adef6538b4844eaaf0207527007b8`。
+- **提速工作法**：下一批以完整論述單元規劃約 10–15 頁，但以 PDF 密度與圖表完整性調整；批次萃取 PDF 文本、只校核重點圖表、原圖以私有內嵌方式保真、一次 QA、一次更新 Drive + GitHub，不以人工手動分開做每兩頁；不得以加速為由刪節原文或翻譯。
+- 下一批 p.47 起，進入偏差－變異數分解公式與 Bias / Variance / irreducible error；圖說、公式、註腳均應核對。
