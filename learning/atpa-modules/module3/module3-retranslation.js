@@ -7,7 +7,8 @@
   {id:"19JbZ6IsfTBdmwas1k0OZxVxC4nFfJ2vRSkUAYuk-fxA",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s121:6,s122:1,s123:3}},
   {id:"1c9m4Tq-LpvnkEG16dtuBpL9wcuUz5NtEZVf3GzC_LPw",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s124:2,s125:3,s126:2,s127:4,s128:5,s129:9}},
   {id:"1gGLNj-68ed4JOZpApIHvglkfFbOuqroYXyw2e2gu2Fg",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s1210:7,s1211:3,s1212:5,s1213:6,s1214:4,s1215:1,s1216:1,s1217:1,s1218:20,s1219:2,s1220:4,s1221:5}},
-  {id:"1f0k3vQjoFJ53VMmo1lnRO3zsWx9LuIljdGkR7VA_A7Y",sourceFileId:"1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO",chapter:"1.3",part:2,expected:{s131:1,s132:1,s133:1,s134:1,s135:1,s136:1,s137:1,s138:1,s139:1}}
+  {id:"1f0k3vQjoFJ53VMmo1lnRO3zsWx9LuIljdGkR7VA_A7Y",sourceFileId:"1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO",chapter:"1.3",part:2,expected:{s131:1,s132:1,s133:1,s134:1,s135:1,s136:1,s137:1,s138:1,s139:1}},
+  {id:"1RMUzpYJeKhQBlunEqWmr5xoCnWeYEUq-Ini18kUquSY",sourceFileId:"1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO",chapter:"1.3",part:2,expected:{s1310:1}}
  ];
  const expectedSections=SOURCES.reduce((n,s)=>n+Object.keys(s.expected).length,0);
  const expectedPairs=SOURCES.reduce((n,s)=>n+Object.values(s.expected).reduce((a,b)=>a+b,0),0);

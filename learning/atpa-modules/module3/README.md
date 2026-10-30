@@ -1,5 +1,16 @@
 # Module 3 — Advanced Models
 
+## 2026-10-30 接續批次：§1.3.10 測驗（自然繁中第 6 批；Part 03 完成）
+
+- **最新新版自然繁中累計 41/211 小節、142 組段落，尚餘 170 節。** 來源 17 份、原有 211/211 節完整雙語仍原封不動。
+- Part 03 原書 **p.41–52** 的 §1.3.1–§1.3.10 現已 **10/10 節、10/10 組**自然繁中校譯。這批 §1.3.10 Knowledge Check 涵蓋國家、作者、肥料、教育程度、汽車品牌五個例題，保留全部選項順序、五個正確答案、三種回饋情境的重複回饋文字及錯誤／部分正確紀錄標籤；原圖三頁由原有私人 HTML 提供，不置入公開 repo。
+- 本批新增私人 Google Doc `1RMUzpYJeKhQBlunEqWmr5xoCnWeYEUq-Ini18kUquSY`（`ATPA_Module3_自然繁中重譯_1.3.10_網站資料`），與原 Part 03 HTML `1M-jg8CsPSYdN0_aiJEZdGS9IWZ6FHAMO` 同在父資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`；JSON 讀回驗證 1/1 段、5 題與 3 組回饋文字完整，權限僅具名使用者、沒有 `anyone`。未覆寫原始教材，無既有 Drive 檔案需要再備份。
+- 公開 `module3-retranslation.js` 增加 `part:2` 的第二份譯稿，依 `section.id` 合併，不互相覆蓋。同步更新 `progress.json`、`index.html` 快取標籤及本 README。**Google OAuth 實機、iPhone Safari、211 節完整渲染及三張 PDF 原頁逐字目視核對仍 E2E_UNVERIFIED**。
+- **下一批從 §1.3.11 開始**，切換至 Part 04 的私人原文，先核對該小節內完整英文段落、來源頁碼及圖像，再產生新譯 JSON。不要重做 Part 03 已校譯小節。
+
+---
+
+
 ## 2026-10-30 接續批次：§1.3.1–§1.3.9（自然繁中第 5 批）
 
 - **新版自然繁中累計 40/211 編號小節、141 組原文／譯文段落，尚餘 171 節**。211/211 舊版完整雙語繼續存在，不能計入新譯進度。

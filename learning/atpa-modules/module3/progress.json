@@ -4,10 +4,10 @@
   "updated": "2026-10-30",
   "sourceSections": 211,
   "originalBilingualSections": 211,
-  "naturalTranslationSections": 40,
-  "naturalTranslationPairs": 141,
-  "completedThrough": "1.3.9",
-  "nextSection": "1.3.10",
+  "naturalTranslationSections": 41,
+  "naturalTranslationPairs": 142,
+  "completedThrough": "1.3.10",
+  "nextSection": "1.3.11",
   "translatedParts": [
     {
       "part": 1,
@@ -21,8 +21,8 @@
     },
     {
       "part": 3,
-      "sections": 9,
-      "pairs": 9
+      "sections": 10,
+      "pairs": 10
     }
   ],
   "publicCodeStatus": "GITHUB_COMMITTED",
@@ -30,6 +30,6 @@
   "mobileOAuthStatus": "E2E_UNVERIFIED",
   "fullRenderStatus": "E2E_UNVERIFIED",
   "instructions": "Read module3/README.md and this file; resume at nextSection. Never commit private English/Chinese textbook text to GitHub. Verify signed-in iPhone Safari independently.",
-  "lastPrivateBatchDocumentId": "1f0k3vQjoFJ53VMmo1lnRO3zsWx9LuIljdGkR7VA_A7Y",
-  "lastPrivateBatchRange": "1.3.1–1.3.9"
+  "lastPrivateBatchDocumentId": "1RMUzpYJeKhQBlunEqWmr5xoCnWeYEUq-Ini18kUquSY",
+  "lastPrivateBatchRange": "1.3.10"
 }
