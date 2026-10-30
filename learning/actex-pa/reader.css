@@ -124,3 +124,6 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .pair.kind-solution,.pair.kind-exercise,.pair.kind-math,.pair.kind-table,.pair.kind-figure{min-width:0;max-width:100%}
 .pair.kind-exercise .en,.pair.kind-exercise .zh{min-width:0}
 @media(max-width:440px){.b10-table{font-size:12px;min-width:295px}.b10-table th,.b10-table td{padding:5px}.b10-math{font-size:13px;padding:8px 7px}.b10-math .b10-cases{font-size:12px;min-width:300px}.b10-cv-diagram .b10-table{min-width:400px}.b10-cv-diagram{padding:7px 5px}}
+
+/* Batch 11: paired schematic model-validation figures */
+.b11-plot{max-width:100%;margin:12px 0;padding:10px 6px;border:1px solid #d6e2e8;border-radius:9px;background:#f9fcfe}.b11-plot>figcaption{text-align:center;font-size:12px;line-height:1.55;color:#537084}.b11-plot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.b11-plot-grid>div{min-width:0;text-align:center;font-size:12px}.b11-plot svg{display:block;width:100%;height:auto;max-height:220px}.b11-plot svg text{font-size:12px;fill:#52677a}.b11-plot small{font-size:11px}.pair.kind-figure{max-width:100%;min-width:0}@media(max-width:400px){.b11-plot-grid{gap:3px}.b11-plot-grid>div{font-size:10px}.b11-plot{padding:8px 3px}}
