@@ -347,3 +347,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA Safari 載入修復與第22批上線：修正舊版 29 份私人教材必須全部順序下載才能顯示的設計，改成一次只載入所選頁碼、18秒逾時與重試、頁碼切換、錯誤提示，保留 EN／中智慧單欄閱讀。手機控制列亦已修正換行。原書 p.191–209 共19頁／91組已接入，累積 **p.3–209／207頁／1,329組／31份私人 HTML**。原 manifest 備份並原地更新，所有教材仍 owner-only。JS 語法及模擬 Drive 請求/403 回應已通過；真實 iPhone Safari Google OAuth E2E 尚待驗證。詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-31 ACTEX PA 第23批：一次新增 **原書 p.210–233 共24頁／126組**，§3.3 Credit 資料 Task 1–6，包含 400 筆資料／11 變數、敏感屬性公平性、零值與平方根轉換、相關係數與移除 Limit、數值／類別探索、Income×Student 交互作用、分層 train/test、factor 基準組重設與 caret::dummyVars。四份每份六頁的 owner-only Drive HTML IDs：`1TINrEVWXFOwairKNdK8T0jtJESWaT_Vs`、`1NCmolCVFdJ5PiP-QMozRqp_crJoV6UsU`、`17bEmLWh8vVaLs_zGYWggddanJqQJrJkQ`、`1kmBk_-tb1UTTHxlbCqc7iqSWdWQjnY4l`。**累計 p.3–233／231頁／1,455組／35份私人檔**；原始頁面與圖表完整保留，英中可編輯文字仍是非逐字全譯的研讀稿。下一批 p.234 起 Task 7。公開 GitHub 只存頁碼清單、UI 程式及 README；詳細見 `learning/actex-pa/README.md`。
