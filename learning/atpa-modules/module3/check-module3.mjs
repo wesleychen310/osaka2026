@@ -32,6 +32,63 @@ assert.match(reader, /applyReadingMode\(preferredReadingMode\(\),false\)/);
 assert.match(reader, /\$\("mode-bar"\)\?\.addEventListener\("click"/);
 assert.match(smart, /window\.ATPASmartReader=\{mount,onLanguageChange/);
 
+const navSnapshots=[];
+// Actual scroll helper exercised with a synthetic tall page; catches dead
+// middle-chapter links that source-count validation cannot detect.
+assert.ok(reader.includes('e.preventDefault();\n   jumpToSection('),
+ "Table of contents must prevent native hash jumps and navigate explicitly");
+assert.ok(reader.includes("details.open=chapterLessons.some("),
+ "Keep the 211-entry navigation collapsed until a chapter is selected");
+const navStart=reader.indexOf("let sectionJumpRevision=0;");
+const navEnd=reader.indexOf('$("toc-trigger")?.addEventListener',navStart);
+assert.ok(navStart>0&&navEnd>navStart,"Scroll navigation helper must be present");
+const navCode=reader.slice(navStart,navEnd);
+const jumpLog=[];
+const jumpState={scrollY:0,hash:"",targetId:""};
+const heights={s1517:42000,s1423:19000,chapter15:40000};
+const navHarness={
+ document:{
+  documentElement:{style:{scrollBehavior:""}},
+  getElementById(id){
+   if(!(id in heights))return null;
+   return {id,isConnected:true,
+    closest(sel){return sel===".lesson"&&id.startsWith("s")?{id}:
+                         sel===".chapter-heading"&&id.startsWith("chapter")?{id}:null},
+    getBoundingClientRect(){return {top:heights[id]-jumpState.scrollY}}
+   };
+  }
+ },
+ window:{
+  get scrollY(){return jumpState.scrollY},
+  scrollTo({top}){jumpState.scrollY=top;jumpLog.push(["scroll",top])}
+ },
+ location:{get hash(){return jumpState.hash}},
+ history:{pushState(_a,_b,hash){jumpState.hash=hash;jumpLog.push(["hash",hash])}},
+ requestAnimationFrame(callback){callback()},
+ setTimeout(callback){callback()},
+ encodeURIComponent
+};
+navHarness.$=id=>id==="study-content"?{contains:()=>true}:
+ id==="mode-bar"?{getBoundingClientRect:()=>({height:85})}:null;
+navHarness.toggleMenu=open=>jumpLog.push(["drawer",open]);
+navHarness.activateSection=id=>{jumpState.targetId=id};
+runInNewContext(navCode+`
+jumpToSection("s1517");
+testSnapshots.push({hash:location.hash,scroll:window.scrollY});
+jumpToSection("chapter15");
+testSnapshots.push({hash:location.hash,scroll:window.scrollY});
+jumpToSection("s1423");
+testSnapshots.push({hash:location.hash,scroll:window.scrollY});`,
+{...navHarness,testSnapshots:navSnapshots},{timeout:1500});
+assert.deepEqual(navSnapshots.map(x=>x.hash),["#s1517","#chapter15","#s1423"],
+ "Middle chapter, late chapter, and chapter-heading links all need to work");
+assert.deepEqual(navSnapshots.map(x=>x.scroll),[41901,39901,18901],
+ "Long-distance scrolling must align each target below the sticky header");
+assert.equal(jumpState.targetId,"s1423","Active section should match the last click");
+assert.equal(jumpLog[0][0],"drawer","Close the mobile drawer before scrolling");
+assert.ok(reader.includes('window.addEventListener("popstate"'),
+ "Back/forward must restore chapter navigation");
+
 const ids = [...reader.matchAll(/"3:(\d+)":\{fileId:"([^"]+)"/g)];
 assert.equal(ids.length, 17, "Must retain the 17 private original source references");
 assert.deepEqual(ids.map(m => Number(m[1])), Array.from({length:17}, (_, i) => i+1));
