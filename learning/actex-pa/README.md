@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–3 印刷 p.3–168 已製成雙語研讀稿 1141/1141 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.201（原書印刷 p.169）接續，深入 §3.1.5 Regularization：ridge、lasso、elastic net、特徵標準化、λ 選擇與後續練習。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–3 印刷 p.3–190 已製成雙語研讀稿 1238/1238 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.223（原書印刷 p.191）接續，完成 CHUNK 11 的 radio／newspaper 模型比較，並進入多元線性迴歸、變數顯著性與模型評估。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -195,3 +195,15 @@
 - **本地 QA**：88/88 組英中非空，23/23 頁原書影像齊全；Chromium 模擬 320／390／768／1130px × EN／繁中 **8/8 無整頁水平溢出**。新閱讀器 JavaScript 語法檢查通過，27 份私人檔案載入清單、目錄錨點、智慧單欄 EN／中與單段翻譯、閱讀位置記憶維持不變。真實 Google OAuth、iPhone Safari 與正式 GitHub Pages CDN 尚未完成端到端測試。
 - 更新原 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 前，已備份至私人 `_backup`，備份 ID `1c-UBNIUewCJIpWG5LEdMhYECsElwCrPC`，確認 owner-only。兩份 HTML SHA256 分別 `728838612ba9ef4a9c656cfe437faa17054b105123861293b1fd221750073179` 與 `3f1980a7095c3b2970bf47144f44c3380ec6ec3d6d5b37c581060328a5de0102`。
 - **下一批原書 p.169 起（PDF p.201）**，完成 §3.1.5 regularization 正則化的懲罰式、ridge／lasso／elastic net、λ、交叉驗證與相關考題，並持續按完整小節大批處理。
+
+
+## 2026-10-30｜第 21 批：Regularization + Advertising R Case Study（22 頁）
+- 上線原書印刷 **p.169–190**（上冊實體 PDF p.201–222），新增 **97 組英中研讀段落**，累積 **p.3–190 共 188 頁、1,238 組雙語研讀單元、29 份私人 HTML**。
+- 私有檔案 A：`ch03_p169-p176.html`，Drive ID `1WQ_9tW-O7K8vGx5SMO_u_wYXNlyKhzgQ`，8 頁／39 組。§3.1.5 正則化的懲罰最小化 (3.1.9)、Ridge／Lasso／Elastic Net (3.1.10)、α＝0／1、為何不懲罰截距、正則化前的尺度標準化、λ 控制收縮與偏差／變異數權衡、Lasso 精確歸零與特徵選擇、(λ,α) CV 調參、Exercise 3.1.18–3.1.20 題意與分項解答、相對 stepwise 的優缺點。
+- 私有檔案 B：`ch03_p177-p190.html`，Drive ID `1CLn25X1-H819dbh-EDNtMnMo8lhoZYyx`，14 頁／58 組。§3.2 Advertising 案例：200 筆觀測、TV／radio／newspaper／sales 變數、CHUNK 1–5 EDA、Task 1、Figure 3.2.1–3.2.3、相關係數矩陣 (sales vs TV 0.78222442、radio 0.57622257、newspaper 0.22829903)、§3.2.2 Task 2、CHUNK 6–11、單變數 TV 模型 `sales-hat=7.03259+0.04754×TV`、`lm()`／`summary()`／`confint()`／`predict()`、TV 斜率 t／F 檢定、R²＝0.6119、TV 信賴區間、TV＝0／100／200／300 之預測值及 radio 迴歸起始輸出。
+- **跨頁未完結**：CHUNK 11 的 radio、newspaper 模型完整輸出繼續至原書 p.191；第 22 批必須從此處接續，不可將 p.190 視為 Task 2 已結束。
+- **內容真實狀態**：可編輯英文為根據來源整理的研讀文字，中文為對應的流利繁體中文說明，**非原書逐字完整英文轉錄或 100% 全文逐字直譯**。原書 p.169–190 全部 **22/22 頁**清晰影像均內嵌在 owner-only HTML，包含精確公式、原始圖、完整 R 指令、輸出、選項與註腳；所有未逐字轉入的細節須展開來源圖查看，最終逐段補全及校訂仍待執行。
+- 本地 QA：97/97 組英文與繁中皆非空，22/22 原書影像；Chromium 320／390／768／1130 px × EN／繁中共 **8/8 無整頁水平溢出**，原圖區塊可展開。實際 Google OAuth、GitHub Pages 正式 CDN 及 iPhone Safari 實機端到端尚未驗證。
+- Manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 原位更新前先於私人 `_backup` 建立 `1uBmC_2aDqIQPR_ySFFZDo-HYFLZZq70e` 並驗證 owner-only；原 manifest ID、名稱與位置不變。新 HTML SHA-256：`c477a75ac95f0f267a2517e178d893c81b9b89c46e4c1798bdbbca90e1981476`、`5eba3f1662c8f4c0b05f8e62a40a7ebfc14697efe5ffae4ecc44073433fb0bd0`。
+- 網站 `reader.js` 已加入兩份新私人教材、正則化、CV、Advertising Task 1、TV 迴歸、R² 與 predict() 目錄錨點；`reader.js?v=20261030-b21` 迫使閱讀器重新載入，智慧單欄語言切換與 `smart.js` 保留。
+- **下一批從印刷 p.191／PDF 實體 p.223** 開始，完成 Advertising 案例 CHUNK 11 後續、§3.2.3 Multiple Linear Regression 及後續實際練習，持續以完整小節大量推進。
