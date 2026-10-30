@@ -320,3 +320,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 第12批：§1.3 原書 p.43–46（PDF p.75–78），新增 28 組雙語，含原書 Figure 1.3.1、1.3.2 直接從私人 PDF 裁切內嵌；累積 p.3–46，44 頁／443 組。私人 HTML `1FiW3KG2dlbMhZLnQolAp17sRCF4cF8aQ`，後續將合併較大批次處理，按完整小節做品質檢查。詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 雙語第13批：一次新增印刷 p.47–56（PDF p.79–88）共10頁、71組，偏差—變異數分解 (1.3.1)、Figure 1.3.3、Exercise 1.3.1、§1.3.2 多項式迴歸模擬/R CHUNK 1。新增私人 HTML `1mudH3IWqheTTYxyGvYrRQREvlVKNhB_O`、`1WcC32Vm7U-zzu0hFNI6tx54Jbqkc31zJ`，保留各頁來源影像以便逐字校對。累積 p.3–56 共54頁、514組雙語。智慧單欄閱讀不變；真正 Google OAuth/iPhone 實機仍待驗證，英文轉錄及翻譯仍待最終校稿。詳見 `learning/actex-pa/README.md`。
