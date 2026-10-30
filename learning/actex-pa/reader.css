@@ -142,3 +142,14 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .pair.kind-figure,.pair.kind-note,.pair.kind-footnote,.pair.kind-solution,.pair.kind-exercise{max-width:100%;min-width:0}
 .pair.kind-figure>.en,.pair.kind-figure>.zh{max-width:100%;min-width:0}
 @media(max-width:440px){.b13-figure figcaption{font-size:11px}.b13-source-page summary{font-size:11px}.b13-source-page img{max-width:100%}}
+
+
+/* Batch 15: Chapter 2 EDA—source-accurate charts, R code, and private page images. */
+.pair .b15-figure{display:block;order:0;max-width:100%;min-width:0;margin:11px auto 15px;padding:6px;border:1px solid #dee8ef;border-radius:9px;background:#fafcfe}
+.pair .b15-figure img{display:block;max-width:100%;width:100%;height:auto;object-fit:contain;border-radius:5px}
+.pair .b15-figure figcaption{font-size:11px;line-height:1.65;color:#627d8f;margin-top:7px}
+.pair .b15-code{font-family:ui-monospace,SFMono-Regular,Consolas,Monaco,monospace;font-size:12px;line-height:1.55;background:#f5f8fb;border:1px solid #dbe5ed;border-radius:9px;padding:12px;max-width:100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:pre}
+.pair.kind-code .en,.pair.kind-code .zh{min-width:0;max-width:100%}
+.pair.kind-exercise,.pair.kind-solution,.pair.kind-note{overflow-wrap:break-word}
+.pair.kind-quote blockquote{margin:5px 0;border-left:3px solid #a7bece;background:#f4f9fc;padding:10px 14px;font-size:13px;line-height:1.8}
+@media(max-width:440px){.pair .b15-code{padding:8px;font-size:11px}.pair .b15-figure{padding:4px}.pair .b15-figure figcaption{font-size:10px}}
