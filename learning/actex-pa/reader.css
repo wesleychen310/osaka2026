@@ -171,3 +171,10 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .part-navigation button:disabled{opacity:.45;cursor:not-allowed}
 #load-state{width:100%;min-width:0;line-height:1.5;font-size:12px;overflow-wrap:anywhere}
 @media(max-width:440px){.part-navigation{gap:6px}.part-navigation label{width:100%}.part-navigation button{flex:0 0 auto}.part-navigation select{flex:1 1 125px}}
+
+/* Prevent Safari horizontal overflow from a full-width part picker in .meta. */
+.main .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.main .meta .part-navigation{flex:1 1 100%;width:100%;min-width:0}
+.main .meta #progress{flex:1 1 180px;min-width:0;overflow-wrap:anywhere}
+.main .meta #load-state{flex:1 1 100%;margin:0;order:3}
+.main .meta>a{flex:0 1 auto;max-width:100%;overflow-wrap:anywhere}
