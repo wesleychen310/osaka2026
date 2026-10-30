@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–70 已製成雙語研讀稿 607/607 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.103（原書印刷 p.71）接續，進入 §1.5 Review Problems，習題及答案必須完整保留。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–2 印刷 p.3–88 已製成雙語研讀稿 751/751 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.121（原書印刷 p.89）接續，進入 §2.1.2 Categorical Variables。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -135,3 +135,14 @@
 - 以上為**雙語研讀草稿**，不是已完成逐字對照的出版級英文轉錄或中文翻譯。尤其原 PDF 的 R 程式碼、數學上下標、圖表和題目敘述可能有 OCR 雜訊，**每一頁均已附原書完整影像**，不得將頁面摘要視為完整轉錄；後續仍需依原頁逐段補足及逐字校稿。源圖與教材僅存於 private Google Drive，公開 GitHub 沒有原文或頁面圖。
 - 本地 Chromium 320／390／768／1130px × EN／中 **8/8 全頁無水平溢出**，93 組皆有雙語、14 頁來源圖皆可顯示，測試段落展開翻譯可用；Google OAuth 真實登入、iOS Safari 實機及 GitHub Pages CDN 端對端尚未實測。
 - Manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 更新前，備份檔 `1CBxJYezTiynX2L-be6tMwQ9xX1wFM3EW` 已保存於私人 `_backup` 並驗證 owner-only。兩份 HTML SHA256：`ed42680268ccd53561a3d77a5c1da105371ec986474c7724e302834d8a070285`、`c884230353d0cf9c7ee49f34ef51a9f5832c6743ce3840342fb3b845ca968743`。
+
+
+## 2026-10-30｜第 15 批：第一章結束＋第二章數值型 EDA（18 頁）
+- **上線原書印刷 p.71–88＝上冊 PDF 物理 p.103–120，新增 144 組英中研讀單元。** 原書 p.3–88 合計 **86 頁、751 組、18 份私人 HTML**。
+- 私人 HTML 1：`ch01_p071-p078.html`（80 組），Google Drive ID `1qdtRnFPEg_L4UwJCE6V_G5bPN2ZyBRVR`，主題：§1.5 Review Problems（GOAL 外部平台上的觀念題與整合題使用指引）、Chapter 2 考試大綱、EDA 的兩個目的、摘要統計與圖形優缺點、2024–2025 年 PA 考題摘錄、個人傷害理賠資料字典、CHUNK 1–3、Exercise 2.1.1 法律代理人分組與答案。
+- 私人 HTML 2：`ch01_p079-p088.html`（64 組），Google Drive ID `1XnVMLUSgD-lTi3Cg4C09US8IFHMU_DzG`，主題：直方圖 CHUNK 4–5 與 Figure 2.1.1、右偏／左偏／對稱分布及 Figure 2.1.2、離群值處理、MSE/MAE 穩健性、對數／平方根轉換與 Figure 2.1.3、密度圖 Figure 2.1.4、盒鬚圖 Figure 2.1.5、Exercise 2.1.2 與完整答案。
+- **來源保真方式**：18 頁均內嵌原書完整頁面影像（私人 Drive），重要圖形另以頁面局部影像呈現，兩種閱讀語言都看得到；R 程式碼另以可閱讀的文字重建，但原始 Rmd 和 PDF 原圖為準。此版仍屬 `BILINGUAL-DRAFT-NEEDS-SOURCE-PROOF`，**不能聲稱英文逐字完整轉錄、每個註腳都已校完或全部中文逐句核證**。外部 GOAL 複習題本身未印在 p.71–72，未憑空補造題目。
+- **本地測試**：144/144 英文及繁中均非空；18/18 頁完整原圖、12 處局部圖像；Chromium 320／390／768／1130px × EN／中 8/8 沒有全頁水平溢出，局部展開翻譯可用，展開原書圖像可載入。正式 Google OAuth／GitHub Pages CDN／iPhone Safari 端到端仍待實測。
+- **重大 JS 修復**：原有 `reader.js` 的目錄組裝函式重複使用 `const select`，可能造成 SyntaxError，已更名為 `featureSelect` 並通過 JavaScript 語法檢查；Chapter 2 已解除「待上線」標示，改為可點擊章節及 2.1／2.1.1／各圖表與練習入口，維持智慧單欄 EN／中與單段看翻譯。
+- Manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 更新前，先建立私人 `_backup` 副本 `1FwERGeJB4Lc70iQ4Uh_WmcZueLzkLS8z` 並驗證 owner-only。兩份 HTML SHA256：`0551c0d44e1ca1c584b1095569ae096930c62e11ff5e076aafd1d42d0503f153`、`fd65537d81a0acf82386f3d8bffdd00142ba6b9e7ac60d67263c6eba8c3a6c81`。
+- **下一批印刷 p.89 起（上冊 PDF p.121）**：§2.1.2 Categorical Variables，進入頻數表、長條圖及雙變數探索；延續每批約 15–20 頁的目標，但以完整題目、表格、圖說、公式和原文核對為優先。
