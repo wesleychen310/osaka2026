@@ -13,7 +13,7 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–2 印刷 p.3–102 已製成雙語研讀稿 838/838 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- Chapter 1–2 印刷 p.3–107 已製成雙語研讀稿 863/863 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
 - 下一批從上冊 PDF p.135（原書印刷 p.103）接續，進入 §2.2.3 Categorical vs Categorical 及資料視覺化原則。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
@@ -157,3 +157,9 @@
 - 本地 Chromium **320／390／768／1130px × EN／中 8/8** 無全頁橫向溢出，87/87 中英非空、24/24 圖像載入、單段展開翻譯可用。真實 Google OAuth、GitHub Pages CDN 與 iPhone Safari 實機端到端未完成。
 - Manifest 在更新前先備份到私人 `_backup`，備份 Drive ID `1BBSz3OImB62IvjExtSbahUvKN_UBMmih`；原 manifest ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 原位更新。兩份新 HTML SHA256：`84fee1ab724d70175b37d9e681a6f4f5f69bf6f38b305e3bda545b555eda84a4`、`046911f513b4b58de5089947ebaed24434f605508c647270873c5e001c70c1eb`。
 - **下一批 p.103 起（上冊 PDF p.135）**：§2.2.3 Categorical vs Categorical、堆疊／並列／填滿長條圖、圖形設計原則與後續練習。
+
+
+## 2026-10-30｜第17批：p.103–107
+- 新增私人 HTML `ch02_p103-p107.html`，Drive ID `1yWXJZ7GEYmD44x_IPToWhftKWs0p1tr4`，原書 p.103–107（PDF p.135–139），5頁／25組英中研讀單元，累積 **p.3–107、105頁、863組、21份私人HTML**。
+- 主題：§2.2.3 類別×類別雙向次數表、堆疊／並列／填滿長條圖、跨類別比例和同類別內比較、圖形設計的視覺元素有效性排序。保留五頁完整原書影像；內容仍為待逐字校訂的雙語研讀稿，精確 R 程式與原圖以 PDF 為準。
+- manifest 原 ID 更新前已備份 `1l6NyA12qBIiCA-hU0Avspu5D6RJ4O6Oa`，僅 owner 可存取；下一批 **p.108 起**，繼續圖形設計、§2.3 Review Problems，然後進入 Chapter 3。
