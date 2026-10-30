@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–39 已轉錄並翻譯 384/384 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.72（原書印刷 p.40）接續，繼續 Stage 5 Model Validation 的訓練／測試診斷圖及後續階段。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–42 已轉錄並翻譯 415/415 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.75（原書印刷 p.43）接續，進入 §1.3.1 偏差—變異數權衡的理論正文。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -97,3 +97,10 @@
 - 本地 Chromium 模擬檢查 320／390／768／1130px × 英文／繁中 **8/8 無整頁水平溢出**，48/48 內容可見，單段展開及 CV 流程圖已核對；私人 Drive fetch 讀回 48 單元，權限為僅擁有者。**未執行**正式 GitHub Pages CDN、實際 OAuth 或 iPhone Safari 端到端驗證；不可冒稱已實機測試。
 - 先備份 manifest 至 `_backup`，備份檔案 ID `14X9FoCk1IEVNsUgVYy3y2Ar8faWviWbd`；原 manifest ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 原位更新。新 HTML SHA256：`8066e933113b23c9a2e5d1978491a199cdd5609836283f905217fef257fc0543`。
 - **下一批原書 p.40 起（PDF 第 72 頁）**：Stage 5 Model Validation 之模型診斷、預測／實際散布圖；以及接續內容，必須全文中英同批處理，確保圖、公式及考題無遺漏。
+
+
+## 2026-10-30｜第 11 批：Model Validation / Maintenance / §1.3 opening
+- 新增私人 HTML `ch01_p040-p042.html`，原書印刷 p.40–42＝第一冊 PDF p.72–74；Drive ID `1Ucb0rFKyUI0vOpW_S6RZlK4V4aDsFaN4`，共 31 組英中段落，累計 **p.3–42、40 頁、415 組**。
+- 內容包括 Stage 5 模型驗證：訓練／測試集診斷、兩張 Predicted vs Actual 比較圖（以明確標示的示意點位重建，原 PDF 是精確圖形依據）、系統性高估與低估、baseline model 比較；Stage 6 模型維護：業務問題調整、領域專家、補充資料、模型精進、實地測試、考試提醒；以及 §1.3 與 §1.3.1 的理論導論「模型越複雜，不保證預測越好」。
+- 智慧單欄 EN／中切換和單段翻譯不變。新資料儲於 owner-only Drive，公開 GitHub 只有程式碼及維護紀錄；manifest 更新前已備份至私人 _backup，備份 ID `19DC52VYPgB5t_-xbUz1BPi40g2Pm1dv8`。
+- 文件完整性仍列 `TRANSLATED-NEEDS-FINAL-PROOF`；未完成實際 iPhone Safari + Google OAuth 端到端驗收。下一批印刷 p.43 起（上冊 PDF p.75）。
