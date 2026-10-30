@@ -323,3 +323,6 @@ ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
 
 
 2026-10-30 ACTEX PA 私人智慧雙語教材第 8 批已上線：原書 p.23–28（上冊 PDF p.55–60），57 組英中對譯，涵蓋 Data quality、資料字典、PII、Exercise 1.2.3–1.2.5、Proxy variables、Target Leakage 及 2020 PA Task 3，開始 Stage 3。累積 **p.3–28、26 頁／288 組**。新的私人 Drive HTML `1426dW78KmuTNaPFV7CrcFfgxpmiZPYpK`，智慧單欄 EN／中與單段翻譯維持；詳細見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 私人雙語網站第 9 批：新增原書印刷 p.29–33（第一冊 PDF p.61–65），48 組英文／繁體中文。內容包括訓練／測試切分、70/20/10 三分式驗證、模型選擇偏差、平方／絕對／零一損失，以及 RMSE、MSE、MAE 訓練及測試公式；新的私人 HTML File ID `1MklkHaW3ZMW36JvfoMok7oAg7V5HSqVp`。目前累積 p.3–33 共 31 頁／336 組，EN／中智慧單欄與單段翻譯不變。進度與限制見 `learning/actex-pa/README.md`。
