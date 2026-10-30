@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "project": "ATPA Module 3",
+  "updated": "2026-10-30",
+  "sourceSections": 211,
+  "originalBilingualSections": 211,
+  "naturalTranslationSections": 31,
+  "naturalTranslationPairs": 132,
+  "completedThrough": "1.2.21",
+  "nextSection": "1.3.1",
+  "translatedParts": [
+    {
+      "part": 1,
+      "sections": 10,
+      "pairs": 38
+    },
+    {
+      "part": 2,
+      "sections": 21,
+      "pairs": 94
+    }
+  ],
+  "publicCodeStatus": "GITHUB_COMMITTED",
+  "privateTranslationStatus": "SOURCE_READBACK_VERIFIED",
+  "mobileOAuthStatus": "E2E_UNVERIFIED",
+  "fullRenderStatus": "E2E_UNVERIFIED",
+  "instructions": "Read module3/README.md and this file; resume at nextSection. Never commit private English/Chinese textbook text to GitHub. Verify signed-in iPhone Safari independently."
+}
