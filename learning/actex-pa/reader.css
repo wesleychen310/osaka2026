@@ -74,3 +74,15 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .pair.kind-exercise .pair-actions,.pair.kind-solution .pair-actions{margin-top:5px}
 .pair.kind-footnote{border-left:2px solid #d8e1e8;margin:8px 0;padding:4px 10px}
 @media(max-width:440px){.pair.kind-exercise{padding:10px 11px}.pair.kind-solution{padding:7px 9px}.pair.kind-subli{padding-left:10px}}
+
+
+/* ACTEX PA 14: Stage 2 source-aligned five-variable data dictionary + leakage quote. */
+.pair.kind-table{max-width:100%;padding:9px 0}
+.data-dictionary{border-collapse:collapse;width:100%;min-width:600px;font-size:13px;line-height:1.5}
+.data-dictionary th,.data-dictionary td{border-bottom:1px solid #dbe3ea;padding:7px 9px;text-align:left;vertical-align:top}
+.data-dictionary thead th{font-weight:700;background:#eff5f9;border-bottom:2px solid #b9cbd7}
+.data-dictionary tbody th{white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.pair .table-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain}
+.pair.kind-quote blockquote{padding:10px 14px;margin:5px 0;border-left:3px solid #8eafc5;background:#f4f8fb;font-style:italic}
+.pair.kind-exercise,.pair.kind-solution,.pair.kind-note{max-width:100%;overflow-wrap:anywhere}
+@media(max-width:440px){.data-dictionary{font-size:12px}.data-dictionary th,.data-dictionary td{padding:6px 7px}.pair.kind-quote blockquote{padding:9px 12px}}
