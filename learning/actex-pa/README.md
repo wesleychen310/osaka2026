@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–2 印刷 p.3–107 已製成雙語研讀稿 863/863 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.135（原書印刷 p.103）接續，進入 §2.2.3 Categorical vs Categorical 及資料視覺化原則。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–3 印刷 p.3–128 已製成雙語研讀稿 962/962 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.161（原書印刷 p.129）接續，深入線性模型殘差診斷、模型驗證與下一小節。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -163,3 +163,14 @@
 - 新增私人 HTML `ch02_p103-p107.html`，Drive ID `1yWXJZ7GEYmD44x_IPToWhftKWs0p1tr4`，原書 p.103–107（PDF p.135–139），5頁／25組英中研讀單元，累積 **p.3–107、105頁、863組、21份私人HTML**。
 - 主題：§2.2.3 類別×類別雙向次數表、堆疊／並列／填滿長條圖、跨類別比例和同類別內比較、圖形設計的視覺元素有效性排序。保留五頁完整原書影像；內容仍為待逐字校訂的雙語研讀稿，精確 R 程式與原圖以 PDF 為準。
 - manifest 原 ID 更新前已備份 `1l6NyA12qBIiCA-hU0Avspu5D6RJ4O6Oa`，僅 owner 可存取；下一批 **p.108 起**，繼續圖形設計、§2.3 Review Problems，然後進入 Chapter 3。
+
+
+## 2026-10-30｜第 18 批：第二章收尾＋第三章線性模型（一次 21 頁）
+- **新增原書印刷 p.108–128，上冊 PDF p.140–160，共 21 個實體頁、99 組英中研讀對應單元**。本段包括原書空白頁 p.112、p.114、p.116、學習休息頁 p.113、Part II 扉頁 p.115，均如實保留。累積 **p.3–128、126 頁、962 組雙語研讀單元、23 個私人 HTML**。
+- 私有檔案 A：`ch02_ch03_p108-p116.html`，Drive ID `1lLQLr6vCtU5XY8W7767Sndf-IqTc6SNQ`，9 頁／23 組。§2.2 Exercise 2.2.3 比較圓餅圖和長條圖、色彩、避免 chartjunk、3D 長條圖的判讀陷阱、座標軸與標題、§2.3 GOAL 複習題指引、Study Break、Part II 扉頁。
+- 私有檔案 B：`ch02_ch03_p117-p128.html`，Drive ID `15rQoQb3mbmliMuMF29SEXyPmqK6nzvGm`，12 頁／76 組。Chapter 3 Linear Models、§3.1 和 §3.1.1 的模型公式 (3.1.1)–(3.1.4)、簡單／多元線性迴歸、OLS、誤差常態性、矩陣設計、§3.1.2 模型評估、RSS／TSS／R²、Exercise 3.1.1、t 與 F 檢定、p 值、AIC (3.1.5)／BIC (3.1.6)、Exercise 3.1.2 五模型計算與選擇，以及模型殘差診斷導論。
+- **內容誠實標示**：這次可編輯 EN／繁中是挑選核心原書內容、以流利中文說明的**雙語研讀稿**，**不是原文逐字完整轉錄或出版級全文翻譯**。原書每一頁完整影像均內嵌在 owner-only 私人 HTML 中，對於公式符號、圖表、註腳及未列於文字稿的次要文字必須展開來源頁核對。需要依原始 PDF 逐字補全和終稿校正。尤其不要將研讀摘要的英文當成完全一致的逐字引文。
+- **本地 QA**：99/99 配對英中非空、21/21 原書頁面影像可解碼；Chromium 320／390／768／1130px × EN／中 **8/8 整頁無橫向溢出**。已對含數學符號的重要敘述進行來源比對。真實 Google OAuth、iPhone Safari 與正式 Pages CDN 仍**未作完整端到端驗證**。
+- Private manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 先備份至 owner-only `_backup`：ID `1PuS9CDdq5QyDTX4AAz-6NnRvSY_DaWX6`，再原位更新。新 HTML SHA256：`b67bdf202aae3579d9abb3fea2e16cfaa60d31b713a68a500e96ef78f482cee3`、`8017342ec11564119198d9566162aaa7b05629e5dc431b39ac4a4283bec3a77c`。
+- GitHub 閱讀器新增兩個私人 HTML、第三章可點目錄、§3.1.1／3.1.2 與 AIC/BIC 習題跳轉及數學樣式，智慧單欄 EN／中與逐段翻譯、閱讀位置記憶保持原狀。
+- **下一批印刷 p.129 起／PDF p.161 起**，完成殘差診斷各種圖形、實際與預測關係與後續章節；批次擴張但不把摘要冒稱完整翻譯。
