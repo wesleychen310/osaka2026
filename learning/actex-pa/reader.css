@@ -86,3 +86,21 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .pair.kind-quote blockquote{padding:10px 14px;margin:5px 0;border-left:3px solid #8eafc5;background:#f4f8fb;font-style:italic}
 .pair.kind-exercise,.pair.kind-solution,.pair.kind-note{max-width:100%;overflow-wrap:anywhere}
 @media(max-width:440px){.data-dictionary{font-size:12px}.data-dictionary th,.data-dictionary td{padding:6px 7px}.pair.kind-quote blockquote{padding:9px 12px}}
+
+
+/* Stage 4 training/test split, source-aligned loss functions and model error formulas. */
+.pair.kind-figure,.pair.kind-math,.pair.kind-table{max-width:100%}
+.split-flow{max-width:610px;margin:10px auto 15px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;line-height:1.45;color:#31485b}
+.split-root{border:2px solid #b0c3d1;background:#eaf2f8;padding:11px 20px;border-radius:9px;width:min(70%,340px);font-weight:700}
+.split-connector{font-size:12px;color:#5c7890;white-space:nowrap}
+.split-branches{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;align-items:stretch}
+.split-box{display:flex;flex-direction:column;border:1px solid #bdcbd7;border-radius:9px;padding:10px 8px;background:#f6fafc;min-width:0;gap:6px}
+.split-box strong{font-size:14px}.split-box small{font-size:12px;color:#657b8b}.split-box span{border-top:1px dashed #c5d6df;padding-top:8px;font-size:12px}
+.split-note{font-size:11px;color:#617688}
+.b9-loss-table{border-collapse:collapse;min-width:340px;max-width:100%;font-size:14px;margin:9px auto;line-height:1.5}
+.b9-loss-table th,.b9-loss-table td{text-align:left;padding:8px 10px;border-bottom:1px solid #d6e2e9;vertical-align:middle}
+.b9-loss-table thead th{border-bottom:2px solid #afc3cf;background:#f2f7fa}
+.b9-loss-table th:first-child{min-width:105px}.b9-loss-table td:last-child{font-family:Georgia,'Times New Roman',serif}
+.b9-formula-lines{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:15px;line-height:2;font-family:Georgia,'Times New Roman',serif;padding:8px 6px;background:#f5f9fc;border:1px solid #e2ebf0;border-radius:8px}
+.b9-formula-lines>div{white-space:nowrap;width:max-content;max-width:none;margin:0 auto;padding:2px 4px}
+@media(max-width:440px){.split-branches{gap:6px}.split-box{padding:8px 5px}.split-box strong{font-size:12px}.split-box small,.split-box span{font-size:10px}.b9-formula-lines{font-size:12px}.b9-loss-table{font-size:12px}}
