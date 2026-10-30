@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–3 印刷 p.3–145 已製成雙語研讀稿 1053/1053 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.178（原書印刷 p.146）接續，完成數字編碼的類別變數、交互作用項及 Exercise 3.1.7 以後內容。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–3 印刷 p.3–168 已製成雙語研讀稿 1141/1141 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.201（原書印刷 p.169）接續，深入 §3.1.5 Regularization：ridge、lasso、elastic net、特徵標準化、λ 選擇與後續練習。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -185,3 +185,13 @@
 - 維持公開倉庫僅存閱讀程式與進度資訊、不存教材原文及原圖。私人 manifest ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 更新前已於私人 `_backup` 建立 owner-only 備份 `1kWTs78zr4isBxU6FJUnztuaJ8VtMNJwI`。
 - 本批 HTML SHA256：`f72c64594baa84894851966b74550b0ab76bfaace0aebfd8197e8ded80a8a429`、`1650bd1b40c434741b1ca76cc54d6155a8cc67a9e2a1200233ac1da96f33e6da`。
 - 下一批自**原書 p.146（上冊 PDF p.178）**繼續。先處理 numeric codes 當作 factor、基準組重設，接續 interaction terms 與 Exercise 3.1.7 等題目。後續仍以 15–25 頁批次推進，但必須保留原圖與翻譯精校狀態。
+
+
+## 2026-10-30｜第 20 批：Interactions、Multicollinearity、AIC Feature Selection（23 頁）
+- 新增原書印刷 **p.146–168（上冊 PDF p.178–200）**，共 **23 頁、88 組英中研讀單元**。全站累積 **p.3–168、166 頁、1,141 組雙語研讀單元、27 份私人 HTML**。
+- 私人檔 A：`ch03_p146-p157.html`，Drive ID `1n1Wilrw-WnL9co7DgzOTW-gKSRRPVbHs`，**12 頁／47 組**。包含數值代碼是否應轉 factor、weathersit 天氣與曆年編碼、Exercise 3.1.7–3.1.11、數值×數值／數值×類別／類別×類別交互作用、Figure 3.1.5–3.1.6、GPA×性別起薪題、共線性和 rank deficiency。
+- 私人檔 B：`ch03_p158-p168.html`，Drive ID `1erL8oDoR-K4Id9uoXzL_LToIyh_Drfny`，**11 頁／41 組**。包含 VIF＝1／(1－R²)、Exercise 3.1.12–3.1.17、best subset／forward／backward stepwise、三位精算師比較 AIC 的全套步驟與結果（向前 Model 13／13 fits；向後 Model 14／15 fits；最佳子集合 Model 10／32 fits），及 §3.1.5 Regularization 開頭。
+- **來源與品質區分**：可編輯英文是以原文為基礎整理的英語研讀段落，繁中提供流暢對應解釋，**並非全文逐字完整原文轉錄或逐句精校翻譯**；考題所有原始選項、細節、圖表、註腳與上下標必須依原書影像核對，尤其 Exercise 3.1.9、3.1.13、3.1.17 的細節。每頁均有原書完整 WebP 頁面影像，在 owner-only Drive 內保存；公開 GitHub 未儲存書籍內容。
+- **本地 QA**：88/88 組英中非空，23/23 頁原書影像齊全；Chromium 模擬 320／390／768／1130px × EN／繁中 **8/8 無整頁水平溢出**。新閱讀器 JavaScript 語法檢查通過，27 份私人檔案載入清單、目錄錨點、智慧單欄 EN／中與單段翻譯、閱讀位置記憶維持不變。真實 Google OAuth、iPhone Safari 與正式 GitHub Pages CDN 尚未完成端到端測試。
+- 更新原 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 前，已備份至私人 `_backup`，備份 ID `1c-UBNIUewCJIpWG5LEdMhYECsElwCrPC`，確認 owner-only。兩份 HTML SHA256 分別 `728838612ba9ef4a9c656cfe437faa17054b105123861293b1fd221750073179` 與 `3f1980a7095c3b2970bf47144f44c3380ec6ec3d6d5b37c581060328a5de0102`。
+- **下一批原書 p.169 起（PDF p.201）**，完成 §3.1.5 regularization 正則化的懲罰式、ridge／lasso／elastic net、λ、交叉驗證與相關考題，並持續按完整小節大批處理。
