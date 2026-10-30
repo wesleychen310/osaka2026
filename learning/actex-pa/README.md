@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–28 已轉錄並翻譯 288/288 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.61（原書印刷 p.29）接續，進入 Stage 4 Model Construction, Evaluation, and Selection。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–33 已轉錄並翻譯 336/336 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.66（原書印刷 p.34）接續，處理 Exercise 1.2.6、分類錯誤率及 Cross-validation。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -78,3 +78,12 @@
 - 本地 Chromium 320／390／768／1130px × 英文／繁中 **8／8 整頁無水平溢出**；57／57 英中有內容、資料表可滾動、單段翻譯切換通過。原始 PDF 未修改；私人 HTML 上傳後已從 Drive 讀回確認 57 組及 owner-only 權限。正式 GitHub Pages CDN、真實 Google OAuth 與 iPhone Safari 端對端測試未完成；仍標記 `NEEDS_FINAL_PROOF`，不代表人工逐字審定。
 - manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN`，更新前先於 `_backup` 備份，備份 ID `16-AIl2bAjMqnWXmrhlhh-5A6c1vkVR-R`，原檔原位更新；新 HTML SHA256：`e07c924ee9522f265a4d91718159a6d34b0fcdca499090fc54299711e9da42ab`。
 - 下一批：原書 **p.29 起**（上冊 PDF p.61），Stage 4 的訓練集／測試集、模型構建與評估；英文原文與流暢繁體中文必須同批上線。
+
+
+## 2026-10-30｜第 9 批：Stage 4 Model Construction / Evaluation
+- 本批上線原書印刷 **p.29–33**＝上冊 PDF 第 **61–65 頁**，私人 HTML `ch01_p029-p033.html`，Drive File ID `1MklkHaW3ZMW36JvfoMok7oAg7V5HSqVp`，**48 組英中完整對譯**。2026 版英文依原 PDF 可見文字轉錄並訂正抽取噪音，繁中採流利、達意的專業用語；仍為 `TRANSLATED-NEEDS-FINAL-PROOF`。
+- 內容：Stage 4、Training/test set split 原書雙分圖（以可存取 HTML 重建）、70–80% 訓練集／20–30% 測試集、out-of-time validation、資料切分的取捨、70/20/10 三分式 Training/validation/test 與 validation 選模偏差、原書對 PA 考題「test」「validation」混用的說明、損失函數（square/absolute/zero-one）、殘差與預測誤差、RMSE／MSE／MAE 完整訓練與測試公式，以及原書註腳 7、8、9。原書跨 p.30–31 與 p.31–32 的句子合併成完整雙語段落。
+- 累計原書 **p.3–33，31 頁、336 組英中對譯、9 個私人 HTML 批次**。新版 reader.js 新增 ID 與 `#b9-stage4`、`#b9-three-way-split`、`#b9-metrics` 目錄錨點；CSS 支援手機流程圖、損失表、長公式水平局部捲動，智慧單欄 EN／中整頁切換與單段翻譯維持不變。
+- 驗收：私人 Drive 上傳與 fetch 讀回 48/48、owner-only；本地 Chromium 320／390／768／1130px × EN／中 **8/8 整頁無橫向溢出**；原 PDF 五頁影像校核重大版式與公式。不宣稱已完成逐字人工校稿，亦未完成真實 Google OAuth、GitHub Pages CDN、iPhone Safari 的端到端實測。
+- manifest 原檔 `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 在更新前已備份至私人 `_backup`：`16pjdoJFrND8lbYosRSim_zxr2xhyacrl`。新增 HTML SHA-256 `e289266bfabb6257e009ea132b2ec6c4fcd5c4ab5fae02fedd75cd359e49a172`。
+- 下一批從上冊 PDF 第 66 頁（印刷 p.34）開始，保留 Exercise 1.2.6 各數值／答案、分類問題的 0-1 loss、classification error rate 及 Cross-validation 的全部公式和腳註。
