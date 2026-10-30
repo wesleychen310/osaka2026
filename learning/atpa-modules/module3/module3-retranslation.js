@@ -3,9 +3,10 @@
    Each private Google Doc is fetched with the same read-only OAuth token used by the book. */
 (()=>{"use strict";
  const SOURCES=[
-  {id:"1cgpK6EjNMrKs2roTLF0htk4RWfZiwuhNka2PtFMo1Gk",chapter:"1.1",part:0,expectedSections:10,expectedPairs:38}
+  {id:"1cgpK6EjNMrKs2roTLF0htk4RWfZiwuhNka2PtFMo1Gk",chapter:"1.1",part:0,expectedSections:10,expectedPairs:38},
+  {id:"19JbZ6IsfTBdmwas1k0OZxVxC4nFfJ2vRSkUAYuk-fxA",chapter:"1.2",part:1,expectedSections:3,expectedPairs:10}
  ];
- const EXPECTED={"s111":5,"s112":4,"s113":2,"s114":3,"s115":3,"s116":2,"s117":9,"s118":5,"s119":2,"s1110":3};
+ const EXPECTED={"s121":6,"s122":1,"s123":3,"s111":5,"s112":4,"s113":2,"s114":3,"s115":3,"s116":2,"s117":9,"s118":5,"s119":2,"s1110":3};
  const loaded=new Map();
  async function load(token){
   await Promise.all(SOURCES.map(async s=>{
@@ -23,7 +24,7 @@
     const ids=Object.keys(parsed.translations);
     if(ids.length!==s.expectedSections)throw new Error("重譯小節數不符：§"+s.chapter);
     let count=0;
-    for(const [id,n] of Object.entries(EXPECTED)){
+    for(const [id,n] of Object.entries(EXPECTED).filter(([id])=>s.part===0?!/^s12[123]$/.test(id):/^s12[123]$/.test(id))){
      const a=parsed.translations[id];
      if(!Array.isArray(a)||a.length!==n||a.some(v=>typeof v!=="string"||!v.trim()))
       throw new Error("重譯段落缺漏："+id);
@@ -61,5 +62,5 @@
   }
   return {sections,pairs};
  }
- window.ATPAModule3Retranslation={load,apply,expectedSections:10};
+ window.ATPAModule3Retranslation={load,apply,expectedSections:13};
 })();
