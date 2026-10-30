@@ -1,5 +1,18 @@
 # Module 3 — Advanced Models
 
+## 2026-10-30 穩定性修復｜EN／中 切換入口＋可恢復工作流程
+
+- **讀者回報**：「找不到按鈕切換英文」。已定位一個具體成因：舊版 `#mode-bar` 位於 `#reader-wrap[hidden]` 內，只有 17 份私人來源／重譯稿成功載入後才會出現。**修正**：將唯一的 EN／中 兩個語言按鈕所屬工具列移出登入閘門與私人內容容器，登入前亦可切換／儲存偏好；只有章節目錄需等原稿載入後才顯示。小螢幕維持二選一，未恢復任何左右或上下雙語對照。
+- **變更**：`index.html`、`smart-reader.css`、`module3.js`；加入 `progress.json`（機器可讀斷點）與 `check-module3.mjs`（靜態回歸測試）、`.github/workflows/module3-qa.yml`（僅公開前端 QA，不觸及私有教材，也不重複啟動 Pages 部署）。
+- **QA**：GitHub Actions [Module 3 static QA](https://github.com/wesleychen310/osaka2026/actions/runs/41005590344) 已通過；核對 EN／中按鈕在登入閘門前、17 個來源 ID、211 個原始小節、31 節／132 組新版翻譯索引與進度檔一致。這是**靜態驗證**，並非 17 份原稿的 Google OAuth 實機 E2E。切換後的 iPhone Safari 實際網頁渲染仍為 **E2E_UNVERIFIED**；如果載入來源失敗，應顯示 Google 錯誤，不能謊稱已讀入教材。
+- **續作唯一斷點**：從 **§1.3.1** 開始；新版自然校譯 **31／211 節、132 組段落**，其餘 **180 節**未完成新版校譯。**請先讀 `progress.json`，再讀本 README 頂部與 `module3-retranslation.js` 實際索引，不能以本文件中的歷史 10/211、13/211、19/211 紀錄覆蓋最新進度。**
+- **每一批 SOP**：核對來源 Part 和原文 → 私人重譯 JSON 逐段與原文一對一校對 → Drive 新檔讀回／既有檔先在 `_backup` 備份 → 更新 `module3-retranslation.js` → 更新 `progress.json` → 跑 `node learning/atpa-modules/module3/check-module3.mjs` → CI 通過 → 更新本 README。確保每批各有可還原的 Git commit；遇錯只從最新成功 SHA 續作，**不重做已核對段落**。
+- **回復點**：`backup/module3-before-visible-language-switch-20261030` 指向此修復前提交 `3cd108a0a4b9523b1775cd7cdd0907b6a8d96a0c`，舊私人 Drive 原稿未修改。禁止覆寫其他教材的閱讀器。
+- **當前驗收階段**：`GITHUB_COMMITTED / STATIC_QA_PASSED / PAGES_DEPLOY_CHECK_PENDING / PRIVATE_E2E_UNVERIFIED`。未登入時語言按鈕可見不代表已取得私有教材讀取權。
+
+---
+
+
 ## 2026-10-30 接續批次：§1.2.10–§1.2.21（自然繁中第 4 批；Part 02 完成）
 
 - **最新校譯累計 31/211 編號小節、132 組段落（約 14.7%），尚餘 180 節。** 舊版 211/211 雙語小節仍完整保留，不能當作新版自然校譯數量。
