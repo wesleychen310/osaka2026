@@ -399,12 +399,52 @@ function toggleMenu(open){
  $("toc-trigger")?.setAttribute("aria-expanded",String(open));
  show("toc-backdrop",open);
  if(!open)$("toc-trigger")?.blur();
+ else{
+  const active=$("toc")?.querySelector(".toc-link.active");
+  const group=active?.closest(".toc-group");
+  if(group)group.open=true;
+  if(active&&$("chapter-sidebar")){
+   const nav=$("chapter-sidebar"),a=active.getBoundingClientRect(),b=nav.getBoundingClientRect();
+   if(a.top<b.top+80||a.bottom>b.bottom-35)
+    nav.scrollTop+=a.top-b.top-nav.clientHeight/2;
+  }
+ }
+}
+let sectionJumpRevision=0;
+function jumpToSection(id,recordHistory=true){
+ const target=document.getElementById(id);
+ if(!target||!$("study-content")?.contains(target))return false;
+ const lesson=target.closest(".lesson"),heading=target.closest(".chapter-heading");
+ if(!lesson&&!heading)return false;
+ const revision=++sectionJumpRevision;
+ // Mobile Safari may fail native hash scrolling while the TOC releases scroll lock.
+ toggleMenu(false);
+ if(recordHistory&&location.hash!=="#"+encodeURIComponent(id))
+  history.pushState(null,"","#"+encodeURIComponent(id));
+ if(lesson)activateSection(lesson.id);
+ const align=()=>{
+  if(revision!==sectionJumpRevision||!target.isConnected)return;
+  const inset=Math.max(92,($("mode-bar")?.getBoundingClientRect().height||0)+14);
+  const top=Math.max(0,window.scrollY+target.getBoundingClientRect().top-inset);
+  const root=document.documentElement,prior=root.style.scrollBehavior;
+  root.style.scrollBehavior="auto";
+  window.scrollTo({top,behavior:"instant"});
+  root.style.scrollBehavior=prior;
+ };
+ align();
+ requestAnimationFrame(()=>requestAnimationFrame(align));
+ setTimeout(align,240);
+ return true;
 }
 $("toc-trigger")?.addEventListener("click",()=>toggleMenu(!document.body.classList.contains("toc-open")));
 $("toc-close")?.addEventListener("click",()=>toggleMenu(false));
 $("toc-backdrop")?.addEventListener("click",()=>toggleMenu(false));
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.body.classList.contains("toc-open")){toggleMenu(false);$("toc-trigger")?.focus()}});
 window.addEventListener("resize",()=>{if(window.innerWidth>800&&document.body.classList.contains("toc-open"))toggleMenu(false)});
+window.addEventListener("popstate",()=>{
+ if(!loaded||!location.hash)return;
+ try{jumpToSection(decodeURIComponent(location.hash.slice(1)),false)}catch(_){}
+});
 
 /* Knowledge Check UI is created after sanitization; no questions/answers live in the public repository. */
 function activateQuizzes(){
@@ -478,7 +518,7 @@ function makeNavigation(lessons){
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const chapterLessons=lessons.filter(sec=>sec.dataset.num.startsWith(chapter+"."));
    const details=document.createElement("details");details.className="toc-group";
-   details.open=chapterLessons.length>0;
+   details.open=chapterLessons.some(sec=>sec.id===(location.hash||"").slice(1)) || (!location.hash&&chapter==="1.1");
    if(!chapterLessons.length)details.classList.add("toc-pending");
    const summary=document.createElement("summary");
    const num=document.createElement("span");num.className="group-num";num.textContent=chapter;
@@ -512,9 +552,9 @@ function makeNavigation(lessons){
  }
  toc.addEventListener("click",e=>{
    const a=e.target.closest("a[href^='#']");
-   if(!a)return;
-   toggleMenu(false);
-   if(a.dataset.id)activateSection(a.dataset.id);
+   if(!a||!toc.contains(a))return;
+   e.preventDefault();
+   jumpToSection(a.dataset.id||a.hash.slice(1));
  });
 }
 function activateSection(id){
@@ -590,11 +630,10 @@ function mountAll(parsedSources){
  const legacyPart=params.get("part");
  const targetId=location.hash?decodeURIComponent(location.hash.slice(1)):(legacyPart?FIRST_IDS[Number(legacyPart)-1]:(window.ATPASmartReader?.getResumeId()||"s111"));
  if(targetId&&document.getElementById(targetId))
-   requestAnimationFrame(()=>requestAnimationFrame(()=>{
-     document.getElementById(targetId)?.scrollIntoView({block:"start",behavior:"instant"});
-      if(!location.hash&&!legacyPart)window.ATPASmartReader?.restoreOffset(targetId);
-      activateSection(document.getElementById(targetId)?.closest(".lesson")?.id||targetId);
-   }));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+   jumpToSection(targetId,false);
+   if(!location.hash&&!legacyPart)window.ATPASmartReader?.restoreOffset(targetId);
+  }));
  else activateSection(allLessons[0].id);
 }
 async function fetchOneSource(source,token){
