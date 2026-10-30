@@ -5,7 +5,8 @@
  const SOURCES=[
   {id:"1cgpK6EjNMrKs2roTLF0htk4RWfZiwuhNka2PtFMo1Gk",sourceFileId:"1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb",chapter:"1.1",part:0,expected:{s111:5,s112:4,s113:2,s114:3,s115:3,s116:2,s117:9,s118:5,s119:2,s1110:3}},
   {id:"19JbZ6IsfTBdmwas1k0OZxVxC4nFfJ2vRSkUAYuk-fxA",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s121:6,s122:1,s123:3}},
-  {id:"1c9m4Tq-LpvnkEG16dtuBpL9wcuUz5NtEZVf3GzC_LPw",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s124:2,s125:3,s126:2,s127:4,s128:5,s129:9}}
+  {id:"1c9m4Tq-LpvnkEG16dtuBpL9wcuUz5NtEZVf3GzC_LPw",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s124:2,s125:3,s126:2,s127:4,s128:5,s129:9}},
+  {id:"1gGLNj-68ed4JOZpApIHvglkfFbOuqroYXyw2e2gu2Fg",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s1210:7,s1211:3,s1212:5,s1213:6,s1214:4,s1215:1,s1216:1,s1217:1,s1218:20,s1219:2,s1220:4,s1221:5}}
  ];
  const expectedSections=SOURCES.reduce((n,s)=>n+Object.keys(s.expected).length,0);
  const expectedPairs=SOURCES.reduce((n,s)=>n+Object.values(s.expected).reduce((a,b)=>a+b,0),0);
