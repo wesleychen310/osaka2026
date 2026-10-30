@@ -338,3 +338,6 @@ ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
 
 
 2026-10-30 ACTEX PA 雙語第13批：一次新增印刷 p.47–56（PDF p.79–88）共10頁、71組，偏差—變異數分解 (1.3.1)、Figure 1.3.3、Exercise 1.3.1、§1.3.2 多項式迴歸模擬/R CHUNK 1。新增私人 HTML `1mudH3IWqheTTYxyGvYrRQREvlVKNhB_O`、`1WcC32Vm7U-zzu0hFNI6tx54Jbqkc31zJ`，保留各頁來源影像以便逐字校對。累積 p.3–56 共54頁、514組雙語。智慧單欄閱讀不變；真正 Google OAuth/iPhone 實機仍待驗證，英文轉錄及翻譯仍待最終校稿。詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 雙語閱讀第14批：一次擴充原書 p.57–70（PDF p.89–102）共14頁、93組中英研讀單元；涵蓋 §1.3.2 模擬結果與 §1.4 特徵生成／選擇、三道 Exercise 1.4.1–1.4.3。私人 HTML IDs：`1gM2hGKiTc_K1EMNLGKn0Te-_4TA6-maS`、`1SVTB1vmJyYY_MnGM2e_CK1_wnrjeYT0J`。累積 p.3–70／68頁／607組；每頁保留原書完整影像供核對，研讀稿仍需逐字校對，不可視作完整逐字轉錄。下一批 §1.5 Review Problems 自 p.71 開始；詳見 `learning/actex-pa/README.md`。
