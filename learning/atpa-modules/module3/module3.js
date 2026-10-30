@@ -231,8 +231,8 @@ function prepareEnhancedViews(){
  }
 }
 
-const DISPLAY_MODES=["en","stacked","compare","teacher"];
-const DISPLAY_KEY="atpa-module3-reading-mode-v4";
+const DISPLAY_MODES=["en","zh"];
+const DISPLAY_KEY="atpa-module3-smart-lang-v1";
 const LEGACY_DISPLAY_KEY="atpa-modules-reading-mode-v3";
 function prepareBilingualLabels(){
  document.querySelectorAll("#study-content .source-tabs summary,#study-content .lesson h3").forEach(node=>{
@@ -252,11 +252,11 @@ function prepareBilingualLabels(){
  });
 }
 function preferredReadingMode(){
- try{
-  const saved=localStorage.getItem(DISPLAY_KEY)||localStorage.getItem(LEGACY_DISPLAY_KEY);
-  const migrated={en:"en",zh:"stacked",vertical:"stacked",parallel:"stacked",annotated:"stacked",tap:"stacked"}[saved]||saved;
-  return DISPLAY_MODES.includes(migrated)?migrated:"stacked";
- }catch(_){return "stacked"}
+  try{
+   const saved=localStorage.getItem(DISPLAY_KEY)||localStorage.getItem("atpa-module3-reading-mode-v4")||localStorage.getItem(LEGACY_DISPLAY_KEY);
+   const migrated={en:"en",zh:"zh",vertical:"zh",parallel:"zh",stacked:"zh",compare:"zh",teacher:"zh",annotated:"zh",tap:"zh"}[saved]||saved;
+   return DISPLAY_MODES.includes(migrated)?migrated:"zh";
+  }catch(_){return "zh"}
 }
 /* Keep the SAME source paragraph in view when a reading mode changes page height.
    Store the anchor on pointerdown (before iOS/Safari focuses the toolbar),
@@ -317,7 +317,7 @@ function restoreReadingPosition(saved){
  }
 }
 function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
- const selected=DISPLAY_MODES.includes(mode)?mode:"stacked";
+ const selected=DISPLAY_MODES.includes(mode)?mode:"zh";
  if(preservePosition&&document.documentElement.dataset.readingMode===selected)return;
  let saved=preservePosition?(anchorOverride||captureReadingPosition()):null;
  const root=document.documentElement;
@@ -326,7 +326,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
   const header=saved.node.closest(".lesson")?.querySelector(":scope > header");
   if(header)saved={node:header,y:Math.max(82,Math.min(window.innerHeight*.32,180)),fraction:0};
  }
- if(selected!=="en")prepareEnhancedViews();
+ // Smart reader uses the complete private original/translation pair without extra display layers.
  const revision=++readingSwitchRevision;
  if(saved){
    if(!readingScrollStyles)readingScrollStyles={
@@ -339,6 +339,7 @@ function applyReadingMode(mode,preservePosition=true,anchorOverride=null){
    document.body.style.overflowAnchor="none";
  }
  root.dataset.readingMode=selected;
+  window.ATPASmartReader?.onLanguageChange(selected);
  $("mode-bar")?.querySelectorAll("button[data-mode]").forEach(button=>{
    button.setAttribute("aria-pressed",String(button.dataset.mode===selected));
  });
@@ -472,7 +473,7 @@ function makeChapter(id,key){
 }
 function makeNavigation(lessons){
  const toc=$("toc");toc.replaceChildren();
- const count=document.createElement("p");count.className="toc-summary";count.textContent="原文 211／211 節 · 完整雙語 211／211 節";toc.append(count);
+ const count=document.createElement("p");count.className="toc-summary";count.textContent="原文與既有雙語 211／211 節 · 自然繁中重譯 10／211 節";toc.append(count);
  for(const [chapter,meta] of Object.entries(CHAPTERS)){
    const chapterLessons=lessons.filter(sec=>sec.dataset.num.startsWith(chapter+"."));
    const details=document.createElement("details");details.className="toc-group";
@@ -482,10 +483,6 @@ function makeNavigation(lessons){
    const num=document.createElement("span");num.className="group-num";num.textContent=chapter;
    const label=document.createElement("span");label.className="group-label";
    label.textContent=meta.zh;
-   if(chapter==="1.4")label.textContent+=" · GPT 精讀 48 節完成";
-   else if(chapter==="1.5")label.textContent+=" · GPT 精讀 44／44 節完成";
-   else if(chapter==="1.6")label.textContent+=" · GPT 精讀 9／9 節完成";
-   else if(chapter==="1.7")label.textContent+=" · GPT 精讀 50／50 節完成";
    summary.append(num,label);
    if(!chapterLessons.length){
      const status=document.createElement("span");status.className="pending-label";
@@ -583,16 +580,18 @@ function mountAll(parsedSources){
  makeNavigation(allLessons);
  show("gate",false);show("reader-wrap",true);
  loaded=true;
- prepareBilingualLabels();
- applyReadingMode(preferredReadingMode(),false);
- activateQuizzes();
+  prepareBilingualLabels();
+  activateQuizzes();
+  window.ATPASmartReader?.mount();
+  applyReadingMode(preferredReadingMode(),false);
  // Old bookmarked ?part= links remain valid. A hash always wins.
  const legacyPart=params.get("part");
- const targetId=location.hash?decodeURIComponent(location.hash.slice(1)):(FIRST_IDS[Number(legacyPart)-1]||"s111");
+ const targetId=location.hash?decodeURIComponent(location.hash.slice(1)):(legacyPart?FIRST_IDS[Number(legacyPart)-1]:(window.ATPASmartReader?.getResumeId()||"s111"));
  if(targetId&&document.getElementById(targetId))
    requestAnimationFrame(()=>requestAnimationFrame(()=>{
      document.getElementById(targetId)?.scrollIntoView({block:"start",behavior:"instant"});
-     activateSection(targetId);
+      if(!location.hash&&!legacyPart)window.ATPASmartReader?.restoreOffset(targetId);
+      activateSection(document.getElementById(targetId)?.closest(".lesson")?.id||targetId);
    }));
  else activateSection(allLessons[0].id);
 }
