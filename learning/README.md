@@ -317,3 +317,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 雙語第 11 批：原書 p.40–42（PDF p.72–74），新增 31 組英中段落，包含 Stage 5 預測／實際診斷圖、Stage 6 模型維護與 §1.3 偏差—變異數權衡導論。累計 p.3–42 共 40 頁、415 組，私人 HTML `1Ucb0rFKyUI0vOpW_S6RZlK4V4aDsFaN4`，智慧單欄 EN／中與單段翻譯不變。詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 第12批：§1.3 原書 p.43–46（PDF p.75–78），新增 28 組雙語，含原書 Figure 1.3.1、1.3.2 直接從私人 PDF 裁切內嵌；累積 p.3–46，44 頁／443 組。私人 HTML `1FiW3KG2dlbMhZLnQolAp17sRCF4cF8aQ`，後續將合併較大批次處理，按完整小節做品質檢查。詳見 `learning/actex-pa/README.md`。
