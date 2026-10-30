@@ -1,5 +1,14 @@
 # Module 3 — Advanced Models
 
+## 2026-10-30 第 12 批第一階段：§1.4.19–§1.4.22
+
+- 自英文原稿 `1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe`（p.90–94）重新翻譯 4 節、5 組段落；**累計 82/211 節、196 組，尚餘 129 節**。舊版仍不算重譯完成。
+- 私人 Google Docs：§1.4.19–20 `1XesAYAuO-yBtqXUgpRcse2LPtzeoInFhe7EHGyVD28k`；§1.4.21 `1GWf8NlGal325UszuorsoELOBV_jgNRg_Dcr01UBcJSY`；§1.4.22 `1kM_NaEaKscnZOMLEpyf3vWKKahpHYWak4d0wxxP4U0w`。已逐份讀回確認 JSON、段落、父資料夾與私人權限；原英文與公式圖像未修改。
+- GitHub loader、checkpoint、快取版本已更新；**下一節 §1.4.23**。§1.4.23–24 的英文已讀，但私人重譯尚未完成，不能計入進度。Google OAuth 真實登入、iPhone Safari 及 PDF 圖像逐字校對仍未驗證。
+
+---
+
+
 ## 2026-10-30 第 11 批｜Neural Networks §1.4.13–§1.4.18
 
 - **本批完整重譯 6 節、6 組原文對位段落，累計 78/211 節、191 組，剩餘 133 節。** 來源 Part 06 私人英文 HTML `1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe`，原書 p.84–89；包含 Sigmoid、tanh、Softmax 啟動函數、損失函數及二元交叉熵，保留 p=0.7→0.357、p=0.9→0.105 的例子、圖像與原書公式位置。
