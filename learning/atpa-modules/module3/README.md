@@ -1,5 +1,15 @@
 # Module 3 — Advanced Models
 
+## 2026-10-30 第 11 批｜Neural Networks §1.4.13–§1.4.18
+
+- **本批完整重譯 6 節、6 組原文對位段落，累計 78/211 節、191 組，剩餘 133 節。** 來源 Part 06 私人英文 HTML `1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe`，原書 p.84–89；包含 Sigmoid、tanh、Softmax 啟動函數、損失函數及二元交叉熵，保留 p=0.7→0.357、p=0.9→0.105 的例子、圖像與原書公式位置。
+- 兩份新版私人 Google Docs：§1.4.13–1.4.15 `1rjArmG3PNAIblp870M2Dh3jW76TQf2YK1c5sNEH2EKM`；§1.4.16–1.4.18 `1Nt82Kx__W8cVo9bG_KDHCBI9sP_dWRnyOZyEXmARLQ0`，均位於原教材父資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`。已用 Google Docs 讀回確認每份三個 section ID、JSON 可解析、每節對應英文恰好一段、原書圖像存在、具名授權無公眾分享。原稿或舊譯均未覆寫。
+- 公開 repo 只保存私人檔案 ID 與段落數，更新 `module3-retranslation.js` 的 `part:5`、`progress.json` 與 `index.html` `natural11`。**唯一接續斷點：§1.4.19**，同一 Part 06 私人來源 p.90 起。舊版 211 節不能充當已重譯進度。
+- GitHub CI/Pages 部署應以最新這次提交結果為準；本批沒有完成 Google OAuth／iPhone Safari 實際登入和原書圖片逐字校驗。
+
+---
+
+
 ## 2026-10-30 第 10 批｜Neural Networks §1.4.1–§1.4.12
 
 - **已從原英文重新翻譯 12 節、12 組對應段落，累計 72/211 節、185 組，尚餘 139 節。** 原始私人 HTML `1ivOBsbEcwDaWBeUZsQGJ8Pl0UYx-4nI5`，原書 p.72–83；12 張原頁圖片及英文、公式、既有 GPT 補充均保留不變。
