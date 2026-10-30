@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–3 印刷 p.3–209 已製成雙語研讀稿 1329/1329 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.242（原書印刷 p.210）接續，進入 §3.3 Feature Selection and Regularization 案例。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–3 印刷 p.3–233 已製成雙語研讀稿 1455/1455 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.266（原書印刷 p.234）接續，完成 §3.3 的 Task 7 Stepwise Selection、模型診斷及後續 Regularization。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -217,3 +217,18 @@
 - **累計 p.3–209：207 頁、1,329 組、31 份私有 HTML。** 原私人 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 修改前，於同層 `_backup` 建立含時間戳與原因的備份 `1jVombVkapUEVKjNEDbuDdUreJ6ZUsXBE` 並確認 owner-only；後在**原 File ID 原位更新**，名稱 `manifest.json`、位置及權限均維持。
 - **重要翻譯狀態**：可編輯英文及中文仍為研究用途的雙語研讀稿，**不等於原書全文逐字完整轉錄或 100% 直譯**。19 頁新內容均保存完整來源圖像供核對；後續須補齊所有原文／練習選項／圖說並作精校，不得將頁面涵蓋量等同於已完成精校的頁數。
 - 下一批原書 **p.210 起**（上冊 PDF p.242）進入 §3.3 Feature Selection and Regularization；除內容推進之外，務必優先檢查實機首次 Google 登入、跨頁切換及權限錯誤畫面。
+
+
+## 2026-10-31｜第 23 批：Credit 案例 Task 1–6（24 頁）
+- **本批原書印刷 p.210–233（上冊 PDF p.242–265），新增 24 頁／126 組英中研讀段落；累積 p.3–233 共 231 頁、1,455 組、35 份私人 HTML。**
+- 本次刻意分成 **4 份，每份 6 頁**，配合已修復的 Safari「每次只載入一份教材」機制，避免一次下載大量資料。私人 Google Drive 新檔案：
+  - `ch03_p210-p215.html`，ID `1TINrEVWXFOwairKNdK8T0jtJESWaT_Vs`，34 組、6 個完整來源頁影像。§3.3 導論、400 筆 Credit 資料、11 變數、Table 3.1 字典、TASK 1 Ethnicity/Gender 公平性、TASK 2 Balance 右偏與 90 筆零值、Exercise 3.3.1 平方根轉換、相關係數矩陣。
+  - `ch03_p216-p221.html`，ID `1NCmolCVFdJ5PiP-QMozRqp_crJoV6UsU`，28 組、6 原頁影像。Limit–Rating 相關 0.9969、刪除 Limit、Figure 3.3.2–3.3.4、Income/Rating 散布圖、TASK 3 Student 分組盒鬚圖；學生平均 Balance 876.8250、非學生 480.3694。
+  - `ch03_p222-p227.html`，ID `17bEmLWh8vVaLs_zGYWggddanJqQJrJkQ`，32 組、6 原頁影像。TASK 4 Age 與 Student、Income × Student 交互作用圖；§3.3.2、TASK 5 分層切分 p=0.75、CHUNK 10 完整回歸、基準組與迴歸係數解讀、CHUNK 11 透過 relevel() 將最多人水準設基準。
+  - `ch03_p228-p233.html`，ID `1kmBk_-tb1UTTHxlbCqc7iqSWdWQjnY4l`，32 組、6 原頁影像。基準組改變解釋與 p 值；TASK 6 類別型特徵二元編碼優缺點、caret::dummyVars(fullRank=TRUE/FALSE)、CHUNK 13–15 合併／移除舊 factor、使用相同 training/test partition 重新配適。
+- **數值與原圖交叉確認**：Balance 平均 520.01／中位 459.50、90 筆零餘額；Balance 與 Limit 0.8617、與 Rating 0.8636、與 Income 0.4637；Limit 與 Rating 0.9969；Student Yes/No 的組平均 876.8250／480.3694；訓練／測試平均 520.4352／518.7374；完整模型 R² ≈0.952。
+- **品質與原文完整性需嚴格區分**：此次可編輯英文和流暢台灣繁中是依原書整理的**雙語研讀段落，不是 100% 逐字英文轉錄與逐句全譯**。每一頁完整原書影像都在 owner-only HTML 中可展開；另外有 10 個原書表格／圖像局部直接裁切。原書的 R 指令、選項、完整輸出和小字仍需逐頁比對及補充，絕對不能以頁碼覆蓋率冒稱翻譯校訂率。
+- **本地 QA**：126/126 組中英皆非空，24/24 完整原頁及 10/10 局部原圖均內嵌為 WebP。Chromium 在 320／390／768／1130 px × 英文／繁中 **8/8 無水平溢出**，原頁展開後影像可載入。**真實 iPhone Safari OAuth／正式 GitHub Pages CDN 端到端仍未驗證**。
+- 更新原 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 之前，已於同層 `_backup` 備份 `1MDUd4cKKULBJlockMRhCAlIHZk64hhbM`，含台北時間及 p210–233 原因，確認 owner-only；後原位更新原 File ID、名稱、所在資料夾。
+- GitHub `reader.js` 新增 4 份私有檔案、8 個 §3.3 主題／Task 目錄錨點；`reader.css` 增加完整原書影像與草稿提醒樣式；入口 `reader.js?v=20261031-b23`、`reader.css?v=20261031-b23`。**保留單份載入與 EN／中智慧閱讀，不公開原書或譯文。**
+- **下一批 p.234 起（上冊 PDF p.266）**：完整執行 TASK 7 Stepwise Selection，接續模型診斷與正則化；勿將原書中途跨頁練習拆斷。
