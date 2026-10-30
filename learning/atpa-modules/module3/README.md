@@ -1,5 +1,14 @@
 # Module 3 — Advanced Models
 
+## 2026-10-30 第 13 批後半：§1.4.31–§1.4.36
+
+- 從私人英文原稿 `1dzG8Ndybq0JKzsAVMA3GOJH2Nd2U0nRa` 原書 p.104–110 完整重新翻譯 6 節、7 組段落。涵蓋 k-fold CV、隱藏層與神經元數量、啟動函數、練習 3.4.1／3.4.2、四組 CV 數值，以及 Auto MPG 迴歸模型。
+- 三份私人 Google Docs：§1.4.31–32 `1ywU_42a-6qEz7Mk2fFUZQroTXwrDdrCNTA2JmzXQ9rw`；§1.4.33–34 `1XwYWpJVL42bb0wZ7MZPD0RPWSLX2fcljTrpllMXhd4g`；§1.4.35–36 `1CNvCQCRdjUPngd9WHH64hul9sJwN06ke6llMMtIjRkc`。均已從 Docs 讀回驗證 JSON、原文 pair 數 1/1/1/1/1/2、原始圖像與具名私人權限。
+- **Part 07 §1.4.25–1.4.36 完成 12/12 節、14 組；全章累計 96/211 節、212 組，尚餘 115 節。下一節 §1.4.37。** 公開 repo 不含私人教材正文；所有原頁、公式、程式碼與既有教材未覆寫。Google OAuth、iPhone Safari、PDF 原圖逐字驗收維持 E2E_UNVERIFIED。
+
+---
+
+
 ## 2026-10-30 第 13 批｜§1.4.25–§1.4.30 重新全文翻譯
 
 - **本批依私人英文原稿 Part 07 `1dzG8Ndybq0JKzsAVMA3GOJH2Nd2U0nRa`（第 97–103 頁）新譯 6 節、7 組對位段落，累計 90/211 節、205 組；尚餘 121 節。** 題材包含飯店訂房二元分類、ANN2、過度配適、NN／羅吉斯迴歸比較、One-Hot Encoding、類別變數加入模型；保留 80/10/10、12/15/2 個神經元數、0.001 學習率、32 mini-batch、200／30 epochs、74.2%／71.8% 準確率、0.821／0.782 AUC、原書 CHUNK 編號與 One-Hot 表格全部五筆資料。
