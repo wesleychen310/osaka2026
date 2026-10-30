@@ -341,3 +341,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 雙語研讀第20批：原書 p.146–168（PDF p.178–200）新增 **23頁／88組**，涵蓋數字編碼類別變數、Exercise 3.1.7–3.1.17、三種 interaction、共線性／VIF、best subset、forward/backward stepwise、AIC 選模及 regularization 導論。新 owner-only 私人 HTML：`1n1Wilrw-WnL9co7DgzOTW-gKSRRPVbHs`、`1erL8oDoR-K4Id9uoXzL_LToIyh_Drfny`，每頁保留來源影像供核對。累積 p.3–168 **166頁、1,141組、27份私有教材**。可編輯英文與繁中為待逐字精校的研讀稿，並非已完成全文直譯。下一批 p.169 起；詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 雙語第 21 批：原書 p.169–190（PDF p.201–222）新增 **22 頁／97 組英中研讀單元**，完整保留每頁原書影像。§3.1.5 正則化包含 Ridge／Lasso／Elastic Net、λ／α、標準化、CV 與 Exercise 3.1.18–3.1.20；§3.2 Advertising 案例包含 200 筆資料探索、相關係數、Figure 3.2.1–3.2.3、Task 1／Task 2 與 lm／summary／confint／predict、TV 簡單線性模型。新 owner-only 私人 HTML：`1WQ_9tW-O7K8vGx5SMO_u_wYXNlyKhzgQ`、`1CLn25X1-H819dbh-EDNtMnMo8lhoZYyx`。累積原書 p.3–190＝**188 頁／1,238 組／29 份私人 HTML**。**可編輯文字是研讀稿，並非完整逐字英文＋中文直譯；未校細節請展開原頁影像。** 下一批從 p.191 接續 CHUNK 11；詳見 `learning/actex-pa/README.md`。
