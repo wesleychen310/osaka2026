@@ -1,5 +1,14 @@
 # Module 3 — Advanced Models
 
+## 2026-10-30 第 13 批｜§1.4.25–§1.4.30 重新全文翻譯
+
+- **本批依私人英文原稿 Part 07 `1dzG8Ndybq0JKzsAVMA3GOJH2Nd2U0nRa`（第 97–103 頁）新譯 6 節、7 組對位段落，累計 90/211 節、205 組；尚餘 121 節。** 題材包含飯店訂房二元分類、ANN2、過度配適、NN／羅吉斯迴歸比較、One-Hot Encoding、類別變數加入模型；保留 80/10/10、12/15/2 個神經元數、0.001 學習率、32 mini-batch、200／30 epochs、74.2%／71.8% 準確率、0.821／0.782 AUC、原書 CHUNK 編號與 One-Hot 表格全部五筆資料。
+- 三份新私人 Google Docs：§1.4.25–26 `1r9wRGjouCKgaCbZ_VPpaTfkk4dQcJih5Fnldh6bnqFs`；§1.4.27–28 `15vNHw4sQH96l2JITtgKXtlJwujlOyhZgl28HTAaYvyI`；§1.4.29–30 `1byzzYFrVsAjPrHVuaqWy4xUwNBS74rnjH6cKNoK9EPQ`。已各自讀回確認 JSON、sourceFileId、逐節 pair 數（2+2+3＝7）、來源頁圖像及私人具名權限；存放於原教材私人資料夾 `1uLenu319fQEQwltPasYv1HH_EL6Swk4q`。未修改英文本或舊版中文。
+- Public GitHub 只新增私人 Docs ID 與節數索引（Part 07 的 `part:6`），並更新 `progress.json`、`index.html` 快取 `natural14` 及 README；**下一節 §1.4.31**。原 211 節舊版雙語不代表自然繁中已全數重譯。Google OAuth／iPhone Safari／完整 PDF 圖像目視仍未 E2E 實測。
+
+---
+
+
 ## 2026-10-30 第 12 批結案｜§1.4.23–§1.4.24 全文重譯完成
 
 - 從原始私人英文 HTML `1D11HFGZIPxHuSAq2qTgGEjiRwfC_1qIe`、原書第 95–96 頁逐節重譯 **§1.4.23 梯度下降的類型及 §1.4.24 延伸方法**：完整涵蓋 batch、mini-batch、SGD、epoch、validation loss、momentum、learning rate 的正負號判斷及各參數不同學習率，保留各段落條件與原始頁碼，非舊譯摘要。
