@@ -569,6 +569,8 @@ function activateSection(id){
  const current=$("current-section");
  if(current)current.textContent="§"+section.dataset.num;
  const sidebar=$("chapter-sidebar"),link=$("toc")?.querySelector('.toc-link[data-id="'+id+'"]');
+ const chapterGroup=link?.closest(".toc-group");
+ if(chapterGroup&&!chapterGroup.open)chapterGroup.open=true;
  if(link&&sidebar&&window.innerWidth>800){
    const b=link.getBoundingClientRect(),p=sidebar.getBoundingClientRect();
    if(b.top<p.top+65||b.bottom>p.bottom-25)sidebar.scrollTop+=b.top-p.top-sidebar.clientHeight/2;
