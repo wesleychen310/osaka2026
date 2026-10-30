@@ -162,3 +162,12 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 .b13-source-page summary{cursor:pointer;color:#355f79;font-size:12px}
 .b13-source-page img{width:100%;height:auto;max-width:100%;border:1px solid #d3e0ea;border-radius:6px}
 @media(max-width:440px){.pair .b18-equation{font-size:13px;padding:8px}.b13-source-page summary{font-size:11px}}
+
+/* 2026-10-30 incident fix: on-demand private chapter reader */
+.part-navigation{display:flex;flex-wrap:wrap;align-items:center;gap:8px;min-width:0;width:100%;padding:7px 0}
+.part-navigation label{font-size:12px;font-weight:700;white-space:nowrap}
+.part-navigation select{min-width:115px;max-width:100%;padding:8px 10px;min-height:42px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--blue);font:inherit}
+.part-navigation button{min-height:42px;padding:6px 10px}
+.part-navigation button:disabled{opacity:.45;cursor:not-allowed}
+#load-state{width:100%;min-width:0;line-height:1.5;font-size:12px;overflow-wrap:anywhere}
+@media(max-width:440px){.part-navigation{gap:6px}.part-navigation label{width:100%}.part-navigation button{flex:0 0 auto}.part-navigation select{flex:1 1 125px}}
