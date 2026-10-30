@@ -1,15 +1,18 @@
 /* Private translation overlay for SOA ATPA Module 3.
-   No copyrighted original text or owner-only translations are stored in GitHub.
-   Each private Google Doc is fetched with the same read-only OAuth token used by the book. */
+   Owner-only originals and translations stay in restricted Google Drive.
+   Multiple translation batches may target one source Part: merge by lesson ID, not Part. */
 (()=>{"use strict";
  const SOURCES=[
-  {id:"1cgpK6EjNMrKs2roTLF0htk4RWfZiwuhNka2PtFMo1Gk",chapter:"1.1",part:0,expectedSections:10,expectedPairs:38},
-  {id:"19JbZ6IsfTBdmwas1k0OZxVxC4nFfJ2vRSkUAYuk-fxA",chapter:"1.2",part:1,expectedSections:3,expectedPairs:10}
+  {id:"1cgpK6EjNMrKs2roTLF0htk4RWfZiwuhNka2PtFMo1Gk",sourceFileId:"1BIrPuTrxQ7xnxkZQbXoBUwjxKOIkYREb",chapter:"1.1",part:0,expected:{s111:5,s112:4,s113:2,s114:3,s115:3,s116:2,s117:9,s118:5,s119:2,s1110:3}},
+  {id:"19JbZ6IsfTBdmwas1k0OZxVxC4nFfJ2vRSkUAYuk-fxA",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s121:6,s122:1,s123:3}},
+  {id:"1c9m4Tq-LpvnkEG16dtuBpL9wcuUz5NtEZVf3GzC_LPw",sourceFileId:"1tNSYwzEgD73jKz56KL5P3nlBO7xIucsP",chapter:"1.2",part:1,expected:{s124:2,s125:3,s126:2,s127:4,s128:5,s129:9}}
  ];
- const EXPECTED={"s121":6,"s122":1,"s123":3,"s111":5,"s112":4,"s113":2,"s114":3,"s115":3,"s116":2,"s117":9,"s118":5,"s119":2,"s1110":3};
+ const expectedSections=SOURCES.reduce((n,s)=>n+Object.keys(s.expected).length,0);
+ const expectedPairs=SOURCES.reduce((n,s)=>n+Object.values(s.expected).reduce((a,b)=>a+b,0),0);
  const loaded=new Map();
  async function load(token){
-  await Promise.all(SOURCES.map(async s=>{
+  loaded.clear();
+  const results=await Promise.all(SOURCES.map(async s=>{
    const url="https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(s.id)+
      "/export?mimeType="+encodeURIComponent("text/plain");
    const controller=new AbortController();
@@ -17,50 +20,63 @@
    try{
     const res=await fetch(url,{headers:{Authorization:"Bearer "+token},cache:"no-store",signal:controller.signal});
     if(!res.ok)throw new Error("重譯檔 §"+s.chapter+" 下載失敗 (HTTP "+res.status+")");
-    const raw=(await res.text()).replace(/^\uFEFF/,"").trim();
-    const parsed=JSON.parse(raw);
-    if(parsed.schema!==1||parsed.chapter!==s.chapter||!parsed.translations)
-     throw new Error("重譯資料格式不符：§"+s.chapter);
+    const parsed=JSON.parse((await res.text()).replace(/^\uFEFF/,"").trim());
+    if(parsed.schema!==1||parsed.chapter!==s.chapter||parsed.sourceFileId!==s.sourceFileId||
+       !parsed.translations||typeof parsed.translations!=="object")
+     throw new Error("重譯來源或資料格式不符：§"+s.chapter);
     const ids=Object.keys(parsed.translations);
-    if(ids.length!==s.expectedSections)throw new Error("重譯小節數不符：§"+s.chapter);
-    let count=0;
-    for(const [id,n] of Object.entries(EXPECTED).filter(([id])=>s.part===0?!/^s12[123]$/.test(id):/^s12[123]$/.test(id))){
+    if(ids.length!==Object.keys(s.expected).length||ids.some(id=>!Object.hasOwn(s.expected,id)))
+     throw new Error("重譯小節不符：§"+s.chapter);
+    for(const [id,n] of Object.entries(s.expected)){
      const a=parsed.translations[id];
      if(!Array.isArray(a)||a.length!==n||a.some(v=>typeof v!=="string"||!v.trim()))
       throw new Error("重譯段落缺漏："+id);
-     count+=a.length;
     }
-    if(count!==s.expectedPairs)throw new Error("重譯段落總數不符");
-    loaded.set(s.part,parsed.translations);
+    return {s,mapping:parsed.translations};
    }finally{clearTimeout(timer)}
   }));
- }
- function apply(parts){
-  let sections=0,pairs=0;
-  for(const [part,mapping] of loaded){
-   if(!parts[part])throw new Error("原始教材分批索引失效");
-   for(const lesson of parts[part]){
-    const rewritten=mapping[lesson.id];
-    if(!rewritten)continue;
-    const nodes=[...lesson.querySelectorAll(".pair > .translation")];
-    if(nodes.length!==rewritten.length)throw new Error("原始段落數和新譯文不一致："+lesson.id);
-    rewritten.forEach((text,index)=>{
-     const target=nodes[index];
-     const blocks=text.split(/\n\s*\n/);
-     target.replaceChildren(...blocks.map(block=>{
-      const p=document.createElement("p");
-      p.textContent=block;
-      p.className="fresh-translation-text";
-      return p;
-     }));
-     target.dataset.translationVersion="natural-v1";
-     pairs++;
-    });
-    lesson.dataset.translationVersion="natural-v1";
-    sections++;
+  // Commit only fully validated results, preventing partial-overlay states.
+  const staged=new Map();
+  for(const {s,mapping} of results){
+   if(!staged.has(s.part))staged.set(s.part,new Map());
+   const byId=staged.get(s.part);
+   for(const [id,values] of Object.entries(mapping)){
+    if(byId.has(id))throw new Error("重譯小節重複："+id);
+    byId.set(id,values);
    }
   }
-  return {sections,pairs};
+  for(const [part,byId] of staged)loaded.set(part,byId);
  }
- window.ATPAModule3Retranslation={load,apply,expectedSections:13};
+ function apply(parts){
+  const operations=[];
+  for(const [part,byId] of loaded){
+   if(!parts[part])throw new Error("原始教材分批索引失效："+part);
+   const lessonMap=new Map(parts[part].map(lesson=>[lesson.id,lesson]));
+   for(const [id,rewritten] of byId){
+    const lesson=lessonMap.get(id);
+    if(!lesson)throw new Error("無法找到原始小節："+id);
+    const nodes=[...lesson.querySelectorAll(".pair > .translation")];
+    if(nodes.length!==rewritten.length)throw new Error("原始段落與重譯不一致："+id);
+    operations.push({lesson,nodes,rewritten});
+   }
+  }
+  const pairCount=operations.reduce((n,op)=>n+op.rewritten.length,0);
+  if(operations.length!==expectedSections||pairCount!==expectedPairs)
+   throw new Error("自然校譯總數不符，未套用");
+  for(const {lesson,nodes,rewritten} of operations){
+   rewritten.forEach((value,i)=>{
+    const blocks=value.split(/\n\s*\n/);
+    nodes[i].replaceChildren(...blocks.map(block=>{
+     const p=document.createElement("p");
+     p.textContent=block;
+     p.className="fresh-translation-text";
+     return p;
+    }));
+    nodes[i].dataset.translationVersion="natural-v1";
+   });
+   lesson.dataset.translationVersion="natural-v1";
+  }
+  return {sections:operations.length,pairs:pairCount};
+ }
+ window.ATPAModule3Retranslation={load,apply,expectedSections,expectedPairs};
 })();
