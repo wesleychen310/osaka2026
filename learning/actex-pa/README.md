@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–56 已製成雙語閱讀稿 514/514 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.89（原書印刷 p.57）接續，完成 §1.3.2 的多項式模擬與圖表，再進入 §1.4 Feature Generation and Selection。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–70 已製成雙語研讀稿 607/607 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.103（原書印刷 p.71）接續，進入 §1.5 Review Problems，習題及答案必須完整保留。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -125,3 +125,13 @@
 - 本地 Chromium：320／390／768／1130px × 英文／繁中 8/8 無整頁橫向溢出，71 組配對均非空；單段翻譯展開測試通過。**正式 GitHub Pages CDN、真實 Google OAuth 與 iPhone Safari 仍未完成端到端驗收**。
 - 更新 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 前先備份到 `_backup`，備份 Drive ID `1A1I8yj3ETWsTfWTLa9dXAGJCxFXv_aHA`。兩批 SHA-256 分別 `75daa1033b91429185c83788329b8cd0ce65da91eb1ec58cb397cbf98d5a4e74`、`c7adf8b9c345ca64b95c708e4cad17abe8bad3cf23e35cb8ebf51b555e866f07`。
 - 下一批：**印刷 p.57 起（第一冊 PDF p.89）**，完成模擬 CHUNK 2、TASK 2、Figure 1.3.4／1.3.5 的原圖、R 輸出數據，再開始 §1.4 Feature Generation and Selection；持續爭取 10–15 頁／批，不能為了速度遺漏任何原意。
+
+
+## 2026-10-30｜第 14 批：§1.3.2 模擬結果＋§1.4 特徵工程（加大批次）
+- 已新建並掛載兩份 owner-only HTML：
+  - `ch01_p057-p063.html`：上冊 PDF p.89–95／印刷 p.57–63，47 組雙語研讀單元，Drive ID `1gM2hGKiTc_K1EMNLGKn0Te-_4TA6-maS`；涵蓋原書 R CHUNK 2／3、Figure 1.3.4 模擬預測盒鬚圖、TASK 2、五種多項式的訓練誤差／預期測試誤差／偏差平方／變異數、最小 MSE＝0.25 的理論說明、§1.4 及 §1.4.1 特徵生成、歐氏距離特徵圓形分類案例與原書 CHUNK 4／5。
+  - `ch01_p064-p070.html`：上冊 PDF p.96–102／印刷 p.64–70，46 組雙語研讀單元，Drive ID `1SVTB1vmJyYY_MnGM2e_CK1_wnrjeYT0J`；涵蓋 Table 1.1 保險經過期間等六項特徵例子、§1.4.2 特徵選擇、三項類別水準合併策略、2019／2020 PA 考題、Exercise 1.4.1–1.4.3 與解答、維度和資料粒度的辨別。
+- **累積原書 p.3–70：68 頁、607 組雙語研讀單元、16 份私人 HTML。** 下一批原書印刷 p.71（上冊 PDF 第 103 頁）開始 §1.5 Review Problems。
+- 以上為**雙語研讀草稿**，不是已完成逐字對照的出版級英文轉錄或中文翻譯。尤其原 PDF 的 R 程式碼、數學上下標、圖表和題目敘述可能有 OCR 雜訊，**每一頁均已附原書完整影像**，不得將頁面摘要視為完整轉錄；後續仍需依原頁逐段補足及逐字校稿。源圖與教材僅存於 private Google Drive，公開 GitHub 沒有原文或頁面圖。
+- 本地 Chromium 320／390／768／1130px × EN／中 **8/8 全頁無水平溢出**，93 組皆有雙語、14 頁來源圖皆可顯示，測試段落展開翻譯可用；Google OAuth 真實登入、iOS Safari 實機及 GitHub Pages CDN 端對端尚未實測。
+- Manifest 原 ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 更新前，備份檔 `1CBxJYezTiynX2L-be6tMwQ9xX1wFM3EW` 已保存於私人 `_backup` 並驗證 owner-only。兩份 HTML SHA256：`ed42680268ccd53561a3d77a5c1da105371ec986474c7724e302834d8a070285`、`c884230353d0cf9c7ee49f34ef51a9f5832c6743ce3840342fb3b845ca968743`。
