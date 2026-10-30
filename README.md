@@ -365,3 +365,6 @@ ACTEX PA 私人雙語版更新：第 3 批已發布，累計印刷 p.3–8。
 
 
 2026-10-31 ACTEX PA 第23批：一次新增 **原書 p.210–233 共24頁／126組**，§3.3 Credit 資料 Task 1–6，包含 400 筆資料／11 變數、敏感屬性公平性、零值與平方根轉換、相關係數與移除 Limit、數值／類別探索、Income×Student 交互作用、分層 train/test、factor 基準組重設與 caret::dummyVars。四份每份六頁的 owner-only Drive HTML IDs：`1TINrEVWXFOwairKNdK8T0jtJESWaT_Vs`、`1NCmolCVFdJ5PiP-QMozRqp_crJoV6UsU`、`17bEmLWh8vVaLs_zGYWggddanJqQJrJkQ`、`1kmBk_-tb1UTTHxlbCqc7iqSWdWQjnY4l`。**累計 p.3–233／231頁／1,455組／35份私人檔**；原始頁面與圖表完整保留，英中可編輯文字仍是非逐字全譯的研讀稿。下一批 p.234 起 Task 7。公開 GitHub 只存頁碼清單、UI 程式及 README；詳細見 `learning/actex-pa/README.md`。
+
+
+2026-10-31 ACTEX PA 第24批：原書印刷 p.234–257／上冊 PDF p.266–289 **新增24頁、133組雙語研讀單元**，完成第三章 §3.3 的 TASK 7–10（stepAIC forward BIC/backward AIC、test RMSE、殘差診斷、glmnet/elastic net、cv.glmnet、lambda.min 與 lambda.1se）與 §3.4 複習入口。四份每份六頁的新 owner-only Drive HTML：`1VPK6XNv4Q4EcXXXZ2dL5Vq1NbjqRxFhb`、`1lL2uBFmAdUlMRmauiL-_1wpu-uCzvZYA`、`131FkPJ-pzjLfUfYL--dLy60YJOoUwYYm`、`1cl3ZGvfIx4VsIgc_XsqEASEDtJgL9jpU`。累積 **p.3–257／255頁／1,588組／39份私人教材**。每頁完整原圖另保留15處重要表格/圖形裁切。注意可編輯英文與繁中仍為研讀草稿，非逐字全譯；iPhone Safari 實機端到端未驗收。下批從 p.258 起，p.261 進入 Chapter 4。詳見 `learning/actex-pa/README.md`。
