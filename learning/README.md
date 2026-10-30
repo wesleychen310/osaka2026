@@ -338,3 +338,6 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-30 ACTEX PA 第19批：從 p.129 推進至 p.145（上冊 PDF p.161–177），新增 **17 頁／91 組中英研讀單元**，涵蓋同質變異與標準化／學生化殘差、Residuals vs Fitted、Normal Q-Q、Exercise 3.1.3–3.1.6、§3.1.3 的多項式／分箱／分段線性特徵，以及類別 dummy encoding 和基準水準。新增 owner-only HTML `1GVhPejVmtvmkgy8y4oivnD8Rlifo3t1v`、`1JMzOUZrvexV3y6j7lPNnq8VACMNQM8gv`；累積 **p.3–145、143 頁、1,053 組、25 份**。可編輯文字為雙語研讀稿，尚非原書逐字全文翻譯；每頁保留完整私有來源圖供逐字校稿。下一批 p.146 起；詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-30 ACTEX PA 雙語研讀第20批：原書 p.146–168（PDF p.178–200）新增 **23頁／88組**，涵蓋數字編碼類別變數、Exercise 3.1.7–3.1.17、三種 interaction、共線性／VIF、best subset、forward/backward stepwise、AIC 選模及 regularization 導論。新 owner-only 私人 HTML：`1n1Wilrw-WnL9co7DgzOTW-gKSRRPVbHs`、`1erL8oDoR-K4Id9uoXzL_LToIyh_Drfny`，每頁保留來源影像供核對。累積 p.3–168 **166頁、1,141組、27份私有教材**。可編輯英文與繁中為待逐字精校的研讀稿，並非已完成全文直譯。下一批 p.169 起；詳見 `learning/actex-pa/README.md`。
