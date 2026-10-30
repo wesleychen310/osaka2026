@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–3 印刷 p.3–190 已製成雙語研讀稿 1238/1238 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.223（原書印刷 p.191）接續，完成 CHUNK 11 的 radio／newspaper 模型比較，並進入多元線性迴歸、變數顯著性與模型評估。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1–3 印刷 p.3–209 已製成雙語研讀稿 1329/1329 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.242（原書印刷 p.210）接續，進入 §3.3 Feature Selection and Regularization 案例。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -207,3 +207,13 @@
 - Manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 原位更新前先於私人 `_backup` 建立 `1uBmC_2aDqIQPR_ySFFZDo-HYFLZZq70e` 並驗證 owner-only；原 manifest ID、名稱與位置不變。新 HTML SHA-256：`c477a75ac95f0f267a2517e178d893c81b9b89c46e4c1798bdbbca90e1981476`、`5eba3f1662c8f4c0b05f8e62a40a7ebfc14697efe5ffae4ecc44073433fb0bd0`。
 - 網站 `reader.js` 已加入兩份新私人教材、正則化、CV、Advertising Task 1、TV 迴歸、R² 與 predict() 目錄錨點；`reader.js?v=20261030-b21` 迫使閱讀器重新載入，智慧單欄語言切換與 `smart.js` 保留。
 - **下一批從印刷 p.191／PDF 實體 p.223** 開始，完成 Advertising 案例 CHUNK 11 後續、§3.2.3 Multiple Linear Regression 及後續實際練習，持續以完整小節大量推進。
+
+
+## 2026-10-30｜iPhone Safari 載入卡住修復 + 第22批正式接入
+- 使用者實機截圖顯示「正在從私人 Google Drive 載入中英教材…」持續未消失。舊版 `reader.js` 先依序下載 **29** 份私人 HTML，全部成功才首次渲染；任何慢速請求或單一錯誤都可能導致整個閱讀介面無法開啟。這是程式中確定存在的**全有或全無載入設計缺陷**，但尚未有 Safari Network log 能斷言當次停滯的唯一直接原因。
+- 已在原 `reader.js` **原檔修復**：一次只從私人 Google Drive 下載**一份選定區間**，支援上一段／下一段／選擇印刷頁碼、重新載入、單次 18 秒逾時和暫時錯誤最多重試三次、401／403 分類錯誤、載入失敗保留已讀段落，不再一次下載所有檔案。現有 `smart.js` 的整頁 EN／中切換、逐段翻譯及閱讀位置記憶維持不變；CSS 修正 iPhone 小螢幕控制列橫向溢出。入口 cache busting：`reader.js?v=20261030-loadfix24`、`reader.css?v=20261030-loadfix25`。
+- **讀取模擬驗證**：對實際新版 `reader.js` 建立 DOM 與 Drive 回應替身；初次開啟只發出 1 次資料請求並顯示 p.3–4；選至最後一段僅多發出 1 次資料請求且顯示 p.200–209；模擬 403 時原有內容未消失，錯誤訊息可讀。JavaScript `new Function` 語法通過。**尚未取得使用者真實 Google OAuth、iPhone Safari 與 GitHub Pages CDN 的端到端通過證據**，不能宣稱現場驗證完成。
+- **第22批正式接入**：原書 p.191–209（上冊 PDF p.223–241），2 份私人 HTML：`ch03_p191-p199.html` Drive ID `184Xx3PQHFcwd3DhMb2jk3_o5PuMH_bHy`（9頁／43組）；`ch03_p200-p209.html` Drive ID `1hOkz2ggsaZkkY2JYBG9NcaY841Va5Ylo`（10頁／48組）。兩份均 owner-only，19/19 原頁影像和 91/91 英中研讀組；Advertising 案例的 radio/newspaper 簡單迴歸、multiple regression、partial correlation、TV×radio 交互作用、三種預算策略、TV² 非線性、train/test RMSE（Model 4 最低 0.547343）。
+- **累計 p.3–209：207 頁、1,329 組、31 份私有 HTML。** 原私人 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 修改前，於同層 `_backup` 建立含時間戳與原因的備份 `1jVombVkapUEVKjNEDbuDdUreJ6ZUsXBE` 並確認 owner-only；後在**原 File ID 原位更新**，名稱 `manifest.json`、位置及權限均維持。
+- **重要翻譯狀態**：可編輯英文及中文仍為研究用途的雙語研讀稿，**不等於原書全文逐字完整轉錄或 100% 直譯**。19 頁新內容均保存完整來源圖像供核對；後續須補齊所有原文／練習選項／圖說並作精校，不得將頁面涵蓋量等同於已完成精校的頁數。
+- 下一批原書 **p.210 起**（上冊 PDF p.242）進入 §3.3 Feature Selection and Regularization；除內容推進之外，務必優先檢查實機首次 Google 登入、跨頁切換及權限錯誤畫面。
