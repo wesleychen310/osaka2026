@@ -13,8 +13,8 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1 印刷 p.3–46 已轉錄並翻譯 443/443 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
-- 下一批從上冊 PDF p.79（原書印刷 p.47）接續，進入 Bias–Variance Decomposition 的公式與推導。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- Chapter 1 印刷 p.3–56 已製成雙語閱讀稿 514/514 單元，儲存於私人 Drive；仍列 `TRANSLATED / NEEDS_FINAL_PROOF`，不可冒稱全文人工逐字或真實 iPhone Safari E2E 已驗收。
+- 下一批從上冊 PDF p.89（原書印刷 p.57）接續，完成 §1.3.2 的多項式模擬與圖表，再進入 §1.4 Feature Generation and Selection。禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -113,3 +113,15 @@
 - manifest 更新前已在私人 `_backup` 建立副本 `1jeAsS9l7sosDeTIptl0pL2B8e5VKfAti`，原 manifest ID 不變。SHA256 `8c2345b6402dfd3dd9f8dfd02cb0c041a72adef6538b4844eaaf0207527007b8`。
 - **提速工作法**：下一批以完整論述單元規劃約 10–15 頁，但以 PDF 密度與圖表完整性調整；批次萃取 PDF 文本、只校核重點圖表、原圖以私有內嵌方式保真、一次 QA、一次更新 Drive + GitHub，不以人工手動分開做每兩頁；不得以加速為由刪節原文或翻譯。
 - 下一批 p.47 起，進入偏差－變異數分解公式與 Bias / Variance / irreducible error；圖說、公式、註腳均應核對。
+
+
+## 2026-10-30｜第 13 批：Bias–Variance Decomposition + Polynomial Simulation（批次處理）
+- 已一次製作原書**印刷 p.47–56**（第一冊 PDF p.79–88），拆為兩份新的私人 HTML：
+  - `ch01_p047-p052.html`，Drive ID `1mudH3IWqheTTYxyGvYrRQREvlVKNhB_O`；6 頁／45 組。涵蓋預期測試 MSE 的分解式 (1.3.1)、偏差／變異數／不可約誤差、Figure 1.3.3 靶心圖、欠擬合與過度擬合、Exercise 1.3.1 全題與解答、原書腳註 13–17。
+  - `ch01_p053-p056.html`，Drive ID `1WcC32Vm7U-zzu0hFNI6tx54Jbqkc31zJ`；4 頁／26 組。涵蓋 §1.3.2 多項式迴歸模擬、0／1／2／4／8 次模型、n＝50、X₀＝0.8、3,000 輪模擬、R 程式碼 CHUNK 1、TASK 1 箱形圖解讀。
+- **累計原書 p.3–56，共 54 頁、514 組雙語單元、14 份私人 HTML 檔案**（本次一次發布兩份）。
+- 重大圖表與公式不採 OCR 近似重畫，而在 owner-only 私人 HTML 內保留原書影像；**每一頁另設可展開的完整來源頁影像**，方便核對任何未能精確轉錄的文字／上下標／腳註／程式碼。英中閱讀稿需要正式逐段、逐字校對，仍列 `BILINGUAL-DRAFT-NEEDS-SOURCE-PROOF`，不可稱已完成書籍原文精確轉錄。中文以完整、流利、達意之台灣繁體中文為標準。
+- 使用者指定的智慧單欄 EN／中整頁切換、單段翻譯及閱讀位置記憶全部保留，無左右或上下對照。站內目錄新增 §1.3.1 decomposition、Exercise 1.3.1、§1.3.2 simulation 入口。
+- 本地 Chromium：320／390／768／1130px × 英文／繁中 8/8 無整頁橫向溢出，71 組配對均非空；單段翻譯展開測試通過。**正式 GitHub Pages CDN、真實 Google OAuth 與 iPhone Safari 仍未完成端到端驗收**。
+- 更新 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 前先備份到 `_backup`，備份 Drive ID `1A1I8yj3ETWsTfWTLa9dXAGJCxFXv_aHA`。兩批 SHA-256 分別 `75daa1033b91429185c83788329b8cd0ce65da91eb1ec58cb397cbf98d5a4e74`、`c7adf8b9c345ca64b95c708e4cad17abe8bad3cf23e35cb8ebf51b555e866f07`。
+- 下一批：**印刷 p.57 起（第一冊 PDF p.89）**，完成模擬 CHUNK 2、TASK 2、Figure 1.3.4／1.3.5 的原圖、R 輸出數據，再開始 §1.4 Feature Generation and Selection；持續爭取 10–15 頁／批，不能為了速度遺漏任何原意。
