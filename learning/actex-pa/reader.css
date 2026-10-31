@@ -214,3 +214,10 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 #toc .toc-extra>summary{font-size:12px}
 @media(max-width:820px){#toc{max-height:min(75vh,720px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}}
 @media(max-width:440px){#toc .toc-chapter>summary{font-size:13px;padding:11px 10px}#toc .toc-links>a{font-size:12px;padding-top:10px;padding-bottom:10px}}
+
+
+/* Chapter 4: readable distribution/link reference table on narrow screens. */
+#content .table-scroll{width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+#content .b25-table{border-collapse:collapse;width:100%;min-width:560px;font-size:13px;line-height:1.55}
+#content .b25-table th,#content .b25-table td{border:1px solid #d9e2e9;padding:7px 9px;text-align:left;vertical-align:top}
+#content .b25-table th{background:#f1f5f8;color:#334b5e;font-weight:650}
