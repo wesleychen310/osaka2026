@@ -367,4 +367,4 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 2026-10-31 ACTEX PA 補齊 Study Break 全部可見文字、p.268 Tweedie 註腳與 p.270 Figure 4.1.2 圖說，並修正 Exercise 4.1.3 數值。最新累計 **印刷 p.3–274／1,668 組／42 份 owner-only HTML**；教材仍待逐頁精校，iPhone Safari OAuth E2E 尚未驗收。詳見 `learning/actex-pa/README.md`。
 
 
-2026-10-31 ACTEX PA 第27批：新增原書 p.275–280（上冊 PDF p.307–312），42 組雙語研讀單元，涵蓋 logit link、GLM interaction 係數解讀、weights、offsets、exposure 與 Exercise 4.1.5–4.1.7；私人 HTML ID `1cP7IIQIq6aQKGruLymWl1Vvt857Fc4lE`。累積 manifest 43 份、1,710 units；新批仍需逐頁人工校訂。下一批自 p.281 接續 §4.1.3。詳見 `learning/actex-pa/README.md`。
+2026-10-31 ACTEX PA 第27批：新增原書 p.275–280（上冊 PDF p.307–312），47 組雙語研讀單元，涵蓋 logit link、GLM interaction 係數解讀、weights、offsets、exposure 與 Exercise 4.1.5–4.1.7；私人 HTML ID `1cP7IIQIq6aQKGruLymWl1Vvt857Fc4lE`。累積 manifest 43 份、1,715 units；新批仍需逐頁人工校訂。下一批自 p.281 接續 §4.1.3。詳見 `learning/actex-pa/README.md`。
