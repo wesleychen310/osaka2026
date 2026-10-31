@@ -221,3 +221,12 @@ html[data-reading-lang=zh] .pair[data-peek=true]>.en{display:block;order:2;backg
 #content .b25-table{border-collapse:collapse;width:100%;min-width:560px;font-size:13px;line-height:1.55}
 #content .b25-table th,#content .b25-table td{border:1px solid #d9e2e9;padding:7px 9px;text-align:left;vertical-align:top}
 #content .b25-table th{background:#f1f5f8;color:#334b5e;font-weight:650}
+
+/* Batch 27: grouped insurance data tables and embedded source-page proof images. */
+.grouped-data{border-collapse:collapse;width:100%;min-width:620px;font-size:13px;line-height:1.45}
+.grouped-data th,.grouped-data td{border:1px solid #dce5eb;padding:7px 9px;text-align:center;white-space:nowrap}
+.grouped-data th{background:#f1f6f9;font-weight:700}
+.source-page{margin:12px 0;border:1px solid #dce5eb;border-radius:9px;background:#f8fbfd;padding:8px}
+.source-page summary{cursor:pointer;color:#45657c;font-size:13px;font-weight:600}
+.source-page img{display:block;width:100%;height:auto;margin:8px auto 0;max-width:850px}
+.draft-notice{padding:10px 12px;border-left:3px solid #9db6c8;background:#f5f8fa;color:#536b7c;font-size:12px}
