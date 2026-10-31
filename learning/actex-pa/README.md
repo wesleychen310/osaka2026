@@ -285,7 +285,7 @@
 
 
 ## 2026-10-31｜第 27 批：Chapter 4 p.275–280
-- 新增私人 HTML `ch04_p275-p280.html`，Drive ID `1cP7IIQIq6aQKGruLymWl1Vvt857Fc4lE`；原書印刷 p.275–280＝上冊 PDF p.307–312，共 6 頁、42 組英中研讀單元。
+- 新增私人 HTML `ch04_p275-p280.html`，Drive ID `1cP7IIQIq6aQKGruLymWl1Vvt857Fc4lE`；原書印刷 p.275–280＝上冊 PDF p.307–312，共 6 頁、47 組英中研讀單元。
 - 涵蓋 logit link、含交互作用 GLM 係數解讀、weights、分組保險資料、offsets、exposure、Exercise 4.1.5–4.1.7、weights vs offsets，以及 Poisson log-link 下兩種模型等價的特殊情況。每頁均內嵌原書完整頁面影像供逐項校對。
 - `reader.js` 已接入新私人 HTML 與 p.275–280 目錄錨點；章節進度延伸至 p.280。智慧單欄 EN／中、單段展開與按需載入架構不變。
-- 本批英文轉錄與繁中對譯為研讀草稿，仍需公式、數字、表格與文字逐頁人工校訂；不可視為最終逐字定稿。下一批從原書 p.281（上冊 PDF p.313）開始，進入 §4.1.3 Fitting and Assessing the Performance of a GLM。
+- 本批英文轉錄與繁中對譯為研讀草稿，已補入原書註腳 9–13；仍需公式、數字、表格與文字逐頁人工校訂；不可視為最終逐字定稿。下一批從原書 p.281（上冊 PDF p.313）開始，進入 §4.1.3 Fitting and Assessing the Performance of a GLM。
