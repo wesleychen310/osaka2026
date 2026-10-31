@@ -13,7 +13,7 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–3 印刷 p.3–257：1,588 組雙語研讀單元；過場 p.258–260：保留 3 張原頁影像及 5 組 Study Break 文字／標題對譯；Chapter 4 印刷 p.261–274：新增 75 組（含補入註腳與圖說）。全站目前涵蓋 **p.3–274／1,668 組／42 份私人 HTML**。新內容仍待公式、表格、註腳及文字精校；不可冒稱已完成全書逐字校訂或真實 iPhone Safari E2E。
+- Chapter 1–3 印刷 p.3–257：既有雙語研讀內容；過場 p.258–260：保留原頁影像及 Study Break 對譯；Chapter 4 已接續至印刷 p.293。全站目前涵蓋 **p.3–293／1,799 組（manifest 各批 units 加總）／46 份私人 HTML**。新內容仍待公式、表格、註腳及文字精校；不可冒稱已完成全書逐字校訂或真實 iPhone Safari E2E。
 - 下一批從上冊 PDF 實體 p.326（原書印刷 p.294）接續 GLM regularization，並完成 Chapter 4 §4.1。跨頁練習必須連續處理，禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
