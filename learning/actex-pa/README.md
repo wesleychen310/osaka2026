@@ -14,7 +14,7 @@
 
 ## 進度與驗收
 - Chapter 1–3 印刷 p.3–257：1,588 組雙語研讀單元；過場 p.258–260：保留 3 張原頁影像及 5 組 Study Break 文字／標題對譯；Chapter 4 印刷 p.261–274：新增 75 組（含補入註腳與圖說）。全站目前涵蓋 **p.3–274／1,668 組／42 份私人 HTML**。新內容仍待公式、表格、註腳及文字精校；不可冒稱已完成全書逐字校訂或真實 iPhone Safari E2E。
-- 下一批從上冊 PDF 實體 p.313（原書印刷 p.281）接續 Chapter 4 §4.1.3；延續 GLM deviance、Pearson residuals、deviance residuals 與模型診斷。跨頁練習必須連續處理，禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- 下一批從上冊 PDF 實體 p.318（原書印刷 p.286）接續 Exercise 4.1.11，完成 GLM 診斷爭議案例，再進入 likelihood ratio test。跨頁練習必須連續處理，禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -289,3 +289,4 @@
 - 涵蓋 logit link、含交互作用 GLM 係數解讀、weights、分組保險資料、offsets、exposure、Exercise 4.1.5–4.1.7、weights vs offsets，以及 Poisson log-link 下兩種模型等價的特殊情況。每頁均內嵌原書完整頁面影像供逐項校對。
 - `reader.js` 已接入新私人 HTML 與 p.275–280 目錄錨點；章節進度延伸至 p.280。智慧單欄 EN／中、單段展開與按需載入架構不變。
 - 本批英文轉錄與繁中對譯為研讀草稿，已補入原書註腳 9–13；仍需公式、數字、表格與文字逐頁人工校訂；不可視為最終逐字定稿。下一批從原書 p.281（上冊 PDF p.313）開始，進入 §4.1.3 Fitting and Assessing the Performance of a GLM。
+\n\n## 2026-10-31｜第 28 批：Chapter 4 p.281–285\n- 新增私人 HTML `ch04_p281-p285.html`，Drive ID `1kPg0uqtLv37mJbqNgcMpAwCgSS2q5JH8`；原書印刷 p.281–285＝上冊 PDF p.313–317，共 5 頁、40 組英中研讀單元。\n- 涵蓋 GLM 配適與 MLE、收斂問題、Exercise 4.1.8（反求讀書時間）、Exercise 4.1.9（logistic regression 違約機率）、deviance 與 saturated model、Pearson residuals、deviance residuals、Exercise 4.1.10（Poisson GLM 殘差手算）。保留五頁原書完整影像及註腳 14。\n- 本批校核原圖後修正 OCR 容易混淆的數值：Exercise 4.1.9 第四位客戶 linear predictor 為 −1.571；Exercise 4.1.8 的計算值為 129.18 小時，選項為 129 小時（C）。\n- `reader.js` 已接入新批次與目錄錨點；智慧單欄 EN／中、單段展開與按需載入不變。文字仍屬待最終人工校訂研讀稿。下一批自 p.286 開始，完整處理跨頁 Exercise 4.1.11。\n
