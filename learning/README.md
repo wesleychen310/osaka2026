@@ -368,3 +368,4 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 
 2026-10-31 ACTEX PA 第27批：新增原書 p.275–280（上冊 PDF p.307–312），47 組雙語研讀單元，涵蓋 logit link、GLM interaction 係數解讀、weights、offsets、exposure 與 Exercise 4.1.5–4.1.7；私人 HTML ID `1cP7IIQIq6aQKGruLymWl1Vvt857Fc4lE`。累積 manifest 43 份、1,715 units；新批仍需逐頁人工校訂。下一批自 p.281 接續 §4.1.3。詳見 `learning/actex-pa/README.md`。
+\n\n2026-10-31 ACTEX PA 第28批：新增原書 p.281–285（上冊 PDF p.313–317），40 組雙語研讀單元，涵蓋 GLM 配適、MLE、兩道預測計算題、deviance、Pearson/deviance residuals 與 Exercise 4.1.10；私人 HTML ID `1kPg0uqtLv37mJbqNgcMpAwCgSS2q5JH8`。累計 manifest 44 份、1,755 units。下一批自 p.286 完整處理 Exercise 4.1.11。詳見 `learning/actex-pa/README.md`。\n
