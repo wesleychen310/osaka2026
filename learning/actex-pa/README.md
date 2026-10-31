@@ -13,7 +13,7 @@
 每批上線前，**英文原文和繁體中文完整對譯必須同時具備**。目前僅保留智慧單欄閱讀：全頁 EN／中即時切換、單段點選看另一語言、保留閱讀位置，不再使用上下或左右對照。僅 Google OAuth 登入後從 owner-only Drive alt=media 載入 HTML；不公開教材或 access token。
 
 ## 進度與驗收
-- Chapter 1–3 印刷 p.3–257：1,588 組雙語研讀單元；過場 p.258–260：保留 3 張原頁影像及 1 組 Study Break 對譯；Chapter 4 印刷 p.261–274：新增 73 組。全站目前涵蓋 **p.3–274／1,662 組／42 份私人 HTML**。新內容仍待公式、表格、註腳及文字精校；不可冒稱已完成全書逐字校訂或真實 iPhone Safari E2E。
+- Chapter 1–3 印刷 p.3–257：1,588 組雙語研讀單元；過場 p.258–260：保留 3 張原頁影像及 5 組 Study Break 文字／標題對譯；Chapter 4 印刷 p.261–274：新增 75 組（含補入註腳與圖說）。全站目前涵蓋 **p.3–274／1,668 組／42 份私人 HTML**。新內容仍待公式、表格、註腳及文字精校；不可冒稱已完成全書逐字校訂或真實 iPhone Safari E2E。
 - 下一批從上冊 PDF 實體 p.307（原書印刷 p.275）接續 Chapter 4 §4.1；延續係數解讀、logit link、offsets 與 weights。跨頁練習必須連續處理，禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
@@ -260,10 +260,10 @@
 - 本輪新增 **14 頁、73 組英中單元**，涵蓋 Chapter 4 開頭至 §4.1 GLM 係數解讀。原書印刷 p.258–260 仍保留空白頁／Study Break，不將其誤算為教材內容。
 - 私人 Drive 新增兩份 owner-only HTML（均位於 `ACTEX_PA14_HTML`，完整來源頁影像直接嵌入）：
   - `ch04_p261-p266.html`，ID `1Ggnk7kinTBActg_8q6qJUY5QLbCzIquw`：6 頁、35 組。含 syllabus／learning outcomes、GLM 定義、指數族、link function、GLM 與 log-transformed linear model 的差異、目標分配選擇、Gamma／Inverse Gaussian。
-  - `ch04_p267-p274.html`，ID `1IbZ5hmwBLoXZAzyNaXMlnN_JgU7JmMdn`：8 頁、38 組。含 binary／count／aggregate targets、Poisson／quasi-Poisson／Tweedie、Exercise 4.1.1–4.1.4、log／logit links、Table 4.1、numeric／dummy predictor 係數解讀。
+  - `ch04_p267-p274.html`，ID `1IbZ5hmwBLoXZAzyNaXMlnN_JgU7JmMdn`：8 頁、40 組。含 binary／count／aggregate targets、Poisson／quasi-Poisson／Tweedie、Exercise 4.1.1–4.1.4、log／logit links、Table 4.1、p.268 Tweedie 註腳、p.270 Figure 4.1.2 圖說、numeric／dummy predictor 係數解讀。
 - **累計：41 份私人 HTML、1,661 組雙語研讀單元；印刷頁碼 p.3–257 與 p.261–274。** 原書 p.258–260 是保留的 Study Break／過場。
 - 修改原 manifest `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 前，先於同層 `_backup` 建立時間及原因備份 `1-U80dm7P-JQJogX3GLgLlQ2-RB034V6Z`，並確認 owner-only；之後以原 File ID 原位更新，名稱、父資料夾及權限均未改變。
-- GitHub reader 已接入兩個 Drive HTML ID、Chapter 4 深連結錨點及可收合目錄；Chapter 4 顯示 p.261–274，第 5–8 章及附錄仍明確標示尚未製作。JS 語法編譯通過。CSS 已補 Table 4.1 的窄螢幕橫向捲動樣式；入口快取版本更新為 `reader.js?v=20261031-transition258`、`reader.css?v=20261031-b26`。
+- GitHub reader 已接入兩個 Drive HTML ID、Chapter 4 深連結錨點及可收合目錄；Chapter 4 顯示 p.261–274，第 5–8 章及附錄仍明確標示尚未製作。JS 語法編譯通過。CSS 已補 Table 4.1 的窄螢幕橫向捲動樣式；入口快取版本更新為 `reader.js?v=20261031-glmfix1`、`reader.css?v=20261031-b26`。
 - **品質標示**：新增頁面已逐頁轉錄英文並製作繁中對譯，且保留 14/14 原書頁面影像；但仍是待精校草稿，特別需核對數學符號、公式、表格跨列、註腳及練習數值。不能把頁面涵蓋量等同於最終翻譯校訂完成率。
 - **下一批從上冊 PDF 實體 p.307／印刷 p.275 開始**；延續 logit link、GLM 係數、offsets／weights，避免跨頁習題被拆開。真實 iPhone Safari Google OAuth 與正式 GitHub Pages CDN 端到端測試仍未驗收。
 
@@ -274,3 +274,11 @@
 - 原 manifest 再次修改前，已於同層 `_backup` 備份 `manifest_20261031_1535_before_transition_pages_258-260.json`，ID `1OsMgOg7oYpFuqgDrdHyBq4j8IzmY6-gq`，確認 owner-only；原 manifest ID `1MV4Pfv-CXUr1MR4HG3Yn6QK51IQg9fqN` 再次原位更新。
 - **目前累計 42 份私人 HTML／1,662 組雙語單元／印刷 p.3–274 完整連續涵蓋。** p.258–260 不再是頁碼缺口。
 - reader.js 語法檢查通過；公開入口的 reader.js cache-busting 更新為 `20261031-transition258`。真實 iPhone Safari Google OAuth 與正式 Pages CDN 端到端仍未驗收。
+
+
+## 2026-10-31｜Study Break 與 GLM 小字補齊
+- 依 p.259 原圖補入全部可見文字：Study Break 標題、投稿提示、自我反思說明、Normal／洗衣機雙關句，以及 ACTEX Learning 標語。該頁共 **5 組**英中單元，3 張原頁影像保留。
+- 依 p.268 原圖補入 Tweedie 的兩則腳註；依 p.270 原圖補入 odds 尺度說明及 Figure 4.1.2 圖說。修正 Exercise 4.1.3 的 β₀ = 5、β₁ = −0.65 及答案 5.7546；移除誤提前置於 p.274 的後頁提醒。
+- 更新既有 HTML 前，先備份 `ch04_p267-p274.html`（ID `1J27E0f7JHrCm7SvV9FHaVRDrj3A4zLLC`）及 `ch03_p258-p260.html`（ID `1M9OTz3FxsY9ZvqGz16wFQDz6Gt_c8v1b`）至同層 `_backup`，再以原 File ID 原位更新；兩份教材仍 owner-only。
+- 更新 manifest 前另備份 `manifest.json` 至 `_backup`：`19BLpzNiQQJAu7Y9jjongBXazPdv7rrPh`，確認 owner-only，再原位更新原 manifest ID。
+- 最新累計 **42 份私人 HTML／1,668 組雙語單元／p.3–274 連續涵蓋**。新增腳註與圖說已納入 anchor map，reader.js 語法編譯通過；快取版本 `reader.js?v=20261031-glmfix1`。正式 iPhone Safari OAuth E2E 仍待實測。
