@@ -14,7 +14,7 @@
 
 ## 進度與驗收
 - Chapter 1–3 印刷 p.3–257：1,588 組雙語研讀單元；過場 p.258–260：保留 3 張原頁影像及 5 組 Study Break 文字／標題對譯；Chapter 4 印刷 p.261–274：新增 75 組（含補入註腳與圖說）。全站目前涵蓋 **p.3–274／1,668 組／42 份私人 HTML**。新內容仍待公式、表格、註腳及文字精校；不可冒稱已完成全書逐字校訂或真實 iPhone Safari E2E。
-- 下一批從上冊 PDF 實體 p.307（原書印刷 p.275）接續 Chapter 4 §4.1；延續係數解讀、logit link、offsets 與 weights。跨頁練習必須連續處理，禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
+- 下一批從上冊 PDF 實體 p.313（原書印刷 p.281）接續 Chapter 4 §4.1.3；延續 GLM deviance、Pearson residuals、deviance residuals 與模型診斷。跨頁練習必須連續處理，禁止遺漏原文、圖表、數學、例題、習題、解答及其繁中翻譯。
 - 新增私人 HTML 後更新 `reader.js` 的 `PARTS` 清單；根 README、`learning/README.md` 與本 README 同步記錄來源和進度。
 - 更新任何既有私人 HTML：先於同層 `_backup` 建立時間＋原因備份，更新原 File ID 而不變動父資料夾、名稱及權限，下載回讀驗證。
 - QA 分開：內容完整性／公式及表格逐頁校對、HTML JS 靜態檢查、320/390/768/1130px × EN／中智慧單欄及單段展開、GitHub Pages 正式部署、真實 Google OAuth、iOS Safari 實機。
@@ -282,3 +282,10 @@
 - 更新既有 HTML 前，先備份 `ch04_p267-p274.html`（ID `1J27E0f7JHrCm7SvV9FHaVRDrj3A4zLLC`）及 `ch03_p258-p260.html`（ID `1M9OTz3FxsY9ZvqGz16wFQDz6Gt_c8v1b`）至同層 `_backup`，再以原 File ID 原位更新；兩份教材仍 owner-only。
 - 更新 manifest 前另備份 `manifest.json` 至 `_backup`：`19BLpzNiQQJAu7Y9jjongBXazPdv7rrPh`，確認 owner-only，再原位更新原 manifest ID。
 - 最新累計 **42 份私人 HTML／1,668 組雙語單元／p.3–274 連續涵蓋**。新增腳註與圖說已納入 anchor map，reader.js 語法編譯通過；快取版本 `reader.js?v=20261031-glmfix1`。正式 iPhone Safari OAuth E2E 仍待實測。
+
+
+## 2026-10-31｜第 27 批：Chapter 4 p.275–280
+- 新增私人 HTML `ch04_p275-p280.html`，Drive ID `1cP7IIQIq6aQKGruLymWl1Vvt857Fc4lE`；原書印刷 p.275–280＝上冊 PDF p.307–312，共 6 頁、42 組英中研讀單元。
+- 涵蓋 logit link、含交互作用 GLM 係數解讀、weights、分組保險資料、offsets、exposure、Exercise 4.1.5–4.1.7、weights vs offsets，以及 Poisson log-link 下兩種模型等價的特殊情況。每頁均內嵌原書完整頁面影像供逐項校對。
+- `reader.js` 已接入新私人 HTML 與 p.275–280 目錄錨點；章節進度延伸至 p.280。智慧單欄 EN／中、單段展開與按需載入架構不變。
+- 本批英文轉錄與繁中對譯為研讀草稿，仍需公式、數字、表格與文字逐頁人工校訂；不可視為最終逐字定稿。下一批從原書 p.281（上冊 PDF p.313）開始，進入 §4.1.3 Fitting and Assessing the Performance of a GLM。
