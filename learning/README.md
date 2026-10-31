@@ -358,4 +358,7 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 2026-10-31 ACTEX PA 章節目錄問題修正：使用者 iPhone 截圖顯示第 4–8 章與附錄灰色未完成項目被排在第 1 章小節前方，造成內容缺失疑慮。核對 manifest **p.3–257／39 私人 HTML／1,588 組雙語研讀單元**且印刷頁碼區間連續；**第 4 章 GLM 從 p.261 起，確實尚未製作**。已逐項檢查既有 **106／106 小節錨點**皆存在。GitHub 閱讀器改為第 1–3 章獨立可收合分組、小節就近歸章、未製作的第 4–8 章／附錄預設收合，且支援小節 URL 的深連結定位。Safari 單檔按需載入保留，實機 OAuth E2E 尚待驗證。詳見 `learning/actex-pa/README.md`。
 
 
-2026-10-31 ACTEX PA Chapter 4 已接入：原書印刷 p.261–274（上冊 PDF p.293–306），新增 14 頁／73 組英中單元，兩份 owner-only HTML IDs `1Ggnk7kinTBActg_8q6qJUY5QLbCzIquw`、`1IbZ5hmwBLoXZAzyNaXMlnN_JgU7JmMdn`。累計 **p.3–257、p.261–274／1,661 組／41 份私人教材**；p.258–260 保留 Study Break／空白頁。Reader.js 已新增 Chapter 4 目錄、深連結與單份載入；公開 GitHub 不含教材原文。新內容仍待逐頁公式與表格精校，iPhone Safari OAuth E2E 尚未驗收。詳見 `learning/actex-pa/README.md`。
+2026-10-31 ACTEX PA Chapter 4 已接入：原書印刷 p.261–274（上冊 PDF p.293–306），新增 14 頁／73 組英中單元，兩份 owner-only HTML IDs `1Ggnk7kinTBActg_8q6qJUY5QLbCzIquw`、`1IbZ5hmwBLoXZAzyNaXMlnN_JgU7JmMdn`。累計 **印刷 p.3–274／1,662 組／42 份私人教材**；p.258–260 的空白頁與 Study Break 原圖均已保留，並有 1 組 Study Break 對譯。Reader.js 已新增過場頁與 Chapter 4 目錄、深連結及單份載入；公開 GitHub 不含教材原文。新內容仍待逐頁公式與表格精校，iPhone Safari OAuth E2E 尚未驗收。詳見 `learning/actex-pa/README.md`。
+
+
+2026-10-31 ACTEX PA 過場頁補齊：新增 p.258–260 私人 HTML（Drive ID `1ITFFOsOaG1eGxpX0exPVfUsfHMjZT8aW`），保留 3 張原頁影像，p.259 Study Break 有 1 組繁中對譯。全站連續涵蓋印刷 p.3–274，累計 42 份 owner-only HTML／1,662 組雙語單元。詳見 `learning/actex-pa/README.md`。
