@@ -42,3 +42,9 @@
 - `learning/fams-replica/lesson10/index.html`：私人 OAuth shell
 - `learning/fams-replica/README.md`：本文件
 - 內容正本只在上列 Google Drive file ID，無教材全文公開複製。
+
+## Lesson 11｜2026-11-06
+- 原書 p.151–153（PDF physical p.164–166），英文轉錄初稿，**尚未完成數學公式校對、原生 LaTeX 與正式驗收**。
+- 私人 Drive folder `1Nj8MvBoz2RF7oRTJSUROXgT2pwmPudyO`，教材 `ASM_FAMS_Lesson11_REPLICA_DRAFT.html`，File ID `10z9pIUSjAwQvJ7Y53jxp5kmurTwyodMq`。
+- GitHub `learning/fams-replica/lesson11/index.html` 僅 OAuth shell，不含教材。
+- 後續須逐頁核對 p151–153，重建 (11.1)–(11.6)、Example 11A–11D 及離散分布表格，完成手機驗收。
