@@ -13,7 +13,7 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="/osaka2026/private-auth-hint.js"></script>
 <script src="./reader-localization.js?v=20261026-fix-private-reader-load-v3" defer></script>
-<script src="./reader.js?v=20261026-fix-private-reader-load-v3" defer></script>
+<script src="./reader.js?v=20261105-focused-loading-v1" defer></script>
 <script src="./scene001.js?v=20261026-fix-private-reader-load-v3" defer></script>
 <script src="./scene-following.js?v=20261026-fix-private-reader-load-v3" defer></script>
 <script src="./scene-batch05.js?v=20261026-fix-private-reader-load-v3" defer></script>
@@ -68,7 +68,7 @@ body{font-size:16px;line-height:1.8}.app-shell{max-width:1220px}.site-header{pad
     <main class="content-pane">
       <details class="reader-info"><summary>教材說明與搜尋</summary><div class="reader-status"><strong id="reader-mode-label">純文字電子教科書</strong>：<span id="reader-mode-info">SCENE 001–091：英日／英中課文及 STEP 1–3 Prompt 已完成，均從私人 Google Drive 讀取。</span><span id="coverage"></span></div>
       <div class="reader-status"><strong>已完成 Prompt（SCENE 001–091）：</strong> <a href="https://chatgpt-eikaiwa.alc.co.jp/downloads/index.html" target="_blank" rel="noopener noreferrer">出版社 Downloads → 原始 Prompt 文字檔 ↗</a>。<span>273 份日文練習底稿及 273 份繁中直譯由登入後的私人 Drive 讀取；中文只翻譯日文，維持原有練習規則。</span></div>
-      <div class="scene-review-nav"><a href="./" id="view-scene-link">專注 SCENE 001</a><a href="?view=all" id="view-all-link" hidden>查看現有全部 91 課</a></div>
+      <div class="scene-review-nav"><a href="./" id="view-scene-link">專注 SCENE 001</a><a href="?view=all" id="view-all-link" hidden>查看全部 100 課</a></div>
       <nav id="scene-one-jumps" class="reader-jumps" aria-label="SCENE 001 各部分" hidden><a href="#scene-001">課本開頭</a><a href="#scene-001-step-1">STEP 1</a><a href="#scene-001-step-2">STEP 2</a><a href="#scene-001-step-3">STEP 3</a><a href="#scene-001-appendix">第 236 頁會話譯文</a></nav>
       <nav class="reader-jumps" aria-label="快速開始閱讀"><a href="#preface">前言</a><a href="#scene-001">開始 SCENE 001</a><a href="#scene-007">SCENE 007</a><a href="#scene-012">SCENE 012</a></nav>
       <div class="lookup"><label for="find-text">搜尋原書教材（不含 AI Prompt）</label><input type="search" id="find-text" placeholder="輸入日文、中文或 English 句型"><button type="button" id="clear-search" class="outline">清除</button></div>
