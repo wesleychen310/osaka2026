@@ -1,3 +1,5 @@
+> **現行進度（2026-11-05）：Batch 001–007 已接入；規格與最新進度以文末更新為準。第 2 章七步驟仍為試行版。**
+
 ## 2026-10-24｜批次 001 已上線（日中雙語目次）
 
 - 正式入口：<https://wesleychen310.github.io/osaka2026/learning/shadowing-reading/>，Google OAuth 登入後預設載入私人 Batch 001（日文原文、繁中翻譯、左右對照）。
@@ -138,3 +140,12 @@ PDF 22 頁下半至 32 頁，64 組日中對照，四個完整小節。私人教
 - 正式網站 `?book=chapter1b#listening` 已切換到新版私人 HTML；GitHub commit `51492286e0d557d9e4ed28124b88e6f36593d4d2`。舊版 64 組私人 HTML 保留備查，正式入口不載入。
 - 上傳後讀回 QA：66 組、4 節、日中雙語、非共享權限；程式 JS 語法和 GitHub commit 讀回成功。未做 Safari Google OAuth 實機驗證。
 - **Batch 007** 從原書 PDF 第 **33 頁下半**〈1日30分×3ヶ月のシャドーイングを習慣化しよう〉開始，維持約 12 頁、完整小節邊界。
+
+
+## 2026-11-05｜Batch 007：第 1 章結尾與專欄 1
+
+- 本批 PDF 第 33 頁下半至第 41 頁：兩個完整小節及專欄 1；不重複 Batch 006。共 49 組日中對照（包含標題）。
+- 私人 Drive HTML ID `1x767SnoQBllSqWiFpUfp9YsejBg584yx`，原教材資料夾，讀回確認 shared=false、owner-only。
+- `?book=chapter1` 合併 Batch 005、最終校訂版 Batch 006（66 組）及 Batch 007；保留 `#c1-listening` 等舊錨點，新加 `#c1-habit`、`#c1-material`、`#c1-column1`。原書內容不放公開 GitHub。
+- 實際 iPhone Safari 的 Google OAuth 仍需實機驗收。下一批從 PDF 第 42 頁第 2 章開始；早期七步驟試行版須重新校訂。
+- 現行製作規格：每批約 10 頁，以完整小節為界；純網頁，不顯示掃描。
