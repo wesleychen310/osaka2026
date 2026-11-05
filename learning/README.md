@@ -37,6 +37,7 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 |---|---|---|
 | 學習首頁 | `learning/index.html`、`portal.css` | FAM 與 PA 優先，另保留短期原文、英文學習及「備份」入口 |
 | 學習備份 | `learning/backup/index.html`、`portal.css` | ATPA 先備、Module 1–4、超級筆記與 ISLP 系列入口；教材仍使用原 URL |
+| fams 復刻 | `learning/fams-replica/index.html` | 2026-11-06 新增於首頁「目前學習」；頁面內容先留白，供後續建置 |
 | SOA ATPA 官方 Modules | `learning/atpa-modules/index.html`、`reader.js`、`reader.css` | Module 1 已建五批：1.1.1–1.3.8；Part 01 Google Doc `1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA` 由 OAuth `files.export?mimeType=text/plain` 載入；Part 02 HTML `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2` 由 OAuth `files.get?alt=media` 載入；四模式，後續可分批擴充；專用 `README.md` 記錄驗收 |
 | ATPA 精華版讀取及過濾 | `learning/atpa-prereq/index.html` | OAuth、下載 Drive 原稿、23 小節章節清單、DOM 篩選 |
 | ATPA 三模式控制 | `learning/atpa-prereq/reader.js` | 全中文、全英文、左右對照；使用獨立 localStorage key |
