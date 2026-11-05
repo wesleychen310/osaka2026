@@ -9,6 +9,7 @@
 **主入口**：https://wesleychen310.github.io/osaka2026/learning/  
 **GitHub repo**：`wesleychen310/osaka2026`，預設 branch `main`。  
 **本文件**：`learning/README.md`。  
+**目前首頁重點**：FAM 與 PA；[備份](https://wesleychen310.github.io/osaka2026/learning/backup/) 收錄 ATPA 與既有統計參考入口。
 **ATPA 精華版**：[網站](https://wesleychen310.github.io/osaka2026/learning/atpa-prereq/)／[專案 README](./atpa-prereq/README.md)。  
 **ISLP 完整雙語閱讀器**：[網站](https://wesleychen310.github.io/osaka2026/learning/islp-reading/)／[相容性 README](./islp-reading/README.md)。  
 **FAM-S 參考**：[Lesson 11](https://wesleychen310.github.io/osaka2026/learning/fam-s-reading/lesson11/)／[WORKFLOW](./fam-s-reading/WORKFLOW.md)。
@@ -34,7 +35,8 @@ GitHub Pages：公開、無教材正文的 index.html 閱讀器
 
 | 範圍 | GitHub 路徑／私人來源 | 作用 |
 |---|---|---|
-| 學習首頁 | `learning/index.html` | ATPA 精華版連結排第一 |
+| 學習首頁 | `learning/index.html`、`portal.css` | FAM 與 PA 優先，另保留短期原文、英文學習及「備份」入口 |
+| 學習備份 | `learning/backup/index.html`、`portal.css` | ATPA 先備、Module 1–4、超級筆記與 ISLP 系列入口；教材仍使用原 URL |
 | SOA ATPA 官方 Modules | `learning/atpa-modules/index.html`、`reader.js`、`reader.css` | Module 1 已建五批：1.1.1–1.3.8；Part 01 Google Doc `1TTzOcWZ24Z0IpjcFcXrl723FC3gUUC-H6ATG0OoXuNA` 由 OAuth `files.export?mimeType=text/plain` 載入；Part 02 HTML `1d9aE2vG8yqOohQvDM6dztCvNaXrqWdR2` 由 OAuth `files.get?alt=media` 載入；四模式，後續可分批擴充；專用 `README.md` 記錄驗收 |
 | ATPA 精華版讀取及過濾 | `learning/atpa-prereq/index.html` | OAuth、下載 Drive 原稿、23 小節章節清單、DOM 篩選 |
 | ATPA 三模式控制 | `learning/atpa-prereq/reader.js` | 全中文、全英文、左右對照；使用獨立 localStorage key |
@@ -369,3 +371,13 @@ ACTEX PA 更新（2026-10-29）：已擴充至 Chapter 1 印刷 p.8；全英文�
 
 2026-10-31 ACTEX PA 第27批：新增原書 p.275–280（上冊 PDF p.307–312），47 組雙語研讀單元，涵蓋 logit link、GLM interaction 係數解讀、weights、offsets、exposure 與 Exercise 4.1.5–4.1.7；私人 HTML ID `1cP7IIQIq6aQKGruLymWl1Vvt857Fc4lE`。累積 manifest 43 份、1,715 units；新批仍需逐頁人工校訂。下一批自 p.281 接續 §4.1.3。詳見 `learning/actex-pa/README.md`。
 \n\n2026-10-31 ACTEX PA 第28批：新增原書 p.281–285（上冊 PDF p.313–317），40 組雙語研讀單元，涵蓋 GLM 配適、MLE、兩道預測計算題、deviance、Pearson/deviance residuals 與 Exercise 4.1.10；私人 HTML ID `1kPg0uqtLv37mJbqNgcMpAwCgSS2q5JH8`。累計 manifest 44 份、1,755 units。下一批自 p.286 完整處理 Exercise 4.1.11。詳見 `learning/actex-pa/README.md`。\n\n\n2026-10-31 ACTEX PA 第29批：新增原書 p.286–288（上冊 PDF p.318–320），16 組雙語研讀單元，完成 Exercise 4.1.11，涵蓋 Pearson/deviance residual 診斷、同質變異性、常態性、Q-Q plot 及 Reddit 案例評論；私人 HTML ID `13TOrhv7NpVK7SltogesrBn6SsukeJ5oo`。累計 manifest 45 份、1,771 units。下一批自 p.289 接續 LRT、AIC/BIC。詳見 `learning/actex-pa/README.md`。\n\n\n2026-10-31 ACTEX PA 第30批：新增原書 p.289–293（上冊 PDF p.321–325），28 組雙語研讀單元，涵蓋 LRT、AIC/BIC、三道模型選擇練習、32 個候選模型完整表格、Best Subset、Forward Stepwise 與 GLM regularization 導論；私人 HTML ID `1cONxujlXpkCTvYdG2naGKEwpB4oudDiV`。累計 manifest 46 份、1,799 units。下一批自 p.294 接續。詳見 `learning/actex-pa/README.md`。\n\n\n2026-10-31 ACTEX PA 第31批：新增原書 p.294–299（上冊 PDF p.326–331），35 組雙語研讀單元，涵蓋 GLM regularization、classifier metrics、confusion matrix、TP/TN/FP/FN、accuracy、sensitivity、specificity、precision、cutoff trade-off 與兩道練習；私人 HTML ID `1UYwR_S_cUWJFqk-0SaJaUjXgGmk8YPWX`。累計 manifest 47 份、1,834 units。下一批自 p.300 接續。詳見 `learning/actex-pa/README.md`。\n
+
+## 2026-11-06｜學習首頁聚焦 FAM／PA，ATPA 入口整理至備份
+
+- 首頁：`learning/index.html`，優先顯示 FAM-S 與 ACTEX Exam PA；保留短期原文、英文學習。
+- 新增「備份」入口與 `learning/backup/index.html`，收錄原首頁的 ATPA 先備、Module 1–4、超級筆記、ISLP 精讀／課本雙語化／視覺筆記／統計學私人教授，共 10 個入口；共用筆記仍可供 PA 複習。
+- 導覽樣式：`learning/portal.css?v=20261106-backup1`，首頁與備份頁共用；保留 noindex、no-referrer 與無 OAuth 的導航架構。
+- 原首頁 14 個教材目的地全部保留。未移動或刪除教材檔案；原網址、查詢參數／錨點、OAuth 與 Drive 指向均沿用原設定。
+- 靜態檢查：71 個 HTML 頁面、362 處站內 href／src 引用（125 個唯一路徑），缺檔 0；`git diff --check` 通過。
+- 本機 Chrome：首頁與備份頁於 320、390、768、1130px 共 8 組排版檢查無整頁水平溢出；已實際點擊首頁「備份」進入備份頁。這次僅調整公開導覽，未重新驗收私人 Google OAuth／Drive 教材內容及真實 iPhone Safari。
+- 部署：沿用 main 分支既有 Pages 自動部署；不啟動備援 workflow 以免重複部署。若需回復，可 revert 本次導覽 commit，原教材無須搬移。

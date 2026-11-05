@@ -6,41 +6,39 @@
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light">
-<title>私人學習入口</title>
-<style>
-:root{--bg:#f5f7f9;--card:#fff;--text:#1d2731;--muted:#68737f;--line:#dfe5ea;--accent:#1f5d84;--accent2:#173e5b;--shadow:0 14px 36px rgba(27,47,62,.08)}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC","Segoe UI",sans-serif}
-body{background:linear-gradient(180deg,#eaf2f7 0,#f5f7f9 360px)}
-.wrap{max-width:920px;margin:auto;padding:clamp(28px,7vw,72px) 16px 56px}
-.eyebrow{font-size:12px;font-weight:850;letter-spacing:.12em;color:var(--accent)}
-h1{font-size:clamp(34px,7vw,54px);line-height:1.08;letter-spacing:-.045em;margin:8px 0 10px;color:var(--accent2)}
-.lead{margin:0;color:var(--muted);font-size:15px;line-height:1.7}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:30px}
-.entry{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);color:inherit;transition:transform .15s ease,box-shadow .15s ease}
-.entry:hover{transform:translateY(-1px)}.entry:active{transform:scale(.99)}
-.entry .tag{font-size:11px;font-weight:850;letter-spacing:.1em;color:var(--accent)}
-.entry h2{font-size:24px;letter-spacing:-.025em;color:var(--accent2);margin:8px 0 7px}
-.entry p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
-.arrow{display:block;margin-top:20px;color:var(--accent);font-weight:850}
-@media(max-width:620px){.wrap{padding:26px 12px 40px}.entry{border-radius:18px;padding:19px}}
-</style>
+<title>私人學習｜FAM 與 PA</title>
+<link rel="stylesheet" href="./portal.css?v=20261106-backup1">
 </head>
 <body>
-<main class="wrap"><header><h1>私人學習</h1></header><section class="grid"><a class="entry" href="./atpa-prereq/"><h2>進階先備精華</h2></a>
-<a class="entry" href="./atpa-modules/"><h2>Module 1</h2></a>
-<a class="entry" href="./atpa-modules/module2/"><h2>Module 2</h2></a>
-<a class="entry" href="./atpa-modules/module3/"><h2>Module 3</h2></a>
-<a class="entry" href="./atpa-modules/module4/"><h2>Module 4</h2></a>
-<a class="entry" href="./super-notes/"><h2>超級筆記</h2></a>
-<a class="entry" href="./islp/"><h2>ISLP 精讀</h2></a>
-<a class="entry" href="./islp-reading/"><h2>ISLP 課本雙語化</h2></a>
-<a class="entry" href="./islp-visual/"><h2>ISLP 視覺筆記</h2></a>
-<a class="entry" href="./islp-tutor/"><h2>統計學私人教授</h2></a>
-<a class="entry" href="./actex-pa/"><h2>ACTEX Exam PA 14 雙語教材</h2></a>
-<a class="entry" href="./fam-s-reading/"><h2>精算基礎教科書</h2></a>
-<a class="entry" href="./short-term-original/"><h2>短期原文</h2></a>
-
-<a class="entry" href="./english/"><h2>英文學習</h2></a></section></main>
+<main class="wrap">
+  <header class="page-head">
+    <div><h1>私人學習</h1><p class="lead">接下來，專心準備 FAM 與 PA。</p></div>
+    <nav aria-label="學習導覽"><a class="nav-link" href="./backup/">備份 <span aria-hidden="true">→</span></a></nav>
+  </header>
+  <section class="section" aria-labelledby="current-heading">
+    <h2 class="section-title" id="current-heading">目前學習</h2>
+    <div class="grid">
+      <a class="entry featured" href="./fam-s-reading/">
+        <span class="tag">FAM</span><h3>精算基礎教科書</h3>
+        <p>ASM FAM-S・31 課目錄</p><span class="arrow">開始閱讀 <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="entry featured" href="./actex-pa/">
+        <span class="tag">PA</span><h3>ACTEX Exam PA</h3>
+        <p>第 14 版・私人雙語教材</p><span class="arrow">開始閱讀 <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="other-heading">
+    <h2 class="section-title" id="other-heading">其他學習</h2>
+    <div class="grid">
+      <a class="entry" href="./short-term-original/"><h3>短期原文</h3></a>
+      <a class="entry" href="./english/"><h3>英文學習</h3></a>
+    </div>
+  </section>
+  <aside class="archive-note" aria-label="學習備份">
+    <h2><a href="./backup/">備份 <span aria-hidden="true">→</span></a></h2>
+    <p>ATPA 教材、超級筆記與 ISLP 統計參考，隨時回來複習。</p>
+  </aside>
+</main>
 </body>
 </html>
