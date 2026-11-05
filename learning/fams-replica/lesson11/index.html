@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-Hant-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer"><meta name="color-scheme" content="light"><title>ASM FAM-S · Lesson 11 — Deductibles</title><script src="https://accounts.google.com/gsi/client" async defer></script><script src="/osaka2026/private-auth-hint.js"></script><style>:root{color-scheme:light}body{margin:0;background:#fff;color:#1b1b1b;font:16px/1.6 -apple-system,BlinkMacSystemFont,Arial,sans-serif}.wrap{max-width:720px;margin:0 auto;padding:55px 22px}h1{font-size:30px}.btn{background:#222;color:#fff;border:0;border-radius:8px;font:inherit;padding:12px 20px;cursor:pointer}.btn:disabled{opacity:.6}.back{color:#555}#status{color:#666;font-size:14px;margin-top:18px}</style></head><body><main class="wrap"><a class="back" href="../">‹ 原書復刻目錄</a><h1>Lesson 11 — Deductibles</h1><p>原書 p.151–153。私人 Google Drive 授權閱讀。</p><button class="btn" id="openBtn">Google 登入並閱讀</button><button class="btn" id="switchBtn" hidden style="margin-left:8px;background:#fff;color:#222;border:1px solid #aaa">切換帳號</button><p id="status" role="status"></p></main>
+<script>
+"use strict";
+const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com";
+const FILE_ID="10z9pIUSjAwQvJ7Y53jxp5kmurTwyodMq";
+const SCOPE="https://www.googleapis.com/auth/drive.readonly";
+const KEY="hanami-kyoto-google-token-v3";
+const btn=document.getElementById("openBtn"),sw=document.getElementById("switchBtn"),status=document.getElementById("status");
+let client=null;
+function msg(s){status.textContent=s;btn.disabled=false;sw.hidden=false}
+function save(r){const t={access_token:r.access_token,expires_at:Date.now()+1000*Number(r.expires_in||3600)};sessionStorage.setItem(KEY,JSON.stringify(t));return t}
+function stored(){try{const t=JSON.parse(sessionStorage.getItem(KEY)||"null");return t?.access_token&&Date.now()<t.expires_at-120000?t:null}catch{return null}}
+async function load(t){status.textContent="正在從私人 Google Drive 讀取課本…";const hash=location.hash;
+const r=await fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(FILE_ID)+"?alt=media",{headers:{Authorization:"Bearer "+t},cache:"no-store"});
+if(r.status===401)throw Error("授權過期");if(r.status===403)throw Error("此帳號沒有教材權限");if(!r.ok)throw Error("讀取失敗："+r.status);
+const s=await r.text();if(!s.includes("Lesson 11")||!s.includes("Deductibles")||!s.includes("p151"))throw Error("教材內容驗證失敗");
+document.open();document.write(s);document.close();if(hash)setTimeout(()=>{location.hash=hash},300)}
+function init(){if(client)return true;if(!window.google?.accounts?.oauth2)return false;client=google.accounts.oauth2.initTokenClient({client_id:CLIENT_ID,scope:SCOPE,callback:async r=>{if(r.error)return msg("Google 授權未完成");try{const t=save(r);await window.HanamiAuth?.remember(t.access_token);await load(t.access_token)}catch(e){sessionStorage.removeItem(KEY);msg(e.message)}},error_callback:()=>msg("請點擊登入按鈕")});return true}
+function authorize(switchAcct=false){if(!init())return msg("Google 授權尚未載入，請稍後再試");btn.disabled=true;try{if(window.HanamiAuth)window.HanamiAuth.request(client,switchAcct);else client.requestAccessToken({prompt:switchAcct?"select_account":""})}catch(e){msg("授權視窗無法開啟")}}
+btn.addEventListener("click",()=>authorize());sw.addEventListener("click",()=>{sessionStorage.removeItem(KEY);window.HanamiAuth?.forget();authorize(true)});
+(async()=>{for(let i=0;i<60&&!window.google?.accounts?.oauth2;i++)await new Promise(r=>setTimeout(r,100));if(!init())return msg("Google 登入元件載入失敗");const t=stored();if(t){try{await load(t.access_token);return}catch(e){sessionStorage.removeItem(KEY)}}msg("請使用有權限的 Google 帳號登入。")})();
+</script></body></html>
