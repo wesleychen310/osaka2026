@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-06-batch01",
+  "version": "2026-11-06-batch02",
   "source": {
     "file_id": "1LhE1TOxeinf8xwwOCbb7luJAB2KqOCb_",
     "page_count": 1149
@@ -40,19 +40,34 @@
       "id": "lesson3",
       "title": "Survival Distributions: Probability Functions",
       "printed_page": 27,
-      "status": "PENDING"
+      "status": "OCR_DRAFT_MATH_UNVERIFIED",
+      "file_id": "1wcO0JA1jOT8kOu6J80aWCwcnzpPlitmb",
+      "pdf_pages": [
+        48,
+        64
+      ]
     },
     {
       "id": "lesson4",
       "title": "Survival Distributions: Force of Mortality",
       "printed_page": 45,
-      "status": "PENDING"
+      "status": "OCR_DRAFT_MATH_UNVERIFIED",
+      "file_id": "10wUMicboDhQOBbJ8lwFdAKgUDeqKQ_T3",
+      "pdf_pages": [
+        66,
+        88
+      ]
     },
     {
       "id": "lesson5",
       "title": "Mortality Laws",
       "printed_page": 69,
-      "status": "PENDING"
+      "status": "OCR_DRAFT_MATH_UNVERIFIED",
+      "file_id": "1PKw-1RrQMQeIOxPHwf8YkmckZhmOanU3",
+      "pdf_pages": [
+        90,
+        105
+      ]
     },
     {
       "id": "lesson6",
@@ -276,5 +291,7 @@
       "printed_page": 835,
       "status": "PENDING"
     }
-  ]
+  ],
+  "completed_verified_lessons": 0,
+  "available_ocr_draft_lessons": 5
 }
