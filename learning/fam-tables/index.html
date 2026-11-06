@@ -29,14 +29,27 @@ h1{font-size:clamp(30px,5vw,44px);letter-spacing:-.04em;line-height:1.19;margin:
 <div class="bar"><div class="searchbar"><input id="query" type="search" aria-label="搜尋分布名稱與公式" placeholder="搜尋：Pareto、Weibull、Poisson、VaR…"><button class="pill" id="clear" type="button">清除</button></div>
 <nav class="filters" aria-label="類別篩選"><button class="pill active" data-filter="all">全部</button><button class="pill" data-filter="continuous">連續分布</button><button class="pill" data-filter="discrete">離散分布</button><button class="pill" data-filter="reference">參考公式</button></nav></div>
 <div class="intro"><div class="hint"><strong>資料基準</strong><p>分布公式轉錄自本專案附檔 <em>Tables for Exam FAM-S</em>（Appendix A/B），對照 SOA 完整 FAM Tables 的相同章節。正式考試仍以當期 SOA 指定 PDF 為準。</p></div><div class="hint"><strong>閱讀方式</strong><p>點類別篩選、搜尋英文分布名稱或公式標籤。公式使用 MathJax/LaTeX 呈現；太長時可在公式內左右滑動，不影響整頁寬度。</p></div></div>
-<div class="aside-links"><a href="#continuous">連續型 Appendix A</a><a href="#discrete">離散型 Appendix B</a><a href="#reference">標準常態與基本公式</a><a href="#official">SOA 官方完整版／SULT</a></div>
+<div class="aside-links"><a href="#continuous">連續型 Appendix A</a><a href="#discrete">離散型 Appendix B</a><a href="#reference">標準常態與基本公式</a><a href="#life">SULT 生命表</a><a href="#interest">Interest Functions</a><a href="#official">SOA 官方完整版／SULT</a></div>
 <section id="continuous"><div class="module-title"><h2>Appendix A · Continuous Distributions</h2><span class="count" id="continuous-count"></span></div><div id="continuous-cards" class="cards"></div></section>
 <section id="discrete"><div class="module-title"><h2>Appendix B · Discrete Distributions</h2><span class="count" id="discrete-count"></span></div><div id="discrete-cards" class="cards"></div></section>
 <section id="reference"><div class="module-title"><h2>參考公式 · Notation</h2></div><div id="reference-cards" class="cards"></div><h3 style="margin:24px 0 10px">Standard Normal Distribution Table</h3>
 <p class="small">表值為 \(\Pr(Z\le z)\)，原表列印精度為四位小數。下表直接轉錄來源 PDF 數值，手機可水平滑動查看。</p><div class="table-box" id="normal"></div></section>
+
+<section id="life"><div class="module-title"><h2>Standard Ultimate Life Table · SULT</h2><span class="count">20–100 歲</span></div>
+<p class="small">i = 0.05。下列 81 筆數值以 SULT 對應的 Makeham 模型 <span id="sult-eqn">μₓ = 0.00022 + 0.0000027 × 1.124ˣ</span> 計算，再按 SOA 原表精度呈現；不是從 PDF 逐一抄數。已核對 20、60、80、100 歲主要數值。<strong>正式考試仍以 SOA 原始印表為準。</strong></p>
+<div class="table-box" id="sult"></div>
+<p class="small">欄位順序：x、lₓ、qₓ、äₓ、Aₓ、²Aₓ、äₓ:10、Aₓ:10、äₓ:20、Aₓ:20、⁵Eₓ、¹⁰Eₓ、²⁰Eₓ。Aₓ:n 為 n-year endowment insurance。</p></section>
+<section id="interest"><div class="module-title"><h2>Interest Functions · i = 0.05</h2></div>
+<div class="table-box" id="interest-table"><table><thead><tr><th>m</th><th>i⁽ᵐ⁾</th><th>d⁽ᵐ⁾</th><th>i / i⁽ᵐ⁾</th><th>d / d⁽ᵐ⁾</th><th>α⁽ᵐ⁾</th><th>β⁽ᵐ⁾</th></tr></thead><tbody>
+<tr><td>1</td><td>0.05000</td><td>0.04762</td><td>1.00000</td><td>1.00000</td><td>1.00000</td><td>0.00000</td></tr>
+<tr><td>2</td><td>0.04939</td><td>0.04820</td><td>1.01235</td><td>0.98795</td><td>1.00015</td><td>0.25617</td></tr>
+<tr><td>4</td><td>0.04909</td><td>0.04849</td><td>1.01856</td><td>0.98196</td><td>1.00019</td><td>0.38272</td></tr>
+<tr><td>12</td><td>0.04889</td><td>0.04869</td><td>1.02271</td><td>0.97798</td><td>1.00020</td><td>0.46651</td></tr>
+<tr><td>∞</td><td>0.04879</td><td>0.04879</td><td>1.02480</td><td>0.97600</td><td>1.00020</td><td>0.50823</td></tr></tbody></table></div>
+<p class="small">來源：SOA FAM Tables，印刷第 22 頁。</p></section>
 <section id="official" style="margin-top:42px"><div class="module-title"><h2>官方完整版與 Long-Term</h2></div><div class="info-list">
-<p><strong>本頁已數位化：</strong>Appendix A/B 分布公式、特殊函數、標準常態表與 recursion 參考。</p>
-<p><strong>尚未數位化：</strong>完整 FAM PDF 的 <em>Standard Ultimate Life Table</em>、<em>Interest Functions</em> 與 <em>Long Term Actuarial Mathematics Formulas</em>。這些內容請直接使用下方官方 PDF；本頁不以不完整的轉錄冒充全套已驗收版本。</p>
+<p><strong>本頁已數位化：</strong>Appendix A/B 分布公式、特殊函數、Standard Normal、SULT 生命表、Interest Functions 和 Long-Term Actuarial Mathematics Formulas。</p>
+<p><strong>來源與驗收界線：</strong>分布公式轉錄自使用者提供的 FAM-S Tables；Long-Term 部分依 SOA 完整 FAM PDF。SULT 數字是由已核對的 Makeham parameters 重建（非逐 row OCR），因此保留官方 PDF 原表查核連結；本頁不是 SOA 官方發行版本。</p>
 <div class="aside-links" style="margin-top:16px"><a target="_blank" rel="noopener" href="https://www.soa.org/globalassets/assets/files/edu/2024/fall/2024-10-exam-fam-tables.pdf">SOA 官方完整 Tables PDF ↗</a><a target="_blank" rel="noopener" href="https://www.soa.org/education/exam-req/edu-exam-fam/study/">當期 SOA FAM Study Materials ↗</a></div></div></section>
 <p class="foot">私人備考用重排參考。Gamma / Beta 定義依本表採用的正規化 incomplete functions，不可任意替換其他教材 parameterization。遇到符號、定義、原 PDF 的勘誤與不一致時，以 SOA 官方原始資料為準。</p>
 </main>
@@ -46,21 +59,21 @@ f(x)||\frac{\Gamma(\alpha+\tau)}{\Gamma(\alpha)\Gamma(\tau)}\frac{\theta^\alpha 
 F(x),u||F(x)=\beta(\tau,\alpha;u),\quad u=\frac{x}{x+\theta}
 E[X^k]||\frac{\theta^k\Gamma(\tau+k)\Gamma(\alpha-k)}{\Gamma(\alpha)\Gamma(\tau)},\quad-\tau<k<\alpha
 Integer moments||E[X^k]=\frac{\theta^k\tau(\tau+1)\cdots(\tau+k-1)}{(\alpha-1)\cdots(\alpha-k)}
-Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k)\Gamma(\alpha-k)}{\Gamma(\alpha)\Gamma(\tau)}\beta(\tau+k,\alpha-k;u)+x^k[1-F(x)]
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k)\Gamma(\alpha-k)}{\Gamma(\alpha)\Gamma(\tau)}\beta(\tau+k,\alpha-k;u)+x^k[1-F(x)],\quad k>-\tau
 Mode||\theta\frac{\tau-1}{\alpha+1}\ (\tau>1),\quad 0\ \text{otherwise}
 #A.2.2.2|Burr|α, θ, γ|continuous|Burr Type XII / Singh–Maddala
 f(x)||\frac{\alpha\gamma(x/\theta)^\gamma}{x[1+(x/\theta)^\gamma]^{\alpha+1}}
 F(x),u||F(x)=1-u^\alpha,\quad u=\frac{1}{1+(x/\theta)^\gamma}
 VaR_p||\theta[(1-p)^{-1/\alpha}-1]^{1/\gamma}
 E[X^k]||\frac{\theta^k\Gamma(1+k/\gamma)\Gamma(\alpha-k/\gamma)}{\Gamma(\alpha)},\quad-\gamma<k<\alpha\gamma
-Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(1+k/\gamma)\Gamma(\alpha-k/\gamma)}{\Gamma(\alpha)}\beta(1+k/\gamma,\alpha-k/\gamma;1-u)+x^ku^\alpha
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(1+k/\gamma)\Gamma(\alpha-k/\gamma)}{\Gamma(\alpha)}\beta(1+k/\gamma,\alpha-k/\gamma;1-u)+x^ku^\alpha,\quad k>-\gamma
 Mode||\theta\left(\frac{\gamma-1}{\alpha\gamma+1}\right)^{1/\gamma}\ (\gamma>1),\quad 0\ \text{otherwise}
 #A.2.2.3|Inverse Burr|τ, θ, γ|continuous|
 f(x)||\frac{\tau\gamma(x/\theta)^{\gamma\tau}}{x[1+(x/\theta)^\gamma]^{\tau+1}}
 F(x),u||F(x)=u^\tau,\quad u=\frac{(x/\theta)^\gamma}{1+(x/\theta)^\gamma}
 VaR_p||\theta(p^{-1/\tau}-1)^{-1/\gamma}
 E[X^k]||\frac{\theta^k\Gamma(\tau+k/\gamma)\Gamma(1-k/\gamma)}{\Gamma(\tau)},\quad-\tau\gamma<k<\gamma
-Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k/\gamma)\Gamma(1-k/\gamma)}{\Gamma(\tau)}\beta(\tau+k/\gamma,1-k/\gamma;u)+x^k(1-u^\tau)
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k/\gamma)\Gamma(1-k/\gamma)}{\Gamma(\tau)}\beta(\tau+k/\gamma,1-k/\gamma;u)+x^k(1-u^\tau),\quad k>-\tau\gamma
 Mode||\theta\left(\frac{\tau\gamma-1}{\gamma+1}\right)^{1/\gamma}\ (\tau\gamma>1),\quad 0\ \text{otherwise}
 #A.2.3.1|Pareto (Type II)|α, θ|continuous|Lomax；不同於 Single-Parameter Pareto
 f(x)||\frac{\alpha\theta^\alpha}{(x+\theta)^{\alpha+1}}
@@ -71,7 +84,7 @@ Integer moments||\frac{\theta^kk!}{(\alpha-1)\cdots(\alpha-k)}
 E[X∧x], α≠1||\frac{\theta}{\alpha-1}\left[1-\left(\frac{\theta}{x+\theta}\right)^{\alpha-1}\right]
 E[X∧x], α=1||-\theta\ln\left(\frac{\theta}{x+\theta}\right)
 TVaR_p||VaR_p(X)+\frac{\theta(1-p)^{-1/\alpha}}{\alpha-1},\quad \alpha>1
-Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(k+1)\Gamma(\alpha-k)}{\Gamma(\alpha)}\beta(k+1,\alpha-k;x/(x+\theta))+x^k\left(\frac{\theta}{x+\theta}\right)^\alpha
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(k+1)\Gamma(\alpha-k)}{\Gamma(\alpha)}\beta(k+1,\alpha-k;x/(x+\theta))+x^k\left(\frac{\theta}{x+\theta}\right)^\alpha,\quad k>-1,\ k\ne\alpha
 Limited moment k=α||E[(X\wedge x)^\alpha]=\theta^\alpha\left(\frac{x}{x+\theta}\right)^\alpha\left[1+\alpha\sum_{n=0}^{\infty}\frac{[x/(x+\theta)]^{n+1}}{\alpha+n+1}\right]
 Mode||0
 #A.2.3.2|Inverse Pareto|τ, θ|continuous|
@@ -80,35 +93,36 @@ F(x)||\left(\frac{x}{x+\theta}\right)^\tau
 VaR_p||\theta(p^{-1/\tau}-1)^{-1}
 E[X^k]||\frac{\theta^k\Gamma(\tau+k)\Gamma(1-k)}{\Gamma(\tau)},\quad-\tau<k<1
 Negative integer moments||\frac{\theta^k(-k)!}{(\tau-1)\cdots(\tau+k)}
-Limited moment||E[(X\wedge x)^k]=\theta^k\tau\int_0^{x/(x+\theta)}y^{\tau+k-1}(1-y)^{-k}\,dy+x^k\left[1-\left(\frac{x}{x+\theta}\right)^\tau\right]
+Limited moment||E[(X\wedge x)^k]=\theta^k\tau\int_0^{x/(x+\theta)}y^{\tau+k-1}(1-y)^{-k}\,dy+x^k\left[1-\left(\frac{x}{x+\theta}\right)^\tau\right],\quad k>-\tau
 Mode||\frac{\theta(\tau-1)}{2}\ (\tau>1),\quad 0\ \text{otherwise}
 #A.2.3.3|Loglogistic|γ, θ|continuous|Fisk
 f(x)||\frac{\gamma(x/\theta)^\gamma}{x[1+(x/\theta)^\gamma]^2}
 F(x),u||F(x)=u,\quad u=\frac{(x/\theta)^\gamma}{1+(x/\theta)^\gamma}
 VaR_p||\theta(p^{-1}-1)^{-1/\gamma}
 E[X^k]||\theta^k\Gamma(1+k/\gamma)\Gamma(1-k/\gamma),\quad-\gamma<k<\gamma
-Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(1+k/\gamma)\Gamma(1-k/\gamma)\beta(1+k/\gamma,1-k/\gamma;u)+x^k(1-u)
+Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(1+k/\gamma)\Gamma(1-k/\gamma)\beta(1+k/\gamma,1-k/\gamma;u)+x^k(1-u),\quad k>-\gamma
 Mode||\theta\left(\frac{\gamma-1}{\gamma+1}\right)^{1/\gamma}\ (\gamma>1),\quad 0\ \text{otherwise}
 #A.2.3.4|Paralogistic|α, θ|continuous|Burr with γ = α
 f(x)||\frac{\alpha^2(x/\theta)^\alpha}{x[1+(x/\theta)^\alpha]^{\alpha+1}}
 F(x),u||F(x)=1-u^\alpha,\quad u=\frac1{1+(x/\theta)^\alpha}
 VaR_p||\theta[(1-p)^{-1/\alpha}-1]^{1/\alpha}
 E[X^k]||\frac{\theta^k\Gamma(1+k/\alpha)\Gamma(\alpha-k/\alpha)}{\Gamma(\alpha)},\quad-\alpha<k<\alpha^2
-Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(1+k/\alpha)\Gamma(\alpha-k/\alpha)}{\Gamma(\alpha)}\beta(1+k/\alpha,\alpha-k/\alpha;1-u)+x^ku^\alpha
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(1+k/\alpha)\Gamma(\alpha-k/\alpha)}{\Gamma(\alpha)}\beta(1+k/\alpha,\alpha-k/\alpha;1-u)+x^ku^\alpha,\quad k>-\alpha
 Mode||\theta\left(\frac{\alpha-1}{\alpha^2+1}\right)^{1/\alpha}\ (\alpha>1),\quad 0\ \text{otherwise}
 #A.2.3.5|Inverse Paralogistic|τ, θ|continuous|Inverse Burr with γ = τ
 f(x)||\frac{\tau^2(x/\theta)^{\tau^2}}{x[1+(x/\theta)^\tau]^{\tau+1}}
 F(x),u||F(x)=u^\tau,\quad u=\frac{(x/\theta)^\tau}{1+(x/\theta)^\tau}
 VaR_p||\theta(p^{-1/\tau}-1)^{-1/\tau}
 E[X^k]||\frac{\theta^k\Gamma(\tau+k/\tau)\Gamma(1-k/\tau)}{\Gamma(\tau)},\quad-\tau^2<k<\tau
-Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k/\tau)\Gamma(1-k/\tau)}{\Gamma(\tau)}\beta(\tau+k/\tau,1-k/\tau;u)+x^k(1-u^\tau)
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k/\tau)\Gamma(1-k/\tau)}{\Gamma(\tau)}\beta(\tau+k/\tau,1-k/\tau;u)+x^k(1-u^\tau),\quad k>-\tau^2
 Mode||\theta(\tau-1)^{1/\tau}\ (\tau>1),\quad 0\ \text{otherwise}
 #A.3.2.1|Gamma|α, θ|continuous|θ is scale；α=n/2、θ=2 為 χ²(n)
 f(x)||\frac{(x/\theta)^\alpha e^{-x/\theta}}{x\Gamma(\alpha)}
 F(x)||\Gamma(\alpha;x/\theta)
 E[X^k]||\frac{\theta^k\Gamma(\alpha+k)}{\Gamma(\alpha)},\quad k>-\alpha
 Integer moments||\theta^k\alpha(\alpha+1)\cdots(\alpha+k-1)
-Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\alpha+k)}{\Gamma(\alpha)}\Gamma(\alpha+k;x/\theta)+x^k[1-\Gamma(\alpha;x/\theta)]
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\alpha+k)}{\Gamma(\alpha)}\Gamma(\alpha+k;x/\theta)+x^k[1-\Gamma(\alpha;x/\theta)],\quad k>-\alpha
+Limited moment integer k||\alpha(\alpha+1)\cdots(\alpha+k-1)\theta^k\Gamma(\alpha+k;x/\theta)+x^k[1-\Gamma(\alpha;x/\theta)]
 MGF||M(t)=(1-\theta t)^{-\alpha},\quad t<1/\theta
 Mode||\theta(\alpha-1)\ (\alpha>1),\quad 0\ \text{otherwise}
 #A.3.2.2|Inverse Gamma|α, θ|continuous|Vinci
@@ -124,7 +138,7 @@ f(x)||\frac{\tau(x/\theta)^\tau e^{-(x/\theta)^\tau}}{x}
 F(x)||1-e^{-(x/\theta)^\tau}
 VaR_p||\theta[-\ln(1-p)]^{1/\tau}
 E[X^k]||\theta^k\Gamma(1+k/\tau),\quad k>-\tau
-Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(1+k/\tau)\Gamma[1+k/\tau;(x/\theta)^\tau]+x^ke^{-(x/\theta)^\tau}
+Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(1+k/\tau)\Gamma[1+k/\tau;(x/\theta)^\tau]+x^ke^{-(x/\theta)^\tau},\quad k>-\tau
 Mode||\theta\left(\frac{\tau-1}{\tau}\right)^{1/\tau}\ (\tau>1),\quad 0\ \text{otherwise}
 #A.3.2.4|Inverse Weibull|θ, τ|continuous|log-Gompertz
 f(x)||\frac{\tau(\theta/x)^\tau e^{-(\theta/x)^\tau}}{x}
@@ -142,7 +156,8 @@ E[X^k]||\theta^k\Gamma(k+1),\quad k>-1
 Integer moments||\theta^kk!
 E[X∧x]||\theta(1-e^{-x/\theta})
 TVaR_p||-\theta\ln(1-p)+\theta
-Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(k+1)\Gamma(k+1;x/\theta)+x^ke^{-x/\theta}
+Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(k+1)\Gamma(k+1;x/\theta)+x^ke^{-x/\theta},\quad k>-1
+Limited moment integer k||E[(X\wedge x)^k]=\theta^kk!\Gamma(k+1;x/\theta)+x^ke^{-x/\theta}
 MGF||M(z)=(1-\theta z)^{-1},\quad z<1/\theta
 Mode||0
 #A.3.3.2|Inverse Exponential|θ|continuous|
@@ -279,6 +294,16 @@ Recursion||p_k^M=\left(a+\frac bk\right)p_{k-1}^M,\quad p_k^T=\left(a+\frac bk\r
 ZT relation||p_k^T=\frac{p_k}{1-p_0}
 ZT mean||E[N_T]=\frac{a+b}{(1-a)(1-p_0)}
 ZT variance||\operatorname{Var}(N_T)=\frac{(a+b)[1-(a+b+1)p_0]}{[(1-a)(1-p_0)]^2}
+#LT-Interest|Interest Functions|i, d, m|reference|Long-Term；SOA FAM 表內提供
+Nominal interest||i^{(m)}=m[(1+i)^{1/m}-1]
+Nominal discount||d^{(m)}=m[1-(1+i)^{-1/m}]
+Alpha||\alpha^{(m)}=\frac{id}{i^{(m)}d^{(m)}}
+Beta||\beta^{(m)}=\frac{i-i^{(m)}}{i^{(m)}d^{(m)}}
+#LT-Makeham|Makeham's Law|A, B, c|reference|SOA Long-Term Formulas
+Force||\mu_x=A+Bc^x
+Survival||{}_tp_x=\exp\left[-At-\frac{Bc^x(c^t-1)}{\ln c}\right]
+#LT-Woolhouse|Three-Term Woolhouse Formula|m, δ, μₓ|reference|Approximation for m-thly life annuities
+Three-term||\ddot{a}_x^{(m)}\approx\ddot{a}_x-\frac{m-1}{2m}-\frac{m^2-1}{12m^2}(\delta+\mu_x)
 #Normal|Standard Normal|Z|reference|continuity correction required for normal approximation to discrete distribution
 PDF||\phi(z)=\frac1{\sqrt{2\pi}}e^{-z^2/2}
 CDF||\Phi(z)=P(Z\le z)
@@ -348,6 +373,21 @@ var zdata=[
 '3.7 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999',
 '3.8 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999',
 '3.9 10000 10000 10000 10000 10000 10000 10000 10000 10000 10000'];
+function fmt(x,n){return x.toFixed(n)}
+function sultTpx(x,t){var A=.00022,B=.0000027,c=1.124;return Math.exp(-A*t-B*Math.pow(c,x)*(Math.pow(c,t)-1)/Math.log(c));}
+function sultAnn(x,n,v){var s=0;for(var k=0;k<n;k++)s+=Math.pow(v,k)*sultTpx(x,k);return s;}
+function renderSult(){
+ var tb=el('table'),hh=el('thead'),tr=el('tr');
+ ['x','lₓ','qₓ','äₓ','Aₓ','²Aₓ','äₓ:10','Aₓ:10','äₓ:20','Aₓ:20','⁵Eₓ','¹⁰Eₓ','²⁰Eₓ'].forEach(function(s){tr.append(el('th','',s))});hh.append(tr);tb.append(hh);
+ var body=el('tbody'),v=1/1.05;
+ for(var x=20;x<=100;x++){
+ var q=1-sultTpx(x,1),life=100000*sultTpx(20,x-20),a=sultAnn(x,190,v),a2=sultAnn(x,190,v*v),a10=sultAnn(x,10,v),a20=sultAnn(x,20,v);
+ var vals=[String(x),life.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1}),fmt(q,6),fmt(a,4),fmt(1-(1-v)*a,5),fmt(1-(1-v*v)*a2,5),fmt(a10,4),fmt(1-(1-v)*a10,5),fmt(a20,4),fmt(1-(1-v)*a20,5),fmt(Math.pow(v,5)*sultTpx(x,5),5),fmt(Math.pow(v,10)*sultTpx(x,10),5),fmt(Math.pow(v,20)*sultTpx(x,20),5)];
+ var row=el('tr');vals.forEach(function(n){row.append(el('td','',n))});body.append(row);
+ }
+ tb.append(body);document.getElementById('sult').append(tb);
+}
+renderSult();
 var table=el('table'),thead=el('thead'),hr=el('tr');['z','0.00','0.01','0.02','0.03','0.04','0.05','0.06','0.07','0.08','0.09'].forEach(function(s){hr.append(el('th','',s));});thead.append(hr);table.append(thead);
 var tbody=el('tbody');zdata.forEach(function(row){var a=row.split(' '),tr=el('tr');tr.append(el('td','',a[0]));a.slice(1).forEach(function(s){tr.append(el('td','',s==='10000'?'1.0000':'0.'+s));});tbody.append(tr);});table.append(tbody);document.getElementById('normal').append(table);
 update();window.addEventListener('load',function(){if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise();});
