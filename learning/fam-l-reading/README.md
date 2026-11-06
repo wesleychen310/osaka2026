@@ -49,3 +49,27 @@ Batch 01 source OCR should be systematically verified (especially printed pp. 2�
 - Original Lesson 1 private file ID `1o2pVgn4ZS_cCdLxVRdhxE8dSwW_YMQDN` was updated in place after backup into `_backup`, backup ID `1CYYnWQ7nThVHhwnmJR4E8bPimutMLJU8`; parent/title/owner-only preserved. Original file readback size: 1,144,883 bytes; 14 MathML elements; 16 source-page scans.
 - Chromium offline rendering / responsive testing of Preface, Lesson 1, Lesson 2 at 320, 390, 768, 1130px = **12/12** tests with expected page and source-scan counts and no horizontal overflow. This intentionally excludes OAuth and live MathJax/network test; iPhone/iPad/Mac Safari live E2E remains unverified.
 - Next lesson navigation from Lesson 2 reaches a clear unbuilt Lesson 3 placeholder, not a 404. Lesson 3 content remains PENDING.
+
+## Batch 02 · 2026-11-06 · Lessons 3–5 (private, OCR draft)
+
+The public 42-lesson index now links to the following new owner-only Google Drive content. The original source is the 1,149-page 2022 ASM FAM-L PDF; numbering below uses 1-based PDF pages, not printed pages.
+
+| Lesson | Printed pages | PDF pages | Private file ID | Source scans | HTML size | Status |
+|---|---:|---:|---|---:|---:|---|
+| 3 · Survival Distributions: Probability Functions | 27–43 | 48–64 | `1wcO0JA1jOT8kOu6J80aWCwcnzpPlitmb` | 17 | 906154 | OCR_DRAFT |
+| 4 · Survival Distributions: Force of Mortality | 45–67 | 66–88 | `10wUMicboDhQOBbJ8lwFdAKgUDeqKQ_T3` | 23 | 995445 | OCR_DRAFT |
+| 5 · Survival Distributions: Mortality Laws | 69–84 | 90–105 | `1PKw-1RrQMQeIOxPHwf8YkmckZhmOanU3` | 16 | 792871 | OCR_DRAFT |
+
+Between lesson ranges, PDF p47 is blank; p65 and p89 are inter-lesson blanks. No source pages within lessons were skipped. All 56 draft pages have their own private original-page scan, page anchor, editable/searchable OCR text and clearly labelled unverified OCR mathematical fragments. This batch adds **no verified LaTeX formulas** and should not be described as typeset/mathematically approved original content. Charts and tables must still be precisely cropped/reconstructed and proofread in a future fidelity pass.
+
+### Implementation and QA
+- Existing GitHub private-auth `reader.js` extended for lesson3, lesson4, lesson5; dedicated shell `lesson3/index.html`, `lesson4/index.html`, `lesson5/index.html` and index/manifest activated. The existing FAM-S reader and PA files are unchanged.
+- Batch generator: `/mnt/data/build_faml_batch02.py` (local working copy). QA: `Batch02_QA_20261106.json` in private Drive folder. It initially produced broken-up OCR line paragraphs; corrected to merge text per PDF source block and eliminate redundant lesson-title OCR. The final outputs were published back to their original IDs.
+- Original-first-update backups (private folder `_backup`): L3 `1zsmAg98u62Lu-0OoX_pkPmBubP66h7jf`; L4 `1uwoEWYEXsyQlRNFfFKEx7w8I7bjIWcxx`; L5 `18Dezc9OgMAz690RNHNFgLWyF_iXWKqE3`. Staging files were removed after successful in-place update. File names, IDs, parent and private permissions were preserved.
+- Chromium local HTML test using `page.set_content` (not a real logged-in website): 3 Lessons × 320/390/768/1130px = **12/12 passed**, all correct source-page/image counts, no page-level horizontal overflow, all 3 private Drive files read back with correct image counts and `shared=false`.
+- Production Pages CDN/current deployment and real Google OAuth Safari are **not** covered by those 12/12 tests and require independent check.
+
+### Next action
+1. Continue manual comparison of Lesson 1 PDF p23–37 and Lesson 2 p38–45 to remove OCR artifacts; replace suspect math with verified LaTeX/MathML.
+2. Perform manual math fidelity and Figure/Table crop verification for Lessons 3–5 before marking any Lesson COMPLETE.
+3. Later batch: Lesson 6 starts at PDF p108 / printed p87; do not confuse inter-lesson blanks with content.
