@@ -43,3 +43,9 @@ Original-source full-page webp scans are embedded privately behind collapsed 'Vi
 
 ## Next work
 Batch 01 source OCR should be systematically verified (especially printed pp. 2–16 formulas and exercises) before marking complete. Then move to Lesson 3 (PDF 48–64) and later lessons after a source page inventory. For possible source-page boundary discrepancy, treat the original PDF as authoritative.
+
+## 2026-11-06 follow-up: Native MathML and local layout test
+- For Lesson 1 printed p1 / PDF p22, five display equations and nine inline mathematical expressions are rendered with native MathML, retaining their LaTeX sources in `data-tex`. No MathJax CDN needed for this corrected page.
+- Original Lesson 1 private file ID `1o2pVgn4ZS_cCdLxVRdhxE8dSwW_YMQDN` was updated in place after backup into `_backup`, backup ID `1CYYnWQ7nThVHhwnmJR4E8bPimutMLJU8`; parent/title/owner-only preserved. Original file readback size: 1,144,883 bytes; 14 MathML elements; 16 source-page scans.
+- Chromium offline rendering / responsive testing of Preface, Lesson 1, Lesson 2 at 320, 390, 768, 1130px = **12/12** tests with expected page and source-scan counts and no horizontal overflow. This intentionally excludes OAuth and live MathJax/network test; iPhone/iPad/Mac Safari live E2E remains unverified.
+- Next lesson navigation from Lesson 2 reaches a clear unbuilt Lesson 3 placeholder, not a 404. Lesson 3 content remains PENDING.
