@@ -1,3 +1,10 @@
+## SOA FAM Tables｜2026-11-06
+- 網址：[FAM Tables 查表](https://wesleychen310.github.io/osaka2026/learning/fam-tables/)；原始碼 `learning/fam-tables/index.html`（GitHub Pages 靜態公開）。
+- 學習首頁 `learning/index.html` 已增 FAM Tables 入口。
+- 範圍：Appendix A 20 個連續分布、Appendix B 10 個離散分布／模型、參考公式 8 項，共 216 條 LaTeX 式；Standard Normal 40 × 10 表、SULT 20–100 歲、Interest Functions（m=1,2,4,12,∞）、Makeham / Woolhouse。
+- 來源：使用者提供的 `tables-fam-s.pdf`（20 PDF 頁）和 [SOA Tables for Exam FAM](https://www.soa.org/globalassets/assets/files/edu/2024/fall/2024-10-exam-fam-tables.pdf)（FAM Long-Term 補充）。
+- 品質：程式碼 JavaScript 語法、220 以內的公式資料結構及 TeX 大括號平衡已做靜態檢查。SULT 以 `A=.00022,B=.0000027,c=1.124` Makeham 模型計算，已核對 20、60、80、100 歲的主要欄位。**SULT 不是逐 row 從原 PDF 手動轉錄；手機實機／MathJax 視覺、GitHub Pages 線上可用性未實測。** 以當期 SOA PDF 為最終準則。
+
 ## FAM-L 第二批 · Lessons 3–5（2026-11-06）
 - [英文原書閱讀目錄](https://wesleychen310.github.io/osaka2026/learning/fam-l-reading/) 現有 Preface + Lessons 1–5 OCR 草稿（Lessons 1–5 來源共 80 頁、前言另 21 頁），此次新增 L3 PDF48–64、L4 PDF66–88、L5 PDF90–105，共56頁。白底黑字、每課私人 Drive HTML 與原書頁圖、不公開教材正文。
 - 3–5 課 OCR 數學仍待 LaTeX 校訂、不是 COMPLETE。原位更新已備份；12/12 本機 Chromium 版面通過，Google OAuth/iPhone Safari 端對端未驗收。完整進度見 [FAM-L README](learning/fam-l-reading/README.md)。
