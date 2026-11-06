@@ -1,3 +1,5 @@
+**2026-11-06 FAM-L 第二批：** Lessons 3–5 已接入私人英文原文閱讀網站，對應原書 PDF p48–64、66–88、90–105，新增 56 頁 OCR DRAFT（各頁保留原始 PDF 影像）。三份私人 Google Drive HTML 原 File ID 已建立，OCR 數學、Figure/Table 與題解仍待逐式校對，正式完成 Lessons 維持 0。Chromium 本機 320／390／768／1130px × 3課＝12/12 版面 PASS；正式站 OAuth/iPhone Safari 待驗收。詳細連結／備份／QA 見 [FAM-L README](fam-l-reading/README.md)。
+
 **2026-11-06 新增 FAM-L 英文原文閱讀器：** [ASM FAM-L 42 課目錄](https://wesleychen310.github.io/osaka2026/learning/fam-l-reading/)；GitHub 僅儲存黑白閱讀器、Google OAuth shell、manifest/README。私人 HTML 位於 Google Drive `FAM/fam_HTML/ASM_FAM-L`，Folder ID `1jOyYCL_kV_IA_8Dgrss2bin2G1RF0vdM`。第一批前言 PDF p1–21、Lesson 1 p22–37、Lesson 2 p38–45 已有原文 OCR 草稿與私人頁面影像；只有 Lesson 1 首頁已人工 LaTeX 重排，剩餘數學仍待逐式驗收。學習首頁入口已更新。詳 [FAM-L README](./fam-l-reading/README.md)。
 
 # 私人學習網站：Google Drive × GitHub Pages 教材架構 SOP
