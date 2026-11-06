@@ -1,3 +1,7 @@
+## FAM-L 第二批 · Lessons 3–5（2026-11-06）
+- [英文原書閱讀目錄](https://wesleychen310.github.io/osaka2026/learning/fam-l-reading/) 現有 Preface + Lessons 1–5 OCR 草稿（Lessons 1–5 來源共 80 頁、前言另 21 頁），此次新增 L3 PDF48–64、L4 PDF66–88、L5 PDF90–105，共56頁。白底黑字、每課私人 Drive HTML 與原書頁圖、不公開教材正文。
+- 3–5 課 OCR 數學仍待 LaTeX 校訂、不是 COMPLETE。原位更新已備份；12/12 本機 Chromium 版面通過，Google OAuth/iPhone Safari 端對端未驗收。完整進度見 [FAM-L README](learning/fam-l-reading/README.md)。
+
 ## ASM FAM-L 英文原書復刻｜2026-11-06 第一批
 - [FAM-L 42 課私人閱讀入口](https://wesleychen310.github.io/osaka2026/learning/fam-l-reading/) 已建置；原始 PDF p1–45（前言、Lesson 1、Lesson 2）已轉成三份受控 Google Drive 英文 OCR 初稿，GitHub 僅保留 OAuth 程式與導覽。
 - 教材原文、原頁圖與文字皆為 owner-only。除 Lesson 1 PDF p22 之 LaTeX 人工重排，其他公式未經校訂；狀態 DRAFT，不能以「全章完成」計。來源、File ID、品質閘門與接續方式詳 [FAM-L README](learning/fam-l-reading/README.md)。
