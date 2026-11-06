@@ -1,7 +1,7 @@
 "use strict";
 (()=> {
 const CLIENT_ID="57818954523-lfovhnonguj7nkq6hh030fs50lrmrouu.apps.googleusercontent.com",TOKEN_KEY="hanami-kyoto-google-token-v3",SCOPE="https://www.googleapis.com/auth/drive.readonly";
-const FILES={"preface":"12_U61PQK8LEgGUiP-FbKvpxoZeWQnYVm","lesson1":"1o2pVgn4ZS_cCdLxVRdhxE8dSwW_YMQDN","lesson2":"1-w566HefkfCGfsOjdqWdWfSjxngPweL8"};
+const FILES={"preface":"12_U61PQK8LEgGUiP-FbKvpxoZeWQnYVm","lesson1":"1o2pVgn4ZS_cCdLxVRdhxE8dSwW_YMQDN","lesson2":"1-w566HefkfCGfsOjdqWdWfSjxngPweL8","lesson3":"1wcO0JA1jOT8kOu6J80aWCwcnzpPlitmb","lesson4":"10wUMicboDhQOBbJ8lwFdAKgUDeqKQ_T3","lesson5":"1PKw-1RrQMQeIOxPHwf8YkmckZhmOanU3"};
 const chapter=document.body.dataset.chapter||"",fileId=FILES[chapter];
 const btn=document.getElementById("loginBtn"),switchBtn=document.getElementById("switchBtn"),status=document.getElementById("status");
 let tokenClient=null;
