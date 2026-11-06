@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="color-scheme" content="light">
+<title>SOA FAM Tables｜精算分布公式查表</title>
+<style>
+:root{--bg:#f5f8fa;--ink:#1e3342;--muted:#5c7281;--brand:#155779;--brand2:#e6f2f8;--line:#d7e3ea;--surface:#fff;--gold:#976a32}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:146px}body{margin:0;color:var(--ink);background:var(--bg);font:15px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif}
+a{color:var(--brand)}.wrap{max-width:1100px;margin:auto;padding:22px 18px 88px}.crumb{font-size:13px;text-decoration:none;font-weight:600}
+h1{font-size:clamp(30px,5vw,44px);letter-spacing:-.04em;line-height:1.19;margin:22px 0 10px;color:#193e56}h2{font-size:21px;letter-spacing:-.02em}h3{font-size:18px;margin:0;line-height:1.35}
+.lead{color:var(--muted);margin:0 0 22px;line-height:1.8}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:#437b9b}
+.bar{position:sticky;top:0;z-index:12;background:rgba(245,248,250,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px 0}.searchbar{display:flex;gap:8px}.searchbar input{width:100%;background:white;min-width:0;border:1px solid #bfd2de;border-radius:11px;padding:12px 13px;font:inherit;outline-offset:2px}
+.pill{border:1px solid #c6d7e2;background:#fff;border-radius:100px;padding:8px 14px;white-space:nowrap;color:#375c72;cursor:pointer;font:700 12px/1.4 inherit}.pill.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.filters{display:flex;gap:7px;overflow:auto;padding:9px 0 1px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.hint{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;color:var(--muted);font-size:13px}.hint strong{color:var(--ink)}.hint p{margin:7px 0 0}
+.module-title{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:10px 0;margin:34px 0 18px}.module-title h2{margin:0}.count{font-size:12px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.card{min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:17px;overflow:hidden;box-shadow:0 5px 24px rgba(24,58,80,.04)}.card-header{padding:17px 18px 14px;border-bottom:1px solid #ecf0f3}.card .id{font:750 11px/1.4 ui-monospace,monospace;letter-spacing:.02em;color:#4e86a5}.param{color:#587183;font-size:12px;margin:5px 0 0}.note{background:#f5f9fc;color:#456478;font-size:12px;padding:8px 18px;border-bottom:1px solid #e7edf1}.eq{padding:12px 16px;border-bottom:1px solid #edf2f5}.eq:last-child{border-bottom:0}.eq .lbl{font:750 11px/1.5 ui-monospace,monospace;color:#697d8a;letter-spacing:.025em}.math{margin:7px 0 3px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;font-size:15px;min-height:28px;white-space:nowrap}.math .MathJax{font-size:100%!important}.foot{font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px}.aside-links{display:flex;flex-wrap:wrap;gap:8px}.aside-links a{display:inline-flex;align-items:center;min-height:39px;padding:6px 12px;border:1px solid #bcd2e0;border-radius:10px;background:white;text-decoration:none;font-weight:650;font-size:12px}
+.info-list{background:#fff;padding:18px;border-radius:15px;border:1px solid var(--line)}.info-list p{margin:7px 0}.table-box{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:15px}table{border-collapse:collapse;font:12px/1.5 ui-monospace,"SFMono-Regular",monospace;min-width:760px;width:100%;font-variant-numeric:tabular-nums}th,td{padding:7px 8px;text-align:right;border-bottom:1px solid #eaf0f4}th:first-child,td:first-child{position:sticky;left:0;text-align:center;background:#eaf3f8;color:#1f5270;font-weight:800}thead th{background:#eaf3f8;color:#31576b}.small{color:var(--muted);font-size:12px}.empty{padding:18px;color:var(--muted)}
+@media(max-width:760px){.wrap{padding:14px 12px 70px}.cards,.intro{grid-template-columns:1fr}.card-header{padding:15px}.eq{padding:12px 13px}.math{font-size:14px}.searchbar input{font-size:16px}.module-title{margin-top:28px}.hint{padding:14px}}
+@media print{.bar{position:static}.cards{display:block}.card{break-inside:avoid;margin:0 0 10px;box-shadow:none}body{background:#fff}.filters,.searchbar{display:none}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','style','textarea','pre']},startup:{typeset:false}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body><main class="wrap">
+<a class="crumb" href="../">← 私人學習首頁</a>
+<header><div class="eyebrow">ACTUARIAL REFERENCE / SOA EXAM FAM</div><h1>FAM Tables</h1><p class="lead">分布公式・LaTeX 排版・快速搜尋。保留 SOA / Loss Models 參數定義；以 iPhone 查表為主要閱讀方式。</p></header>
+<div class="bar"><div class="searchbar"><input id="query" type="search" aria-label="搜尋分布名稱與公式" placeholder="搜尋：Pareto、Weibull、Poisson、VaR…"><button class="pill" id="clear" type="button">清除</button></div>
+<nav class="filters" aria-label="類別篩選"><button class="pill active" data-filter="all">全部</button><button class="pill" data-filter="continuous">連續分布</button><button class="pill" data-filter="discrete">離散分布</button><button class="pill" data-filter="reference">參考公式</button></nav></div>
+<div class="intro"><div class="hint"><strong>資料基準</strong><p>分布公式轉錄自本專案附檔 <em>Tables for Exam FAM-S</em>（Appendix A/B），對照 SOA 完整 FAM Tables 的相同章節。正式考試仍以當期 SOA 指定 PDF 為準。</p></div><div class="hint"><strong>閱讀方式</strong><p>點類別篩選、搜尋英文分布名稱或公式標籤。公式使用 MathJax/LaTeX 呈現；太長時可在公式內左右滑動，不影響整頁寬度。</p></div></div>
+<div class="aside-links"><a href="#continuous">連續型 Appendix A</a><a href="#discrete">離散型 Appendix B</a><a href="#reference">標準常態與基本公式</a><a href="#official">SOA 官方完整版／SULT</a></div>
+<section id="continuous"><div class="module-title"><h2>Appendix A · Continuous Distributions</h2><span class="count" id="continuous-count"></span></div><div id="continuous-cards" class="cards"></div></section>
+<section id="discrete"><div class="module-title"><h2>Appendix B · Discrete Distributions</h2><span class="count" id="discrete-count"></span></div><div id="discrete-cards" class="cards"></div></section>
+<section id="reference"><div class="module-title"><h2>參考公式 · Notation</h2></div><div id="reference-cards" class="cards"></div><h3 style="margin:24px 0 10px">Standard Normal Distribution Table</h3>
+<p class="small">表值為 \(\Pr(Z\le z)\)，原表列印精度為四位小數。下表直接轉錄來源 PDF 數值，手機可水平滑動查看。</p><div class="table-box" id="normal"></div></section>
+<section id="official" style="margin-top:42px"><div class="module-title"><h2>官方完整版與 Long-Term</h2></div><div class="info-list">
+<p><strong>本頁已數位化：</strong>Appendix A/B 分布公式、特殊函數、標準常態表與 recursion 參考。</p>
+<p><strong>尚未數位化：</strong>完整 FAM PDF 的 <em>Standard Ultimate Life Table</em>、<em>Interest Functions</em> 與 <em>Long Term Actuarial Mathematics Formulas</em>。這些內容請直接使用下方官方 PDF；本頁不以不完整的轉錄冒充全套已驗收版本。</p>
+<div class="aside-links" style="margin-top:16px"><a target="_blank" rel="noopener" href="https://www.soa.org/globalassets/assets/files/edu/2024/fall/2024-10-exam-fam-tables.pdf">SOA 官方完整 Tables PDF ↗</a><a target="_blank" rel="noopener" href="https://www.soa.org/education/exam-req/edu-exam-fam/study/">當期 SOA FAM Study Materials ↗</a></div></div></section>
+<p class="foot">私人備考用重排參考。Gamma / Beta 定義依本表採用的正規化 incomplete functions，不可任意替換其他教材 parameterization。遇到符號、定義、原 PDF 的勘誤與不一致時，以 SOA 官方原始資料為準。</p>
+</main>
+<script id="equations" type="text/plain">
+#A.2.2.1|Generalized Pareto|α, θ, τ|continuous|
+f(x)||\frac{\Gamma(\alpha+\tau)}{\Gamma(\alpha)\Gamma(\tau)}\frac{\theta^\alpha x^{\tau-1}}{(x+\theta)^{\alpha+\tau}}
+F(x),u||F(x)=\beta(\tau,\alpha;u),\quad u=\frac{x}{x+\theta}
+E[X^k]||\frac{\theta^k\Gamma(\tau+k)\Gamma(\alpha-k)}{\Gamma(\alpha)\Gamma(\tau)},\quad-\tau<k<\alpha
+Integer moments||E[X^k]=\frac{\theta^k\tau(\tau+1)\cdots(\tau+k-1)}{(\alpha-1)\cdots(\alpha-k)}
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k)\Gamma(\alpha-k)}{\Gamma(\alpha)\Gamma(\tau)}\beta(\tau+k,\alpha-k;u)+x^k[1-F(x)]
+Mode||\theta\frac{\tau-1}{\alpha+1}\ (\tau>1),\quad 0\ \text{otherwise}
+#A.2.2.2|Burr|α, θ, γ|continuous|Burr Type XII / Singh–Maddala
+f(x)||\frac{\alpha\gamma(x/\theta)^\gamma}{x[1+(x/\theta)^\gamma]^{\alpha+1}}
+F(x),u||F(x)=1-u^\alpha,\quad u=\frac{1}{1+(x/\theta)^\gamma}
+VaR_p||\theta[(1-p)^{-1/\alpha}-1]^{1/\gamma}
+E[X^k]||\frac{\theta^k\Gamma(1+k/\gamma)\Gamma(\alpha-k/\gamma)}{\Gamma(\alpha)},\quad-\gamma<k<\alpha\gamma
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(1+k/\gamma)\Gamma(\alpha-k/\gamma)}{\Gamma(\alpha)}\beta(1+k/\gamma,\alpha-k/\gamma;1-u)+x^ku^\alpha
+Mode||\theta\left(\frac{\gamma-1}{\alpha\gamma+1}\right)^{1/\gamma}\ (\gamma>1),\quad 0\ \text{otherwise}
+#A.2.2.3|Inverse Burr|τ, θ, γ|continuous|
+f(x)||\frac{\tau\gamma(x/\theta)^{\gamma\tau}}{x[1+(x/\theta)^\gamma]^{\tau+1}}
+F(x),u||F(x)=u^\tau,\quad u=\frac{(x/\theta)^\gamma}{1+(x/\theta)^\gamma}
+VaR_p||\theta(p^{-1/\tau}-1)^{-1/\gamma}
+E[X^k]||\frac{\theta^k\Gamma(\tau+k/\gamma)\Gamma(1-k/\gamma)}{\Gamma(\tau)},\quad-\tau\gamma<k<\gamma
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k/\gamma)\Gamma(1-k/\gamma)}{\Gamma(\tau)}\beta(\tau+k/\gamma,1-k/\gamma;u)+x^k(1-u^\tau)
+Mode||\theta\left(\frac{\tau\gamma-1}{\gamma+1}\right)^{1/\gamma}\ (\tau\gamma>1),\quad 0\ \text{otherwise}
+#A.2.3.1|Pareto (Type II)|α, θ|continuous|Lomax；不同於 Single-Parameter Pareto
+f(x)||\frac{\alpha\theta^\alpha}{(x+\theta)^{\alpha+1}}
+F(x)||1-\left(\frac{\theta}{x+\theta}\right)^\alpha
+VaR_p||\theta[(1-p)^{-1/\alpha}-1]
+E[X^k]||\frac{\theta^k\Gamma(k+1)\Gamma(\alpha-k)}{\Gamma(\alpha)},\quad-1<k<\alpha
+Integer moments||\frac{\theta^kk!}{(\alpha-1)\cdots(\alpha-k)}
+E[X∧x], α≠1||\frac{\theta}{\alpha-1}\left[1-\left(\frac{\theta}{x+\theta}\right)^{\alpha-1}\right]
+E[X∧x], α=1||-\theta\ln\left(\frac{\theta}{x+\theta}\right)
+TVaR_p||VaR_p(X)+\frac{\theta(1-p)^{-1/\alpha}}{\alpha-1},\quad \alpha>1
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(k+1)\Gamma(\alpha-k)}{\Gamma(\alpha)}\beta(k+1,\alpha-k;x/(x+\theta))+x^k\left(\frac{\theta}{x+\theta}\right)^\alpha
+Limited moment k=α||E[(X\wedge x)^\alpha]=\theta^\alpha\left(\frac{x}{x+\theta}\right)^\alpha\left[1+\alpha\sum_{n=0}^{\infty}\frac{[x/(x+\theta)]^{n+1}}{\alpha+n+1}\right]
+Mode||0
+#A.2.3.2|Inverse Pareto|τ, θ|continuous|
+f(x)||\frac{\tau\theta x^{\tau-1}}{(x+\theta)^{\tau+1}}
+F(x)||\left(\frac{x}{x+\theta}\right)^\tau
+VaR_p||\theta(p^{-1/\tau}-1)^{-1}
+E[X^k]||\frac{\theta^k\Gamma(\tau+k)\Gamma(1-k)}{\Gamma(\tau)},\quad-\tau<k<1
+Negative integer moments||\frac{\theta^k(-k)!}{(\tau-1)\cdots(\tau+k)}
+Limited moment||E[(X\wedge x)^k]=\theta^k\tau\int_0^{x/(x+\theta)}y^{\tau+k-1}(1-y)^{-k}\,dy+x^k\left[1-\left(\frac{x}{x+\theta}\right)^\tau\right]
+Mode||\frac{\theta(\tau-1)}{2}\ (\tau>1),\quad 0\ \text{otherwise}
+#A.2.3.3|Loglogistic|γ, θ|continuous|Fisk
+f(x)||\frac{\gamma(x/\theta)^\gamma}{x[1+(x/\theta)^\gamma]^2}
+F(x),u||F(x)=u,\quad u=\frac{(x/\theta)^\gamma}{1+(x/\theta)^\gamma}
+VaR_p||\theta(p^{-1}-1)^{-1/\gamma}
+E[X^k]||\theta^k\Gamma(1+k/\gamma)\Gamma(1-k/\gamma),\quad-\gamma<k<\gamma
+Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(1+k/\gamma)\Gamma(1-k/\gamma)\beta(1+k/\gamma,1-k/\gamma;u)+x^k(1-u)
+Mode||\theta\left(\frac{\gamma-1}{\gamma+1}\right)^{1/\gamma}\ (\gamma>1),\quad 0\ \text{otherwise}
+#A.2.3.4|Paralogistic|α, θ|continuous|Burr with γ = α
+f(x)||\frac{\alpha^2(x/\theta)^\alpha}{x[1+(x/\theta)^\alpha]^{\alpha+1}}
+F(x),u||F(x)=1-u^\alpha,\quad u=\frac1{1+(x/\theta)^\alpha}
+VaR_p||\theta[(1-p)^{-1/\alpha}-1]^{1/\alpha}
+E[X^k]||\frac{\theta^k\Gamma(1+k/\alpha)\Gamma(\alpha-k/\alpha)}{\Gamma(\alpha)},\quad-\alpha<k<\alpha^2
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(1+k/\alpha)\Gamma(\alpha-k/\alpha)}{\Gamma(\alpha)}\beta(1+k/\alpha,\alpha-k/\alpha;1-u)+x^ku^\alpha
+Mode||\theta\left(\frac{\alpha-1}{\alpha^2+1}\right)^{1/\alpha}\ (\alpha>1),\quad 0\ \text{otherwise}
+#A.2.3.5|Inverse Paralogistic|τ, θ|continuous|Inverse Burr with γ = τ
+f(x)||\frac{\tau^2(x/\theta)^{\tau^2}}{x[1+(x/\theta)^\tau]^{\tau+1}}
+F(x),u||F(x)=u^\tau,\quad u=\frac{(x/\theta)^\tau}{1+(x/\theta)^\tau}
+VaR_p||\theta(p^{-1/\tau}-1)^{-1/\tau}
+E[X^k]||\frac{\theta^k\Gamma(\tau+k/\tau)\Gamma(1-k/\tau)}{\Gamma(\tau)},\quad-\tau^2<k<\tau
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\tau+k/\tau)\Gamma(1-k/\tau)}{\Gamma(\tau)}\beta(\tau+k/\tau,1-k/\tau;u)+x^k(1-u^\tau)
+Mode||\theta(\tau-1)^{1/\tau}\ (\tau>1),\quad 0\ \text{otherwise}
+#A.3.2.1|Gamma|α, θ|continuous|θ is scale；α=n/2、θ=2 為 χ²(n)
+f(x)||\frac{(x/\theta)^\alpha e^{-x/\theta}}{x\Gamma(\alpha)}
+F(x)||\Gamma(\alpha;x/\theta)
+E[X^k]||\frac{\theta^k\Gamma(\alpha+k)}{\Gamma(\alpha)},\quad k>-\alpha
+Integer moments||\theta^k\alpha(\alpha+1)\cdots(\alpha+k-1)
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\alpha+k)}{\Gamma(\alpha)}\Gamma(\alpha+k;x/\theta)+x^k[1-\Gamma(\alpha;x/\theta)]
+MGF||M(t)=(1-\theta t)^{-\alpha},\quad t<1/\theta
+Mode||\theta(\alpha-1)\ (\alpha>1),\quad 0\ \text{otherwise}
+#A.3.2.2|Inverse Gamma|α, θ|continuous|Vinci
+f(x)||\frac{(\theta/x)^\alpha e^{-\theta/x}}{x\Gamma(\alpha)}
+F(x)||1-\Gamma(\alpha;\theta/x)
+E[X^k]||\frac{\theta^k\Gamma(\alpha-k)}{\Gamma(\alpha)},\quad k<\alpha
+Integer moments||\frac{\theta^k}{(\alpha-1)\cdots(\alpha-k)}
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(\alpha-k)}{\Gamma(\alpha)}[1-\Gamma(\alpha-k;\theta/x)]+x^k\Gamma(\alpha;\theta/x)
+Equivalent||\frac{\theta^kG(\alpha-k;\theta/x)}{\Gamma(\alpha)}+x^k\Gamma(\alpha;\theta/x)
+Mode||\frac{\theta}{\alpha+1}
+#A.3.2.3|Weibull|θ, τ|continuous|
+f(x)||\frac{\tau(x/\theta)^\tau e^{-(x/\theta)^\tau}}{x}
+F(x)||1-e^{-(x/\theta)^\tau}
+VaR_p||\theta[-\ln(1-p)]^{1/\tau}
+E[X^k]||\theta^k\Gamma(1+k/\tau),\quad k>-\tau
+Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(1+k/\tau)\Gamma[1+k/\tau;(x/\theta)^\tau]+x^ke^{-(x/\theta)^\tau}
+Mode||\theta\left(\frac{\tau-1}{\tau}\right)^{1/\tau}\ (\tau>1),\quad 0\ \text{otherwise}
+#A.3.2.4|Inverse Weibull|θ, τ|continuous|log-Gompertz
+f(x)||\frac{\tau(\theta/x)^\tau e^{-(\theta/x)^\tau}}{x}
+F(x)||e^{-(\theta/x)^\tau}
+VaR_p||\theta(-\ln p)^{-1/\tau}
+E[X^k]||\theta^k\Gamma(1-k/\tau),\quad k<\tau
+Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(1-k/\tau)\{1-\Gamma[1-k/\tau;(\theta/x)^\tau]\}+x^k[1-e^{-(\theta/x)^\tau}]
+Equivalent||\theta^kG[1-k/\tau;(\theta/x)^\tau]+x^k[1-e^{-(\theta/x)^\tau}]
+Mode||\theta\left(\frac{\tau}{\tau+1}\right)^{1/\tau}
+#A.3.3.1|Exponential|θ|continuous|θ is scale, not rate
+f(x)||\frac{e^{-x/\theta}}{\theta}
+F(x)||1-e^{-x/\theta}
+VaR_p||-\theta\ln(1-p)
+E[X^k]||\theta^k\Gamma(k+1),\quad k>-1
+Integer moments||\theta^kk!
+E[X∧x]||\theta(1-e^{-x/\theta})
+TVaR_p||-\theta\ln(1-p)+\theta
+Limited moment||E[(X\wedge x)^k]=\theta^k\Gamma(k+1)\Gamma(k+1;x/\theta)+x^ke^{-x/\theta}
+MGF||M(z)=(1-\theta z)^{-1},\quad z<1/\theta
+Mode||0
+#A.3.3.2|Inverse Exponential|θ|continuous|
+f(x)||\frac{\theta e^{-\theta/x}}{x^2}
+F(x)||e^{-\theta/x}
+VaR_p||\theta(-\ln p)^{-1}
+E[X^k]||\theta^k\Gamma(1-k),\quad k<1
+Limited moment||E[(X\wedge x)^k]=\theta^kG(1-k;\theta/x)+x^k(1-e^{-\theta/x})
+Mode||\theta/2
+#A.5.1.1|Lognormal|μ, σ|continuous|μ can be negative；z=(ln x−μ)/σ
+f(x)||\frac{1}{x\sigma\sqrt{2\pi}}e^{-z^2/2}=\frac{\phi(z)}{\sigma x},\quad z=\frac{\ln x-\mu}{\sigma}
+F(x)||\Phi(z)
+E[X^k]||\exp\left(k\mu+\frac12 k^2\sigma^2\right)
+Limited moment||E[(X\wedge x)^k]=\exp\left(k\mu+\frac12k^2\sigma^2\right)\Phi\left(\frac{\ln x-\mu-k\sigma^2}{\sigma}\right)+x^k[1-F(x)]
+Mode||\exp(\mu-\sigma^2)
+#A.5.1.2|Inverse Gaussian|μ, θ|continuous|
+f(x)||\left(\frac{\theta}{2\pi x^3}\right)^{1/2}\exp\left(-\frac{\theta z^2}{2x}\right),\quad z=\frac{x-\mu}{\mu}
+F(x)||\Phi\left(z\sqrt{\frac{\theta}{x}}\right)+e^{2\theta/\mu}\Phi\left(-y\sqrt{\frac{\theta}{x}}\right),\quad y=\frac{x+\mu}{\mu}
+Mean, variance||E[X]=\mu,\quad\operatorname{Var}(X)=\frac{\mu^3}{\theta}
+Moments||E[X^k]=\sum_{n=0}^{k-1}\frac{(k+n-1)!}{(k-n-1)!\,n!}\frac{\mu^{n+k}}{(2\theta)^n},\quad k=1,2,\ldots
+Limited mean||E[X\wedge x]=x-\mu z\Phi\left(z\sqrt{\frac{\theta}{x}}\right)-\mu y e^{2\theta/\mu}\Phi\left(-y\sqrt{\frac{\theta}{x}}\right)
+MGF||M(z)=\exp\left[\frac{\theta}{\mu}\left(1-\sqrt{1-\frac{2\mu^2}{\theta}z}\right)\right],\quad z<\frac{\theta}{2\mu^2}
+#A.5.1.3|Log-t|r, μ, σ|continuous|X=e^{σY+μ}, Y∼t(r)；positive moments do not exist
+f(x)||\frac{\Gamma((r+1)/2)}{x\sigma\sqrt{\pi r}\Gamma(r/2)\left[1+\frac1r\left(\frac{\ln x-\mu}{\sigma}\right)^2\right]^{(r+1)/2}}
+F(x)||F_r\left(\frac{\ln x-\mu}{\sigma}\right)
+CDF if x≤e^μ||\frac12\beta\left(\frac r2,\frac12;\frac{r}{r+[(\ln x-\mu)/\sigma]^2}\right)
+CDF if x≥e^μ||1-\frac12\beta\left(\frac r2,\frac12;\frac{r}{r+[(\ln x-\mu)/\sigma]^2}\right)
+#A.5.1.4|Single-Parameter Pareto|α, θ (θ known)|continuous|x>θ；only α is a true parameter
+f(x)||\frac{\alpha\theta^\alpha}{x^{\alpha+1}},\quad x>\theta
+F(x)||1-\left(\frac{\theta}{x}\right)^\alpha,\quad x>\theta
+VaR_p||\theta(1-p)^{-1/\alpha}
+E[X^k]||\frac{\alpha\theta^k}{\alpha-k},\quad k<\alpha
+Limited moment||E[(X\wedge x)^k]=\frac{\alpha\theta^k}{\alpha-k}-\frac{k\theta^\alpha}{(\alpha-k)x^{\alpha-k}},\quad x\ge\theta,\ k\ne\alpha
+k=α||E[(X\wedge x)^\alpha]=\theta^\alpha[1+\alpha\ln(x/\theta)]
+TVaR_p||\frac{\alpha\theta(1-p)^{-1/\alpha}}{\alpha-1},\quad\alpha>1
+Mode||\theta
+#A.6.1.1|Generalized Beta|a, b, θ, τ|continuous|finite support；θ assumed known
+f(x)||\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}u^a(1-u)^{b-1}\frac{\tau}{x},\quad0<x<\theta,\ u=(x/\theta)^\tau
+F(x)||\beta(a,b;u)
+E[X^k]||\frac{\theta^k\Gamma(a+b)\Gamma(a+k/\tau)}{\Gamma(a)\Gamma(a+b+k/\tau)},\quad k>-a\tau
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^k\Gamma(a+b)\Gamma(a+k/\tau)}{\Gamma(a)\Gamma(a+b+k/\tau)}\beta(a+k/\tau,b;u)+x^k[1-\beta(a,b;u)]
+#A.6.1.2|Beta|a, b, θ|continuous|finite support；θ assumed known
+f(x)||\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}u^a(1-u)^{b-1}\frac1x,\quad0<x<\theta,\ u=x/\theta
+F(x)||\beta(a,b;u)
+E[X^k]||\frac{\theta^k\Gamma(a+b)\Gamma(a+k)}{\Gamma(a)\Gamma(a+b+k)},\quad k>-a
+Integer moments||\frac{\theta^ka(a+1)\cdots(a+k-1)}{(a+b)(a+b+1)\cdots(a+b+k-1)}
+Limited moment||E[(X\wedge x)^k]=\frac{\theta^ka(a+1)\cdots(a+k-1)}{(a+b)(a+b+1)\cdots(a+b+k-1)}\beta(a+k,b;u)+x^k[1-\beta(a,b;u)]
+#B.2.1.1|Poisson|λ|discrete|(a,b,0)；k=0,1,…
+p₀,a,b||p_0=e^{-\lambda},\quad a=0,\ b=\lambda
+PMF||p_k=\frac{e^{-\lambda}\lambda^k}{k!}
+Mean / Variance||E[N]=\lambda,\quad\operatorname{Var}(N)=\lambda
+Estimator||\hat{\lambda}=\hat{\mu}
+PGF||P(z)=e^{\lambda(z-1)}
+#B.2.1.2|Geometric|β|discrete|(a,b,0)；支援 k=0,1,…
+p₀,a,b||p_0=\frac1{1+\beta},\quad a=\frac{\beta}{1+\beta},\ b=0
+PMF||p_k=\frac{\beta^k}{(1+\beta)^{k+1}}
+Mean / Variance||E[N]=\beta,\quad\operatorname{Var}(N)=\beta(1+\beta)
+Estimator||\hat\beta=\hat\mu
+PGF||P(z)=[1-\beta(z-1)]^{-1}
+#B.2.1.3|Binomial|q, m|discrete|(a,b,0)；0<q<1, m positive integer
+p₀,a,b||p_0=(1-q)^m,\quad a=-\frac{q}{1-q},\ b=\frac{(m+1)q}{1-q}
+PMF||p_k=\binom mk q^k(1-q)^{m-k},\quad k=0,\ldots,m
+Mean / Variance||E[N]=mq,\quad\operatorname{Var}(N)=mq(1-q)
+Estimator||\hat q=\hat\mu/m
+PGF||P(z)=[1+q(z-1)]^m
+#B.2.1.4|Negative Binomial|β, r|discrete|(a,b,0)；SOA β 是 mean-per-r 的參數
+p₀,a,b||p_0=(1+\beta)^{-r},\quad a=\frac{\beta}{1+\beta},\ b=\frac{(r-1)\beta}{1+\beta}
+PMF||p_k=\frac{r(r+1)\cdots(r+k-1)\beta^k}{k!(1+\beta)^{r+k}}
+Mean / Variance||E[N]=r\beta,\quad\operatorname{Var}(N)=r\beta(1+\beta)
+Estimators||\hat\beta=\frac{\hat{\sigma}^2}{\hat\mu}-1,\quad\hat r=\frac{\hat\mu^2}{\hat{\sigma}^2-\hat\mu}
+PGF||P(z)=[1-\beta(z-1)]^{-r}
+#B.3.1.1|Zero-Truncated Poisson|λ|discrete|k≥1；p₀ᵀ=0
+p₁,a,b||p_1^T=\frac{\lambda}{e^\lambda-1},\quad a=0,\ b=\lambda
+PMF||p_k^T=\frac{\lambda^k}{k!(e^\lambda-1)}
+Mean||E[N]=\frac{\lambda}{1-e^{-\lambda}}
+Variance||\operatorname{Var}(N)=\frac{\lambda[1-(\lambda+1)e^{-\lambda}]}{(1-e^{-\lambda})^2}
+Estimator||\tilde\lambda=\ln(n\hat\mu/n_1)
+PGF||P(z)=\frac{e^{\lambda z}-1}{e^\lambda-1}
+#B.3.1.2|Zero-Truncated Geometric|β|discrete|k≥1；r=1 ZT Negative Binomial
+p₁,a,b||p_1^T=\frac1{1+\beta},\quad a=\frac{\beta}{1+\beta},\ b=0
+PMF||p_k^T=\frac{\beta^{k-1}}{(1+\beta)^k}
+Mean / Variance||E[N]=1+\beta,\quad\operatorname{Var}(N)=\beta(1+\beta)
+Estimator||\hat\beta=\hat\mu-1
+PGF||P(z)=\frac{[1-\beta(z-1)]^{-1}-(1+\beta)^{-1}}{1-(1+\beta)^{-1}}
+#B.3.1.3|Logarithmic|β|discrete|k≥1；r→0 ZT Negative Binomial
+p₁,a,b||p_1^T=\frac{\beta}{(1+\beta)\ln(1+\beta)},\quad a=\frac{\beta}{1+\beta},\ b=-\frac{\beta}{1+\beta}
+PMF||p_k^T=\frac{\beta^k}{k(1+\beta)^k\ln(1+\beta)}
+Mean||E[N]=\frac{\beta}{\ln(1+\beta)}
+Variance||\operatorname{Var}(N)=\frac{\beta[1+\beta-\beta/\ln(1+\beta)]}{\ln(1+\beta)}
+Estimators||\tilde\beta=\frac{n\hat\mu}{n_1}-1\quad\text{or}\quad\frac{2(\hat\mu-1)}{\hat\mu}
+PGF||P(z)=1-\frac{\ln[1-\beta(z-1)]}{\ln(1+\beta)}
+#B.3.1.4|Zero-Truncated Binomial|q, m|discrete|k=1,…,m
+p₁,a,b||p_1^T=\frac{m(1-q)^{m-1}q}{1-(1-q)^m},\quad a=-\frac q{1-q},\ b=\frac{(m+1)q}{1-q}
+PMF||p_k^T=\frac{\binom mk q^k(1-q)^{m-k}}{1-(1-q)^m}
+Mean||E[N]=\frac{mq}{1-(1-q)^m}
+Variance||\operatorname{Var}(N)=\frac{mq[(1-q)-(1-q+mq)(1-q)^m]}{[1-(1-q)^m]^2}
+Estimator||\tilde q=\hat\mu/m
+PGF||P(z)=\frac{[1+q(z-1)]^m-(1-q)^m}{1-(1-q)^m}
+#B.3.1.5|Zero-Truncated Negative Binomial|β, r|discrete|r>−1,r≠0；extended truncated NB
+p₁,a,b||p_1^T=\frac{r\beta}{(1+\beta)^{r+1}-(1+\beta)},\quad a=\frac{\beta}{1+\beta},\ b=\frac{(r-1)\beta}{1+\beta}
+PMF||p_k^T=\frac{r(r+1)\cdots(r+k-1)}{k![(1+\beta)^r-1]}\left(\frac{\beta}{1+\beta}\right)^k
+Mean||E[N]=\frac{r\beta}{1-(1+\beta)^{-r}}
+Variance||\operatorname{Var}(N)=\frac{r\beta[(1+\beta)-(1+\beta+r\beta)(1+\beta)^{-r}]}{[1-(1+\beta)^{-r}]^2}
+Estimators||\tilde\beta=\frac{\hat\sigma^2}{\hat\mu}-1,\quad\tilde r=\frac{\hat\mu^2}{\hat\sigma^2-\hat\mu}
+PGF||P(z)=\frac{[1-\beta(z-1)]^{-r}-(1+\beta)^{-r}}{1-(1+\beta)^{-r}}
+#B.3.2|Zero-Modified Class|p₀ᴹ|discrete|由 zero-truncated 重配 p₀ᴹ；k≥1
+PMF via truncated||p_k^M=(1-p_0^M)p_k^T
+PMF via original||p_k^M=\frac{(1-p_0^M)p_k}{1-p_0}
+Recursion||p_k^M=\left(a+\frac bk\right)p_{k-1}^M,\quad k\ge2
+Mean||\mu_M=(1-p_0^M)\mu_T
+Variance||\sigma_M^2=(1-p_0^M)\sigma_T^2+p_0^M(1-p_0^M)\mu_T^2
+PGF||P_M(z)=p_0^M+(1-p_0^M)P_T(z)
+MLE||\widehat{p_0^M}=\frac{\text{observed zeros}}{n}
+#A.1|Special Functions|Γ, β, G|reference|FAM tables use normalized lower incomplete Γ and β
+Gamma function||\Gamma(\alpha)=\int_0^\infty t^{\alpha-1}e^{-t}\,dt
+Incomplete gamma||\Gamma(\alpha;x)=\frac1{\Gamma(\alpha)}\int_0^x t^{\alpha-1}e^{-t}\,dt
+Upper incomplete G||G(\alpha;x)=\int_x^\infty t^{\alpha-1}e^{-t}\,dt
+Recursion||G(\alpha;x)=-\frac{x^\alpha e^{-x}}{\alpha}+\frac{G(\alpha+1;x)}{\alpha}
+Link||G(\alpha+k;x)=\Gamma(\alpha+k)[1-\Gamma(\alpha+k;x)]
+Incomplete beta||\beta(a,b;x)=\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\int_0^x t^{a-1}(1-t)^{b-1}\,dt
+#B.1|Discrete Notation|factorial moments, PGF|reference|
+Factorial moment||\mu_{(j)}=E[N(N-1)\cdots(N-j+1)]
+Mean, Variance||E[N]=\mu_{(1)},\quad\operatorname{Var}(N)=\mu_{(2)}+\mu_{(1)}-\mu_{(1)}^2
+Sample mean||\hat\mu=\frac1n\sum_{k=1}^{\infty}kn_k
+Sample variance||\hat\sigma^2=\frac1n\sum_{k=1}^{\infty}k^2n_k-\hat\mu^2
+PGF||P(z)=E[z^N]
+#B.2|Recursion (a,b,0)|a, b|reference|k≥1
+Recursion||p_k=\left(a+\frac bk\right)p_{k-1}
+Mean||\mu_{(1)}=\frac{a+b}{1-a}
+Factorial moments||\mu_{(j)}=\frac{aj+b}{1-a}\mu_{(j-1)}
+Variance||\operatorname{Var}(N)=\frac{a+b}{(1-a)^2}
+#B.3|Recursion (a,b,1)|a, b|reference|k≥2
+Recursion||p_k^M=\left(a+\frac bk\right)p_{k-1}^M,\quad p_k^T=\left(a+\frac bk\right)p_{k-1}^T
+ZT relation||p_k^T=\frac{p_k}{1-p_0}
+ZT mean||E[N_T]=\frac{a+b}{(1-a)(1-p_0)}
+ZT variance||\operatorname{Var}(N_T)=\frac{(a+b)[1-(a+b+1)p_0]}{[(1-a)(1-p_0)]^2}
+#Normal|Standard Normal|Z|reference|continuity correction required for normal approximation to discrete distribution
+PDF||\phi(z)=\frac1{\sqrt{2\pi}}e^{-z^2/2}
+CDF||\Phi(z)=P(Z\le z)
+Symmetry||\Phi(-z)=1-\Phi(z)
+</script>
+<script>
+(function(){
+'use strict';
+var raw=document.getElementById('equations').textContent.trim(), cards=[], cur=null;
+raw.split(/\r?\n/).forEach(function(s){s=s.trim();if(!s)return;if(s.charAt(0)==='#'){var c=s.slice(1).split('|');cur={id:c[0],name:c[1],params:c[2],type:c[3],note:c[4]||'',eq:[]};cards.push(cur);}else if(cur){var i=s.indexOf('||');if(i>-1)cur.eq.push({label:s.slice(0,i),formula:s.slice(i+2)});}});
+var q=document.getElementById('query'),filter='all';
+function el(tag,klass,txt){var x=document.createElement(tag);if(klass)x.className=klass;if(txt!==undefined)x.textContent=txt;return x;}
+function update(){
+ var query=q.value.toLocaleLowerCase(),shown=0;
+ ['continuous','discrete','reference'].forEach(function(t){
+  var host=document.getElementById(t+'-cards'),list=cards.filter(function(c){return c.type===t&&(!query||(c.id+' '+c.name+' '+c.params+' '+c.note+' '+c.eq.map(function(e){return e.label;}).join(' ')).toLocaleLowerCase().indexOf(query)>-1)&&(filter==='all'||filter===t);});
+  host.replaceChildren();list.forEach(function(c){
+   var article=el('article','card'),head=el('div','card-header');head.append(el('div','id',c.id),el('h3','',c.name),el('p','param','Parameters: '+c.params));article.append(head);
+   if(c.note)article.append(el('div','note',c.note));
+   c.eq.forEach(function(e){var line=el('div','eq');line.append(el('div','lbl',e.label));var math=el('div','math');math.textContent='\\['+e.formula+'\\]';line.append(math);article.append(line);});host.append(article);
+  });
+  var ct=document.getElementById(t+'-count');if(ct)ct.textContent=list.length+' 個項目';shown+=list.length;
+  document.getElementById(t).hidden=filter!=='all'&&filter!==t;
+ });
+ if(window.MathJax&&MathJax.typesetPromise){MathJax.typesetClear&&MathJax.typesetClear();MathJax.typesetPromise().catch(function(e){console.error(e);});}
+}
+document.querySelectorAll('[data-filter]').forEach(function(b){b.addEventListener('click',function(){filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(function(x){x.classList.toggle('active',x===b);});update();});});
+q.addEventListener('input',update);document.getElementById('clear').addEventListener('click',function(){q.value='';q.focus();update();});
+var zdata=[
+'0.0 5000 5040 5080 5120 5160 5199 5239 5279 5319 5359',
+'0.1 5398 5438 5478 5517 5557 5596 5636 5675 5714 5753',
+'0.2 5793 5832 5871 5910 5948 5987 6026 6064 6103 6141',
+'0.3 6179 6217 6255 6293 6331 6368 6406 6443 6480 6517',
+'0.4 6554 6591 6628 6664 6700 6736 6772 6808 6844 6879',
+'0.5 6915 6950 6985 7019 7054 7088 7123 7157 7190 7224',
+'0.6 7257 7291 7324 7357 7389 7422 7454 7486 7517 7549',
+'0.7 7580 7611 7642 7673 7704 7734 7764 7794 7823 7852',
+'0.8 7881 7910 7939 7967 7995 8023 8051 8078 8106 8133',
+'0.9 8159 8186 8212 8238 8264 8289 8315 8340 8365 8389',
+'1.0 8413 8438 8461 8485 8508 8531 8554 8577 8599 8621',
+'1.1 8643 8665 8686 8708 8729 8749 8770 8790 8810 8830',
+'1.2 8849 8869 8888 8907 8925 8944 8962 8980 8997 9015',
+'1.3 9032 9049 9066 9082 9099 9115 9131 9147 9162 9177',
+'1.4 9192 9207 9222 9236 9251 9265 9279 9292 9306 9319',
+'1.5 9332 9345 9357 9370 9382 9394 9406 9418 9429 9441',
+'1.6 9452 9463 9474 9484 9495 9505 9515 9525 9535 9545',
+'1.7 9554 9564 9573 9582 9591 9599 9608 9616 9625 9633',
+'1.8 9641 9649 9656 9664 9671 9678 9686 9693 9699 9706',
+'1.9 9713 9719 9726 9732 9738 9744 9750 9756 9761 9767',
+'2.0 9772 9778 9783 9788 9793 9798 9803 9808 9812 9817',
+'2.1 9821 9826 9830 9834 9838 9842 9846 9850 9854 9857',
+'2.2 9861 9864 9868 9871 9875 9878 9881 9884 9887 9890',
+'2.3 9893 9896 9898 9901 9904 9906 9909 9911 9913 9916',
+'2.4 9918 9920 9922 9925 9927 9929 9931 9932 9934 9936',
+'2.5 9938 9940 9941 9943 9945 9946 9948 9949 9951 9952',
+'2.6 9953 9955 9956 9957 9959 9960 9961 9962 9963 9964',
+'2.7 9965 9966 9967 9968 9969 9970 9971 9972 9973 9974',
+'2.8 9974 9975 9976 9977 9977 9978 9979 9979 9980 9981',
+'2.9 9981 9982 9982 9983 9984 9984 9985 9985 9986 9986',
+'3.0 9987 9987 9987 9988 9988 9989 9989 9989 9990 9990',
+'3.1 9990 9991 9991 9991 9992 9992 9992 9992 9993 9993',
+'3.2 9993 9993 9994 9994 9994 9994 9994 9995 9995 9995',
+'3.3 9995 9995 9995 9996 9996 9996 9996 9996 9996 9997',
+'3.4 9997 9997 9997 9997 9997 9997 9997 9997 9997 9998',
+'3.5 9998 9998 9998 9998 9998 9998 9998 9998 9998 9998',
+'3.6 9998 9998 9999 9999 9999 9999 9999 9999 9999 9999',
+'3.7 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999',
+'3.8 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999',
+'3.9 10000 10000 10000 10000 10000 10000 10000 10000 10000 10000'];
+var table=el('table'),thead=el('thead'),hr=el('tr');['z','0.00','0.01','0.02','0.03','0.04','0.05','0.06','0.07','0.08','0.09'].forEach(function(s){hr.append(el('th','',s));});thead.append(hr);table.append(thead);
+var tbody=el('tbody');zdata.forEach(function(row){var a=row.split(' '),tr=el('tr');tr.append(el('td','',a[0]));a.slice(1).forEach(function(s){tr.append(el('td','',s==='10000'?'1.0000':'0.'+s));});tbody.append(tr);});table.append(tbody);document.getElementById('normal').append(table);
+update();window.addEventListener('load',function(){if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise();});
+})();
+</script></body></html>
