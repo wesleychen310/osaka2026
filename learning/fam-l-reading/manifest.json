@@ -1,0 +1,280 @@
+{
+  "version": "2026-11-06-batch01",
+  "source": {
+    "file_id": "1LhE1TOxeinf8xwwOCbb7luJAB2KqOCb_",
+    "page_count": 1149
+  },
+  "privacy": "private-google-drive",
+  "chapters": [
+    {
+      "id": "preface",
+      "title": "Front Matter",
+      "pdf_pages": [
+        1,
+        21
+      ],
+      "file_id": "12_U61PQK8LEgGUiP-FbKvpxoZeWQnYVm",
+      "status": "OCR_DRAFT"
+    },
+    {
+      "id": "lesson1",
+      "title": "Probability Review",
+      "pdf_pages": [
+        22,
+        37
+      ],
+      "file_id": "1o2pVgn4ZS_cCdLxVRdhxE8dSwW_YMQDN",
+      "status": "OCR_DRAFT_WITH_MANUAL_PAGE_22"
+    },
+    {
+      "id": "lesson2",
+      "title": "Introduction to Long Term Insurance",
+      "pdf_pages": [
+        38,
+        45
+      ],
+      "file_id": "1-w566HefkfCGfsOjdqWdWfSjxngPweL8",
+      "status": "OCR_DRAFT"
+    },
+    {
+      "id": "lesson3",
+      "title": "Survival Distributions: Probability Functions",
+      "printed_page": 27,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson4",
+      "title": "Survival Distributions: Force of Mortality",
+      "printed_page": 45,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson5",
+      "title": "Mortality Laws",
+      "printed_page": 69,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson6",
+      "title": "Survival Distributions: Moments",
+      "printed_page": 87,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson7",
+      "title": "Survival Distributions: Percentiles and Recursions",
+      "printed_page": 119,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson8",
+      "title": "Fractional Ages",
+      "printed_page": 133,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson9",
+      "title": "Select Mortality",
+      "printed_page": 155,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson10",
+      "title": "Empirical Distribution Function",
+      "printed_page": 183,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson11",
+      "title": "Kaplan-Meier and Nelson-Aalen Estimators",
+      "printed_page": 189,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson12",
+      "title": "Variance of Kaplan-Meier and Nelson-Aalen Estimators",
+      "printed_page": 213,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson13",
+      "title": "Estimating Force of Mortality",
+      "printed_page": 235,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson14",
+      "title": "Annual and 1/m-thly Insurance Moments",
+      "printed_page": 245,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson15",
+      "title": "Continuous Insurance Moments: Part 1",
+      "printed_page": 283,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson16",
+      "title": "Continuous Insurance Moments: Part 2",
+      "printed_page": 311,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson17",
+      "title": "Insurance Probabilities and Percentiles",
+      "printed_page": 335,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson18",
+      "title": "Recursive Formulas and Varying Insurance",
+      "printed_page": 357,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson19",
+      "title": "Relationships between Insurance APVs",
+      "printed_page": 385,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson20",
+      "title": "Discrete Annuities: Expectation",
+      "printed_page": 399,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson21",
+      "title": "Continuous Annuities: Expectation",
+      "printed_page": 431,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson22",
+      "title": "Annuities: Variance",
+      "printed_page": 453,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson23",
+      "title": "Annuities: Probabilities and Percentiles",
+      "printed_page": 485,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson24",
+      "title": "Varying Annuities and Recursive Formulas",
+      "printed_page": 505,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson25",
+      "title": "Annuities: 1/m-thly Payments",
+      "printed_page": 519,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson26",
+      "title": "Net Premiums for Discrete Insurances: Part 1",
+      "printed_page": 537,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson27",
+      "title": "Net Premiums for Discrete Insurances: Part 2",
+      "printed_page": 559,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson28",
+      "title": "Net Premiums Paid on a 1/m-thly Basis",
+      "printed_page": 581,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson29",
+      "title": "Net Premiums for Fully Continuous Insurances",
+      "printed_page": 591,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson30",
+      "title": "Gross Premiums",
+      "printed_page": 607,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson31",
+      "title": "Variance of Future Loss: Discrete",
+      "printed_page": 623,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson32",
+      "title": "Variance of Future Loss: Continuous",
+      "printed_page": 643,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson33",
+      "title": "Probabilities and Percentiles of Future Loss",
+      "printed_page": 661,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson34",
+      "title": "Premiums: Special Topics",
+      "printed_page": 681,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson35",
+      "title": "Net Premium Policy Value",
+      "printed_page": 691,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson36",
+      "title": "Gross Premium Policy Value and Expense Policy Value",
+      "printed_page": 711,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson37",
+      "title": "Special Reserve Formulas for Whole Life and Endowment Insurance",
+      "printed_page": 725,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson38",
+      "title": "Policy Values: Variance of Loss",
+      "printed_page": 747,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson39",
+      "title": "Policy Values: Recursive Formulas",
+      "printed_page": 763,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson40",
+      "title": "Modified Reserves",
+      "printed_page": 809,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson41",
+      "title": "Policy Values: Other Topics",
+      "printed_page": 821,
+      "status": "PENDING"
+    },
+    {
+      "id": "lesson42",
+      "title": "Supplementary Questions: Entire Course",
+      "printed_page": 835,
+      "status": "PENDING"
+    }
+  ]
+}
