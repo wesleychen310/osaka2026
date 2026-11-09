@@ -66,6 +66,26 @@ footer{padding:12px 3px;color:var(--muted);font:.78rem/1.6 -apple-system,BlinkMa
 .source-original article{border:0;padding:5px 3px 10px}
 .map-tree .edge{color:#a47b3e;font-weight:750}
 @media(max-width:550px){.map-tree ul{margin-left:4px;padding-left:11px}.map{padding:15px 14px}.map-tree .branch{font-size:1.02rem}.map-tree .formula{font-size:.84rem}.source-original{padding:10px 12px}}
+
+/* SOA Sample Q19: integrated mind map and phone-friendly answer */
+.sample-q{background:#fff;border:1px solid var(--line);border-radius:15px;padding:clamp(15px,3.8vw,27px);margin:16px 0;scroll-margin-top:94px}
+.sample-q h2{margin:2px 0 12px}
+.sample-q .q-original{background:#fafbf8;border:1px solid #e1e9e3;border-radius:10px;padding:14px 17px;margin:12px 0 17px}
+.sample-q .q-original p{margin:8px 0}
+.sample-q .q-original ol{margin:7px 0 12px;padding-left:27px}
+.sample-q .q-original li{border:0;padding:3px 0}
+.sample-q .q-options{margin:10px 0 0;color:#23453b}
+.sample-q .mathline{display:block;overflow-x:auto;white-space:nowrap;font:600 .98rem/1.6 ui-monospace,Menlo,Consolas,monospace;background:#f2f6f3;border-radius:7px;padding:9px;margin:7px 0}
+.sample-q .formula-pair{margin:8px 0 12px}
+.sample-q .answer{border-left:3px solid #157158;background:#f1f7f2;padding:11px 13px;border-radius:5px;margin:12px 0;font-weight:720}
+.sample-q .keys{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}
+.sample-q kbd{font:700 .9rem/1.2 ui-monospace,Menlo,Consolas,monospace;border:1px solid #d5ded7;background:#f4f7f4;padding:8px 10px;border-radius:6px;box-shadow:0 2px #d5ded7}
+.sample-q .minor{font-size:.89rem;color:var(--muted)}
+.sample-q .branch{font-weight:760;color:#164a3d}
+.sample-q ul{margin:6px 0 15px;padding-left:21px}
+.sample-q ul ul{border-left:2px solid #dce8df;padding-left:17px;margin:6px 0 9px}
+.sample-q ul li{border:none;padding:5px 0}
+.sample-q .back-top{font-size:.9rem}
 </style>
 </head>
 <body>
@@ -87,6 +107,7 @@ footer{padding:12px 3px;color:var(--muted);font:.78rem/1.6 -apple-system,BlinkMa
 <a href="#elimination">6 · Elimination</a>
 <a href="#policy-limits">Policy limits</a>
 <a href="#exam-traps">考場陷阱</a>
+<a href="#sample-q19">SOA Q19 · LER</a>
 <a href="#original-text">原文</a>
 </nav>
 
@@ -193,6 +214,76 @@ footer{padding:12px 3px;color:var(--muted);font:.78rem/1.6 -apple-system,BlinkMa
 </ul></li>
 </ul>
 <p class="note">資料標示：六種類型與條款特性依 ASM FAM-S §5.5；數學符號、支付函數及比較為根據教材所作的整理／推導；考綱範圍依 2027/02 SOA FAM syllabus Topic 1。</p>
+</section>
+
+<section class="sample-q" id="sample-q19" aria-labelledby="sample-q19-title">
+<p class="kicker" style="color:#7a673d">SOA FAM-S · OFFICIAL SAMPLE QUESTION 19 · PDF p.17</p>
+<h2 id="sample-q19-title">Q19 → Exponential LER &amp; Deductible Increase</h2>
+<p class="minor">來源：SOA《2024-10 Exam FAM-S Sample Questions》Q19。英文題目與選項照原題保留；其後為學習整理與推導。</p>
+<div class="q-original" lang="en">
+<p>You are given:</p>
+<ol type="i">
+<li>Losses follow an <strong>exponential distribution</strong><span class="gloss">（指數分配）</span> with the <strong>same mean in all years</strong><span class="gloss">（每年平均損失相同）</span>.</li>
+<li>The <strong>loss elimination ratio</strong><span class="gloss">（損失消除比例）</span> this year is 70%.</li>
+<li>The <strong>ordinary deductible</strong><span class="gloss">（一般自負額）</span> for the coming year is <strong>4/3 of the current deductible</strong><span class="gloss">（今年自負額的 4/3 倍）</span>.</li>
+</ol>
+<p>Calculate the loss elimination ratio for the coming year.</p>
+<div class="q-options">(A) 70% &nbsp; (B) 75% &nbsp; (C) 80% &nbsp; (D) 85% &nbsp; (E) 90%</div>
+</div>
+<ul class="map-tree" aria-label="Question 19 outline mind map">
+<li><div class="branch">01 → 大哉問｜到底在算什麼？</div>
+<ul>
+<li>★ 真正問題：已知今年 <strong>LER = 70%</strong>，當 <strong>deductible × 4/3</strong>、Exponential 的 <strong>mean 不變</strong>，明年被自負額吸收的「預期損失比例」會是多少？</li>
+<li><strong>觀測值 vs. 未知量：</strong>已知的是比例 LER，不是 deductible 金額 d 或 mean θ。⇢ 兩者絕對值無須求出，比例 d/θ 就足夠。</li>
+<li><strong>事實：</strong>這是 ordinary deductible，即逐次損失先扣 d；題目沒有 coinsurance 或 policy limit。</li>
+</ul></li>
+<li><div class="branch">02 → 二點關係｜損失、給付、LER 如何連接？</div>
+<ul>
+<li><strong>支付函數：</strong>原始損失 X → ordinary deductible d ⇒ insurer payment Y = (X − d)₊。</li>
+<li><strong>損失分解：</strong>X = min(X,d) + (X−d)₊ ⇒ deductible 吸收的預期損失 = E[min(X,d)]。</li>
+<li><strong>LER 定義：</strong><span class="mathline">LER(d) = E[min(X,d)] / E[X]</span></li>
+<li><strong>Exponential(θ)：</strong>E[X]=θ、E[min(X,d)]=θ(1−exp(−d/θ))。<span class="mathline">⇒ LER(d) = 1 − exp(−d/θ)</span></li>
+<li><strong>變化關係：</strong>d ↑ 且 θ 不變 ⇒ d/θ ↑ ⇒ exp(−d/θ) ↓ ⇒ LER ↑，但非線性上升。</li>
+</ul></li>
+<li><div class="branch">03 → 推導｜舊 LER ⟶ 新 LER</div>
+<ul>
+<li>今年：<span class="mathline">0.70 = 1 − exp(−d/θ)</span><span class="mathline">exp(−d/θ) = 0.30</span><span class="mathline">d/θ = −ln(0.30) ≈ 1.203972804</span></li>
+<li>明年：<span class="mathline">d_new = (4/3)d, θ_new = θ</span><span class="mathline">LER_new = 1 − exp[−(4/3)(d/θ)]</span><span class="mathline">= 1 − exp[(4/3)ln(0.30)]</span><span class="mathline">= 1 − 0.30^(4/3)</span></li>
+<li><div class="answer">✅ (C) 80%　｜精確值 79.9170115%，四捨五入為 80%。</div></li>
+<li>★ <strong>公式捷徑：</strong>若 X 為 Exponential 且 θ 不變、自負額乘以 k：<span class="mathline">LER_new = 1 − (1 − LER_old)^k</span>本題 k = 4/3。</li>
+</ul></li>
+<li><div class="branch">04 → TI-30XB MultiView｜逐鍵＋最快按法</div>
+<ul>
+<li>最快按法：<strong>1 − (0.30)^(4 ÷ 3)</strong>。</li>
+<li>逐鍵操作（使用一般減號 −，不需負號鍵）：<div class="keys" aria-label="Calculator key sequence"><kbd>1</kbd><kbd>−</kbd><kbd>0</kbd><kbd>.</kbd><kbd>3</kbd><kbd>^</kbd><kbd>(</kbd><kbd>4</kbd><kbd>÷</kbd><kbd>3</kbd><kbd>)</kbd><kbd>enter</kbd></div></li>
+<li>螢幕約為 <strong>0.799170114975</strong> ⇒ 79.9170% ⇒ 答案 (C)。</li>
+<li>若需檢驗中間值：<span class="mathline">−ln(0.30) = 1.203972804</span>但考場直接用次方更快。</li>
+</ul></li>
+<li><div class="branch">05 → 亂問／狂問｜假設與替代路徑</div>
+<ul>
+<li>？如果 mean θ 明年也改變？⇒ 直接捷徑不適用；應改寫成 <span class="mathline">LER_new = 1−(1−LER_old)^[k θ_old/θ_new]</span>此為延伸推導，非本題條件。</li>
+<li>？能否把 70% 直接乘以 4/3？⇒ 不行；LER 對 d 的關係為指數型，而非線性。</li>
+<li>？如果 deductible 不變但 inflation 推高損失與 mean？⇒ d/θ 下降，LER 反而下降（在 Exponential scale 變動的假設下）。</li>
+<li>？如果同時有 coinsurance、limit、annual aggregate deductible？⇒ 支付函數不同，必須重建 LER 定義；不能無條件套公式。</li>
+</ul></li>
+<li><div class="branch">06 → 瓶頸與考場陷阱</div>
+<ul>
+<li><strong>Wording：</strong><span class="en">4/3 of the current deductible</span> ⇒ 新值是 4/3 倍，不能理解為「增加 4/3 倍」即 7/3 倍。</li>
+<li><strong>Model：</strong><span class="en">same mean in all years</span> ⇒ θ 不變；此句是捷徑的關鍵前提。</li>
+<li><strong>Calculation：</strong>0.30 是 <strong>1−LER</strong>；不是直接以 0.70 做次方。</li>
+<li><strong>Calculator trap：</strong>括號要包住 4 ÷ 3；勿將 <span class="en">0.3^4 ÷ 3</span> 當成 <span class="en">0.3^(4/3)</span>。</li>
+<li><strong>Rounding：</strong>中間結果不提前四捨五入；最終約 79.917%，選最接近的 80%。</li>
+</ul></li>
+<li><div class="branch">07 → ✅ 複習與連結</div>
+<ul>
+<li>抽考 ① 何時可以使用 <span class="en">1 − (1 − LER_old)^k</span>？</li>
+<li>抽考 ② d 增加 20% 且 θ 不變，若舊 LER=60%，新 LER 的公式怎麼寫？</li>
+<li>抽考 ③ 說明 <span class="en">loss elimination ratio</span> 與 <span class="en">probability of no payment</span> 為何不是同一個概念。</li>
+<li>關聯：<a href="#fixed-dollar">Ordinary deductible 原文</a> ↔ <a href="#essence">§5.5 概念總覽</a> ↔ <a href="#exam-traps">其他常見陷阱</a>。</li>
+</ul></li>
+</ul>
+<p class="minor">證據標記：題目與選項為 SOA Sample Q19（PDF p.17）；Exponential 公式依 FAM-S Tables；推導、TI 操作、概念比較及延伸假設為教學整理。更正先前文字中的數值：本題精確小數為 0.799170114975，不是 0.799171。</p>
+<a class="back-top" href="#sample-q19-title">↑ 回 Q19 題目</a>
 </section>
 <details class="source-original" id="original-text"><summary>原書完整英文｜Deductibles（六種；點擊展開）</summary><article><h2>Deductibles<span class="gloss">（自負額）</span></h2>
 <p class="intro">Types of deductibles, <strong>as named in the Brown-Lennox textbook</strong><span class="gloss">（依 Brown-Lennox 教材的命名）</span>, are</p>
