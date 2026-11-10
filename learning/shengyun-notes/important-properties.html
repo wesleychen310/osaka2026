@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>重要性質｜Exponential｜勝運筆記</title>
+<style>:root{color-scheme:light}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}body{margin:0;background:#fff;color:#111;font:16.5px/1.63 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;-webkit-text-size-adjust:100%}main{max-width:760px;margin:auto;padding:22px 18px 70px}h1{font-size:clamp(1.9rem,5vw,2.45rem);line-height:1.2;margin:9px 0}h2{font-size:1.32rem;margin:31px 0 12px}p{margin:7px 0 12px}a,a:visited{color:#111;text-decoration:underline;text-underline-offset:3px}nav{display:flex;flex-wrap:wrap;gap:9px 20px;margin:20px 0 24px;font-size:.88rem}table{width:100%;border-collapse:collapse}th,td{padding:10px 7px 10px 0;text-align:left;vertical-align:top;border-bottom:1px solid #d9d9d9}th{font-weight:800}td:first-child{width:36%;font-weight:650}code{font:500 .95em/1.7 ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere;white-space:normal}ul{padding-left:21px;margin:8px 0}li{margin:7px 0}.muted,footer{color:#555;font-size:.86rem}.takeaway{margin-top:12px}strong{font-weight:800}footer{margin-top:38px}@media(max-width:520px){main{padding:18px 15px 62px}body{font-size:16px}table{font-size:.92rem}td:first-child{width:39%}}</style>
+</head>
+<body><main>
+<a href="./#important-properties">← 勝運筆記／重要性質</a>
+<header>
+<p class="muted">SOA FAM Tables · Appendix A.3.3.1 · PDF p.11（印刷 p.8）</p>
+<h1>重要性質｜Exponential</h1>
+<p><strong>X ~ Exponential(θ)</strong>，θ &gt; 0 是 <strong>scale = mean</strong>，rate = 1/θ。以下 x ≥ 0。</p>
+</header>
+<nav aria-label="重點跳轉"><a href="#core">基本公式</a><a href="#properties">必背性質</a><a href="#deductible">Deductible／LER</a><a href="#q19">Q19 捷徑</a></nav>
+<section id="core">
+<h2>1. 基本公式</h2>
+<table>
+<thead><tr><th>記住什麼</th><th>公式</th></tr></thead>
+<tbody>
+<tr><td>PDF</td><td><code>f(x) = e<sup>−x/θ</sup> / θ</code></td></tr>
+<tr><td>CDF / Survival</td><td><code>F(x) = 1 − e<sup>−x/θ</sup></code><br><code>S(x) = P(X &gt; x) = e<sup>−x/θ</sup></code></td></tr>
+<tr><td>Mean / Variance</td><td><code>E[X] = θ</code><br><code>Var(X) = θ²</code>；<code>E[X²] = 2θ²</code></td></tr>
+<tr><td>VaR / TVaR</td><td><code>VaR<sub>p</sub> = −θ ln(1 − p)</code><br><code>TVaR<sub>p</sub> = VaR<sub>p</sub> + θ</code></td></tr>
+<tr><td>Limited Expected Value</td><td><code>E[min(X,d)] = θ(1 − e<sup>−d/θ</sup>)</code></td></tr>
+<tr><td>MGF</td><td><code>M(t) = 1/(1 − θt)</code>，t &lt; 1/θ</td></tr>
+</tbody></table>
+</section>
+<section id="properties">
+<h2>2. 必背性質</h2>
+<ul>
+<li><strong>Memoryless property（無記憶性）</strong>：<code>P(X &gt; s+t | X &gt; s) = P(X &gt; t)</code>。</li>
+<li><strong>Mean excess（平均超額損失）</strong>：<code>E[X−d | X &gt; d] = θ</code>，與 d 無關。</li>
+<li><strong>Constant hazard（常數危險率）</strong>：<code>h(x) = f(x)/S(x) = 1/θ</code>。</li>
+</ul>
+</section>
+<section id="deductible">
+<h2>3. Deductible／LER｜考試最常用</h2>
+<p>Ordinary deductible d；<code>Y = (X−d)₊</code>。</p>
+<table>
+<thead><tr><th>題目 wording</th><th>直接用</th></tr></thead>
+<tbody>
+<tr><td><strong>Payment probability</strong></td><td><code>P(Y &gt; 0) = e<sup>−d/θ</sup></code></td></tr>
+<tr><td><strong>Payment per loss</strong></td><td><code>E[Y] = θe<sup>−d/θ</sup></code></td></tr>
+<tr><td><strong>Payment per payment</strong></td><td><code>E[Y | Y &gt; 0] = θ</code></td></tr>
+<tr><td><strong>LER</strong></td><td><code>1 − e<sup>−d/θ</sup></code></td></tr>
+<tr><td><strong>Frequency after deductible</strong></td><td><code>λ<sub>new</sub> = λe<sup>−d/θ</sup></code>（原次數為 Poisson(λ)，獨立損失）</td></tr>
+</tbody></table>
+<p class="takeaway"><strong>★ 一眼記：</strong><code>P(payment) = 1 − LER</code>；此等式依賴 Exponential。</p>
+</section>
+<section id="q19">
+<h2>4. SOA Sample Q19｜最快解法</h2>
+<ul>
+<li>條件：Exponential、<strong>same mean</strong>；今年 LER = 70%，明年 d 乘 4/3。</li>
+<li><strong>必背捷徑：</strong><code>LER<sub>new</sub> = 1 − (1 − LER<sub>old</sub>)<sup>k</sup></code>（θ 不變；d 乘 k）。</li>
+<li><strong>代入：</strong><code>1 − (0.30)<sup>4/3</sup> = 0.799170…</code> ⇒ <strong>(C) 80%</strong>。</li>
+<li><strong>TI-30XB MultiView：</strong><code>1 − 0.3 ^ ( 4 ÷ 3 ) → enter</code></li>
+<li><strong>Trap：</strong><em>4/3 of</em> = 乘 4/3；不可把 LER 直接乘 4/3。若 mean 變動，此捷徑需修正。</li>
+</ul>
+<p><a href="./deductibles.html#sample-q19">查看 Q19 英文原題與 Deductibles 筆記</a></p>
+</section>
+<footer>來源：SOA FAM-S Tables A.3.3.1（基本分配、LEV、VaR、TVaR、MGF）；Memoryless、hazard、LER、理賠公式及 Q19 捷徑由該參數化推導。</footer>
+</main></body></html>
