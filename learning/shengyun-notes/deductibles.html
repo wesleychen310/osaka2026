@@ -1,210 +1,37 @@
-<!doctype html>
-<html lang="zh-Hant-TW">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow,noarchive">
-<meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#153834">
-<title>Deductibles｜ASM FAM-S §5.5｜勝運筆記</title>
-<style>
-:root{color-scheme:light;--ink:#111;--muted:#505050;--paper:#fff;--line:#111;--green:#111;--gold:#111}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:86px}
-body{margin:0;background:#fff;color:#111;font:17px/1.75 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;-webkit-text-size-adjust:100%}
-main{max-width:780px;margin:auto;padding:20px 22px 80px}
-a{color:#111;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-a:visited{color:#111}
-a:focus-visible{outline:1px solid #111;outline-offset:3px}
-.back{display:inline-block;font-size:.86rem;margin:0 0 27px}
-.hero{margin:0 0 25px;padding:0;background:none;border:0}
-.kicker{font-size:.77rem;letter-spacing:.06em;font-weight:600;margin:0 0 9px;color:#111!important}
-h1{font-size:clamp(1.8rem,5.4vw,2.5rem);line-height:1.23;font-weight:800;letter-spacing:-.018em;margin:0 0 12px}
-h2{font-size:1.35rem;line-height:1.4;font-weight:800;margin:0 0 14px}
-h3{font-size:1.13rem}
-p{margin:.35em 0 1em}
-.source,.minor,.note,.badge-note{color:#505050;font-size:.9rem}
-.jump{display:flex;gap:18px;overflow-x:auto;scrollbar-width:thin;white-space:nowrap;position:sticky;top:0;z-index:4;background:#fff;margin:0 0 32px;padding:13px 0 16px}
-.jump a{flex-shrink:0;font-size:.84rem;font-weight:500;white-space:nowrap;text-decoration:underline;padding:0;background:none;border:0;border-radius:0}
-.map,.sample-q,.source-original,article{background:none;border:0;border-radius:0;padding:0;margin:0 0 42px}
-.map h2{font-size:1.48rem}
-.map-intro{padding:0;margin:4px 0 26px;background:none;border:0;color:#111;font-style:italic}
-.map-tree,.map-tree ul{list-style:none;margin:0;padding:0}
-.map-tree>li{margin:0 0 27px;padding:0;border:0}
-.map-tree ul{margin:10px 0 0 12px;padding-left:12px;border:0}
-.map-tree ul li{margin:0 0 10px;padding:0;border:0;scroll-margin-top:94px}
-.map-tree .branch{display:block;color:#111;font-size:1.13rem;font-weight:800;line-height:1.4;margin:0 0 8px}
-.map-tree .subbranch,.map-tree .em,.map-tree .en,.map-tree strong,.map-tree .edge{color:#111;font-weight:750}
-.map-tree .tag{display:inline;background:none;color:#111;font-style:italic;font-size:.87rem;font-weight:600;padding:0;margin-right:4px}
-.map-tree .badge-note,.map-tree .note{color:#505050;font-size:.89rem}
-.map-tree .formula,.sample-q .mathline{display:block;white-space:normal;overflow-wrap:anywhere;overflow-x:auto;background:none;border:0;border-radius:0;color:#111;padding:0;margin:8px 0 12px;font:600 .94rem/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-.map-tree a{text-decoration:underline;border:0}
-.map-tree li:target,li:target,.sample-q:target{background:transparent;box-shadow:none;outline:0}
-.sample-q{scroll-margin-top:90px}
-.sample-q h2{margin:0 0 13px}
-.sample-q .q-original{padding:0;margin:15px 0 24px;background:none;border:0;border-radius:0}
-.sample-q .q-original p{margin:6px 0 12px}
-.sample-q .q-original ol{margin:7px 0 12px;padding-left:25px}
-.sample-q .q-original li{border:0;padding:1px 0;margin-bottom:10px}
-.sample-q .q-options{margin:13px 0;color:#111}
-.sample-q .answer{padding:0;margin:10px 0;color:#111;background:none;border:0;font-weight:800}
-.sample-q .keys{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.sample-q kbd{font:600 .93rem/1.5 ui-monospace,Menlo,Consolas,monospace;color:#111;background:none;border:0;box-shadow:none;padding:0 3px;border-radius:0}
-.sample-q .branch{color:#111}
-.sample-q ul{padding-left:17px;margin:7px 0 14px}
-.sample-q ul ul{padding-left:14px;margin:8px 0;border:0}
-.sample-q ul li{border:0;margin:0 0 9px;padding:0}
-.sample-q .back-top{font-size:.87rem}
-.source-original{margin:36px 0}
-.source-original>summary{color:#111;cursor:pointer;font-size:1.08rem;font-weight:800;padding:0;text-decoration:underline}
-.source-original[open]>summary{margin:0 0 22px}
-.source-original article{padding:0}
-article ol{padding-left:1.7em}
-article li{padding:0 0 22px;margin-bottom:22px;border:0;scroll-margin-top:90px}
-article li+li{border:0}
-article li p{margin:0}
-article li p+p{margin:12px 0 0}
-li::marker{color:#111}
-strong,.sample-q strong{color:#111;font-weight:800}
-em{color:#111}
-.gloss{color:#505050;font-size:.87em;font-weight:400}
-footer{color:#505050;font-size:.78rem;line-height:1.65;padding:0}
-@media(max-width:550px){body{font-size:16.5px;line-height:1.72}main{padding:20px 16px 64px}.jump{gap:14px}.map-tree ul{margin-left:7px;padding-left:10px}.map-tree .formula,.sample-q .mathline{font-size:.87rem}.map,.sample-q{margin-bottom:38px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-</style>
-</head>
-<body>
-<main>
-<a class="back" href="./">← 勝運筆記</a>
-<header class="hero">
-<p class="kicker">ASM FAM-S · LESSON 5 · NOTE</p>
-<h1>Deductibles · Outline Mind Map</h1>
-<p class="source">ASM FAM-S §5.5｜知識架構 · 邏輯關係 · 公式判讀 · 原文收錄<br>Printed pp. 83–84 · PDF pp. 96–97</p>
-</header>
-<nav class="jump" aria-label="Jump to mind map branch">
-<a href="#essence">核心</a>
-<a href="#comparison">對照</a>
-<a href="#fixed-dollar">1 · Fixed dollar</a>
-<a href="#percentage">2 · Fixed percentage</a>
-<a href="#disappearing">3 · Disappearing</a>
-<a href="#franchise">4 · Franchise</a>
-<a href="#annual">5 · Annual</a>
-<a href="#elimination">6 · Elimination</a>
-<a href="#policy-limits">Policy limits</a>
-<a href="#exam-traps">考場陷阱</a>
-<a href="#sample-q19">SOA Q19 · LER</a>
-<a href="#original-text">原文</a>
-</nav>
-
-<section class="map" aria-labelledby="map-title">
-<h2 id="map-title">§5.5 Deductibles → 思考全貌</h2>
-<p class="map-intro"><strong>★ 核心：</strong> Deductible 改變 <em>who pays</em>、<em>how much</em>、<em>when</em>；題目的真正關鍵是「計算單位 × 起賠條件 × 支付函數 × 條款先後次序」。</p>
-<ul class="map-tree">
-<li id="essence"><div class="branch">01 → 本質｜Deductible 究竟改變什麼？</div>
+<!doctype html><html lang="zh-Hant-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff"><meta name="robots" content="noindex,nofollow,noarchive"><title>Deductibles｜勝運筆記</title><style>:root{color-scheme:light}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:75px}body{background:#fff;color:#111;margin:0;font:16.5px/1.65 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;-webkit-text-size-adjust:100%}main{max-width:760px;margin:auto;padding:22px 18px 72px}h1{font-size:clamp(1.9rem,5vw,2.5rem);line-height:1.25;margin:10px 0}h2{font-size:1.32rem;margin:30px 0 12px}h3{font-size:1.08rem;margin:20px 0 8px}p{margin:8px 0 12px}a,a:visited{color:#111;text-decoration:underline;text-underline-offset:3px}.muted,.gloss,footer{color:#555}.muted{font-size:.86rem}nav{display:flex;flex-wrap:wrap;gap:7px 16px;margin:18px 0 28px}nav a{font-size:.87rem}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.94rem}th,td{text-align:left;vertical-align:top;padding:9px 9px 9px 0;border-bottom:1px solid #ddd}th{font-weight:800}td:first-child{font-weight:750;min-width:128px}code,kbd{font:500 .93em/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere}ul{padding-left:21px;margin:7px 0 12px}li{margin:5px 0}strong{font-weight:800}.formula{font:600 .96rem/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere;margin:7px 0 12px}details{margin:20px 0}summary{font-weight:700;cursor:pointer;text-decoration:underline}details[open] summary{margin-bottom:16px}.q-original ol{padding-left:26px}.q-original li{margin-bottom:10px}.q-options{margin-top:10px}.source-original li{margin-bottom:20px}.gloss{font-size:.88em}footer{font-size:.8rem;margin-top:45px}@media(max-width:500px){main{padding:17px 15px 60px}body{font-size:16px}table{font-size:.88rem}td:first-child{min-width:115px}}</style></head><body><main>
+<a href="./">← 勝運筆記</a>
+<header><p class="muted">ASM FAM-S · §5.5 · 原書 pp.83–84 / PDF pp.96–97</p><h1>Deductibles｜速記</h1><p>先辨識 <strong>per loss / per year</strong>、<strong>給付門檻</strong>與<strong>條款順序</strong>，再選支付函數。</p></header>
+<nav aria-label="筆記跳轉"><a href="#types">六種自負額</a><a href="#formulas">公式</a><a href="#policy-limits">Policy limits</a><a href="#sample-q19">SOA Q19</a><a href="#original-text">英文原文</a></nav>
+<section id="types"><h2>1. 六種 Deductibles</h2>
+<div class="table-scroll"><table><thead><tr><th>Type</th><th>記憶重點</th></tr></thead><tbody>
+<tr id="fixed-dollar"><td><strong>Fixed dollar</strong><br><small>Ordinary</small></td><td>每次損失扣 d；只賠超過 d 的部分。</td></tr>
+<tr id="percentage"><td><strong>Fixed percentage</strong><br><small>Coinsurance</small></td><td>本教材 coinsurance = <em>insurer-paid percentage</em>；先扣 d，再乘比例 α。</td></tr>
+<tr id="disappearing"><td><strong>Disappearing</strong></td><td>X ≤ d 不賠；X ≥ u 全賠；中間自負額 <em>linear interpolation</em> 至 0。</td></tr>
+<tr id="franchise"><td><strong>Franchise</strong></td><td>X ≤ d 不賠；<strong>X &gt; d 全賠</strong>。</td></tr>
+<tr id="annual"><td><strong>Annual / Aggregate</strong></td><td>一個 <em>calendar year</em> 累計扣 d；不同於逐次扣 d。</td></tr>
+<tr id="elimination"><td><strong>Elimination period</strong></td><td>失能前 n 天不給付；若符合條件可追溯給付，可能類似 Franchise。</td></tr>
+</tbody></table></div></section>
+<section id="formulas"><h2>2. 必記支付函數</h2>
 <ul>
-<li><span class="subbranch">目標：</span> 將部分損失保留給 insured（被保險人） <span class="edge">⇒</span> insurer payment（保險人給付）與 retained loss（自留損失）發生變化。</li>
-<li><span class="subbranch">四個判讀座標：</span>
-<ul><li>→ <strong>Unit</strong>（計算單位）｜<span class="en">per claim / per loss</span>（逐次） <span class="edge">vs.</span> <span class="en">per calendar year</span>（逐年）</li>
-<li>→ <strong>Trigger</strong>（啟動門檻）｜損失金額 <span class="edge">vs.</span> 失能持續天數</li>
-<li>→ <strong>Payment rule</strong>（支付規則）｜扣固定額、扣百分比、逐漸消失、跨門檻全付</li>
-<li>→ <strong>Order</strong>（條款次序）｜deductible <span class="edge">⟶</span> coinsurance <span class="edge">⟶</span> policy limit（依教材 §5.5）</li></ul></li>
-<li><span class="badge-note">★ 推論｜同樣稱 deductible，支付函數與承保的「觀察單位」可能完全不同；先辨識條款，再選公式。</span></li>
-</ul></li>
-
-<li id="comparison"><div class="branch">02 → 六種 Deductibles｜先比較核心差異</div>
+<li><strong>Ordinary：</strong><span class="formula">Y = (X − d)₊</span></li>
+<li><strong>Coinsurance：</strong><span class="formula">Y = α(X − d)₊</span></li>
+<li><strong>Disappearing：</strong><span class="formula">Y = u(X − d)/(u − d)　(d &lt; X &lt; u)</span></li>
+<li><strong>Franchise：</strong><span class="formula">Y = 0 (X ≤ d); Y = X (X &gt; d)</span></li>
+</ul></section>
+<section id="policy-limits"><h2>3. Policy limits</h2><ul>
+<li><strong>Policy limit u：</strong>先扣 deductible，再限最高給付；<code>Y = min((X−d)₊,u)</code>。</li>
+<li><strong>Maximum covered loss u：</strong>先將損失封頂，再扣 deductible；<code>Y = (min(X,u)−d)₊</code>。</li>
+<li><strong>易混：</strong>d=1,000，u=10,000 ⇒ 最高給付分別為 <strong>10,000 vs. 9,000</strong>。</li>
+</ul></section>
+<section id="sample-q19"><h2>4. SOA Sample Q19｜LER</h2>
+<p><strong>Exponential，same mean</strong>；今年 LER=70%，明年 deductible = 今年的 4/3。</p>
 <ul>
-<li id="fixed-dollar"><span class="subbranch">① <span class="en">Fixed dollar deductibles</span>（固定金額自負額）</span>
-<ul>
-<li>→ <span class="en">For each claim, the first d dollars are not paid.</span>（每次理賠的前 d 元不付）</li>
-<li>⇢ 同義：<span class="en">ordinary deductible</span>（一般自負額）；教材未指定類型時以此為預設。</li>
-<li>⇒ 每次損失 X 的保險給付 Y：<span class="formula">Y = max(X − d, 0) = (X − d)₊</span></li>
-<li>★ 與 Franchise 比較：<strong>X &gt; d 時只支付超過 d 的部分</strong>。</li>
-</ul></li>
-
-<li id="percentage"><span class="subbranch">② <span class="en">Fixed percentage deductibles</span>（固定百分比自負額）</span>
-<ul>
-<li>→ <span class="en">a certain percentage is not paid</span>（固定比例不付）。</li>
-<li>⇢ 本書用 <span class="en">coinsurance</span>（共同保險比例）指 <strong>the percentage that is paid by the insurer</strong>（保險人付的比例），與 homeowners insurance 的 coinsurance clause（共同保險條款）不要混淆。</li>
-<li>⇒ 80% coinsurance <span class="edge">⇒</span> insurer pays 80% of the loss；若同時有 ordinary deductible，<strong>the deductible is applied first and then the coinsurance</strong>（先扣自負額，再乘賠付比例）。</li>
-<li><span class="formula">Y = α(X − d)₊ ；α = insurer-paid percentage</span></li>
-<li>⇢ 原書案例：X = 1,000，d = 500，α = 80% <span class="edge">⟶</span> 1,000 − 500 = 500 <span class="edge">⟶</span> 0.8 × 500 = <strong>400</strong>。</li>
-</ul></li>
-
-<li id="disappearing"><span class="subbranch">③ <span class="en">Disappearing deductibles</span>（線性消失自負額）</span>
-<ul>
-<li>→ <strong>X ≤ d</strong> 不給付；<strong>X ≥ u</strong> 全額給付；其中 u &gt; d。</li>
-<li>⇢ <span class="en">linear interpolation</span>（線性內插）讓 deductible 自 X = d 時的 d，降至 X = u 時的 0。</li>
-<li><span class="formula">D(X) = d(u − X)/(u − d) ，d &lt; X &lt; u</span><span class="formula">Y = X − D(X) = u(X − d)/(u − d)</span></li>
-<li>⇒ 門檻 d <span class="edge">⟶</span> 中間線性遞減 <span class="edge">⟶</span> 上界 u 完全消失。</li>
-<li>⇢ 延伸原書 Exercise 5.1：d = 250、u = 1,000、X = 700 <span class="edge">⇒</span> Y = 600。</li>
-</ul></li>
-
-<li id="franchise"><span class="subbranch">④ <span class="en">Franchise deductibles</span>（起賠式自負額）</span>
-<ul>
-<li>→ <span class="en">up to and including d</span>（X ≤ d）不付；<span class="en">greater than d</span>（X &gt; d）<strong>pay the full loss</strong>（全額給付）。</li>
-<li><span class="formula">Y = 0 (X ≤ d)；Y = X (X &gt; d)</span></li>
-<li>★ <strong>跨過門檻便全付</strong> <span class="edge">vs.</span> ordinary deductible「跨過門檻後仍扣 d」。</li>
-<li>⇢ 原書背景：曾常見於 <span class="en">ocean marine insurance</span>（海上保險），現已罕見。</li>
-</ul></li>
-
-<li id="annual"><span class="subbranch">⑤ <span class="en">Fixed dollar deductible per calendar year</span>（曆年固定額自負額）</span>
-<ul>
-<li>→ <span class="en">annual deductible / aggregate deductible</span>（年度／累計自負額），常見於 health insurance（健康保險）。</li>
-<li>★ <span class="en">per loss rather than per year</span>（逐次 vs. 逐年）是原書與 ordinary deductible 的根本對照。</li>
-<li>⇒ 對同一年度多次理賠按 <strong>aggregate losses</strong>（年度累積損失）追蹤門檻，而非每次重新扣一次。</li>
-<li><span class="note">推導性模型：如每年度只有單一年度自負額 d，累計給付可表為 (ΣXᵢ − d)₊；實際逐次給付另依條款與年度累計狀態計算。</span></li>
-</ul></li>
-
-<li id="elimination"><span class="subbranch">⑥ <span class="en">Elimination periods</span>（失能給付免責等待期間）</span>
-<ul>
-<li>→ 常見於 disability insurance（失能保險）；<span class="en">Disability benefits are not paid for the first n days</span>（最初 n 天不付）。</li>
-<li>⇢ n 可能是 30、90、180 天或其他天數；標的是 <strong>days</strong>（時間），不是 dollars（金額）。</li>
-<li>→ 若符合持續期間條件，失能給付可能 <span class="en">paid retroactively to the start of disability</span>（追溯至失能起始日給付）。</li>
-<li>★ 如果 <span class="en">qualify for retroactive payment</span>（符合追溯給付資格）所需天數等於 elimination period <span class="edge">⇒</span> <span class="en">functions like a franchise deductible</span>（功能類似起賠式自負額）。</li>
-<li>⇢ <span class="note">原書使用「quality for retroactive payment」，依語意應為 qualify；英文原文於下方完整保留原貌。</span></li>
-</ul></li>
-</ul></li>
-
-<li id="policy-limits"><div class="branch">03 → Policy limits｜同一給付模型的另一半</div>
-<ul>
-<li>→ <strong>Policy limit</strong>（給付責任限額）：<span class="en">maximum the company will pay on a claim</span>（保險人每件理賠最多支付額）。</li>
-<li>⇒ <span class="en">after all other modifications such as deductibles are imposed</span>（在 deductible 等其他調整之後才套用），即最後的 payment cap。</li>
-<li><span class="formula">Y = min((X − d)₊, L)</span></li>
-<li>⇢ 原書：d = 1,000，policy limit L = 10,000 <span class="edge">⇒</span> X ≥ 11,000 時付 10,000。</li>
-<li>→ <strong>Maximum covered loss</strong>（最高承保損失）是 <span class="en">before other modifications are taken into consideration</span>（在其他調整之前）施加 X 的上限。</li>
-<li><span class="formula">Y = (min(X, M) − d)₊</span></li>
-<li>⇢ 原書：d = 1,000，maximum covered loss M = 10,000 <span class="edge">⇒</span> X ≥ 10,000 時僅付 9,000。</li>
-<li>★ <span class="em">同樣寫「10,000 limit」不能直接套同一公式</span>；關鍵在限制發生於 deductible 前或後。</li>
-<li>→ 限額可以存在於住宅的不同標的（如 valuable items、primary dwelling、other structures）；並非所有險種都必須另有 policy limit：原書舉 auto collision 的汽車價值為 natural limit。</li>
-</ul></li>
-
-<li id="logic"><div class="branch">04 → 二點關係｜為什麼這些類型容易混淆？</div>
-<ul>
-<li><span class="subbranch">比較：</span> Ordinary <span class="edge">vs.</span> Franchise <span class="edge">⇒</span> 過門檻後「只付超額」<span class="edge">vs.</span>「全額給付」。</li>
-<li><span class="subbranch">變化：</span> Disappearing <span class="edge">⟶</span> deductible 隨 X 增大逐漸降為零；Franchise <span class="edge">⟶</span> 過門檻時瞬間歸零。</li>
-<li><span class="subbranch">單位：</span> Fixed dollar per claim <span class="edge">vs.</span> Annual aggregate per year <span class="edge">⇒</span> 多次損失的累計支付不同。</li>
-<li><span class="subbranch">條件：</span> Elimination period <span class="edge">↔</span> Franchise；是否能追溯給付決定等待期間的經濟效果。</li>
-<li><span class="subbranch">順序：</span> Deductible <span class="edge">⟶</span> coinsurance <span class="edge">⟶</span> policy limit；更改任一步驟可能改變結果。</li>
-</ul></li>
-
-<li id="exam-traps"><div class="branch">05 → FAM 考場判讀｜錯誤來源與待確認</div>
-<ul>
-<li><span class="tag">Wording trap</span> <span class="en">up to and including</span> = ≤；<span class="en">greater than</span> = &gt;，臨界點不能互換。</li>
-<li><span class="tag">Percentage trap</span> 80% <strong>coinsurance</strong> 在此指 insurer 支付 80%，<strong>不是</strong> insured 自負 80%。</li>
-<li><span class="tag">Order trap</span> <span class="en">the deductible is applied first</span> 與 <span class="en">maximum covered loss</span> 的次序不同。</li>
-<li><span class="tag">Aggregation trap</span> 題目問 <span class="en">per claim</span>、<span class="en">per calendar year</span> 或 <span class="en">payment per payment</span>？先辨識計算母體。</li>
-<li><span class="tag">Scope</span> §5.5 六種 deductible 是教材分類；2027/02 SOA syllabus Topic 1 要求識別 short-term coverage modifications 並計算影響，未將上述六種細分類逐一列為單獨的 learning outcome。</li>
-<li><strong>？可延伸追問：</strong>同一年度連續發生三次損失，若 ordinary、annual、franchise 三者都有相同 d，誰的總給付最高？<span class="note">須給定各次 X 才能比較；不能把未驗證的排序當成定論。</span></li>
-<li><strong>✅ 快速練習：</strong>看見 <span class="en">deductible</span> → 先說出單位、門檻、支付函數、條款順序；最後才按計算機。</li>
-</ul></li>
-</ul>
-<p class="note">資料標示：六種類型與條款特性依 ASM FAM-S §5.5；數學符號、支付函數及比較為根據教材所作的整理／推導；考綱範圍依 2027/02 SOA FAM syllabus Topic 1。</p>
-</section>
-
-<section class="sample-q" id="sample-q19" aria-labelledby="sample-q19-title">
-<p class="kicker" style="color:#333">SOA FAM-S · SAMPLE Q19 · PDF p.17</p>
-<h2 id="sample-q19-title">Q19｜Deductible ↑ → LER ↑</h2>
-<div class="q-original" lang="en">
+<li><strong>LER：</strong><code>1 − exp(−d/θ)</code></li>
+<li><strong>捷徑：</strong><code>LER_new = 1 − (1−LER_old)^k</code>，限 Exponential 且 θ 不變。</li>
+<li><strong>代入：</strong><code>1 − 0.3^(4/3) = 0.799170...</code> ⇒ <strong>(C) 80%</strong></li>
+<li><strong>TI-30XB：</strong><code>1 − 0.3 ^ ( 4 ÷ 3 ) → enter</code></li>
+<li><strong>Trap：</strong><em>4/3 of</em> = 乘 4/3；不可將 LER 70% 直接乘 4/3。</li>
+</ul><details id="q19-original"><summary>展開 Q19 英文原題與選項</summary><div class="q-original" lang="en">
 <p>You are given:</p>
 <ol type="i">
 <li>Losses follow an <strong>exponential distribution</strong><span class="gloss">（指數分配）</span> with the <strong>same mean in all years</strong><span class="gloss">（每年平均損失相同）</span>.</li>
@@ -214,39 +41,22 @@ footer{color:#505050;font-size:.78rem;line-height:1.65;padding:0}
 <p>Calculate the loss elimination ratio for the coming year.</p>
 <div class="q-options">(A) 70% &nbsp; (B) 75% &nbsp; (C) 80% &nbsp; (D) 85% &nbsp; (E) 90%</div>
 </div>
-<ul class="map-tree" aria-label="Q19 condensed outline">
-<li><div class="branch">★ 題目核心</div><ul>
-<li>Exponential distribution，<strong>same mean</strong> ⇒ θ 不變；deductible 由 d ⟶ (4/3)d，求明年 LER。</li>
-</ul></li>
-<li><div class="branch">→ 公式與結果</div><ul>
-<li><span class="mathline">LER(d) = E[min(X,d)] / E[X] = 1 − exp(−d/θ)</span></li>
-<li><span class="mathline">LER_new = 1 − (1 − 0.70)^(4/3)</span><span class="mathline">= 1 − 0.30^(4/3) = 0.799170114975</span></li>
-<li><strong>✅ 答案：(C) 80%</strong></li>
-</ul></li>
-<li><div class="branch">→ TI-30XB MultiView｜最快按法</div><ul>
-<li><span class="mathline">1 − 0.3 ^ ( 4 ÷ 3 ) → enter</span> ⇒ 顯示 0.799170114975。</li>
-</ul></li>
-<li><div class="branch">→ 考場陷阱</div><ul>
-<li><strong>4/3 of</strong> = 乘 4/3；不能用 70% × 4/3。</li>
-<li>★ 快速公式：<span class="mathline">LER_new = 1 − (1 − LER_old)^k</span>只適用 Exponential 且 θ 不變。</li>
-</ul></li>
-</ul>
+</details>
 </section>
 <details class="source-original" id="original-text"><summary>原書完整英文｜Deductibles（六種；點擊展開）</summary><article><h2>Deductibles<span class="gloss">（自負額）</span></h2>
 <p class="intro">Types of deductibles, <strong>as named in the Brown-Lennox textbook</strong><span class="gloss">（依 Brown-Lennox 教材的命名）</span>, are</p>
 <ol>
-<li id="fixed-dollar"><p><strong>Fixed dollar deductibles</strong><span class="gloss">（固定金額自負額）</span>. <strong>For each claim</strong><span class="gloss">（對每一件理賠）</span>, <strong>the first d dollars are not paid</strong><span class="gloss">（前 d 元不予給付）</span>. Throughout this course, if we don’t specify the type of deductible, we're talking about this type. Sometimes we'll call it an <strong>“ordinary deductible”</strong><span class="gloss">（一般自負額）</span>.</p></li>
-<li id="percentage">
+<li id="source-fixed-dollar"><p><strong>Fixed dollar deductibles</strong><span class="gloss">（固定金額自負額）</span>. <strong>For each claim</strong><span class="gloss">（對每一件理賠）</span>, <strong>the first d dollars are not paid</strong><span class="gloss">（前 d 元不予給付）</span>. Throughout this course, if we don’t specify the type of deductible, we're talking about this type. Sometimes we'll call it an <strong>“ordinary deductible”</strong><span class="gloss">（一般自負額）</span>.</p></li>
+<li id="source-percentage">
 <p><strong>Fixed percentage deductibles</strong><span class="gloss">（固定百分比自負額）</span>. For each claim, <strong>a certain percentage is not paid</strong><span class="gloss">（固定比例的損失不予給付）</span>. During this course, <strong>“coinsurance”</strong><span class="gloss">（共同保險比例；此處指保險人給付比例）</span> will refer to <strong>the percentage that is paid by the insurer</strong><span class="gloss">（由保險人給付的比例）</span>. For example, 80% coinsurance means that the insurance company <strong>reimburses 80% of the loss</strong><span class="gloss">（賠付損失的 80%）</span>. Brown-Lennox avoids calling this coinsurance <strong>in order to not confuse it with</strong><span class="gloss">（為避免與……混淆）</span> the <strong>coinsurance clause</strong><span class="gloss">（共同保險條款）</span> that we described when discussing homeowners insurance.</p>
 <p>Often coinsurance is <strong>combined with ordinary deductibles</strong><span class="gloss">（與一般自負額併用）</span>. Usually <strong>the deductible is applied first and then the coinsurance</strong><span class="gloss">（先扣自負額，再適用共同保險比例）</span>. For example, if the deductible is 500 and coinsurance is 80%, then for a loss of 1000, the 500 deductible would be applied first, reducing 1000 to 500, and then the coinsurance would be applied, so that the company would pay 0.8(500) = 400.</p>
 </li>
-<li id="disappearing"><p><strong>Disappearing deductibles</strong><span class="gloss">（遞減至零的自負額）</span>. For a loss of d, <strong>nothing is paid</strong><span class="gloss">（完全不給付）</span>. For a loss of u, where u is a specific number greater than d, <strong>the full amount u is paid</strong><span class="gloss">（全額給付 u）</span>. For amounts between d and u, <strong>the deductible is arrived at by linear interpolation</strong><span class="gloss">（以線性內插求出自負額）</span> between d at d and 0 at u. See page 81 for an example.</p></li>
-<li id="franchise"><p><strong>Franchise deductibles</strong><span class="gloss">（起賠式自負額）</span> pay nothing for losses <strong>up to and including d</strong><span class="gloss">（小於或等於 d）</span>, but <strong>pay the full loss</strong><span class="gloss">（全額給付損失）</span> for losses <strong>greater than d</strong><span class="gloss">（嚴格大於 d）</span>. Franchise deductibles <strong>used to be common for ocean marine insurance</strong><span class="gloss">（過去常見於海上保險）</span> but are now rare.</p></li>
-<li id="annual"><p><strong>Fixed dollar deductible per calendar year</strong><span class="gloss">（每曆年固定金額自負額）</span> is common on health insurance. This <strong>contrasts with an ordinary deductible</strong><span class="gloss">（與一般自負額形成對比）</span>, which is <strong>per loss rather than per year</strong><span class="gloss">（逐次損失計算，而非逐年計算）</span>. During this course we will call this an <strong>annual deductible</strong><span class="gloss">（年度自負額）</span> or an <strong>aggregate deductible</strong><span class="gloss">（累計自負額）</span>.</p></li>
-<li id="elimination"><p><strong>Elimination periods</strong><span class="gloss">（免責等待期間）</span> are common on disability insurance. <strong>Disability benefits are not paid for the first n days</strong><span class="gloss">（失能開始後前 n 天不給付）</span>, where n may be 30, 90, 180, or some other number. Disability is usually considered a <strong>life/health coverage</strong><span class="gloss">（壽險／健康險保障）</span> rather than a <strong>property/casualty coverage</strong><span class="gloss">（產物／責任險保障）</span>, but it is part of <strong>workers compensation</strong><span class="gloss">（勞工補償保險）</span>. As we mentioned when discussing workers compensation, disability benefits may be paid <strong>retroactively to the start of disability</strong><span class="gloss">（追溯至失能起始日給付）</span> if the disability lasts long enough. If the length of time needed to <strong>quality for retroactive payment</strong><span class="gloss">（原書拼作 quality；語意為符合追溯給付資格）</span> equals the elimination period, the elimination period <strong>functions like a franchise deductible</strong><span class="gloss">（作用如起賠式自負額）</span>.</p></li>
+<li id="source-disappearing"><p><strong>Disappearing deductibles</strong><span class="gloss">（遞減至零的自負額）</span>. For a loss of d, <strong>nothing is paid</strong><span class="gloss">（完全不給付）</span>. For a loss of u, where u is a specific number greater than d, <strong>the full amount u is paid</strong><span class="gloss">（全額給付 u）</span>. For amounts between d and u, <strong>the deductible is arrived at by linear interpolation</strong><span class="gloss">（以線性內插求出自負額）</span> between d at d and 0 at u. See page 81 for an example.</p></li>
+<li id="source-franchise"><p><strong>Franchise deductibles</strong><span class="gloss">（起賠式自負額）</span> pay nothing for losses <strong>up to and including d</strong><span class="gloss">（小於或等於 d）</span>, but <strong>pay the full loss</strong><span class="gloss">（全額給付損失）</span> for losses <strong>greater than d</strong><span class="gloss">（嚴格大於 d）</span>. Franchise deductibles <strong>used to be common for ocean marine insurance</strong><span class="gloss">（過去常見於海上保險）</span> but are now rare.</p></li>
+<li id="source-annual"><p><strong>Fixed dollar deductible per calendar year</strong><span class="gloss">（每曆年固定金額自負額）</span> is common on health insurance. This <strong>contrasts with an ordinary deductible</strong><span class="gloss">（與一般自負額形成對比）</span>, which is <strong>per loss rather than per year</strong><span class="gloss">（逐次損失計算，而非逐年計算）</span>. During this course we will call this an <strong>annual deductible</strong><span class="gloss">（年度自負額）</span> or an <strong>aggregate deductible</strong><span class="gloss">（累計自負額）</span>.</p></li>
+<li id="source-elimination"><p><strong>Elimination periods</strong><span class="gloss">（免責等待期間）</span> are common on disability insurance. <strong>Disability benefits are not paid for the first n days</strong><span class="gloss">（失能開始後前 n 天不給付）</span>, where n may be 30, 90, 180, or some other number. Disability is usually considered a <strong>life/health coverage</strong><span class="gloss">（壽險／健康險保障）</span> rather than a <strong>property/casualty coverage</strong><span class="gloss">（產物／責任險保障）</span>, but it is part of <strong>workers compensation</strong><span class="gloss">（勞工補償保險）</span>. As we mentioned when discussing workers compensation, disability benefits may be paid <strong>retroactively to the start of disability</strong><span class="gloss">（追溯至失能起始日給付）</span> if the disability lasts long enough. If the length of time needed to <strong>quality for retroactive payment</strong><span class="gloss">（原書拼作 quality；語意為符合追溯給付資格）</span> equals the elimination period, the elimination period <strong>functions like a franchise deductible</strong><span class="gloss">（作用如起賠式自負額）</span>.</p></li>
 </ol>
 </article></details>
-<footer>Source · ASM FAM-S Study Manual, 1st edition, 2nd printing · §5.5 · printed pp. 83–84 / PDF pp. 96–97</footer>
-</main>
-</body>
-</html>
+
+<footer>來源：ASM FAM-S §5.5；SOA Sample Questions Q19。教材原文保留於折疊區，速記與公式為整理。</footer>
+</main></body></html>
