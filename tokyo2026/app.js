@@ -1,5 +1,5 @@
-import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261118';
-import { categories, places } from './places.js?v=20261118';
+import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261118-2';
+import { categories, places } from './places.js?v=20261118-2';
 
 const $ = (selector) => document.querySelector(selector);
 const escape = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
@@ -53,6 +53,7 @@ showDay(0);
 const categoryButtons = $('#categories');
 const search = $('#search');
 const area = $('#area');
+const walkLimit = $('#walk-limit');
 let category = '';
 categoryButtons.innerHTML = ['', ...categories].map((value) => `
   <button type="button" data-category="${escape(value)}" aria-pressed="${value === ''}">
@@ -67,7 +68,10 @@ const searchText = places.map((place) => normalize([
 ].join(' ')));
 
 function placeCard(place) {
-  const query = place.japanese + ' ' + place.address;
+  const query = place.mapQuery || place.japanese + ' ' + place.address;
+  const { minutes, meters } = place.walk;
+  const distance = meters >= 1000 ? (meters / 1000).toFixed(1) + ' 公里' : meters + ' 公尺';
+  const routeLabel = place.routeLabel ? '至' + place.routeLabel : '自飯店出發';
   const details = [
     ['地址', place.address],
     ['適合時段', place.visit],
@@ -79,8 +83,8 @@ function placeCard(place) {
     <p class="jp" lang="ja">${escape(place.japanese)}</p>
     <p>${escape(place.note)}</p>
     <p class="muted">${escape(place.hours || '營業時間待確認，出發前請查官方頁。')}</p>
-    <p class="muted">${escape(place.walk || '步行距離與時間請開啟路線查看。')}</p>
-    <div class="actions">${link('Google Maps', maps(query), true)}${link('飯店出發步行', walkTo(query))}</div>
+    <p class="muted">${escape(routeLabel + ' · 約 ' + minutes + ' 分／' + distance)}</p>
+    <div class="actions">${link('Google Maps', maps(query), true)}${link('飯店出發步行', walkTo(place.routeQuery || query))}</div>
     <details><summary>地址、時段與官網</summary>
       <dl>${details.map(([label, value]) => `<dt>${label}</dt><dd>${escape(value)}</dd>`).join('')}</dl>
       <div class="actions">${link('官方網站', place.official)}${place.menu ? link('官方菜單', place.menu) : ''}</div>
@@ -92,6 +96,7 @@ function renderPlaces() {
   const words = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
   const results = places.filter((place, index) => (!category || place.kinds.includes(category))
     && (!area.value || place.area === area.value)
+    && (!walkLimit.value || place.walk.minutes <= Number(walkLimit.value))
     && words.every((word) => searchText[index].includes(word)));
   for (const button of categoryButtons.children) {
     button.setAttribute('aria-pressed', String(category === button.dataset.category));
@@ -109,10 +114,12 @@ categoryButtons.addEventListener('click', (event) => {
 });
 search.addEventListener('input', renderPlaces);
 area.addEventListener('change', renderPlaces);
+walkLimit.addEventListener('change', renderPlaces);
 $('#clear').addEventListener('click', () => {
   category = '';
   search.value = '';
   area.value = '';
+  walkLimit.value = '';
   renderPlaces();
   search.focus();
 });

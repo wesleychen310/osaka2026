@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#612c3c">
   <meta name="description" content="2026 東京聖誕節七日行程、六本木飯店周邊店家與官方點燈時間。">
   <title>2026 東京聖誕紀行</title>
-  <link rel="stylesheet" href="style.css?v=20261118">
-  <script type="module" src="app.js?v=20261118"></script>
+  <link rel="stylesheet" href="style.css?v=20261118-2">
+  <script type="module" src="app.js?v=20261118-2"></script>
 </head>
 <body>
   <a class="skip" href="#trip">跳至主內容</a>
@@ -41,13 +41,14 @@
 
     <section id="nearby" aria-labelledby="nearby-title">
       <div class="section-title"><h2 id="nearby-title">飯店周邊指南</h2><span>六本木步行圈</span></div>
-      <p class="section-note">起點為相鐵 Fresa Inn 東京六本木。店家卡可直接打開從飯店出發的步行導航。節慶營業以店家公告為準。</p>
+      <p class="section-note">起點為相鐵 Fresa Inn 東京六本木。步行距離與時間取自 Google Maps，館內移動請另外預留時間。節慶營業以店家公告為準。</p>
       <div class="guide-controls">
         <label for="search">搜尋店家與景點</label>
         <input id="search" type="search" placeholder="例如 拉麵、蛋包飯、蔦屋" autocomplete="off">
         <div id="categories" class="chips" role="group" aria-label="店家分類"></div>
         <div class="filter-row">
           <label for="area">街區</label><select id="area"><option value="">全部街區</option></select>
+          <label for="walk-limit">步行</label><select id="walk-limit"><option value="">不限</option><option value="5">5 分內</option><option value="10">10 分內</option><option value="15">15 分內</option></select>
           <button type="button" id="clear" class="subtle">清除篩選</button>
         </div>
       </div>
