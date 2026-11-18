@@ -16,12 +16,12 @@
   line-height: 1.55;
 }
 * { box-sizing: border-box; }
-body { margin: 0; }
+body { margin: 0; -webkit-text-size-adjust: 100%; }
 h1, h2, h3, p { margin: 0; }
 a { color: var(--wine); text-underline-offset: .2em; }
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
-a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, [role="tabpanel"]:focus-visible {
   outline: 3px solid #996523; outline-offset: 3px;
 }
 .skip { position: absolute; top: -100px; background: white; padding: 12px; z-index: 3; }
@@ -56,13 +56,14 @@ h2 { color: var(--dark-wine); font-size: 1.55rem; letter-spacing: .025em; }
 .days button { padding-inline: 0; font-variant-numeric: tabular-nums; }
 .days strong, .days small { display: block; }
 .days small { font-size: .72rem; }
-button[aria-pressed="true"] { color: white; background: var(--wine); border-color: var(--wine); }
+button[aria-pressed="true"], button[aria-selected="true"] { color: white; background: var(--wine); border-color: var(--wine); }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 12px; }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 15px; min-width: 0; }
 .card h3 { font-size: 1.16rem; line-height: 1.34; margin: 5px 0; }
 .card p { margin-block: 5px; }
 .kicker { color: var(--wine); font-size: .78rem; font-weight: 700; }
 .jp, .muted { color: var(--soft); font-size: .87rem; }
+.walk-text { color: #285241; font-size: .87rem; font-weight: 720; }
 .actions { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin-top: 8px; }
 .actions a { min-height: 44px; display: inline-flex; align-items: center; font-size: .87rem; font-weight: 650; }
 .actions .primary { background: var(--rose); padding-inline: 10px; border-radius: 8px; text-decoration: none; }
@@ -80,6 +81,8 @@ input[type="search"] { width: 100%; min-height: 46px; border: 1px solid #cfbcc2;
 .filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .filter-row select { min-width: 0; font-size: 16px; }
 .filter-row .subtle { margin-left: auto; }
+#categories { padding-top: 8px; border-top: 1px solid var(--line); }
+#airport-transit { margin-top: 12px; }
 .result-count { margin-block: 9px; }
 details { margin-top: 8px; border-top: 1px solid var(--line); }
 summary { cursor: pointer; min-height: 44px; padding-block: 10px; color: var(--wine); font-weight: 650; font-size: .88rem; }
@@ -102,4 +105,10 @@ footer { padding-block: 25px; }
   .card { padding: 12px; }
   .days { gap: 3px; }
   .days strong { font-size: .82rem; }
+  .filter-row select { max-width: 100%; }
+  .filter-row .subtle { margin-left: 0; }
+}
+@media (max-width: 360px) {
+  .nav-inner { gap: 3px; }
+  .nav-inner a { padding-inline: 2px; }
 }
