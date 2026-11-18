@@ -1,0 +1,105 @@
+:root {
+  color-scheme: light;
+  --paper: #faf7f3;
+  --card: #fffefa;
+  --wine: #6e2e43;
+  --dark-wine: #522536;
+  --ink: #302428;
+  --soft: #62535a;
+  --line: #e8ddd9;
+  --rose: #f5e5e8;
+  --gold: #ead2a3;
+  --radius: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+h1, h2, h3, p { margin: 0; }
+a { color: var(--wine); text-underline-offset: .2em; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 3px solid #996523; outline-offset: 3px;
+}
+.skip { position: absolute; top: -100px; background: white; padding: 12px; z-index: 3; }
+.skip:focus { top: 0; }
+.shell {
+  width: min(100%, 1136px);
+  margin-inline: auto;
+  padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+}
+.hero { color: #fff9f3; background: linear-gradient(115deg, #542236, #73394a); border-bottom: 2px solid #b68d5d; }
+.hero-inner { padding-block: 36px 30px; display: flex; gap: 24px; justify-content: space-between; align-items: end; }
+.eyebrow { color: var(--gold); font-size: .76rem; letter-spacing: .18em; font-weight: 700; }
+h1 { font-family: "Songti TC", "Noto Serif TC", Georgia, serif; line-height: 1.22; font-size: clamp(2rem, 5vw, 3.55rem); margin-block: 8px 12px; }
+.hero-date { font-size: 1.08rem; font-weight: 650; }
+.hero-meta { color: #f4dfe3; font-size: .88rem; margin-top: 2px; }
+.hero-stay { border-left: 1px solid #c99ba6; padding-left: 18px; }
+.hero-stay small, .hero-stay strong, .hero-stay a { display: block; }
+.hero-stay small { color: var(--gold); }
+.hero-stay a { color: #fff5ec; min-height: 44px; display: inline-flex; align-items: center; font-size: .88rem; }
+.topnav { position: sticky; top: 0; z-index: 2; background: var(--card); border-bottom: 1px solid var(--line); }
+.nav-inner { display: flex; justify-content: space-between; gap: 5px; }
+.nav-inner a { padding: 12px 3px; font-weight: 700; font-size: clamp(.75rem, 3.15vw, .94rem); white-space: nowrap; text-decoration: none; }
+section { scroll-margin-top: 64px; margin-top: 30px; }
+.section-title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+h2 { color: var(--dark-wine); font-size: 1.55rem; letter-spacing: .025em; }
+.section-title span, .section-note, .result-count, footer { font-size: .88rem; color: var(--soft); }
+.section-note { margin-bottom: 12px; }
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-bottom: 10px; }
+.days button, .chips button, .subtle, select {
+  border: 1px solid var(--line); background: var(--card); border-radius: 9px; min-height: 44px; padding: 6px 10px;
+}
+.days button { padding-inline: 0; font-variant-numeric: tabular-nums; }
+.days strong, .days small { display: block; }
+.days small { font-size: .72rem; }
+button[aria-pressed="true"] { color: white; background: var(--wine); border-color: var(--wine); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 12px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 15px; min-width: 0; }
+.card h3 { font-size: 1.16rem; line-height: 1.34; margin: 5px 0; }
+.card p { margin-block: 5px; }
+.kicker { color: var(--wine); font-size: .78rem; font-weight: 700; }
+.jp, .muted { color: var(--soft); font-size: .87rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin-top: 8px; }
+.actions a { min-height: 44px; display: inline-flex; align-items: center; font-size: .87rem; font-weight: 650; }
+.actions .primary { background: var(--rose); padding-inline: 10px; border-radius: 8px; text-decoration: none; }
+.timeline { list-style: none; padding: 0; margin: 8px 0 0; }
+.timeline li { border-top: 1px solid var(--line); padding: 9px 0 4px; }
+.timeline .actions { margin: 0; }
+.badge { display: inline-block; background: var(--rose); color: var(--wine); padding: 1px 7px; font-size: .75rem; border-radius: 6px; margin-right: 6px; }
+.badge.confirmed { background: #e6efe6; color: #285241; }
+.callout { border-left: 3px solid #aa7441; background: #f7ede1; padding: 11px 12px; margin-bottom: 12px; }
+.guide-controls { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }
+.guide-controls > label { display: block; font-size: .86rem; font-weight: 650; margin-bottom: 4px; }
+input[type="search"] { width: 100%; min-height: 46px; border: 1px solid #cfbcc2; border-radius: 9px; background: #fff; padding: 8px 10px; font-size: 16px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-block: 10px; }
+.chips button, .filter-row { font-size: .88rem; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filter-row select { min-width: 0; font-size: 16px; }
+.filter-row .subtle { margin-left: auto; }
+.result-count { margin-block: 9px; }
+details { margin-top: 8px; border-top: 1px solid var(--line); }
+summary { cursor: pointer; min-height: 44px; padding-block: 10px; color: var(--wine); font-weight: 650; font-size: .88rem; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 9px; margin: 0; font-size: .86rem; }
+dt { color: var(--soft); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.task-list { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding-inline: 14px; }
+.task { display: grid; grid-template-columns: 22px 1fr; align-items: start; gap: 10px; padding-block: 10px; }
+.task + .task { border-top: 1px solid var(--line); }
+.task input { width: 19px; height: 19px; margin: 3px 0; accent-color: var(--wine); }
+.task small { display: block; color: var(--soft); }
+footer { padding-block: 25px; }
+@media (max-width: 560px) {
+  .hero-inner { display: block; padding-block: 24px 12px; }
+  .hero-stay { margin-top: 14px; padding-left: 10px; }
+  .hero-stay small { display: inline; margin-right: 6px; }
+  .hero-stay strong { display: inline; font-size: .9rem; }
+  .hero-stay a { display: flex; }
+  section { margin-top: 23px; }
+  .card { padding: 12px; }
+  .days { gap: 3px; }
+  .days strong { font-size: .82rem; }
+}
