@@ -1,4 +1,4 @@
-import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261118-3';
+import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261121-food';
 import { categories, places } from './places.js?v=20261118-3';
 
 const $ = (selector) => document.querySelector(selector);
