@@ -8,7 +8,7 @@
   <title>東京聖誕節</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css?v=20261118-3">
-  <script type="module" src="app.js?v=20261118-3"></script>
+  <script type="module" src="app.js?v=20261121-food"></script>
 </head>
 <body>
   <a class="skip" href="#trip">跳至主內容</a>
@@ -28,8 +28,8 @@
     </div>
   </header>
   <nav class="topnav" aria-label="網站章節">
-    <div class="shell nav-inner">
-      <a href="#trip">每日行程</a><a href="#nearby">飯店周邊</a><a href="#lights">聖誕燈飾</a><a href="#stay">航班住宿</a><a href="#prepare">行前管理</a>
+    <div class="shell nav-inner" style="overflow-x:auto; scrollbar-width:thin;">
+      <a href="#trip">每日行程</a><a href="#food">這次想吃</a><a href="#nearby">飯店周邊</a><a href="#lights">聖誕燈飾</a><a href="#stay">航班住宿</a><a href="#prepare">行前管理</a>
     </div>
   </nav>
   <main class="shell">
@@ -38,6 +38,41 @@
       <div class="section-title"><h2 id="trip-title">每日行程</h2><span>12/23–12/29</span></div>
       <div id="days" class="days" role="tablist" aria-label="選擇行程日期"></div>
       <div id="day-detail" class="day-detail card" role="tabpanel" tabindex="0"></div>
+    </section>
+
+    <section id="food" aria-labelledby="food-title">
+      <div class="section-title"><h2 id="food-title">這次想吃</h2><span>已訂位 1 間・候選 1 間</span></div>
+      <p class="section-note">本次東京聖誕旅行的餐廳清單，已訂位優先。候選餐廳日期待排；價格為參考，節慶營業及菜單以店家公告為準。</p>
+      <div class="cards">
+        <article class="card">
+          <p class="kicker"><span class="badge confirmed">已訂位</span>12/27（日）18:00・六本木</p>
+          <h3>Brasserie Paul Bocuse Le Musée</h3>
+          <p class="jp" lang="ja">ブラッスリー ポール・ボキューズ ミュゼ</p>
+          <p>國立新美術館 3F 的法式餐廳，由法國名廚 Paul Bocuse 品牌經營。圓錐形高臺上的用餐空間結合黑川紀章設計的美術館建築。</p>
+          <p><strong>已選套餐：</strong>Menu Vertical ¥7,040／人；兩人 ¥14,080，當日付款。</p>
+          <p class="muted">免費取消截止：12/25 18:00 日本時間（台灣 17:00）。私人預約管理資訊見 Notion。</p>
+          <div class="actions">
+            <a class="primary" href="https://www.google.com/maps/search/?api=1&amp;query=Brasserie+Paul+Bocuse+Le+Musee+Tokyo" target="_blank" rel="noopener noreferrer">Google Maps</a>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;origin=Sotetsu+Fresa+Inn+Tokyo+Roppongi&amp;destination=Brasserie+Paul+Bocuse+Le+Musee+Tokyo&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">飯店出發步行</a>
+          </div>
+          <details><summary>地址與用餐提醒</summary><dl><dt>地址</dt><dd>東京都港区六本木7-22-2 国立新美術館3F</dd><dt>人數</dt><dd>2 位成人</dd><dt>取消費</dt><dd>12/25 18:00 起 50%；12/26 18:00 起 100%</dd></dl></details>
+        </article>
+        <article class="card">
+          <p class="kicker"><span class="badge">待安排</span>麻布台・早餐／早午餐</p>
+          <h3>Balcony by 6th</h3>
+          <p class="jp" lang="ja">バルコニー バイ シクス</p>
+          <p>有樂町人氣餐廳 6th by ORIENTAL HOTEL 的延續，2023 年遷至麻布台之丘。以厚鬆餅、巴斯克乳酪蛋糕與復古酒店式露臺空間聞名。</p>
+          <p><strong>想吃：</strong>美式鹹鬆餅（煎蛋、酪梨、培根）¥2,000；原味雙片鬆餅 ¥2,000；巴斯克乳酪蛋糕 ¥1,300；咖啡 ¥900。</p>
+          <p class="muted">早餐兩人各點鬆餅＋咖啡，含 10% 服務費預估 ¥6,380。平日 08:00 起、假日 07:45 起。人氣時段可能排隊。</p>
+          <div class="actions">
+            <a class="primary" href="https://www.google.com/maps/search/?api=1&amp;query=Balcony+by+6th+%E9%BA%BB%E5%B8%83%E5%8F%B0%E3%83%92%E3%83%AB%E3%82%BA" target="_blank" rel="noopener noreferrer">Google Maps</a>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;origin=Sotetsu+Fresa+Inn+Tokyo+Roppongi&amp;destination=Balcony+by+6th+Azabudai+Hills&amp;travelmode=walking" target="_blank" rel="noopener noreferrer">飯店出發步行</a>
+            <a href="https://balconyby6th.com/" target="_blank" rel="noopener noreferrer">官方網站</a>
+            <a href="https://www.tablecheck.com/shops/balconyby6th/reserve" target="_blank" rel="noopener noreferrer">訂位</a>
+          </div>
+          <details><summary>地址與用餐提醒</summary><dl><dt>地址</dt><dd>東京都港区麻布台1-3-1 麻布台ヒルズ タワープラザ3F</dd><dt>步行</dt><dd>由飯店約 12–15 分鐘（估計）</dd><dt>提醒</dt><dd>聖誕晚餐含生鮪魚，若安排晚餐須先確認能否更換。價格參考 2026/11 菜單。</dd></dl></details>
+        </article>
+      </div>
     </section>
 
     <section id="nearby" aria-labelledby="nearby-title">
