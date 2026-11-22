@@ -46,7 +46,7 @@ function showDay(index, focus = false) {
     <ol class="timeline">${day.stops.map((stop) => `<li>
       ${badge(stop.status)}<span class="muted">${escape(stop.time)}</span>
       <p><strong>${escape(stop.title)}</strong>　${escape(stop.note)}</p>
-      ${stop.query || stop.mapLinks?.length ? `<div class="actions">${stop.query ? link('Google Maps', maps(stop.query)) : ''}${(stop.mapLinks || []).map(([name, query]) => link(name, maps(query))).join('')}</div>` : ''}
+      ${stop.mapLinks?.length ? `<p class="muted"><strong>鰻魚名店候選（Google Maps）</strong></p><div class="actions">${stop.mapLinks.map(([name, query]) => link(name, maps(query))).join('')}</div>` : stop.query ? `<div class="actions">${link('Google Maps', maps(stop.query))}</div>` : ''}
     </li>`).join('')}</ol>`;
   if (focus) tabs[index].focus();
 }
@@ -70,7 +70,8 @@ dayButtons.addEventListener('keydown', (event) => {
 const tokyoDate = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Tokyo', month: '2-digit', day: '2-digit', year: 'numeric' });
 const date = Object.fromEntries(tokyoDate.formatToParts(new Date()).map(({ type, value }) => [type, value]));
 const today = date.year === '2026' ? days.findIndex((day) => day.date === date.month + '/' + date.day) : -1;
-showDay(Math.max(0, today));
+const requestedDay = Number(new URLSearchParams(window.location.search).get('day'));
+showDay(Number.isInteger(requestedDay) && requestedDay >= 1 && requestedDay <= days.length ? requestedDay - 1 : Math.max(0, today));
 
 const categoryButtons = $('#categories');
 const quickButtons = $('#quick-categories');
