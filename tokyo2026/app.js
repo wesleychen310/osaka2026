@@ -1,4 +1,4 @@
-import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261122-day7';
+import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261122-day7-unagi';
 import { categories, places } from './places.js?v=20261118-3';
 
 const $ = (selector) => document.querySelector(selector);
@@ -46,7 +46,7 @@ function showDay(index, focus = false) {
     <ol class="timeline">${day.stops.map((stop) => `<li>
       ${badge(stop.status)}<span class="muted">${escape(stop.time)}</span>
       <p><strong>${escape(stop.title)}</strong>　${escape(stop.note)}</p>
-      ${stop.query ? `<div class="actions">${link('Google Maps', maps(stop.query))}</div>` : ''}
+      ${stop.query || stop.mapLinks?.length ? `<div class="actions">${stop.query ? link('Google Maps', maps(stop.query)) : ''}${(stop.mapLinks || []).map(([name, query]) => link(name, maps(query))).join('')}</div>` : ''}
     </li>`).join('')}</ol>`;
   if (focus) tabs[index].focus();
 }
