@@ -1,5 +1,5 @@
 import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261123-hotels';
-import { categories, places } from './places.js?v=20261118-3';
+import { categories, places } from './places.js?v=20261123-akasaka';
 
 const $ = (selector) => document.querySelector(selector);
 const escape = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
@@ -105,7 +105,7 @@ function placeCard(place) {
   const query = place.mapQuery || place.japanese + ' ' + place.address;
   const { minutes, meters } = place.walk;
   const distance = meters >= 1000 ? (meters / 1000).toFixed(1) + ' 公里' : meters + ' 公尺';
-  const routeLabel = place.routeLabel ? '至' + place.routeLabel : '自飯店出發';
+  const routeLabel = place.originQuery ? '自 APA 赤坂見附出發' : (place.routeLabel ? '至' + place.routeLabel : '自相鐵六本木出發');
   const walk = place.insideHotel ? '飯店 1F' : routeLabel + ' · 約 ' + minutes + ' 分／' + distance;
   const details = [
     ['地址', place.address],
@@ -122,7 +122,7 @@ function placeCard(place) {
     ${place.order ? `<p><strong>推薦</strong> ${escape(place.order)}</p>` : ''}
     <p class="muted">${escape(place.hours || '營業時間待確認，出發前請查官方頁。')}</p>
     <div class="actions">${link('Google Maps', maps(query), true)}
-      ${place.insideHotel ? '' : link('飯店出發步行', directions(hotelQuery, place.routeQuery || query, 'walking'))}
+      ${place.insideHotel ? '' : link('飯店出發步行', directions(place.originQuery || hotelQuery, place.routeQuery || query, 'walking'))}
       ${place.official ? link('官方網站', place.official) : ''}${place.menu ? link('官方菜單', place.menu) : ''}
       ${place.reference ? link('查證來源', place.reference) : ''}</div>
     <details><summary>地址、時段與提醒</summary>
