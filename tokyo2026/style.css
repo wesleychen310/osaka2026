@@ -112,3 +112,38 @@ footer { padding-block: 25px; }
   .nav-inner { gap: 3px; }
   .nav-inner a { padding-inline: 2px; }
 }
+
+.hotel-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-block: 1rem;
+}
+
+#hotel-comparison {
+  scroll-margin-top: 5rem;
+  margin-top: 1.5rem;
+}
+
+.hotel-routes table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.hotel-routes th,
+.hotel-routes td {
+  padding: .55rem .45rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.hotel-routes th:first-child { width: 22%; }
+
+@media (max-width: 620px) {
+  .hotel-cards { grid-template-columns: 1fr; }
+  .hotel-routes th,
+  .hotel-routes td { padding: .45rem .25rem; }
+}

@@ -1,4 +1,4 @@
-import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261122-approved-food';
+import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261123-hotels';
 import { categories, places } from './places.js?v=20261118-3';
 
 const $ = (selector) => document.querySelector(selector);
@@ -207,19 +207,7 @@ $('#stay-cards').innerHTML = flights.map((flight) => `<article class="card">
   <p>${escape(flight.route)}</p>
   <p class="muted">${escape(flight.checkIn)}</p>
   <div class="actions">${link('成田 T2 地圖', maps(flight.airport), true)}${link('桃園 T1 地圖', maps('Taiwan Taoyuan International Airport Terminal 1'))}</div>
-</article>`).join('') + `<article class="card">
-  <p class="kicker">12/23–12/29 · 6 晚</p>
-  <h3>${escape(hotel.name)}</h3><p class="jp" lang="ja">${escape(hotel.japanese)}</p>
-  <p>${escape(hotel.address)} · 15:00 後入住、11:00 前退房</p>
-  <p>六本木站 5 號出口步行約 1 分、3 號出口約 2 分（飯店官方）。拖行李可先查車站電梯動線。</p>
-  <div class="actions">${link('Google Maps', maps(hotel.query), true)}${link('飯店交通', hotel.access)}
-    ${link('六本木站電梯', 'https://www.tokyometro.jp/station/roppongi/accessibility/index.html')}</div>
-</article>`;
-const narita = flights[0].airport;
-$('#transit-links').innerHTML =
-  link('成田 T2 → 飯店', directions(narita, hotelQuery, 'transit'), true) +
-  link('飯店 → 成田 T2', directions(hotelQuery, narita, 'transit'), true) +
-  link('京成 Skyliner', 'https://www.keisei.co.jp/keisei/tetudou/skyliner/us/traffic/skyliner_1123.php');
+</article>`).join('');
 
 const storageKey = 'tokyo2026.checklist.v2';
 let saved = new Map();
