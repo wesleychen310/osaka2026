@@ -1,5 +1,5 @@
-import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261123-hotels';
-import { categories, places } from './places.js?v=20261123-akasaka';
+import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261124-apa';
+import { categories, places } from './places.js?v=20261124-apa';
 
 const $ = (selector) => document.querySelector(selector);
 const escape = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
@@ -46,7 +46,8 @@ function showDay(index, focus = false) {
     <ol class="timeline">${day.stops.map((stop) => `<li>
       ${badge(stop.status)}<span class="muted">${escape(stop.time)}</span>
       <p><strong>${escape(stop.title)}</strong>　${escape(stop.note)}</p>
-      ${stop.mapLinks?.length ? `<p class="muted"><strong>鰻魚名店候選（Google Maps）</strong></p><div class="actions">${stop.mapLinks.map(([name, query]) => link(name, maps(query))).join('')}</div>` : stop.query ? `<div class="actions">${link('Google Maps', maps(stop.query))}</div>` : ''}
+      ${stop.mapLinks?.length ? `<p class="muted"><strong>鰻魚名店候選（Google Maps）</strong></p><div class="actions">${stop.mapLinks.map(([name, query]) => link(name, maps(query))).join('')}</div>` : ''}
+      ${!stop.mapLinks?.length && (stop.query || stop.official) ? `<div class="actions">${stop.query ? link('Google Maps', maps(stop.query)) : ''}${stop.official ? link('官方公告', stop.official) : ''}</div>` : ''}
     </li>`).join('')}</ol>`;
   if (focus) tabs[index].focus();
 }
@@ -103,10 +104,9 @@ const searchText = places.map((place) => normalize([
 
 function placeCard(place) {
   const query = place.mapQuery || place.japanese + ' ' + place.address;
-  const { minutes, meters } = place.walk;
-  const distance = meters >= 1000 ? (meters / 1000).toFixed(1) + ' 公里' : meters + ' 公尺';
-  const routeLabel = place.originQuery ? '自 APA 赤坂見附出發' : (place.routeLabel ? '至' + place.routeLabel : '自相鐵六本木出發');
-  const walk = place.insideHotel ? '飯店 1F' : routeLabel + ' · 約 ' + minutes + ' 分／' + distance;
+  const travelmode = place.travelmode || (place.walk ? 'walking' : 'transit');
+  const walk = place.insideHotel ? '飯店 1F'
+    : place.walk && `自 APA 赤坂見附出發 · 約 ${place.walk.minutes} 分／${place.walk.meters} 公尺`;
   const details = [
     ['地址', place.address],
     ['適合時段', place.visit],
@@ -117,12 +117,12 @@ function placeCard(place) {
     <p class="kicker">${escape(place.kinds.join('・'))} · ${escape(place.area)}</p>
     <h3>${escape(place.name)}</h3>
     <p class="jp" lang="ja">${escape(place.japanese)}</p>
-    <p class="walk-text">${escape(walk)}</p>
+    ${walk ? `<p class="walk-text">${escape(walk)}</p>` : ''}
     <p>${escape(place.note)}</p>
     ${place.order ? `<p><strong>推薦</strong> ${escape(place.order)}</p>` : ''}
     <p class="muted">${escape(place.hours || '營業時間待確認，出發前請查官方頁。')}</p>
     <div class="actions">${link('Google Maps', maps(query), true)}
-      ${place.insideHotel ? '' : link('飯店出發步行', directions(place.originQuery || hotelQuery, place.routeQuery || query, 'walking'))}
+      ${place.insideHotel ? '' : link(travelmode === 'walking' ? '飯店出發步行' : '從飯店查路線', directions(hotelQuery, place.routeQuery || query, travelmode))}
       ${place.official ? link('官方網站', place.official) : ''}${place.menu ? link('官方菜單', place.menu) : ''}
       ${place.reference ? link('查證來源', place.reference) : ''}</div>
     <details><summary>地址、時段與提醒</summary>
@@ -137,7 +137,7 @@ function renderPlaces() {
   const results = places.filter((place, index) => (!category || place.kinds.includes(category))
     && (!group || place.kinds.some((kind) => group.includes(kind)))
     && (!area.value || place.area === area.value)
-    && (!walkLimit.value || place.walk.minutes <= Number(walkLimit.value))
+    && (!walkLimit.value || (place.walk?.minutes ?? Infinity) <= Number(walkLimit.value))
     && words.every((word) => searchText[index].includes(word)));
   for (const [container, value] of [[quickButtons, quickCategory], [categoryButtons, category]]) {
     for (const button of container.children) button.setAttribute('aria-pressed', String(value === button.dataset.category));
