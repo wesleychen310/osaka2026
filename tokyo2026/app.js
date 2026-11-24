@@ -1,5 +1,5 @@
 import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261124-apa';
-import { categories, places } from './places.js?v=20261124-apa';
+import { categories, places } from './places.js?v=20261124-dining';
 
 const $ = (selector) => document.querySelector(selector);
 const escape = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
@@ -82,8 +82,8 @@ const walkLimit = $('#walk-limit');
 let category = '';
 let quickCategory = '';
 const quickGroups = {
-  '熟食餐廳': ['定食', '拉麵', '烏龍麵', '燒肉', '炸豬排', '壽喜燒', '關東煮', '洋食', '中華熟食'],
-  '咖啡・甜點': ['咖啡', '甜點'], '早餐與早午餐': ['早餐'],
+  '熟食餐廳': ['牛舌', '鰻魚', '定食', '拉麵', '烏龍麵', '燒肉', '炸豬排', '壽喜燒', '關東煮', '洋食', '中華熟食'],
+  '壽司': ['壽司'], '咖啡・甜點': ['咖啡', '甜點'], '早餐與早午餐': ['早餐'],
   '日常採買': ['超市', '便利商店', '藥妝', '購物'],
   '書店・美術館': ['書店', '美術館'], '散步景點': ['散步'],
 };
