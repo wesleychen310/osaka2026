@@ -1,4 +1,4 @@
-export const categories = ["定食","拉麵","烏龍麵","燒肉","炸豬排","壽喜燒","關東煮","洋食","咖啡","早餐","甜點","超市","便利商店","藥妝","購物","書店","美術館","散步","中華熟食"];
+export const categories = ["牛舌","鰻魚","壽司","定食","拉麵","烏龍麵","燒肉","炸豬排","壽喜燒","關東煮","洋食","咖啡","早餐","甜點","超市","便利商店","藥妝","購物","書店","美術館","散步","中華熟食"];
 
 export const places = [
   {
@@ -21,7 +21,7 @@ export const places = [
   },
   {
     name: "星巴克 赤坂見附店", japanese: "スターバックス コーヒー 赤坂見附店",
-    area: "赤坂見附・APA周邊", kinds: ["咖啡","早餐"], travelmode: "walking",
+    area: "赤坂見附・APA周邊", kinds: ["咖啡","早餐"], walk: { minutes: 3, meters: 200 }, travelmode: "walking",
     address: "東京都港區赤坂 3-21-20・赤坂ロングビーチビル 1F",
     hours: "一～五 07:00–22:00；六 07:00–20:00；日及假日 08:00–19:00",
     note: "一樓店面，提供 Starbucks Wi-Fi。", visit: "早餐或咖啡",
@@ -30,7 +30,7 @@ export const places = [
   },
   {
     name: "ねぎし 赤坂見附店", japanese: "牛たん とろろ 麦めし ねぎし 赤坂見附店",
-    area: "赤坂見附・APA周邊", kinds: ["定食"], walk: {"minutes":4,"meters":300},
+    area: "赤坂見附・APA周邊", kinds: ["牛舌","定食"], walk: {"minutes":4,"meters":300},
     address: "東京都港區赤坂 3-9-18・BIC 赤坂ビル B1F", hours: "11:00–22:00（最後點餐 21:30）",
     note: "牛舌、麥飯、山藥泥與牛尾湯的經典定食；位於赤坂見附站旁，適合逛完街簡單吃一餐。",
     order: "炭烤牛舌定食、麥飯與牛尾湯", visit: "午餐或晚餐",
@@ -70,6 +70,26 @@ export const places = [
     mapQuery: "日枝神社 東京都千代田区永田町2-10-5",
     official: "https://www.hiejinja.net/access/",
   },
+  {"name":"赤坂 金舌 KINTAN","japanese":"赤坂 金舌","area":"赤坂見附・APA周邊","kinds":["牛舌","定食"],"walk":{"minutes":5,"meters":350},"price":"午餐 ¥2,000～4,000（概估）","note":"高級牛肉割烹，熟成牛舌與和牛料理。","mapQuery":"赤坂 金舌 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"AKASAKA Tan伍","japanese":"AKASAKA Tan伍","area":"赤坂見附・APA周邊","kinds":["牛舌","定食"],"walk":{"minutes":12,"meters":850},"price":"午餐 ¥1,500～3,000（概估）","note":"厚切牛舌、燉牛舌與牛舌涮涮鍋。","mapQuery":"AKASAKA Tan伍 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"丸壱富士 赤坂店","japanese":"丸壱富士 赤坂","area":"赤坂見附・APA周邊","kinds":["鰻魚"],"walk":{"minutes":4,"meters":250},"price":"¥3,000～6,000（概估）","note":"關西風地燒鰻魚，外皮酥脆。","mapQuery":"丸壱富士 赤坂 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"赤坂ふきぬき 本店","japanese":"赤坂ふきぬき 本店","area":"赤坂見附・APA周邊","kinds":["鰻魚"],"walk":{"minutes":7,"meters":450},"price":"¥2,500～7,000（概估）","note":"1923 年創業的百年鰻魚老舖，鰻重及鰻魚三吃。","mapQuery":"赤坂ふきぬき 本店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。週日公休資訊及年末營業請再確認。"},
+  {"name":"赤坂富貴貫 BIZタワー店","japanese":"赤坂富貴貫 BIZタワー店","area":"赤坂見附・APA周邊","kinds":["鰻魚"],"walk":{"minutes":7,"meters":500},"address":"東京都港區赤坂5-3-1","price":"¥3,000～6,000（概估）","note":"ふきぬき同品牌，商場內的鰻魚料理。","mapQuery":"赤坂富貴貫 BIZタワー店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"赤坂 いなげ家","japanese":"赤坂いなげ家","area":"赤坂見附・APA周邊","kinds":["鰻魚"],"walk":{"minutes":12,"meters":800},"address":"東京都港區赤坂2-13-21","note":"傳統鰻魚料理。","mapQuery":"赤坂いなげ家 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"星巴克 赤坂 Prudential Tower 店","japanese":"スターバックス 赤坂プルデンシャルタワー店","area":"赤坂見附・APA周邊","kinds":["咖啡"],"walk":{"minutes":7,"meters":450},"note":"商辦大樓咖啡店，適合休息。","mapQuery":"スターバックス 赤坂プルデンシャルタワー店 東京 赤坂","visit":"早上或午後","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"星巴克 赤坂 Biz Tower 店","japanese":"スターバックス 赤坂Bizタワー店","area":"赤坂見附・APA周邊","kinds":["咖啡"],"walk":{"minutes":7,"meters":500},"address":"東京都港區赤坂5-3-1","note":"商場咖啡店，可搭配購物及用餐。","mapQuery":"スターバックス 赤坂Bizタワー店 東京 赤坂","visit":"早上或午後","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"星巴克 東京 Garden Terrace 紀尾井町店","japanese":"スターバックス 東京ガーデンテラス紀尾井町店","area":"赤坂見附・APA周邊","kinds":["咖啡"],"walk":{"minutes":9,"meters":600},"address":"東京都千代田區紀尾井町1-3","note":"高級商辦商場周邊，適合咖啡與散步。","mapQuery":"スターバックス 東京ガーデンテラス紀尾井町店 東京 赤坂","visit":"早上或午後","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"大戶屋 赤坂見附店","japanese":"大戸屋 赤坂見附店","area":"赤坂見附・APA周邊","kinds":["定食"],"walk":{"minutes":4,"meters":300},"price":"¥900～1,500（概估）","note":"家庭式定食，烤魚、炸雞與黑醋雞肉。","mapQuery":"大戸屋 赤坂見附店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。","official":"https://store.ootoya.com/detail/27363/"},
+  {"name":"しょうが焼きBaKa 赤坂見附店","japanese":"しょうが焼きBaKa 赤坂見附店","area":"赤坂見附・APA周邊","kinds":["定食"],"walk":{"minutes":4,"meters":300},"price":"¥1,000～1,500（概估）","note":"薑汁燒豬肉搭配白飯、高麗菜及味噌湯。","mapQuery":"しょうが焼きBaKa 赤坂見附店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"天丼てんや 赤坂見附店","japanese":"天丼てんや 赤坂見附店","area":"赤坂見附・APA周邊","kinds":["定食"],"walk":{"minutes":4,"meters":300},"price":"¥600～1,200（概估）","note":"平價炸蝦與蔬菜天婦羅丼飯。","mapQuery":"天丼てんや 赤坂見附店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"吉野家 赤坂三丁目店","japanese":"吉野家 赤坂三丁目店","area":"赤坂見附・APA周邊","kinds":["定食"],"walk":{"minutes":7,"meters":450},"address":"東京都港區赤坂3-12-11","price":"¥400～1,000（概估）","note":"牛丼、烤魚早餐及牛皿定食。","mapQuery":"吉野家 赤坂三丁目店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"松屋 赤坂店","japanese":"松屋 赤坂店","area":"赤坂見附・APA周邊","kinds":["定食"],"walk":{"minutes":9,"meters":650},"address":"東京都港區赤坂5-4-6","price":"¥400～1,200（概估）","note":"牛肉飯、咖哩與燒肉定食。","mapQuery":"松屋 赤坂店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"松のや 赤坂店","japanese":"松のや 赤坂店","area":"赤坂見附・APA周邊","kinds":["炸豬排"],"walk":{"minutes":12,"meters":850},"address":"東京都港區赤坂6-4-22","price":"¥600～1,200（概估）","note":"平價炸豬排、炸雞及炸蝦。","mapQuery":"松のや 赤坂店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。"},
+  {"name":"築地すし好 赤坂通り店","japanese":"築地すし好 赤坂通り店","area":"赤坂見附・APA周邊","kinds":["壽司"],"walk":{"minutes":8,"meters":550},"address":"東京都港區赤坂3-13-6","price":"¥1,500～6,000（概估）","note":"築地起家的江戶前壽司連鎖，職人手握，招牌穴子；前往日枝神社途中熟悉的店家。","mapQuery":"築地すし好 赤坂通り店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。 可選穴子、熟蝦、玉子燒等熟食，供應依菜單。","official":"https://www.tsukiji-sushiko.com/"},
+  {"name":"梅丘壽司の美登利 赤坂店","japanese":"梅丘寿司の美登利 赤坂店","area":"赤坂見附・APA周邊","kinds":["壽司"],"walk":{"minutes":7,"meters":500},"address":"東京都港區赤坂5-3-1","price":"¥2,000～4,500（概估）","note":"高 CP 值壽司，魚料份量大，招牌一本穴子，熱門時段易排隊。","mapQuery":"梅丘寿司の美登利 赤坂店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。 可選穴子、熟蝦、玉子燒等熟食，供應依菜單。","official":"https://www.sushinomidori.co.jp/"},
+  {"name":"板前壽司 ITAMAE SUSHI 赤坂店","japanese":"ITAMAE SUSHI 赤坂店","area":"赤坂見附・APA周邊","kinds":["壽司"],"walk":{"minutes":4,"meters":300},"address":"東京都港區赤坂3-10-1","price":"¥2,000～5,000（概估）","note":"以鮪魚及江戶前握壽司聞名，適合晚歸用餐。","mapQuery":"ITAMAE SUSHI 赤坂店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。 可選穴子、熟蝦、玉子燒等熟食，供應依菜單。"},
+  {"name":"魚がし日本一 赤坂店","japanese":"魚がし日本一 赤坂店","area":"赤坂見附・APA周邊","kinds":["壽司"],"walk":{"minutes":4,"meters":300},"price":"¥1,000～2,500（概估）","note":"平價連鎖壽司，適合快速單點。","mapQuery":"魚がし日本一 赤坂店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。 可選穴子、熟蝦、玉子燒等熟食，供應依菜單。"},
+  {"name":"うまい鮨勘 赤坂支店","japanese":"うまい鮨勘 赤坂支店","area":"赤坂見附・APA周邊","kinds":["壽司"],"walk":{"minutes":7,"meters":450},"address":"東京都港區赤坂3-13-10","price":"¥1,500～4,000（概估）","note":"仙台起家的連鎖壽司，握壽司與午間套餐，地下樓層。","mapQuery":"うまい鮨勘 赤坂支店 東京 赤坂","visit":"午餐或晚餐","caution":"步行距離為前述估算上限，分店現況及年末營業尚待重新核實。 可選穴子、熟蝦、玉子燒等熟食，供應依菜單。"},
   {
     name: "大戶屋 六本木店", japanese: "大戸屋ごはん処 六本木店",
     area: "六本木站周邊", kinds: ["定食"],
