@@ -1,4 +1,4 @@
-import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261124-apa';
+import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261124-dekitate';
 import { categories, places } from './places.js?v=20261124-dining';
 
 const $ = (selector) => document.querySelector(selector);
@@ -47,7 +47,7 @@ function showDay(index, focus = false) {
       ${badge(stop.status)}<span class="muted">${escape(stop.time)}</span>
       <p><strong>${escape(stop.title)}</strong>　${escape(stop.note)}</p>
       ${stop.mapLinks?.length ? `<p class="muted"><strong>鰻魚名店候選（Google Maps）</strong></p><div class="actions">${stop.mapLinks.map(([name, query]) => link(name, maps(query))).join('')}</div>` : ''}
-      ${!stop.mapLinks?.length && (stop.query || stop.official) ? `<div class="actions">${stop.query ? link('Google Maps', maps(stop.query)) : ''}${stop.official ? link('官方公告', stop.official) : ''}</div>` : ''}
+      ${!stop.mapLinks?.length && (stop.query || stop.official || stop.gptMenu) ? `<div class="actions">${stop.query ? link('Google Maps', maps(stop.query)) : ''}${stop.official ? link('官方公告', stop.official) : ''}${stop.gptMenu ? link('GPT 菜單說明', stop.gptMenu) : ''}</div>` : ''}
     </li>`).join('')}</ol>`;
   if (focus) tabs[index].focus();
 }
