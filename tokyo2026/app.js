@@ -1,4 +1,4 @@
-import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261124-udatsu';
+import { hotel, flights, lights, days, tasks } from './trip-data.js?v=20261126-gpt-menu';
 import { categories, places } from './places.js?v=20261124-dining';
 
 const $ = (selector) => document.querySelector(selector);
@@ -8,6 +8,10 @@ const escape = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
 
 function maps(query) {
   return 'https://www.google.com/maps/search/?' + new URLSearchParams({ api: '1', query });
+}
+
+function gptMenuUrl(name) {
+  return 'https://chatgpt.com/?q=' + encodeURIComponent("你是日本餐廳菜單整理員＋繁中翻譯員。請查詢「" + name + "」該分店最新公開菜單，優先官方及近期資料，列出來源與資料日期。以手機友善的兩欄 Markdown 表格完整整理：日文原文品名＋日圓價格｜繁體中文翻譯＋約新台幣（依最新合理匯率四捨五入）。區分午餐、晚餐、季節及聖誕套餐（如適用），註明稅、服務費、座位費與最後點餐時間，確認2026/12/23–12/29的營業資訊及訂位方式；不明資料明確標示，不推測價格。文末推薦熟食招牌、兩人點餐搭配，附官方菜單及用餐環境實拍來源。");
 }
 
 function directions(origin, destination, travelmode) {
@@ -46,8 +50,8 @@ function showDay(index, focus = false) {
     <ol class="timeline">${day.stops.map((stop) => `<li>
       ${badge(stop.status)}<span class="muted">${escape(stop.time)}</span>
       <p><strong>${escape(stop.title)}</strong>　${escape(stop.note)}</p>
-      ${stop.mapLinks?.length ? `<p class="muted"><strong>鰻魚名店候選（Google Maps）</strong></p><div class="actions">${stop.mapLinks.map(([name, query]) => link(name, maps(query))).join('')}</div>` : ''}
-      ${!stop.mapLinks?.length && (stop.query || stop.official || stop.gptMenu) ? `<div class="actions">${stop.query ? link('Google Maps', maps(stop.query)) : ''}${stop.official ? link('官方公告', stop.official) : ''}${stop.gptMenu ? link('GPT 菜單說明', stop.gptMenu) : ''}</div>` : ''}
+      ${stop.mapLinks?.length ? `<p class="muted"><strong>鰻魚名店候選</strong></p>${stop.mapLinks.map(([name, query]) => `<p><strong>${escape(name)}</strong></p><div class="actions">${link('Google Maps', maps(query))}${link('GPT 菜單介紹', gptMenuUrl(query))}</div>`).join('')}` : ''}
+      ${!stop.mapLinks?.length && (stop.query || stop.official || stop.gptMenu || stop.restaurant) ? `<div class="actions">${stop.query ? link('Google Maps', maps(stop.query)) : ''}${(stop.gptMenu || stop.restaurant) ? link('GPT 菜單介紹', gptMenuUrl(stop.query || stop.title)) : ''}${stop.official ? link('官方公告', stop.official) : ''}</div>` : ''}
     </li>`).join('')}</ol>`;
   if (focus) tabs[index].focus();
 }
@@ -102,6 +106,7 @@ const searchText = places.map((place) => normalize([
   place.name, place.japanese, place.aliases, place.mapQuery, place.area, place.address, place.note, place.order, place.kinds.join(' '),
 ].join(' ')));
 
+const diningKinds = new Set(['牛舌','鰻魚','壽司','定食','拉麵','烏龍麵','燒肉','炸豬排','壽喜燒','關東煮','洋食','咖啡','早餐','甜點','中華熟食']);
 function placeCard(place) {
   const query = place.mapQuery || place.japanese + ' ' + place.address;
   const travelmode = place.travelmode || (place.walk ? 'walking' : 'transit');
@@ -122,6 +127,7 @@ function placeCard(place) {
     ${place.order ? `<p><strong>推薦</strong> ${escape(place.order)}</p>` : ''}
     <p class="muted">${escape(place.hours || '營業時間待確認，出發前請查官方頁。')}</p>
     <div class="actions">${link('Google Maps', maps(query), true)}
+      ${place.kinds.some(kind => diningKinds.has(kind)) ? link('GPT 菜單介紹', gptMenuUrl(query)) : ''}
       ${place.insideHotel ? '' : link(travelmode === 'walking' ? '飯店出發步行' : '從飯店查路線', directions(hotelQuery, place.routeQuery || query, travelmode))}
       ${place.official ? link('官方網站', place.official) : ''}${place.menu ? link('官方菜單', place.menu) : ''}
       ${place.reference ? link('查證來源', place.reference) : ''}</div>
