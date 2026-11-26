@@ -140,7 +140,7 @@ export const days = [
   { date: '12/27', weekday: '日', title: '東京市區／近郊・表參道備案', stops: [
     option('白天', '六本木藝術散步', '市區候選為東京中城與檜町公園；21_21 DESIGN SIGHT 官網列自 12/27 起年末休館。', '檜町公園'),
     option('午後', '三得利美術館', '冷天可逛《法華經的美術》。', 'サントリー美術館 東京ミッドタウン'),
-    confirmed('18:00', 'Brasserie Paul Bocuse Le Musée', '國立新美術館 3F｜兩位已訂位，Menu Vertical ¥7,040／人。從飯店可步行至赤坂站，搭千代田線一站至乃木坂，6 號出口直通美術館。', 'Brasserie Paul Bocuse Le Musée Tokyo'),
+    { ...confirmed('18:00', 'Brasserie Paul Bocuse Le Musée', '國立新美術館 3F｜兩位已訂位，Menu Vertical ¥7,040／人。從飯店可步行至赤坂站，搭千代田線一站至乃木坂，6 號出口直通美術館。', 'Brasserie Paul Bocuse Le Musée Tokyo'), restaurant: true },
     pending('備案', '近郊半日', '地點與交通待安排。'),
     lightStop(2, '晚餐後', '表參道並木最後一天，若時間充裕可於 22:00 前補看。'),
   ]},
